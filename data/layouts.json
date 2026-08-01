@@ -1,0 +1,1542 @@
+{
+  "source": "thegrint.com personal ranking",
+  "adapter": "paste",
+  "capturedAt": "2026-08-01",
+  "rawFile": "raw/grint-played-2026-08-01.txt",
+  "layouts": [
+    {
+      "slug": "bethpage-state-park-golf-course--black",
+      "facilitySlug": "bethpage-state-park-golf-course",
+      "grintLayoutName": "Black",
+      "grintFacilityName": "Bethpage State Park Golf Course",
+      "personalRank": 1,
+      "timesPlayed": 1,
+      "avgScore": 98,
+      "ratings": {
+        "overall": 96.3,
+        "fun": 97,
+        "condition": 95.6
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "sleepy-hollow-country-club--upper-course",
+      "facilitySlug": "sleepy-hollow-country-club",
+      "grintLayoutName": "Upper Course",
+      "grintFacilityName": "Sleepy Hollow Country Club",
+      "personalRank": 2,
+      "timesPlayed": 2,
+      "avgScore": 89.5,
+      "ratings": {
+        "overall": 96.2,
+        "fun": 96.7,
+        "condition": 95.7
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "meadow-club-fairfax",
+      "facilitySlug": "meadow-club-fairfax",
+      "grintLayoutName": null,
+      "grintFacilityName": "Meadow Club Fairfax",
+      "personalRank": 3,
+      "timesPlayed": 4,
+      "avgScore": 88.3,
+      "ratings": {
+        "overall": 89.6,
+        "fun": 91.3,
+        "condition": 87.9
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "kukio-makai-beach-golf-club--18-holes",
+      "facilitySlug": "kukio-makai-beach-golf-club",
+      "grintLayoutName": "18 Holes",
+      "grintFacilityName": "Kukio Makai Beach Golf Club",
+      "personalRank": 4,
+      "timesPlayed": 1,
+      "avgScore": 82,
+      "ratings": {
+        "overall": 96,
+        "fun": 95.6,
+        "condition": 96.4
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "edgewood-tahoe-resort-golf",
+      "facilitySlug": "edgewood-tahoe-resort-golf",
+      "grintLayoutName": null,
+      "grintFacilityName": "Edgewood Tahoe Resort Golf",
+      "personalRank": 5,
+      "timesPlayed": 1,
+      "avgScore": 94,
+      "ratings": {
+        "overall": 95.5,
+        "fun": 95.8,
+        "condition": 95.2
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "the-creek-club-locust-valley",
+      "facilitySlug": "the-creek-club-locust-valley",
+      "grintLayoutName": null,
+      "grintFacilityName": "The Creek Club Locust Valley",
+      "personalRank": 6,
+      "timesPlayed": 1,
+      "avgScore": 87,
+      "ratings": {
+        "overall": 94.7,
+        "fun": 95.2,
+        "condition": 94.2
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "tobacco-road-golf-club",
+      "facilitySlug": "tobacco-road-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Tobacco Road Golf Club",
+      "personalRank": 7,
+      "timesPlayed": 1,
+      "avgScore": 89,
+      "ratings": {
+        "overall": 94.2,
+        "fun": 95.9,
+        "condition": 92.5
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "hualalai-golf-club--keolu",
+      "facilitySlug": "hualalai-golf-club",
+      "grintLayoutName": "Ke'olu",
+      "grintFacilityName": "Hualalai Golf Club",
+      "personalRank": 8,
+      "timesPlayed": 9,
+      "avgScore": 82.4,
+      "ratings": {
+        "overall": 93.7,
+        "fun": 93.3,
+        "condition": 94.2
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "pelican-hill-golf-club--ocean-north",
+      "facilitySlug": "pelican-hill-golf-club",
+      "grintLayoutName": "Ocean North",
+      "grintFacilityName": "Pelican Hill Golf Club",
+      "personalRank": 9,
+      "timesPlayed": 1,
+      "avgScore": 92,
+      "ratings": {
+        "overall": 92.2,
+        "fun": 93.5,
+        "condition": 90.9
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "rustic-canyon-golf-course",
+      "facilitySlug": "rustic-canyon-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Rustic Canyon Golf Course",
+      "personalRank": 10,
+      "timesPlayed": 6,
+      "avgScore": 91.5,
+      "ratings": {
+        "overall": 88.7,
+        "fun": 90.9,
+        "condition": 86.4
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "royal-westmoreland-golf",
+      "facilitySlug": "royal-westmoreland-golf",
+      "grintLayoutName": null,
+      "grintFacilityName": "Royal Westmoreland Golf",
+      "personalRank": 11,
+      "timesPlayed": 1,
+      "avgScore": 102,
+      "ratings": {
+        "overall": 89.5,
+        "fun": 91.8,
+        "condition": 87.2
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "cantigny-golf-and-tennis-club--lakeside-hillside",
+      "facilitySlug": "cantigny-golf-and-tennis-club",
+      "grintLayoutName": "Lakeside/Hillside",
+      "grintFacilityName": "Cantigny Golf & Tennis Club",
+      "personalRank": 12,
+      "timesPlayed": 1,
+      "avgScore": 93,
+      "ratings": {
+        "overall": 92.4,
+        "fun": 93.5,
+        "condition": 91.2
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "pga-west-stadium-clubhouse--stadium-course",
+      "facilitySlug": "pga-west-stadium-clubhouse",
+      "grintLayoutName": "Stadium Course",
+      "grintFacilityName": "PGA West Stadium Clubhouse",
+      "personalRank": 13,
+      "timesPlayed": 1,
+      "avgScore": 95,
+      "ratings": {
+        "overall": 91.6,
+        "fun": 93.7,
+        "condition": 89.4
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "cherokee-run-golf-club",
+      "facilitySlug": "cherokee-run-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Cherokee Run Golf Club",
+      "personalRank": 14,
+      "timesPlayed": 1,
+      "avgScore": 93,
+      "ratings": {
+        "overall": 85.1,
+        "fun": 87.1,
+        "condition": 83.1
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "hualalai-golf-club--nicklaus-course",
+      "facilitySlug": "hualalai-golf-club",
+      "grintLayoutName": "Nicklaus Course",
+      "grintFacilityName": "Hualalai Golf Club",
+      "personalRank": 15,
+      "timesPlayed": 3,
+      "avgScore": 82.7,
+      "ratings": {
+        "overall": 95.2,
+        "fun": 94.6,
+        "condition": 95.8
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "sandy-lane-golf-club--the-country-club",
+      "facilitySlug": "sandy-lane-golf-club",
+      "grintLayoutName": "The Country Club",
+      "grintFacilityName": "Sandy Lane Golf Club",
+      "personalRank": 16,
+      "timesPlayed": 1,
+      "avgScore": 97,
+      "ratings": {
+        "overall": 89.6,
+        "fun": 89.7,
+        "condition": 89.5
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "tpc-toronto-at-osprey-valley--hoot",
+      "facilitySlug": "tpc-toronto-at-osprey-valley",
+      "grintLayoutName": "Hoot",
+      "grintFacilityName": "TPC Toronto at Osprey Valley",
+      "personalRank": 17,
+      "timesPlayed": 1,
+      "avgScore": 94,
+      "ratings": {
+        "overall": 92.9,
+        "fun": 93.2,
+        "condition": 92.7
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "university-of-michigan-golf-course",
+      "facilitySlug": "university-of-michigan-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "University Of Michigan Golf Course",
+      "personalRank": 18,
+      "timesPlayed": 1,
+      "avgScore": 92,
+      "ratings": {
+        "overall": 90.8,
+        "fun": 92,
+        "condition": 89.6
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "ojai-valley-inn-and-spa",
+      "facilitySlug": "ojai-valley-inn-and-spa",
+      "grintLayoutName": null,
+      "grintFacilityName": "Ojai Valley Inn and Spa",
+      "personalRank": 19,
+      "timesPlayed": 2,
+      "avgScore": 90.5,
+      "ratings": {
+        "overall": 89.7,
+        "fun": 91.7,
+        "condition": 87.7
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "serket-golf-club",
+      "facilitySlug": "serket-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Serket Golf Club",
+      "personalRank": 20,
+      "timesPlayed": 1,
+      "avgScore": 89,
+      "ratings": {
+        "overall": 88.6,
+        "fun": 90.4,
+        "condition": 86.8
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "lanier-islands-golf-course",
+      "facilitySlug": "lanier-islands-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Lanier Islands Golf Course",
+      "personalRank": 21,
+      "timesPlayed": 1,
+      "avgScore": 89,
+      "ratings": {
+        "overall": 87.9,
+        "fun": 89.6,
+        "condition": 86.2
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "coyote-moon-golf-course",
+      "facilitySlug": "coyote-moon-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Coyote Moon Golf Course",
+      "personalRank": 22,
+      "timesPlayed": 1,
+      "avgScore": 95,
+      "ratings": {
+        "overall": 88.4,
+        "fun": 90.2,
+        "condition": 86.7
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "las-vegas-paiute-golf-resort--wolf",
+      "facilitySlug": "las-vegas-paiute-golf-resort",
+      "grintLayoutName": "Wolf",
+      "grintFacilityName": "Las Vegas Paiute Golf Resort",
+      "personalRank": 23,
+      "timesPlayed": 1,
+      "avgScore": 94,
+      "ratings": {
+        "overall": 94.7,
+        "fun": 94.6,
+        "condition": 94.7
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "oak-quarry-golf-club--commemorative-course",
+      "facilitySlug": "oak-quarry-golf-club",
+      "grintLayoutName": "Commemorative Course",
+      "grintFacilityName": "Oak Quarry Golf Club",
+      "personalRank": 24,
+      "timesPlayed": 4,
+      "avgScore": 86.8,
+      "ratings": {
+        "overall": 87.5,
+        "fun": 90.8,
+        "condition": 84.2
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "mid-south-club",
+      "facilitySlug": "mid-south-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Mid South Club",
+      "personalRank": 25,
+      "timesPlayed": 1,
+      "avgScore": 92,
+      "ratings": {
+        "overall": 91.3,
+        "fun": 92.3,
+        "condition": 90.3
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "oakcreek-country-club",
+      "facilitySlug": "oakcreek-country-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Oakcreek Country Club",
+      "personalRank": 26,
+      "timesPlayed": 1,
+      "avgScore": 89,
+      "ratings": {
+        "overall": 90.1,
+        "fun": 90.2,
+        "condition": 89.9
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "sandpiper-golf-course",
+      "facilitySlug": "sandpiper-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Sandpiper Golf Course",
+      "personalRank": 27,
+      "timesPlayed": 1,
+      "avgScore": 90,
+      "ratings": {
+        "overall": 87.6,
+        "fun": 91.3,
+        "condition": 83.9
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "grayhawk-golf-club--raptor",
+      "facilitySlug": "grayhawk-golf-club",
+      "grintLayoutName": "Raptor",
+      "grintFacilityName": "Grayhawk Golf Club",
+      "personalRank": 28,
+      "timesPlayed": 1,
+      "avgScore": 94,
+      "ratings": {
+        "overall": 92.4,
+        "fun": 92.7,
+        "condition": 92.1
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "tpc-toronto-at-osprey-valley--north",
+      "facilitySlug": "tpc-toronto-at-osprey-valley",
+      "grintLayoutName": "North",
+      "grintFacilityName": "TPC Toronto at Osprey Valley",
+      "personalRank": 29,
+      "timesPlayed": 1,
+      "avgScore": 93,
+      "ratings": {
+        "overall": 92.1,
+        "fun": 92.3,
+        "condition": 91.9
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "las-vegas-paiute-golf-resort--snow-mountain",
+      "facilitySlug": "las-vegas-paiute-golf-resort",
+      "grintLayoutName": "Snow Mountain",
+      "grintFacilityName": "Las Vegas Paiute Golf Resort",
+      "personalRank": 30,
+      "timesPlayed": 1,
+      "avgScore": 102,
+      "ratings": {
+        "overall": 93,
+        "fun": 92.9,
+        "condition": 93.2
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "sunningdale-golf-and-country-club--new-sunningdale",
+      "facilitySlug": "sunningdale-golf-and-country-club",
+      "grintLayoutName": "New Sunningdale",
+      "grintFacilityName": "Sunningdale Golf & Country Club",
+      "personalRank": 31,
+      "timesPlayed": 1,
+      "avgScore": 90,
+      "ratings": {
+        "overall": 90.4,
+        "fun": 90.1,
+        "condition": 90.8
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "cinnabar-hills-golf-club--canyon-lake",
+      "facilitySlug": "cinnabar-hills-golf-club",
+      "grintLayoutName": "Canyon/Lake",
+      "grintFacilityName": "Cinnabar Hills Golf Club",
+      "personalRank": 32,
+      "timesPlayed": 1,
+      "avgScore": 90,
+      "ratings": {
+        "overall": 88,
+        "fun": 89.3,
+        "condition": 86.8
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "indian-wells-golf-resort--celebrity",
+      "facilitySlug": "indian-wells-golf-resort",
+      "grintLayoutName": "Celebrity",
+      "grintFacilityName": "Indian Wells Golf Resort",
+      "personalRank": 33,
+      "timesPlayed": 1,
+      "avgScore": 93,
+      "ratings": {
+        "overall": 92.3,
+        "fun": 92.7,
+        "condition": 92
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "tahoe-donner-golf-course",
+      "facilitySlug": "tahoe-donner-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Tahoe Donner Golf Course",
+      "personalRank": 34,
+      "timesPlayed": 1,
+      "avgScore": 91,
+      "ratings": {
+        "overall": 85.3,
+        "fun": 86.4,
+        "condition": 84.2
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "tpc-of-scottsdale--champions",
+      "facilitySlug": "tpc-of-scottsdale",
+      "grintLayoutName": "Champions",
+      "grintFacilityName": "Tpc Of Scottsdale",
+      "personalRank": 35,
+      "timesPlayed": 1,
+      "avgScore": 88,
+      "ratings": {
+        "overall": 90.3,
+        "fun": 91,
+        "condition": 89.6
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "legends-on-the-niagara-golf-club--usshers-creek",
+      "facilitySlug": "legends-on-the-niagara-golf-club",
+      "grintLayoutName": "Ussher's Creek",
+      "grintFacilityName": "Legends On The Niagara Golf Club",
+      "personalRank": 36,
+      "timesPlayed": 1,
+      "avgScore": 91,
+      "ratings": {
+        "overall": 86.7,
+        "fun": 87.5,
+        "condition": 85.8
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "legends-on-the-niagara-golf-club--battlefield",
+      "facilitySlug": "legends-on-the-niagara-golf-club",
+      "grintLayoutName": "Battlefield",
+      "grintFacilityName": "Legends On The Niagara Golf Club",
+      "personalRank": 37,
+      "timesPlayed": 1,
+      "avgScore": 91,
+      "ratings": {
+        "overall": 86.6,
+        "fun": 87.7,
+        "condition": 85.6
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "temecula-creek-golf-club--oaks-creek",
+      "facilitySlug": "temecula-creek-golf-club",
+      "grintLayoutName": "Oaks/Creek",
+      "grintFacilityName": "Temecula Creek Golf Club",
+      "personalRank": 38,
+      "timesPlayed": 1,
+      "avgScore": 46,
+      "ratings": {
+        "overall": 86,
+        "fun": 87.4,
+        "condition": 84.6
+      },
+      "played": true,
+      "flags": [
+        "nine_hole_suspected"
+      ]
+    },
+    {
+      "slug": "heritage-palms-golf-club",
+      "facilitySlug": "heritage-palms-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Heritage Palms Golf Club",
+      "personalRank": 39,
+      "timesPlayed": 1,
+      "avgScore": 85,
+      "ratings": {
+        "overall": 89.8,
+        "fun": 89.3,
+        "condition": 90.3
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "scottsdale-silverado-golf-club",
+      "facilitySlug": "scottsdale-silverado-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Scottsdale Silverado Golf Club",
+      "personalRank": 40,
+      "timesPlayed": 1,
+      "avgScore": 88,
+      "ratings": {
+        "overall": 81.3,
+        "fun": 82.4,
+        "condition": 80.3
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "cross-creek-golf-club",
+      "facilitySlug": "cross-creek-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Cross Creek Golf Club",
+      "personalRank": 41,
+      "timesPlayed": 1,
+      "avgScore": 92,
+      "ratings": {
+        "overall": 82.2,
+        "fun": 84.1,
+        "condition": 80.2
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "moorpark-country-club--canyon-crest-ridgeline",
+      "facilitySlug": "moorpark-country-club",
+      "grintLayoutName": "Canyon Crest/Ridgeline",
+      "grintFacilityName": "Moorpark Country Club",
+      "personalRank": 42,
+      "timesPlayed": 1,
+      "avgScore": 96,
+      "ratings": {
+        "overall": 86.3,
+        "fun": 87.8,
+        "condition": 84.8
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "temecula-creek-golf-club--creek-stonehouse",
+      "facilitySlug": "temecula-creek-golf-club",
+      "grintLayoutName": "Creek/StoneHouse",
+      "grintFacilityName": "Temecula Creek Golf Club",
+      "personalRank": 43,
+      "timesPlayed": 2,
+      "avgScore": 66,
+      "ratings": {
+        "overall": 81.1,
+        "fun": 83.1,
+        "condition": 79.2
+      },
+      "played": true,
+      "flags": [
+        "mixed_round_lengths_suspected"
+      ]
+    },
+    {
+      "slug": "leslie-park-golf-course",
+      "facilitySlug": "leslie-park-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Leslie Park Golf Course",
+      "personalRank": 44,
+      "timesPlayed": 1,
+      "avgScore": 95,
+      "ratings": {
+        "overall": 85.9,
+        "fun": 87.4,
+        "condition": 84.4
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "waikoloa-beach-and-kings-golf-course--beach-kings",
+      "facilitySlug": "waikoloa-beach-and-kings-golf-course",
+      "grintLayoutName": "Beach/Kings",
+      "grintFacilityName": "Waikoloa Beach & Kings' Golf Course",
+      "personalRank": 45,
+      "timesPlayed": 1,
+      "avgScore": 43,
+      "ratings": {
+        "overall": 83.6,
+        "fun": 86.9,
+        "condition": 80.3
+      },
+      "played": true,
+      "flags": [
+        "nine_hole_suspected"
+      ]
+    },
+    {
+      "slug": "cobblestone-golf-course--acworth",
+      "facilitySlug": "cobblestone-golf-course",
+      "grintLayoutName": "Acworth",
+      "grintFacilityName": "Cobblestone Golf Course",
+      "personalRank": 46,
+      "timesPlayed": 1,
+      "avgScore": 92,
+      "ratings": {
+        "overall": 81.1,
+        "fun": 85.3,
+        "condition": 76.9
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "shawneeki-golf-club",
+      "facilitySlug": "shawneeki-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Shawneeki Golf Club",
+      "personalRank": 47,
+      "timesPlayed": 1,
+      "avgScore": 93,
+      "ratings": {
+        "overall": 81.2,
+        "fun": 81.2,
+        "condition": 81.3
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "black-gold-golf-club",
+      "facilitySlug": "black-gold-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Black Gold Golf Club",
+      "personalRank": 48,
+      "timesPlayed": 4,
+      "avgScore": 91.8,
+      "ratings": {
+        "overall": 84.3,
+        "fun": 85.7,
+        "condition": 82.9
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "heron-lakes-golf-course--great-blue",
+      "facilitySlug": "heron-lakes-golf-course",
+      "grintLayoutName": "Great Blue",
+      "grintFacilityName": "Heron Lakes Golf Course",
+      "personalRank": 49,
+      "timesPlayed": 1,
+      "avgScore": 88,
+      "ratings": {
+        "overall": 79.8,
+        "fun": 83.3,
+        "condition": 76.3
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "the-club-at-bond-head--south",
+      "facilitySlug": "the-club-at-bond-head",
+      "grintLayoutName": "South",
+      "grintFacilityName": "The Club At Bond Head",
+      "personalRank": 50,
+      "timesPlayed": 1,
+      "avgScore": 100,
+      "ratings": {
+        "overall": 80.6,
+        "fun": 83.8,
+        "condition": 77.5
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "industry-hills-golf-club-at-pacific-palms-resort--dwight-eisenhower",
+      "facilitySlug": "industry-hills-golf-club-at-pacific-palms-resort",
+      "grintLayoutName": "Dwight Eisenhower",
+      "grintFacilityName": "Industry Hills Golf Club At Pacific Palms Resort",
+      "personalRank": 51,
+      "timesPlayed": 2,
+      "avgScore": 94.5,
+      "ratings": {
+        "overall": 84.3,
+        "fun": 87.5,
+        "condition": 81.1
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "makani-golf-club",
+      "facilitySlug": "makani-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Makani Golf Club",
+      "personalRank": 52,
+      "timesPlayed": 1,
+      "avgScore": 50,
+      "ratings": {
+        "overall": 81,
+        "fun": 85.6,
+        "condition": 76.3
+      },
+      "played": true,
+      "flags": [
+        "nine_hole_suspected"
+      ]
+    },
+    {
+      "slug": "eagle-vines-golf-club",
+      "facilitySlug": "eagle-vines-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Eagle Vines Golf Club",
+      "personalRank": 53,
+      "timesPlayed": 2,
+      "avgScore": 90,
+      "ratings": {
+        "overall": 80.4,
+        "fun": 84.7,
+        "condition": 76.1
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "tierra-rejada-golf-club",
+      "facilitySlug": "tierra-rejada-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Tierra Rejada Golf Club",
+      "personalRank": 54,
+      "timesPlayed": 8,
+      "avgScore": 92.4,
+      "ratings": {
+        "overall": 83.7,
+        "fun": 85.7,
+        "condition": 81.8
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "coyote-creek-golf-club--valley-course",
+      "facilitySlug": "coyote-creek-golf-club",
+      "grintLayoutName": "Valley Course",
+      "grintFacilityName": "Coyote Creek Golf Club",
+      "personalRank": 55,
+      "timesPlayed": 1,
+      "avgScore": 86,
+      "ratings": {
+        "overall": 80.2,
+        "fun": 81,
+        "condition": 79.4
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "angeles-national-golf-club",
+      "facilitySlug": "angeles-national-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Angeles National Golf Club",
+      "personalRank": 56,
+      "timesPlayed": 3,
+      "avgScore": 79.3,
+      "ratings": {
+        "overall": 84.2,
+        "fun": 86.5,
+        "condition": 81.8
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "cherry-downs-golf-and-count",
+      "facilitySlug": "cherry-downs-golf-and-count",
+      "grintLayoutName": null,
+      "grintFacilityName": "Cherry Downs Golf & Count",
+      "personalRank": 57,
+      "timesPlayed": 1,
+      "avgScore": 98,
+      "ratings": {
+        "overall": 78.2,
+        "fun": 80,
+        "condition": 76.4
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "lake-forest-golf-club",
+      "facilitySlug": "lake-forest-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Lake Forest Golf Club",
+      "personalRank": 58,
+      "timesPlayed": 1,
+      "avgScore": 90,
+      "ratings": {
+        "overall": 77.9,
+        "fun": 79.1,
+        "condition": 76.7
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "rancho-park-golf-club",
+      "facilitySlug": "rancho-park-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Rancho Park Golf Club",
+      "personalRank": 59,
+      "timesPlayed": 10,
+      "avgScore": 76.7,
+      "ratings": {
+        "overall": 77.6,
+        "fun": 81.7,
+        "condition": 73.4
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "griffith-park-golf-club--wilson",
+      "facilitySlug": "griffith-park-golf-club",
+      "grintLayoutName": "Wilson",
+      "grintFacilityName": "Griffith Park Golf Club",
+      "personalRank": 60,
+      "timesPlayed": 4,
+      "avgScore": 69.8,
+      "ratings": {
+        "overall": 76.3,
+        "fun": 80.7,
+        "condition": 71.9
+      },
+      "played": true,
+      "flags": [
+        "mixed_round_lengths_suspected"
+      ]
+    },
+    {
+      "slug": "heron-lakes-golf-course--greenback",
+      "facilitySlug": "heron-lakes-golf-course",
+      "grintLayoutName": "Greenback",
+      "grintFacilityName": "Heron Lakes Golf Course",
+      "personalRank": 61,
+      "timesPlayed": 1,
+      "avgScore": 84,
+      "ratings": {
+        "overall": 77.6,
+        "fun": 80.3,
+        "condition": 74.8
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "los-robles-greens-golf-course",
+      "facilitySlug": "los-robles-greens-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Los Robles Greens Golf Course",
+      "personalRank": 62,
+      "timesPlayed": 3,
+      "avgScore": 86.3,
+      "ratings": {
+        "overall": 83.9,
+        "fun": 84.7,
+        "condition": 83.1
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "griffith-park-golf-club--harding",
+      "facilitySlug": "griffith-park-golf-club",
+      "grintLayoutName": "Harding",
+      "grintFacilityName": "Griffith Park Golf Club",
+      "personalRank": 63,
+      "timesPlayed": 1,
+      "avgScore": 92,
+      "ratings": {
+        "overall": 78.1,
+        "fun": 81.1,
+        "condition": 75.1
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "industry-hills-golf-club-at-pacific-palms-resort--babe-zaharias",
+      "facilitySlug": "industry-hills-golf-club-at-pacific-palms-resort",
+      "grintLayoutName": "Babe Zaharias",
+      "grintFacilityName": "Industry Hills Golf Club At Pacific Palms Resort",
+      "personalRank": 64,
+      "timesPlayed": 1,
+      "avgScore": 91,
+      "ratings": {
+        "overall": 81.7,
+        "fun": 84,
+        "condition": 79.4
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "tilden-park-golf-course",
+      "facilitySlug": "tilden-park-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Tilden Park Golf Course",
+      "personalRank": 65,
+      "timesPlayed": 1,
+      "avgScore": 85,
+      "ratings": {
+        "overall": 77.5,
+        "fun": 82,
+        "condition": 73
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "indian-spring-country-club",
+      "facilitySlug": "indian-spring-country-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Indian Spring Country Club",
+      "personalRank": 66,
+      "timesPlayed": 1,
+      "avgScore": 93,
+      "ratings": {
+        "overall": 75.5,
+        "fun": 77,
+        "condition": 73.9
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "barbados-golf-club",
+      "facilitySlug": "barbados-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Barbados Golf Club",
+      "personalRank": 67,
+      "timesPlayed": 1,
+      "avgScore": 99,
+      "ratings": {
+        "overall": 74,
+        "fun": 77.3,
+        "condition": 70.7
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "knollwood-golf-club",
+      "facilitySlug": "knollwood-golf-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Knollwood Golf Club",
+      "personalRank": 68,
+      "timesPlayed": 1,
+      "avgScore": 84,
+      "ratings": {
+        "overall": 76.2,
+        "fun": 79.8,
+        "condition": 72.7
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "redhawk-golf-course",
+      "facilitySlug": "redhawk-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Redhawk Golf Course",
+      "personalRank": 69,
+      "timesPlayed": 2,
+      "avgScore": 98.5,
+      "ratings": {
+        "overall": 80.2,
+        "fun": 83.1,
+        "condition": 77.4
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "don-valley-golf-course",
+      "facilitySlug": "don-valley-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Don Valley Golf Course",
+      "personalRank": 70,
+      "timesPlayed": 1,
+      "avgScore": 41,
+      "ratings": {
+        "overall": 76.9,
+        "fun": 78.7,
+        "condition": 75
+      },
+      "played": true,
+      "flags": [
+        "nine_hole_suspected"
+      ]
+    },
+    {
+      "slug": "brookside-golf-club--c-w-koiner-course-1",
+      "facilitySlug": "brookside-golf-club",
+      "grintLayoutName": "C.W. Koiner - Course 1",
+      "grintFacilityName": "Brookside Golf Club",
+      "personalRank": 71,
+      "timesPlayed": 5,
+      "avgScore": 56.8,
+      "ratings": {
+        "overall": 76.7,
+        "fun": 79.8,
+        "condition": 73.6
+      },
+      "played": true,
+      "flags": [
+        "nine_hole_suspected"
+      ]
+    },
+    {
+      "slug": "the-links-golf-club--marlton",
+      "facilitySlug": "the-links-golf-club",
+      "grintLayoutName": "Marlton",
+      "grintFacilityName": "The Links Golf Club",
+      "personalRank": 72,
+      "timesPlayed": 5,
+      "avgScore": 81.6,
+      "ratings": {
+        "overall": 70.7,
+        "fun": 73.9,
+        "condition": 67.5
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "brookside-golf-club--e-o-nay-course-2",
+      "facilitySlug": "brookside-golf-club",
+      "grintLayoutName": "E.O. Nay - Course 2",
+      "grintFacilityName": "Brookside Golf Club",
+      "personalRank": 73,
+      "timesPlayed": 1,
+      "avgScore": 83,
+      "ratings": {
+        "overall": 71.2,
+        "fun": 74.4,
+        "condition": 68.1
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "ron-jaworskis-valleybrook-golf-course",
+      "facilitySlug": "ron-jaworskis-valleybrook-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Ron Jaworskis Valleybrook Golf Course",
+      "personalRank": 74,
+      "timesPlayed": 1,
+      "avgScore": 88,
+      "ratings": {
+        "overall": 73.2,
+        "fun": 73.8,
+        "condition": 72.6
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "montebello-golf-course",
+      "facilitySlug": "montebello-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Montebello Golf Course",
+      "personalRank": 75,
+      "timesPlayed": 1,
+      "avgScore": 92,
+      "ratings": {
+        "overall": 79,
+        "fun": 84.7,
+        "condition": 73.4
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "roosevelt-municipal-golf-course",
+      "facilitySlug": "roosevelt-municipal-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Roosevelt Municipal Golf Course",
+      "personalRank": 76,
+      "timesPlayed": 1,
+      "avgScore": 40,
+      "ratings": {
+        "overall": 77.2,
+        "fun": 81.2,
+        "condition": 73.2
+      },
+      "played": true,
+      "flags": [
+        "nine_hole_suspected"
+      ]
+    },
+    {
+      "slug": "manhattan-country-club--westdrift",
+      "facilitySlug": "manhattan-country-club",
+      "grintLayoutName": "Westdrift",
+      "grintFacilityName": "Manhattan Country Club",
+      "personalRank": 77,
+      "timesPlayed": 1,
+      "avgScore": 40,
+      "ratings": {
+        "overall": 74.9,
+        "fun": 77.7,
+        "condition": 72.1
+      },
+      "played": true,
+      "flags": [
+        "nine_hole_suspected"
+      ]
+    },
+    {
+      "slug": "eastmoreland-golf-course",
+      "facilitySlug": "eastmoreland-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Eastmoreland Golf Course",
+      "personalRank": 78,
+      "timesPlayed": 1,
+      "avgScore": 92,
+      "ratings": {
+        "overall": 75.2,
+        "fun": 78.8,
+        "condition": 71.6
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "wedgwood-country-club",
+      "facilitySlug": "wedgwood-country-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Wedgwood Country Club",
+      "personalRank": 79,
+      "timesPlayed": 4,
+      "avgScore": 93.8,
+      "ratings": {
+        "overall": 66.8,
+        "fun": 72.5,
+        "condition": 61.1
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "forest-park-golf-course",
+      "facilitySlug": "forest-park-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Forest Park Golf Course",
+      "personalRank": 80,
+      "timesPlayed": 2,
+      "avgScore": 83,
+      "ratings": {
+        "overall": 68.9,
+        "fun": 71.1,
+        "condition": 66.8
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "van-cortlandt-park-golf-course",
+      "facilitySlug": "van-cortlandt-park-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Van Cortlandt Park Golf Course",
+      "personalRank": 81,
+      "timesPlayed": 1,
+      "avgScore": 87,
+      "ratings": {
+        "overall": 72.1,
+        "fun": 76,
+        "condition": 68.2
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "ramblewood-country-club--blue-red",
+      "facilitySlug": "ramblewood-country-club",
+      "grintLayoutName": "Blue/Red",
+      "grintFacilityName": "Ramblewood Country Club",
+      "personalRank": 82,
+      "timesPlayed": 1,
+      "avgScore": 45,
+      "ratings": {
+        "overall": 77.7,
+        "fun": 79.2,
+        "condition": 76.2
+      },
+      "played": true,
+      "flags": [
+        "nine_hole_suspected"
+      ]
+    },
+    {
+      "slug": "sepulveda-golf-complex--balboa",
+      "facilitySlug": "sepulveda-golf-complex",
+      "grintLayoutName": "Balboa",
+      "grintFacilityName": "Sepulveda Golf Club",
+      "personalRank": 83,
+      "timesPlayed": 2,
+      "avgScore": 84.5,
+      "ratings": {
+        "overall": 73,
+        "fun": 74.9,
+        "condition": 71.1
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "penmar-golf-course",
+      "facilitySlug": "penmar-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Penmar Golf Course",
+      "personalRank": 84,
+      "timesPlayed": 4,
+      "avgScore": 40.3,
+      "ratings": {
+        "overall": 75,
+        "fun": 75.7,
+        "condition": 74.3
+      },
+      "played": true,
+      "flags": [
+        "nine_hole_suspected"
+      ]
+    },
+    {
+      "slug": "sepulveda-golf-complex--encino",
+      "facilitySlug": "sepulveda-golf-complex",
+      "grintLayoutName": "Encino",
+      "grintFacilityName": "Sepulveda Golf Complex",
+      "personalRank": 85,
+      "timesPlayed": 3,
+      "avgScore": 83,
+      "ratings": {
+        "overall": 73.7,
+        "fun": 75.8,
+        "condition": 71.7
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "billy-caldwell-golf-course",
+      "facilitySlug": "billy-caldwell-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Billy Caldwell Golf Course",
+      "personalRank": 86,
+      "timesPlayed": 1,
+      "avgScore": 46,
+      "ratings": {
+        "overall": 71.6,
+        "fun": 73.1,
+        "condition": 70.2
+      },
+      "played": true,
+      "flags": [
+        "nine_hole_suspected"
+      ]
+    },
+    {
+      "slug": "alhambra-golf-course",
+      "facilitySlug": "alhambra-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Alhambra Golf Course",
+      "personalRank": 87,
+      "timesPlayed": 1,
+      "avgScore": 88,
+      "ratings": {
+        "overall": 76,
+        "fun": 78.1,
+        "condition": 74
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "hidden-valley-lake-golf-and-country-club",
+      "facilitySlug": "hidden-valley-lake-golf-and-country-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Hidden Valley Lake Golf & Country Club",
+      "personalRank": 88,
+      "timesPlayed": 1,
+      "avgScore": 98,
+      "ratings": {
+        "overall": 79.9,
+        "fun": 81.9,
+        "condition": 77.9
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "jackson-park-golf-course",
+      "facilitySlug": "jackson-park-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Jackson Park Golf Course",
+      "personalRank": 89,
+      "timesPlayed": 1,
+      "avgScore": 87,
+      "ratings": {
+        "overall": 72.4,
+        "fun": 73.7,
+        "condition": 71
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "scholl-canyon-golf-course",
+      "facilitySlug": "scholl-canyon-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Scholl Canyon Golf Course",
+      "personalRank": 90,
+      "timesPlayed": 0,
+      "avgScore": null,
+      "ratings": {
+        "overall": 73.2,
+        "fun": 77.5,
+        "condition": 68.9
+      },
+      "played": false,
+      "flags": [
+        "unplayed"
+      ]
+    },
+    {
+      "slug": "kresson-golf-course",
+      "facilitySlug": "kresson-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Kresson Golf Course",
+      "personalRank": 91,
+      "timesPlayed": 1,
+      "avgScore": 81,
+      "ratings": {
+        "overall": 57.4,
+        "fun": 63.4,
+        "condition": 51.3
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "lakewood-country-club-and-tennis-center",
+      "facilitySlug": "lakewood-country-club-and-tennis-center",
+      "grintLayoutName": null,
+      "grintFacilityName": "Lakewood Country Club & Tennis Center",
+      "personalRank": 92,
+      "timesPlayed": 1,
+      "avgScore": 47,
+      "ratings": {
+        "overall": 75.4,
+        "fun": 78.1,
+        "condition": 72.7
+      },
+      "played": true,
+      "flags": [
+        "nine_hole_suspected"
+      ]
+    },
+    {
+      "slug": "whittier-narrows-golf-course--river-pine",
+      "facilitySlug": "whittier-narrows-golf-course",
+      "grintLayoutName": "River/Pine",
+      "grintFacilityName": "Whittier Narrows Golf Course",
+      "personalRank": 93,
+      "timesPlayed": 1,
+      "avgScore": 95,
+      "ratings": {
+        "overall": 66.1,
+        "fun": 70.1,
+        "condition": 62.1
+      },
+      "played": true,
+      "flags": []
+    },
+    {
+      "slug": "westchester-golf-course",
+      "facilitySlug": "westchester-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Westchester Golf Course",
+      "personalRank": 94,
+      "timesPlayed": 3,
+      "avgScore": 52,
+      "ratings": {
+        "overall": 72,
+        "fun": 73.7,
+        "condition": 70.3
+      },
+      "played": true,
+      "flags": [
+        "nine_hole_suspected"
+      ]
+    }
+  ]
+}

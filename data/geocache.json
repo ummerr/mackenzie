@@ -1,0 +1,746 @@
+{
+  "bethpage-state-park-golf-course": {
+    "lat": 40.74760049029127,
+    "lon": -73.45098857572816,
+    "precision": "seed",
+    "source": "golf/muni/src/data/courses/bethpage-black.json"
+  },
+  "sleepy-hollow-country-club": {
+    "lat": 41.1261023,
+    "lon": -73.8507608,
+    "precision": "course_feature",
+    "display": "Sleepy Hollow Country Club, Sleepy Hollow Road, Archville, Village of Briarcliff Manor, Town of Ossining, Westchester County, New York, 10510, United States",
+    "osmId": "way/786897140",
+    "source": "nominatim",
+    "query": "Sleepy Hollow Country Club, Briarcliff Manor, NY, United States"
+  },
+  "meadow-club-fairfax": {
+    "lat": 37.9698526,
+    "lon": -122.6163169,
+    "precision": "course_feature",
+    "display": "Meadow Club, 1001, Bolinas Road, Fairfax, Marin County, California, 94930, United States",
+    "osmId": "way/44421428",
+    "source": "nominatim",
+    "query": "Meadow Club, Fairfax, CA, United States"
+  },
+  "kukio-makai-beach-golf-club": {
+    "lat": 19.8174,
+    "lon": -155.9988,
+    "precision": "manual",
+    "source": "Nominatim leisure=resort 'Kukio Golf and Beach Club, Kukio Nui Drive, Hawaii County'. Grint files it as 'Kukio Makai Beach Golf Club'."
+  },
+  "edgewood-tahoe-resort-golf": {
+    "lat": 38.9679996,
+    "lon": -119.9429758,
+    "precision": "course_feature",
+    "display": "Edgewood Tahoe Golf Course, 100, Lake Parkway, Stateline, Douglas County, Nevada, 89449, United States",
+    "osmId": "way/63521167",
+    "source": "nominatim",
+    "query": "Edgewood Tahoe Golf Course, Stateline, NV, United States"
+  },
+  "the-creek-club-locust-valley": {
+    "lat": 40.8895552,
+    "lon": -73.5952445,
+    "precision": "named_place",
+    "display": "The Creek Club, 1, Horse Hollow Road, Locust Valley, Town of Oyster Bay, Nassau County, New York, 11560, United States",
+    "osmId": "way/452692346",
+    "source": "nominatim",
+    "query": "The Creek Club, Locust Valley, NY, United States"
+  },
+  "tobacco-road-golf-club": {
+    "lat": 35.39779153225806,
+    "lon": -79.21364883387098,
+    "precision": "seed",
+    "source": "golf/muni/src/data/courses/tobacco-road.json"
+  },
+  "hualalai-golf-club": {
+    "lat": 19.8139946,
+    "lon": -155.9857625,
+    "precision": "course_feature",
+    "display": "Hualalai Golf Club Keolu Course, 72-100, Kaupulehu Drive, Kailua, Hawaiʻi County, Hawaii, 96740, United States",
+    "osmId": "relation/18488428",
+    "source": "nominatim",
+    "query": "Hualalai Golf Club, Kailua Kona, HI, United States"
+  },
+  "pelican-hill-golf-club": {
+    "lat": 33.5911741,
+    "lon": -117.8510033,
+    "precision": "course_feature",
+    "display": "Pelican Hill Golf Club, Newport Coast Drive, Newport Coast, Newport Beach, Orange County, California, 92657, United States",
+    "osmId": "relation/3568817",
+    "source": "nominatim",
+    "query": "Pelican Hill Golf Club, Newport Beach, CA, United States"
+  },
+  "rustic-canyon-golf-course": {
+    "lat": 34.3118586,
+    "lon": -118.8686063,
+    "precision": "course_feature",
+    "display": "Rustic Canyon Golf Course, 15100, Happy Camp Canyon Road, Moorpark, Ventura County, California, 93021, United States",
+    "osmId": "way/44289094",
+    "source": "nominatim",
+    "query": "Rustic Canyon Golf Course, Moorpark, CA, United States"
+  },
+  "royal-westmoreland-golf": {
+    "lat": 13.199786169047616,
+    "lon": -59.630327344047615,
+    "precision": "osm_polygon",
+    "display": "Forest Hills Drive, Westmoreland, Mount Standfast, Saint James, BB24026, Barbados",
+    "osmId": "way/372398121",
+    "source": "overpass way/26380177",
+    "query": "Royal Westmoreland Golf Club, Forest Hills, St. James, Barbados",
+    "repairedFrom": "city_centroid"
+  },
+  "cantigny-golf-and-tennis-club": {
+    "lat": 41.851182651612895,
+    "lon": -88.15412778387099,
+    "precision": "osm_polygon",
+    "display": "Wheaton, DuPage County, Illinois, 60187, United States",
+    "osmId": "relation/125492",
+    "source": "overpass way/31928498",
+    "query": "Cantigny Golf & Tennis Club, Wheaton, IL, United States",
+    "repairedFrom": "city_centroid"
+  },
+  "pga-west-stadium-clubhouse": {
+    "lat": 33.6494606,
+    "lon": -116.2641818,
+    "precision": "course_feature",
+    "display": "TPC Stadium Golf Course (PGA West), Southern Hills, PGA West, La Quinta, Riverside County, California, 92247, United States",
+    "osmId": "relation/19223852",
+    "source": "nominatim",
+    "query": "PGA West Stadium Course, La Quinta, CA, United States"
+  },
+  "cherokee-run-golf-club": {
+    "lat": 33.6763005,
+    "lon": -83.9421638,
+    "precision": "course_feature",
+    "display": "Cherokee Run Golf Club, 1595, Centennial Olympic Parkway, Conyers, Rockdale County, Georgia, 30013, United States",
+    "osmId": "relation/142996",
+    "source": "nominatim",
+    "query": "Cherokee Run Golf Club, Conyers, GA, United States"
+  },
+  "sandy-lane-golf-club": {
+    "lat": 13.1699136,
+    "lon": -59.6338898,
+    "precision": "course_feature",
+    "display": "Sandy Lane – Old Nine Golf Course, Golf Club Road, Sandy Lane, Bagatelle, Saint James, BB23001, Barbados",
+    "osmId": "way/37928932",
+    "source": "nominatim",
+    "query": "Sandy Lane Golf Club, St. James, St. James, Barbados"
+  },
+  "tpc-toronto-at-osprey-valley": {
+    "lat": 43.8478111,
+    "lon": -80.0389348,
+    "precision": "course_feature",
+    "display": "TPC Toronto at Osprey Valley, Main Street, Alton, Caledon, Peel Region, Golden Horseshoe, Ontario, L7K 0E1, Canada",
+    "osmId": "relation/17057039",
+    "source": "nominatim",
+    "query": "TPC Toronto at Osprey Valley, Caledon, ON, Canada"
+  },
+  "university-of-michigan-golf-course": {
+    "lat": 42.2590285,
+    "lon": -83.7452626,
+    "precision": "course_feature",
+    "display": "University of Michigan Golf Course, Golfview Lane, Ann Arbor, Washtenaw County, Michigan, 48103, United States",
+    "osmId": "way/263921112",
+    "source": "nominatim",
+    "query": "University Of Michigan Golf Course, Ann Arbor, MI, United States"
+  },
+  "ojai-valley-inn-and-spa": {
+    "lat": 34.4360618,
+    "lon": -119.2592395,
+    "precision": "course_feature",
+    "display": "Ojai Valley Inn Golf Course, 905, Country Club Road, Arbolada, Ojai, Ventura County, California, 93023, United States",
+    "osmId": "way/603935193",
+    "source": "nominatim",
+    "query": "Ojai Valley Inn Golf Course, Ojai, CA, United States"
+  },
+  "serket-golf-club": {
+    "lat": 36.0319602,
+    "lon": -114.9822716,
+    "precision": "city_centroid",
+    "display": "Henderson, Clark County, Nevada, United States",
+    "osmId": "relation/170116",
+    "source": "nominatim",
+    "query": "Serket Golf Club, Henderson, NV, United States"
+  },
+  "lanier-islands-golf-course": {
+    "lat": 34.1815,
+    "lon": -84.0251,
+    "precision": "manual",
+    "source": "Centre of a cluster of four unnamed leisure=golf_course ways (way/34773053, /34773055, /34773062, /34773064) on Lake Lanier Islands, Buford GA. INFERRED: the polygons are unnamed in OSM, but Lake Lanier Islands has one golf course and this is it."
+  },
+  "coyote-moon-golf-course": {
+    "lat": 39.3330879,
+    "lon": -120.2056558,
+    "precision": "course_feature",
+    "display": "Coyote Moon Golf Course, Trout Creek Trail, Gateway, Truckee, Nevada County, California, 96160, United States",
+    "osmId": "way/168460622",
+    "source": "nominatim",
+    "query": "Coyote Moon Golf Course, Truckee, CA, United States"
+  },
+  "las-vegas-paiute-golf-resort": {
+    "lat": 36.18476833333334,
+    "lon": -115.19894833888891,
+    "precision": "osm_polygon",
+    "display": "Las Vegas, Clark County, Nevada, United States",
+    "osmId": "relation/170117",
+    "source": "overpass way/80341618",
+    "query": "Las Vegas Paiute Golf Resort, Las Vegas, NV, United States",
+    "repairedFrom": "city_centroid"
+  },
+  "oak-quarry-golf-club": {
+    "lat": 34.0258427,
+    "lon": -117.432437,
+    "precision": "course_feature",
+    "display": "Oak Quarry Golf Club, 7151, Sierra Avenue, Sunnyslope, Jurupa Valley, Riverside County, California, 92509, United States",
+    "osmId": "way/30885000",
+    "source": "nominatim",
+    "query": "Oak Quarry Golf Club, Riverside, CA, United States"
+  },
+  "mid-south-club": {
+    "lat": 35.1883229,
+    "lon": -79.4234178,
+    "precision": "course_feature",
+    "display": "Mid South Club, Weston Court, Southern Pines, Moore County, North Carolina, 28387, United States",
+    "osmId": "relation/6388052",
+    "source": "nominatim",
+    "query": "Mid South Club Southern Pines, Southern Pines, NC, United States"
+  },
+  "oakcreek-country-club": {
+    "lat": 34.782698,
+    "lon": -111.7674745,
+    "precision": "course_feature",
+    "display": "Oakcreek Country Club Sedona, 690, Bell Rock Boulevard, Village of Oak Creek, Sedona, Yavapai County, Arizona, 86351, United States",
+    "osmId": "relation/3534074",
+    "source": "nominatim",
+    "query": "Oakcreek Country Club, Sedona, AZ, United States"
+  },
+  "sandpiper-golf-course": {
+    "lat": 34.4259425,
+    "lon": -119.9042636,
+    "precision": "course_feature",
+    "display": "Sandpiper Golf Course, 7925, Hollister Avenue, Goleta, Santa Barbara County, California, 93117, United States",
+    "osmId": "way/44580714",
+    "source": "nominatim",
+    "query": "Sandpiper Golf Course, Goleta, CA, United States"
+  },
+  "grayhawk-golf-club": {
+    "lat": 33.6642562,
+    "lon": -111.9001593,
+    "precision": "course_feature",
+    "display": "Grayhawk Golf Club - Talon Course, 8620, East Thompson Peak Parkway, Grayhawk, Scottsdale, Maricopa County, Arizona, 85255, United States",
+    "osmId": "relation/1403726",
+    "source": "nominatim",
+    "query": "Grayhawk Golf Club, Scottsdale, AZ, United States"
+  },
+  "sunningdale-golf-and-country-club": {
+    "lat": 43.0359767,
+    "lon": -81.31005,
+    "precision": "course_feature",
+    "display": "Sunningdale Golf & Country Club, Sunningdale Road, London, Southwestern Ontario, Ontario, N6G 0W8, Canada",
+    "osmId": "way/161568006",
+    "source": "nominatim",
+    "query": "Sunningdale Golf & Country Club, London, ON, Canada"
+  },
+  "cinnabar-hills-golf-club": {
+    "lat": 37.1704837,
+    "lon": -121.7501972,
+    "precision": "course_feature",
+    "display": "Cinnabar Hills Golf Club, 23600, McKean Road, San Jose, Santa Clara County, California, 95141, United States",
+    "osmId": "way/1162481658",
+    "source": "nominatim",
+    "query": "Cinnabar Hills Golf Club, San Jose, CA, United States"
+  },
+  "indian-wells-golf-resort": {
+    "lat": 33.7251049,
+    "lon": -116.3241167,
+    "precision": "course_feature",
+    "display": "Indian Wells Golf Resort, El Dorado Drive, Indian Wells, Riverside County, California, 92210, United States",
+    "osmId": "relation/1503725",
+    "source": "nominatim",
+    "query": "Indian Wells Golf Resort, Indian Wells, CA, United States"
+  },
+  "tahoe-donner-golf-course": {
+    "lat": 39.3515787,
+    "lon": -120.2364972,
+    "precision": "course_feature",
+    "display": "Tahoe Donner Golf Course, Sun Valley Road, Tahoe Donner, Truckee, Nevada County, California, 95161, United States",
+    "osmId": "relation/325767",
+    "source": "nominatim",
+    "query": "Tahoe Donner Golf Course, Truckee, CA, United States"
+  },
+  "tpc-of-scottsdale": {
+    "lat": 33.6401402,
+    "lon": -111.9156552,
+    "precision": "course_feature",
+    "display": "TPC Scottsdale Stadium Course, 7020, North Hayden Road, Scottsdale, Maricopa County, Arizona, 85255, United States",
+    "osmId": "way/78388948",
+    "source": "nominatim",
+    "query": "TPC Scottsdale, Scottsdale, AZ, United States"
+  },
+  "legends-on-the-niagara-golf-club": {
+    "lat": 43.04626844531248,
+    "lon": -79.034071896875,
+    "precision": "seed",
+    "source": "golf/muni/src/data/courses/battlefield.json"
+  },
+  "temecula-creek-golf-club": {
+    "lat": 33.46685670913243,
+    "lon": -117.13046179315072,
+    "precision": "osm_polygon",
+    "display": "Temecula, Riverside County, California, United States",
+    "osmId": "relation/3866463",
+    "source": "overpass way/44486271",
+    "query": "Temecula Creek Golf Club, Temecula, CA, United States",
+    "repairedFrom": "city_centroid"
+  },
+  "heritage-palms-golf-club": {
+    "lat": 33.72867690536082,
+    "lon": -116.26261386350505,
+    "precision": "osm_polygon",
+    "display": "Heritage Palms Golf Club, Saint Andrew's Place, Heritage Palms, Indio, Riverside County, California, 92203, United States",
+    "osmId": "way/545067986",
+    "source": "overpass relation/12669574",
+    "query": "Heritage Palms Golf Club, Indio, CA, United States",
+    "repairedFrom": "named_place"
+  },
+  "scottsdale-silverado-golf-club": {
+    "lat": 33.48813574375,
+    "lon": -111.91098573749996,
+    "precision": "osm_polygon",
+    "display": "Scottsdale, Maricopa County, Arizona, United States",
+    "osmId": "relation/110826",
+    "source": "overpass way/61421733",
+    "query": "Scottsdale Silverado Golf Club, Scottsdale, AZ, United States",
+    "repairedFrom": "city_centroid"
+  },
+  "cross-creek-golf-club": {
+    "lat": 33.4966313,
+    "lon": -117.2350819,
+    "precision": "course_feature",
+    "display": "Cross Creek Golf Club, 43860, Glen Meadows Road, Temecula, Riverside County, California, 92590, United States",
+    "osmId": "way/1242553642",
+    "source": "nominatim",
+    "query": "Cross Creek Golf Club, Temecula, CA, United States"
+  },
+  "moorpark-country-club": {
+    "lat": 34.3021037,
+    "lon": -118.8978828,
+    "precision": "course_feature",
+    "display": "Moorpark Country Club, 11800, Championship Drive, Moorpark, Ventura County, California, 93021, United States",
+    "osmId": "way/875423008",
+    "source": "nominatim",
+    "query": "Moorpark Country Club, Moorpark, CA, United States"
+  },
+  "leslie-park-golf-course": {
+    "lat": 42.3074527,
+    "lon": -83.7251705,
+    "precision": "course_feature",
+    "display": "Leslie Park Golf Course, 2120, Traver Road, Traver Lakes, Ann Arbor, Washtenaw County, Michigan, 48105, United States",
+    "osmId": "relation/3534224",
+    "source": "nominatim",
+    "query": "Leslie Park Golf Course, Ann Arbor, MI, United States"
+  },
+  "waikoloa-beach-and-kings-golf-course": {
+    "lat": 19.9267246,
+    "lon": -155.8843197,
+    "precision": "course_feature",
+    "display": "Waikoloa Beach Course, Waikoloa Beach Drive, Kapalaoa, Hawaiʻi County, Hawaii, 96738, United States",
+    "osmId": "relation/2092889",
+    "source": "nominatim",
+    "query": "Waikoloa Beach Golf Course, Waikoloa, HI, United States"
+  },
+  "cobblestone-golf-course": {
+    "lat": 34.0511191,
+    "lon": -84.676464,
+    "precision": "course_feature",
+    "display": "Cobblestone Golf Course, 4200, Nance Road, Laurel Hills, Acworth, Cobb County, Georgia, 30101, United States",
+    "osmId": "way/34772950",
+    "source": "nominatim",
+    "query": "Cobblestone Golf Course, Acworth, GA, United States"
+  },
+  "shawneeki-golf-club": {
+    "lat": 44.0970183,
+    "lon": -79.4051515,
+    "precision": "course_feature",
+    "display": "Shawneeki Golf Club, Woodbine Avenue, Sharon, East Gwillimbury, York Region, Golden Horseshoe, Ontario, L0G 1V0, Canada",
+    "osmId": "way/56000351",
+    "source": "nominatim",
+    "query": "Shawneeki Golf Club, Ontario, ON, Canada"
+  },
+  "black-gold-golf-club": {
+    "lat": 33.9064119,
+    "lon": -117.8220305,
+    "precision": "course_feature",
+    "display": "Black Gold Golf Club, 1, Black Gold Drive, Yorba Linda, Orange County, California, 92886, United States",
+    "osmId": "way/210339919",
+    "source": "nominatim",
+    "query": "Black Gold Golf Club, Yorba Linda, CA, United States"
+  },
+  "heron-lakes-golf-course": {
+    "lat": 45.603102,
+    "lon": -122.7025438,
+    "precision": "course_feature",
+    "display": "Heron Lakes Golf Club, 3500, North Victory Boulevard, Kenton, Portland, Multnomah County, Oregon, 97217, United States",
+    "osmId": "relation/21058474",
+    "source": "nominatim",
+    "query": "Heron Lakes Golf Course, Portland, OR, United States"
+  },
+  "the-club-at-bond-head": {
+    "lat": 44.0823104,
+    "lon": -79.6985901,
+    "precision": "course_feature",
+    "display": "The Club at Bond Head, 4805, 7th Line, New Tecumseth, Simcoe County, Central Ontario, Ontario, L0G 1B0, Canada",
+    "osmId": "relation/3227121",
+    "source": "nominatim",
+    "query": "The Club At Bond Head, Tecumseth, ON, Canada"
+  },
+  "industry-hills-golf-club-at-pacific-palms-resort": {
+    "lat": 34.023813647999994,
+    "lon": -117.93030141066667,
+    "precision": "osm_polygon",
+    "display": "La Puente, Los Angeles County, California, United States",
+    "osmId": "relation/13799316",
+    "source": "overpass way/221560406",
+    "query": "Industry Hills Golf Club, La Puente, CA, United States",
+    "repairedFrom": "city_centroid"
+  },
+  "makani-golf-club": {
+    "lat": 19.8190425,
+    "lon": -155.8461442,
+    "precision": "course_feature",
+    "display": "Makani Golf Club, 71-1420, Mamalahoa Highway, Kailua, Hawaiʻi County, Hawaii, 96740, United States",
+    "osmId": "way/186735031",
+    "source": "nominatim",
+    "query": "Makani Golf Club, Kailua-kona, HI, United States"
+  },
+  "eagle-vines-golf-club": {
+    "lat": 38.2160011,
+    "lon": -122.2492453,
+    "precision": "course_feature",
+    "display": "Eagle Vines Golf Club, 2555;580, South Kelly Road, TDC, Middleton, American Canyon, Napa County, California, 94503, United States",
+    "osmId": "way/1414563333",
+    "source": "nominatim",
+    "query": "Eagle Vines Golf Club, American Canyon, CA, United States"
+  },
+  "tierra-rejada-golf-club": {
+    "lat": 34.26699,
+    "lon": -118.84819,
+    "precision": "manual",
+    "source": "Overpass way/1454217169, leisure=golf_course, tagged name='Golf Development Complex' — the only golf polygon on Tierra Rejada Rd, Moorpark. INFERRED from location, not confirmed by name; good enough for a pin, not a fact. Worth fixing because this is the 2nd most-played course on the list (8 rounds)."
+  },
+  "coyote-creek-golf-club": {
+    "lat": 37.1946671,
+    "lon": -121.6960421,
+    "precision": "course_feature",
+    "display": "Coyote Creek Golf Club Tournament Course, 1, Coyote Creek Golf Drive, Morgan Hill, Santa Clara County, California, 95037, United States",
+    "osmId": "way/1417621369",
+    "source": "nominatim",
+    "query": "Coyote Creek Golf Club, Morgan Hill, CA, United States"
+  },
+  "angeles-national-golf-club": {
+    "lat": 34.2684727,
+    "lon": -118.3302772,
+    "precision": "course_feature",
+    "display": "Angeles National Golf Club, 9401, Foothill Boulevard, Los Angeles, Los Angeles County, California, 91040, United States",
+    "osmId": "way/31569767",
+    "source": "nominatim",
+    "query": "Angeles National Golf Club, Sunland, CA, United States"
+  },
+  "cherry-downs-golf-and-count": {
+    "lat": 43.94928954666667,
+    "lon": -79.09076787333332,
+    "precision": "osm_polygon",
+    "display": "Pickering, Durham Region, Golden Horseshoe, Ontario, Canada",
+    "osmId": "relation/2408836",
+    "source": "overpass way/43934764",
+    "query": "Cherry Downs Golf and Country Club, Pickering, ON, Canada",
+    "repairedFrom": "city_centroid"
+  },
+  "lake-forest-golf-club": {
+    "lat": 42.2317105,
+    "lon": -83.7877654,
+    "precision": "course_feature",
+    "display": "Lake Forest Golf Club, 3110, West Ellsworth Road, Ann Arbor, Washtenaw County, Michigan, 48103, United States",
+    "osmId": "way/294882610",
+    "source": "nominatim",
+    "query": "Lake Forest Golf Club, Ann Arbor, MI, United States"
+  },
+  "rancho-park-golf-club": {
+    "lat": 34.0441,
+    "lon": -118.4111,
+    "precision": "manual",
+    "source": "Nominatim leisure=golf_course 'Rancho Park Golf Course, 10460 West Pico Boulevard, Cheviot Hills'. Nominatim's default result put this on the downtown LA centroid, ~14km east — worth fixing because it is the most-played course on the list."
+  },
+  "griffith-park-golf-club": {
+    "lat": 34.14341676458333,
+    "lon": -118.28406823020832,
+    "precision": "seed",
+    "source": "golf/muni/src/data/courses/griffith-harding.json"
+  },
+  "los-robles-greens-golf-course": {
+    "lat": 34.17647121149423,
+    "lon": -118.88335314597705,
+    "precision": "osm_polygon",
+    "display": "Westlake Village, Los Angeles County, California, United States",
+    "osmId": "relation/7876410",
+    "source": "overpass way/40186200",
+    "query": "Los Robles Greens Golf Course, Westlake Village, CA, United States",
+    "repairedFrom": "city_centroid"
+  },
+  "tilden-park-golf-course": {
+    "lat": 37.8894867,
+    "lon": -122.2426043,
+    "precision": "course_feature",
+    "display": "Tilden Park Golf Course, 10, Golf Course Drive, Berkeley, Contra Costa County, California, 94708, United States",
+    "osmId": "way/45146686",
+    "source": "nominatim",
+    "query": "Tilden Park Golf Course, Berkeley, CA, United States"
+  },
+  "indian-spring-country-club": {
+    "lat": 39.8811722,
+    "lon": -74.8900845,
+    "precision": "course_feature",
+    "display": "Indian Spring Country Club, South Elmwood Road, Pine Grove, Marlton, Evesham Township, Burlington County, New Jersey, 08053, United States",
+    "osmId": "way/40331562",
+    "source": "nominatim",
+    "query": "Indian Spring Country Club, Marlton, NJ, United States"
+  },
+  "barbados-golf-club": {
+    "lat": 13.0731667,
+    "lon": -59.5308917,
+    "precision": "course_feature",
+    "display": "Barbados Golf Club, Ashby Land, Durants, Thornbury Hill, Christ Church, BB17101, Barbados",
+    "osmId": "way/26542161",
+    "source": "nominatim",
+    "query": "Barbados Golf Club, Barbados, Barbados"
+  },
+  "knollwood-golf-club": {
+    "lat": 34.291462254830286,
+    "lon": -118.49716047728455,
+    "precision": "osm_polygon",
+    "display": "Granada Hills, Granada Hills South Neighborhood Council District, Los Angeles, Los Angeles County, California, 91344, United States",
+    "osmId": "node/150941903",
+    "source": "overpass relation/3578129",
+    "query": "Knollwood Golf Club, Granada Hills, CA, United States",
+    "repairedFrom": "city_centroid"
+  },
+  "redhawk-golf-course": {
+    "lat": 33.4642741,
+    "lon": -117.0857472,
+    "precision": "course_feature",
+    "display": "Redhawk Golf Club, Deer Hollow Way, Temecula, Riverside County, California, 92592, United States",
+    "osmId": "relation/3567037",
+    "source": "nominatim",
+    "query": "Redhawk Golf Course, Temecula, CA, United States"
+  },
+  "don-valley-golf-course": {
+    "lat": 43.7473872,
+    "lon": -79.4114093,
+    "precision": "course_feature",
+    "display": "Don Valley Golf Course, 4200, Yonge Street, Bedford Park-Nortown, Eglinton—Lawrence, North York, Toronto, Golden Horseshoe, Ontario, M2P 1N9, Canada",
+    "osmId": "way/24158446",
+    "source": "nominatim",
+    "query": "Don Valley Golf Course, North York, ON, Canada"
+  },
+  "brookside-golf-club": {
+    "lat": 34.1672572,
+    "lon": -118.1701492,
+    "precision": "course_feature",
+    "display": "Brookside Golf Club, 1133, Rosemont Avenue, Pasadena Council District 1, Pasadena, Los Angeles County, California, 91103, United States",
+    "osmId": "relation/16307627",
+    "source": "nominatim",
+    "query": "Brookside Golf Club, Pasadena, CA, United States"
+  },
+  "the-links-golf-club": {
+    "lat": 39.9005585,
+    "lon": -74.9338911,
+    "precision": "city_centroid",
+    "display": "Marlton, Evesham Township, Burlington County, New Jersey, United States",
+    "osmId": "relation/170766",
+    "source": "nominatim",
+    "query": "The Links Golf Club Marlton, Marlton, NJ, United States"
+  },
+  "ron-jaworskis-valleybrook-golf-course": {
+    "lat": 39.819097,
+    "lon": -75.0544397,
+    "precision": "course_feature",
+    "display": "Valleybrook Golf Club, 200, Golfview Drive, Hilltop, Gloucester Township, Camden County, New Jersey, 08012, United States",
+    "osmId": "relation/12833568",
+    "source": "nominatim",
+    "query": "Valleybrook Golf Club Blackwood, Blackwood, NJ, United States"
+  },
+  "montebello-golf-course": {
+    "lat": 34.0291885,
+    "lon": -118.1329439,
+    "precision": "course_feature",
+    "display": "Montebello Golf Course, Via Altamira, Montebello, Los Angeles County, California, 90640, United States",
+    "osmId": "way/95910051",
+    "source": "nominatim",
+    "query": "Montebello Golf Course, Montebello, CA, United States"
+  },
+  "roosevelt-municipal-golf-course": {
+    "lat": 34.1200982,
+    "lon": -118.2906304,
+    "precision": "course_feature",
+    "display": "Roosevelt Municipal Golf Course, 2650, North Vermont Avenue, Los Feliz Neighborhood Council District, Los Angeles, Los Angeles County, California, 90027, United States",
+    "osmId": "way/174533646",
+    "source": "nominatim",
+    "query": "Roosevelt Municipal Golf Course, Los Angeles, CA, United States"
+  },
+  "manhattan-country-club": {
+    "lat": 33.89875,
+    "lon": -118.38714,
+    "precision": "manual",
+    "source": "Overpass way/192168936, leisure=golf_course, name='Westdrift Golf'. Grint's row is 'Westdrift | Manhattan Country Club', so the match is on the layout name — the OSM name and the Grint facility name never overlap, which is why the automatic matcher missed it."
+  },
+  "eastmoreland-golf-course": {
+    "lat": 45.4779844,
+    "lon": -122.6385602,
+    "precision": "course_feature",
+    "display": "Eastmoreland Golf Course, Southeast Crystal Springs Boulevard, Eastmoreland, Portland, Multnomah County, Oregon, 97202, United States",
+    "osmId": "relation/11095178",
+    "source": "nominatim",
+    "query": "Eastmoreland Golf Course, Portland, OR, United States"
+  },
+  "wedgwood-country-club": {
+    "lat": 39.76091089252337,
+    "lon": -75.06825776261682,
+    "precision": "osm_polygon",
+    "display": "Wedgwood Country Club, 200, Hurffville Road, Wedgwood Forest, Prossers Mills, Washington Township, Gloucester County, New Jersey, 08012, United States",
+    "osmId": "way/776611024",
+    "source": "overpass relation/11045950",
+    "query": "Wedgwood Country Club, Turnersville, NJ, United States",
+    "repairedFrom": "named_place"
+  },
+  "forest-park-golf-course": {
+    "lat": 40.69921178695654,
+    "lon": -73.86401877971016,
+    "precision": "osm_polygon",
+    "display": "Woodhaven, Queens, Queens County, New York, 11421, United States",
+    "osmId": "node/158899828",
+    "source": "overpass relation/951304",
+    "query": "Forest Park Golf Course, Woodhaven, NY, United States",
+    "repairedFrom": "city_centroid"
+  },
+  "van-cortlandt-park-golf-course": {
+    "lat": 40.898428061904745,
+    "lon": -73.88664159714284,
+    "precision": "osm_polygon",
+    "display": "The Bronx, Bronx County, New York, United States",
+    "osmId": "relation/9691916",
+    "source": "overpass relation/6333321",
+    "query": "Van Cortlandt Park Golf Course, Bronx, NY, United States",
+    "repairedFrom": "city_centroid"
+  },
+  "ramblewood-country-club": {
+    "lat": 39.9284209,
+    "lon": -74.9211154,
+    "precision": "course_feature",
+    "display": "Ramblewood Country Club, East Peachtree Court, Holiday Village, Birchfield, Mount Laurel Township, Burlington County, New Jersey, 08054, United States",
+    "osmId": "way/34380441",
+    "source": "nominatim",
+    "query": "Ramblewood Country Club, Mt. Laurel, NJ, United States"
+  },
+  "sepulveda-golf-complex": {
+    "lat": 34.1752013,
+    "lon": -118.4958241,
+    "precision": "course_feature",
+    "display": "Balboa Municipal Golf Course, 16821, Burbank Boulevard, Encino Neighborhood Council District, Los Angeles, Los Angeles County, California, 91436, United States",
+    "osmId": "way/266342172",
+    "source": "nominatim",
+    "query": "Balboa Golf Course Encino, Encino, CA, United States"
+  },
+  "penmar-golf-course": {
+    "lat": 34.0067158,
+    "lon": -118.4600616,
+    "precision": "course_feature",
+    "display": "Penmar Municipal Golf Course, 1233, Rose Avenue, Venice, Los Angeles, Los Angeles County, California, 90291, United States",
+    "osmId": "way/23048327",
+    "source": "nominatim",
+    "query": "Penmar Golf Course, Venice, CA, United States"
+  },
+  "billy-caldwell-golf-course": {
+    "lat": 41.9883209,
+    "lon": -87.7580921,
+    "precision": "course_feature",
+    "display": "Billy Caldwell Golf Course, 6150, North Caldwell Avenue, South Edgebrook, Forest Glen, Chicago, Jefferson Township, Cook County, Illinois, 60646, United States",
+    "osmId": "relation/6523351",
+    "source": "nominatim",
+    "query": "Billy Caldwell Golf Course, Chicago, IL, United States"
+  },
+  "alhambra-golf-course": {
+    "lat": 34.088955,
+    "lon": -118.1128032,
+    "precision": "course_feature",
+    "display": "Alhambra Golf Course, 630, South Almansor Street, Alhambra, Los Angeles County, California, 91801, United States",
+    "osmId": "way/24684508",
+    "source": "nominatim",
+    "query": "Alhambra Golf Course, Alhambra, CA, United States"
+  },
+  "hidden-valley-lake-golf-and-country-club": {
+    "lat": 38.79769523697916,
+    "lon": -122.55683291510411,
+    "precision": "osm_polygon",
+    "display": "Hidden Valley Lake, Lake County, California, 95467, United States",
+    "osmId": "relation/19964724",
+    "source": "overpass relation/3570262",
+    "query": "Hidden Valley Lake Golf & Country Club, Hidden Valley Lake, CA, United States",
+    "repairedFrom": "city_centroid"
+  },
+  "jackson-park-golf-course": {
+    "lat": 41.7746836,
+    "lon": -87.5801432,
+    "precision": "course_feature",
+    "display": "Jackson Park Golf Course, 6401, South Richards Drive, Woodlawn, Chicago, Hyde Park Township, Cook County, Illinois, 60649, United States",
+    "osmId": "relation/13423588",
+    "source": "nominatim",
+    "query": "Jackson Park Golf Course, Chicago, IL, United States"
+  },
+  "scholl-canyon-golf-course": {
+    "lat": 34.1597868,
+    "lon": -118.1986791,
+    "precision": "course_feature",
+    "display": "Scholl Canyon Golf Course, 3800, Glenoaks Boulevard, Glendale, Los Angeles County, California, 91206, United States",
+    "osmId": "way/196873161",
+    "source": "nominatim",
+    "query": "Scholl Canyon Golf Course, Glendale, CA, United States"
+  },
+  "kresson-golf-course": {
+    "lat": 39.8466861,
+    "lon": -74.9314351,
+    "precision": "course_feature",
+    "display": "Kresson Golf Course, Kresson-Gibbsboro Road, Terra Verde, Voorhees Township, Camden County, New Jersey, 08043, United States",
+    "osmId": "way/30032040",
+    "source": "nominatim",
+    "query": "Kresson Golf Course, Voorhees, NJ, United States"
+  },
+  "lakewood-country-club-and-tennis-center": {
+    "lat": 33.905792549999994,
+    "lon": -118.00128799615383,
+    "precision": "osm_polygon",
+    "display": "Lakewood, Los Angeles County, California, United States",
+    "osmId": "relation/112092",
+    "source": "overpass way/133950721",
+    "query": "Lakewood Country Club & Tennis Center, Lakewood, CA, United States",
+    "repairedFrom": "city_centroid"
+  },
+  "whittier-narrows-golf-course": {
+    "lat": 34.0509342,
+    "lon": -118.0770416,
+    "precision": "course_feature",
+    "display": "Whittier Narrows Golf Course, 8640, Rush Street, South San Gabriel, Rosemead, Los Angeles County, California, 91770, United States",
+    "osmId": "relation/7160577",
+    "source": "nominatim",
+    "query": "Whittier Narrows Golf Course, Rosemead, CA, United States"
+  },
+  "westchester-golf-course": {
+    "lat": 33.9568206,
+    "lon": -118.409076,
+    "precision": "course_feature",
+    "display": "Westchester Golf Course, 6900, West Manchester Avenue, Westchester, Los Angeles, Los Angeles County, California, 90045, United States",
+    "osmId": "way/22729525",
+    "source": "nominatim",
+    "query": "Westchester Golf Course, Westchester, CA, United States"
+  }
+}

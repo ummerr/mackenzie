@@ -1,0 +1,49 @@
+{
+  "_README": [
+    "Hand-entered coordinates. Wins over every other source in geocode.mjs.",
+    "Shape: \"facility-slug\": { lat, lon, precision: \"manual\", source: \"how you found it\" }",
+    "",
+    "These exist because Nominatim resolved the facility only to its town.",
+    "Each `source` records the evidence, so a later reader can check the work",
+    "rather than trusting the number. Entries where no defensible evidence was",
+    "found are deliberately ABSENT — they stay flagged as city_centroid by",
+    "validate.mjs instead of being quietly guessed at. Currently unresolved:",
+    "serket-golf-club (nothing named Serket within 9km of Henderson — likely a",
+    "rebrand) and the-links-golf-club (not in OSM under that name near Marlton)."
+  ],
+
+  "rancho-park-golf-club": {
+    "lat": 34.0441,
+    "lon": -118.4111,
+    "precision": "manual",
+    "source": "Nominatim leisure=golf_course 'Rancho Park Golf Course, 10460 West Pico Boulevard, Cheviot Hills'. Nominatim's default result put this on the downtown LA centroid, ~14km east — worth fixing because it is the most-played course on the list."
+  },
+
+  "kukio-makai-beach-golf-club": {
+    "lat": 19.8174,
+    "lon": -155.9988,
+    "precision": "manual",
+    "source": "Nominatim leisure=resort 'Kukio Golf and Beach Club, Kukio Nui Drive, Hawaii County'. Grint files it as 'Kukio Makai Beach Golf Club'."
+  },
+
+  "manhattan-country-club": {
+    "lat": 33.89875,
+    "lon": -118.38714,
+    "precision": "manual",
+    "source": "Overpass way/192168936, leisure=golf_course, name='Westdrift Golf'. Grint's row is 'Westdrift | Manhattan Country Club', so the match is on the layout name — the OSM name and the Grint facility name never overlap, which is why the automatic matcher missed it."
+  },
+
+  "tierra-rejada-golf-club": {
+    "lat": 34.26699,
+    "lon": -118.84819,
+    "precision": "manual",
+    "source": "Overpass way/1454217169, leisure=golf_course, tagged name='Golf Development Complex' — the only golf polygon on Tierra Rejada Rd, Moorpark. INFERRED from location, not confirmed by name; good enough for a pin, not a fact. Worth fixing because this is the 2nd most-played course on the list (8 rounds)."
+  },
+
+  "lanier-islands-golf-course": {
+    "lat": 34.1815,
+    "lon": -84.0251,
+    "precision": "manual",
+    "source": "Centre of a cluster of four unnamed leisure=golf_course ways (way/34773053, /34773055, /34773062, /34773064) on Lake Lanier Islands, Buford GA. INFERRED: the polygons are unnamed in OSM, but Lake Lanier Islands has one golf course and this is it."
+  }
+}

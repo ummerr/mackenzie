@@ -1,0 +1,193 @@
+{
+  "_README": [
+    "External claims about facilities. Keyed by facility slug (see facilities.json).",
+    "",
+    "CONTRACT — every claim is an object, never a bare value:",
+    "  { value, source, confidence, checked, verified }",
+    "    value       the claim",
+    "    source      a URL. Empty string is a validation error, not a warning.",
+    "    confidence  high | medium | low — how sure we are the claim is correct",
+    "    checked     ISO date the claim was entered or last re-read",
+    "    verified    true only once a human or a fetch has confirmed the source",
+    "                page actually states this. SEEDED CLAIMS ARE verified:false.",
+    "",
+    "  `rankings` is an array of { list, year, rank, source, verified }.",
+    "",
+    "POLICY, inherited verbatim from sf/src/data/golf-annotations.ts:",
+    "  unknown fields stay absent, never guessed. A missing architect renders as",
+    "  a gap in the dossier; a wrong one is a lie the map repeats forever.",
+    "",
+    "STATUS: the entries below were seeded from general knowledge on 2026-08-01",
+    "and are ALL verified:false. They are here to exercise the schema and give",
+    "the marquee courses a dossier. Run the verification pass before treating",
+    "any of it as fact. `npm run validate` reports the unverified count.",
+    "",
+    "Note: OSM tags (holes, par, access, website, architect) are NOT curated here.",
+    "They come through course-polygons.geojson and stay attributed to OSM."
+  ],
+
+  "bethpage-state-park-golf-course": {
+    "displayName": { "value": "Bethpage State Park (Black)", "source": "https://parks.ny.gov/golf/11/details.aspx", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "architect": { "value": "A.W. Tillinghast", "source": "https://en.wikipedia.org/wiki/Bethpage_State_Park", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1936, "source": "https://en.wikipedia.org/wiki/Bethpage_State_Park", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "municipal", "source": "https://parks.ny.gov/golf/11/details.aspx", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "championships": { "value": ["2002 U.S. Open", "2009 U.S. Open", "2019 PGA Championship", "2025 Ryder Cup"], "source": "https://en.wikipedia.org/wiki/Bethpage_State_Park", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "The Black is the only true public course to host a U.S. Open. Its first tee carries the warning sign about the course being 'extremely difficult'.", "source": "https://en.wikipedia.org/wiki/Bethpage_State_Park", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "rankings": [
+      { "list": "Golf Digest America's 100 Greatest Public Courses", "year": 2025, "rank": 1, "source": "https://www.golfdigest.com/story/americas-100-greatest-public-golf-courses", "verified": false }
+    ]
+  },
+
+  "meadow-club-fairfax": {
+    "architect": { "value": "Alister MacKenzie and Robert Hunter", "source": "https://en.wikipedia.org/wiki/Meadow_Club", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1927, "source": "https://en.wikipedia.org/wiki/Meadow_Club", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "private", "source": "https://www.meadowclub.org/", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "MacKenzie's first course design in the United States. Restored by Mike DeVries. The project this map lives in is named for him.", "source": "https://en.wikipedia.org/wiki/Meadow_Club", "confidence": "medium", "checked": "2026-08-01", "verified": false }
+  },
+
+  "university-of-michigan-golf-course": {
+    "architect": { "value": "Alister MacKenzie", "source": "https://en.wikipedia.org/wiki/University_of_Michigan_Golf_Course", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1931, "source": "https://en.wikipedia.org/wiki/University_of_Michigan_Golf_Course", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "private", "source": "https://en.wikipedia.org/wiki/University_of_Michigan_Golf_Course", "confidence": "medium", "checked": "2026-08-01", "verified": false }
+  },
+
+  "sleepy-hollow-country-club": {
+    "architect": { "value": "C.B. Macdonald and Seth Raynor", "source": "https://en.wikipedia.org/wiki/Sleepy_Hollow_Country_Club", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1911, "source": "https://en.wikipedia.org/wiki/Sleepy_Hollow_Country_Club", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "private", "source": "https://en.wikipedia.org/wiki/Sleepy_Hollow_Country_Club", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "Restored by Gil Hanse. Overlooks the Hudson from the former Vanderbilt estate.", "source": "https://en.wikipedia.org/wiki/Sleepy_Hollow_Country_Club", "confidence": "medium", "checked": "2026-08-01", "verified": false }
+  },
+
+  "the-creek-club-locust-valley": {
+    "architect": { "value": "C.B. Macdonald and Seth Raynor", "source": "https://en.wikipedia.org/wiki/The_Creek_Club", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1923, "source": "https://en.wikipedia.org/wiki/The_Creek_Club", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "private", "source": "https://en.wikipedia.org/wiki/The_Creek_Club", "confidence": "high", "checked": "2026-08-01", "verified": false }
+  },
+
+  "tobacco-road-golf-club": {
+    "architect": { "value": "Mike Strantz", "source": "https://en.wikipedia.org/wiki/Tobacco_Road_Golf_Club", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1998, "source": "https://en.wikipedia.org/wiki/Tobacco_Road_Golf_Club", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "public", "source": "https://www.tobaccoroadgolf.com/", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "Built on a former sand quarry. Blind shots and enormous sand scars — one of the most polarising modern designs in America.", "source": "https://en.wikipedia.org/wiki/Tobacco_Road_Golf_Club", "confidence": "medium", "checked": "2026-08-01", "verified": false }
+  },
+
+  "hualalai-golf-club": {
+    "architect": { "value": "Jack Nicklaus (Nicklaus Course); Tom Weiskopf (Ke'olu)", "source": "https://en.wikipedia.org/wiki/Hualalai_Resort", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1996, "source": "https://en.wikipedia.org/wiki/Hualalai_Resort", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "resort", "source": "https://en.wikipedia.org/wiki/Hualalai_Resort", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "Your most-played destination course — 12 rounds across the two layouts.", "source": "data/layouts.json", "confidence": "high", "checked": "2026-08-01", "verified": true }
+  },
+
+  "edgewood-tahoe-resort-golf": {
+    "architect": { "value": "George Fazio", "source": "https://en.wikipedia.org/wiki/Edgewood_Tahoe", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1968, "source": "https://en.wikipedia.org/wiki/Edgewood_Tahoe", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "resort", "source": "https://edgewoodtahoe.com/golf/", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "Hosts the American Century Championship celebrity tournament each July. Finishes on the shore of Lake Tahoe.", "source": "https://en.wikipedia.org/wiki/Edgewood_Tahoe", "confidence": "medium", "checked": "2026-08-01", "verified": false }
+  },
+
+  "pga-west-stadium-clubhouse": {
+    "displayName": { "value": "PGA West (Stadium Course)", "source": "https://www.pgawest.com/", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "architect": { "value": "Pete Dye", "source": "https://en.wikipedia.org/wiki/PGA_West", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1986, "source": "https://en.wikipedia.org/wiki/PGA_West", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "resort", "source": "https://www.pgawest.com/", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "Host of The American Express. The par-3 17th 'Alcatraz' is an island green cut into rock.", "source": "https://en.wikipedia.org/wiki/PGA_West", "confidence": "medium", "checked": "2026-08-01", "verified": false }
+  },
+
+  "rustic-canyon-golf-course": {
+    "architect": { "value": "Gil Hanse, Jim Wagner and Geoff Shackelford", "source": "https://en.wikipedia.org/wiki/Rustic_Canyon_Golf_Course", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 2002, "source": "https://en.wikipedia.org/wiki/Rustic_Canyon_Golf_Course", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "municipal", "source": "https://www.rusticcanyongolfcourse.com/", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "Widely cited as one of the best-value public courses in America — minimalist, ground-game design on a Ventura County wash.", "source": "https://en.wikipedia.org/wiki/Rustic_Canyon_Golf_Course", "confidence": "medium", "checked": "2026-08-01", "verified": false }
+  },
+
+  "ojai-valley-inn-and-spa": {
+    "architect": { "value": "George C. Thomas Jr. and Billy Bell", "source": "https://en.wikipedia.org/wiki/Ojai_Valley_Inn", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1923, "source": "https://en.wikipedia.org/wiki/Ojai_Valley_Inn", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "resort", "source": "https://www.ojaivalleyinn.com/golf", "confidence": "high", "checked": "2026-08-01", "verified": false }
+  },
+
+  "griffith-park-golf-club": {
+    "architect": { "value": "George C. Thomas Jr. (Wilson)", "source": "https://en.wikipedia.org/wiki/Griffith_Park", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1923, "source": "https://en.wikipedia.org/wiki/Griffith_Park", "confidence": "low", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "municipal", "source": "https://www.laparks.org/golf/course/griffith-park", "confidence": "high", "checked": "2026-08-01", "verified": false }
+  },
+
+  "rancho-park-golf-club": {
+    "architect": { "value": "William P. Bell", "source": "https://en.wikipedia.org/wiki/Rancho_Park_Golf_Course", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1949, "source": "https://en.wikipedia.org/wiki/Rancho_Park_Golf_Course", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "municipal", "source": "https://www.laparks.org/golf/course/rancho-park", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "Reputedly one of the busiest golf courses in the United States. Your single most-played course — 10 rounds.", "source": "https://en.wikipedia.org/wiki/Rancho_Park_Golf_Course", "confidence": "medium", "checked": "2026-08-01", "verified": false }
+  },
+
+  "van-cortlandt-park-golf-course": {
+    "architect": { "value": "Tom Bendelow", "source": "https://en.wikipedia.org/wiki/Van_Cortlandt_Park_Golf_Course", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1895, "source": "https://en.wikipedia.org/wiki/Van_Cortlandt_Park_Golf_Course", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "municipal", "source": "https://en.wikipedia.org/wiki/Van_Cortlandt_Park_Golf_Course", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "The oldest public golf course in the United States.", "source": "https://en.wikipedia.org/wiki/Van_Cortlandt_Park_Golf_Course", "confidence": "high", "checked": "2026-08-01", "verified": false }
+  },
+
+  "tilden-park-golf-course": {
+    "architect": { "value": "William P. Bell and William F. Bell", "source": "https://en.wikipedia.org/wiki/Tilden_Regional_Park", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1937, "source": "https://en.wikipedia.org/wiki/Tilden_Regional_Park", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "public", "source": "https://www.tildenparkgc.com/", "confidence": "high", "checked": "2026-08-01", "verified": false }
+  },
+
+  "pelican-hill-golf-club": {
+    "architect": { "value": "Tom Fazio", "source": "https://en.wikipedia.org/wiki/Pelican_Hill_Golf_Club", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1991, "source": "https://en.wikipedia.org/wiki/Pelican_Hill_Golf_Club", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "resort", "source": "https://www.pelicanhill.com/golf/", "confidence": "high", "checked": "2026-08-01", "verified": false }
+  },
+
+  "royal-westmoreland-golf": {
+    "displayName": { "value": "Royal Westmoreland Golf Club", "source": "https://www.royalwestmoreland.com/golf/", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "architect": { "value": "Robert Trent Jones Jr.", "source": "https://www.royalwestmoreland.com/golf/", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1994, "source": "https://www.royalwestmoreland.com/golf/", "confidence": "low", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "resort", "source": "https://www.royalwestmoreland.com/golf/", "confidence": "high", "checked": "2026-08-01", "verified": false }
+  },
+
+  "sandy-lane-golf-club": {
+    "architect": { "value": "Tom Fazio (The Country Club)", "source": "https://www.sandylane.com/golf", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "resort", "source": "https://www.sandylane.com/golf", "confidence": "high", "checked": "2026-08-01", "verified": false }
+  },
+
+  "tpc-toronto-at-osprey-valley": {
+    "architect": { "value": "Doug Carrick", "source": "https://www.tpc.com/toronto/", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "public", "source": "https://www.tpc.com/toronto/", "confidence": "high", "checked": "2026-08-01", "verified": false }
+  },
+
+  "tpc-of-scottsdale": {
+    "displayName": { "value": "TPC Scottsdale (Champions)", "source": "https://www.tpc.com/scottsdale/", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "resort", "source": "https://www.tpc.com/scottsdale/", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "The Champions Course, not the Stadium Course that hosts the WM Phoenix Open.", "source": "https://www.tpc.com/scottsdale/", "confidence": "medium", "checked": "2026-08-01", "verified": false }
+  },
+
+  "cherry-downs-golf-and-count": {
+    "displayName": { "value": "Cherry Downs Golf and Country Club", "source": "https://cherrydowns.ca/", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "Grint truncates this name to 'Cherry Downs Golf & Count'. The slug preserves the truncation; this overrides the display.", "source": "data/raw/grint-played-2026-08-01.txt", "confidence": "high", "checked": "2026-08-01", "verified": true }
+  },
+
+  "mid-south-club": {
+    "architect": { "value": "Arnold Palmer", "source": "https://www.midsouthclub.com/", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "resort", "source": "https://www.midsouthclub.com/", "confidence": "medium", "checked": "2026-08-01", "verified": false }
+  },
+
+  "grayhawk-golf-club": {
+    "architect": { "value": "Tom Fazio (Raptor)", "source": "https://en.wikipedia.org/wiki/Grayhawk_Golf_Club", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "public", "source": "https://www.grayhawkgolf.com/", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "Hosted the NCAA Division I championships 2020-2023.", "source": "https://en.wikipedia.org/wiki/Grayhawk_Golf_Club", "confidence": "medium", "checked": "2026-08-01", "verified": false }
+  },
+
+  "sandpiper-golf-course": {
+    "architect": { "value": "William F. Bell", "source": "https://en.wikipedia.org/wiki/Sandpiper_Golf_Club", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1972, "source": "https://en.wikipedia.org/wiki/Sandpiper_Golf_Club", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "public", "source": "https://www.sandpipergolf.com/", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "Clifftop links on the Pacific north of Santa Barbara, frequently called the best public ocean course south of Pebble.", "source": "https://en.wikipedia.org/wiki/Sandpiper_Golf_Club", "confidence": "low", "checked": "2026-08-01", "verified": false }
+  },
+
+  "brookside-golf-club": {
+    "architect": { "value": "William P. Bell", "source": "https://en.wikipedia.org/wiki/Brookside_Golf_Club", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "yearOpened": { "value": 1928, "source": "https://en.wikipedia.org/wiki/Brookside_Golf_Club", "confidence": "medium", "checked": "2026-08-01", "verified": false },
+    "access": { "value": "municipal", "source": "https://www.brooksidegc.com/", "confidence": "high", "checked": "2026-08-01", "verified": false },
+    "notes": { "value": "Wraps around the Rose Bowl.", "source": "https://en.wikipedia.org/wiki/Brookside_Golf_Club", "confidence": "high", "checked": "2026-08-01", "verified": false }
+  }
+}

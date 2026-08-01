@@ -1,0 +1,470 @@
+/* MACKENZIE — map chrome.
+ * Tokens mirror ummerr.github.io/assets/css/style.css. The basemap is
+ * photographic, so every surface here is opaque ink with a hairline rule;
+ * translucent panels over satellite imagery are unreadable. */
+
+:root {
+  --ink-0: #0a0a09;
+  --ink-1: #131211;
+  --ink-2: #1c1a18;
+  --line: rgba(242, 237, 229, 0.08);
+  --line-soft: rgba(242, 237, 229, 0.05);
+  --cream-0: #f2ede5;
+  --cream-1: #c9c3ba;
+  --cream-2: #8f8981;
+  --cream-3: #5f5a53;
+  --accent: #ff6b35;
+  --accent-dim: rgba(255, 107, 53, 0.45);
+  --accent-faint: rgba(255, 107, 53, 0.12);
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --rail-h: 52px;
+  --head-h: 56px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ink-0);
+  color: var(--cream-0);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── header ──────────────────────────────────────────────────────────────── */
+
+.head {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: var(--head-h);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 18px;
+  background: var(--ink-0);
+  border-bottom: 1px solid var(--line);
+}
+
+.wordmark {
+  font-family: var(--serif);
+  font-size: 27px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.wordmark span { color: var(--accent); }
+
+.head-stats {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--cream-2);
+  text-transform: uppercase;
+  display: flex;
+  gap: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.head-stats b { color: var(--cream-0); font-weight: 500; }
+
+/* ── map ─────────────────────────────────────────────────────────────────── */
+
+#map {
+  position: absolute;
+  inset: var(--head-h) 0 var(--rail-h) 0;
+  background: var(--ink-0);
+}
+
+.maplibregl-ctrl-attrib {
+  font-family: var(--mono);
+  font-size: 9px !important;
+  background: rgba(10, 10, 9, 0.82) !important;
+  color: var(--cream-3) !important;
+}
+.maplibregl-ctrl-attrib a { color: var(--cream-2) !important; }
+.maplibregl-ctrl-group {
+  background: var(--ink-1) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: none !important;
+}
+.maplibregl-ctrl-group button + button { border-top: 1px solid var(--line) !important; }
+.maplibregl-ctrl-icon { filter: invert(0.82) sepia(0.1); }
+
+/* ── bottom rail: which vector colours the pins ──────────────────────────── */
+
+.rail {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: var(--rail-h);
+  z-index: 30;
+  display: flex;
+  align-items: stretch;
+  background: var(--ink-0);
+  border-top: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.rail::-webkit-scrollbar { display: none; }
+
+.rail-btn {
+  flex: 1 0 auto;
+  min-width: 108px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  background: none;
+  border: 0;
+  border-right: 1px solid var(--line-soft);
+  color: var(--cream-2);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: color 0.16s, background 0.16s;
+  position: relative;
+}
+.rail-btn:hover { color: var(--cream-0); background: var(--ink-1); }
+.rail-btn[aria-pressed="true"] { color: var(--cream-0); background: var(--ink-2); }
+.rail-btn[aria-pressed="true"]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: var(--accent);
+}
+.rail-n { color: var(--cream-3); font-size: 10px; }
+.rail-btn[aria-pressed="true"] .rail-n { color: var(--accent); }
+
+/* ── region rail: the "11 states, 3 countries" story ─────────────────────── */
+
+.regions {
+  position: absolute;
+  top: calc(var(--head-h) + 14px);
+  left: 14px;
+  z-index: 20;
+  width: 168px;
+  max-height: calc(100% - var(--head-h) - var(--rail-h) - 28px);
+  overflow-y: auto;
+  background: var(--ink-0);
+  border: 1px solid var(--line);
+  scrollbar-width: thin;
+}
+.regions.collapsed .region-list { display: none; }
+
+.regions-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 11px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--cream-3);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--line-soft);
+  cursor: pointer;
+  user-select: none;
+}
+.regions-head:hover { color: var(--cream-1); }
+
+.region-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 11px;
+  background: none;
+  border: 0;
+  color: var(--cream-1);
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+  text-align: left;
+}
+.region-row:hover { background: var(--ink-2); color: var(--cream-0); }
+.region-row b { color: var(--cream-3); font-weight: 400; font-size: 10px; }
+.region-row:hover b { color: var(--accent); }
+.region-group {
+  padding: 9px 11px 3px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--cream-3);
+  text-transform: uppercase;
+}
+
+/* ── legend ──────────────────────────────────────────────────────────────── */
+
+.legend {
+  position: absolute;
+  right: 14px;
+  /* clears the MapLibre attribution strip, which sits at the map's bottom edge */
+  bottom: calc(var(--rail-h) + 34px);
+  z-index: 20;
+  background: var(--ink-0);
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--cream-3);
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.legend-title { color: var(--cream-1); margin-bottom: 7px; }
+.legend-ramp {
+  width: 132px;
+  height: 7px;
+  background: linear-gradient(90deg, #f9e3d3, #f6c3a2, #f5a273, #fb864f, #ff6b35);
+}
+.legend-ends { display: flex; justify-content: space-between; margin-top: 5px; }
+.legend-size { margin-top: 9px; padding-top: 8px; border-top: 1px solid var(--line-soft); }
+
+/* ── hover card ──────────────────────────────────────────────────────────── */
+
+.card {
+  position: absolute;
+  z-index: 40;
+  min-width: 172px;
+  max-width: 250px;
+  background: var(--ink-0);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--accent);
+  padding: 10px 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.card.on { opacity: 1; }
+.card-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.15;
+  margin-bottom: 3px;
+}
+.card-place, .card-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--cream-2);
+}
+.card-meta { margin-top: 6px; color: var(--cream-1); }
+.card-meta b { color: var(--accent); font-weight: 500; }
+
+/* ── dossier ─────────────────────────────────────────────────────────────── */
+
+.dossier {
+  position: absolute;
+  top: var(--head-h);
+  right: 0;
+  bottom: var(--rail-h);
+  width: 380px;
+  max-width: 100%;
+  z-index: 35;
+  background: var(--ink-0);
+  border-left: 1px solid var(--line);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+  scrollbar-width: thin;
+}
+.dossier.on { transform: none; }
+
+.dos-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  margin: 8px 10px 0 0;
+  width: 26px;
+  height: 26px;
+  background: var(--ink-1);
+  border: 1px solid var(--line);
+  color: var(--cream-2);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+.dos-close:hover { color: var(--accent); border-color: var(--accent-dim); }
+
+.dos-body { padding: 20px 20px 40px; }
+
+.dos-name {
+  font-family: var(--serif);
+  font-size: 31px;
+  line-height: 1.06;
+  margin: 0 0 6px;
+}
+.dos-place {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--cream-2);
+  text-transform: uppercase;
+}
+
+.spec-rule {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin: 26px 0 11px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.spec-index { font-family: var(--mono); font-size: 10px; color: var(--accent); }
+.spec-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--cream-2);
+  text-transform: uppercase;
+}
+
+.kv { display: grid; grid-template-columns: 96px 1fr; gap: 6px 12px; font-size: 13px; }
+.kv dt {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--cream-3);
+  text-transform: uppercase;
+  padding-top: 2px;
+}
+/* min-width:0 defeats the grid item's default min-width:auto, which otherwise
+   lets a long unbroken URL push the column wider than the panel. */
+.kv dd { margin: 0; min-width: 0; color: var(--cream-0); line-height: 1.45; overflow-wrap: anywhere; }
+.kv dt { min-width: 0; overflow-wrap: anywhere; }
+.kv dd small {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--cream-3);
+  margin-top: 2px;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+.kv a { color: var(--cream-2); text-decoration: none; border-bottom: 1px solid var(--line); }
+.kv a:hover { color: var(--accent); border-color: var(--accent-dim); }
+
+.badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  margin-left: 5px;
+  border: 1px solid var(--line);
+  color: var(--cream-3);
+  vertical-align: 1px;
+}
+.badge.warn { color: var(--accent); border-color: var(--accent-dim); }
+
+/* layout block */
+.layout { margin-bottom: 20px; }
+.layout-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+.layout-name { font-size: 14px; color: var(--cream-0); }
+.layout-rank {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.layout-sub {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--cream-3);
+  letter-spacing: 0.05em;
+  margin-bottom: 9px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 66px 1fr 34px;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 5px;
+}
+.bar-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  color: var(--cream-3);
+  text-transform: uppercase;
+}
+.bar-track { height: 5px; background: var(--ink-2); border-radius: 3px; overflow: hidden; }
+/* display:block is load-bearing: .bar-track is blockified for free as a grid
+   item, but .bar-fill is a plain inline <span> inside it, and width/height do
+   not apply to inline boxes — without this the fill silently never renders. */
+.bar-fill { display: block; height: 100%; border-radius: 3px; background: var(--accent); }
+.bar-val { font-family: var(--mono); font-size: 10px; color: var(--cream-1); text-align: right; }
+
+.flagline {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-top: 7px;
+  line-height: 1.5;
+}
+
+.note { font-size: 12.5px; line-height: 1.55; color: var(--cream-1); }
+.cite {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--cream-3);
+  margin-top: 4px;
+  word-break: break-all;
+}
+.cite a { color: var(--cream-3); }
+
+.empty {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--cream-3);
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+
+/* ── loading / error ─────────────────────────────────────────────────────── */
+
+.boot {
+  position: absolute;
+  inset: var(--head-h) 0 var(--rail-h) 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  background: var(--ink-0);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--cream-3);
+  text-transform: uppercase;
+}
+.boot[hidden] { display: none; }
+
+/* ── mobile ──────────────────────────────────────────────────────────────── */
+
+@media (max-width: 720px) {
+  .head-stats { display: none; }
+  .regions { display: none; }
+  .legend { display: none; }
+  .dossier { width: 100%; top: auto; height: 62%; border-left: 0; border-top: 1px solid var(--line); }
+  .dossier { transform: translateY(100%); }
+  .dossier.on { transform: none; }
+}

@@ -1,0 +1,56 @@
+{
+  "_README": [
+    "Ranking lenses. Each lens is a named set of weights over the vectors that",
+    "build.mjs computes. A lens is a QUESTION, not a verdict — 'which courses",
+    "were most fun' and 'which have the best architecture' are different",
+    "questions and should stay different lenses rather than collapsing into one",
+    "'score'. Weights are relative; build.mjs normalizes them.",
+    "",
+    "Vectors are documented in SPEC.md § Vectors. A weight referencing an",
+    "unknown vector is a validation error, not a silent zero."
+  ],
+
+  "lenses": {
+    "grint": {
+      "label": "As I ranked them",
+      "description": "Your own Grint ordering, untouched. The baseline every other lens is compared against.",
+      "weights": { "personalRank": 1 }
+    },
+
+    "scoring": {
+      "label": "Where I score well",
+      "description": "Average score relative to your overall mean. Null for any layout flagged nine_hole_suspected — a 9-hole 40 is not comparable to an 18-hole 90 and averaging them would rank the short courses easiest.",
+      "weights": { "scoringDelta": 1 }
+    },
+
+    "enjoyment": {
+      "label": "Pure fun",
+      "description": "Fun score, with a nudge for courses you went back to. Ignores conditioning and difficulty entirely.",
+      "weights": { "fun": 3, "replayRate": 1 }
+    },
+
+    "revealed": {
+      "label": "Revealed preference",
+      "description": "What you actually did rather than what you said. Times played dominates — this is where Rancho Park (ranked 59th, played 10 times) argues with your own list.",
+      "weights": { "replayRate": 3, "fun": 1 }
+    },
+
+    "conditioning": {
+      "label": "Best kept",
+      "description": "Condition score alone. Useful for deciding where to take someone who notices turf.",
+      "weights": { "condition": 1 }
+    },
+
+    "underrated": {
+      "label": "Punching above its price",
+      "description": "High fun relative to conditioning — courses that are a good time despite the greens. Cobblestone (85.3 fun / 76.9 condition) is the archetype.",
+      "weights": { "funMinusCondition": 2, "fun": 1 }
+    },
+
+    "architecture": {
+      "label": "Architectural pedigree",
+      "description": "Weighted toward external recognition and named architects rather than your own scores. Sparse until facts.json is filled in — coverage is reported by validate.mjs.",
+      "weights": { "externalRanking": 3, "hasArchitect": 1, "rating": 1 }
+    }
+  }
+}

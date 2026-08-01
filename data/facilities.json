@@ -1,0 +1,941 @@
+{
+  "capturedAt": "2026-08-01",
+  "facilities": [
+    {
+      "slug": "bethpage-state-park-golf-course",
+      "grintName": "Bethpage State Park Golf Course",
+      "locality": "Farmingdale",
+      "region": "NY",
+      "country": "US",
+      "layoutSlugs": [
+        "bethpage-state-park-golf-course--black"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "sleepy-hollow-country-club",
+      "grintName": "Sleepy Hollow Country Club",
+      "locality": "Briarcliff Manor",
+      "region": "NY",
+      "country": "US",
+      "layoutSlugs": [
+        "sleepy-hollow-country-club--upper-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "meadow-club-fairfax",
+      "grintName": "Meadow Club Fairfax",
+      "locality": "Fairfax",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "meadow-club-fairfax"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "kukio-makai-beach-golf-club",
+      "grintName": "Kukio Makai Beach Golf Club",
+      "locality": "Kailua Kona",
+      "region": "HI",
+      "country": "US",
+      "layoutSlugs": [
+        "kukio-makai-beach-golf-club--18-holes"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "edgewood-tahoe-resort-golf",
+      "grintName": "Edgewood Tahoe Resort Golf",
+      "locality": "Stateline",
+      "region": "NV",
+      "country": "US",
+      "layoutSlugs": [
+        "edgewood-tahoe-resort-golf"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "the-creek-club-locust-valley",
+      "grintName": "The Creek Club Locust Valley",
+      "locality": "Locust Valley",
+      "region": "NY",
+      "country": "US",
+      "layoutSlugs": [
+        "the-creek-club-locust-valley"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "tobacco-road-golf-club",
+      "grintName": "Tobacco Road Golf Club",
+      "locality": "Sanford",
+      "region": "NC",
+      "country": "US",
+      "layoutSlugs": [
+        "tobacco-road-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "hualalai-golf-club",
+      "grintName": "Hualalai Golf Club",
+      "locality": "Kailua Kona",
+      "region": "HI",
+      "country": "US",
+      "layoutSlugs": [
+        "hualalai-golf-club--keolu",
+        "hualalai-golf-club--nicklaus-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "pelican-hill-golf-club",
+      "grintName": "Pelican Hill Golf Club",
+      "locality": "Newport Beach",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "pelican-hill-golf-club--ocean-north"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "rustic-canyon-golf-course",
+      "grintName": "Rustic Canyon Golf Course",
+      "locality": "Moorpark",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "rustic-canyon-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "royal-westmoreland-golf",
+      "grintName": "Royal Westmoreland Golf",
+      "locality": "Forest Hills",
+      "region": "St. James",
+      "country": "BB",
+      "layoutSlugs": [
+        "royal-westmoreland-golf"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "cantigny-golf-and-tennis-club",
+      "grintName": "Cantigny Golf & Tennis Club",
+      "locality": "Wheaton",
+      "region": "IL",
+      "country": "US",
+      "layoutSlugs": [
+        "cantigny-golf-and-tennis-club--lakeside-hillside"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "pga-west-stadium-clubhouse",
+      "grintName": "PGA West Stadium Clubhouse",
+      "locality": "La Quinta",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "pga-west-stadium-clubhouse--stadium-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "cherokee-run-golf-club",
+      "grintName": "Cherokee Run Golf Club",
+      "locality": "Conyers",
+      "region": "GA",
+      "country": "US",
+      "layoutSlugs": [
+        "cherokee-run-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "sandy-lane-golf-club",
+      "grintName": "Sandy Lane Golf Club",
+      "locality": "St. James",
+      "region": "St. James",
+      "country": "BB",
+      "layoutSlugs": [
+        "sandy-lane-golf-club--the-country-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "tpc-toronto-at-osprey-valley",
+      "grintName": "TPC Toronto at Osprey Valley",
+      "locality": "Caledon",
+      "region": "ON",
+      "country": "CA",
+      "layoutSlugs": [
+        "tpc-toronto-at-osprey-valley--hoot",
+        "tpc-toronto-at-osprey-valley--north"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "university-of-michigan-golf-course",
+      "grintName": "University Of Michigan Golf Course",
+      "locality": "Ann Arbor",
+      "region": "MI",
+      "country": "US",
+      "layoutSlugs": [
+        "university-of-michigan-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "ojai-valley-inn-and-spa",
+      "grintName": "Ojai Valley Inn and Spa",
+      "locality": "Ojai",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "ojai-valley-inn-and-spa"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "serket-golf-club",
+      "grintName": "Serket Golf Club",
+      "locality": "Henderson",
+      "region": "NV",
+      "country": "US",
+      "layoutSlugs": [
+        "serket-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "lanier-islands-golf-course",
+      "grintName": "Lanier Islands Golf Course",
+      "locality": "Buford",
+      "region": "GA",
+      "country": "US",
+      "layoutSlugs": [
+        "lanier-islands-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "coyote-moon-golf-course",
+      "grintName": "Coyote Moon Golf Course",
+      "locality": "Truckee",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "coyote-moon-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "las-vegas-paiute-golf-resort",
+      "grintName": "Las Vegas Paiute Golf Resort",
+      "locality": "Las Vegas",
+      "region": "NV",
+      "country": "US",
+      "layoutSlugs": [
+        "las-vegas-paiute-golf-resort--wolf",
+        "las-vegas-paiute-golf-resort--snow-mountain"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "oak-quarry-golf-club",
+      "grintName": "Oak Quarry Golf Club",
+      "locality": "Riverside",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "oak-quarry-golf-club--commemorative-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "mid-south-club",
+      "grintName": "Mid South Club",
+      "locality": "Southern Pines",
+      "region": "NC",
+      "country": "US",
+      "layoutSlugs": [
+        "mid-south-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "oakcreek-country-club",
+      "grintName": "Oakcreek Country Club",
+      "locality": "Sedona",
+      "region": "AZ",
+      "country": "US",
+      "layoutSlugs": [
+        "oakcreek-country-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "sandpiper-golf-course",
+      "grintName": "Sandpiper Golf Course",
+      "locality": "Goleta",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "sandpiper-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "grayhawk-golf-club",
+      "grintName": "Grayhawk Golf Club",
+      "locality": "Scottsdale",
+      "region": "AZ",
+      "country": "US",
+      "layoutSlugs": [
+        "grayhawk-golf-club--raptor"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "sunningdale-golf-and-country-club",
+      "grintName": "Sunningdale Golf & Country Club",
+      "locality": "London",
+      "region": "ON",
+      "country": "CA",
+      "layoutSlugs": [
+        "sunningdale-golf-and-country-club--new-sunningdale"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "cinnabar-hills-golf-club",
+      "grintName": "Cinnabar Hills Golf Club",
+      "locality": "San Jose",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "cinnabar-hills-golf-club--canyon-lake"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "indian-wells-golf-resort",
+      "grintName": "Indian Wells Golf Resort",
+      "locality": "Indian Wells",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "indian-wells-golf-resort--celebrity"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "tahoe-donner-golf-course",
+      "grintName": "Tahoe Donner Golf Course",
+      "locality": "Truckee",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "tahoe-donner-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "tpc-of-scottsdale",
+      "grintName": "Tpc Of Scottsdale",
+      "locality": "Scottsdale",
+      "region": "AZ",
+      "country": "US",
+      "layoutSlugs": [
+        "tpc-of-scottsdale--champions"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "legends-on-the-niagara-golf-club",
+      "grintName": "Legends On The Niagara Golf Club",
+      "locality": "Niagara Falls",
+      "region": "ON",
+      "country": "CA",
+      "layoutSlugs": [
+        "legends-on-the-niagara-golf-club--usshers-creek",
+        "legends-on-the-niagara-golf-club--battlefield"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "temecula-creek-golf-club",
+      "grintName": "Temecula Creek Golf Club",
+      "locality": "Temecula",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "temecula-creek-golf-club--oaks-creek",
+        "temecula-creek-golf-club--creek-stonehouse"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "heritage-palms-golf-club",
+      "grintName": "Heritage Palms Golf Club",
+      "locality": "Indio",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "heritage-palms-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "scottsdale-silverado-golf-club",
+      "grintName": "Scottsdale Silverado Golf Club",
+      "locality": "Scottsdale",
+      "region": "AZ",
+      "country": "US",
+      "layoutSlugs": [
+        "scottsdale-silverado-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "cross-creek-golf-club",
+      "grintName": "Cross Creek Golf Club",
+      "locality": "Temecula",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "cross-creek-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "moorpark-country-club",
+      "grintName": "Moorpark Country Club",
+      "locality": "Moorpark",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "moorpark-country-club--canyon-crest-ridgeline"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "leslie-park-golf-course",
+      "grintName": "Leslie Park Golf Course",
+      "locality": "Ann Arbor",
+      "region": "MI",
+      "country": "US",
+      "layoutSlugs": [
+        "leslie-park-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "waikoloa-beach-and-kings-golf-course",
+      "grintName": "Waikoloa Beach & Kings' Golf Course",
+      "locality": "Waikoloa",
+      "region": "HI",
+      "country": "US",
+      "layoutSlugs": [
+        "waikoloa-beach-and-kings-golf-course--beach-kings"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "cobblestone-golf-course",
+      "grintName": "Cobblestone Golf Course",
+      "locality": "Acworth",
+      "region": "GA",
+      "country": "US",
+      "layoutSlugs": [
+        "cobblestone-golf-course--acworth"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "shawneeki-golf-club",
+      "grintName": "Shawneeki Golf Club",
+      "locality": "Ontario",
+      "region": "ON",
+      "country": "CA",
+      "layoutSlugs": [
+        "shawneeki-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "black-gold-golf-club",
+      "grintName": "Black Gold Golf Club",
+      "locality": "Yorba Linda",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "black-gold-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "heron-lakes-golf-course",
+      "grintName": "Heron Lakes Golf Course",
+      "locality": "Portland",
+      "region": "OR",
+      "country": "US",
+      "layoutSlugs": [
+        "heron-lakes-golf-course--great-blue",
+        "heron-lakes-golf-course--greenback"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "the-club-at-bond-head",
+      "grintName": "The Club At Bond Head",
+      "locality": "Tecumseth",
+      "region": "ON",
+      "country": "CA",
+      "layoutSlugs": [
+        "the-club-at-bond-head--south"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "industry-hills-golf-club-at-pacific-palms-resort",
+      "grintName": "Industry Hills Golf Club At Pacific Palms Resort",
+      "locality": "La Puente",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "industry-hills-golf-club-at-pacific-palms-resort--dwight-eisenhower",
+        "industry-hills-golf-club-at-pacific-palms-resort--babe-zaharias"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "makani-golf-club",
+      "grintName": "Makani Golf Club",
+      "locality": "Kailua-kona",
+      "region": "HI",
+      "country": "US",
+      "layoutSlugs": [
+        "makani-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "eagle-vines-golf-club",
+      "grintName": "Eagle Vines Golf Club",
+      "locality": "American Canyon",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "eagle-vines-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "tierra-rejada-golf-club",
+      "grintName": "Tierra Rejada Golf Club",
+      "locality": "Moorpark",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "tierra-rejada-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "coyote-creek-golf-club",
+      "grintName": "Coyote Creek Golf Club",
+      "locality": "Morgan Hill",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "coyote-creek-golf-club--valley-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "angeles-national-golf-club",
+      "grintName": "Angeles National Golf Club",
+      "locality": "Sunland",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "angeles-national-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "cherry-downs-golf-and-count",
+      "grintName": "Cherry Downs Golf & Count",
+      "locality": "Pickering",
+      "region": "ON",
+      "country": "CA",
+      "layoutSlugs": [
+        "cherry-downs-golf-and-count"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "lake-forest-golf-club",
+      "grintName": "Lake Forest Golf Club",
+      "locality": "Ann Arbor",
+      "region": "MI",
+      "country": "US",
+      "layoutSlugs": [
+        "lake-forest-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "rancho-park-golf-club",
+      "grintName": "Rancho Park Golf Club",
+      "locality": "Los Angeles",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "rancho-park-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "griffith-park-golf-club",
+      "grintName": "Griffith Park Golf Club",
+      "locality": "Los Angeles",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "griffith-park-golf-club--wilson",
+        "griffith-park-golf-club--harding"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "los-robles-greens-golf-course",
+      "grintName": "Los Robles Greens Golf Course",
+      "locality": "Westlake Village",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "los-robles-greens-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "tilden-park-golf-course",
+      "grintName": "Tilden Park Golf Course",
+      "locality": "Berkeley",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "tilden-park-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "indian-spring-country-club",
+      "grintName": "Indian Spring Country Club",
+      "locality": "Marlton",
+      "region": "NJ",
+      "country": "US",
+      "layoutSlugs": [
+        "indian-spring-country-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "barbados-golf-club",
+      "grintName": "Barbados Golf Club",
+      "locality": "Barbados",
+      "region": null,
+      "country": "BB",
+      "layoutSlugs": [
+        "barbados-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "knollwood-golf-club",
+      "grintName": "Knollwood Golf Club",
+      "locality": "Granada Hills",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "knollwood-golf-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "redhawk-golf-course",
+      "grintName": "Redhawk Golf Course",
+      "locality": "Temecula",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "redhawk-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "don-valley-golf-course",
+      "grintName": "Don Valley Golf Course",
+      "locality": "North York",
+      "region": "ON",
+      "country": "CA",
+      "layoutSlugs": [
+        "don-valley-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "brookside-golf-club",
+      "grintName": "Brookside Golf Club",
+      "locality": "Pasadena",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "brookside-golf-club--c-w-koiner-course-1",
+        "brookside-golf-club--e-o-nay-course-2"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "the-links-golf-club",
+      "grintName": "The Links Golf Club",
+      "locality": "Marlton",
+      "region": "NJ",
+      "country": "US",
+      "layoutSlugs": [
+        "the-links-golf-club--marlton"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "ron-jaworskis-valleybrook-golf-course",
+      "grintName": "Ron Jaworskis Valleybrook Golf Course",
+      "locality": "Blackwood",
+      "region": "NJ",
+      "country": "US",
+      "layoutSlugs": [
+        "ron-jaworskis-valleybrook-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "montebello-golf-course",
+      "grintName": "Montebello Golf Course",
+      "locality": "Montebello",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "montebello-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "roosevelt-municipal-golf-course",
+      "grintName": "Roosevelt Municipal Golf Course",
+      "locality": "Los Angeles",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "roosevelt-municipal-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "manhattan-country-club",
+      "grintName": "Manhattan Country Club",
+      "locality": "Manhattan Beach",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "manhattan-country-club--westdrift"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "eastmoreland-golf-course",
+      "grintName": "Eastmoreland Golf Course",
+      "locality": "Portland",
+      "region": "OR",
+      "country": "US",
+      "layoutSlugs": [
+        "eastmoreland-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "wedgwood-country-club",
+      "grintName": "Wedgwood Country Club",
+      "locality": "Turnersville",
+      "region": "NJ",
+      "country": "US",
+      "layoutSlugs": [
+        "wedgwood-country-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "forest-park-golf-course",
+      "grintName": "Forest Park Golf Course",
+      "locality": "Woodhaven",
+      "region": "NY",
+      "country": "US",
+      "layoutSlugs": [
+        "forest-park-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "van-cortlandt-park-golf-course",
+      "grintName": "Van Cortlandt Park Golf Course",
+      "locality": "Bronx",
+      "region": "NY",
+      "country": "US",
+      "layoutSlugs": [
+        "van-cortlandt-park-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "ramblewood-country-club",
+      "grintName": "Ramblewood Country Club",
+      "locality": "Mt. Laurel",
+      "region": "NJ",
+      "country": "US",
+      "layoutSlugs": [
+        "ramblewood-country-club--blue-red"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "sepulveda-golf-complex",
+      "grintName": "Sepulveda Golf Club",
+      "locality": "Encino",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "sepulveda-golf-complex--balboa",
+        "sepulveda-golf-complex--encino"
+      ],
+      "aliases": [
+        "Sepulveda Golf Club"
+      ]
+    },
+    {
+      "slug": "penmar-golf-course",
+      "grintName": "Penmar Golf Course",
+      "locality": "Venice",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "penmar-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "billy-caldwell-golf-course",
+      "grintName": "Billy Caldwell Golf Course",
+      "locality": "Chicago",
+      "region": "IL",
+      "country": "US",
+      "layoutSlugs": [
+        "billy-caldwell-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "alhambra-golf-course",
+      "grintName": "Alhambra Golf Course",
+      "locality": "Alhambra",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "alhambra-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "hidden-valley-lake-golf-and-country-club",
+      "grintName": "Hidden Valley Lake Golf & Country Club",
+      "locality": "Hidden Valley Lake",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "hidden-valley-lake-golf-and-country-club"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "jackson-park-golf-course",
+      "grintName": "Jackson Park Golf Course",
+      "locality": "Chicago",
+      "region": "IL",
+      "country": "US",
+      "layoutSlugs": [
+        "jackson-park-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "scholl-canyon-golf-course",
+      "grintName": "Scholl Canyon Golf Course",
+      "locality": "Glendale",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "scholl-canyon-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "kresson-golf-course",
+      "grintName": "Kresson Golf Course",
+      "locality": "Voorhees",
+      "region": "NJ",
+      "country": "US",
+      "layoutSlugs": [
+        "kresson-golf-course"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "lakewood-country-club-and-tennis-center",
+      "grintName": "Lakewood Country Club & Tennis Center",
+      "locality": "Lakewood",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "lakewood-country-club-and-tennis-center"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "whittier-narrows-golf-course",
+      "grintName": "Whittier Narrows Golf Course",
+      "locality": "Rosemead",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "whittier-narrows-golf-course--river-pine"
+      ],
+      "aliases": []
+    },
+    {
+      "slug": "westchester-golf-course",
+      "grintName": "Westchester Golf Course",
+      "locality": "Westchester",
+      "region": "CA",
+      "country": "US",
+      "layoutSlugs": [
+        "westchester-golf-course"
+      ],
+      "aliases": []
+    }
+  ]
+}
