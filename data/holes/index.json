@@ -1,0 +1,686 @@
+{
+  "bethpage-state-park-golf-course": {
+    "features": 923,
+    "greens": 96,
+    "holes": 90,
+    "bunkers": 270,
+    "water": 3,
+    "plan": true,
+    "bytes": 418086
+  },
+  "sleepy-hollow-country-club": {
+    "features": 292,
+    "greens": 30,
+    "holes": 18,
+    "bunkers": 105,
+    "water": 18,
+    "plan": true,
+    "bytes": 113575
+  },
+  "meadow-club-fairfax": {
+    "features": 292,
+    "greens": 21,
+    "holes": 18,
+    "bunkers": 99,
+    "water": 22,
+    "plan": true,
+    "bytes": 126935
+  },
+  "edgewood-tahoe-resort-golf": {
+    "features": 261,
+    "greens": 29,
+    "holes": 18,
+    "bunkers": 65,
+    "water": 3,
+    "plan": true,
+    "bytes": 163684
+  },
+  "tobacco-road-golf-club": {
+    "features": 292,
+    "greens": 19,
+    "holes": 18,
+    "bunkers": 133,
+    "water": 7,
+    "plan": true,
+    "bytes": 186226
+  },
+  "hualalai-golf-club": {
+    "features": 29,
+    "greens": 2,
+    "holes": 12,
+    "bunkers": 0,
+    "water": 0,
+    "plan": false,
+    "bytes": 14461
+  },
+  "pelican-hill-golf-club": {
+    "features": 49,
+    "greens": 9,
+    "holes": 18,
+    "bunkers": 14,
+    "water": 3,
+    "plan": true,
+    "bytes": 20426
+  },
+  "rustic-canyon-golf-course": {
+    "features": 238,
+    "greens": 19,
+    "holes": 18,
+    "bunkers": 70,
+    "water": 1,
+    "plan": true,
+    "bytes": 136031
+  },
+  "royal-westmoreland-golf": {
+    "features": 1,
+    "greens": 0,
+    "holes": 0,
+    "bunkers": 0,
+    "water": 1,
+    "plan": false,
+    "bytes": 472
+  },
+  "cantigny-golf-and-tennis-club": {
+    "features": 320,
+    "greens": 25,
+    "holes": 27,
+    "bunkers": 85,
+    "water": 13,
+    "plan": true,
+    "bytes": 167971
+  },
+  "pga-west-stadium-clubhouse": {
+    "features": 261,
+    "greens": 18,
+    "holes": 18,
+    "bunkers": 92,
+    "water": 8,
+    "plan": true,
+    "bytes": 114132
+  },
+  "cherokee-run-golf-club": {
+    "features": 208,
+    "greens": 18,
+    "holes": 17,
+    "bunkers": 71,
+    "water": 14,
+    "plan": true,
+    "bytes": 77114
+  },
+  "sandy-lane-golf-club": {
+    "features": 8,
+    "greens": 1,
+    "holes": 0,
+    "bunkers": 7,
+    "water": 0,
+    "plan": false,
+    "bytes": 2551
+  },
+  "tpc-toronto-at-osprey-valley": {
+    "features": 890,
+    "greens": 62,
+    "holes": 18,
+    "bunkers": 307,
+    "water": 24,
+    "plan": true,
+    "bytes": 475603
+  },
+  "university-of-michigan-golf-course": {
+    "features": 205,
+    "greens": 21,
+    "holes": 18,
+    "bunkers": 57,
+    "water": 3,
+    "plan": true,
+    "bytes": 88970
+  },
+  "ojai-valley-inn-and-spa": {
+    "features": 144,
+    "greens": 19,
+    "holes": 10,
+    "bunkers": 56,
+    "water": 0,
+    "plan": true,
+    "bytes": 74561
+  },
+  "coyote-moon-golf-course": {
+    "features": 199,
+    "greens": 20,
+    "holes": 18,
+    "bunkers": 33,
+    "water": 3,
+    "plan": true,
+    "bytes": 126008
+  },
+  "las-vegas-paiute-golf-resort": {
+    "features": 131,
+    "greens": 19,
+    "holes": 18,
+    "bunkers": 37,
+    "water": 1,
+    "plan": true,
+    "bytes": 55570
+  },
+  "oak-quarry-golf-club": {
+    "features": 265,
+    "greens": 21,
+    "holes": 18,
+    "bunkers": 68,
+    "water": 5,
+    "plan": true,
+    "bytes": 155217
+  },
+  "mid-south-club": {
+    "features": 122,
+    "greens": 18,
+    "holes": 16,
+    "bunkers": 53,
+    "water": 6,
+    "plan": true,
+    "bytes": 75716
+  },
+  "oakcreek-country-club": {
+    "features": 21,
+    "greens": 3,
+    "holes": 0,
+    "bunkers": 12,
+    "water": 4,
+    "plan": false,
+    "bytes": 11891
+  },
+  "sandpiper-golf-course": {
+    "features": 189,
+    "greens": 20,
+    "holes": 18,
+    "bunkers": 66,
+    "water": 6,
+    "plan": true,
+    "bytes": 76590
+  },
+  "grayhawk-golf-club": {
+    "features": 247,
+    "greens": 25,
+    "holes": 18,
+    "bunkers": 62,
+    "water": 2,
+    "plan": true,
+    "bytes": 148354
+  },
+  "sunningdale-golf-and-country-club": {
+    "features": 318,
+    "greens": 124,
+    "holes": 19,
+    "bunkers": 78,
+    "water": 8,
+    "plan": true,
+    "bytes": 118010
+  },
+  "cinnabar-hills-golf-club": {
+    "features": 394,
+    "greens": 30,
+    "holes": 26,
+    "bunkers": 106,
+    "water": 27,
+    "plan": true,
+    "bytes": 166658
+  },
+  "indian-wells-golf-resort": {
+    "features": 270,
+    "greens": 19,
+    "holes": 19,
+    "bunkers": 105,
+    "water": 11,
+    "plan": true,
+    "bytes": 177289
+  },
+  "tahoe-donner-golf-course": {
+    "features": 177,
+    "greens": 19,
+    "holes": 18,
+    "bunkers": 65,
+    "water": 0,
+    "plan": true,
+    "bytes": 73156
+  },
+  "tpc-of-scottsdale": {
+    "features": 239,
+    "greens": 25,
+    "holes": 18,
+    "bunkers": 72,
+    "water": 4,
+    "plan": true,
+    "bytes": 161368
+  },
+  "legends-on-the-niagara-golf-club": {
+    "features": 634,
+    "greens": 56,
+    "holes": 42,
+    "bunkers": 217,
+    "water": 28,
+    "plan": true,
+    "bytes": 291384
+  },
+  "temecula-creek-golf-club": {
+    "features": 145,
+    "greens": 18,
+    "holes": 18,
+    "bunkers": 43,
+    "water": 6,
+    "plan": true,
+    "bytes": 63001
+  },
+  "heritage-palms-golf-club": {
+    "features": 7,
+    "greens": 0,
+    "holes": 0,
+    "bunkers": 0,
+    "water": 6,
+    "plan": false,
+    "bytes": 6281
+  },
+  "scottsdale-silverado-golf-club": {
+    "features": 11,
+    "greens": 0,
+    "holes": 0,
+    "bunkers": 0,
+    "water": 11,
+    "plan": false,
+    "bytes": 4259
+  },
+  "cross-creek-golf-club": {
+    "features": 179,
+    "greens": 18,
+    "holes": 17,
+    "bunkers": 46,
+    "water": 3,
+    "plan": true,
+    "bytes": 53505
+  },
+  "moorpark-country-club": {
+    "features": 371,
+    "greens": 37,
+    "holes": 27,
+    "bunkers": 77,
+    "water": 3,
+    "plan": true,
+    "bytes": 188389
+  },
+  "leslie-park-golf-course": {
+    "features": 202,
+    "greens": 19,
+    "holes": 17,
+    "bunkers": 27,
+    "water": 7,
+    "plan": true,
+    "bytes": 91346
+  },
+  "waikoloa-beach-and-kings-golf-course": {
+    "features": 48,
+    "greens": 5,
+    "holes": 4,
+    "bunkers": 18,
+    "water": 0,
+    "plan": false,
+    "bytes": 21706
+  },
+  "cobblestone-golf-course": {
+    "features": 170,
+    "greens": 19,
+    "holes": 18,
+    "bunkers": 43,
+    "water": 3,
+    "plan": true,
+    "bytes": 70841
+  },
+  "shawneeki-golf-club": {
+    "features": 275,
+    "greens": 21,
+    "holes": 18,
+    "bunkers": 70,
+    "water": 12,
+    "plan": true,
+    "bytes": 116407
+  },
+  "black-gold-golf-club": {
+    "features": 214,
+    "greens": 20,
+    "holes": 17,
+    "bunkers": 65,
+    "water": 2,
+    "plan": true,
+    "bytes": 84449
+  },
+  "heron-lakes-golf-course": {
+    "features": 396,
+    "greens": 41,
+    "holes": 35,
+    "bunkers": 161,
+    "water": 18,
+    "plan": true,
+    "bytes": 193837
+  },
+  "the-club-at-bond-head": {
+    "features": 565,
+    "greens": 37,
+    "holes": 36,
+    "bunkers": 216,
+    "water": 17,
+    "plan": true,
+    "bytes": 268339
+  },
+  "industry-hills-golf-club-at-pacific-palms-resort": {
+    "features": 232,
+    "greens": 21,
+    "holes": 18,
+    "bunkers": 95,
+    "water": 4,
+    "plan": true,
+    "bytes": 109300
+  },
+  "makani-golf-club": {
+    "features": 45,
+    "greens": 5,
+    "holes": 0,
+    "bunkers": 32,
+    "water": 8,
+    "plan": false,
+    "bytes": 22443
+  },
+  "eagle-vines-golf-club": {
+    "features": 102,
+    "greens": 15,
+    "holes": 0,
+    "bunkers": 20,
+    "water": 13,
+    "plan": true,
+    "bytes": 57415
+  },
+  "coyote-creek-golf-club": {
+    "features": 235,
+    "greens": 18,
+    "holes": 18,
+    "bunkers": 52,
+    "water": 28,
+    "plan": true,
+    "bytes": 107598
+  },
+  "angeles-national-golf-club": {
+    "features": 244,
+    "greens": 21,
+    "holes": 16,
+    "bunkers": 55,
+    "water": 7,
+    "plan": true,
+    "bytes": 144651
+  },
+  "cherry-downs-golf-and-count": {
+    "features": 180,
+    "greens": 18,
+    "holes": 18,
+    "bunkers": 43,
+    "water": 20,
+    "plan": true,
+    "bytes": 83904
+  },
+  "lake-forest-golf-club": {
+    "features": 214,
+    "greens": 19,
+    "holes": 18,
+    "bunkers": 55,
+    "water": 6,
+    "plan": true,
+    "bytes": 80807
+  },
+  "rancho-park-golf-club": {
+    "features": 174,
+    "greens": 20,
+    "holes": 18,
+    "bunkers": 32,
+    "water": 0,
+    "plan": true,
+    "bytes": 58193
+  },
+  "los-robles-greens-golf-course": {
+    "features": 137,
+    "greens": 20,
+    "holes": 18,
+    "bunkers": 37,
+    "water": 2,
+    "plan": true,
+    "bytes": 62379
+  },
+  "tilden-park-golf-course": {
+    "features": 150,
+    "greens": 20,
+    "holes": 18,
+    "bunkers": 14,
+    "water": 1,
+    "plan": true,
+    "bytes": 60837
+  },
+  "indian-spring-country-club": {
+    "features": 57,
+    "greens": 4,
+    "holes": 18,
+    "bunkers": 9,
+    "water": 17,
+    "plan": false,
+    "bytes": 17983
+  },
+  "barbados-golf-club": {
+    "features": 30,
+    "greens": 0,
+    "holes": 0,
+    "bunkers": 27,
+    "water": 2,
+    "plan": false,
+    "bytes": 11265
+  },
+  "knollwood-golf-club": {
+    "features": 111,
+    "greens": 18,
+    "holes": 18,
+    "bunkers": 39,
+    "water": 2,
+    "plan": true,
+    "bytes": 41513
+  },
+  "redhawk-golf-course": {
+    "features": 260,
+    "greens": 18,
+    "holes": 18,
+    "bunkers": 69,
+    "water": 10,
+    "plan": true,
+    "bytes": 139163
+  },
+  "don-valley-golf-course": {
+    "features": 199,
+    "greens": 17,
+    "holes": 17,
+    "bunkers": 42,
+    "water": 13,
+    "plan": true,
+    "bytes": 85782
+  },
+  "brookside-golf-club": {
+    "features": 324,
+    "greens": 36,
+    "holes": 36,
+    "bunkers": 85,
+    "water": 4,
+    "plan": true,
+    "bytes": 131108
+  },
+  "ron-jaworskis-valleybrook-golf-course": {
+    "features": 148,
+    "greens": 23,
+    "holes": 0,
+    "bunkers": 25,
+    "water": 13,
+    "plan": true,
+    "bytes": 62475
+  },
+  "montebello-golf-course": {
+    "features": 8,
+    "greens": 0,
+    "holes": 0,
+    "bunkers": 0,
+    "water": 0,
+    "plan": false,
+    "bytes": 10952
+  },
+  "roosevelt-municipal-golf-course": {
+    "features": 42,
+    "greens": 9,
+    "holes": 9,
+    "bunkers": 10,
+    "water": 0,
+    "plan": true,
+    "bytes": 13319
+  },
+  "eastmoreland-golf-course": {
+    "features": 166,
+    "greens": 20,
+    "holes": 18,
+    "bunkers": 33,
+    "water": 7,
+    "plan": true,
+    "bytes": 61182
+  },
+  "wedgwood-country-club": {
+    "features": 140,
+    "greens": 19,
+    "holes": 0,
+    "bunkers": 65,
+    "water": 4,
+    "plan": true,
+    "bytes": 54383
+  },
+  "forest-park-golf-course": {
+    "features": 122,
+    "greens": 20,
+    "holes": 18,
+    "bunkers": 8,
+    "water": 1,
+    "plan": true,
+    "bytes": 40719
+  },
+  "van-cortlandt-park-golf-course": {
+    "features": 115,
+    "greens": 14,
+    "holes": 14,
+    "bunkers": 16,
+    "water": 2,
+    "plan": true,
+    "bytes": 47876
+  },
+  "ramblewood-country-club": {
+    "features": 28,
+    "greens": 0,
+    "holes": 0,
+    "bunkers": 0,
+    "water": 27,
+    "plan": false,
+    "bytes": 10927
+  },
+  "sepulveda-golf-complex": {
+    "features": 165,
+    "greens": 18,
+    "holes": 18,
+    "bunkers": 52,
+    "water": 0,
+    "plan": true,
+    "bytes": 58414
+  },
+  "penmar-golf-course": {
+    "features": 56,
+    "greens": 11,
+    "holes": 9,
+    "bunkers": 9,
+    "water": 0,
+    "plan": true,
+    "bytes": 17371
+  },
+  "billy-caldwell-golf-course": {
+    "features": 56,
+    "greens": 10,
+    "holes": 9,
+    "bunkers": 0,
+    "water": 1,
+    "plan": true,
+    "bytes": 25628
+  },
+  "alhambra-golf-course": {
+    "features": 115,
+    "greens": 18,
+    "holes": 18,
+    "bunkers": 28,
+    "water": 4,
+    "plan": true,
+    "bytes": 46092
+  },
+  "hidden-valley-lake-golf-and-country-club": {
+    "features": 11,
+    "greens": 1,
+    "holes": 0,
+    "bunkers": 1,
+    "water": 3,
+    "plan": false,
+    "bytes": 9373
+  },
+  "jackson-park-golf-course": {
+    "features": 168,
+    "greens": 21,
+    "holes": 18,
+    "bunkers": 41,
+    "water": 1,
+    "plan": true,
+    "bytes": 56069
+  },
+  "scholl-canyon-golf-course": {
+    "features": 97,
+    "greens": 18,
+    "holes": 17,
+    "bunkers": 29,
+    "water": 0,
+    "plan": true,
+    "bytes": 38979
+  },
+  "kresson-golf-course": {
+    "features": 17,
+    "greens": 0,
+    "holes": 0,
+    "bunkers": 0,
+    "water": 16,
+    "plan": false,
+    "bytes": 9438
+  },
+  "lakewood-country-club-and-tennis-center": {
+    "features": 97,
+    "greens": 21,
+    "holes": 18,
+    "bunkers": 32,
+    "water": 1,
+    "plan": true,
+    "bytes": 31486
+  },
+  "whittier-narrows-golf-course": {
+    "features": 178,
+    "greens": 27,
+    "holes": 27,
+    "bunkers": 52,
+    "water": 1,
+    "plan": true,
+    "bytes": 60444
+  },
+  "westchester-golf-course": {
+    "features": 203,
+    "greens": 19,
+    "holes": 18,
+    "bunkers": 19,
+    "water": 1,
+    "plan": true,
+    "bytes": 73281
+  }
+}

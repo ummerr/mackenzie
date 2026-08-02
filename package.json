@@ -9,8 +9,9 @@
     "parse": "node scripts/parse-grint.mjs",
     "geocode": "node scripts/geocode.mjs",
     "osm": "node scripts/fetch-osm.mjs",
+    "holes": "node scripts/fetch-holes.mjs",
     "build": "node scripts/build.mjs",
     "validate": "node scripts/validate.mjs",
-    "all": "npm run parse && npm run geocode && npm run osm && npm run build && npm run validate"
+    "all": "npm run parse && npm run geocode && npm run osm && npm run holes && npm run build && npm run validate"
   }
 }
