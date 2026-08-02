@@ -15,6 +15,53 @@ const TOKENS = {
   accent: "#ff6b35",
 };
 
+/* The course palette — the colours a golf course is drawn in once you're close
+ * enough to read one.
+ *
+ * A printed routing plan is cream paper, green turf, tan sand, blue water. This
+ * is that palette moved onto an ink ground: every turf value is dark enough to
+ * sit under the cream chrome without glowing, but the four surfaces stay
+ * *nameable* — rough, fairway, green, sand — which is the whole job. Lightness
+ * climbs in order of how short the grass is cut (0.28 → 0.38 → 0.51), which is
+ * a real gradient a golfer already reads without being taught it.
+ *
+ * Sand is the one deliberately loud value: at L 0.84 it is the brightest thing
+ * on the map after the hole lines, because on a course drawing bunkers are the
+ * shape you navigate by. Water is pushed cold and dark so it separates from
+ * turf by hue as well as lightness, which matters at z14 where a pond and a
+ * green are the same few pixels.
+ *
+ * The hole centrelines are the site accent, unchanged. Orange on green is the
+ * widest hue separation available in this palette, and the routing is the one
+ * layer that must never be mistaken for terrain. */
+const TURF = {
+  /* The property, laid over the aerial to quiet the photo. Deliberately a turf
+   * value and not a neutral dark: at 0.88 over a city this is most of what you
+   * see of a course with no fairways mapped, and a near-black wash reads as a
+   * hole cut in the map rather than as ground. The 12% of aerial left showing
+   * through supplies the mottling that keeps it from looking like flat paint. */
+  wash: "#1a2e20",
+  rough: "#1b3325",
+  fairway: "#2f5f42",
+  green: "#63b07a",
+  greenEdge: "#8fd0a1",
+  tee: "#3d7351",
+  sand: "#e0cfa8",
+  sandEdge: "#93805a",
+  water: "#1b4a5e",
+  waterEdge: "#4f9db8",
+  /* A penalty area that is not a pond — the barranca at Rustic Canyon, desert
+   * waste, a staked scrub line. Red because that is what the stakes are, which
+   * is a convention every golfer already carries. Painting these blue, which is
+   * what happens if you file `golf=penalty_area` under water, turns a dry
+   * arroyo course into a chain of lakes. */
+  penalty: "#4a2f26",
+  penaltyEdge: "#a35a3c",
+  wood: "#14261a",
+  path: "#a49b8d",
+  hole: "#ff6b35",
+};
+
 /* Sequential ramp for lens scores: cool = low, hot = high.
  *
  * Two hue poles, not one — teal (OKLCH h≈196) through a near-neutral cream to

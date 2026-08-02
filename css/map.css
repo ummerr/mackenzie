@@ -81,6 +81,21 @@ html, body {
   background: var(--ink-0);
 }
 
+/* Vignette. The oldest trick on a printed map and still the cheapest: darkening
+   the corners pulls the eye to the middle and, more usefully here, gives the
+   panels pinned to each edge a ground to sit on instead of floating over a
+   bright ocean. Sits above the canvas and below every control. */
+#map::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 45%, transparent 42%, rgba(10, 10, 9, 0.5) 100%),
+    linear-gradient(to bottom, rgba(10, 10, 9, 0.34), transparent 14%, transparent 86%, rgba(10, 10, 9, 0.34));
+}
+
 .maplibregl-ctrl-attrib {
   font-family: var(--mono);
   font-size: 9px !important;
@@ -95,6 +110,77 @@ html, body {
 }
 .maplibregl-ctrl-group button + button { border-top: 1px solid var(--line) !important; }
 .maplibregl-ctrl-icon { filter: invert(0.82) sepia(0.1); }
+
+/* ── map furniture: scale, rose, plan toggle ─────────────────────────────── */
+
+/* All three live in MapLibre's bottom-left corner so they stack themselves.
+   Bottom-left is the only corner not claimed by the region panel, the legend,
+   the attribution or the dossier. */
+.maplibregl-ctrl-bottom-left { margin-bottom: 6px; }
+.maplibregl-ctrl-bottom-left .maplibregl-ctrl { margin: 0 0 8px 14px; }
+
+.maplibregl-ctrl-scale {
+  background: var(--ink-0) !important;
+  border: 1px solid var(--line) !important;
+  border-top: 0 !important;
+  color: var(--cream-2) !important;
+  font-family: var(--mono) !important;
+  font-size: 9px !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 6px 2px !important;
+  box-shadow: none;
+}
+
+.rose {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  cursor: pointer;
+  opacity: 0.72;
+  transition: opacity 0.2s;
+}
+.rose:hover, .rose.off-axis { opacity: 1; }
+.rose svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* --rose-turn is written by the map on every rotate event. */
+  transform: rotate(var(--rose-turn, 0deg));
+  transition: transform 0.05s linear;
+}
+/* The disc is opaque, not tinted: at 62px over an aerial, a translucent rose is
+   a smudge. It is furniture, and furniture has to sit on something. */
+.rose-ring { fill: var(--ink-0); stroke: var(--cream-3); stroke-width: 1.6; }
+.rose-ring-in { fill: none; stroke: var(--cream-3); stroke-width: 0.8; opacity: 0.55; }
+/* Lit half, shaded half — see the blade() comment in map.js. */
+.rose-major { fill: var(--cream-0); }
+.rose-major.rose-shade { fill: var(--cream-3); }
+.rose-minor { fill: var(--cream-2); opacity: 0.7; }
+.rose-minor.rose-shade { fill: var(--cream-3); opacity: 0.5; }
+.rose-north { fill: var(--accent); }
+.rose-north.rose-shade { fill: #a84522; }
+
+.view-toggle {
+  display: none;
+  background: var(--ink-0);
+  border: 1px solid var(--line);
+}
+.view-toggle.on { display: flex; }
+.view-toggle button {
+  background: none;
+  border: 0;
+  padding: 5px 10px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream-3);
+  cursor: pointer;
+}
+.view-toggle button + button { border-left: 1px solid var(--line); }
+.view-toggle button:hover { color: var(--cream-1); }
+.view-toggle button[aria-pressed="true"] { color: var(--cream-0); background: var(--ink-2); }
 
 /* ── bottom rail: which vector colours the pins ──────────────────────────── */
 
@@ -150,7 +236,8 @@ html, body {
   left: 14px;
   z-index: 20;
   width: 168px;
-  max-height: calc(100% - var(--head-h) - var(--rail-h) - 28px);
+  /* Stops short of the bottom so it can never reach the scale bar and rose. */
+  max-height: calc(100% - var(--head-h) - var(--rail-h) - 150px);
   overflow-y: auto;
   background: var(--ink-0);
   border: 1px solid var(--line);
@@ -228,6 +315,35 @@ html, body {
 }
 .legend-ends { display: flex; justify-content: space-between; margin-top: 5px; }
 .legend-size { margin-top: 9px; padding-top: 8px; border-top: 1px solid var(--line-soft); }
+
+/* The course key. Two columns because four surfaces plus the routing is five
+   rows stacked, which is taller than the ramp it appears beneath and makes the
+   legend the largest object on the map. */
+.legend-key {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 12px;
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--cream-1);
+}
+.legend-key span { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.legend-key i {
+  width: 9px;
+  height: 9px;
+  flex: none;
+  border: 1px solid rgba(10, 10, 9, 0.6);
+}
+/* The routing is a line, not a surface, so its swatch is one too. */
+.legend-key .legend-route { grid-column: 1 / -1; }
+.legend-key .legend-route i {
+  width: 14px;
+  height: 0;
+  border: 0;
+  border-top: 1.5px dashed var(--accent);
+}
+.legend-src { margin-top: 8px; color: var(--cream-3); opacity: 0.7; }
 
 /* ── hover card ──────────────────────────────────────────────────────────── */
 
@@ -466,6 +582,18 @@ html, body {
   .regions { display: none; }
   .legend { display: none; }
   .dossier { width: 100%; top: auto; height: 62%; border-left: 0; border-top: 1px solid var(--line); }
-  .dossier { transform: translateY(100%); }
+  /* Its own height is not far enough. The panel is anchored `bottom: var(--rail-h)`
+     so it clears the rail when open — which means translating by 100% leaves
+     exactly one rail's worth of it on screen, parked on top of the rail with a
+     higher z-index. The whole lens rail was unreachable, showing a stray close
+     button where six buttons should be. */
+  .dossier { transform: translateY(calc(100% + var(--rail-h))); }
   .dossier.on { transform: none; }
+
+  /* The attribution goes full-width and two lines deep at this size, straight
+     through the scale bar. Lift the corner clear of it. */
+  .maplibregl-ctrl-bottom-left { margin-bottom: 48px; }
+  /* And drop the rose — 62px is a sixth of the screen, and the navigation
+     control's own compass is already there for the one job it does. */
+  .rose { display: none; }
 }
