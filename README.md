@@ -5,6 +5,9 @@ A mapped, sourced, multi-vector history of every golf course I've played.
 Named for Alister MacKenzie — whose first American course, Meadow Club, sits 3rd
 on the list this map is built from.
 
+**Live:** [mackenzie-phi.vercel.app](https://mackenzie-phi.vercel.app) →
+[courses.ummerr.com](https://courses.ummerr.com) *(pending one DNS record — see Deploy)*
+
 **[SPEC.md](SPEC.md) is the living document.** This file is just how to run it.
 
 ## Run it
@@ -56,6 +59,37 @@ Everything else is generated. These are yours:
 - **`data/weights.json`** — the ranking lenses.
 - **`data/geocode-overrides.json`** — hand-entered coordinates; wins over
   everything.
+
+## Deploy
+
+Vercel project `mackenzie`, static, no build step. `vercel deploy --prod` from
+the repo root; the stable alias is `mackenzie-phi.vercel.app`.
+
+Two things that are easy to trip over again:
+
+- **`vercel.json` pins `framework`, `buildCommand` and `installCommand` to
+  `null`.** Without that, Vercel sees a `build` script in `package.json`, runs
+  it (it's the *data* pipeline, not a web build), then fails looking for a
+  `public/` output directory.
+- **Deployment Protection was on by default** and 302'd every request to Vercel
+  SSO. Disabled via `PATCH /v9/projects/{id}` with `{"ssoProtection": null}`.
+
+### Remaining DNS step
+
+`courses.ummerr.com` is registered on the project and ownership is verified,
+but the record doesn't exist yet. At Namecheap (nameservers
+`dns1/dns2.registrar-servers.com`), add:
+
+```
+Type    Host      Value
+CNAME   courses   76eecdbd0728d887.vercel-dns-017.com.
+```
+
+That's the project-specific target Vercel recommends — the same pattern
+`golf.ummerr.com` already uses. `A courses 76.76.21.21` also works if the
+registrar won't take a CNAME on that host.
+
+Then add the row to `ummerr.github.io/index.html` beside the P-07 Golf card.
 
 ## Attribution
 
