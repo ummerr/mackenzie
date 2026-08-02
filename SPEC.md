@@ -155,6 +155,7 @@ Grint list and your single most-played course at 10 rounds; `revealed` and
 | Grint paste | rank, rounds, avg score, 3 ratings | none | manual | **in use** |
 | Nominatim | coordinates | none, 1 req/s | free | **in use**, cached in git |
 | Overpass / OSM | course polygons, `holes`, `par`, `access`, `website`, `operator`, `architect` | none | free | **in use**, cached in git |
+| Overpass / OSM `golf=*` | greens, fairways, tees, bunkers, water, cart paths, numbered hole centrelines | none | free | **in use**, cached in git — 62 of 76 courses draw as a plan |
 | Esri World Imagery | satellite basemap | none | free, attribution required | **in use** |
 | Esri Boundaries & Places | label overlay | none | free, attribution required | **in use** |
 | Hand curation | architect, year, championships, rankings, notes | — | time | **in use**, 25/84 |
@@ -194,6 +195,10 @@ geocache.json  (each entry carries a `precision`)
         │  fetch-osm.mjs        batched Overpass; repairs coordinates; stitches relations
         ▼
 course-polygons.geojson + repaired geocache.json
+        │  fetch-holes.mjs      one Overpass pass per course bbox; keeps only what
+        │                       falls inside the boundary; Douglas–Peucker at 0.5m
+        ▼
+holes/<slug>.geojson + holes/index.json   ──► fetched lazily by src/course.js
         │  build.mjs            join + compute vectors + score every lens
         ▼
 courses.json ──► index.html

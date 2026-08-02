@@ -3,8 +3,9 @@
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
 next.
 
-**State as of 2026-08-01:** the full pipeline runs end to end, `npm run validate`
-exits clean, and the map is live locally. Not yet deployed.
+**State as of 2026-08-02:** the full pipeline runs end to end, `npm run validate`
+exits clean, and the map is deployed. The map now draws the courses themselves
+from z13 — see `DECISIONS.md § Draw the course, don't just point at it`.
 
 ---
 
@@ -52,10 +53,17 @@ HTML, licence gray area, hard name-matching problem).
   `vercel link`, a deploy, a subdomain (`courses.ummerr.com`), and a new `P-NN`
   row in `ummerr.github.io/index.html` next to the existing P-07 Golf card at
   line 109.
-- **Physical vectors.** Water and bunker density and elevation relief are
-  derivable from geometry already on disk plus a terrain fetch. `areaAcres` is
-  the only one computed today. These would give the `underrated` and
-  `architecture` lenses something objective to lean on.
+- **Physical vectors — now mostly a counting exercise.** `data/holes/` has the
+  geometry: bunker count and area, water count and area, total yardage from the
+  hole centrelines, green sizes. `areaAcres` is still the only one `build.mjs`
+  computes. Feeding these into the `underrated` and `architecture` lenses would
+  give them something objective to lean on, and `holes/index.json` already
+  carries the per-course counts to start from. Elevation relief still needs a
+  terrain fetch.
+- **The 14 courses with no drawable plan.** `holes/index.json` flags them.
+  Several are real gaps in OSM (Royal Westmoreland comes back with one pond,
+  Sandy Lane with seven bunkers) and a few are worth fixing upstream in OSM
+  itself, which fixes them here on the next `npm run holes --force`.
 - **Two facilities still on a town centroid**, both because OSM has nothing
   under their name: `serket-golf-club` (nothing called Serket within 9km of
   Henderson — probably a rebrand; find the former name) and

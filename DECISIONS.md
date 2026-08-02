@@ -6,6 +6,83 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-02 — Draw the course, don't just point at it
+
+**Decided:** from z13 the map stops being a photograph with dots on it and
+becomes a routing plan. `scripts/fetch-holes.mjs` pulls OSM's `golf=*` geometry
+— greens, fairways, tees, bunkers, water, cart paths, and the numbered hole
+centrelines — into one file per facility under `data/holes/`. `src/course.js`
+loads a course's file the first time it enters the viewport at that zoom, washes
+the aerial down to a flat turf value inside the property, and redraws the course
+on top of it.
+
+**Why:** the aerial was carrying the whole map on its own and it cannot answer
+questions. A satellite tile of Bethpage is a picture of Bethpage: no hole
+numbers, no par, no line between a green and the fairway apron around it, and no
+consistency — the same course is olive in one tile set and grey in another. A
+drawing is legible at a glance, identical everywhere, and — this is the part
+that made it worth the pipeline stage — it makes the map *about golf* at the
+zoom where you actually care. 62 of 76 courses have enough mapped to draw. Rancho
+Park comes back with 18 numbered holes; Bethpage with 90 across five courses.
+
+**Rejected:** rendering the plan for every course. 14 of the 76 have only a
+handful of stray features, and washing out a good photograph to draw three
+bunkers on it is strictly worse than leaving the photograph alone. `index.json`
+carries a `plan` flag — ≥9 greens or ≥9 fairways — and only those get the wash.
+The rest still get their features drawn, over an untouched aerial.
+
+**Rejected:** one bundled GeoJSON. The raw fetch is 11 MB; most sessions never
+leave the continental view. Per-course files fetched on demand cost one request
+each, at ~100 KB, exactly when you have asked to see that course.
+
+**Rejected:** relations. `out geom` doesn't carry member geometry on either
+working mirror (see *Overpass mirror list*), and golf features modelled as
+multipolygons are rare enough not to justify a second pass. Ways only.
+
+**Also:** the geometry is Douglas–Peucker'd at 0.5 m before it is written — below
+the accuracy of the hand-tracing it thins, and a third of a pixel at z18. Cart
+paths and woodland arrive at ~1 m vertex spacing and were most of the bytes.
+11.13 MB → 6.92 MB with identical feature counts.
+
+**And a trap worth naming:** `golf=penalty_area` is not water. Filed under the
+water style, it drew Rustic Canyon — a dry arroyo course in Moorpark — as a
+chain of four lakes. Penalty areas that aren't tagged `natural=water` get their
+own quiet red-brown fill and a dashed edge, which is what the stakes are and
+what every golfer already reads.
+
+---
+
+## 2026-08-02 — Tone the basemap, don't replace it
+
+**Decided:** Esri World Imagery stays, but with `raster-saturation` pulled to
+−0.72 and highlights capped at world zoom, easing back to untouched by z16.
+Added a graticule below z9, a vignette, a scale bar and a compass rose.
+
+**Why:** Esri's imagery is colour-balanced to look good on white — bright cyan
+oceans, high-key greens. Dropped onto ink chrome it read as a browser window
+someone had pasted a map into. Toning it makes it a *ground*: dark, low-contrast,
+one material, and therefore a surface a cream label or an orange dot survives
+being drawn on. The tone eases off approaching course zoom because down there the
+photograph is being read rather than sat on.
+
+The graticule earns its place at exactly one range. From space this map is
+fourteen dots on a photograph of the Pacific, and a photograph has no scale —
+nothing says Kona and Barbados are a third of the planet apart. Meridians say it
+without a word of copy. They stop at z9, where the coastline takes over.
+
+**Rejected:** a dark vector basemap. Settled on 2026-08-01 (*Esri World Imagery
+over dark vector tiles*) and the plan layer makes it more settled, not less: the
+aerial is now the texture underneath the drawing, which is a job no vector
+basemap does better.
+
+**Also fixed:** every label on the map was missing. `facility-label` asked for
+the fontstack `Open Sans Regular`, which the demotiles glyph server 404s — it
+serves `Open Sans Semibold` and `Noto Sans Regular` and nothing else. MapLibre
+answers a missing fontstack by drawing nothing, silently, so the failure looked
+like a design choice.
+
+---
+
 ## 2026-08-02 — Two hue poles in the ramp, not one
 
 **Decided:** the lens ramp crosses the cool/warm boundary — teal `#85f1f2`
