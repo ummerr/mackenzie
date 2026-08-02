@@ -50,6 +50,18 @@ data/raw/           the source paste, verbatim, never edited
 No bundler, no build step. `npx serve .` and CDN libraries, same as
 `archetypes-audit`.
 
+## Yardages
+
+`yardages/` is a second, separate section: a longitudinal shot ledger for Garmin
+Approach R50 range exports. It is a Next.js app with its own dependencies, its
+own Supabase database and **its own Vercel project** — this site stays
+zero-build. See [`yardages/README.md`](yardages/README.md) to run it, and
+`DECISIONS.md` for why it is not a route on this one.
+
+```bash
+cd yardages && pnpm install && pnpm dev
+```
+
 ## Hand-editable files
 
 Everything else is generated. These are yours:

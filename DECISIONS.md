@@ -44,6 +44,108 @@ spends the two-pole discipline.
 
 ---
 
+## 2026-08-02 — No database for Yardages; committed JSON instead
+
+**Decided:** Supabase is dropped. `yardages/data/raw/*.csv` holds the exports
+verbatim, `pnpm ingest` writes `data/shots.json` and `data/sessions.json`, and
+both are committed. Overrides live in `data/exclusions.json`.
+
+**Why:** a shot is ~800 bytes of JSON. Two years of weekly range sessions is
+~2000 shots, or 1.5 MB — smaller than `data/course-polygons.geojson` already in
+this repo, and a group-by over it is sub-millisecond. Postgres was solving no
+problem here. The one thing it did buy was a writable destination for an iOS
+Shortcut POST, since Vercel has no persistent disk — and that path was
+hypothetical; both fixtures arrived via `~/Downloads` on the desktop.
+
+**The deciding argument:** `raw_imports` existed so a parser fix could be
+replayed over history. Git already does that, with real diffs, no `bytea`
+encoding, and better provenance. Committing generated JSON beside its verbatim
+source is the contract this repo already runs on — see "The caches are committed
+on purpose" in `NEXT.md`, and `courses.json` beside `data/raw/grint-*.txt`.
+
+**Cost accepted:** no share-sheet import. Adding a session is drop the file, run
+`pnpm ingest`, commit. If that friction ever bites, the endpoint comes back and
+Supabase with it.
+
+**Kept:** Next.js, TypeScript and Tailwind, because Phase 2's bag chart is
+Recharts and the deploy still wants a build step. Dropping the database did not
+change what the front end is.
+
+**What made it cheap:** `lib/parse.ts` was written pure — no I/O, no framework —
+so only the storage layer changed. All 38 parser tests were untouched, and
+`lib/ledger.ts` added 13 more.
+
+---
+
+## 2026-08-02 — Yardages is its own Vercel project, not a route
+
+**Decided:** the R50 shot ledger lives at `yardages/` inside this repo as a
+Next.js + TypeScript + Tailwind + Supabase app, deployed as a **second** Vercel
+project with Root Directory set to `yardages/`.
+
+**Why:** the two invariants are incompatible. This site is deliberately
+zero-build (see "Static-first, no bundler" below) and `vercel.json` pins
+`framework`, `buildCommand` and `installCommand` to `null` because not doing so
+broke the deploy once already. A Next.js app cannot be a route on that. One repo
+keeps the two diffable and lets the header cross-link them; two Vercel projects
+keep the static deploy from ever seeing a build step, because the second project
+reads `yardages/vercel.json` and never the root one.
+
+**Rejected:** converting the whole site to Next.js — it would move the working
+MapLibre page and reverse a decision that is one day old. **Rejected:** building
+Yardages in the static idiom — Vercel cannot write JSON to disk at runtime, so
+Supabase is needed regardless, at which point the no-build argument stops paying
+for itself.
+
+---
+
+## 2026-08-02 — R50 sign conventions, and the one column that lies
+
+**Decided:** positive is **right of target** for a right-handed player on every
+lateral column in the R50 export — `Club Face`, `Club Path` (positive =
+in-to-out), `Launch Direction`, `Spin Axis`, and both deviation columns.
+`Sidespin` is signed **backwards** and is stored verbatim anyway.
+
+**Why the convention:** Garmin publishes no signed-metric glossary. The R50
+screen shows `3.2R`/`3.2L` and the signs exist only in the CSV; the 20-page
+owner's manual is hardware setup. So it rests on two independent lines:
+third-party documentation of the R10, which shares the Garmin Golf app and the
+same column names ("'In to out' … results in a positive club path"; open face
+positive; spin axis "positive when the ball spins to the right"), **and** three
+physical asymmetries in the fixtures that break if the convention is flipped —
+`corr(Face to Path, Spin Axis) = +0.791` with a mean face 2.53° open producing a
+mean +13.71 yd miss (a push-fade, right); `corr(Attack Angle, Club Path) =
++0.488`, the over-the-top signature, against 34/34 negative attack angles on a
+7 iron; and 34/34 sign agreement between `Launch Direction` and `Club Face`.
+
+**Why sidespin is stored uncorrected:** the export satisfies
+`Spin Axis = −atan2(Sidespin, Backspin)` to 2×10⁻⁶ degrees across both fixtures,
+so negative sidespin means a ball curving right. Flipping it on ingest would
+make the stored number disagree with the Garmin app for no gain, since
+`spin_axis_deg` already carries the same information the right way round and is
+what every chart reads. Same rule as "Flags, never corrections" below.
+
+**Falsifiable cheaply:** five deliberate slices in one session should come back
+with strongly positive spin axis and positive carry deviation.
+
+---
+
+## 2026-08-02 — Dedupe shots on timestamp, not shot index
+
+**Decided:** the uniqueness constraint is `(session_id, shot_timestamp)`.
+`shot_index` is row order, kept for display only.
+
+**Why:** the R50 export has no shot-number column at all. Row order is not a
+key — it breaks if an export is ever reordered or if two exports overlap. The
+per-shot `Date` cell is a full timestamp and is unique in both fixtures (34/34
+and 23/23), so it is the only natural key the file actually provides.
+
+**Also:** `session_started_at` comes from the earliest shot, never the filename.
+Both fixtures are named for their **export** time, 2026-08-02, and contain shots
+from 2026-07-03 and 2026-07-05. Sorting by filename puts them backwards.
+
+---
+
 ## 2026-08-01 — Region rail instead of marker clustering
 
 **Decided:** at low zoom, the "11 states, 3 countries" story is told by a

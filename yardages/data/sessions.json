@@ -1,0 +1,28 @@
+[
+  {
+    "sessionStartedAt": "2026-07-03T18:02:40",
+    "shotCount": 23,
+    "airDensityGl": 1.1776086,
+    "temperatureF": 71.6,
+    "airPressureKpa": 100.27,
+    "relativeHumidityPct": 50,
+    "phantomRate": 0,
+    "id": "2026-07-03T18:02:40",
+    "sourceFiles": [
+      "DrivingRange-2026-08-02 14:57:03 +0000.csv"
+    ]
+  },
+  {
+    "sessionStartedAt": "2026-07-05T20:28:51",
+    "shotCount": 34,
+    "airDensityGl": 1.1783168,
+    "temperatureF": 71.6,
+    "airPressureKpa": 100.33,
+    "relativeHumidityPct": 50,
+    "phantomRate": 0,
+    "id": "2026-07-05T20:28:51",
+    "sourceFiles": [
+      "DrivingRange-2026-08-02 14:54:24 +0000.csv"
+    ]
+  }
+]

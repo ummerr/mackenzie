@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/* Tokens mirrored from ../css/map.css, which mirrors
+ * ummerr.github.io/assets/css/style.css. Kept as CSS variables rather than a
+ * Tailwind config so the two sites stay diffable by eye. */
+@theme {
+  --color-ink-0: #0a0a09;
+  --color-ink-1: #131211;
+  --color-ink-2: #1c1a18;
+  --color-cream-0: #f2ede5;
+  --color-cream-1: #c9c3ba;
+  --color-cream-2: #8f8981;
+  --color-cream-3: #5f5a53;
+  --color-accent: #ff6b35;
+
+  --font-sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-serif: "Instrument Serif", Georgia, serif;
+}
+
+:root {
+  --line: rgba(242, 237, 229, 0.08);
+  --line-soft: rgba(242, 237, 229, 0.05);
+  --accent-dim: rgba(255, 107, 53, 0.45);
+  --accent-faint: rgba(255, 107, 53, 0.12);
+}
+
+html,
+body {
+  background: var(--color-ink-0);
+  color: var(--color-cream-0);
+  -webkit-font-smoothing: antialiased;
+}
+
+.rule {
+  border-color: var(--line);
+}

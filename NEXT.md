@@ -101,3 +101,4 @@ HTML, licence gray area, hard name-matching problem).
 
 ## Auto session log
 - **2026-08-01** — session ended: 13 file(s) dirty, 0 commit(s) unpushed. Last touched: `.claude/`. <!-- campfire:2026-08-01 -->
+- **2026-08-02** — session ended: 18 file(s) dirty, 0 commit(s) unpushed. Last touched: `.claude/scheduled_tasks.lock`. <!-- campfire:2026-08-02 -->

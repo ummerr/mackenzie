@@ -1,0 +1,21 @@
+{
+  "_README": [
+    "Hand-edited exclusion overrides. Applied by `pnpm ingest` after the",
+    "automatic phantom flag, so an entry here always wins.",
+    "",
+    "Key is the shot's timestamp exactly as it appears in data/shots.json",
+    "(`shotTimestamp`, naive local wall time). Value is {excluded, reason}.",
+    "",
+    "Exclusions are reversible and reasoned, never deletions — set excluded",
+    "to false to bring a shot back. Un-excluding a phantom returns the row to",
+    "the ledger but leaves its nulled metrics null: the swing happened, the",
+    "ball flight the monitor never saw is not invented to fill the gap.",
+    "",
+    "An override matching no shot is reported as orphaned on every run, so a",
+    "typo surfaces immediately instead of silently doing nothing.",
+    "",
+    "Example:",
+    "  \"2026-07-05T20:32:37\": { \"excluded\": true, \"reason\": \"phone rang mid-swing\" }"
+  ],
+  "overrides": {}
+}
