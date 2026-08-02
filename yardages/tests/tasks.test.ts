@@ -1,0 +1,147 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { describe, expect, it } from "vitest";
+import type { LedgerSession, LedgerShot } from "../lib/ledger";
+import { applyHeuristics, buildBag, detectGaps } from "../lib/stats";
+import { buildTasks, rawShotsNeeded, type Task } from "../lib/tasks";
+
+const DATA = join(__dirname, "..", "data");
+const load = <T,>(f: string): T => JSON.parse(readFileSync(join(DATA, f), "utf8")) as T;
+
+function realTasks(): Task[] {
+  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
+  const sessions = load<LedgerSession[]>("sessions.json");
+  const profiles = buildBag(shots);
+  return buildTasks({ profiles, gaps: detectGaps(profiles), shots, sessions });
+}
+
+describe("rawShotsNeeded", () => {
+  it("adds warmup and a mishit allowance, rounding up", () => {
+    // Coming back one shot short means another whole session suppressed.
+    expect(rawShotsNeeded(7)).toBe(12);
+    expect(rawShotsNeeded(3)).toBe(7);
+  });
+
+  it("asks for nothing when the club already qualifies", () => {
+    expect(rawShotsNeeded(0)).toBe(0);
+    expect(rawShotsNeeded(-4)).toBe(0);
+  });
+});
+
+describe("buildTasks — priority is information gain", () => {
+  const tasks = realTasks();
+
+  it("puts the unmeasured top of the bag first", () => {
+    // The lesson this encodes: an unmeasured club hides a gap entirely, while
+    // an under-measured one merely makes it noisy.
+    expect(tasks[0].category).toBe("blind spot");
+  });
+
+  it("ranks a blind spot above a confirmed gapping problem", () => {
+    const blind = tasks.findIndex((t) => t.category === "blind spot");
+    const gapping = tasks.findIndex((t) => t.category === "gapping");
+    expect(blind).toBeLessThan(gapping);
+  });
+
+  it("ranks a cheap coverage win above an expensive one", () => {
+    const cheap = tasks.findIndex((t) => t.id === "coverage-6 Iron");
+    const dear = tasks.findIndex((t) => t.id === "coverage-Driver");
+    expect(cheap).toBeGreaterThanOrEqual(0);
+    expect(cheap).toBeLessThan(dear);
+  });
+});
+
+describe("buildTasks — against the real ledger", () => {
+  const tasks = realTasks();
+  const byId = (id: string) => tasks.find((t) => t.id === id);
+
+  it("asks for the suppressed clubs and nothing else", () => {
+    const coverage = tasks.filter((t) => t.category === "coverage").map((t) => t.id);
+    expect(coverage.sort()).toEqual(
+      ["coverage-6 Iron", "coverage-Driver", "coverage-Sand Wedge"].sort(),
+    );
+  });
+
+  it("quantifies the sand wedge shortfall in raw shots, not usable ones", () => {
+    // 8 usable of 12 hit; 7 short, so ~12 raw swings.
+    expect(byId("coverage-Sand Wedge")!.action).toContain("12");
+  });
+
+  it("flags both confirmed holes", () => {
+    expect(byId("hole-8 Iron-9 Iron")).toBeDefined();
+    expect(byId("hole-Pitching Wedge-Gap Wedge")).toBeDefined();
+  });
+
+  it("flags the 7 iron / 8 iron overlap", () => {
+    expect(byId("overlap-7 Iron-8 Iron")).toBeDefined();
+  });
+
+  it("treats the 7 iron's right bias as unconfirmed, because it is one session", () => {
+    const t = byId("bias-7 Iron")!;
+    expect(t.evidence).toContain("single session");
+    expect(t.action).toContain("different day");
+    expect(t.doneWhen).toContain("second session");
+  });
+
+  it("raises missing club data once, not once per affected metric", () => {
+    // Club speed and smash fail together from one cause; four rows saying the
+    // same thing with different nouns is noise, not thoroughness.
+    const delivery = tasks.filter((t) => t.category === "data");
+    expect(delivery).toHaveLength(1);
+    expect(delivery[0].title).toContain("45");
+    expect(delivery[0].evidence).toContain("2026-07-02");
+    expect(delivery[0].evidence).toContain("club speed");
+    expect(delivery[0].evidence).toContain("smash factor");
+  });
+
+  it("will not call a bias confirmed on the back of a 4-shot session", () => {
+    // Gap Wedge appears in two sessions, but only one has enough shots to have
+    // a median. Counting the other as corroboration overstates the evidence.
+    const t = byId("bias-Gap Wedge")!;
+    expect(t.evidence).toContain("single session");
+    expect(t.action).toContain("different day");
+  });
+
+  it("does not invent a task for a metric that is fully populated", () => {
+    // Every shot has carry, and spin rate type is Measured throughout.
+    expect(tasks.some((t) => t.title.includes("carry"))).toBe(false);
+  });
+
+  it("gives every task evidence, an action and a retirement condition", () => {
+    for (const t of tasks) {
+      expect(t.evidence.length).toBeGreaterThan(20);
+      expect(t.action.length).toBeGreaterThan(20);
+      expect(t.doneWhen.length).toBeGreaterThan(5);
+    }
+  });
+});
+
+describe("buildTasks — retires its own tasks", () => {
+  it("drops a coverage task once the club clears the threshold", () => {
+    const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
+    const sessions = load<LedgerSession[]>("sessions.json");
+
+    const before = buildTasks({
+      profiles: buildBag(shots),
+      gaps: detectGaps(buildBag(shots)),
+      shots,
+      sessions,
+    });
+    expect(before.some((t) => t.id === "coverage-Sand Wedge")).toBe(true);
+
+    // Same ledger, threshold lowered to what the sand wedge already has.
+    const profiles = buildBag(shots, 8);
+    const after = buildTasks({
+      profiles,
+      gaps: detectGaps(profiles),
+      shots,
+      sessions,
+      minShots: 8,
+    });
+    expect(after.some((t) => t.id === "coverage-Sand Wedge")).toBe(false);
+  });
+
+  it("returns nothing at all when there are no sessions", () => {
+    expect(buildTasks({ profiles: [], gaps: [], shots: [], sessions: [] })).toEqual([]);
+  });
+});

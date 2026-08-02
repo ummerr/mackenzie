@@ -10,7 +10,8 @@ Mackenzie is a deliberately zero-build static site (`DECISIONS.md`,
 
 **Live: [yardages.vercel.app](https://yardages.vercel.app)**
 
-**Status: Phase 1 (ingest) and Phase 2 (the bag chart) complete.** Everything in
+**Status: Phase 1 (ingest) and Phase 2 (the bag chart) complete, plus a
+derived practice list.** Everything in
 the brief's Deferred list is still deferred and deliberately unscaffolded.
 
 ## Run it
@@ -19,7 +20,7 @@ the brief's Deferred list is still deferred and deliberately unscaffolded.
 pnpm install
 pnpm ingest                         # data/raw/*.csv -> data/shots.json
 pnpm dev                            # http://localhost:3000
-pnpm test                           # 51 tests over the two real exports
+pnpm test                           # 104 tests over the real exports
 pnpm typecheck
 ```
 
@@ -82,7 +83,8 @@ Things that will trip you up:
 
 ## What the R50 export actually looks like
 
-Recon against `fixtures/`. Read this before touching `lib/parse.ts`.
+Recon against the real exports in `data/raw/`. Read this before touching
+`lib/parse.ts`.
 
 - **Two header rows.** Row 1 is names, row 2 is units (`[mph]`, `[Yards]`,
   `[deg]`, `[ft]`, `[rpm]`). Row 3 is the first shot.
@@ -139,12 +141,16 @@ independent lines of evidence, recorded in `DECISIONS.md`.
 
 ```
 app/
-  page.tsx            placeholder until Phase 2; the bag chart replaces it
+  page.tsx            the bag chart
+  practice/           what to hit next, generated from the ledger
+  sessions/           exclusion hygiene, deliberately unstyled
 lib/
   aliases.ts          header -> canonical field. Add a locale here, never in the parser
   units.ts            conversion driven by the file's own units row
   parse.ts            one CSV -> one session. Pure
   ledger.ts           many sessions -> one deduplicated ledger. Pure
+  stats.ts            medians, bands, exclusion heuristics, gap flags. Pure
+  tasks.ts            practice tasks derived from all of the above. Pure
 scripts/
   ingest.ts           the only file that touches the filesystem
 data/
@@ -154,6 +160,20 @@ data/
   shots.json          generated
 tests/                vitest
 ```
+
+## Practice tasks
+
+`/practice` is generated from the ledger, never hand-written — a static checklist
+is wrong the moment you hit balls, and goes on claiming things the data has
+already disproved. Each task carries the numbers that put it on the list and the
+condition that retires it, so hitting the shots removes it on the next ingest.
+
+Ranked by **information gain, not effort**. The obvious ordering is "top up
+whatever is closest to the threshold", and it is wrong: a club with four shots is
+not a noisy measurement, it is a blind spot, because `detectGaps` cannot compare
+against a club that isn't there. A 30-shot wedge session found a 23.9 yd hole
+that four sessions of irons never could. So unmeasured outranks under-measured,
+which outranks biased, which outranks already-confirmed.
 
 `lib/parse.ts` and `lib/ledger.ts` are pure — no filesystem, no Next, no React.
 That is deliberate, and it is why swapping storage cost an hour rather than a
