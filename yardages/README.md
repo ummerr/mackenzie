@@ -8,7 +8,10 @@ Lives inside the `mackenzie` repo but deploys as its own Vercel project —
 Mackenzie is a deliberately zero-build static site (`DECISIONS.md`,
 "Static-first, no bundler"), and a Next.js app cannot be a route on it.
 
-**Status: Phase 1 (ingest) complete. Phase 2 (the bag chart) is next.**
+**Live: [yardages.vercel.app](https://yardages.vercel.app)**
+
+**Status: Phase 1 (ingest) and Phase 2 (the bag chart) complete.** Everything in
+the brief's Deferred list is still deferred and deliberately unscaffolded.
 
 ## Run it
 
@@ -48,6 +51,34 @@ applied after the automatic phantom flag, so a hand edit always wins.
 Exclusions are reversible and reasoned, never deletions — set `excluded` to
 `false` to bring a shot back. An override matching no shot is reported as
 orphaned on every run rather than silently doing nothing.
+
+## Deploy
+
+**Live: [yardages.vercel.app](https://yardages.vercel.app)**
+
+Its own Vercel project (`yardages`), separate from `mackenzie`. Deploy from
+*this* directory, not the repo root:
+
+```bash
+cd yardages && vercel deploy --prod
+```
+
+Things that will trip you up:
+
+- **It is a CLI deploy, not a Git integration.** Pushing to `main` does
+  **not** redeploy — run the command above. Same as the parent project. If you
+  want push-to-deploy instead, connect the repo in the dashboard and set Root
+  Directory to `yardages`, or the build will run against the static map at the
+  repo root and fail.
+- **Deploying from the repo root would deploy the map, not this.** The root
+  `vercel.json` pins `framework`, `buildCommand` and `installCommand` to `null`;
+  this directory's `vercel.json` sets `framework: nextjs`. Two projects, two
+  configs, one repo.
+- **`data/*.json` must be committed.** The build reads `data/shots.json` at
+  render time. Run `pnpm ingest` and commit its output before deploying, or the
+  live page shows the previous session's numbers.
+- The per-deployment URL (`yardages-<hash>-…`) 302s to Vercel SSO; that is
+  normal. The stable alias is public.
 
 ## What the R50 export actually looks like
 

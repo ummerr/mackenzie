@@ -29,22 +29,27 @@ Or one stage at a time:
 | `npm run parse` | `data/raw/grint-*.txt` | `layouts.json`, `facilities.json` |
 | `npm run geocode` | `facilities.json` | `geocache.json`, `geocode-unresolved.md` |
 | `npm run osm` | `facilities.json`, `geocache.json` | `course-polygons.geojson`, `osm-cache.json`, repairs `geocache.json` |
+| `npm run holes` | `facilities.json`, `osm-cache.json` | `holes/<slug>.geojson`, `holes/index.json` |
 | `npm run build` | all of the above + `facts.json`, `weights.json` | `courses.json` |
 | `npm run validate` | `courses.json` | nothing — prints coverage, exits non-zero on error |
 
-The network stages are cached in git (`geocache.json`, `osm-cache.json`), so a
-clean checkout rebuilds with zero API calls. Delete a cache entry to refetch it.
+The network stages are cached in git (`geocache.json`, `osm-cache.json`,
+`holes/`), so a clean checkout rebuilds with zero API calls. Delete a cache
+entry — or an individual `holes/<slug>.geojson` — to refetch it. `npm run holes
+--force` refetches everything.
 
 ## Layout
 
 ```
 index.html          the map
 css/map.css         chrome; tokens mirrored from ummerr.github.io
-src/shared.js       tokens, ramp, formatters — globals, no modules
+src/shared.js       tokens, course palette, ramp, formatters — globals, no modules
 src/panel.js        the dossier
-src/map.js          MapLibre + layers + interactions
+src/course.js       the course plan: lazy-loaded hole geometry, drawn from z13
+src/map.js          MapLibre + basemap + layers + interactions
 scripts/*.mjs       the pipeline, ESM, zero runtime dependencies
 data/raw/           the source paste, verbatim, never edited
+data/holes/         one file of course geometry per facility, fetched on demand
 ```
 
 No bundler, no build step. `npx serve .` and CDN libraries, same as
@@ -53,10 +58,14 @@ No bundler, no build step. `npx serve .` and CDN libraries, same as
 ## Yardages
 
 `yardages/` is a second, separate section: a longitudinal shot ledger for Garmin
-Approach R50 range exports. It is a Next.js app with its own dependencies, its
-own Supabase database and **its own Vercel project** — this site stays
-zero-build. See [`yardages/README.md`](yardages/README.md) to run it, and
-`DECISIONS.md` for why it is not a route on this one.
+Approach R50 range exports. It is a Next.js app with its own dependencies and
+**its own Vercel project** — this site stays zero-build. See
+[`yardages/README.md`](yardages/README.md) to run it, and `DECISIONS.md` for why
+it is not a route on this one.
+
+**Live:** [yardages.vercel.app](https://yardages.vercel.app). Deploy it with
+`cd yardages && vercel deploy --prod` — deploying from the repo root deploys
+this map instead.
 
 ```bash
 cd yardages && pnpm install && pnpm dev
