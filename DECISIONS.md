@@ -6,6 +6,44 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-02 — Two hue poles in the ramp, not one
+
+**Decided:** the lens ramp crosses the cool/warm boundary — teal `#85f1f2`
+through a near-neutral cream `#d1bba4` to the accent `#ff6b35`. OKLCH hue ≈196 →
+≈39, lightness 0.894 → 0.705 strictly monotonic, chroma dipping at the midpoint
+where the poles meet.
+
+**Why:** the single-hue warm ramp was correct by the textbook and wrong on the
+screen. Every step read as "some orange", and the basemap is *also* browns and
+tans and greens, so a warm-on-warm scale had nothing to push against. Measured,
+the old ramp spanned ΔE 27.7 end to end and the new one spans 34.4 — a real but
+unremarkable gain. The gain that matters isn't in the number: teal-vs-orange is
+a distinction you can *name*, and named differences sort instantly where
+equal-magnitude within-hue differences don't. That's the whole argument.
+
+Lightness is what keeps it a ramp rather than a rainbow. Chroma can't carry
+order here — it necessarily falls and then rises again across a two-pole
+ramp — so lightness has to stay monotonic end to end, and two poles is the
+ceiling. A third would make it categorical.
+
+**Rejected:** a wider sweep (cyan → blue → violet → pink → orange) measured
+better still, at ΔE 32–34 with more even steps, and is a rainbow. Five nameable
+hues have no intrinsic order, so the legend becomes load-bearing — the map stops
+being readable on its own terms.
+
+Also rejected: widening the lightness band to strengthen the ordering signal.
+The band is deliberately narrow and high (L 0.705–0.894) because the basemap is
+dark; a conventional light→dark ramp buries the low end, and a course shouldn't
+vanish for ranking badly.
+
+**Cost, accepted:** the cream midpoint is the weakest point of the ramp over
+tan urban imagery — see the LA cluster, where mid-scoring pins sit on grey-beige
+sprawl. The ink halo carries separation there, as it was always meant to. The
+alternative was routing the midpoint through magenta, which buys contrast and
+spends the two-pole discipline.
+
+---
+
 ## 2026-08-01 — Region rail instead of marker clustering
 
 **Decided:** at low zoom, the "11 states, 3 countries" story is told by a
@@ -80,6 +118,9 @@ and "we know what town it's near" are different claims and the map says which.
 ---
 
 ## 2026-08-01 — Sequential ramp, not a categorical palette
+
+*(The specific colours here were superseded on 2026-08-02 — see below. The
+reasoning about magnitude, validator scope, and the halo still stands.)*
 
 **Decided:** pin colour is a 5-step ramp in the accent hue — `#6e3b22` →
 `#ff6b35`, OKLCH hue 39–47, lightness 0.411 → 0.705 monotonic, chroma rising.

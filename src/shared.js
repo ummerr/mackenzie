@@ -15,21 +15,29 @@ const TOKENS = {
   accent: "#ff6b35",
 };
 
-/* Sequential ramp for lens scores: pale = low, hot = high.
+/* Sequential ramp for lens scores: cool = low, hot = high.
  *
- * One warm hue family (OKLCH h 39–58) with BOTH channels moving monotonically
- * — lightness 0.929 → 0.705 descending, chroma 0.032 → 0.193 ascending. Two
- * channels rather than one because on satellite imagery a chroma-only ramp is
- * too subtle to read as a scale, and a lightness-only ramp puts the low end
- * somewhere between invisible-over-fairway and invisible-over-sand.
+ * Two hue poles, not one — teal (OKLCH h≈196) through a near-neutral cream to
+ * the accent orange (h≈39). The single-hue warm ramp this replaces was
+ * technically monotonic but every step still read as "some orange", and against
+ * satellite imagery — which is itself all browns and greens and tans — a
+ * warm-on-warm scale collapses into one colour. Crossing the cool/warm boundary
+ * makes the difference *nameable* rather than merely measurable, which is what
+ * the eye actually sorts on.
  *
- * Going light-to-saturated (rather than the usual light-to-dark) is deliberate:
- * the basemap is dark, so the pale end is the *more* visible one, and no course
- * disappears just because it ranks low.
+ * Ordering is carried by lightness, which stays strictly monotonic across the
+ * whole ramp (0.894 → 0.705). That's the part that keeps it a scale and not a
+ * rainbow: chroma necessarily dips at the cream midpoint where the two poles
+ * meet, so lightness is the only channel left to encode rank, and it does.
+ * End-to-end separation is ΔE 34 in OKLab, up from 28.
  *
- * Every mark also gets an ink halo and stroke, so separation from the
- * background never depends on the fill at all. */
-const RAMP = ["#f9e3d3", "#f6c3a2", "#f5a273", "#fb864f", "#ff6b35"];
+ * The band is deliberately narrow and high. The basemap is dark, so a
+ * conventional light→dark ramp would bury the low end; here even the palest
+ * step sits above L 0.70 and nothing disappears for ranking badly. Every mark
+ * also gets an ink halo and a 1.4px ink stroke, so separation from the
+ * background never depends on the fill at all — which is what buys the freedom
+ * to put teal dots on top of the Pacific. */
+const RAMP = ["#85f1f2", "#a9d7dd", "#d1bba4", "#ee9867", "#ff6b35"];
 
 /* The bottom rail. `lens` keys must exist in data/weights.json — build.mjs
  * computes a score per lens and validate.mjs fails on an unknown vector. */

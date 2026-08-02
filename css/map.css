@@ -223,7 +223,8 @@ html, body {
 .legend-ramp {
   width: 132px;
   height: 7px;
-  background: linear-gradient(90deg, #f9e3d3, #f6c3a2, #f5a273, #fb864f, #ff6b35);
+  /* Must stay in step with RAMP in src/shared.js — same five stops. */
+  background: linear-gradient(90deg, #85f1f2, #a9d7dd, #d1bba4, #ee9867, #ff6b35);
 }
 .legend-ends { display: flex; justify-content: space-between; margin-top: 5px; }
 .legend-size { margin-top: 9px; padding-top: 8px; border-top: 1px solid var(--line-soft); }
