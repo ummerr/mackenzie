@@ -16,8 +16,8 @@ import { CLUB_RAMP, FAIRWAY_HALF_WIDTH_YD, TURF, clubColor } from "./palette";
  *   the shots  — every trusted shot, one dot, actual carry by actual offline.
  *                This is the dispersion. Nothing is summarised away.
  *   the region — the interquartile carry band (p25–p75) by the 80th-percentile
- *                lateral band (p10–p90). Half your shots stop inside the
- *                vertical extent, eight in ten inside the horizontal one.
+ *                band of deviation ANGLE (p10–p90). Half your shots stop inside
+ *                the near-far extent, eight in ten inside the sideways one.
  *
  * The dots came second on purpose: a box alone cannot show you that a club's
  * miss is two clusters rather than one spread, and that is a thing this ledger
@@ -27,9 +27,31 @@ import { CLUB_RAMP, FAIRWAY_HALF_WIDTH_YD, TURF, clubColor } from "./palette";
  * whole point of a plan view: stretch either axis and the shape of the miss is
  * a lie, which is the thing this chart exists to show honestly.
  *
- * Rectangles, not ellipses. An ellipse would imply a bivariate normal we have
- * not established; a box states exactly the two quantile ranges that were
- * measured and nothing more.
+ * Cones, not rectangles, and not ellipses.
+ *
+ * An ellipse would imply a bivariate normal nobody has established. A
+ * rectangle was honest but wrong about the geometry: lateral miss in this data
+ * is ANGULAR, not lateral. The export derives `deviation distance = carry ×
+ * sin(deviation angle)`, so a box with parallel sides quietly says the miss is
+ * a fixed number of yards wide at every distance, when the thing the club
+ * actually did was point somewhere.
+ *
+ * So each club is the region between two rays at its measured p10 and p90
+ * deviation angles, cut off at its p25 and p75 carries. Both bounds are still
+ * exactly two measured quantile ranges and nothing more — the only change is
+ * which units the lateral one is measured in.
+ *
+ * The plot's y is the radial carry the export reports and its x is that
+ * carry's offline component, which is what makes a ray of constant angle a
+ * STRAIGHT line here (x = y·sin θ) rather than a curve. Nothing is
+ * reprojected and no dot moves; the sides of the region simply converge on the
+ * tee the way the shots did.
+ *
+ * The rays are drawn on past the region, down toward the tee, because the
+ * convergence over one club's interquartile band is about a yard and would
+ * otherwise be invisible. They are angle references, not a claim about where
+ * any ball was in mid-flight — a ball that curves does not fly down the ray it
+ * lands on, and nothing here says it did.
  *
  * Hand-rolled SVG rather than Recharts: this is a to-scale spatial region plot
  * and Recharts has no primitive for it. Wrapping ScatterChart in custom shapes
@@ -59,11 +81,15 @@ interface Box {
   color: string;
   carryLo: number;
   carryHi: number;
-  offLo: number;
-  offHi: number;
+  /** p10 and p90 deviation angle, as sines — the slope of each cone edge. */
+  sinLo: number;
+  sinHi: number;
   medCarry: number;
   medOff: number;
 }
+
+/** Offline yards at a given carry, for a cone edge of this angle. */
+const edgeAt = (sinTheta: number, carry: number) => carry * sinTheta;
 
 export function BagChart({ profiles, shots }: BagChartProps) {
   const [hover, setHover] = useState<string | null>(null);
@@ -77,6 +103,8 @@ export function BagChart({ profiles, shots }: BagChartProps) {
       p.carryP75Yd !== null &&
       p.offlineP10Yd !== null &&
       p.offlineP90Yd !== null &&
+      p.deviationP10Deg !== null &&
+      p.deviationP90Deg !== null &&
       p.medianCarryYd !== null,
   );
 
@@ -93,8 +121,8 @@ export function BagChart({ profiles, shots }: BagChartProps) {
     color: colors.get(p.club) ?? CLUB_RAMP[2],
     carryLo: p.carryP25Yd as number,
     carryHi: p.carryP75Yd as number,
-    offLo: p.offlineP10Yd as number,
-    offHi: p.offlineP90Yd as number,
+    sinLo: Math.sin(((p.deviationP10Deg as number) * Math.PI) / 180),
+    sinHi: Math.sin(((p.deviationP90Deg as number) * Math.PI) / 180),
     medCarry: p.medianCarryYd as number,
     medOff: p.medianOfflineYd ?? 0,
   }));
@@ -116,8 +144,15 @@ export function BagChart({ profiles, shots }: BagChartProps) {
     Math.min(...boxes.map((b) => b.carryLo), ...dots.map((d) => d.carryYd)) - 9;
   const yHi =
     Math.max(...boxes.map((b) => b.carryHi), ...dots.map((d) => d.carryYd)) + 9;
+  /* A cone is widest at its far edge, which can sit outside the offline
+   * quantile it was built from — measure the corners, not the band. */
   const xMag = Math.max(
-    ...boxes.map((b) => Math.max(Math.abs(b.offLo), Math.abs(b.offHi))),
+    ...boxes.map((b) =>
+      Math.max(
+        Math.abs(edgeAt(b.sinLo, b.carryHi)),
+        Math.abs(edgeAt(b.sinHi, b.carryHi)),
+      ),
+    ),
     ...dots.map((d) => Math.abs(d.offlineYd)),
     FAIRWAY_HALF_WIDTH_YD,
   );
@@ -198,6 +233,27 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                 strokeLinecap="round"
               />
             </pattern>
+            {/* The rays dissolve as they approach the tee: the further from the
+                measured band, the less the line is saying. currentColor lets one
+                pair of gradients serve every club. */}
+            {[
+              { id: "ray-fade", mid: 0.09, top: 0.3 },
+              { id: "ray-fade-on", mid: 0.3, top: 0.75 },
+            ].map((g) => (
+              <linearGradient
+                key={g.id}
+                id={g.id}
+                gradientUnits="userSpaceOnUse"
+                x1={0}
+                y1={PLOT_H}
+                x2={0}
+                y2={0}
+              >
+                <stop offset="0%" stopColor="currentColor" stopOpacity={0} />
+                <stop offset="55%" stopColor="currentColor" stopOpacity={g.mid} />
+                <stop offset="100%" stopColor="currentColor" stopOpacity={g.top} />
+              </linearGradient>
+            ))}
             <clipPath id="plot-clip">
               <rect x={0} y={0} width={PLOT_W} height={PLOT_H} />
             </clipPath>
@@ -324,6 +380,31 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                 </text>
               </g>
 
+              {/* ── the cone edges, run back toward the tee ────────────────── */}
+              {boxes.map((b) => {
+                const on = hover === b.p.club;
+                const faded = dim(b.p.club);
+                return (
+                  <g
+                    key={`ray-${b.p.club}`}
+                    style={{ color: b.color }}
+                    opacity={faded ? 0.25 : 1}
+                  >
+                    {[b.sinLo, b.sinHi].map((sinT, i) => (
+                      <line
+                        key={i}
+                        x1={px(edgeAt(sinT, yLo))}
+                        y1={py(yLo)}
+                        x2={px(edgeAt(sinT, b.carryHi))}
+                        y2={py(b.carryHi)}
+                        stroke={`url(#ray-fade${on ? "-on" : ""})`}
+                        strokeWidth={on ? 1.5 : 1}
+                      />
+                    ))}
+                  </g>
+                );
+              })}
+
               {/* ── every trusted shot ─────────────────────────────────────── */}
               {showShots &&
                 dots.map((d, i) => {
@@ -347,8 +428,22 @@ export function BagChart({ profiles, shots }: BagChartProps) {
             {boxes.map((b) => {
               const on = hover === b.p.club;
               const faded = dim(b.p.club);
-              const x = px(b.offLo);
-              const w = Math.max(px(b.offHi) - px(b.offLo), 2);
+
+              /* Four corners: the two carry cuts by the two angle rays. Order
+                 matters — near-left, far-left, far-right, near-right. */
+              const corners: [number, number][] = [
+                [edgeAt(b.sinLo, b.carryLo), b.carryLo],
+                [edgeAt(b.sinLo, b.carryHi), b.carryHi],
+                [edgeAt(b.sinHi, b.carryHi), b.carryHi],
+                [edgeAt(b.sinHi, b.carryLo), b.carryLo],
+              ];
+              const points = corners
+                .map(([o, c]) => `${px(o)},${py(c)}`)
+                .join(" ");
+
+              const xs = corners.map(([o]) => px(o));
+              const x = Math.min(...xs);
+              const w = Math.max(Math.max(...xs) - x, 2);
               const y = py(b.carryHi);
               const h = Math.max(py(b.carryLo) - py(b.carryHi), 2);
               return (
@@ -371,22 +466,19 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                     height={h + 16}
                     fill="transparent"
                   />
-                  <rect
-                    x={x}
-                    y={y}
-                    width={w}
-                    height={h}
-                    rx={2}
+                  <polygon
+                    points={points}
                     fill={b.color}
                     fillOpacity={on ? 0.16 : 0.06}
                     stroke={b.color}
                     strokeOpacity={on ? 1 : 0.85}
                     strokeWidth={on ? 2.25 : 1.5}
+                    strokeLinejoin="round"
                   />
-                  {/* median carry */}
+                  {/* median carry, spanning the cone at exactly that radius */}
                   <line
-                    x1={x}
-                    x2={x + w}
+                    x1={px(edgeAt(b.sinLo, b.medCarry))}
+                    x2={px(edgeAt(b.sinHi, b.medCarry))}
                     y1={py(b.medCarry)}
                     y2={py(b.medCarry)}
                     stroke={b.color}
@@ -411,7 +503,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
               club's label inside a wider club's region — and nudging labels
               apart without a connector detaches them from their marks. */}
             {labelLayout(boxes, py).map(({ b, y }) => {
-              const boxRight = px(b.offHi);
+              const boxRight = px(edgeAt(b.sinHi, b.medCarry));
               const medY = py(b.medCarry);
               const gutter = PLOT_W + 16;
               const faded = dim(b.p.club);
@@ -564,7 +656,11 @@ export function BagChart({ profiles, shots }: BagChartProps) {
               />
               <Read
                 label="8 in 10 inside"
-                value={`${active.offLo.toFixed(0)} to ${active.offHi > 0 ? "+" : ""}${active.offHi.toFixed(0)} yd`}
+                value={`${deg(active.p.deviationP10Deg)} to ${deg(active.p.deviationP90Deg)}`}
+              />
+              <Read
+                label="= at this carry"
+                value={`${edgeAt(active.sinLo, active.medCarry).toFixed(0)} to ${active.sinHi > 0 ? "+" : ""}${edgeAt(active.sinHi, active.medCarry).toFixed(0)} yd`}
               />
               <Read
                 label="median miss"
@@ -579,14 +675,22 @@ export function BagChart({ profiles, shots }: BagChartProps) {
           )}
         </div>
         <p className="mt-1.5 font-mono text-[10px] leading-4 text-cream-3">
-          One dot per trusted shot. Each box is the middle 50% of that
-          club&rsquo;s carries by the middle 80% of its lateral misses; the bar
-          is median carry, the ringed dot median miss. Scale is one-to-one both
-          ways, so the shapes are true and the fairway is really 30 yards wide.
+          One dot per trusted shot. Each cone is the middle 50% of that
+          club&rsquo;s carries by the middle 80% of its aim, in degrees — so its
+          sides converge on the tee, the way a miss does. The bar is median
+          carry, the ringed dot median miss, and the faint rays are those same
+          two angles run back toward the tee. Scale is one-to-one both ways, so
+          the shapes are true and the fairway is really 30 yards wide.
         </p>
       </figcaption>
     </figure>
   );
+}
+
+/** Signed degrees, with the sign spelled out — the axis is left/right. */
+function deg(v: number | null): string {
+  if (v === null) return "—";
+  return `${v > 0 ? "+" : ""}${v.toFixed(1)}°`;
 }
 
 function Read({ label, value }: { label: string; value: string }) {
@@ -627,11 +731,8 @@ function describe(p: ClubProfile | undefined): string {
     p.carryP25Yd !== null && p.carryP75Yd !== null
       ? `${p.carryP25Yd.toFixed(0)}–${p.carryP75Yd.toFixed(0)} yd`
       : "—";
-  const lat =
-    p.offlineP10Yd !== null && p.offlineP90Yd !== null
-      ? `${p.offlineP10Yd.toFixed(0)} to ${p.offlineP90Yd > 0 ? "+" : ""}${p.offlineP90Yd.toFixed(0)} yd`
-      : "—";
-  return `median ${p.medianCarryYd.toFixed(0)} yd · half inside ${band} · 80% inside ${lat} · n=${p.active}`;
+  const lat = `${deg(p.deviationP10Deg)} to ${deg(p.deviationP90Deg)}`;
+  return `median ${p.medianCarryYd.toFixed(0)} yd · half inside ${band} · 80% of its aim inside ${lat} · n=${p.active}`;
 }
 
 function shortClub(club: string): string {

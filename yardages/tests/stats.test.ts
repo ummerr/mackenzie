@@ -249,6 +249,48 @@ describe("clubProfile", () => {
     expect(p.offlineP90Yd).toBeLessThan(Math.max(...shots.map((s) => s.offlineYd!)));
   });
 
+  /* The chart draws the lateral band as an angle, so the angle has to be a
+   * measured quantile of its own. Deriving it from the offline quantile at the
+   * median carry would be a different number on every shot but the median one. */
+  it("gives the lateral band in degrees as well as yards", () => {
+    const angled = many(25, (i) => ({
+      shotIndex: i,
+      carryYd: 150,
+      offlineYd: null,
+      carryDeviationAngleDeg: i - 12,
+    }));
+    const p = clubProfile(applyHeuristics(angled), "7 Iron");
+    expect(p.deviationP10Deg).toBeGreaterThan(-12);
+    expect(p.deviationP90Deg).toBeLessThan(12);
+    expect(p.deviationP10Deg).toBeLessThan(p.deviationP90Deg as number);
+    // Warmup drops the first 3, so the active angles run -9..12; median 1.5.
+    expect(p.active).toBe(22);
+    expect(p.medianDeviationDeg).toBeCloseTo(1.5, 6);
+  });
+
+  /* Two clubs with the same aim error and different carries are the case the
+   * angle exists to handle: identical in degrees, different in yards. */
+  it("separates the aim error from the distance it is multiplied by", () => {
+    const at = (carry: number) =>
+      clubProfile(
+        applyHeuristics(
+          many(25, (i) => ({
+            shotIndex: i,
+            carryYd: carry,
+            carryDeviationAngleDeg: (i % 5) - 2,
+            offlineYd: carry * Math.sin((((i % 5) - 2) * Math.PI) / 180),
+          })),
+        ),
+        "7 Iron",
+      );
+    const short = at(100);
+    const long = at(200);
+    expect(short.deviationP90Deg).toBeCloseTo(long.deviationP90Deg as number, 6);
+    expect(long.offlineP90Yd as number).toBeGreaterThan(
+      (short.offlineP90Yd as number) * 1.9,
+    );
+  });
+
   it("exposes the between-session spread that pooling would hide", () => {
     const bimodal = [
       ...many(10, (i) => ({ sessionId: "A", shotIndex: i, carryYd: 150 })),
@@ -260,10 +302,16 @@ describe("clubProfile", () => {
   });
 
   it("returns nulls rather than NaN when every metric is missing", () => {
-    const blank = many(20, (i) => ({ shotIndex: i, carryYd: null, offlineYd: null }));
+    const blank = many(20, (i) => ({
+      shotIndex: i,
+      carryYd: null,
+      offlineYd: null,
+      carryDeviationAngleDeg: null,
+    }));
     const p = clubProfile(applyHeuristics(blank), "7 Iron");
     expect(p.medianCarryYd).toBeNull();
     expect(p.offlineP90Yd).toBeNull();
+    expect(p.deviationP90Deg).toBeNull();
     expect(p.sessionSpreadYd).toBeNull();
   });
 });

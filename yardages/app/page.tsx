@@ -160,6 +160,8 @@ export default function Home() {
                   "Carry p75",
                   "Offline p10",
                   "Offline p90",
+                  "Aim p10",
+                  "Aim p90",
                   "Ball",
                   "Smash",
                   "Launch",
@@ -200,6 +202,8 @@ export default function Home() {
                   <Num v={p.carryP75Yd} d={1} />
                   <Num v={p.offlineP10Yd} d={1} />
                   <Num v={p.offlineP90Yd} d={1} />
+                  <Num v={p.deviationP10Deg} d={1} />
+                  <Num v={p.deviationP90Deg} d={1} />
                   <Num v={p.medianBallSpeedMph} d={1} />
                   <Num v={p.medianSmashFactor} d={3} />
                   <Num v={p.medianLaunchAngleDeg} d={1} />
@@ -211,7 +215,9 @@ export default function Home() {
         </div>
         <p className="mt-2 font-mono text-[10px] leading-4 text-cream-3">
           The chart&rsquo;s table twin. Every value the plan view draws is here in
-          full, held-back clubs included.
+          full, held-back clubs included. Offline is in yards, aim in degrees —
+          the cone is built from the degrees, because the yards are the degrees
+          multiplied by however far the ball went.
         </p>
       </section>
     </div>

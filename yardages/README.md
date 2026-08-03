@@ -246,10 +246,29 @@ Nothing decorative is placed where it could be read as data.
 
 Two layers, answering different questions. Every trusted shot is a dot at its
 actual carry and actual offline — that is the dispersion, with nothing
-summarised away. Over it, one region per club: the interquartile carry band by
-the 80th-percentile lateral band. The dots came second on purpose, because a box
-cannot show you that a club's miss is two clusters rather than one spread, and
-this ledger contains exactly that.
+summarised away. Over it, one region per club. The dots came second on purpose,
+because a summary cannot show you that a club's miss is two clusters rather
+than one spread, and this ledger contains exactly that.
+
+**The region is a cone, because the miss is angular.** The export derives
+`deviation distance = carry × sin(deviation angle)`, so offline yards are two
+things multiplied together and only one of them is the club: the same aim error
+puts a 6 iron further offline than a wedge purely because the ball went
+further. A rectangle with parallel sides says the miss is a fixed number of
+yards wide at every distance, which is not what the club did. So each club is
+the region between rays at its measured p10 and p90 *deviation angle*, cut off
+at its p25 and p75 carries — still exactly two measured quantile ranges, just
+with the lateral one in the units the error is actually made in. Both are in the
+table twin, in degrees and in yards.
+
+The plot's y is the radial carry the export reports and its x is that carry's
+offline component, which is what makes a ray of constant angle a straight line
+here rather than a curve. Nothing is reprojected and no dot moves; the sides of
+the region simply converge on the tee the way the shots did. Because that
+convergence is about a yard across one club's interquartile band, the rays are
+drawn on past the region and fade out toward the tee. They are angle
+references, not a claim about where any ball was in mid-flight — a ball that
+curves does not fly down the ray it lands on, and nothing here says it did.
 
 The frame covers every dot rather than clipping to the boxes. Trimming an
 outlier to keep the frame tidy would hide the misses, which are the reason to

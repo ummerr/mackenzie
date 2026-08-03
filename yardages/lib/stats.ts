@@ -100,6 +100,18 @@ export interface ClubProfile {
   offlineP90Yd: number | null;
   medianOfflineYd: number | null;
 
+  /* The same band in the units the miss is actually made in.
+   *
+   * Offline yards are a consequence of two things, and only one of them is the
+   * club: the export derives `deviation distance = carry × sin(deviation
+   * angle)`, so the same face-to-path error puts a 6 iron further offline than
+   * a wedge purely because the ball went further. Quantiles of the angle
+   * separate the aim error from the distance, which is what makes two clubs
+   * comparable and what lets the chart draw a cone rather than a box. */
+  deviationP10Deg: number | null;
+  deviationP90Deg: number | null;
+  medianDeviationDeg: number | null;
+
   medianBallSpeedMph: number | null;
   medianClubSpeedMph: number | null;
   medianSmashFactor: number | null;
@@ -126,6 +138,7 @@ export function clubProfile(
 
   const carries = pick((s) => s.carryYd);
   const offline = pick((s) => s.offlineYd);
+  const deviation = pick((s) => s.carryDeviationAngleDeg);
 
   // Per-session medians, to expose the pooling problem rather than hide it.
   const bySession = new Map<string, number[]>();
@@ -157,6 +170,10 @@ export function clubProfile(
     offlineP10Yd: offline.length ? quantile(offline, 0.1) : null,
     offlineP90Yd: offline.length ? quantile(offline, 0.9) : null,
     medianOfflineYd: medOrNull(offline),
+
+    deviationP10Deg: deviation.length ? quantile(deviation, 0.1) : null,
+    deviationP90Deg: deviation.length ? quantile(deviation, 0.9) : null,
+    medianDeviationDeg: medOrNull(deviation),
 
     medianBallSpeedMph: medOrNull(pick((s) => s.ballSpeedMph)),
     medianClubSpeedMph: medOrNull(pick((s) => s.clubSpeedMph)),
