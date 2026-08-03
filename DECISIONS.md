@@ -6,6 +6,53 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-03 — A second frame for the phone, not a smaller one
+
+**Decided:** the bag chart carries two frames of the same drawing. The wide one
+puts 10px labels on a 640-unit plot and stops shrinking at 700px; under 560px a
+compact frame draws the identical geometry on a 236-unit plot, so the same type
+is proportionally more than twice the size and survives being rendered at 340px.
+The rest of the site went responsive around it: the sections drop into a tab
+strip under the masthead, the fifteen-column table deals itself out as one card
+per club, and the sessions table folds its three context columns away.
+
+**Why:** the chart's whole claim is that it is isotropic — one yard sideways is
+one yard long — and the frame was already refusing to shrink for good reason:
+below 700px the axis renders at five pixels. But "scrolls sideways on a phone"
+was never the answer to that, it was the absence of one. A viewBox scales type
+*with* the plot, so the fix is not to shrink the drawing but to redraw it with
+less plot per label. Nothing about the data changes: same quantiles, same cones,
+same 30-yard fairway, still one to one both ways.
+
+**Rejected: fitting the wide frame to the phone.** The axis becomes unreadable
+at exactly the widths this is meant to serve.
+
+**Rejected: stretching the carry axis to make the chart shorter.** It would fit
+a screen and break the one promise the chart makes.
+
+**Rejected: a horizontal scroll on the table.** Fifteen columns at 880px on a
+390px screen is a scroll through a grid whose header has already left the
+screen — you read a number with nothing to say which column it came from. The
+cards carry every label with its own value and hold the same rows, held-back
+clubs included.
+
+**Also: hover is a mouse idea.** The cones now take a tap as a *selection* —
+tap to hold, tap again to let go — gated on `pointerType` rather than on the
+frame, so a touchscreen laptop does not select a club the cursor merely crossed.
+A cone on a phone is still a target a few millimetres wide, so the compact frame
+grows a club rail underneath: the same eight marks at 36px, in bag order, in the
+same ramp, doubling as the legend the gutter gives a mouse.
+
+**And the smaller traps:** iOS zooms the page when a focused input is under 16px
+and does not zoom back out, so the one text field on the sessions page is 16px
+on coarse pointers only. Every sideways-scrolling frame sets
+`overscroll-behavior-x: contain`, or running out of table at the left edge hands
+the gesture to the browser as a back swipe. `maximum-scale` is deliberately not
+set — a to-scale plan view is exactly the thing somebody will want to pinch
+into.
+
+---
+
 ## 2026-08-02 — Draw the course, don't just point at it
 
 **Decided:** from z13 the map stops being a photograph with dots on it and

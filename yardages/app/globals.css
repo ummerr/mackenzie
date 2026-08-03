@@ -127,6 +127,45 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ── the phone ──────────────────────────────────────────────────────────────
+ *
+ * Four rules, all of them things a handheld browser does on its own that this
+ * site has to opt out of.
+ */
+
+html {
+  /* Safari inflates text in landscape unless told not to, which on this site
+   * means the 10px stamp and the 11px mono grow at different rates and the
+   * columns stop lining up. */
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  /* A grey flash on every tap, on elements that already have a pressed state. */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* iOS zooms the page in when a focused input is under 16px, and does not zoom
+ * back out. The sessions picker is 12px mono by design; this makes the one
+ * field you type into big enough to be left alone. Scoped to touch pointers so
+ * the desktop form stays the size it was drawn at. */
+@media (max-width: 640px) and (pointer: coarse) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* Anything that scrolls sideways inside a page that scrolls down: the chart
+ * frame, the wide tables. Without the containment, running out of table at the
+ * left edge hands the gesture to the browser, which reads it as a back swipe. */
+.pan-x {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
 .rule {
   border-color: var(--line);
 }

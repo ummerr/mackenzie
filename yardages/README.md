@@ -14,6 +14,10 @@ Mackenzie is a deliberately zero-build static site (`DECISIONS.md`,
 derived practice list.** Everything in
 the brief's Deferred list is still deferred and deliberately unscaffolded.
 
+Every page is drawn for a phone as well as a desktop — the bag chart has a
+second frame rather than a horizontal scrollbar. See `DECISIONS.md`, *A second
+frame for the phone*.
+
 ## Run it
 
 ```bash

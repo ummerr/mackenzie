@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import "./globals.css";
+import { InlineNav, TabStrip } from "./site-nav";
 import { ThemeToggle } from "./theme-toggle";
 
 /* A flagstick on card stock. Drawn inline rather than shipped as a file so the
@@ -23,8 +24,20 @@ export const metadata: Metadata = {
 };
 
 /* One value, not a pair keyed to prefers-color-scheme: light is the default for
- * everyone until they say otherwise, so the browser chrome should match it. */
-export const viewport: Viewport = { themeColor: "#f7f4ec" };
+ * everyone until they say otherwise, so the browser chrome should match it.
+ *
+ * `width` and `initialScale` are Next's defaults and are written out anyway:
+ * this app is read on a phone at the range, and the one meta tag that decides
+ * whether that works at all should not be inherited silently. `maximumScale`
+ * is deliberately absent — a to-scale plan view is exactly the thing somebody
+ * will want to pinch into, and blocking that to stop iOS zooming on an input
+ * would trade an accessibility floor for a cosmetic fix. The inputs are 16px
+ * instead. */
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#f7f4ec",
+};
 
 /* Stamps the stored choice on <html> before first paint. Inline and blocking on
  * purpose — anything deferred renders one frame of the wrong theme, which is
@@ -45,33 +58,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="font-sans bg-paper-0 text-ink-0 min-h-screen antialiased">
         {/* The top of the card: a filled band under a heavy rule, rather than a
-            hairline floating on the page ground. */}
-        <header className="flex h-14 items-center justify-between gap-4 border-b-2 bg-paper-1 px-5 rule-hard">
-          <div className="flex items-baseline gap-5">
-            <Link href="/" className="font-serif text-[27px] leading-none tracking-[0.02em]">
-              YARD<span className="text-accent-ink">AGES</span>
-            </Link>
-            <nav className="stamp flex gap-4 text-ink-2">
-              <Link href="/" className="hover:text-ink-0">
-                Bag
+            hairline floating on the page ground. Below `sm` the sections drop
+            out of this row into their own strip — see site-nav.tsx. */}
+        <header className="border-b-2 bg-paper-1 rule-hard">
+          <div className="flex h-12 items-center justify-between gap-3 px-4 sm:h-14 sm:px-5">
+            <div className="flex items-baseline gap-5">
+              <Link
+                href="/"
+                className="font-serif text-[23px] leading-none tracking-[0.02em] sm:text-[27px]"
+              >
+                YARD<span className="text-accent-ink">AGES</span>
               </Link>
-              <Link href="/practice" className="hover:text-ink-0">
-                Practice
-              </Link>
-              <Link href="/sessions" className="hover:text-ink-0">
-                Sessions
-              </Link>
-            </nav>
+              <InlineNav />
+            </div>
+            <div className="flex items-center gap-4 sm:gap-5">
+              <ThemeToggle />
+              <a
+                href="https://courses.ummerr.com/"
+                className="stamp text-ink-3 hover:text-accent-ink"
+              >
+                {/* The word is the link on a phone; the arrow alone would be a
+                    16px target with nothing to read. */}
+                Mackenzie<span className="hidden sm:inline"> ↗</span>
+              </a>
+            </div>
           </div>
-          <div className="flex items-center gap-5">
-            <ThemeToggle />
-            <a
-              href="https://courses.ummerr.com/"
-              className="stamp text-ink-3 hover:text-accent-ink"
-            >
-              Mackenzie ↗
-            </a>
-          </div>
+          <TabStrip />
         </header>
         <main>{children}</main>
       </body>

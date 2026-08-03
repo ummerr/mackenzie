@@ -34,8 +34,8 @@ export default function Practice() {
   const categories = [...new Set(tasks.map((t) => t.category))];
 
   return (
-    <div className="mx-auto max-w-4xl px-5 py-8">
-      <h1 className="font-serif text-[56px] leading-[0.86] tracking-[-0.01em] sm:text-[72px]">
+    <div className="mx-auto max-w-4xl px-4 py-6 sm:px-5 sm:py-8">
+      <h1 className="font-serif text-[42px] leading-[0.9] tracking-[-0.01em] sm:text-[56px] lg:text-[72px]">
         WHAT TO HIT NEXT
       </h1>
       <p className="stamp mt-3 text-ink-3">
@@ -54,7 +54,7 @@ export default function Practice() {
         invisible rather than merely wide.
       </p>
 
-      <ol className="mt-8 space-y-px">
+      <ol className="mt-6 space-y-px sm:mt-8">
         {tasks.map((t, i) => (
           <TaskRow key={t.id} task={t} rank={i + 1} first={i === 0} />
         ))}
@@ -85,10 +85,12 @@ export default function Practice() {
 function TaskRow({ task, rank, first }: { task: Task; rank: number; first: boolean }) {
   return (
     <li
-      className="border-l-2 bg-paper-1 px-4 py-4"
+      className="border-l-2 bg-paper-1 px-3 py-3.5 sm:px-4 sm:py-4"
       style={{ borderColor: first ? "var(--accent-ink)" : "var(--line)" }}
     >
-      <div className="flex items-baseline gap-3">
+      {/* Wraps rather than truncates: on a phone the category drops onto its own
+          line under the title instead of squeezing the title into two words. */}
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <span
           className={`font-mono text-[11px] tabular-nums ${
             first ? "text-accent-ink" : "text-ink-3"
@@ -102,7 +104,7 @@ function TaskRow({ task, rank, first }: { task: Task; rank: number; first: boole
         <span className="stamp ml-auto shrink-0 text-ink-3">{task.category}</span>
       </div>
 
-      <dl className="mt-2 space-y-1.5 pl-8 font-mono text-[11px] leading-5">
+      <dl className="mt-2 space-y-1.5 font-mono text-[11px] leading-5 sm:pl-8">
         <div className="flex gap-3">
           <dt className="w-10 shrink-0 text-ink-3">why</dt>
           <dd className="text-ink-2">{task.evidence}</dd>

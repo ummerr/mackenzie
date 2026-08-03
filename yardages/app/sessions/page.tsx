@@ -20,7 +20,7 @@ export default function Sessions() {
   const sessions = load<LedgerSession[]>("sessions.json");
 
   return (
-    <div className="px-5 py-8 font-mono text-[12px]">
+    <div className="px-4 py-6 font-mono text-[12px] sm:px-5 sm:py-8">
       <h1 className="text-[15px]">Sessions</h1>
       <p className="mt-2 max-w-3xl text-ink-2">
         Tick a shot to flip its exclusion, then paste the generated block into{" "}

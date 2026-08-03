@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { ClubProfile } from "@/lib/stats";
 import { CLUB_RAMP, FAIRWAY_HALF_WIDTH_YD, TURF, clubColor } from "./palette";
+import { useMedia } from "./use-media";
 
 /* Plan view of the range, looking down the target line, drawn as the hole it
  * is: mown fairway, rough either side, distance flags up the left edge.
@@ -59,10 +60,109 @@ import { CLUB_RAMP, FAIRWAY_HALF_WIDTH_YD, TURF, clubColor } from "./palette";
  * matters most here.
  */
 
-const PAD = { top: 26, right: 124, bottom: 56, left: 62 };
-const PLOT_W = 640;
-/** Below this the 10px tick labels stop being readable, so the frame scrolls. */
+/* Two frames of the same drawing.
+ *
+ * The frame is a viewBox, so every number below is a ratio and not a pixel:
+ * what a frame really sets is how large the type is *relative to the plot*.
+ * The wide frame draws 10px labels on a 640-unit plot and is then rendered at
+ * whatever width it is given, which is why it has to stop shrinking at 700px —
+ * below that the axis renders at five or six pixels.
+ *
+ * The compact frame draws the same geometry on a 236-unit plot, so the same
+ * labels are proportionally more than twice the size and survive being
+ * rendered at 340px. The chart fits a phone with no horizontal scroll and no
+ * pinching, and — the part that matters — it is still isotropic, still the
+ * same quantiles, still 30 real yards of fairway. Nothing is traded but
+ * detail: the compact frame carries fewer gridlines, shorter axis titles and
+ * no rotated carry title, because those are the things a small frame has no
+ * room for and a phone can live without.
+ *
+ * What is NOT traded is the scale. Fitting the wide frame to a phone by
+ * letting it shrink, or by stretching one axis to make it shorter, would break
+ * the one promise this chart makes.
+ */
+interface Frame {
+  plotW: number;
+  pad: { top: number; right: number; bottom: number; left: number };
+  /** Axis numbers, how far the carry ones sit left of the axis, how far the
+   *  lateral ones sit below it, and where the title under them lands. */
+  tick: number;
+  tickPad: number;
+  tickDrop: number;
+  xTitleY: number;
+  /** Axis titles, and the scenery's own words. */
+  axis: number;
+  /** The club labels in the right-hand gutter, and how far apart they push. */
+  label: number;
+  labelGap: number;
+  /** Where the gutter starts, past the plot, and how big its colour chip is. */
+  gutter: number;
+  chip: number;
+  dot: number;
+  dotOn: number;
+  carryTicks: number;
+  offTicks: number;
+  /** x of the range flag: outside the plot on the wide frame, on the grass on
+   *  the compact one, where there is no gutter to put it in. */
+  flagX: number;
+  xTitle: string;
+  /** null on the compact frame: the rotated title needs a gutter of its own. */
+  yTitle: string | null;
+}
+
+const WIDE: Frame = {
+  plotW: 640,
+  pad: { top: 26, right: 124, bottom: 56, left: 62 },
+  tick: 10,
+  tickPad: 10,
+  tickDrop: 18,
+  xTitleY: 40,
+  axis: 9,
+  label: 11,
+  labelGap: 16,
+  gutter: 16,
+  chip: 7,
+  dot: 2.2,
+  dotOn: 2.9,
+  carryTicks: 6,
+  offTicks: 7,
+  flagX: -34,
+  xTitle: "← LEFT · LATERAL MISS, YARDS · RIGHT →",
+  yTitle: "CARRY, YARDS",
+};
+
+const COMPACT: Frame = {
+  plotW: 236,
+  pad: { top: 14, right: 60, bottom: 38, left: 30 },
+  tick: 9,
+  tickPad: 8,
+  tickDrop: 15,
+  xTitleY: 30,
+  axis: 8,
+  label: 9,
+  labelGap: 12,
+  gutter: 10,
+  chip: 6,
+  dot: 1.8,
+  dotOn: 2.6,
+  carryTicks: 5,
+  offTicks: 6,
+  flagX: 3,
+  xTitle: "← MISS, YARDS →",
+  yTitle: null,
+};
+
+/** Below this the wide frame's 10px tick labels stop being readable, so the
+ *  frame scrolls rather than shrinks. */
 const MIN_LEGIBLE_W = 700;
+
+/** Under this the compact frame takes over instead. Between the two, a landscape
+ *  phone or a small tablet still has the width to scroll the real thing. */
+const COMPACT_UNDER = 560;
+
+/** The compact frame is allowed to scale up this far before it stops growing —
+ *  past it the type is larger than the page's own body text. */
+const COMPACT_MAX_W = 520;
 
 export interface ShotDot {
   club: string;
@@ -95,6 +195,11 @@ export function BagChart({ profiles, shots }: BagChartProps) {
   const [hover, setHover] = useState<string | null>(null);
   const [showShots, setShowShots] = useState(true);
   const [showCourse, setShowCourse] = useState(true);
+
+  const compact = useMedia(`(max-width: ${COMPACT_UNDER - 1}px)`);
+  const F = compact ? COMPACT : WIDE;
+  const PAD = F.pad;
+  const PLOT_W = F.plotW;
 
   const drawable = profiles.filter(
     (p) =>
@@ -169,8 +274,8 @@ export function BagChart({ profiles, shots }: BagChartProps) {
   const W = PLOT_W + PAD.left + PAD.right;
   const H = PLOT_H + PAD.top + PAD.bottom;
 
-  const carryTicks = niceTicks(yLo, yHi, 6);
-  const offTicks = niceTicks(xLo, xHi, 7);
+  const carryTicks = niceTicks(yLo, yHi, F.carryTicks);
+  const offTicks = niceTicks(xLo, xHi, F.offTicks);
 
   // Mow stripes land on half a tick, so every stripe edge is also a gridline.
   const tickStep = carryTicks.length > 1 ? carryTicks[1] - carryTicks[0] : 20;
@@ -190,12 +295,27 @@ export function BagChart({ profiles, shots }: BagChartProps) {
   const active = hover ? (boxes.find((b) => b.p.club === hover) ?? null) : null;
   const dim = (club: string) => hover !== null && hover !== club;
 
+  /* Hover is a mouse idea. A finger has no hover state, so on touch the same
+   * highlight is a selection: tap a club to hold it, tap it again to let go.
+   * Gating on `pointerType` rather than on the compact frame keeps a mouse
+   * behaving like a mouse in a narrow window, and keeps a touchscreen laptop
+   * from selecting a club the cursor merely passed over. */
+  const pointFrom = (club: string | null) => setHover(club);
+  const toggle = (club: string) => setHover((h) => (h === club ? null : club));
+
   return (
     <figure className="m-0">
-      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-        <p className="stamp text-ink-3">
-          Plan view · down the target line · scale 1:1 both ways
-        </p>
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+        <div>
+          <p className="stamp text-ink-3">
+            Plan view · down the target line · scale 1:1 both ways
+          </p>
+          {/* The compact frame has no room for a rotated axis title, so the
+              axis it drops is named here instead. */}
+          {compact && (
+            <p className="stamp mt-1 text-ink-3">Up the page is carry</p>
+          )}
+        </div>
         <div className="flex gap-px">
           <Toggle on={showShots} onClick={() => setShowShots((v) => !v)}>
             {dots.length} shots
@@ -206,17 +326,23 @@ export function BagChart({ profiles, shots }: BagChartProps) {
         </div>
       </div>
 
-      {/* Scrolls rather than shrinks below MIN_LEGIBLE_W. The viewBox scales the
-          tick labels with the frame, so letting it fit a phone would render the
-          axis at five pixels; a horizontal scroll keeps the numbers readable and
-          the geometry to scale, which is the one thing that cannot be traded. */}
-      <div className="overflow-x-auto">
+      {/* The wide frame scrolls rather than shrinks below MIN_LEGIBLE_W, because
+          the viewBox scales the tick labels with the frame and letting it fit a
+          phone would render the axis at five pixels. A phone gets the compact
+          frame instead, which fits at full size — the geometry is identical and
+          only the type is proportionally larger, so nothing scrolls and the
+          scale is still one to one. */}
+      <div className={compact ? undefined : "pan-x"}>
         <svg
           viewBox={`0 0 ${W} ${H}`}
           width="100%"
           role="img"
           aria-label="Plan view of carry distance against lateral miss: every trusted shot as a dot, and one region per club"
-          style={{ maxWidth: W, minWidth: MIN_LEGIBLE_W, overflow: "visible" }}
+          style={{
+            maxWidth: compact ? COMPACT_MAX_W : W,
+            minWidth: compact ? undefined : MIN_LEGIBLE_W,
+            overflow: "visible",
+          }}
         >
           <defs>
             <pattern
@@ -312,7 +438,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                   <text
                     transform={`translate(${fairL - 6},${PLOT_H - 14}) rotate(-90)`}
                     style={{ fill: TURF.muted }}
-                    fontSize={9}
+                    fontSize={F.axis}
                     fontFamily="var(--font-mono)"
                     letterSpacing="0.14em"
                   >
@@ -363,8 +489,8 @@ export function BagChart({ profiles, shots }: BagChartProps) {
               />
 
               {/* Which way the tee is. The frame starts at the shortest carry on
-                file, not at zero, so this is an orientation mark and carries no
-                value of its own. */}
+                  file, not at zero, so this is an orientation mark and carries no
+                  value of its own. */}
               <g transform={`translate(${px(0)},${PLOT_H - 16})`}>
                 <path
                   d="M-5 -7 L0 0 L5 -7"
@@ -376,7 +502,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                   y={12}
                   textAnchor="middle"
                   style={{ fill: TURF.muted }}
-                  fontSize={9}
+                  fontSize={F.axis}
                   fontFamily="var(--font-mono)"
                   letterSpacing="0.16em"
                 >
@@ -418,7 +544,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                       key={i}
                       cx={px(d.offlineYd)}
                       cy={py(d.carryYd)}
-                      r={hover === d.club ? 2.9 : 2.2}
+                      r={hover === d.club ? F.dotOn : F.dot}
                       style={{ fill: colors.get(d.club) ?? CLUB_RAMP[2] }}
                       fillOpacity={
                         faded ? 0.12 : hover === d.club ? 0.95 : 0.62
@@ -453,8 +579,15 @@ export function BagChart({ profiles, shots }: BagChartProps) {
               return (
                 <g
                   key={b.p.club}
-                  onMouseEnter={() => setHover(b.p.club)}
-                  onMouseLeave={() => setHover(null)}
+                  onPointerEnter={(e) => {
+                    if (e.pointerType === "mouse") pointFrom(b.p.club);
+                  }}
+                  onPointerLeave={(e) => {
+                    if (e.pointerType === "mouse") pointFrom(null);
+                  }}
+                  onPointerUp={(e) => {
+                    if (e.pointerType !== "mouse") toggle(b.p.club);
+                  }}
                   onFocus={() => setHover(b.p.club)}
                   onBlur={() => setHover(null)}
                   tabIndex={0}
@@ -507,10 +640,10 @@ export function BagChart({ profiles, shots }: BagChartProps) {
               Anchoring each label to its own box's right edge put a narrow
               club's label inside a wider club's region — and nudging labels
               apart without a connector detaches them from their marks. */}
-            {labelLayout(boxes, py).map(({ b, y }) => {
+            {labelLayout(boxes, py, F.labelGap).map(({ b, y }) => {
               const boxRight = px(edgeAt(b.sinHi, b.medCarry));
               const medY = py(b.medCarry);
-              const gutter = PLOT_W + 16;
+              const gutter = PLOT_W + F.gutter;
               const faded = dim(b.p.club);
               return (
                 <g key={`lbl-${b.p.club}`} opacity={faded ? 0.35 : 1}>
@@ -523,19 +656,19 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                   />
                   <rect
                     x={gutter}
-                    y={y - 4}
-                    width={7}
-                    height={7}
+                    y={y - F.chip / 2 - 0.5}
+                    width={F.chip}
+                    height={F.chip}
                     rx={1}
                     style={{ fill: b.color }}
                   />
                   <text
-                    x={gutter + 13}
+                    x={gutter + F.chip + 6}
                     y={y + 3}
                     style={{
                       fill: hover === b.p.club ? "var(--ink-0)" : "var(--ink-1)",
                     }}
-                    fontSize={11}
+                    fontSize={F.label}
                     fontFamily="var(--font-mono)"
                     letterSpacing="0.04em"
                   >
@@ -572,13 +705,16 @@ export function BagChart({ profiles, shots }: BagChartProps) {
               strokeWidth={1}
             />
 
-            {/* Carry ticks. Fifties get a range flag, the way a range does. */}
+            {/* Carry ticks. Fifties get a range flag, the way a range does — in
+                the gutter on the wide frame, and just inside the left edge on
+                the compact one, which has no gutter to spare and where a marker
+                standing on the grass is if anything more literal. */}
             {carryTicks.map((t) => {
               const flag = t % 50 === 0;
               return (
                 <g key={`ty${t}`}>
                   {flag && (
-                    <g transform={`translate(-34,${py(t)})`}>
+                    <g transform={`translate(${F.flagX},${py(t)})`}>
                       <line
                         x1={0}
                         x2={0}
@@ -596,10 +732,10 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                     </g>
                   )}
                   <text
-                    x={-10}
+                    x={-F.tickPad}
                     y={py(t) + 4}
                     textAnchor="end"
-                    fontSize={10}
+                    fontSize={F.tick}
                     fontFamily="var(--font-mono)"
                     style={{
                       fill: flag ? "var(--ink-1)" : TURF.tick,
@@ -615,9 +751,9 @@ export function BagChart({ profiles, shots }: BagChartProps) {
               <text
                 key={`tx${t}`}
                 x={px(t)}
-                y={PLOT_H + 18}
+                y={PLOT_H + F.tickDrop}
                 textAnchor="middle"
-                fontSize={10}
+                fontSize={F.tick}
                 fontFamily="var(--font-mono)"
                 style={{ fill: TURF.tick, fontVariantNumeric: "tabular-nums" }}
               >
@@ -626,34 +762,80 @@ export function BagChart({ profiles, shots }: BagChartProps) {
             ))}
             <text
               x={PLOT_W / 2}
-              y={PLOT_H + 40}
+              y={PLOT_H + F.xTitleY}
               textAnchor="middle"
               style={{ fill: TURF.muted }}
-              fontSize={9}
+              fontSize={F.axis}
               fontFamily="var(--font-mono)"
               letterSpacing="0.16em"
             >
-              ← LEFT · LATERAL MISS, YARDS · RIGHT →
+              {F.xTitle}
             </text>
-            <text
-              transform={`translate(-46,${PLOT_H / 2}) rotate(-90)`}
-              textAnchor="middle"
-              style={{ fill: TURF.muted }}
-              fontSize={9}
-              fontFamily="var(--font-mono)"
-              letterSpacing="0.16em"
-            >
-              CARRY, YARDS
-            </text>
+            {F.yTitle && (
+              <text
+                transform={`translate(${-(PAD.left - 16)},${PLOT_H / 2}) rotate(-90)`}
+                textAnchor="middle"
+                style={{ fill: TURF.muted }}
+                fontSize={F.axis}
+                fontFamily="var(--font-mono)"
+                letterSpacing="0.16em"
+              >
+                {F.yTitle}
+              </text>
+            )}
           </g>
         </svg>
       </div>
 
+      {/* The club rail. A cone on a phone is a target a few millimetres across
+          that overlaps its neighbours — which is the chart working, and no way
+          to pick a club. The rail is the same eight marks at 36px, in the same
+          bag order and the same ramp, and it doubles as the legend the gutter
+          gives a mouse. Touch only: with a cursor the cones are already the
+          control. */}
+      {compact && (
+        <div className="mt-3 flex flex-wrap gap-px">
+          {boxes.map((b) => {
+            const on = hover === b.p.club;
+            return (
+              <button
+                key={`rail-${b.p.club}`}
+                type="button"
+                aria-pressed={on}
+                onClick={() => toggle(b.p.club)}
+                className={`flex min-h-9 items-center gap-2 border px-2.5 font-mono text-[11px] transition-colors rule ${
+                  on ? "bg-paper-2 text-ink-0" : "text-ink-2"
+                }`}
+              >
+                <span
+                  aria-hidden
+                  className="inline-block h-2.5 w-2.5 rounded-[1px]"
+                  style={{ background: b.color }}
+                />
+                {shortClub(b.p.club)}
+                <span className="tabular-nums text-ink-3">
+                  {b.medCarry.toFixed(0)}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
       <figcaption className="mt-3 border-t pt-2 rule">
         {/* The readout keeps its row whether or not anything is hovered — a
             strip that appears and disappears would shove the page under the
-            cursor as you move across the chart. */}
-        <div className="flex h-5 items-center gap-x-4 overflow-x-auto font-mono text-[11px] whitespace-nowrap">
+            cursor as you move across the chart. On a phone it is a block
+            instead of a row: six statistics on one scrolling line is a line
+            nobody scrolls, and the selection is deliberate there rather than
+            incidental, so it can afford the height. */}
+        <div
+          className={
+            compact
+              ? "flex min-h-16 flex-col gap-1 font-mono text-[11px]"
+              : "flex h-5 items-center gap-x-4 overflow-x-auto font-mono text-[11px] whitespace-nowrap pan-x"
+          }
+        >
           {active ? (
             <>
               <span className="inline-flex items-center gap-2 text-ink-0">
@@ -664,28 +846,38 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                 />
                 {active.p.club}
               </span>
-              <Read label="median" value={`${active.medCarry.toFixed(1)} yd`} />
               <Read
+                stacked={compact}
+                label="median"
+                value={`${active.medCarry.toFixed(1)} yd`}
+              />
+              <Read
+                stacked={compact}
                 label="half inside"
                 value={`${active.carryLo.toFixed(0)}–${active.carryHi.toFixed(0)} yd`}
               />
               <Read
+                stacked={compact}
                 label="8 in 10 inside"
                 value={`${deg(active.p.deviationP10Deg)} to ${deg(active.p.deviationP90Deg)}`}
               />
               <Read
-                label="= at this carry"
+                stacked={compact}
+                label={compact ? "which is, at median carry" : "= at this carry"}
                 value={`${edgeAt(active.sinLo, active.medCarry).toFixed(0)} to ${active.sinHi > 0 ? "+" : ""}${edgeAt(active.sinHi, active.medCarry).toFixed(0)} yd`}
               />
               <Read
+                stacked={compact}
                 label="median miss"
                 value={`${Math.abs(active.medOff).toFixed(1)} yd ${active.medOff >= 0 ? "right" : "left"}`}
               />
-              <Read label="n" value={String(active.p.active)} />
+              <Read stacked={compact} label="n" value={String(active.p.active)} />
             </>
           ) : (
             <span className="text-[10px] uppercase tracking-[0.12em] text-ink-3">
-              Hover or tab a club for its numbers
+              {compact
+                ? "Tap a club for its numbers"
+                : "Hover or tab a club for its numbers"}
             </span>
           )}
         </div>
@@ -708,7 +900,27 @@ function deg(v: number | null): string {
   return `${v > 0 ? "+" : ""}${v.toFixed(1)}°`;
 }
 
-function Read({ label, value }: { label: string; value: string }) {
+/* Inline on one line with a mouse, and a ruled row per statistic on a phone.
+ * Six of these wrapped into two columns collided the moment a value carried two
+ * signed angles — a scorecard sets a label against its number across the page,
+ * so this does too. */
+function Read({
+  label,
+  value,
+  stacked = false,
+}: {
+  label: string;
+  value: string;
+  stacked?: boolean;
+}) {
+  if (stacked) {
+    return (
+      <span className="flex items-baseline justify-between gap-3 border-b border-[var(--line-soft)] pb-1 last:border-b-0">
+        <span className="text-ink-3">{label}</span>
+        <span className="shrink-0 tabular-nums text-ink-1">{value}</span>
+      </span>
+    );
+  }
   return (
     <span className="whitespace-nowrap">
       <span className="text-ink-3">{label} </span>
@@ -731,7 +943,7 @@ function Toggle({
       type="button"
       aria-pressed={on}
       onClick={onClick}
-      className={`border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors rule ${
+      className={`flex min-h-9 items-center border px-3 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors sm:min-h-0 sm:px-2.5 sm:py-1 rule ${
         on ? "bg-paper-2 text-ink-0" : "text-ink-3 hover:text-ink-1"
       }`}
     >
@@ -765,12 +977,15 @@ function shortClub(club: string): string {
  * Push labels apart to a minimum spacing without letting them drift far from
  * their marks. Two clubs 2 yd apart — which is exactly the overlap this chart
  * is meant to expose — would otherwise print on top of each other.
+ *
+ * The minimum comes from the frame: the compact one sets its labels smaller and
+ * has a shorter plot to spread them over, so a spacing fixed at the wide
+ * frame's would push the top label clean off the drawing.
  */
-const LABEL_MIN_GAP = 16;
-
 function labelLayout(
   boxes: Box[],
   py: (carry: number) => number,
+  minGap: number,
 ): { b: Box; y: number }[] {
   const items = boxes
     .map((b) => ({ b, y: py(b.medCarry) }))
@@ -778,7 +993,7 @@ function labelLayout(
 
   for (let i = 1; i < items.length; i += 1) {
     const gap = items[i].y - items[i - 1].y;
-    if (gap < LABEL_MIN_GAP) items[i].y = items[i - 1].y + LABEL_MIN_GAP;
+    if (gap < minGap) items[i].y = items[i - 1].y + minGap;
   }
   return items;
 }

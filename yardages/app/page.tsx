@@ -52,11 +52,11 @@ export default function Home() {
       .sort((a, b) => Math.abs(b.gapYd ?? 0) - Math.abs(a.gapYd ?? 0))[0] ?? null;
 
   return (
-    <div className="mx-auto max-w-7xl px-5 py-8">
+    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-5 sm:py-8">
       {/* ── masthead ─────────────────────────────────────────────────────── */}
-      <div className="flex flex-wrap items-end justify-between gap-6 border-b-2 pb-5 rule-hard">
+      <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-5 border-b-2 pb-5 rule-hard">
         <div>
-          <h1 className="font-serif text-[64px] leading-[0.86] tracking-[-0.01em] sm:text-[84px]">
+          <h1 className="font-serif text-[52px] leading-[0.86] tracking-[-0.01em] sm:text-[64px] lg:text-[84px]">
             THE BAG
           </h1>
           <p className="stamp mt-3 text-ink-3">
@@ -70,11 +70,13 @@ export default function Home() {
           >
             <p className="stamp text-ink-3">Worst gap in the bag</p>
             <div
-              className="mt-1.5 font-sans text-[60px] font-semibold leading-[0.82]"
+              className="mt-1.5 font-sans text-[44px] font-semibold leading-[0.82] sm:text-[60px]"
               style={{ color: VERDICT[worst.verdict].color }}
             >
               {Math.abs(worst.gapYd ?? 0).toFixed(1)}
-              <span className="ml-1 text-[22px] font-normal text-ink-2">yd</span>
+              <span className="ml-1 text-[18px] font-normal text-ink-2 sm:text-[22px]">
+                yd
+              </span>
             </div>
             <p className="stamp mt-2 text-ink-1">
               {VERDICT[worst.verdict].word} · {worst.longer} → {worst.shorter}
@@ -93,7 +95,7 @@ export default function Home() {
       </dl>
 
       {/* ── the hole, and the scorecard beside it ────────────────────────── */}
-      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <div className="mt-6 grid gap-6 sm:mt-8 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
         <section>
           <BagChart profiles={bag} shots={dots} />
         </section>
@@ -146,7 +148,21 @@ export default function Home() {
       {/* ── the card ─────────────────────────────────────────────────────── */}
       <section className="mt-10">
         <h2 className="stamp text-ink-2">Every number on this page</h2>
-        <div className="card mt-3 overflow-x-auto">
+
+        {/* Fifteen columns is a table, and a table 880px wide on a 390px screen
+            is a horizontal scroll through a grid whose header has already left
+            the screen — you read a number with nothing to say which column it
+            came from. Below `md` the same rows are dealt out as cards instead,
+            one club each, every label travelling with its own value. Same
+            numbers, same order, same held-back clubs; only the axis they are
+            laid out on changes. */}
+        <ul className="mt-3 space-y-px md:hidden">
+          {bag.map((p) => (
+            <ClubCard key={p.club} p={p} />
+          ))}
+        </ul>
+
+        <div className="card mt-3 hidden overflow-x-auto md:block pan-x">
           <table className="w-full min-w-[880px] border-collapse font-mono text-[11px]">
             <thead>
               <tr className="border-b bg-paper-2 text-ink-2 rule">
@@ -251,6 +267,75 @@ function Stat({
 function Num({ v, d = 0 }: { v: number | null; d?: number }) {
   return (
     <td className="px-3 py-1.5 text-right tabular-nums">{v === null ? "—" : v.toFixed(d)}</td>
+  );
+}
+
+/* The table twin's own twin: one club per card, for the widths a fifteen-column
+ * table cannot survive. Grouped the way the chart reads rather than the way the
+ * table is ordered — near-far first, then sideways in yards, then sideways in
+ * degrees, then the strike. */
+function ClubCard({ p }: { p: ClubProfile }) {
+  return (
+    <li className="card p-3">
+      <div className="flex items-baseline justify-between gap-3">
+        <h3 className={`text-[14px] ${p.suppressed ? "text-ink-2" : "text-ink-0"}`}>
+          {p.club}
+        </h3>
+        <span className="stamp shrink-0 text-ink-3">
+          {p.suppressed && "held back · "}n={p.active}
+          {p.n !== p.active && ` of ${p.n}`} · {p.sessions} sess
+        </span>
+      </div>
+      <dl className="mt-2.5 grid grid-cols-[3.75rem_minmax(0,1fr)] gap-y-1.5 font-mono text-[11px]">
+        <CardRow
+          label="carry"
+          cells={[
+            ["p25", yd(p.carryP25Yd, 1)],
+            ["med", yd(p.medianCarryYd, 1)],
+            ["p75", yd(p.carryP75Yd, 1)],
+          ]}
+        />
+        <CardRow
+          label="offline"
+          cells={[
+            ["p10", yd(p.offlineP10Yd, 1)],
+            ["p90", yd(p.offlineP90Yd, 1)],
+          ]}
+        />
+        <CardRow
+          label="aim"
+          cells={[
+            ["p10", yd(p.deviationP10Deg, 1)],
+            ["p90", yd(p.deviationP90Deg, 1)],
+          ]}
+        />
+        <CardRow
+          label="strike"
+          cells={[
+            ["ball", yd(p.medianBallSpeedMph, 1)],
+            ["smash", yd(p.medianSmashFactor, 3)],
+            ["launch", yd(p.medianLaunchAngleDeg, 1)],
+            ["spin", yd(p.medianBackspinRpm, 0)],
+          ]}
+        />
+      </dl>
+    </li>
+  );
+}
+
+function CardRow({ label, cells }: { label: string; cells: [string, string][] }) {
+  return (
+    <>
+      <dt className="stamp self-center text-ink-3">{label}</dt>
+      <dd className="flex flex-wrap gap-x-3 gap-y-0.5">
+        {cells.map(([k, v]) => (
+          <span key={k} className="whitespace-nowrap">
+            <span className="text-ink-3">{k} </span>
+            <span className="tabular-nums text-ink-1">{v}</span>
+          </span>
+        ))}
+      </dd>
+    </>
   );
 }
 
