@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500&family=Instrument+Serif&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600&family=Instrument+Serif&display=swap"
           rel="stylesheet"
         />
       </head>
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="font-serif text-[27px] leading-none tracking-[0.02em]">
               YARD<span className="text-accent">AGES</span>
             </Link>
-            <nav className="flex gap-4 font-mono text-[11px] uppercase tracking-[0.08em] text-cream-2">
+            <nav className="stamp flex gap-4 text-cream-2">
               <Link href="/" className="hover:text-cream-0">
                 Bag
               </Link>
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
           <a
             href="https://courses.ummerr.com/"
-            className="font-mono text-[11px] uppercase tracking-[0.08em] text-cream-3 hover:text-accent"
+            className="stamp text-cream-3 hover:text-accent"
           >
             Mackenzie ↗
           </a>

@@ -147,7 +147,9 @@ independent lines of evidence, recorded in `DECISIONS.md`.
 
 ```
 app/
-  page.tsx            the bag chart
+  page.tsx            the bag: masthead, scoreboard, gap scorecard, table twin
+  bag-chart.tsx       the plan view. Every shot a dot, one region per club
+  palette.ts          turf, the ordinal club ramp, the gap verdict tokens
   practice/           what to hit next, generated from the ledger
   sessions/           exclusion hygiene, deliberately unstyled
 lib/
@@ -232,6 +234,42 @@ weighting is capped so no session contributes more than
 shrink a session's influence but never inflate it past what its sample size
 already justified. Possible partials are excluded from full-swing stock
 yardages and counted separately.
+
+## The plan view
+
+The bag chart is drawn as the hole it is — mown fairway, rough either side,
+distance flags up the left edge — and every piece of that scenery sits at a
+position that means something. Each mow stripe boundary is a gridline. The
+fairway edges are a real 30-yard corridor, so a club whose 80% lateral band
+overruns them is a club that misses fairways, and you can see which side.
+Nothing decorative is placed where it could be read as data.
+
+Two layers, answering different questions. Every trusted shot is a dot at its
+actual carry and actual offline — that is the dispersion, with nothing
+summarised away. Over it, one region per club: the interquartile carry band by
+the 80th-percentile lateral band. The dots came second on purpose, because a box
+cannot show you that a club's miss is two clusters rather than one spread, and
+this ledger contains exactly that.
+
+The frame covers every dot rather than clipping to the boxes. Trimming an
+outlier to keep the frame tidy would hide the misses, which are the reason to
+plot shots at all. Below 700 px the chart scrolls sideways instead of shrinking:
+the viewBox scales tick labels with the frame, and a five-pixel axis is worse
+than a scrollbar. The scale stays 1:1 both ways at every size.
+
+**Club colour is an ordinal ramp, not a categorical palette.** Clubs have a real
+order, so swapping two of them would change the meaning — one hue with monotone
+lightness steps is right and eight arbitrary hues are wrong. The ramp is
+validated rather than eyeballed: monotone lightness, every adjacent step ≥ 0.06
+apart in OKLCH, hue spread 1°, dim end above the contrast floor against the
+turf. It spans the clubs actually *drawn*, so no step is spent on a mark nobody
+can see. Every club is direct-labelled with its own chip in the right-hand
+gutter, which is the legend and the label at once, so identity never rests on
+hue. Gap verdicts wear reserved status tokens and are never a series colour.
+
+The gap rulers in the scorecard put the thresholds on the page instead of making
+you do the arithmetic on every row: the shaded band is the 8–15 yd window where
+a gap is fine, and a bar drawn left of the zero mark is an inversion.
 
 ## Practice tasks
 

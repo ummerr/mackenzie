@@ -21,6 +21,7 @@
 :root {
   --line: rgba(242, 237, 229, 0.08);
   --line-soft: rgba(242, 237, 229, 0.05);
+  --line-hard: rgba(242, 237, 229, 0.2);
   --accent-dim: rgba(255, 107, 53, 0.45);
   --accent-faint: rgba(255, 107, 53, 0.12);
 }
@@ -34,4 +35,22 @@ body {
 
 .rule {
   border-color: var(--line);
+}
+
+/* The one repeated label style on the site: mono, small caps, wide tracking.
+ * Every section header, stat label and axis title is this, at one size, so the
+ * page reads as a scorecard rather than as six competing header levels. */
+.stamp {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+/* A scorecard panel: hairline box, one heavy rule at the top. */
+.card {
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--line-hard);
+  background: var(--color-ink-1);
 }
