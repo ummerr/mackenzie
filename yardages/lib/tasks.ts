@@ -30,6 +30,7 @@ import {
   type ClubProfile,
   type Gap,
 } from "./stats";
+import { REVIEW_THRESHOLDS } from "./yardages/thresholds";
 
 export type TaskCategory = "blind spot" | "coverage" | "consistency" | "data" | "gapping";
 
@@ -51,7 +52,10 @@ export interface Task {
  * rest is excluded as a mishit, so a club needs meaningfully more raw swings
  * than the shortfall suggests. Rounding up is deliberate: coming back one shot
  * short means the club stays suppressed for another whole session. */
-export function rawShotsNeeded(usableShortfall: number, warmupShots = 3): number {
+export function rawShotsNeeded(
+  usableShortfall: number,
+  warmupShots = REVIEW_THRESHOLDS.warmupShotsPerClub,
+): number {
   if (usableShortfall <= 0) return 0;
   return Math.ceil(usableShortfall * 1.15) + warmupShots;
 }
@@ -114,7 +118,9 @@ export function buildTasks({
           ? "No shots on file."
           : `${p.active} usable shot${p.active === 1 ? "" : "s"} of ${p.n} hit. ` +
             `Below ${minShots}, so it is suppressed and both gaps beside it read "not shown".`,
-      action: `Hit about ${raw} in one block — ${shortfall} more usable, plus 3 warmup and a mishit or two.`,
+      action:
+        `Hit about ${raw} in one block — ${shortfall} more usable, plus ` +
+        `${REVIEW_THRESHOLDS.warmupShotsPerClub} warmup and a mishit or two.`,
       doneWhen: `${minShots} usable shots.`,
       // Cheaper clubs first: the same bucket of balls unlocks more of the bag.
       priority: 70 + Math.max(0, minShots - shortfall),

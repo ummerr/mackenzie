@@ -44,7 +44,7 @@ describe("buildTasks — priority is information gain", () => {
   });
 
   it("ranks a cheap coverage win above an expensive one", () => {
-    const cheap = tasks.findIndex((t) => t.id === "coverage-6 Iron");
+    const cheap = tasks.findIndex((t) => t.id === "coverage-Sand Wedge");
     const dear = tasks.findIndex((t) => t.id === "coverage-Driver");
     expect(cheap).toBeGreaterThanOrEqual(0);
     expect(cheap).toBeLessThan(dear);
@@ -57,9 +57,9 @@ describe("buildTasks — against the real ledger", () => {
 
   it("asks for the suppressed clubs and nothing else", () => {
     const coverage = tasks.filter((t) => t.category === "coverage").map((t) => t.id);
-    expect(coverage.sort()).toEqual(
-      ["coverage-6 Iron", "coverage-Driver", "coverage-Sand Wedge"].sort(),
-    );
+    // The 6 iron used to be here. The 2026-08-02 evening session took it from
+    // 19 shots to 41, so the task retired itself — which is the whole design.
+    expect(coverage.sort()).toEqual(["coverage-Driver", "coverage-Sand Wedge"].sort());
   });
 
   it("quantifies the sand wedge shortfall in raw shots, not usable ones", () => {
@@ -88,7 +88,10 @@ describe("buildTasks — against the real ledger", () => {
     // same thing with different nouns is noise, not thoroughness.
     const delivery = tasks.filter((t) => t.category === "data");
     expect(delivery).toHaveLength(1);
-    expect(delivery[0].title).toContain("45");
+    // Counted from the ledger rather than pinned: adding a session must not
+    // fail this test, only a second data task would.
+    const missing = load<LedgerShot[]>("shots.json").filter((s) => s.smashFactor === null).length;
+    expect(delivery[0].title).toContain(String(missing));
     expect(delivery[0].evidence).toContain("2026-07-02");
     expect(delivery[0].evidence).toContain("club speed");
     expect(delivery[0].evidence).toContain("smash factor");

@@ -24,6 +24,17 @@ export type Overrides = Record<string, ExclusionOverride>;
 export interface LedgerShot extends ParsedShot {
   /** The session's start timestamp, which is also its id. */
   sessionId: string;
+  /**
+   * Set when data/exclusions.json named this shot, in whichever direction.
+   *
+   * Without it, `{excluded: false}` produces a shot byte-identical to one
+   * nobody ever touched, so a hand-included shot cannot survive a later
+   * automatic flag — manual precedence would only work in one direction.
+   *
+   * Optional so a shots.json written before this field deserializes unchanged;
+   * absent is read as "no override" everywhere downstream.
+   */
+  manualOverride?: "include" | "exclude" | null;
 }
 
 export interface LedgerSession extends ParsedSession {
@@ -83,7 +94,7 @@ export function buildLedger(files: SourceFile[], overrides: Overrides = {}): Led
         duplicatesSkipped += 1;
         continue;
       }
-      shots.set(key, { ...shot, sessionId: id });
+      shots.set(key, { ...shot, sessionId: id, manualOverride: null });
     }
   }
 
@@ -113,6 +124,9 @@ export function buildLedger(files: SourceFile[], overrides: Overrides = {}): Led
     for (const t of targets) {
       t.isExcluded = override.excluded;
       t.exclusionReason = override.excluded ? override.reason : null;
+      // Recorded in both directions. An un-exclusion has to leave a trace, or
+      // the classifier downstream cannot tell it from a shot never named here.
+      t.manualOverride = override.excluded ? "exclude" : "include";
     }
   }
 

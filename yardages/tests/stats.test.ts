@@ -127,26 +127,29 @@ const many = (n: number, over: (i: number) => Partial<LedgerShot>) =>
 
 // ── heuristics ──────────────────────────────────────────────────────────────
 
-describe("applyHeuristics — warmup", () => {
-  it("excludes the first 3 shots of each club block in each session", () => {
+/* Classification itself is tested exhaustively in tests/yardages/. What is
+ * tested here is the SHIM: lib/stats.ts narrows the classifier's six statuses
+ * back down to the boolean that the bag chart, the practice list and the
+ * session table were written against. If this mapping drifts, three pages
+ * quietly start counting different shots. */
+describe("applyHeuristics — the boolean the pages still read", () => {
+  it("excludes warmup and says why in the reason", () => {
     const shots = [
       ...many(10, (i) => ({ club: "7 Iron", shotIndex: i })),
       ...many(10, (i) => ({ club: "8 Iron", shotIndex: 10 + i })),
     ];
-    const out = applyHeuristics(shots);
-    const warm = out.filter((s) => s.exclusionReason === "warmup");
-    expect(warm).toHaveLength(6);
-    expect(warm.filter((s) => s.club === "7 Iron")).toHaveLength(3);
-    expect(warm.filter((s) => s.club === "8 Iron")).toHaveLength(3);
+    const out = applyHeuristics(shots).filter((s) => s.isExcluded);
+    expect(out).toHaveLength(6);
+    expect(out.filter((s) => s.club === "7 Iron")).toHaveLength(3);
+    expect(out.every((s) => /First 3 shots/.test(s.exclusionReason ?? ""))).toBe(true);
   });
 
-  it("restarts the count in a new session", () => {
+  it("restarts the warmup count in a new session", () => {
     const shots = [
       ...many(6, (i) => ({ sessionId: "A", shotIndex: i })),
       ...many(6, (i) => ({ sessionId: "B", shotIndex: i })),
     ];
-    const out = applyHeuristics(shots);
-    expect(out.filter((s) => s.exclusionReason === "warmup")).toHaveLength(6);
+    expect(applyHeuristics(shots).filter((s) => s.isExcluded)).toHaveLength(6);
   });
 
   it("counts by shot order, not array order", () => {
@@ -156,80 +159,70 @@ describe("applyHeuristics — warmup", () => {
       shot({ shotIndex: 1, carryYd: 101 }),
       shot({ shotIndex: 2, carryYd: 102 }),
     ];
-    const out = applyHeuristics(shots);
-    const excluded = out.filter((s) => s.isExcluded).map((s) => s.shotIndex).sort();
-    expect(excluded).toEqual([0, 1, 2]);
+    const out = applyHeuristics(shots).filter((s) => s.isExcluded);
+    expect(out.map((s) => s.shotIndex).sort()).toEqual([0, 1, 2]);
+  });
+
+  it("excludes a mishit and carries its explanation through", () => {
+    const shots = [
+      ...many(20, (i) => ({ shotIndex: i, carryYd: 150 })),
+      shot({ shotIndex: 99, carryYd: 80 }), // 53% of median
+    ];
+    const chunk = applyHeuristics(shots).find((s) => s.shotIndex === 99)!;
+    expect(chunk.isExcluded).toBe(true);
+    expect(chunk.exclusionReason).toMatch(/Carry 53% of median/);
+  });
+
+  it("excludes a possible partial from the stock number, deliberately", () => {
+    // A partial is a real shot and stays in the ledger, but it is not evidence
+    // about what a full swing carries, so the bag chart must not average it in.
+    const shots = [
+      ...many(20, (i) => ({ club: "Gap Wedge", shotIndex: i, carryYd: 100, clubSpeedMph: 80 })),
+      shot({ shotIndex: 99, club: "Gap Wedge", carryYd: 70, clubSpeedMph: 64 }),
+    ];
+    const partial = applyHeuristics(shots).find((s) => s.shotIndex === 99)!;
+    expect(partial.isExcluded).toBe(true);
+    expect(partial.exclusionReason).toMatch(/partial/);
+  });
+
+  it("keeps a lateral outlier IN, because a crooked shot is not a short one", () => {
+    const shots = [
+      ...many(20, (i) => ({ shotIndex: i, carryYd: 150, offlineYd: (i % 5) - 2 })),
+      shot({ shotIndex: 99, carryYd: 150, offlineYd: 40 }),
+    ];
+    const wild = applyHeuristics(shots).find((s) => s.shotIndex === 99)!;
+    expect(wild.isExcluded).toBe(false);
+    expect(wild.exclusionReason).toBeNull();
+  });
+
+  it("leaves an already-excluded phantom excluded", () => {
+    const shots = [
+      ...many(20, (i) => ({ shotIndex: i, carryYd: 150 })),
+      shot({ shotIndex: 99, carryYd: null, isExcluded: true, exclusionReason: "phantom:ball_speed" }),
+    ];
+    const p = applyHeuristics(shots).find((s) => s.shotIndex === 99)!;
+    expect(p.isExcluded).toBe(true);
+    expect(p.exclusionReason).toMatch(/never tracked a ball/);
+  });
+
+  it("clears the reason on a shot it keeps", () => {
+    const kept = applyHeuristics(many(20, (i) => ({ shotIndex: i })));
+    for (const s of kept.filter((x) => !x.isExcluded)) {
+      expect(s.exclusionReason).toBeNull();
+    }
+  });
+
+  it("carries the richer classification along for the review UI to come", () => {
+    const out = applyHeuristics(many(20, (i) => ({ shotIndex: i })));
+    const enriched = out[0] as typeof out[0] & { reviewStatus: string; flagReasons: string[] };
+    expect(enriched.reviewStatus).toBeTruthy();
+    expect(Array.isArray(enriched.flagReasons)).toBe(true);
   });
 
   it("never mutates its input", () => {
     const shots = many(10, () => ({}));
     applyHeuristics(shots);
     expect(shots.every((s) => !s.isExcluded)).toBe(true);
-  });
-});
-
-describe("applyHeuristics — mishits", () => {
-  it("catches a carry below 60% of the club median", () => {
-    const shots = [
-      ...many(20, (i) => ({ shotIndex: i, carryYd: 150 })),
-      shot({ shotIndex: 99, carryYd: 80 }), // 53% of median
-    ];
-    const out = applyHeuristics(shots);
-    const chunk = out.find((s) => s.shotIndex === 99)!;
-    expect(chunk.exclusionReason).toBe("mishit:carry");
-  });
-
-  it("leaves a carry just above the floor alone", () => {
-    const shots = [
-      ...many(20, (i) => ({ shotIndex: i, carryYd: 150 })),
-      shot({ shotIndex: 99, carryYd: 95 }), // 63% of median
-    ];
-    const out = applyHeuristics(shots);
-    expect(out.find((s) => s.shotIndex === 99)!.isExcluded).toBe(false);
-  });
-
-  it("catches a smash factor more than 2 MAD below the club median", () => {
-    const shots = [
-      ...many(20, (i) => ({ shotIndex: i, smashFactor: 1.3 + (i % 3) * 0.01 })),
-      shot({ shotIndex: 99, smashFactor: 1.0, carryYd: 150 }),
-    ];
-    const out = applyHeuristics(shots);
-    expect(out.find((s) => s.shotIndex === 99)!.exclusionReason).toBe("mishit:smash");
-  });
-
-  it("applies no smash threshold when the club's smash never varies", () => {
-    // MAD of 0 would make every non-median shot infinitely deviant.
-    const shots = many(20, (i) => ({ shotIndex: i, smashFactor: 1.3 }));
-    const out = applyHeuristics(shots);
-    expect(out.filter((s) => s.exclusionReason === "mishit:smash")).toHaveLength(0);
-  });
-
-  it("does not test mishits on a club with too few surviving shots", () => {
-    const shots = many(6, (i) => ({ shotIndex: i, carryYd: i === 5 ? 10 : 150 }));
-    // 6 shots - 3 warmup = 3 survivors, below the 5 needed to trust a median.
-    const out = applyHeuristics(shots);
-    expect(out.filter((s) => s.exclusionReason?.startsWith("mishit"))).toHaveLength(0);
-  });
-
-  it("computes the club median AFTER warmup, so warmup cannot lower the floor", () => {
-    // Three dreadful warmup shots then twenty good ones. If warmup counted
-    // toward the median, the 60% floor would drop far enough to admit a chunk.
-    const shots = [
-      ...many(3, (i) => ({ shotIndex: i, carryYd: 60 })),
-      ...many(20, (i) => ({ shotIndex: 3 + i, carryYd: 150 })),
-      shot({ shotIndex: 99, carryYd: 88 }), // 59% of 150, but 98% of a pooled median
-    ];
-    const out = applyHeuristics(shots);
-    expect(out.find((s) => s.shotIndex === 99)!.exclusionReason).toBe("mishit:carry");
-  });
-
-  it("leaves an already-excluded shot alone and out of the medians", () => {
-    const shots = [
-      ...many(20, (i) => ({ shotIndex: i, carryYd: 150 })),
-      shot({ shotIndex: 99, carryYd: null, isExcluded: true, exclusionReason: "phantom:ball_speed" }),
-    ];
-    const out = applyHeuristics(shots);
-    expect(out.find((s) => s.shotIndex === 99)!.exclusionReason).toBe("phantom:ball_speed");
   });
 });
 
@@ -368,6 +361,9 @@ describe("coverageGaps", () => {
     );
     const smash = coverageGaps(real).find((c) => c.field === "smashFactor");
     expect(smash).toBeDefined();
-    expect(smash!.sessions).toEqual(["2026-07-02T08:42:41"]);
+    // 2026-07-02 lost club tracking for the whole session. 2026-08-02 evening
+    // lost it for a single shot — the one that also reported 706 rpm of
+    // backspin on a six iron. Both are the same failure at different scales.
+    expect(smash!.sessions).toEqual(["2026-07-02T08:42:41", "2026-08-02T20:40:21"]);
   });
 });

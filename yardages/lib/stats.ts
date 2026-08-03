@@ -10,33 +10,16 @@
  */
 
 import type { LedgerShot } from "./ledger";
+import { classifyShots, isTrusted } from "./yardages/classify-shot";
+import { REVIEW_THRESHOLDS, type ReviewThresholds } from "./yardages/thresholds";
 
 // ── primitives ──────────────────────────────────────────────────────────────
 
-/** Linear-interpolated quantile. Input need not be sorted. */
-export function quantile(values: number[], p: number): number {
-  if (values.length === 0) throw new Error("quantile of empty set");
-  if (p < 0 || p > 1) throw new Error(`quantile p out of range: ${p}`);
-  const s = [...values].sort((a, b) => a - b);
-  const i = (s.length - 1) * p;
-  const lo = Math.floor(i);
-  const hi = Math.ceil(i);
-  return lo === hi ? s[lo] : s[lo] + (s[hi] - s[lo]) * (i - lo);
-}
+/* One implementation, in lib/yardages/robust-stats.ts. Re-exported here
+ * because every existing caller and test imports them from this module. */
+import { mad, median, quantile } from "./yardages/robust-stats";
 
-export const median = (values: number[]): number => quantile(values, 0.5);
-
-/**
- * Median absolute deviation, scaled to be comparable with a standard
- * deviation on normal data (×1.4826). Used instead of SD because the thing
- * being detected — the mishit — is exactly the outlier that inflates SD and
- * then hides inside the widened threshold.
- */
-export function mad(values: number[]): number {
-  if (values.length === 0) throw new Error("mad of empty set");
-  const m = median(values);
-  return 1.4826 * median(values.map((v) => Math.abs(v - m)));
-}
+export { mad, median, quantile };
 
 // ── bag order ───────────────────────────────────────────────────────────────
 
@@ -68,99 +51,30 @@ export function sortByBag<T extends { club: string }>(items: T[]): T[] {
 
 // ── exclusion heuristics ────────────────────────────────────────────────────
 
-export interface HeuristicOptions {
-  /** Shots at the start of each club's block in a session. */
-  warmupShots: number;
-  /** Smash factor this many MADs below the club median is a mishit. */
-  smashMads: number;
-  /** Carry below this fraction of the club median is a mishit. */
-  carryFloorFraction: number;
-}
-
-export const DEFAULT_HEURISTICS: HeuristicOptions = {
-  warmupShots: 3,
-  smashMads: 2,
-  carryFloorFraction: 0.6,
-};
-
 /**
- * Flag warmup and mishit shots. Never mutates, never deletes — returns copies
- * carrying `isExcluded` and a reason, so every exclusion is reversible and
- * attributable.
+ * Compatibility shim over `classifyShots`.
  *
- * Order matters and is deliberate: warmup is removed FIRST, and the club
- * medians that drive the mishit tests are computed from what survives. Warmup
- * shots are systematically worse, so leaving them in drags the median down,
- * which drags the 60%-of-median floor down with it, which lets genuinely bad
- * shots through the very filter meant to catch them.
+ * The classifier is the single implementation of review status; this narrows
+ * its six statuses back down to the boolean the bag chart, the practice list
+ * and the session table were written against, so those keep working unchanged
+ * while reading the better classification underneath.
  *
- * Shots already excluded upstream (phantoms, manual overrides) are left alone
- * and take no part in any median.
+ * `possible-partial` maps to excluded, deliberately: a partial is a real shot
+ * but not evidence about a full-swing stock yardage. The status it came from
+ * is preserved in `exclusionReason` rather than flattened away, so nothing is
+ * lost that the run-3 review UI will want.
+ *
+ * Never mutates, never deletes. Returns copies.
  */
 export function applyHeuristics(
   shots: LedgerShot[],
-  opts: HeuristicOptions = DEFAULT_HEURISTICS,
+  t: ReviewThresholds = REVIEW_THRESHOLDS,
 ): LedgerShot[] {
-  const out = shots.map((s) => ({ ...s }));
-
-  // ── pass 1: warmup, per (session, club) block ─────────────────────────────
-  const seen = new Map<string, number>();
-  for (const s of [...out].sort(
-    (a, b) => a.sessionId.localeCompare(b.sessionId) || a.shotIndex - b.shotIndex,
-  )) {
-    if (s.isExcluded) continue;
-    const key = `${s.sessionId}#${s.club}`;
-    const n = (seen.get(key) ?? 0) + 1;
-    seen.set(key, n);
-    if (n <= opts.warmupShots) {
-      s.isExcluded = true;
-      s.exclusionReason = "warmup";
-    }
-  }
-
-  // ── club medians from what survived warmup ────────────────────────────────
-  const carriesByClub = new Map<string, number[]>();
-  const smashByClub = new Map<string, number[]>();
-  for (const s of out) {
-    if (s.isExcluded) continue;
-    if (s.carryYd !== null) {
-      const a = carriesByClub.get(s.club) ?? [];
-      a.push(s.carryYd);
-      carriesByClub.set(s.club, a);
-    }
-    if (s.smashFactor !== null) {
-      const a = smashByClub.get(s.club) ?? [];
-      a.push(s.smashFactor);
-      smashByClub.set(s.club, a);
-    }
-  }
-
-  // ── pass 2: mishits ───────────────────────────────────────────────────────
-  for (const s of out) {
-    if (s.isExcluded) continue;
-
-    const smashes = smashByClub.get(s.club);
-    if (s.smashFactor !== null && smashes && smashes.length >= 5) {
-      const m = median(smashes);
-      const d = mad(smashes);
-      // A MAD of 0 means the club's smash never varies; no threshold to apply.
-      if (d > 0 && s.smashFactor < m - opts.smashMads * d) {
-        s.isExcluded = true;
-        s.exclusionReason = "mishit:smash";
-        continue;
-      }
-    }
-
-    const carries = carriesByClub.get(s.club);
-    if (s.carryYd !== null && carries && carries.length >= 5) {
-      if (s.carryYd < median(carries) * opts.carryFloorFraction) {
-        s.isExcluded = true;
-        s.exclusionReason = "mishit:carry";
-      }
-    }
-  }
-
-  return out;
+  return classifyShots(shots, t).shots.map((s) => ({
+    ...s,
+    isExcluded: !isTrusted(s),
+    exclusionReason: isTrusted(s) ? null : (s.explanation ?? s.reviewStatus),
+  }));
 }
 
 // ── club profiles ───────────────────────────────────────────────────────────

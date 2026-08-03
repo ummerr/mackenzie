@@ -63,5 +63,18 @@
     "sourceFiles": [
       "DrivingRange-2026-08-02 21:18:50 +0000.csv"
     ]
+  },
+  {
+    "sessionStartedAt": "2026-08-02T20:40:21",
+    "shotCount": 22,
+    "airDensityGl": 1.1713529,
+    "temperatureF": 71.6,
+    "airPressureKpa": 99.74,
+    "relativeHumidityPct": 50,
+    "phantomRate": 0,
+    "id": "2026-08-02T20:40:21",
+    "sourceFiles": [
+      "DrivingRange-2026-08-03 04:55:56 +0000.csv"
+    ]
   }
 ]

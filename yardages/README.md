@@ -20,8 +20,9 @@ the brief's Deferred list is still deferred and deliberately unscaffolded.
 pnpm install
 pnpm ingest                         # data/raw/*.csv -> data/shots.json
 pnpm dev                            # http://localhost:3000
-pnpm test                           # 104 tests over the real exports
+pnpm test                           # 212 tests over the real exports
 pnpm typecheck
+pnpm compare                        # old vs new stock yardages, side by side
 ```
 
 ## Adding a session
@@ -52,6 +53,11 @@ applied after the automatic phantom flag, so a hand edit always wins.
 Exclusions are reversible and reasoned, never deletions — set `excluded` to
 `false` to bring a shot back. An override matching no shot is reported as
 orphaned on every run rather than silently doing nothing.
+
+An override is recorded on the shot as `manualOverride`, in **both**
+directions. Without it, `{"excluded": false}` produces a shot byte-identical to
+one nobody ever touched, and a hand-included shot could not survive a later
+automatic flag — manual precedence would work one way only.
 
 ## Deploy
 
@@ -149,10 +155,17 @@ lib/
   units.ts            conversion driven by the file's own units row
   parse.ts            one CSV -> one session. Pure
   ledger.ts           many sessions -> one deduplicated ledger. Pure
-  stats.ts            medians, bands, exclusion heuristics, gap flags. Pure
+  stats.ts            medians, bands, gap flags. Pure
   tasks.ts            practice tasks derived from all of the above. Pure
+  yardages/
+    thresholds.ts     every tunable number, in one documented object
+    robust-stats.ts   median, MAD, weighted median, percentile intervals
+    recency-weighting.ts  exponential decay and the per-session weight cap
+    classify-shot.ts  shot review status, reasons and explanations
+    club-profile.ts   stock yardages per club
 scripts/
   ingest.ts           the only file that touches the filesystem
+  compare.ts          before/after table for a heuristic change. Writes nothing
 data/
   raw/                real exports, verbatim, never edited
   exclusions.json     hand-editable overrides
@@ -160,6 +173,65 @@ data/
   shots.json          generated
 tests/                vitest
 ```
+
+## Shot review
+
+Every shot gets a status, machine-readable reasons, and one sentence saying why.
+Nothing is deleted; a flagged shot stays in the ledger and explains itself.
+
+**Low carry alone does not mean a bad shot.** The discriminator is the
+relationship between club speed and smash factor:
+
+- **partial** — low carry, low club speed, smash normal for the club. Less
+  energy went in, so less came out. The player meant this.
+- **mishit** — low carry, normal club speed, smash low. The energy went in and
+  the ball did not.
+
+Carry ratio alone cannot tell those apart, and a rule built on it throws away
+every deliberate three-quarter wedge as a miss. Wedges get a more permissive
+carry threshold because partials are ordinary there, but the test they enter is
+the same one — the physics does not change for a knocked-down 8 iron.
+
+Two cases from the real ledger show why both halves are needed. A 116 yd six
+iron at 103% of median club speed with smash 0.979 is a mishit and nothing else.
+A 95 yd six iron at 100% club speed with smash 1.279 is *also* a mishit, but
+smash cannot see it: the ball speed was fine and the launch angle was 4.3°
+instead of 18°. It was thinned. The classifier names that case rather than
+diagnosing it, because launch and spin are not part of the test.
+
+Where club speed is missing — a quarter of this ledger, from one export that
+tracked the ball but not the club — the classification falls back to smash alone
+and is marked lower certainty. Where both are missing it says so. **No shot is
+ever excluded for a metric the monitor failed to record.** Absence can widen a
+verdict or lower its certainty; it can never be the whole of one.
+
+Manual exclusion wins over any automatic verdict, in both directions. A hand-
+included shot keeps its automatic reasons rather than having them erased, so a
+shot you kept that the heuristics dislike is still visible as exactly that.
+
+Below `minSampleForClubRelativeRules` shots, only the deterministic rules run —
+warmup, phantom, missing data. Computing a club median off a handful of shots
+and then excluding shots against it is circular, and it distorts precisely the
+small samples least able to survive it.
+
+Every threshold lives in `lib/yardages/thresholds.ts` with its reasoning beside
+it. Two deserve mention here:
+
+- **`recencyHalfLifeDays` is not a half-life.** `exp(-age/45)` decays to 1/e at
+  45 days, not to one half. The name came from the brief and is kept verbatim
+  rather than silently corrected.
+- **A lateral outlier annotates a shot; it never excludes one.** In this ledger
+  the pitching wedge shots 19-30 yd left carried *above* the club median.
+  Dropping them would bias the carry number downward on the assumption that a
+  crooked shot is a short one, and would erase the very signal that tells a
+  systematic pull from one bad day.
+
+Stock yardages carry a weighted and an unweighted median, always both. Recency
+weighting is capped so no session contributes more than
+`max(0.6, its share of the club's shots)` of the total weight — recency can
+shrink a session's influence but never inflate it past what its sample size
+already justified. Possible partials are excluded from full-swing stock
+yardages and counted separately.
 
 ## Practice tasks
 

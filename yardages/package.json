@@ -9,6 +9,7 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "ingest": "tsx scripts/ingest.ts",
+    "compare": "tsx scripts/compare.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },
