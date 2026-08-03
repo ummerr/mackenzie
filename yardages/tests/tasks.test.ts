@@ -8,11 +8,14 @@ import { buildTasks, rawShotsNeeded, type Task } from "../lib/tasks";
 const DATA = join(__dirname, "..", "data");
 const load = <T,>(f: string): T => JSON.parse(readFileSync(join(DATA, f), "utf8")) as T;
 
-function realTasks(): Task[] {
+/* The real ledger, optionally at a threshold other than the default. minShots
+ * goes to buildBag and buildTasks together — split them and the shortfall is
+ * measured against a line the bag was not drawn at. */
+function realTasks(minShots?: number): Task[] {
   const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
   const sessions = load<LedgerSession[]>("sessions.json");
-  const profiles = buildBag(shots);
-  return buildTasks({ profiles, gaps: detectGaps(profiles), shots, sessions });
+  const profiles = minShots === undefined ? buildBag(shots) : buildBag(shots, minShots);
+  return buildTasks({ profiles, gaps: detectGaps(profiles), shots, sessions, minShots });
 }
 
 describe("rawShotsNeeded", () => {
@@ -44,8 +47,12 @@ describe("buildTasks — priority is information gain", () => {
   });
 
   it("ranks a cheap coverage win above an expensive one", () => {
-    const cheap = tasks.findIndex((t) => t.id === "coverage-Sand Wedge");
-    const dear = tasks.findIndex((t) => t.id === "coverage-Driver");
+    // At the real threshold only the driver is short, so the comparison needs
+    // a second short club: at 22 the sand wedge is 3 shots away and the driver
+    // is 22. The same bucket of balls unlocks more of the bag via the wedge.
+    const raised = realTasks(22);
+    const cheap = raised.findIndex((t) => t.id === "coverage-Sand Wedge");
+    const dear = raised.findIndex((t) => t.id === "coverage-Driver");
     expect(cheap).toBeGreaterThanOrEqual(0);
     expect(cheap).toBeLessThan(dear);
   });
@@ -59,12 +66,15 @@ describe("buildTasks — against the real ledger", () => {
     const coverage = tasks.filter((t) => t.category === "coverage").map((t) => t.id);
     // The 6 iron used to be here. The 2026-08-02 evening session took it from
     // 19 shots to 41, so the task retired itself — which is the whole design.
-    expect(coverage.sort()).toEqual(["coverage-Driver", "coverage-Sand Wedge"].sort());
+    // The sand wedge went the same way on 2026-08-03: 12 shots to 28.
+    expect(coverage.sort()).toEqual(["coverage-Driver"]);
   });
 
-  it("quantifies the sand wedge shortfall in raw shots, not usable ones", () => {
-    // 8 usable of 12 hit; 7 short, so ~12 raw swings.
-    expect(byId("coverage-Sand Wedge")!.action).toContain("12");
+  it("quantifies the shortfall in raw shots, not usable ones", () => {
+    // 0 usable of 1 hit; 15 short, so ~21 raw swings once warmup and a mishit
+    // or two are paid for. Asking for 15 would come back suppressed again.
+    expect(byId("coverage-Driver")!.action).toContain("21");
+    expect(byId("coverage-Driver")!.action).toContain("15 more usable");
   });
 
   it("flags both confirmed holes", () => {
@@ -121,27 +131,14 @@ describe("buildTasks — against the real ledger", () => {
 
 describe("buildTasks — retires its own tasks", () => {
   it("drops a coverage task once the club clears the threshold", () => {
-    const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
-    const sessions = load<LedgerSession[]>("sessions.json");
+    // The sand wedge is the worked example: it was on this list until the
+    // 2026-08-03 session, and hitting the shots is the only thing that removed
+    // it. Raise the bar past what it now has and the task comes back.
+    const short = realTasks(22);
+    expect(short.some((t) => t.id === "coverage-Sand Wedge")).toBe(true);
 
-    const before = buildTasks({
-      profiles: buildBag(shots),
-      gaps: detectGaps(buildBag(shots)),
-      shots,
-      sessions,
-    });
-    expect(before.some((t) => t.id === "coverage-Sand Wedge")).toBe(true);
-
-    // Same ledger, threshold lowered to what the sand wedge already has.
-    const profiles = buildBag(shots, 8);
-    const after = buildTasks({
-      profiles,
-      gaps: detectGaps(profiles),
-      shots,
-      sessions,
-      minShots: 8,
-    });
-    expect(after.some((t) => t.id === "coverage-Sand Wedge")).toBe(false);
+    const real = realTasks();
+    expect(real.some((t) => t.id === "coverage-Sand Wedge")).toBe(false);
   });
 
   it("returns nothing at all when there are no sessions", () => {
