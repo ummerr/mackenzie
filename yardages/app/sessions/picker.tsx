@@ -44,24 +44,24 @@ export function ExclusionPicker({
   return (
     <>
       <div className="mt-5 flex items-center gap-3">
-        <label htmlFor="reason" className="text-cream-2">
+        <label htmlFor="reason" className="text-ink-2">
           Reason
         </label>
         <input
           id="reason"
           value={reason}
           onChange={(e) => setReason(e.target.value)}
-          className="border bg-ink-1 px-2 py-1 text-cream-0 rule"
+          className="border bg-paper-1 px-2 py-1 text-ink-0 rule"
         />
         {Object.keys(flips).length > 0 && (
-          <button onClick={() => setFlips({})} className="border px-2 py-1 text-cream-2 rule">
+          <button onClick={() => setFlips({})} className="border px-2 py-1 text-ink-2 rule">
             reset {Object.keys(flips).length}
           </button>
         )}
       </div>
 
       {snippet && (
-        <pre className="mt-4 overflow-x-auto border bg-ink-1 p-3 text-[11px] text-cream-1 rule">
+        <pre className="mt-4 overflow-x-auto border bg-paper-1 p-3 text-[11px] text-ink-1 rule">
           {snippet}
         </pre>
       )}
@@ -70,15 +70,15 @@ export function ExclusionPicker({
         const mine = shots.filter((s) => s.sessionId === session.id);
         return (
           <section key={session.id} className="mt-8">
-            <h2 className="text-cream-0">
+            <h2 className="text-ink-0">
               {session.id.replace("T", " ")}{" "}
-              <span className="text-cream-3">
+              <span className="text-ink-3">
                 · {mine.length} shots · {session.sourceFiles.join(", ")}
               </span>
             </h2>
             <table className="mt-2 w-full border-collapse text-[11px]">
               <thead>
-                <tr className="text-left text-cream-3">
+                <tr className="text-left text-ink-3">
                   <th className="py-1 pr-3">Excl</th>
                   <th className="py-1 pr-3">#</th>
                   <th className="py-1 pr-3">Time</th>
@@ -97,7 +97,7 @@ export function ExclusionPicker({
                   return (
                     <tr
                       key={s.shotTimestamp}
-                      className={excluded ? "text-cream-3" : "text-cream-1"}
+                      className={excluded ? "text-ink-3" : "text-ink-1"}
                     >
                       <td className="py-0.5 pr-3">
                         <input
@@ -126,7 +126,7 @@ export function ExclusionPicker({
                       </td>
                       <td className="py-0.5 pr-3">
                         {s.exclusionReason ?? ""}
-                        {flipped && <span className="text-accent"> ← changed</span>}
+                        {flipped && <span className="text-accent-ink"> ← changed</span>}
                       </td>
                     </tr>
                   );

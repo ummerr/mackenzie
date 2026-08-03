@@ -1,40 +1,139 @@
 @import "tailwindcss";
 
-/* Tokens mirrored from ../css/map.css, which mirrors
- * ummerr.github.io/assets/css/style.css. Kept as CSS variables rather than a
- * Tailwind config so the two sites stay diffable by eye. */
-@theme {
-  --color-ink-0: #0a0a09;
-  --color-ink-1: #131211;
-  --color-ink-2: #1c1a18;
-  --color-cream-0: #f2ede5;
-  --color-cream-1: #c9c3ba;
-  --color-cream-2: #8f8981;
-  --color-cream-3: #5f5a53;
-  --color-accent: #ff6b35;
+/* Two themes, one declaration each.
+ *
+ * Every token below is `light-dark(light, dark)`, so the two themes sit on the
+ * same line and stay diffable by eye — the property the old single-theme block
+ * had for free and the reason these were CSS variables rather than a Tailwind
+ * config in the first place. The switch is `color-scheme` and nothing else: no
+ * duplicated blocks to drift apart, and no JavaScript inside the components.
+ *
+ * Light is a scorecard — warm card stock, dark ink, hairline rules. Dark is the
+ * same card printed in reverse, and is the palette this site shipped with.
+ *
+ * NOTE: these no longer mirror ../css/map.css. That file is calibrated against
+ * a dark satellite basemap and stays dark; this one went to paper.
+ *
+ * Every text token clears 4.5:1 on every ground it is used on, including the
+ * faintest — which the dark theme did not manage before (its two quietest greys
+ * sat at 2.5–2.9:1 and have been lifted).
+ */
+
+:root {
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+/* The third state: hand it back to the OS. Not the default — someone arriving
+ * with no stored preference gets the paper. */
+:root[data-theme="auto"] {
+  color-scheme: light dark;
+}
+
+:root {
+  /* ── grounds ────────────────────────────────────────────────────────────── */
+  --paper-0: light-dark(#f7f4ec, #0a0a09); /* the page */
+  --paper-1: light-dark(#fffdf8, #131211); /* cards, stat tiles, panels */
+  --paper-2: light-dark(#f1ece1, #1c1a18); /* table heads, pressed toggles */
+
+  /* ── text, loudest to quietest ──────────────────────────────────────────── */
+  --ink-0: light-dark(#161a15, #f2ede5);
+  --ink-1: light-dark(#333a31, #c9c3ba);
+  --ink-2: light-dark(#4f574c, #a9a29a);
+  --ink-3: light-dark(#666d63, #8a8279); /* the .stamp colour */
+
+  /* ── rules ──────────────────────────────────────────────────────────────── */
+  --line: light-dark(rgba(22, 26, 21, 0.12), rgba(242, 237, 229, 0.08));
+  --line-soft: light-dark(rgba(22, 26, 21, 0.07), rgba(242, 237, 229, 0.05));
+  --line-hard: light-dark(rgba(22, 26, 21, 0.28), rgba(242, 237, 229, 0.2));
+
+  /* The brand orange is a mark colour, not a text colour: on paper it is 2.9:1
+   * and fails everything. Two tokens, so the flag stays orange and the words
+   * stay readable. */
+  --accent: light-dark(#ff6b35, #ff6b35);
+  --accent-ink: light-dark(#b8420f, #ff6b35);
+
+  /* ── the hole ───────────────────────────────────────────────────────────────
+   * Scenery for the bag chart, never an encoding. The fairway is lighter than
+   * the rough in both themes — mown grass reflects and long grass does not, so
+   * the direction is a fact about grass rather than about the ground it is
+   * drawn on. What moves between themes is only how far from the page each
+   * surface sits, so the corridor reads before its edges do either way. */
+  --turf-rough: light-dark(#dde5cf, #080d08);
+  --turf-tuft: light-dark(#c3d1af, #1a2b1c);
+  --turf-fairway: light-dark(#eaf1dc, #0d180d);
+  --turf-mow: light-dark(#f2f7e8, #152315); /* the lighter half of a stripe */
+  --turf-edge: light-dark(#a8bb8d, #283d22);
+  --turf-grid: light-dark(rgba(24, 42, 20, 0.09), rgba(226, 240, 220, 0.055));
+  --turf-target: light-dark(rgba(24, 42, 20, 0.34), rgba(226, 240, 220, 0.24));
+  --turf-axis: light-dark(#adbb9f, #2b3a2b);
+  --turf-tick: light-dark(#4f5a45, #94a692);
+  --turf-muted: light-dark(#5a6650, #7b8f7a);
+
+  /* ── the club ramp ──────────────────────────────────────────────────────────
+   * Ordinal, not categorical: index 0 is the shortest club drawn and the ramp
+   * deepens as the hole gets longer. One hue (64° OKLCH) with equal lightness
+   * steps, in both themes — only the band moves, because the pale end has to
+   * survive a pale fairway in one and a black one in the other.
+   *
+   *   light  L 0.735 → 0.295      dark  L 0.905 → 0.455
+   *
+   * Both bands are computed, not eyeballed, and both pass the four rules
+   * palette.ts states: monotone lightness, adjacent steps ≥ 0.06, hue spread
+   * under 6°, and the end nearest the turf at ≥ 2:1 against it. */
+  --club-0: light-dark(#e29648, #ffd7b6);
+  --club-1: light-dark(#cd8332, #ffba7e);
+  --club-2: light-dark(#b86f18, #ff9b2e);
+  --club-3: light-dark(#a15e00, #e98600);
+  --club-4: light-dark(#884f00, #cd7605);
+  --club-5: light-dark(#704000, #b26601);
+  --club-6: light-dark(#593200, #985600);
+  --club-7: light-dark(#432400, #7f4600);
+
+  /* ── gap verdicts ───────────────────────────────────────────────────────────
+   * Status tokens, reserved: never a series colour, and always shipped beside
+   * their word. They are set as text as often as they are set as fill, so the
+   * light values are darkened to clear 4.5:1 on paper rather than ported. */
+  --verdict-ok: light-dark(#26773a, #3fae52);
+  --verdict-overlap: light-dark(#8a6305, #e2b02a);
+  --verdict-hole: light-dark(#b8420f, #ff6b35);
+  --verdict-inverted: light-dark(#b0332a, #e04b4b);
+  --verdict-unknown: light-dark(#666d63, #5f5a53);
+}
+
+/* `inline` is what makes the generated utilities emit `var(--paper-0)` rather
+ * than a copy of its value, which is the whole mechanism above. */
+@theme inline {
+  --color-paper-0: var(--paper-0);
+  --color-paper-1: var(--paper-1);
+  --color-paper-2: var(--paper-2);
+  --color-ink-0: var(--ink-0);
+  --color-ink-1: var(--ink-1);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
 
   --font-sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font-serif: "Instrument Serif", Georgia, serif;
 }
 
-:root {
-  --line: rgba(242, 237, 229, 0.08);
-  --line-soft: rgba(242, 237, 229, 0.05);
-  --line-hard: rgba(242, 237, 229, 0.2);
-  --accent-dim: rgba(255, 107, 53, 0.45);
-  --accent-faint: rgba(255, 107, 53, 0.12);
-}
-
 html,
 body {
-  background: var(--color-ink-0);
-  color: var(--color-cream-0);
+  background: var(--paper-0);
+  color: var(--ink-0);
   -webkit-font-smoothing: antialiased;
 }
 
 .rule {
   border-color: var(--line);
+}
+
+/* The heavy rule: the top of a scorecard box, the bottom of the masthead. */
+.rule-hard {
+  border-color: var(--line-hard);
 }
 
 /* The one repeated label style on the site: mono, small caps, wide tracking.
@@ -52,5 +151,5 @@ body {
 .card {
   border: 1px solid var(--line);
   border-top: 2px solid var(--line-hard);
-  background: var(--color-ink-1);
+  background: var(--paper-1);
 }

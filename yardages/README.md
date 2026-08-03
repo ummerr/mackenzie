@@ -150,6 +150,8 @@ app/
   page.tsx            the bag: masthead, scoreboard, gap scorecard, table twin
   bag-chart.tsx       the plan view. Every shot a dot, one region per club
   palette.ts          turf, the ordinal club ramp, the gap verdict tokens
+  globals.css         the tokens themselves, both themes, one line each
+  theme-toggle.tsx    day / dusk / auto
   practice/           what to hit next, generated from the ledger
   sessions/           exclusion hygiene, deliberately unstyled
 lib/
@@ -280,11 +282,34 @@ than a scrollbar. The scale stays 1:1 both ways at every size.
 order, so swapping two of them would change the meaning — one hue with monotone
 lightness steps is right and eight arbitrary hues are wrong. The ramp is
 validated rather than eyeballed: monotone lightness, every adjacent step ≥ 0.06
-apart in OKLCH, hue spread 1°, dim end above the contrast floor against the
-turf. It spans the clubs actually *drawn*, so no step is spent on a mark nobody
-can see. Every club is direct-labelled with its own chip in the right-hand
-gutter, which is the legend and the label at once, so identity never rests on
-hue. Gap verdicts wear reserved status tokens and are never a series colour.
+apart in OKLCH, hue spread under 6°, and the end nearest the turf above the
+contrast floor against it. It spans the clubs actually *drawn*, so no step is
+spent on a mark nobody can see. Every club is direct-labelled with its own chip
+in the right-hand gutter, which is the legend and the label at once, so identity
+never rests on hue. Gap verdicts wear reserved status tokens and are never a
+series colour.
+
+## Two themes
+
+Light is the default and dark is the palette this site shipped with. Both are
+one hole drawn on two grounds. The fairway stays lighter than the rough in
+either theme — mown grass reflects and long grass does not, which is a fact
+about grass and not about the page. The club ramp likewise keeps its hue and its
+direction in both; only the lightness band moves, because the pale end has to
+survive a pale fairway in one theme and a black one in the other.
+
+The mechanism is `light-dark()` in `app/globals.css` — every token is one
+declaration carrying both values, so the two themes stay diffable by eye and
+there is no second block to drift out of step. Switching is `color-scheme` and
+nothing else, keyed off a `data-theme` attribute that an inline script in
+`app/layout.tsx` stamps before first paint. The toggle in the header is three
+states: Day, Dusk, and Auto, where Auto hands it back to the OS.
+
+Because the chart's colours are now custom properties rather than constants,
+they are set through `style` and never as SVG presentation attributes —
+`fill="var(--x)"` is not reliably resolved and fails silently to no fill.
+
+Every text token clears 4.5:1 on every ground it is used on, in both themes.
 
 The gap rulers in the scorecard put the thresholds on the page instead of making
 you do the arithmetic on every row: the shaded band is the 8–15 yd window where

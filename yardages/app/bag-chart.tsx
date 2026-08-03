@@ -132,7 +132,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
 
   if (boxes.length === 0) {
     return (
-      <p className="font-mono text-[12px] text-cream-2">
+      <p className="font-mono text-[12px] text-ink-2">
         No club has enough shots to draw yet.
       </p>
     );
@@ -193,7 +193,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
   return (
     <figure className="m-0">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-        <p className="stamp text-cream-3">
+        <p className="stamp text-ink-3">
           Plan view · down the target line · scale 1:1 both ways
         </p>
         <div className="flex gap-px">
@@ -227,7 +227,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
             >
               <path
                 d="M1.5 8 L2.2 4.4 M5.6 9 L6.1 5.6 M3.6 4.2 L4.1 1"
-                stroke={TURF.roughTuft}
+                style={{ stroke: TURF.roughTuft }}
                 strokeWidth="0.75"
                 fill="none"
                 strokeLinecap="round"
@@ -264,7 +264,11 @@ export function BagChart({ profiles, shots }: BagChartProps) {
               {/* ── the hole ───────────────────────────────────────────────── */}
               {showCourse ? (
                 <>
-                  <rect width={PLOT_W} height={PLOT_H} fill={TURF.rough} />
+                  <rect
+                    width={PLOT_W}
+                    height={PLOT_H}
+                    style={{ fill: TURF.rough }}
+                  />
                   <rect
                     width={PLOT_W}
                     height={PLOT_H}
@@ -275,7 +279,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                     y={0}
                     width={fairR - fairL}
                     height={PLOT_H}
-                    fill={TURF.fairway}
+                    style={{ fill: TURF.fairway }}
                   />
                   {stripes.map((c, i) =>
                     i % 2 === 0 ? (
@@ -285,7 +289,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                         y={py(c + stripeStep)}
                         width={fairR - fairL}
                         height={Math.max(py(c) - py(c + stripeStep), 0)}
-                        fill={TURF.mow}
+                        style={{ fill: TURF.mow }}
                       />
                     ) : null,
                   )}
@@ -294,7 +298,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                     x2={fairL}
                     y1={0}
                     y2={PLOT_H}
-                    stroke={TURF.edge}
+                    style={{ stroke: TURF.edge }}
                     strokeWidth={1.5}
                   />
                   <line
@@ -302,12 +306,12 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                     x2={fairR}
                     y1={0}
                     y2={PLOT_H}
-                    stroke={TURF.edge}
+                    style={{ stroke: TURF.edge }}
                     strokeWidth={1.5}
                   />
                   <text
                     transform={`translate(${fairL - 6},${PLOT_H - 14}) rotate(-90)`}
-                    fill={TURF.muted}
+                    style={{ fill: TURF.muted }}
                     fontSize={9}
                     fontFamily="var(--font-mono)"
                     letterSpacing="0.14em"
@@ -319,7 +323,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                 <rect
                   width={PLOT_W}
                   height={PLOT_H}
-                  fill="var(--color-ink-1)"
+                  style={{ fill: "var(--paper-1)" }}
                 />
               )}
 
@@ -331,7 +335,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                   x2={PLOT_W}
                   y1={py(t)}
                   y2={py(t)}
-                  stroke={TURF.grid}
+                  style={{ stroke: TURF.grid }}
                   strokeWidth={1}
                 />
               ))}
@@ -342,7 +346,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                   x2={px(t)}
                   y1={0}
                   y2={PLOT_H}
-                  stroke={TURF.grid}
+                  style={{ stroke: TURF.grid }}
                   strokeWidth={1}
                 />
               ))}
@@ -353,7 +357,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                 x2={px(0)}
                 y1={0}
                 y2={PLOT_H}
-                stroke={TURF.target}
+                style={{ stroke: TURF.target }}
                 strokeWidth={1}
                 strokeDasharray="5 5"
               />
@@ -365,13 +369,13 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                 <path
                   d="M-5 -7 L0 0 L5 -7"
                   fill="none"
-                  stroke={TURF.muted}
+                  style={{ stroke: TURF.muted }}
                   strokeWidth={1.25}
                 />
                 <text
                   y={12}
                   textAnchor="middle"
-                  fill={TURF.muted}
+                  style={{ fill: TURF.muted }}
                   fontSize={9}
                   fontFamily="var(--font-mono)"
                   letterSpacing="0.16em"
@@ -415,7 +419,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                       cx={px(d.offlineYd)}
                       cy={py(d.carryYd)}
                       r={hover === d.club ? 2.9 : 2.2}
-                      fill={colors.get(d.club) ?? CLUB_RAMP[2]}
+                      style={{ fill: colors.get(d.club) ?? CLUB_RAMP[2] }}
                       fillOpacity={
                         faded ? 0.12 : hover === d.club ? 0.95 : 0.62
                       }
@@ -468,9 +472,8 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                   />
                   <polygon
                     points={points}
-                    fill={b.color}
+                    style={{ fill: b.color, stroke: b.color }}
                     fillOpacity={on ? 0.16 : 0.06}
-                    stroke={b.color}
                     strokeOpacity={on ? 1 : 0.85}
                     strokeWidth={on ? 2.25 : 1.5}
                     strokeLinejoin="round"
@@ -481,7 +484,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                     x2={px(edgeAt(b.sinHi, b.medCarry))}
                     y1={py(b.medCarry)}
                     y2={py(b.medCarry)}
-                    stroke={b.color}
+                    style={{ stroke: b.color }}
                     strokeWidth={2}
                   />
                   {/* median lateral miss, ringed in turf so it survives an overlap */}
@@ -489,8 +492,10 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                     cx={px(b.medOff)}
                     cy={py(b.medCarry)}
                     r={4}
-                    fill={b.color}
-                    stroke={showCourse ? TURF.fairway : "var(--color-ink-1)"}
+                    style={{
+                      fill: b.color,
+                      stroke: showCourse ? TURF.fairway : "var(--paper-1)",
+                    }}
                     strokeWidth={2}
                   />
                 </g>
@@ -512,7 +517,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                   <polyline
                     points={`${boxRight},${medY} ${gutter - 10},${medY} ${gutter - 6},${y}`}
                     fill="none"
-                    stroke={b.color}
+                    style={{ stroke: b.color }}
                     strokeOpacity={0.5}
                     strokeWidth={1}
                   />
@@ -522,20 +527,24 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                     width={7}
                     height={7}
                     rx={1}
-                    fill={b.color}
+                    style={{ fill: b.color }}
                   />
                   <text
                     x={gutter + 13}
                     y={y + 3}
-                    fill={hover === b.p.club ? "#ffffff" : "#e7e2d9"}
+                    style={{
+                      fill: hover === b.p.club ? "var(--ink-0)" : "var(--ink-1)",
+                    }}
                     fontSize={11}
                     fontFamily="var(--font-mono)"
                     letterSpacing="0.04em"
                   >
                     {shortClub(b.p.club)}
                     <tspan
-                      fill="#8f8981"
-                      style={{ fontVariantNumeric: "tabular-nums" }}
+                      style={{
+                        fill: "var(--ink-2)",
+                        fontVariantNumeric: "tabular-nums",
+                      }}
                     >
                       {"  "}
                       {b.medCarry.toFixed(0)}
@@ -551,7 +560,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
               x2={PLOT_W}
               y1={PLOT_H}
               y2={PLOT_H}
-              stroke={TURF.axis}
+              style={{ stroke: TURF.axis }}
               strokeWidth={1}
             />
             <line
@@ -559,7 +568,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
               x2={0}
               y1={0}
               y2={PLOT_H}
-              stroke={TURF.axis}
+              style={{ stroke: TURF.axis }}
               strokeWidth={1}
             />
 
@@ -575,20 +584,27 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                         x2={0}
                         y1={-11}
                         y2={1}
-                        stroke={TURF.tick}
+                        style={{ stroke: TURF.tick }}
                         strokeWidth={1}
                       />
-                      <path d="M0.5 -11 L7 -8.5 L0.5 -6 Z" fill={TURF.tick} />
+                      {/* The one accent mark inside the plot. A range marks its
+                          hundreds with a flag, and so does this. */}
+                      <path
+                        d="M0.5 -11 L7 -8.5 L0.5 -6 Z"
+                        style={{ fill: "var(--accent)" }}
+                      />
                     </g>
                   )}
                   <text
                     x={-10}
                     y={py(t) + 4}
                     textAnchor="end"
-                    fill={flag ? "#c9c3ba" : TURF.tick}
                     fontSize={10}
                     fontFamily="var(--font-mono)"
-                    style={{ fontVariantNumeric: "tabular-nums" }}
+                    style={{
+                      fill: flag ? "var(--ink-1)" : TURF.tick,
+                      fontVariantNumeric: "tabular-nums",
+                    }}
                   >
                     {t}
                   </text>
@@ -601,10 +617,9 @@ export function BagChart({ profiles, shots }: BagChartProps) {
                 x={px(t)}
                 y={PLOT_H + 18}
                 textAnchor="middle"
-                fill={TURF.tick}
                 fontSize={10}
                 fontFamily="var(--font-mono)"
-                style={{ fontVariantNumeric: "tabular-nums" }}
+                style={{ fill: TURF.tick, fontVariantNumeric: "tabular-nums" }}
               >
                 {t > 0 ? `+${t}` : t}
               </text>
@@ -613,7 +628,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
               x={PLOT_W / 2}
               y={PLOT_H + 40}
               textAnchor="middle"
-              fill={TURF.muted}
+              style={{ fill: TURF.muted }}
               fontSize={9}
               fontFamily="var(--font-mono)"
               letterSpacing="0.16em"
@@ -623,7 +638,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
             <text
               transform={`translate(-46,${PLOT_H / 2}) rotate(-90)`}
               textAnchor="middle"
-              fill={TURF.muted}
+              style={{ fill: TURF.muted }}
               fontSize={9}
               fontFamily="var(--font-mono)"
               letterSpacing="0.16em"
@@ -641,7 +656,7 @@ export function BagChart({ profiles, shots }: BagChartProps) {
         <div className="flex h-5 items-center gap-x-4 overflow-x-auto font-mono text-[11px] whitespace-nowrap">
           {active ? (
             <>
-              <span className="inline-flex items-center gap-2 text-cream-0">
+              <span className="inline-flex items-center gap-2 text-ink-0">
                 <span
                   aria-hidden
                   className="inline-block h-2.5 w-2.5 rounded-[1px]"
@@ -669,12 +684,12 @@ export function BagChart({ profiles, shots }: BagChartProps) {
               <Read label="n" value={String(active.p.active)} />
             </>
           ) : (
-            <span className="text-[10px] uppercase tracking-[0.12em] text-cream-3">
+            <span className="text-[10px] uppercase tracking-[0.12em] text-ink-3">
               Hover or tab a club for its numbers
             </span>
           )}
         </div>
-        <p className="mt-1.5 font-mono text-[10px] leading-4 text-cream-3">
+        <p className="mt-1.5 font-mono text-[10px] leading-4 text-ink-3">
           One dot per trusted shot. Each cone is the middle 50% of that
           club&rsquo;s carries by the middle 80% of its aim, in degrees — so its
           sides converge on the tee, the way a miss does. The bar is median
@@ -696,8 +711,8 @@ function deg(v: number | null): string {
 function Read({ label, value }: { label: string; value: string }) {
   return (
     <span className="whitespace-nowrap">
-      <span className="text-cream-3">{label} </span>
-      <span className="tabular-nums text-cream-1">{value}</span>
+      <span className="text-ink-3">{label} </span>
+      <span className="tabular-nums text-ink-1">{value}</span>
     </span>
   );
 }
@@ -717,7 +732,7 @@ function Toggle({
       aria-pressed={on}
       onClick={onClick}
       className={`border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors rule ${
-        on ? "bg-ink-2 text-cream-0" : "text-cream-3 hover:text-cream-1"
+        on ? "bg-paper-2 text-ink-0" : "text-ink-3 hover:text-ink-1"
       }`}
     >
       {children}

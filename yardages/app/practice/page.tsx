@@ -38,16 +38,16 @@ export default function Practice() {
       <h1 className="font-serif text-[56px] leading-[0.86] tracking-[-0.01em] sm:text-[72px]">
         WHAT TO HIT NEXT
       </h1>
-      <p className="stamp mt-3 text-cream-3">
+      <p className="stamp mt-3 text-ink-3">
         {tasks.length} tasks · ranked by information gain
       </p>
-      <p className="mt-5 max-w-2xl border-t pt-5 text-[15px] leading-6 text-cream-1 rule">
+      <p className="mt-5 max-w-2xl border-t pt-5 text-[15px] leading-6 text-ink-1 rule">
         Generated from the ledger, not written by hand. Every task carries the
         numbers that put it on the list and the condition that takes it off, so
         hitting the shots retires it on the next{" "}
-        <code className="font-mono text-[13px] text-cream-0">pnpm ingest</code>.
+        <code className="font-mono text-[13px] text-ink-0">pnpm ingest</code>.
       </p>
-      <p className="mt-3 max-w-2xl font-mono text-[11px] leading-5 text-cream-3">
+      <p className="mt-3 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
         Ranked by what each bucket of balls would <em>tell</em> you, not by how
         few shots it takes. A club with four shots on file is not a noisy
         measurement — it is a blind spot, and the gaps either side of it are
@@ -61,18 +61,18 @@ export default function Practice() {
       </ol>
 
       {tasks.length === 0 && (
-        <p className="mt-8 font-mono text-[12px] text-cream-2">
+        <p className="mt-8 font-mono text-[12px] text-ink-2">
           Nothing outstanding. Every club is measured, every metric recorded, and
           no gap is flagged.
         </p>
       )}
 
       <section className="mt-10">
-        <h2 className="stamp text-cream-2">What the categories mean</h2>
-        <dl className="mt-3 space-y-1 font-mono text-[11px] text-cream-3">
+        <h2 className="stamp text-ink-2">What the categories mean</h2>
+        <dl className="mt-3 space-y-1 font-mono text-[11px] text-ink-3">
           {categories.map((c) => (
             <div key={c} className="flex gap-3">
-              <dt className="w-24 shrink-0 text-cream-1">{c}</dt>
+              <dt className="w-24 shrink-0 text-ink-1">{c}</dt>
               <dd>{CATEGORY_NOTE[c]}</dd>
             </div>
           ))}
@@ -85,35 +85,35 @@ export default function Practice() {
 function TaskRow({ task, rank, first }: { task: Task; rank: number; first: boolean }) {
   return (
     <li
-      className="border-l-2 bg-ink-1 px-4 py-4"
-      style={{ borderColor: first ? "var(--color-accent)" : "var(--line)" }}
+      className="border-l-2 bg-paper-1 px-4 py-4"
+      style={{ borderColor: first ? "var(--accent-ink)" : "var(--line)" }}
     >
       <div className="flex items-baseline gap-3">
         <span
           className={`font-mono text-[11px] tabular-nums ${
-            first ? "text-accent" : "text-cream-3"
+            first ? "text-accent-ink" : "text-ink-3"
           }`}
         >
           {String(rank).padStart(2, "0")}
         </span>
-        <h2 className={`text-[15px] leading-snug ${first ? "text-accent" : "text-cream-0"}`}>
+        <h2 className={`text-[15px] leading-snug ${first ? "text-accent-ink" : "text-ink-0"}`}>
           {task.title}
         </h2>
-        <span className="stamp ml-auto shrink-0 text-cream-3">{task.category}</span>
+        <span className="stamp ml-auto shrink-0 text-ink-3">{task.category}</span>
       </div>
 
       <dl className="mt-2 space-y-1.5 pl-8 font-mono text-[11px] leading-5">
         <div className="flex gap-3">
-          <dt className="w-10 shrink-0 text-cream-3">why</dt>
-          <dd className="text-cream-2">{task.evidence}</dd>
+          <dt className="w-10 shrink-0 text-ink-3">why</dt>
+          <dd className="text-ink-2">{task.evidence}</dd>
         </div>
         <div className="flex gap-3">
-          <dt className="w-10 shrink-0 text-cream-3">do</dt>
-          <dd className="text-cream-0">{task.action}</dd>
+          <dt className="w-10 shrink-0 text-ink-3">do</dt>
+          <dd className="text-ink-0">{task.action}</dd>
         </div>
         <div className="flex gap-3">
-          <dt className="w-10 shrink-0 text-cream-3">done</dt>
-          <dd className="text-cream-2">{task.doneWhen}</dd>
+          <dt className="w-10 shrink-0 text-ink-3">done</dt>
+          <dd className="text-ink-2">{task.doneWhen}</dd>
         </div>
       </dl>
     </li>

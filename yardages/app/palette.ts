@@ -1,5 +1,16 @@
 /* Colour for the bag chart and the gap scorecard.
  *
+ * The values are not here. Every name below resolves to a custom property
+ * defined once per theme in globals.css, because these colours have to change
+ * with the theme and a TypeScript constant cannot. What is here is the
+ * *structure* — which names exist, what each one is for, and the rules the
+ * values have to satisfy.
+ *
+ * Because these are `var(...)` and not hex, they must be set through `style`
+ * rather than as SVG presentation attributes: `fill="var(--x)"` is not reliably
+ * resolved, and it fails silently to no-fill when it is not. Every call site in
+ * bag-chart.tsx and page.tsx uses `style={{ fill: ... }}` for this reason.
+ *
  * Two separate systems, deliberately never mixed:
  *
  *   TURF   — chart chrome. Fairway, mow stripes, rough, edges. It is scenery,
@@ -10,14 +21,17 @@
  *   CLUB_RAMP — an *ordinal* ramp, not a categorical palette. Clubs have a real
  *            order (loft, i.e. bag order), so swapping two of them would change
  *            the meaning; that makes one hue with monotone lightness steps
- *            correct and eight arbitrary hues wrong. One hue, 62° in OKLCH,
- *            lightness 0.905 → 0.455 in equal steps.
+ *            correct and eight arbitrary hues wrong. One hue, 64° in OKLCH,
+ *            equal lightness steps: 0.905 → 0.455 in dark, 0.735 → 0.295 in
+ *            light. Only the band moves between themes, never the order and
+ *            never the hue.
  *
- * The ramp is validated, not eyeballed: all four ordinal checks pass against
- * the fairway surface — monotone lightness, every adjacent step ≥ 0.06 apart,
- * hue spread 1°, and the dim end at 2.52:1 against the turf, above the 2:1
- * floor for an ordinal ramp. That dim end is the driver's, and the driver is
- * the club least likely to have shots on file.
+ * The ramp is validated, not eyeballed: in both themes all four ordinal checks
+ * pass against the fairway surface — monotone lightness, every adjacent step
+ * ≥ 0.06 apart, hue spread under 6°, and the end nearest the turf above the 2:1
+ * floor for an ordinal ramp. In dark that binding end is the deep one, which is
+ * the driver's, and the driver is the club least likely to have shots on file;
+ * in light it is the pale one, for the same reason inverted.
  *
  * Identity never rests on hue anyway: every club drawn is also direct-labelled
  * in the right-hand gutter with its own colour chip beside it, which is the
@@ -25,16 +39,16 @@
  * share a step; the labels would still separate them.
  */
 
-/** Ordinal ramp, light → dark. Index 0 goes to the shortest club in the bag. */
+/** Ordinal ramp, pale → deep. Index 0 goes to the shortest club in the bag. */
 export const CLUB_RAMP = [
-  "#ffd7b6",
-  "#ffba7e",
-  "#ff9b2e",
-  "#e98600",
-  "#cd7605",
-  "#b26601",
-  "#985600",
-  "#7f4600",
+  "var(--club-0)",
+  "var(--club-1)",
+  "var(--club-2)",
+  "var(--club-3)",
+  "var(--club-4)",
+  "var(--club-5)",
+  "var(--club-6)",
+  "var(--club-7)",
 ] as const;
 
 /**
@@ -61,18 +75,18 @@ export function clubColor(index: number, count: number): string {
 
 /** Scenery. Never an encoding. */
 export const TURF = {
-  rough: "#080d08",
-  roughTuft: "#1a2b1c",
-  fairway: "#0d180d",
+  rough: "var(--turf-rough)",
+  roughTuft: "var(--turf-tuft)",
+  fairway: "var(--turf-fairway)",
   /** The lighter half of a mown stripe. */
-  mow: "#152315",
-  edge: "#283d22",
-  grid: "rgba(226, 240, 220, 0.055)",
+  mow: "var(--turf-mow)",
+  edge: "var(--turf-edge)",
+  grid: "var(--turf-grid)",
   /** The aim line. A threshold, which is why it is the one dashed line here. */
-  target: "rgba(226, 240, 220, 0.24)",
-  axis: "#2b3a2b",
-  tick: "#7d8f7a",
-  muted: "#5d6f5c",
+  target: "var(--turf-target)",
+  axis: "var(--turf-axis)",
+  tick: "var(--turf-tick)",
+  muted: "var(--turf-muted)",
 } as const;
 
 /**
@@ -84,11 +98,13 @@ export const TURF = {
 export const FAIRWAY_HALF_WIDTH_YD = 15;
 
 /* Gap verdicts. Status tokens, reserved: never used as a series colour, and
- * always shipped beside their word so the state does not rest on hue. */
+ * always shipped beside their word so the state does not rest on hue. They are
+ * set as text as often as they are set as fill, so each one clears 4.5:1 on the
+ * page ground in both themes. */
 export const VERDICT = {
-  ok: { color: "#3fae52", word: "ok" },
-  overlap: { color: "#e2b02a", word: "overlap" },
-  hole: { color: "#ff6b35", word: "hole" },
-  inverted: { color: "#e04b4b", word: "inverted" },
-  unknown: { color: "#5f5a53", word: "—" },
+  ok: { color: "var(--verdict-ok)", word: "ok" },
+  overlap: { color: "var(--verdict-overlap)", word: "overlap" },
+  hole: { color: "var(--verdict-hole)", word: "hole" },
+  inverted: { color: "var(--verdict-inverted)", word: "inverted" },
+  unknown: { color: "var(--verdict-unknown)", word: "—" },
 } as const;

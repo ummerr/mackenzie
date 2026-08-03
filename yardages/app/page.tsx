@@ -54,12 +54,12 @@ export default function Home() {
   return (
     <div className="mx-auto max-w-7xl px-5 py-8">
       {/* ── masthead ─────────────────────────────────────────────────────── */}
-      <div className="flex flex-wrap items-end justify-between gap-6 border-b pb-5 rule">
+      <div className="flex flex-wrap items-end justify-between gap-6 border-b-2 pb-5 rule-hard">
         <div>
           <h1 className="font-serif text-[64px] leading-[0.86] tracking-[-0.01em] sm:text-[84px]">
             THE BAG
           </h1>
-          <p className="stamp mt-3 text-cream-3">
+          <p className="stamp mt-3 text-ink-3">
             Every shot on file, drawn where it finished
           </p>
         </div>
@@ -68,15 +68,15 @@ export default function Home() {
             className="border-l-2 pl-4"
             style={{ borderColor: VERDICT[worst.verdict].color }}
           >
-            <p className="stamp text-cream-3">Worst gap in the bag</p>
+            <p className="stamp text-ink-3">Worst gap in the bag</p>
             <div
               className="mt-1.5 font-sans text-[60px] font-semibold leading-[0.82]"
               style={{ color: VERDICT[worst.verdict].color }}
             >
               {Math.abs(worst.gapYd ?? 0).toFixed(1)}
-              <span className="ml-1 text-[22px] font-normal text-cream-2">yd</span>
+              <span className="ml-1 text-[22px] font-normal text-ink-2">yd</span>
             </div>
-            <p className="stamp mt-2 text-cream-1">
+            <p className="stamp mt-2 text-ink-1">
               {VERDICT[worst.verdict].word} · {worst.longer} → {worst.shorter}
             </p>
           </div>
@@ -100,7 +100,7 @@ export default function Home() {
 
         <aside className="space-y-px self-start">
           <section className="card p-4">
-            <h2 className="stamp text-cream-2">Gaps, in bag order</h2>
+            <h2 className="stamp text-ink-2">Gaps, in bag order</h2>
             <table className="mt-3 w-full border-collapse font-mono text-[11px]">
               <tbody>
                 {gaps.map((g) => (
@@ -109,7 +109,7 @@ export default function Home() {
               </tbody>
             </table>
             <GapScale />
-            <p className="mt-2 font-mono text-[10px] leading-4 text-cream-3">
+            <p className="mt-2 font-mono text-[10px] leading-4 text-ink-3">
               Compared in loft order, never sorted by measured carry — a club
               that goes shorter than the one above it is the finding, not a
               sorting error. Under {DEFAULT_GAPS.overlapUnderYd} yd apart is an
@@ -119,11 +119,11 @@ export default function Home() {
 
           {hidden.length > 0 && (
             <section className="card p-4">
-              <h2 className="stamp text-cream-2">Not drawn</h2>
-              <ul className="mt-3 space-y-1 font-mono text-[11px] text-cream-3">
+              <h2 className="stamp text-ink-2">Not drawn</h2>
+              <ul className="mt-3 space-y-1 font-mono text-[11px] text-ink-3">
                 {hidden.map((p) => (
                   <li key={p.club} className="flex justify-between gap-3">
-                    <span className="text-cream-1">{p.club}</span>
+                    <span className="text-ink-1">{p.club}</span>
                     <span className="tabular-nums">
                       n={p.active}
                       {p.n !== p.active && ` of ${p.n}`}
@@ -131,7 +131,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-2 font-mono text-[10px] leading-4 text-cream-3">
+              <p className="mt-2 font-mono text-[10px] leading-4 text-ink-3">
                 Under {MIN_SHOTS_TO_DISPLAY} usable shots. Suppressed rather than
                 drawn, because a median off a dozen swings is a number you would
                 act on and shouldn&rsquo;t.
@@ -145,11 +145,11 @@ export default function Home() {
 
       {/* ── the card ─────────────────────────────────────────────────────── */}
       <section className="mt-10">
-        <h2 className="stamp text-cream-2">Every number on this page</h2>
+        <h2 className="stamp text-ink-2">Every number on this page</h2>
         <div className="card mt-3 overflow-x-auto">
           <table className="w-full min-w-[880px] border-collapse font-mono text-[11px]">
             <thead>
-              <tr className="border-b bg-ink-2 text-cream-2 rule">
+              <tr className="border-b bg-paper-2 text-ink-2 rule">
                 {[
                   "Club",
                   "n",
@@ -183,13 +183,13 @@ export default function Home() {
                 <tr
                   key={p.club}
                   className={`border-b border-[var(--line-soft)] ${
-                    p.suppressed ? "text-cream-3" : "text-cream-1"
+                    p.suppressed ? "text-ink-3" : "text-ink-1"
                   }`}
                 >
                   <td className="px-3 py-1.5 whitespace-nowrap">
                     {p.club}
                     {p.suppressed && (
-                      <span className="ml-2 text-[9px] uppercase tracking-[0.1em] text-cream-3">
+                      <span className="ml-2 text-[9px] uppercase tracking-[0.1em] text-ink-3">
                         held back
                       </span>
                     )}
@@ -213,7 +213,7 @@ export default function Home() {
             </tbody>
           </table>
         </div>
-        <p className="mt-2 font-mono text-[10px] leading-4 text-cream-3">
+        <p className="mt-2 font-mono text-[10px] leading-4 text-ink-3">
           The chart&rsquo;s table twin. Every value the plan view draws is here in
           full, held-back clubs included. Offline is in yards, aim in degrees —
           the cone is built from the degrees, because the yards are the degrees
@@ -234,12 +234,12 @@ function Stat({
   note?: string;
 }) {
   return (
-    <div className="border-r border-b bg-ink-1 px-4 py-3 rule">
-      <dt className="stamp text-cream-3">{label}</dt>
-      <dd className="mt-1.5 font-sans text-[28px] font-medium leading-none text-cream-0">
+    <div className="border-r border-b bg-paper-1 px-4 py-3 rule">
+      <dt className="stamp text-ink-3">{label}</dt>
+      <dd className="mt-1.5 font-sans text-[28px] font-medium leading-none text-ink-0">
         {value}
         {note && (
-          <span className="ml-2 font-mono text-[10px] font-normal tracking-[0.08em] text-cream-3">
+          <span className="ml-2 font-mono text-[10px] font-normal tracking-[0.08em] text-ink-3">
             {note}
           </span>
         )}
@@ -286,7 +286,7 @@ function GapScale() {
             y={0}
             width={rulerX(z.to) - rulerX(z.at)}
             height={5}
-            fill={z.v.color}
+            style={{ fill: z.v.color }}
             fillOpacity={0.45}
           />
         ))}
@@ -296,16 +296,15 @@ function GapScale() {
             x={rulerX(t)}
             y={16}
             textAnchor="middle"
-            fill="#5f5a53"
             fontSize={9}
             fontFamily="var(--font-mono)"
-            style={{ fontVariantNumeric: "tabular-nums" }}
+            style={{ fill: "var(--ink-3)", fontVariantNumeric: "tabular-nums" }}
           >
             {t}
           </text>
         ))}
       </svg>
-      <p className="font-mono text-[9px] uppercase leading-[1.5] tracking-[0.08em] text-cream-3">
+      <p className="font-mono text-[9px] uppercase leading-[1.5] tracking-[0.08em] text-ink-3">
         Yards apart · inverted, overlap, ok, hole
       </p>
     </div>
@@ -317,10 +316,10 @@ function GapRow({ gap }: { gap: Gap }) {
   const shownGap = gap.suppressed ? null : gap.gapYd;
   return (
     <tr className="border-b border-[var(--line-soft)]">
-      <td className="py-2 pr-2 whitespace-nowrap text-cream-1">
-        {short(gap.longer)} <span className="text-cream-3">→</span> {short(gap.shorter)}
+      <td className="py-2 pr-2 whitespace-nowrap text-ink-1">
+        {short(gap.longer)} <span className="text-ink-3">→</span> {short(gap.shorter)}
       </td>
-      <td className="py-2 pr-2 text-right tabular-nums text-cream-0">
+      <td className="py-2 pr-2 text-right tabular-nums text-ink-0">
         {shownGap === null ? "—" : shownGap.toFixed(1)}
       </td>
       <td className="py-2 pr-2">
@@ -331,21 +330,28 @@ function GapRow({ gap }: { gap: Gap }) {
               y={0}
               width={rulerX(DEFAULT_GAPS.holeOverYd) - rulerX(DEFAULT_GAPS.overlapUnderYd)}
               height={12}
-              fill={VERDICT.ok.color}
+              style={{ fill: VERDICT.ok.color }}
               fillOpacity={0.14}
             />
-            <line x1={rulerX(0)} x2={rulerX(0)} y1={0} y2={12} stroke="var(--line-hard)" strokeWidth={1} />
+            <line
+              x1={rulerX(0)}
+              x2={rulerX(0)}
+              y1={0}
+              y2={12}
+              style={{ stroke: "var(--line-hard)" }}
+              strokeWidth={1}
+            />
             <rect
               x={Math.min(rulerX(0), rulerX(shownGap))}
               y={3}
               width={Math.max(Math.abs(rulerX(shownGap) - rulerX(0)), 1.5)}
               height={6}
               rx={1}
-              fill={v.color}
+              style={{ fill: v.color }}
             />
           </svg>
         ) : (
-          <span className="text-cream-3">not drawn</span>
+          <span className="text-ink-3">not drawn</span>
         )}
       </td>
       <td className="py-2 text-right whitespace-nowrap">
@@ -356,7 +362,7 @@ function GapRow({ gap }: { gap: Gap }) {
               className="inline-block h-1.5 w-1.5 rounded-full"
               style={{ background: v.color }}
             />
-            <span className="text-[10px] uppercase tracking-[0.08em] text-cream-2">
+            <span className="text-[10px] uppercase tracking-[0.08em] text-ink-2">
               {v.word}
             </span>
           </span>
@@ -396,19 +402,19 @@ function Caveats({
       className="mt-10 border-l-2 pl-4"
       style={{ borderColor: VERDICT.overlap.color }}
     >
-      <h2 className="stamp text-cream-2">Read these with care</h2>
-      <ul className="mt-2.5 space-y-1.5 font-mono text-[11px] leading-5 text-cream-2">
+      <h2 className="stamp text-ink-2">Read these with care</h2>
+      <ul className="mt-2.5 space-y-1.5 font-mono text-[11px] leading-5 text-ink-2">
         {pooled.map((p) => (
           <li key={p.club}>
-            <span className="text-cream-0">{p.club}</span> — measured across{" "}
+            <span className="text-ink-0">{p.club}</span> — measured across{" "}
             {p.sessions} sessions whose medians differ by{" "}
-            <span className="text-cream-0">{yd(p.sessionSpreadYd, 1)} yd</span>. The
+            <span className="text-ink-0">{yd(p.sessionSpreadYd, 1)} yd</span>. The
             band in the chart is partly day-to-day drift, not shot-to-shot spread.
           </li>
         ))}
         {gaps.map((c) => (
           <li key={c.field}>
-            <span className="text-cream-0">
+            <span className="text-ink-0">
               No {c.label} on {c.missing} of {c.total} shots
             </span>{" "}
             — {c.sessions.map((s) => s.slice(0, 10)).join(", ")} tracked the ball
