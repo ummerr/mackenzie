@@ -63,6 +63,12 @@ Approach R50 range exports. It is a Next.js app with its own dependencies and
 [`yardages/README.md`](yardages/README.md) to run it, and `DECISIONS.md` for why
 it is not a route on this one.
 
+It reads this repo back: `yardages/PROFILE.md` and the `/profile` page derive one
+golfer from both halves — the shot ledger there and the course history here —
+via a committed snapshot (`cd yardages && pnpm ingest:courses`). Rerun it after
+the map's pipeline changes, or the profile quotes a course record that has moved
+on.
+
 **Live:** [yardages.vercel.app](https://yardages.vercel.app). Deploy it with
 `cd yardages && vercel deploy --prod` — deploying from the repo root deploys
 this map instead.

@@ -11,7 +11,7 @@ Mackenzie is a deliberately zero-build static site (`DECISIONS.md`,
 **Live: [yardages.vercel.app](https://yardages.vercel.app)**
 
 **Status: Phase 1 (ingest) and Phase 2 (the bag chart) complete, plus a
-derived practice list.** Everything in
+derived practice list and a derived golfer profile.** Everything in
 the brief's Deferred list is still deferred and deliberately unscaffolded.
 
 Every page is drawn for a phone as well as a desktop — the bag chart has a
@@ -23,11 +23,17 @@ frame for the phone*.
 ```bash
 pnpm install
 pnpm ingest                         # data/raw/*.csv -> data/shots.json
+pnpm ingest:courses                 # ../data/courses.json -> data/course-history.json
+pnpm run profile                    # the two of them -> PROFILE.md
 pnpm dev                            # http://localhost:3000
-pnpm test                           # 212 tests over the real exports
+pnpm test                           # 230 tests over the real exports
 pnpm typecheck
 pnpm compare                        # old vs new stock yardages, side by side
 ```
+
+`pnpm run profile` needs the `run`: `profile` is an npm builtin, and pnpm hands
+unknown commands to npm, so `pnpm profile` opens the registry's 2FA help
+instead.
 
 ## Adding a session
 
@@ -62,6 +68,38 @@ An override is recorded on the shot as `manualOverride`, in **both**
 directions. Without it, `{"excluded": false}` produces a shot byte-identical to
 one nobody ever touched, and a hand-included shot could not survive a later
 automatic flag — manual precedence would work one way only.
+
+## The profile
+
+`/profile` is the only page that reads both halves of this repo. The shot ledger
+says what the swing does; the map's course history says what it shoots and
+where. Neither is a golfer on its own.
+
+Every finding it prints carries four things and ships with none of them
+optional: the **claim**, the **evidence** that put it there, a **roast** where
+that is honest, and — the part that makes it a spec rather than a horoscope —
+the condition that **retires** it. Hit fifteen drivers and the line about not
+owning one deletes itself, because it was a measurement and not a personality.
+
+Two rules it does not bend:
+
+- **No benchmark without a source.** There are no tour averages here and no
+  handicap model. Every comparison is internal — this club against the one next
+  to it, these courses against those — for the same reason `facts.json` makes
+  every claim carry a URL.
+- **A roast may be sharp, never unsupported.** Each one restates its own
+  evidence and nothing more.
+
+`PROFILE.md` is the same object rendered to a file and committed, so a change in
+the golfer is a diff rather than a page that quietly reads differently than it
+did in July. `pnpm run profile --check` fails if the committed file no longer
+matches the data.
+
+The course half arrives via `pnpm ingest:courses`, which snapshots
+`../data/courses.json` into `data/course-history.json`. It is a snapshot and not
+a live read because this app deploys from its own directory — `../data` does not
+exist on Vercel. Run it inside the mackenzie repo, commit the result. Without it
+the page renders the range half and says so.
 
 ## Deploy
 
@@ -157,7 +195,10 @@ app/
   globals.css         the tokens themselves, both themes, one line each
   theme-toggle.tsx    day / dusk / auto
   practice/           what to hit next, generated from the ledger
+  profile/            the golfer, derived from both halves of the repo
   sessions/           exclusion hygiene, deliberately unstyled
+  site-nav.tsx        the sections, inline above `sm` and a tab strip below
+  use-media.ts        a media query as a boolean, SSR-safe
 lib/
   aliases.ts          header -> canonical field. Add a locale here, never in the parser
   units.ts            conversion driven by the file's own units row
@@ -165,6 +206,8 @@ lib/
   ledger.ts           many sessions -> one deduplicated ledger. Pure
   stats.ts            medians, bands, gap flags. Pure
   tasks.ts            practice tasks derived from all of the above. Pure
+  course-history.ts   the course snapshot's shape, and the arithmetic over it
+  profile.ts          the golfer: findings, roasts, and what cannot be known. Pure
   yardages/
     thresholds.ts     every tunable number, in one documented object
     robust-stats.ts   median, MAD, weighted median, percentile intervals
@@ -173,12 +216,15 @@ lib/
     club-profile.ts   stock yardages per club
 scripts/
   ingest.ts           the only file that touches the filesystem
+  ingest-courses.ts   ../data/courses.json -> data/course-history.json
+  profile.ts          PROFILE.md, regenerated
   compare.ts          before/after table for a heuristic change. Writes nothing
 data/
   raw/                real exports, verbatim, never edited
   exclusions.json     hand-editable overrides
   sessions.json       generated
   shots.json          generated
+  course-history.json generated — a snapshot of the map's course record
 tests/                vitest
 ```
 

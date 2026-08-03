@@ -6,6 +6,69 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-03 — One golfer, derived from both halves
+
+**Decided:** `/profile` and `yardages/PROFILE.md` read the shot ledger *and* the
+map's course history and print one derived golfer: a ranked list of findings,
+a roast, and an explicit list of what the record cannot say. Nothing in it is
+written by hand, and every finding carries four things — the claim, the evidence
+that put it there, a roast where that is honest, and the condition that retires
+it.
+
+**Why:** the two halves of this repo each answer half a question. Yardages knows
+what a 7 iron does and has never seen a golf course; the map knows 166 rounds
+across 84 facilities and has never seen a swing. The interesting sentences are
+the ones only the join can say — *166 rounds played, one measured swing with
+anything that starts a hole* — and neither app could reach them alone.
+
+The `falsifiedBy` field is the whole design and not a flourish. A profile
+without one is a horoscope: it describes you forever, ages into vagueness, and
+nothing you do can argue with it. With one, the profile is a spec the next
+session either confirms or deletes — the same contract `tasks.ts` already keeps
+with `doneWhen`, for the same reason.
+
+**Rejected: benchmarks.** No tour averages, no handicap model, no "good players
+carry their 7 iron X". Every comparison is internal — this club against the one
+beside it, the favourite courses against the rest, the measured record against
+the played one. The moment an external average appears it needs a source, a
+population and a conditions caveat, and an unsourced one is precisely the
+"plausible, unverified" state `NEXT.md` calls the most dangerous a number can be
+in.
+
+**Rejected, twice, after writing it:** *smash factor spread across the bag* as a
+strike finding. Smash falls with loft for everyone, so comparing a sand wedge to
+a 5 iron flags physics and calls it a flaw. What replaced it is an **inversion**
+— a longer club returning less smash than the shorter club right beside it,
+which breaks the order rather than sitting on it. Same logic the gap chart
+already applies to carries.
+
+Also caught in review and worth naming: the first draft said "no tee shot in the
+ledger at all" when the ledger holds exactly one driver shot. A rounder sentence
+and a false one. The finding now counts it.
+
+**Rejected: a live read of `../data/courses.json`.** Yardages deploys from its
+own directory as its own Vercel project, so `../data` does not exist at build
+time — a page reading it renders locally and 500s in production. `pnpm
+ingest:courses` snapshots what the profile needs into
+`yardages/data/course-history.json`, committed, the same contract the rest of
+the repo keeps for generated files. The page treats a missing snapshot as a
+state, not a crash: it renders the range half and says which half is absent.
+
+**Also:** `PROFILE.md` exists so the profile has a history. A profile that lives
+only as a rendered page reads differently in October than it did in July and
+nothing records that it changed, which is the one thing a *living* spec has to
+do. `pnpm run profile --check` fails when the committed file no longer matches
+the data — and note the `run`: `profile` is an npm builtin, and pnpm forwards
+unknown commands to npm.
+
+**Nine-hole rounds stay the parent's call.** The Grint averages 9- and 18-hole
+rounds into one number per layout; `courses.json` already flags those and the
+`scoring` lens already excludes them. The snapshot carries the flag forward and
+the profile splits on it rather than re-deriving it — 79 of 93 layouts are
+comparable, and the mean score says which number it is quoting.
+
+---
+
 ## 2026-08-03 — A second frame for the phone, not a smaller one
 
 **Decided:** the bag chart carries two frames of the same drawing. The wide one

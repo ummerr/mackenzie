@@ -69,6 +69,14 @@ HTML, licence gray area, hard name-matching problem).
   Henderson — probably a rebrand; find the former name) and
   `the-links-golf-club` (Marlton NJ). Each is a one-line entry in
   `data/geocode-overrides.json` once you know where they are.
+- **Feed the profile.** `yardages/PROFILE.md` and `/profile` derive one golfer
+  from both halves of this repo, and its own "what the record cannot say"
+  section is a to-do list for this file. The two that would change it most:
+  round-level scores with dates (the Grint HAR extractor, below) would let the
+  golf be plotted against time instead of averaged; par and rating/slope per
+  layout would make an 88 mean something. Re-run `cd yardages && pnpm
+  ingest:courses && pnpm run profile` after any map pipeline change, or the
+  profile quotes a course record that has moved on.
 - **Two overrides are inferred, not confirmed** — `tierra-rejada-golf-club`
   matched an OSM polygon tagged "Golf Development Complex" on the right road,
   and `lanier-islands-golf-course` is the centre of four *unnamed* golf ways on

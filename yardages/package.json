@@ -11,7 +11,9 @@
     "ingest": "tsx scripts/ingest.ts",
     "compare": "tsx scripts/compare.ts",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "ingest:courses": "tsx scripts/ingest-courses.ts",
+    "profile": "tsx scripts/profile.ts"
   },
   "dependencies": {
     "next": "^15.5.0",
