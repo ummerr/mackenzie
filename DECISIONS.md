@@ -166,6 +166,22 @@ the difference of the two published medians. The bases are computed over
 different shot sets, so differencing their medians subtracts one population from
 another and calls the answer rollout.
 
+**Also, and only found by reading the page back:** the chart is given one frame
+for both bases instead of fitting itself to each. Refitting looked harmless and
+was not. Total spans 115 yd where carry spans 126, so the axis rescaled and
+absorbed the extra distance; and because three clubs drop out on total, the
+longest label fell from `5i 195` to `6i 171`. The page therefore *read* as
+"total is shorter than carry", which is the one thing rollout cannot be. No
+number was ever wrong — every club is longer on total, by within a yard of its
+measured roll — but a chart that has to be argued with is a chart that failed.
+`mergeDomains` pins the axis to the union of both bases, so switching moves the
+cones up the page by exactly their roll and moves nothing else.
+
+Worth recording that four shots in the ledger genuinely do stop shorter than
+they landed — one gap wedge at -2.2 yd and three sand wedges, worst -5.2. That
+is a high-spin wedge checking, not a parsing fault, and none of them are carry
+copies.
+
 **And:** `/practice` stays on carry and is documented as staying there. Every
 task in it is about a swing you have or have not measured, and rollout is the
 turf's contribution — ranking practice by it would sort the list by something no

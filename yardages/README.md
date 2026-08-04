@@ -26,7 +26,7 @@ pnpm ingest                         # data/raw/*.csv -> data/shots.json
 pnpm ingest:courses                 # ../data/courses.json -> data/course-history.json
 pnpm run profile                    # the two of them -> PROFILE.md
 pnpm dev                            # http://localhost:3000
-pnpm test                           # 239 tests over the real exports
+pnpm test                           # 246 tests over the real exports
 pnpm typecheck
 pnpm compare                        # old vs new stock yardages, side by side
 ```
@@ -322,6 +322,16 @@ total basis entirely, which takes 5 Iron, 7 Iron and Sand Wedge below the
 15-shot display threshold. They go dark on total and the page says why, above
 the chart and in the held-back panel. A club that only clears the threshold on
 shots carrying no rollout information has not been measured.
+
+**One frame, both bases.** The chart is handed a distance axis wide enough for
+carry *and* total, rather than fitting itself to whichever is showing. Left to
+refit, it rescaled: total spans 115 yd against carry's 126, so the axis quietly
+absorbed the extra distance and the drawing looked much the same. Worse, three
+clubs drop out on total, so the longest label fell from `5i 195` to `6i 171` and
+the bag read *shorter* — the exact opposite of what rollout does. Pinned to the
+union, switching bases moves every shared club visibly up the page: the 6 iron
+climbs 50 px, which is its 7.5 yd of roll at 1:1. The axis holds still and the
+data moves, which is the comparison the toggle exists to make.
 
 **Rollout is measured per swing, never as a difference of medians.** The `Roll`
 column is the median of `total − carry` on each shot that has both. Subtracting

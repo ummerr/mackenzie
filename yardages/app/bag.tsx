@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BagChart, type ShotDot } from "./bag-chart";
+import { BagChart, mergeDomains, plotDomain, type ShotDot } from "./bag-chart";
 import { VERDICT } from "./palette";
 import {
   DEFAULT_GAPS,
@@ -54,6 +54,16 @@ export function Bag({
   const [basis, setBasis] = useState<DistanceBasis>("carry");
 
   const { bag, gaps, dots } = views[basis];
+
+  /* One frame for both bases, so switching moves the cones instead of
+   * rescaling the axis under them. Computed across every view rather than the
+   * shown one — a frame that changed with the toggle would let a bag that runs
+   * seven yards further read as the same size, which is the one comparison the
+   * toggle exists to make. Two bags of eight clubs; not worth memoising. */
+  const domain =
+    mergeDomains(
+      Object.values(views).map((v) => plotDomain(v.bag, v.dots)),
+    ) ?? undefined;
   const shown = bag.filter((p) => !p.suppressed);
   const hidden = bag.filter((p) => p.suppressed);
 
@@ -131,7 +141,7 @@ export function Bag({
       {/* ── the hole, and the scorecard beside it ────────────────────────── */}
       <div className="mt-6 grid gap-6 sm:mt-8 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
         <section>
-          <BagChart profiles={bag} shots={dots} basis={basis}>
+          <BagChart profiles={bag} shots={dots} basis={basis} domain={domain}>
             {unusable > 0 && (
               <UnmodelledNote unusable={unusable} lostClubs={lostClubs} />
             )}

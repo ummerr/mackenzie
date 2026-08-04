@@ -192,6 +192,8 @@ export interface BagChartProps {
   basis: DistanceBasis;
   /** Rendered between the header and the frame, for basis-specific caveats. */
   children?: React.ReactNode;
+  /** A frame to draw inside. Omit and the chart fits itself to its own data. */
+  domain?: PlotDomain;
 }
 
 interface Box {
@@ -206,20 +208,20 @@ interface Box {
   medOff: number;
 }
 
-/** Offline yards at a given distance, for a cone edge of this angle. */
-const edgeAt = (sinTheta: number, distance: number) => distance * sinTheta;
+/**
+ * The frame a basis is drawn in: near and far distance, and the half-width of
+ * the offline axis. Padding is already in these numbers, so a domain can be
+ * merged and handed straight to the chart.
+ */
+export interface PlotDomain {
+  yLo: number;
+  yHi: number;
+  xMag: number;
+}
 
-export function BagChart({ profiles, shots, basis, children }: BagChartProps) {
-  const [hover, setHover] = useState<string | null>(null);
-  const [showShots, setShowShots] = useState(true);
-  const [showCourse, setShowCourse] = useState(true);
-
-  const compact = useMedia(`(max-width: ${COMPACT_UNDER - 1}px)`);
-  const F = compact ? COMPACT : WIDE;
-  const PAD = F.pad;
-  const PLOT_W = F.plotW;
-
-  const drawable = profiles.filter(
+/** Clubs with enough of everything to draw a cone from. */
+export function drawableOf(profiles: ClubProfile[]): ClubProfile[] {
+  return profiles.filter(
     (p) =>
       !p.suppressed &&
       p.distanceP25Yd !== null &&
@@ -230,6 +232,81 @@ export function BagChart({ profiles, shots, basis, children }: BagChartProps) {
       p.deviationP90Deg !== null &&
       p.medianDistanceYd !== null,
   );
+}
+
+const sinOf = (deg: number) => Math.sin((deg * Math.PI) / 180);
+
+/**
+ * The extent one basis needs: its cones *and* every dot it draws. Clipping a
+ * shot to keep the frame tidy would hide the misses, which are the reason to
+ * plot shots at all. Null when there is nothing to draw.
+ */
+export function plotDomain(
+  profiles: ClubProfile[],
+  shots: ShotDot[],
+): PlotDomain | null {
+  const drawable = drawableOf(profiles);
+  if (drawable.length === 0) return null;
+  const drawn = new Set(drawable.map((p) => p.club));
+  const dots = shots.filter((s) => drawn.has(s.club));
+
+  const near = drawable.map((p) => p.distanceP25Yd as number);
+  const far = drawable.map((p) => p.distanceP75Yd as number);
+  return {
+    yLo: Math.min(...near, ...dots.map((d) => d.distanceYd)) - 9,
+    yHi: Math.max(...far, ...dots.map((d) => d.distanceYd)) + 9,
+    /* A cone is widest at its far edge, which can sit outside the offline
+     * quantile it was built from — measure the corners, not the band. */
+    xMag: Math.max(
+      ...drawable.map((p) => {
+        const edge = p.distanceP75Yd as number;
+        return Math.max(
+          Math.abs(edge * sinOf(p.deviationP10Deg as number)),
+          Math.abs(edge * sinOf(p.deviationP90Deg as number)),
+        );
+      }),
+      ...dots.map((d) => Math.abs(d.offlineYd)),
+      FAIRWAY_HALF_WIDTH_YD,
+    ),
+  };
+}
+
+/**
+ * One frame wide enough for every basis, so the axis holds still while the data
+ * moves. Without this the frame refits itself to each basis and a bag that runs
+ * seven yards further on total can look the same size or smaller — the axis
+ * quietly absorbing the very difference the toggle exists to show.
+ */
+export function mergeDomains(domains: (PlotDomain | null)[]): PlotDomain | null {
+  const real = domains.filter((d): d is PlotDomain => d !== null);
+  if (real.length === 0) return null;
+  return {
+    yLo: Math.min(...real.map((d) => d.yLo)),
+    yHi: Math.max(...real.map((d) => d.yHi)),
+    xMag: Math.max(...real.map((d) => d.xMag)),
+  };
+}
+
+/** Offline yards at a given distance, for a cone edge of this angle. */
+const edgeAt = (sinTheta: number, distance: number) => distance * sinTheta;
+
+export function BagChart({
+  profiles,
+  shots,
+  basis,
+  children,
+  domain,
+}: BagChartProps) {
+  const [hover, setHover] = useState<string | null>(null);
+  const [showShots, setShowShots] = useState(true);
+  const [showCourse, setShowCourse] = useState(true);
+
+  const compact = useMedia(`(max-width: ${COMPACT_UNDER - 1}px)`);
+  const F = compact ? COMPACT : WIDE;
+  const PAD = F.pad;
+  const PLOT_W = F.plotW;
+
+  const drawable = drawableOf(profiles);
 
   /* One ramp step per drawn club, shortest first, so all eight steps land on
    * marks somebody can see. Eight entries; not worth memoising. */
@@ -261,24 +338,12 @@ export function BagChart({ profiles, shots, basis, children }: BagChartProps) {
     );
   }
 
-  /* Extent covers the boxes *and* every dot drawn. Clipping a shot to keep the
-   * frame tidy would hide the misses, which are the reason to plot shots. */
-  const yLo =
-    Math.min(...boxes.map((b) => b.distLo), ...dots.map((d) => d.distanceYd)) - 9;
-  const yHi =
-    Math.max(...boxes.map((b) => b.distHi), ...dots.map((d) => d.distanceYd)) + 9;
-  /* A cone is widest at its far edge, which can sit outside the offline
-   * quantile it was built from — measure the corners, not the band. */
-  const xMag = Math.max(
-    ...boxes.map((b) =>
-      Math.max(
-        Math.abs(edgeAt(b.sinLo, b.distHi)),
-        Math.abs(edgeAt(b.sinHi, b.distHi)),
-      ),
-    ),
-    ...dots.map((d) => Math.abs(d.offlineYd)),
-    FAIRWAY_HALF_WIDTH_YD,
-  );
+  /* The frame. Given one, the component draws inside it rather than fitting
+   * itself to its own data — which is what lets both bases share a frame, so
+   * switching from carry to total MOVES the cones instead of rescaling the
+   * axis under them. Falling back to its own extent keeps the component
+   * usable on its own. */
+  const { yLo, yHi, xMag } = domain ?? (plotDomain(profiles, shots) as PlotDomain);
   const xLo = -xMag - 8;
   const xHi = xMag + 8;
 
