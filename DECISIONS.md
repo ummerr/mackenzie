@@ -6,6 +6,67 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-03 — Split the miss into start line and curve
+
+**Decided:** `lib/ball-flight.ts` splits every shot into where it *started* and
+how far it *bent*, and `pnpm flight` renders the split to a committed static
+page at `public/ball-flight.html`.
+
+**Why:** the bag chart draws where shots finished, and that single number hides
+the only distinction that changes what you would do about it. A club aimed 12 yd
+left and a club that slices 12 yd right produce the same dispersion cone and
+need opposite fixes — an alignment stick versus a lesson. The export has carried
+both halves since Phase 1 and nothing read them.
+
+**Nothing is modelled.** `start = carry × sin(launch_direction)` and
+`curve = carry × (sin(carry_deviation_angle) − sin(launch_direction))`. They sum
+to `carry × sin(carry_deviation_angle)`, which is the export's own offline
+column, so the split is arithmetic on an identity the file already publishes —
+and the tests hold it to reconstructing that column within 0.02 yd across the
+whole ledger.
+
+**Rejected: trusting the names.** Two columns that *look* like a start line and
+a finish line could be swapped by a firmware change and every sentence on the
+page would stay plausible while being wrong. So two independent checks are
+tests, not comments: curvature must track the spin axis (r = 0.93, sign agreeing
+on all 158 real curves), and start line must track the club face (r = 0.97) *and
+not* the curvature. A relabelled column now fails the suite.
+
+**What it found:** 8% of shots are genuinely straight, 76% curve more than 3 yd,
+and two-thirds of curves bend right — stable at every threshold from 2 to 5 yd.
+The bag holds two opposite faults at once: long irons bend right with the face
+open to the path, short irons bend left with it closed. The Gap Wedge is neither
+— face square to path within a tenth of a degree, the whole swing aimed 7.6°
+left. That is the most actionable line the ledger has produced, and the
+dispersion cone could never have shown it.
+
+**The corroboration column is the honest half, and it hurts.** Curvature is
+reported per session, and the clubs that look like they slice have the least
+evidence behind them: the 5 and 7 iron appear once each, and the 6 iron produced
+a 4 yd draw one day and a 20 yd slice another. Only the 8 iron, 9 iron and sand
+wedge have been seen twice agreeing — and all three bend *left*. The aggregate
+right bias is robust; the per-club long-iron slice is not established. Publishing
+the per-session spread beside every median is what stops this page from becoming
+the horoscope `PROFILE.md` was designed to avoid.
+
+**Also worth recording, because it looks like a parser bug and is not:** four
+shots genuinely stop shorter than they landed — one gap wedge at −2.2 yd and
+three sand wedges, worst −5.2. High-spin wedges checking. A test pins the count
+so a future exclusion change cannot quietly absorb them.
+
+**Rejected: a route.** The report is a static file, so it costs the app nothing,
+survives on its own, and prints. The trade is real and named in the script
+header: its design tokens are a copy of `app/globals.css` rather than a
+reference, and a copy can drift. If it grows a third chart that needs the app's
+components, it should become `/flight` instead.
+
+**And: generated, never hand-authored.** `pnpm flight --check` fails when the
+committed page no longer matches the ledger, the same contract `PROFILE.md`
+keeps. A one-off HTML file with today's numbers baked into it goes stale the
+first time a session lands, and does it silently.
+
+---
+
 ## 2026-08-03 — One golfer, derived from both halves
 
 **Decided:** `/profile` and `yardages/PROFILE.md` read the shot ledger *and* the

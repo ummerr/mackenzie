@@ -13,7 +13,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "ingest:courses": "tsx scripts/ingest-courses.ts",
-    "profile": "tsx scripts/profile.ts"
+    "profile": "tsx scripts/profile.ts",
+    "flight": "tsx scripts/ball-flight.ts"
   },
   "dependencies": {
     "next": "^15.5.0",

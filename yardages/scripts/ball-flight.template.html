@@ -1,0 +1,842 @@
+<title>Start line or curve — how the bag actually misses</title>
+
+<style>
+  /* ── tokens ──────────────────────────────────────────────────────────────
+     Inherited from the Yardages app (app/globals.css) so this reads as part of
+     the same publication, plus ONE addition: a two-hue series pair for the
+     start/curve split, which the app had no need for. Both modes validated
+     against these exact surfaces — light #0b6ba0/#b8420f (CVD dE 19.9), dark
+     #3f9ec4/#e0561f (CVD dE 21.1). */
+  :root {
+    color-scheme: light;
+    --paper-0: #f7f4ec;
+    --paper-1: #fffdf8;
+    --paper-2: #f1ece1;
+    --ink-0: #161a15;
+    --ink-1: #333a31;
+    --ink-2: #4f574c;
+    --ink-3: #666d63;
+    --line: rgba(22, 26, 21, 0.12);
+    --line-soft: rgba(22, 26, 21, 0.07);
+    --line-hard: rgba(22, 26, 21, 0.28);
+    --accent: #ff6b35;
+    --accent-ink: #b8420f;
+
+    --start: #0b6ba0;
+    --curve: #b8420f;
+    --dot: rgba(22, 26, 21, 0.62);
+    --dot-on: #161a15;
+    --centre: rgba(168, 187, 141, 0.20);
+    --grid: rgba(24, 42, 20, 0.10);
+    --axis: #a8bb8d;
+
+    --ok: #26773a;
+    --warn: #8a6305;
+    --bad: #b0332a;
+    --unknown: #666d63;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper-0: #0a0a09;
+      --paper-1: #131211;
+      --paper-2: #1c1a18;
+      --ink-0: #f2ede5;
+      --ink-1: #c9c3ba;
+      --ink-2: #a9a29a;
+      --ink-3: #8a8279;
+      --line: rgba(242, 237, 229, 0.08);
+      --line-soft: rgba(242, 237, 229, 0.05);
+      --line-hard: rgba(242, 237, 229, 0.2);
+      --accent-ink: #ff6b35;
+      --start: #3f9ec4;
+      --curve: #e0561f;
+      --dot: rgba(242, 237, 229, 0.55);
+      --dot-on: #f2ede5;
+      --centre: rgba(40, 61, 34, 0.55);
+      --grid: rgba(226, 240, 220, 0.07);
+      --axis: #2b3a2b;
+      --ok: #3fae52;
+      --warn: #e2b02a;
+      --bad: #e04b4b;
+      --unknown: #8a8279;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper-0: #0a0a09;
+    --paper-1: #131211;
+    --paper-2: #1c1a18;
+    --ink-0: #f2ede5;
+    --ink-1: #c9c3ba;
+    --ink-2: #a9a29a;
+    --ink-3: #8a8279;
+    --line: rgba(242, 237, 229, 0.08);
+    --line-soft: rgba(242, 237, 229, 0.05);
+    --line-hard: rgba(242, 237, 229, 0.2);
+    --accent-ink: #ff6b35;
+    --start: #3f9ec4;
+    --curve: #e0561f;
+    --dot: rgba(242, 237, 229, 0.55);
+    --dot-on: #f2ede5;
+    --centre: rgba(40, 61, 34, 0.55);
+    --grid: rgba(226, 240, 220, 0.07);
+    --axis: #2b3a2b;
+    --ok: #3fae52;
+    --warn: #e2b02a;
+    --bad: #e04b4b;
+    --unknown: #8a8279;
+  }
+
+  /* Georgia, not a CDN webfont: the Artifact CSP blocks font hosts, and a
+     deliberate fallback beats a silent one. It is the app's own documented
+     fallback for Instrument Serif. */
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper-0);
+    color: var(--ink-0);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 46px;
+  }
+
+  .serif { font-family: Georgia, "Iowan Old Style", "Times New Roman", serif; font-weight: 400; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+  .stamp {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-3);
+  }
+
+  /* ── masthead ── */
+  header { border-bottom: 2px solid var(--line-hard); padding-bottom: 22px; }
+  h1 {
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-weight: 400;
+    font-size: clamp(38px, 7.5vw, 72px);
+    line-height: 0.94;
+    letter-spacing: -0.015em;
+    margin: 10px 0 0;
+    text-wrap: balance;
+  }
+  header p.deck {
+    max-width: 62ch;
+    margin: 16px 0 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-1);
+  }
+
+  h2 {
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-weight: 400;
+    font-size: clamp(24px, 3.4vw, 34px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  section > p, section > .note {
+    max-width: 68ch;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-1);
+  }
+  section { display: flex; flex-direction: column; gap: 16px; }
+  .note { font-size: 13px; color: var(--ink-2); }
+  b, strong { font-weight: 600; color: var(--ink-0); }
+
+  /* ── KPI row ── */
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .kpi { background: var(--paper-1); padding: 16px 18px; }
+  .kpi .v {
+    font-size: 40px;
+    line-height: 1;
+    margin-top: 8px;
+    letter-spacing: -0.02em;
+    color: var(--ink-0);
+  }
+  .kpi .v small { font-size: 15px; color: var(--ink-2); margin-left: 3px; letter-spacing: 0; }
+  .kpi .sub { font-size: 12px; color: var(--ink-2); margin-top: 6px; line-height: 1.4; }
+
+  /* ── figures ── */
+  figure { margin: 0; background: var(--paper-1); border: 1px solid var(--line); padding: 18px; }
+  figure .head { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+  figcaption { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line-soft); font-size: 12px; line-height: 1.55; color: var(--ink-2); max-width: 78ch; }
+  .scroll { overflow-x: auto; overscroll-behavior-x: contain; }
+  svg { display: block; max-width: 100%; height: auto; }
+  svg text { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  /* Chrome must not eat the pointer. Axis text and gridlines are painted over
+     the marks, and with 181 overlapping dots a label sitting on top of one is
+     enough to make it unhoverable. Only marks take the pointer. */
+  svg * { pointer-events: none; }
+  svg [data-tip] { pointer-events: auto; }
+
+  /* ── legend ── */
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: var(--ink-1); }
+  .swatch { width: 11px; height: 11px; border-radius: 2px; flex: none; }
+
+  /* ── small multiples ── */
+  .sm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+  .sm { border: 1px solid var(--line-soft); padding: 10px; background: var(--paper-1); }
+  .sm .t { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+  .sm .t b { font-size: 13px; white-space: nowrap; }
+  .sm .t em { font-style: normal; font-size: 11px; color: var(--ink-3); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .sm .verdict { font-size: 11px; margin-top: 6px; line-height: 1.4; }
+
+  /* ── status pills ── */
+  .pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.09em;
+    padding: 2px 7px; border: 1px solid currentColor; border-radius: 2px;
+  }
+  .pill.ok { color: var(--ok); }
+  .pill.bad { color: var(--bad); }
+  .pill.unk { color: var(--unknown); }
+  .pill .ic { font-size: 11px; line-height: 1; }
+
+  /* ── table ── */
+  table { border-collapse: collapse; width: 100%; min-width: 660px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+  th, td { padding: 7px 10px; border-bottom: 1px solid var(--line-soft); text-align: right; font-variant-numeric: tabular-nums; }
+  th { background: var(--paper-2); color: var(--ink-2); font-weight: 400; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px solid var(--line); }
+  th:first-child, td:first-child { text-align: left; }
+  tbody tr:hover { background: var(--paper-2); }
+
+  details { border: 1px solid var(--line); background: var(--paper-1); padding: 0; }
+  details > summary { cursor: pointer; padding: 13px 18px; font-size: 13px; color: var(--ink-1); list-style: none; display: flex; align-items: center; gap: 9px; }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::before { content: "+"; font-family: ui-monospace, monospace; color: var(--ink-3); }
+  details[open] > summary::before { content: "\2212"; }
+  details > summary:hover { color: var(--ink-0); }
+  details .body { padding: 0 18px 18px; }
+
+  /* ── tooltip ── */
+  #tip {
+    position: fixed; pointer-events: none; opacity: 0; transition: opacity .1s;
+    background: var(--paper-1); border: 1px solid var(--line-hard);
+    padding: 7px 10px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 11px; line-height: 1.5; color: var(--ink-0); z-index: 20;
+    box-shadow: 0 3px 14px rgba(0,0,0,.13); max-width: 240px;
+  }
+  #tip b { display: block; margin-bottom: 2px; }
+  #tip .r { color: var(--ink-2); }
+
+  :focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  @media (max-width: 560px) { .wrap { gap: 34px; padding-top: 26px; } }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="stamp">Yardages &middot; ball flight &middot; 181 trusted shots, 7 sessions</p>
+    <h1>The ball is not going where you aimed. That is two different problems.</h1>
+    <p class="deck">
+      A shot that finishes 15 yards right either <em>started</em> there or <em>bent</em>
+      there, and the fix is not the same. The launch monitor records both: where the
+      ball set off, and where it finished. The gap between them is curvature. Split
+      every shot that way and the bag turns out to hold two opposite faults at once.
+    </p>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <section>
+    <h2>The nine boxes</h2>
+    <p>
+      Across the page is where the ball <b>started</b> relative to the target line.
+      Up the page is how much it <b>bent</b> in the air. A ball in the centre box
+      started on line and flew straight; every other box is a named miss. One dot per
+      shot &mdash; nothing is averaged away.
+    </p>
+    <figure>
+      <div class="head">
+        <p class="stamp">Every trusted shot &middot; scale 1:1 both ways</p>
+        <p class="stamp" id="hero-note"></p>
+      </div>
+      <div class="scroll"><svg id="hero" role="img" aria-label="Scatter of 181 shots: start line across, curvature up the page, divided into nine named ball-flight regions"></svg></div>
+      <figcaption id="hero-cap"></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Where each club's miss comes from</h2>
+    <p>
+      The same total miss, split into the part the ball started with and the part it
+      bent. These stack: <b>start + curve is exactly the offline distance</b>, because
+      the export's own geometry says so &mdash; the two bars reconstruct it to within
+      0.02 yd. Read left of the line as left of target.
+    </p>
+    <figure>
+      <div class="head">
+        <p class="stamp">Median per club, yards</p>
+        <div class="legend">
+          <span><i class="swatch" style="background:var(--start)"></i>started off line</span>
+          <span><i class="swatch" style="background:var(--curve)"></i>bent in the air</span>
+        </div>
+      </div>
+      <div class="scroll"><svg id="split" role="img" aria-label="Diverging stacked bars: for each club, the median miss split into start line and curvature"></svg></div>
+      <figcaption>
+        The Gap Wedge is the odd one out and the clearest finding here: almost all of
+        its miss is start line, almost none is curve. Its face sits 7.3&deg; left and
+        its path 7.6&deg; left &mdash; square to each other to a tenth of a degree. Nothing
+        is wrong with the strike; the whole swing is pointed left.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Two opposite faults, one bag</h2>
+    <p>
+      The same nine boxes, one panel per club, <b>all on a single shared frame</b> so
+      the panels compare. The long irons sit high (bending right, face open to path);
+      the short irons sit low (bending left, face closed to path). Those are different
+      faults, not one fault at two sizes.
+    </p>
+    <div class="sm-grid" id="sm"></div>
+    <p class="note">
+      Face-to-path is the mechanism, and it is only on 209 of 255 shots &mdash; two
+      sessions tracked the ball but not the club. It correlates with curvature at
+      <span id="r-inline">r</span>: directionally right, not deterministic, since curve also
+      depends on speed and spin.
+    </p>
+  </section>
+
+  <section>
+    <h2>What the club was doing at impact</h2>
+    <p>
+      Curve is not a mystery: it comes from where the face pointed <em>relative to
+      the path it was swung on</em>. Each diagram below is one club seen from above,
+      at the moment of impact, drawn to scale &mdash; the arrow is the swing path, the
+      bar across it is the face. When the two disagree, the ball bends; the wider the
+      wedge between them, the harder.
+    </p>
+    <div class="sm-grid" id="impact"></div>
+    <p class="note">
+      Only clubs the monitor tracked appear here. <b>The Gap Wedge is the case worth
+      studying:</b> its arrow and its face point the same way, so the strike is clean
+      &mdash; they are simply both aimed a long way left. Compare the 6 Iron, where the
+      face sits open to a path swung across the ball, and the ball leaves bending.
+      The <b>5 Iron is the honest exception</b>: its face and path are square to a
+      fifth of a degree and it still bends 12.9 yd right, which is the clearest sign
+      on this page that face-to-path is not the whole story.
+    </p>
+    <figure>
+      <div class="head">
+        <p class="stamp">Face-to-path against curvature &middot; one dot per tracked shot</p>
+        <p class="stamp" id="fit-note"></p>
+      </div>
+      <div class="scroll"><svg id="mech" role="img" aria-label="Scatter of face-to-path angle against resulting curvature, with a least-squares fit line"></svg></div>
+      <figcaption>
+        Every shot where the club was tracked, face-to-path across against how far the
+        ball actually bent. The trend is the mechanism working &mdash; open face relative
+        to path bends the ball right, closed bends it left &mdash; but the scatter around
+        it is wide, and honestly so: curvature also scales with ball speed and spin,
+        which this axis does not carry. It is evidence, not a predictor.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Which of these would survive another session?</h2>
+    <p>
+      A median off one afternoon describes an afternoon. Each club's curvature is
+      plotted per session below, and the answer is uncomfortable: <b>the clubs that
+      look like they slice are exactly the ones with the least corroboration.</b> The
+      6 Iron produced a 4 yd draw one day and a 20 yd slice another. The only per-club
+      curves seen twice and agreeing both bend <em>left</em>.
+    </p>
+    <figure>
+      <div class="head">
+        <p class="stamp">Median curve per session, yards &middot; each mark is one session</p>
+        <div class="legend">
+          <span><i class="swatch" style="background:var(--curve)"></i>bends right</span>
+          <span><i class="swatch" style="background:var(--start)"></i>bends left</span>
+        </div>
+      </div>
+      <div class="scroll"><svg id="corrob" role="img" aria-label="Per-club session-by-session median curvature, showing which findings are corroborated"></svg></div>
+      <figcaption>
+        Sessions with fewer than 5 shots of a club are not plotted &mdash; a median off
+        three swings is not a session's worth of evidence. The aggregate 2:1 right bias
+        is robust; the per-club long-iron slice is not established yet.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>How this was measured</h2>
+    <p>
+      Nothing here is modelled. The export carries <span class="mono">launch_direction</span>
+      (where the ball set off) and <span class="mono">carry_deviation_angle</span> (where it
+      finished), both in degrees, positive right. Curvature is the difference. In yards at
+      the shot's own carry:
+    </p>
+    <p class="note mono" style="background:var(--paper-2);padding:12px 14px;border:1px solid var(--line-soft);max-width:none;overflow-x:auto">
+      start = carry &times; sin(launch_direction)<br>
+      curve = carry &times; ( sin(carry_deviation_angle) &minus; sin(launch_direction) )
+    </p>
+    <p>
+      Two checks before trusting it. Curvature must track the spin axis &mdash; it does,
+      at <b>r&nbsp;=&nbsp;0.93 with 100% sign agreement</b> on all 158 real curves. Start
+      line must track the club face &mdash; it does, at <b>r&nbsp;=&nbsp;0.97</b>, slope
+      0.88. And the two parts reconstruct the export's own offline column to
+      <b>0.018 yd</b>, so the split is arithmetic rather than interpretation.
+    </p>
+    <details>
+      <summary>Every number in this report</summary>
+      <div class="body scroll"><table id="tbl"></table></div>
+    </details>
+  </section>
+
+</div>
+
+<div id="tip" role="status" aria-live="polite"></div>
+
+<script>
+const D = __DATA__;
+const $ = (s) => document.querySelector(s);
+const NS = "http://www.w3.org/2000/svg";
+const el = (n, a = {}) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); return e; };
+const short = (c) => c.replace("Pitching Wedge","PW").replace("Gap Wedge","GW").replace("Sand Wedge","SW").replace("Lob Wedge","LW").replace(" Iron","i").replace(" Hybrid","H").replace(" Wood","W");
+const sgn = (v, d = 1) => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(d);
+const side = (v) => (v > 0 ? "right" : v < 0 ? "left" : "on line");
+const rad = (d) => (d * Math.PI) / 180;
+
+/* ── tooltip ── */
+const tip = $("#tip");
+function showTip(e, html) {
+  tip.innerHTML = html; tip.style.opacity = "1";
+  const r = tip.getBoundingClientRect();
+  let x = e.clientX + 14, y = e.clientY + 14;
+  if (x + r.width > innerWidth - 8) x = e.clientX - r.width - 14;
+  if (y + r.height > innerHeight - 8) y = e.clientY - r.height - 14;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+const hideTip = () => { tip.style.opacity = "0"; };
+addEventListener("scroll", hideTip, { passive: true });
+
+/* Delegate hover to the plot. Marks carry their own tip text and their own
+   hover/rest attributes, so overlapping marks hand off cleanly instead of the
+   leaving mark cancelling the arriving one. */
+function bindTips(svg) {
+  let cur = null;
+  const rest = (m) => { if (!m) return; for (const k in m.__rest) m.setAttribute(k, m.__rest[k]); };
+  const raise = (m) => { for (const k in m.__hot) m.setAttribute(k, m.__hot[k]); };
+  svg.addEventListener("pointermove", (e) => {
+    const m = e.target.closest("[data-tip]");
+    if (m !== cur) { rest(cur); cur = m; if (m) raise(m); }
+    if (m) showTip(e, m.__tip); else hideTip();
+  });
+  svg.addEventListener("pointerleave", () => { rest(cur); cur = null; hideTip(); });
+}
+function mark(node, html, hot, restAttrs) {
+  node.setAttribute("data-tip", "");
+  node.__tip = html; node.__hot = hot; node.__rest = restAttrs;
+  node.style.cursor = "pointer";
+  return node;
+}
+
+/* ── KPIs ── */
+const T = D.threshold;
+$("#kpis").innerHTML = [
+  ["Genuinely straight", D.straightPct + "<small>%</small>", "inside " + T + " yd on both axes — " + Math.round(D.straightPct*D.n/100) + " of " + D.n + " shots"],
+  ["Curved in the air", D.curvedPct + "<small>%</small>", "bent more than " + T + " yd off its own start line"],
+  ["Started off line", D.offlinePct + "<small>%</small>", "set off more than " + T + " yd from the target"],
+  ["Of the curves, bend right", D.rightOfCurves + "<small>%</small>", "stable at every threshold from 2 to 5 yd"],
+].map(([k, v, s]) => '<div class="kpi"><div class="stamp">' + k + '</div><div class="v serif">' + v + '</div><div class="sub">' + s + "</div></div>").join("");
+
+/* ── shared frame for hero + small multiples ────────────────────────────────
+   One domain for every panel. A frame that refits per club would let a 20 yd
+   slice and a 4 yd draw occupy the same shape. */
+const M = Math.ceil(Math.max(...D.shots.flatMap((p) => [Math.abs(p.s), Math.abs(p.v)])) / 5) * 5;
+const DOM = [-M, M];
+
+function frame(svg, W, H, pad, opts) {
+  const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
+  const x = (v) => pad.l + ((v - DOM[0]) / (DOM[1] - DOM[0])) * iw;
+  const y = (v) => pad.t + ih - ((v - DOM[0]) / (DOM[1] - DOM[0])) * ih;
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+
+  // the "straight" centre box, tinted like fairway
+  svg.appendChild(el("rect", { x: x(-T), y: y(T), width: x(T) - x(-T), height: y(-T) - y(T), fill: "var(--centre)" }));
+  // quadrant dividers at the straight threshold
+  for (const v of [-T, T]) {
+    svg.appendChild(el("line", { x1: x(v), x2: x(v), y1: pad.t, y2: pad.t + ih, stroke: "var(--grid)", "stroke-width": 1 }));
+    svg.appendChild(el("line", { x1: pad.l, x2: pad.l + iw, y1: y(v), y2: y(v), stroke: "var(--grid)", "stroke-width": 1 }));
+  }
+  // the target line and the no-curve line
+  svg.appendChild(el("line", { x1: x(0), x2: x(0), y1: pad.t, y2: pad.t + ih, stroke: "var(--axis)", "stroke-width": 1 }));
+  svg.appendChild(el("line", { x1: pad.l, x2: pad.l + iw, y1: y(0), y2: y(0), stroke: "var(--axis)", "stroke-width": 1 }));
+  return { x, y, iw, ih };
+}
+
+/* ── hero ── */
+(function hero() {
+  const svg = $("#hero"), W = 660, H = 660, pad = { t: 34, r: 22, b: 46, l: 52 };
+  const { x, y, iw, ih } = frame(svg, W, H, pad);
+
+  // region labels, placed in the corners of their own cells
+  const cell = (cx, cy, label, anchor) => {
+    const t = el("text", { x: cx, y: cy, "text-anchor": anchor, "font-size": 10, fill: "var(--ink-3)", "letter-spacing": "0.1em" });
+    t.textContent = label.toUpperCase(); svg.appendChild(t);
+  };
+  const hi = (DOM[1] + T) / 2, lo = -(DOM[1] + T) / 2;
+  cell(x(lo), y(hi), "pull–slice", "middle");
+  cell(x(0), y(hi), "slice", "middle");
+  cell(x(hi), y(hi), "push–slice", "middle");
+  cell(x(lo), y(0) - 8, "pull", "middle");
+  cell(x(hi), y(0) - 8, "push", "middle");
+  cell(x(lo), y(lo), "pull–hook", "middle");
+  cell(x(0), y(lo), "hook", "middle");
+  cell(x(hi), y(lo), "push–hook", "middle");
+
+  const st = el("text", { x: x(0), y: y(0) - 7, "text-anchor": "middle", "font-size": 10, fill: "var(--ink-2)",
+    "letter-spacing": "0.1em", stroke: "var(--paper-1)", "stroke-width": 3.5, "paint-order": "stroke fill" });
+  st.textContent = "STRAIGHT"; svg.appendChild(st);
+
+  // ticks
+  for (let v = -Math.floor(DOM[1] / 10) * 10; v <= DOM[1]; v += 10) {
+    if (v !== 0) {
+      const tx = el("text", { x: x(v), y: pad.t + ih + 16, "text-anchor": "middle", "font-size": 10, fill: "var(--ink-3)" });
+      tx.textContent = Math.abs(v); svg.appendChild(tx);
+      const ty = el("text", { x: pad.l - 8, y: y(v) + 3.5, "text-anchor": "end", "font-size": 10, fill: "var(--ink-3)" });
+      ty.textContent = Math.abs(v); svg.appendChild(ty);
+    }
+  }
+  const ax = (txt, xx, yy, rot) => {
+    const t = el("text", { x: xx, y: yy, "text-anchor": "middle", "font-size": 9, fill: "var(--ink-3)", "letter-spacing": "0.14em" });
+    if (rot) t.setAttribute("transform", "rotate(-90 " + xx + " " + yy + ")");
+    t.textContent = txt; svg.appendChild(t);
+  };
+  ax("← STARTED LEFT · YARDS · STARTED RIGHT →", pad.l + iw / 2, H - 10);
+  ax("← BENT LEFT · YARDS · BENT RIGHT →", 14, pad.t + ih / 2, true);
+
+  for (const p of D.shots) {
+    const c = el("circle", { cx: x(p.s), cy: y(p.v), r: 3, fill: "var(--dot)" });
+    svg.appendChild(mark(c,
+      "<b>" + p.c + " · " + p.y + " yd</b>"
+        + '<span class="r">started</span> ' + sgn(p.s) + " yd " + side(p.s) + "<br>"
+        + '<span class="r">bent</span> ' + sgn(p.v) + " yd " + side(p.v) + "<br>"
+        + '<span class="r">finished</span> ' + sgn(p.s + p.v) + " yd " + side(p.s + p.v),
+      { r: 5.5, fill: "var(--dot-on)" }, { r: 3, fill: "var(--dot)" }));
+  }
+  bindTips(svg);
+  $("#hero-note").textContent = D.n + " shots · hover for one";
+  $("#hero-cap").innerHTML = "The busiest cells are <b>push–slice</b> ("
+    + D.tally["push|slice"] + " shots) and <b>pull–slice</b> (" + D.tally["pull|slice"]
+    + "), and only <b>" + D.tally["on line|straight"] + "</b> shots land in the centre box. Both "
+    + "axes carry the same scale, so a dot's distance from the centre is comparable in either direction.";
+})();
+
+/* ── split bars ── */
+(function split() {
+  const svg = $("#split"), rows = D.clubs;
+  const rowH = 34, pad = { t: 26, r: 56, b: 34, l: 132 }, W = 680;
+  const H = pad.t + rows.length * rowH + pad.b;
+  const iw = W - pad.l - pad.r;
+  const lim = Math.ceil(Math.max(...rows.map((r) => Math.max(Math.abs(r.start), Math.abs(r.start + r.curve), Math.abs(r.curve)))) / 5) * 5 + 2;
+  const x = (v) => pad.l + ((v + lim) / (2 * lim)) * iw;
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+
+  for (let v = -Math.floor(lim / 5) * 5; v <= lim; v += 5) {
+    if (v === 0) continue;
+    svg.appendChild(el("line", { x1: x(v), x2: x(v), y1: pad.t - 6, y2: pad.t + rows.length * rowH, stroke: "var(--grid)", "stroke-width": 1 }));
+    const t = el("text", { x: x(v), y: pad.t + rows.length * rowH + 16, "text-anchor": "middle", "font-size": 10, fill: "var(--ink-3)" });
+    t.textContent = Math.abs(v); svg.appendChild(t);
+  }
+  svg.appendChild(el("line", { x1: x(0), x2: x(0), y1: pad.t - 6, y2: pad.t + rows.length * rowH + 4, stroke: "var(--line-hard)", "stroke-width": 1 }));
+  const tl = el("text", { x: x(0), y: pad.t - 12, "text-anchor": "middle", "font-size": 9, fill: "var(--ink-3)", "letter-spacing": "0.12em" });
+  tl.textContent = "TARGET LINE"; svg.appendChild(tl);
+  const axl = el("text", { x: pad.l + iw / 2, y: H - 6, "text-anchor": "middle", "font-size": 9, fill: "var(--ink-3)", "letter-spacing": "0.14em" });
+  axl.textContent = "← LEFT · YARDS FROM TARGET · RIGHT →"; svg.appendChild(axl);
+
+  rows.forEach((r, i) => {
+    const cy = pad.t + i * rowH + rowH / 2;
+    const lab = el("text", { x: pad.l - 12, y: cy + 4, "text-anchor": "end", "font-size": 12, fill: "var(--ink-1)" });
+    lab.textContent = r.club; svg.appendChild(lab);
+
+    // start segment runs from 0; curve segment continues from where start ended
+    const segs = [
+      { from: 0, to: r.start, fill: "var(--start)", name: "started off line", val: r.start },
+      { from: r.start, to: r.start + r.curve, fill: "var(--curve)", name: "bent in the air", val: r.curve },
+    ];
+    for (const s of segs) {
+      const a = Math.min(x(s.from), x(s.to)), b = Math.max(x(s.from), x(s.to));
+      const w = Math.max(b - a - 2, 1.5); // 2px surface gap between the two fills
+      const rect = el("rect", { x: a + 1, y: cy - 7, width: w, height: 14, rx: 2, fill: s.fill });
+      svg.appendChild(mark(rect, "<b>" + r.club + "</b>"
+        + '<span class="r">' + s.name + "</span> " + sgn(s.val) + " yd " + side(s.val) + "<br>"
+        + '<span class="r">total miss</span> ' + sgn(r.start + r.curve) + " yd " + side(r.start + r.curve) + "<br>"
+        + '<span class="r">n</span> ' + r.n + " shots",
+        { "fill-opacity": 0.78 }, { "fill-opacity": 1 }));
+    }
+    /* Anchor the label to the far edge of the whole bar, not to the total: when
+       the two segments straddle the target line the total sits INSIDE the bar,
+       and the label lands on top of its own fill. */
+    const tot = r.start + r.curve;
+    const barMin = Math.min(0, r.start, tot), barMax = Math.max(0, r.start, tot);
+    const vt = el("text", {
+      x: tot >= 0 ? x(barMax) + 8 : x(barMin) - 8, y: cy + 4,
+      "text-anchor": tot >= 0 ? "start" : "end", "font-size": 11, fill: "var(--ink-2)",
+    });
+    vt.textContent = sgn(tot) + " yd"; svg.appendChild(vt);
+  });
+  bindTips(svg);
+})();
+
+/* ── small multiples ── */
+(function multiples() {
+  const host = $("#sm");
+  const VERDICT = {
+    agree: ["ok", "●", "seen twice, agrees"],
+    disagree: ["bad", "◆", "sessions disagree"],
+    single: ["unk", "○", "one session only"],
+  };
+  for (const c of D.clubs) {
+    const box = document.createElement("div");
+    box.className = "sm";
+    const [cls, ic, word] = VERDICT[c.status];
+    box.innerHTML = '<div class="t"><b>' + c.club + '</b><em>n=' + c.n + "</em></div>";
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", c.club + ": median start " + c.start.toFixed(1) + " yd, median curve " + c.curve.toFixed(1) + " yd, " + c.n + " shots");
+    const W = 200, H = 200, pad = { t: 6, r: 6, b: 6, l: 6 };
+    const { x, y } = frame(svg, W, H, pad);
+    for (const p of D.shots.filter((p) => p.c === c.club)) {
+      svg.appendChild(el("circle", { cx: x(p.s), cy: y(p.v), r: 2.4, fill: "var(--dot)" }));
+    }
+    // the club's median, ringed in the surface so it survives the cloud
+    svg.appendChild(el("circle", { cx: x(c.start), cy: y(c.curve), r: 6, fill: "none", stroke: "var(--paper-1)", "stroke-width": 3.5 }));
+    svg.appendChild(el("circle", { cx: x(c.start), cy: y(c.curve), r: 6, fill: "none", stroke: c.curve > 0 ? "var(--curve)" : "var(--start)", "stroke-width": 2 }));
+    box.appendChild(svg);
+    const f = document.createElement("div");
+    f.className = "verdict";
+    f.innerHTML = '<div class="mono" style="color:var(--ink-2)">start ' + sgn(c.start) + " · curve " + sgn(c.curve) + " yd</div>"
+      + '<div style="margin-top:5px"><span class="pill ' + cls + '"><span class="ic">' + ic + "</span>" + word + "</span></div>";
+    box.appendChild(f);
+    host.appendChild(box);
+  }
+})();
+
+/* ── corroboration ── */
+(function corrob() {
+  const svg = $("#corrob"), rows = D.clubs;
+  const rowH = 30, pad = { t: 24, r: 24, b: 34, l: 132 }, W = 680;
+  const H = pad.t + rows.length * rowH + pad.b, iw = W - pad.l - pad.r;
+  const lim = Math.ceil(Math.max(...rows.flatMap((r) => r.sessionCurves.map((s) => Math.abs(s.curve)))) / 5) * 5 + 2;
+  const x = (v) => pad.l + ((v + lim) / (2 * lim)) * iw;
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+
+  for (let v = -Math.floor(lim / 5) * 5; v <= lim; v += 5) {
+    if (v === 0) continue;
+    svg.appendChild(el("line", { x1: x(v), x2: x(v), y1: pad.t - 4, y2: pad.t + rows.length * rowH, stroke: "var(--grid)", "stroke-width": 1 }));
+    const t = el("text", { x: x(v), y: pad.t + rows.length * rowH + 16, "text-anchor": "middle", "font-size": 10, fill: "var(--ink-3)" });
+    t.textContent = Math.abs(v); svg.appendChild(t);
+  }
+  svg.appendChild(el("line", { x1: x(0), x2: x(0), y1: pad.t - 4, y2: pad.t + rows.length * rowH + 4, stroke: "var(--line-hard)", "stroke-width": 1 }));
+  const zl = el("text", { x: x(0), y: pad.t - 10, "text-anchor": "middle", "font-size": 9, fill: "var(--ink-3)", "letter-spacing": "0.12em" });
+  zl.textContent = "NO CURVE"; svg.appendChild(zl);
+  const al = el("text", { x: pad.l + iw / 2, y: H - 6, "text-anchor": "middle", "font-size": 9, fill: "var(--ink-3)", "letter-spacing": "0.14em" });
+  al.textContent = "← BENT LEFT · YARDS · BENT RIGHT →"; svg.appendChild(al);
+
+  rows.forEach((r, i) => {
+    const cy = pad.t + i * rowH + rowH / 2;
+    const lab = el("text", { x: pad.l - 12, y: cy + 4, "text-anchor": "end", "font-size": 12, fill: "var(--ink-1)" });
+    lab.textContent = r.club; svg.appendChild(lab);
+    // the span between a club's sessions is the disagreement, drawn as a rule
+    if (r.sessionCurves.length > 1) {
+      const xs = r.sessionCurves.map((s) => x(s.curve));
+      svg.appendChild(el("line", { x1: Math.min(...xs), x2: Math.max(...xs), y1: cy, y2: cy, stroke: "var(--line-hard)", "stroke-width": 1 }));
+    }
+    for (const s of r.sessionCurves) {
+      const c = el("circle", { cx: x(s.curve), cy: cy, r: 5, fill: s.curve > 0 ? "var(--curve)" : "var(--start)", stroke: "var(--paper-1)", "stroke-width": 2 });
+      svg.appendChild(mark(c, "<b>" + r.club + " · " + s.date + "</b>"
+        + '<span class="r">median curve</span> ' + sgn(s.curve) + " yd " + side(s.curve) + "<br>"
+        + '<span class="r">n</span> ' + s.n + " shots that session",
+        { r: 7 }, { r: 5 }));
+    }
+  });
+  bindTips(svg);
+})();
+
+/* ── impact diagrams: one club from above at the moment of strike ──────────
+   Angles are drawn to scale from the medians, magnified by a fixed factor so a
+   2 degree gap is visible at 150px; the factor is constant across every panel,
+   so the panels compare even though none of them is life-size. */
+(function impact() {
+  const host = $("#impact");
+  const MAG = 3.2;              // one degree of angle -> this many degrees on screen
+  for (const c of D.clubs) {
+    if (c.path === null || c.face === null) continue;
+    const box = document.createElement("div");
+    box.className = "sm";
+    box.innerHTML = '<div class="t"><b>' + c.club + "</b></div>";
+
+    const W = 200, H = 168, cx = W / 2, cy = H * 0.62;
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.setAttribute("width", W); svg.setAttribute("height", H);
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", c.club + " at impact: face " + c.face + " degrees, path "
+      + c.path + " degrees, face-to-path " + c.f2p + " degrees, median curve "
+      + c.curve + " yards " + side(c.curve));
+
+    // the target line: straight up the page
+    svg.appendChild(el("line", { x1: cx, y1: cy, x2: cx, y2: 12, stroke: "var(--axis)", "stroke-width": 1, "stroke-dasharray": "3 4" }));
+    const tl = el("text", { x: cx, y: 9, "text-anchor": "middle", "font-size": 8, fill: "var(--ink-3)", "letter-spacing": "0.1em" });
+    tl.textContent = "TARGET"; svg.appendChild(tl);
+
+    // helper: a ray from the strike point at `deg` off the target line
+    const ray = (deg, len) => {
+      const a = rad(deg * MAG);
+      return [cx + Math.sin(a) * len, cy - Math.cos(a) * len];
+    };
+
+    // the wedge between path and face IS the curvature — shade it
+    const [px1, py1] = ray(c.path, 96);
+    const [fx1, fy1] = ray(c.face, 96);
+    svg.appendChild(el("path", {
+      d: "M " + cx + " " + cy + " L " + px1 + " " + py1 + " L " + fx1 + " " + fy1 + " Z",
+      fill: c.f2p > 0 ? "var(--curve)" : "var(--start)", "fill-opacity": 0.16,
+    }));
+
+    // swing path, as an arrow
+    svg.appendChild(el("line", { x1: cx, y1: cy, x2: px1, y2: py1, stroke: "var(--ink-1)", "stroke-width": 1.75 }));
+    const ah = rad(c.path * MAG);
+    svg.appendChild(el("path", {
+      d: "M " + px1 + " " + py1
+        + " L " + (px1 - Math.sin(ah - 0.42) * 9) + " " + (py1 + Math.cos(ah - 0.42) * 9)
+        + " L " + (px1 - Math.sin(ah + 0.42) * 9) + " " + (py1 + Math.cos(ah + 0.42) * 9) + " Z",
+      fill: "var(--ink-1)",
+    }));
+
+    // the club face: a bar perpendicular to where it points
+    const fa = rad(c.face * MAG);
+    const half = 22;
+    svg.appendChild(el("line", {
+      x1: cx + Math.cos(fa) * half, y1: cy + Math.sin(fa) * half,
+      x2: cx - Math.cos(fa) * half, y2: cy - Math.sin(fa) * half,
+      stroke: "var(--curve)", "stroke-width": 3.5, "stroke-linecap": "round",
+    }));
+
+    // the ball, and the direction it left in
+    svg.appendChild(el("circle", { cx: cx, cy: cy, r: 3.5, fill: "var(--paper-1)", stroke: "var(--ink-0)", "stroke-width": 1.5 }));
+
+    box.appendChild(svg);
+    const rd = document.createElement("div");
+    rd.className = "verdict";
+    rd.innerHTML = '<div class="mono" style="color:var(--ink-2)">face ' + sgn(c.face)
+      + "° · path " + sgn(c.path) + "°</div>"
+      + '<div class="mono" style="margin-top:3px">face-to-path ' + sgn(c.f2p)
+      + '° · <span style="color:' + (c.curve > 0 ? "var(--curve)" : "var(--start)") + '">curve '
+      + sgn(c.curve) + " yd</span></div>";
+    box.appendChild(rd);
+    host.appendChild(box);
+  }
+  if (!host.children.length) {
+    host.innerHTML = '<p class="note">No club in this ledger was tracked by the monitor.</p>';
+  }
+})();
+
+/* ── mechanism scatter: face-to-path against the curve it produced ── */
+(function mech() {
+  const svg = $("#mech");
+  const rows = D.shots.filter((p) => p.p !== null);
+  if (!rows.length || !D.fit) { svg.closest("figure").style.display = "none"; return; }
+
+  const W = 660, H = 400, pad = { t: 20, r: 20, b: 46, l: 56 };
+  const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
+  const xm = Math.ceil(Math.max(...rows.map((p) => Math.abs(p.p))) / 2) * 2;
+  const ym = Math.ceil(Math.max(...rows.map((p) => Math.abs(p.v))) / 5) * 5;
+  const x = (v) => pad.l + ((v + xm) / (2 * xm)) * iw;
+  const y = (v) => pad.t + ih - ((v + ym) / (2 * ym)) * ih;
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+
+  /* Tick step scales with the range. A couple of extreme face-to-path shots
+     stretch the frame to +/-30, and a fixed 2-degree step then prints 31 labels
+     on top of each other. */
+  const xStep = xm <= 6 ? 2 : xm <= 16 ? 4 : 10;
+  for (let v = -Math.floor(xm / xStep) * xStep; v <= xm; v += xStep) {
+    svg.appendChild(el("line", { x1: x(v), x2: x(v), y1: pad.t, y2: pad.t + ih, stroke: "var(--grid)", "stroke-width": 1 }));
+    const t = el("text", { x: x(v), y: pad.t + ih + 16, "text-anchor": "middle", "font-size": 10, fill: "var(--ink-3)" });
+    t.textContent = (v > 0 ? "+" : "") + v + "°"; svg.appendChild(t);
+  }
+  for (let v = -Math.floor(ym / 10) * 10; v <= ym; v += 10) {
+    svg.appendChild(el("line", { x1: pad.l, x2: pad.l + iw, y1: y(v), y2: y(v), stroke: "var(--grid)", "stroke-width": 1 }));
+    const t = el("text", { x: pad.l - 8, y: y(v) + 3.5, "text-anchor": "end", "font-size": 10, fill: "var(--ink-3)" });
+    t.textContent = (v > 0 ? "+" : "") + v; svg.appendChild(t);
+  }
+  svg.appendChild(el("line", { x1: x(0), x2: x(0), y1: pad.t, y2: pad.t + ih, stroke: "var(--axis)", "stroke-width": 1 }));
+  svg.appendChild(el("line", { x1: pad.l, x2: pad.l + iw, y1: y(0), y2: y(0), stroke: "var(--axis)", "stroke-width": 1 }));
+
+  // the fit, clipped to the frame
+  const fx = [-xm, xm], fy = fx.map((v) => D.fit.slope * v + D.fit.intercept);
+  svg.appendChild(el("line", {
+    x1: x(fx[0]), y1: y(Math.max(-ym, Math.min(ym, fy[0]))),
+    x2: x(fx[1]), y2: y(Math.max(-ym, Math.min(ym, fy[1]))),
+    stroke: "var(--ink-1)", "stroke-width": 2,
+  }));
+
+  for (const p of rows) {
+    const c = el("circle", { cx: x(p.p), cy: y(p.v), r: 3, fill: "var(--dot)" });
+    svg.appendChild(mark(c,
+      "<b>" + p.c + " · " + p.y + " yd</b>"
+      + '<span class="r">face to path</span> ' + sgn(p.p) + "°<br>"
+      + '<span class="r">bent</span> ' + sgn(p.v) + " yd " + side(p.v),
+      { r: 5.5, fill: "var(--dot-on)" }, { r: 3, fill: "var(--dot)" }));
+  }
+  bindTips(svg);
+
+  const ax = el("text", { x: pad.l + iw / 2, y: H - 8, "text-anchor": "middle", "font-size": 9, fill: "var(--ink-3)", "letter-spacing": "0.14em" });
+  ax.textContent = "← FACE CLOSED TO PATH · DEGREES · FACE OPEN TO PATH →"; svg.appendChild(ax);
+  const ay = el("text", { x: 13, y: pad.t + ih / 2, "text-anchor": "middle", "font-size": 9, fill: "var(--ink-3)", "letter-spacing": "0.14em" });
+  ay.setAttribute("transform", "rotate(-90 13 " + (pad.t + ih / 2) + ")");
+  ay.textContent = "← BENT LEFT · YARDS · BENT RIGHT →"; svg.appendChild(ay);
+
+  $("#fit-note").textContent = "r = " + D.fit.r.toFixed(2) + " · " + D.fit.n + " tracked shots";
+  const inline = $("#r-inline");
+  if (inline) inline.textContent = "r = " + D.fit.r.toFixed(2);
+})();
+
+/* ── table ── */
+(function table() {
+  const t = $("#tbl");
+  const head = ["Club", "n", "Start", "Curve", "Total", "|start|", "|curve|", "Face", "Path", "F2P", "Corroboration"];
+  t.innerHTML = "<thead><tr>" + head.map((h) => "<th>" + h + "</th>").join("") + "</tr></thead><tbody>"
+    + D.clubs.map((c) => {
+      const words = { agree: "seen twice, agrees", disagree: "sessions disagree", single: "one session" }[c.status];
+      const d = (v) => (v === null ? "—" : v.toFixed(1));
+      return "<tr><td>" + c.club + "</td><td>" + c.n + "</td><td>" + sgn(c.start) + "</td><td>" + sgn(c.curve)
+        + "</td><td>" + sgn(c.start + c.curve) + "</td><td>" + c.absStart.toFixed(1) + "</td><td>" + c.absCurve.toFixed(1)
+        + "</td><td>" + d(c.face) + "</td><td>" + d(c.path) + "</td><td>" + d(c.f2p) + "</td><td style='text-align:left'>" + words + "</td></tr>";
+    }).join("") + "</tbody>";
+})();
+</script>

@@ -25,8 +25,9 @@ pnpm install
 pnpm ingest                         # data/raw/*.csv -> data/shots.json
 pnpm ingest:courses                 # ../data/courses.json -> data/course-history.json
 pnpm run profile                    # the two of them -> PROFILE.md
+pnpm flight                         # the ledger -> public/ball-flight.html
 pnpm dev                            # http://localhost:3000
-pnpm test                           # 246 tests over the real exports
+pnpm test                           # 268 tests over the real exports
 pnpm typecheck
 pnpm compare                        # old vs new stock yardages, side by side
 ```
@@ -210,6 +211,7 @@ lib/
   ledger.ts           many sessions -> one deduplicated ledger. Pure
   stats.ts            medians, bands, gap flags, the carry/total basis. Pure
   tasks.ts            practice tasks derived from all of the above. Pure
+  ball-flight.ts      start line vs curvature, and what corroborates. Pure
   course-history.ts   the course snapshot's shape, and the arithmetic over it
   profile.ts          the golfer: findings, roasts, and what cannot be known. Pure
   yardages/
@@ -222,6 +224,8 @@ scripts/
   ingest.ts           the only file that touches the filesystem
   ingest-courses.ts   ../data/courses.json -> data/course-history.json
   profile.ts          PROFILE.md, regenerated
+  ball-flight.ts      public/ball-flight.html, regenerated
+  ball-flight.template.html  the report's shell; one __DATA__ slot
   compare.ts          before/after table for a heuristic change. Writes nothing
 data/
   raw/                real exports, verbatim, never edited
@@ -342,6 +346,53 @@ the copies and carry does not — and call the answer roll.
 you have or have not measured, and a swing is measured at the point of landing.
 Rollout is the turf's contribution; ranking practice by it would sort the list
 by something no amount of range work changes.
+
+## Ball flight: start line vs curve
+
+A shot that finishes 15 yd right either *started* there or *bent* there, and the
+fix is not the same one. The bag chart draws where shots finished and cannot
+tell those apart &mdash; a club aimed 12 yd left and a club that slices 12 yd
+right make the same shape in a dispersion cone. `lib/ball-flight.ts` splits
+them, and `pnpm flight` renders the split to `public/ball-flight.html`, live at
+[/ball-flight.html](https://yardages.vercel.app/ball-flight.html).
+
+Nothing is modelled. The export carries `launch_direction` (where the ball set
+off) and `carry_deviation_angle` (where it finished); curvature is the
+difference, and in yards at the shot's own carry:
+
+```
+start = carry × sin(launch_direction)
+curve = carry × ( sin(carry_deviation_angle) − sin(launch_direction) )
+```
+
+Those sum to `carry × sin(carry_deviation_angle)`, which is the export's own
+offline column &mdash; so the split is arithmetic on a published identity, and the
+tests hold it to reconstructing that column within **0.02 yd** across the ledger.
+Two more tests check the halves are named right: curvature must track the spin
+axis (r = 0.93, sign agreeing on all 158 real curves) and start line must track
+the club face (r = 0.97) *and not* the curve. A firmware change that redefines a
+column fails loudly instead of quietly relabelling aim as curve.
+
+What it found, on 181 trusted shots: only **8%** are genuinely straight, **76%**
+curve more than 3 yd, and **two-thirds of the curves bend right** &mdash; a ratio
+stable at every threshold from 2 to 5 yd. But the bag holds two opposite faults:
+long irons bend right with the face open to the path, short irons bend left with
+it closed. The Gap Wedge is neither &mdash; its face sits square to its path to a
+tenth of a degree and the whole swing is aimed 7.6&deg; left, which is an
+alignment problem no swing work will touch.
+
+**The corroboration column is the point.** Per-club curvature is reported per
+session, and the clubs that look like they slice are exactly the ones with the
+least evidence: the 5 and 7 iron appear in one session each, and the 6 iron
+produced a 4 yd draw one day and a 20 yd slice another. Only the 8 iron, 9 iron
+and sand wedge have been seen twice agreeing. The aggregate right bias is solid;
+the per-club long-iron slice is not established yet.
+
+The page is generated and committed, the same contract `PROFILE.md` keeps &mdash;
+`pnpm flight --check` fails when it no longer matches the ledger. It is served
+as a static file rather than a route, so it costs the app nothing and can be
+opened or printed on its own; the trade is that its design tokens are a copy of
+`app/globals.css` rather than a reference, and a copy can drift.
 
 ## The plan view
 
