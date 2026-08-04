@@ -354,7 +354,9 @@ fix is not the same one. The bag chart draws where shots finished and cannot
 tell those apart &mdash; a club aimed 12 yd left and a club that slices 12 yd
 right make the same shape in a dispersion cone. `lib/ball-flight.ts` splits
 them, and `pnpm flight` renders the split to `public/ball-flight.html`, live at
-[/ball-flight.html](https://yardages.vercel.app/ball-flight.html).
+[/ball-flight](https://yardages.vercel.app/ball-flight) &mdash; this
+directory's `vercel.json` sets `cleanUrls`, so the `.html` is stripped and the
+extensioned path 308s to it.
 
 Nothing is modelled. The export carries `launch_direction` (where the ball set
 off) and `carry_deviation_angle` (where it finished); curvature is the
