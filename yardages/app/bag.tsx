@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { BagChart, mergeDomains, plotDomain, type ShotDot } from "./bag-chart";
 import { VERDICT } from "./palette";
+import { short, type BagClub } from "@/lib/clubs";
 import {
   DEFAULT_GAPS,
   MIN_SHOTS_TO_DISPLAY,
+  type BagCoverage,
   type ClubProfile,
   type CoverageGap,
   type DistanceBasis,
@@ -39,6 +41,10 @@ export interface BagProps {
   coverage: CoverageGap[];
   /** Median rollout per club, from shots that measured both ends of it. */
   rollout: [string, number][];
+  /** data/bag.json, in bag order. Empty when the file has not been written. */
+  clubs: BagClub[];
+  /** Which of those clubs the ledger has anything to say about. */
+  bagCoverage: BagCoverage | null;
 }
 
 const yd = (v: number | null, d = 0) => (v === null ? "—" : v.toFixed(d));
@@ -50,6 +56,8 @@ export function Bag({
   excludedCount,
   coverage,
   rollout,
+  clubs,
+  bagCoverage,
 }: BagProps) {
   const [basis, setBasis] = useState<DistanceBasis>("carry");
 
@@ -123,7 +131,21 @@ export function Bag({
       </div>
 
       {/* ── scoreboard ───────────────────────────────────────────────────── */}
-      <dl className="mt-px grid grid-cols-2 border-t sm:grid-cols-3 lg:grid-cols-5 rule">
+      <dl className="mt-px grid grid-cols-2 border-t sm:grid-cols-3 lg:grid-cols-6 rule">
+        {/* First, because it is the denominator for everything after it. The
+            four tiles that follow all count swings; this one counts clubs, and
+            without it "8 clubs drawn" reads as a complete bag. */}
+        {bagCoverage && (
+          <Stat
+            label="In the bag"
+            value={bagCoverage.owned}
+            note={
+              bagCoverage.neverRecorded.length > 0
+                ? `${bagCoverage.neverRecorded.length} never measured`
+                : "all measured"
+            }
+          />
+        )}
         <Stat label="Sessions" value={sessionCount} />
         <Stat label="Shots logged" value={shotCount} />
         {/* Trusted is a property of the shot, not of the basis, so the count
@@ -165,6 +187,16 @@ export function Bag({
               sorting error. Under {DEFAULT_GAPS.overlapUnderYd} yd apart is an
               overlap; over {DEFAULT_GAPS.holeOverYd} is a hole.
             </p>
+            {clubs.length > 0 && (
+              <p className="mt-2 font-mono text-[10px] leading-4 text-ink-3">
+                The degrees are what the bag was <em>built</em> to do, from{" "}
+                <code className="text-ink-2">data/bag.json</code>. An even loft
+                gap with no carry gap behind it is a strike or a shaft; a carry
+                gap with no loft behind it is the equipment. A dotted figure
+                compares two different head types, where the arithmetic holds
+                and the meaning does not.
+              </p>
+            )}
           </section>
 
           {hidden.length > 0 && (
@@ -200,6 +232,10 @@ export function Bag({
           )}
         </aside>
       </div>
+
+      {clubs.length > 0 && (
+        <WhatsInTheBag clubs={clubs} coverage={bagCoverage} bag={bag} />
+      )}
 
       <Caveats
         profiles={shown}
@@ -608,6 +644,26 @@ function GapRow({ gap }: { gap: Gap }) {
       <td className="py-2 pr-2 text-right tabular-nums text-ink-0">
         {shownGap === null ? "—" : shownGap.toFixed(1)}
       </td>
+      {/* What the bag was BUILT to do, beside what it does. Muted, because it is
+          the reference and the carry is the measurement — and dotted where the
+          two lofts sit on different head types, which makes the degrees real
+          but the comparison not straightforwardly meaningful. */}
+      <td
+        className={`py-2 pr-2 text-right tabular-nums text-ink-3 ${
+          gap.loftGapDeg !== null && !gap.loftComparable
+            ? "decoration-dotted underline underline-offset-2"
+            : ""
+        }`}
+        title={
+          gap.loftGapDeg === null
+            ? "no loft for this pair — either the bag file has none, or unmeasured clubs sit between these two"
+            : gap.loftComparable
+              ? "loft difference, from data/bag.json"
+              : "loft difference across two different head types — the degrees do not compare directly"
+        }
+      >
+        {gap.loftGapDeg === null ? "—" : `${gap.loftGapDeg.toFixed(1)}°`}
+      </td>
       <td className="py-2 pr-2">
         {shownGap !== null ? (
           <svg width={RULER_W} height={12} aria-hidden className="block">
@@ -658,15 +714,153 @@ function GapRow({ gap }: { gap: Gap }) {
   );
 }
 
-function short(club: string): string {
-  return club
-    .replace("Pitching Wedge", "PW")
-    .replace("Gap Wedge", "GW")
-    .replace("Sand Wedge", "SW")
-    .replace("Lob Wedge", "LW")
-    .replace(" Iron", "i")
-    .replace(" Hybrid", "H")
-    .replace(" Wood", "W");
+/* The bag, as asserted rather than as measured.
+ *
+ * Everything else on this page is derived from shots. This one section is not:
+ * it is `data/bag.json`, written by hand, and it is here because the chart
+ * above can only ever draw what was hit. A club with no shots produces no
+ * region, no dot and no gap flag, so its absence reads as nothing to report
+ * rather than never measured — and the difference between those two is the
+ * whole reason to keep a bag file at all.
+ *
+ * Sorted in bag order, which is the same order as everything above it, so the
+ * rows line up with the chart's regions by eye.
+ */
+function WhatsInTheBag({
+  clubs,
+  coverage,
+  bag,
+}: {
+  clubs: BagClub[];
+  coverage: BagCoverage | null;
+  bag: ClubProfile[];
+}) {
+  const shotsFor = new Map(bag.map((p) => [p.club, p]));
+  const withLoft = clubs.filter((c) => c.loftDeg).length;
+  const unverified = clubs.filter((c) => c.loftDeg && !c.loftDeg.verified).length;
+
+  /* Shaft and grip, grouped by the run of clubs that share them — eight P790s
+   * built identically is one fact, not eight, and stating it once is the only
+   * way the phone can drop those columns without losing anything. Grouped by
+   * value rather than by model, so a reshafted single club splits its own row
+   * out instead of hiding inside the set it came from. */
+  const builds = [
+    ...clubs
+      .filter((c) => c.shaft || c.grip)
+      .reduce((acc, c) => {
+        const build = [c.shaft, c.grip].filter(Boolean).join(" · ");
+        acc.set(build, [...(acc.get(build) ?? []), short(c.club)]);
+        return acc;
+      }, new Map<string, string[]>()),
+  ].map(([build, names]) => ({
+    build,
+    clubs: names.length > 2 ? `${names[0]}–${names[names.length - 1]}` : names.join(", "),
+  }));
+
+  return (
+    <section className="mt-10">
+      <h2 className="stamp text-ink-2">What is in the bag</h2>
+      <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+        The one thing on this page that is not derived from a shot. Written by
+        hand in <code className="text-ink-2">data/bag.json</code>, because a
+        ledger of what you hit cannot tell you what you did not — a club with no
+        shots leaves the chart above looking finished.
+      </p>
+
+      {/* Six columns is 670px of text, and a phone is 390. Rather than scroll a
+          table sideways until its header leaves the screen — the thing the card
+          twin below exists to avoid — the two build columns drop below `sm`.
+          They are the least per-club of the six: identical across all eight
+          irons and blank for the other five, so the sentence underneath can
+          carry them in full without repeating anything. */}
+      <div className="mt-3 pan-x">
+        <table className="w-full border-collapse font-mono text-[11px] sm:min-w-[560px]">
+          <thead>
+            <tr className="border-b text-left rule">
+              <th className="stamp py-2 pr-3 font-normal text-ink-3">Club</th>
+              <th className="stamp py-2 pr-3 text-right font-normal text-ink-3">Loft</th>
+              <th className="stamp py-2 pr-3 font-normal text-ink-3">Head</th>
+              <th className="stamp hidden py-2 pr-3 font-normal text-ink-3 sm:table-cell">
+                Shaft
+              </th>
+              <th className="stamp hidden py-2 pr-3 font-normal text-ink-3 sm:table-cell">
+                Grip
+              </th>
+              <th className="stamp py-2 text-right font-normal text-ink-3">Shots</th>
+            </tr>
+          </thead>
+          <tbody>
+            {clubs.map((c) => {
+              const p = shotsFor.get(c.club);
+              const never = !p || p.n === 0;
+              return (
+                <tr
+                  key={c.club}
+                  className={`border-b border-[var(--line-soft)] ${never ? "text-ink-3" : ""}`}
+                >
+                  <td className={`py-2 pr-3 whitespace-nowrap ${never ? "" : "text-ink-0"}`}>
+                    {c.club}
+                  </td>
+                  <td className="py-2 pr-3 text-right tabular-nums">
+                    {c.loftDeg ? `${c.loftDeg.value}°` : "—"}
+                  </td>
+                  <td className="py-2 pr-3">
+                    {[c.brand, c.model].filter(Boolean).join(" ") || "—"}
+                  </td>
+                  <td className="hidden py-2 pr-3 sm:table-cell">{c.shaft ?? "—"}</td>
+                  <td className="hidden py-2 pr-3 sm:table-cell">{c.grip ?? "—"}</td>
+                  {/* The point of the whole table. "never" is not zero — a zero
+                      invites you to read it as a small number. */}
+                  <td className="py-2 text-right tabular-nums">
+                    {never ? (
+                      <span className="text-[10px] uppercase tracking-[0.08em]">never</span>
+                    ) : (
+                      <>
+                        {p.active}
+                        {p.n !== p.active && <span className="text-ink-3"> of {p.n}</span>}
+                      </>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      {/* The two columns the phone drops, said once instead of thirteen times.
+          Shown at every width — above `sm` it is the summary of a column you
+          can already read, which is worth the line it costs. */}
+      {builds.length > 0 && (
+        <dl className="mt-3 space-y-1 font-mono text-[11px] leading-5">
+          {builds.map((b) => (
+            <div key={b.build} className="flex flex-wrap gap-x-3">
+              <dt className="text-ink-1">{b.clubs}</dt>
+              <dd className="text-ink-3">{b.build}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      <p className="mt-3 max-w-2xl font-mono text-[10px] leading-4 text-ink-3">
+        Lofts are what each club left the factory as, and{" "}
+        {unverified === withLoft
+          ? `not one of the ${withLoft} has been checked`
+          : `${unverified} of the ${withLoft} have never been checked`}{" "}
+        against a gauge — the driver&rsquo;s sleeve is adjustable and nobody has
+        read its setting. A blank is a field nobody has filled in, never a guess.
+        {coverage && coverage.unowned.length > 0 && (
+          <>
+            {" "}
+            {coverage.unowned.join(", ")}{" "}
+            {coverage.unowned.length === 1 ? "appears" : "appear"} in the ledger
+            and not in the bag file — either a club that left the bag, or a key
+            that needs adding.
+          </>
+        )}
+      </p>
+    </section>
+  );
 }
 
 /* Pooling across sessions is the largest source of error in these numbers, and

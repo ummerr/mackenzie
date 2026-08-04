@@ -23,31 +23,20 @@ export { mad, median, quantile };
 
 // ── bag order ───────────────────────────────────────────────────────────────
 
-/* Loft order, longest first. Gap flags compare clubs that are adjacent *here*,
- * not adjacent by measured carry — the question is "what do I reach for next",
- * and a club that carries out of loft order is the finding, not the sort key. */
-const BAG_ORDER = [
-  "Driver",
-  "3 Wood", "4 Wood", "5 Wood", "7 Wood",
-  "2 Hybrid", "3 Hybrid", "4 Hybrid", "5 Hybrid", "6 Hybrid",
-  "1 Iron", "2 Iron", "3 Iron", "4 Iron", "5 Iron", "6 Iron",
-  "7 Iron", "8 Iron", "9 Iron",
-  "Pitching Wedge", "Gap Wedge", "Sand Wedge", "Lob Wedge",
-  "Putter",
-];
+/* One club vocabulary, in lib/clubs.ts, alongside the bag it describes.
+ * Re-exported here because every existing caller and test imports the order
+ * from this module — the same arrangement as the primitives above. */
+import {
+  bagRank,
+  clubsBetween,
+  loftComparable,
+  loftOf,
+  ownedClubs,
+  sortByBag,
+  type BagSpec,
+} from "./clubs";
 
-const BAG_INDEX = new Map(BAG_ORDER.map((c, i) => [c, i]));
-
-/** Unknown clubs sort to the end, in name order, rather than throwing. */
-export function bagRank(club: string): number {
-  return BAG_INDEX.get(club) ?? BAG_ORDER.length;
-}
-
-export function sortByBag<T extends { club: string }>(items: T[]): T[] {
-  return [...items].sort(
-    (a, b) => bagRank(a.club) - bagRank(b.club) || a.club.localeCompare(b.club),
-  );
-}
+export { bagRank, sortByBag };
 
 // ── distance basis ──────────────────────────────────────────────────────────
 
@@ -350,6 +339,73 @@ export function coverageGaps(shots: LedgerShot[]): CoverageGap[] {
   return out;
 }
 
+export interface BagCoverage {
+  /** Clubs in data/bag.json. */
+  owned: number;
+  /** Owned clubs with at least one shot on file, whether or not it is drawn. */
+  recorded: string[];
+  /** Owned clubs the ledger has never seen. */
+  neverRecorded: string[];
+  /**
+   * Owned clubs with shots on file but fewer usable ones than `minShots`.
+   *
+   * Both counts, because they come apart and the difference matters: the
+   * Driver on this ledger has one shot logged and none of them usable, and
+   * reporting either number alone says something false.
+   */
+  underSampled: { club: string; active: number; n: number }[];
+  /** Club names in the ledger that the bag does not claim to own. */
+  unowned: string[];
+}
+
+/**
+ * Which of the clubs you actually own the ledger has anything to say about.
+ *
+ * `coverageGaps` above is about a missing *metric*; this is about a missing
+ * *club*, and they are not the same absence. A club with no shots produces no
+ * row, no dot and no gap flag, so it leaves the page looking complete — the bag
+ * chart can only ever draw what was hit, and silence there reads as "nothing to
+ * report" rather than "never measured". The asserted bag is the only thing that
+ * can tell the difference, which is the whole reason data/bag.json is written
+ * by hand instead of derived.
+ *
+ * `unowned` runs the check the other way. A club in the ledger that the bag
+ * does not list is either a club that left the bag or a typo in bag.json, and
+ * both are worth surfacing rather than assuming the file is right.
+ */
+export function bagCoverage(
+  profiles: ClubProfile[],
+  bag: BagSpec | null,
+  minShots = MIN_SHOTS_TO_DISPLAY,
+): BagCoverage | null {
+  if (!bag || bag.clubs.length === 0) return null;
+
+  const byClub = new Map(profiles.map((p) => [p.club, p]));
+  const owned = ownedClubs(bag);
+
+  const recorded: string[] = [];
+  const neverRecorded: string[] = [];
+  const underSampled: { club: string; active: number; n: number }[] = [];
+
+  for (const { club } of bag.clubs) {
+    const p = byClub.get(club);
+    if (!p || p.n === 0) {
+      neverRecorded.push(club);
+      continue;
+    }
+    recorded.push(club);
+    if (p.active < minShots) underSampled.push({ club, active: p.active, n: p.n });
+  }
+
+  return {
+    owned: bag.clubs.length,
+    recorded,
+    neverRecorded,
+    underSampled,
+    unowned: profiles.map((p) => p.club).filter((c) => !owned.has(c)),
+  };
+}
+
 // ── gaps ────────────────────────────────────────────────────────────────────
 
 export type GapVerdict = "ok" | "overlap" | "hole" | "inverted" | "unknown";
@@ -364,6 +420,30 @@ export interface Gap {
   verdict: GapVerdict;
   /** True when either club is suppressed, so the gap is not shown. */
   suppressed: boolean;
+
+  /* ── the same gap in degrees, where the bag knows both lofts ──────────────
+   *
+   * Loft is what the bag was BUILT to gap. Carry is what it actually does, and
+   * the two disagreeing is the finding neither number makes alone: an even
+   * loft gap with no carry gap between the same two clubs is a strike or a
+   * shaft, while a carry gap with no loft behind it is the equipment. Until
+   * now the practice list could only say "check your lofts"; this is what it
+   * checks them against. */
+
+  /**
+   * Loft of the longer club minus the shorter. Null when either loft is
+   * unknown, and also when an owned club sits between the two — this table is
+   * built over measured clubs, and a loft difference that steps over three of
+   * them is not a gap between a pair.
+   */
+  loftGapDeg: number | null;
+  /**
+   * False when the two lofts are measured on different head types — a distance
+   * iron's pitching wedge against a ground Vokey, say. The degrees are still
+   * degrees and `loftGapDeg` is still filled in; what does not carry across is
+   * the *interpretation*, so the comparison is flagged rather than withheld.
+   */
+  loftComparable: boolean;
 }
 
 export interface GapOptions {
@@ -389,6 +469,7 @@ export const DEFAULT_GAPS: GapOptions = { overlapUnderYd: 8, holeOverYd: 15 };
 export function detectGaps(
   profiles: ClubProfile[],
   opts: GapOptions = DEFAULT_GAPS,
+  bag: BagSpec | null = null,
 ): Gap[] {
   const ordered = sortByBag(profiles);
   const gaps: Gap[] = [];
@@ -410,6 +491,14 @@ export function detectGaps(
       else verdict = "ok";
     }
 
+    /* These two clubs are adjacent in this *table*, which is built over clubs
+     * that have been measured — not necessarily adjacent in the bag. A carry
+     * gap that skips three clubs is still a real distance you cannot cover; a
+     * loft gap that skips them is not a fact about a pair of clubs at all. */
+    const skipped = clubsBetween(bag, a.club, b.club).length > 0;
+    const loftA = loftOf(bag, a.club);
+    const loftB = loftOf(bag, b.club);
+
     gaps.push({
       longer: a.club,
       shorter: b.club,
@@ -417,6 +506,10 @@ export function detectGaps(
       gapYd,
       verdict,
       suppressed,
+      /* Signed the same way round as gapYd: the longer club minus the shorter,
+       * so a positive number is the bag in the order it claims to be in. */
+      loftGapDeg: !skipped && loftA !== null && loftB !== null ? loftB - loftA : null,
+      loftComparable: !skipped && loftComparable(bag, a.club, b.club),
     });
   }
 

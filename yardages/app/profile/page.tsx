@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { readBag } from "@/lib/bag-file";
 import type { CourseHistory } from "@/lib/course-history";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
 import { buildProfile, type Finding, type Unknown } from "@/lib/profile";
@@ -33,8 +34,9 @@ export default function Profile() {
   const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
   const sessions = load<LedgerSession[]>("sessions.json");
   const profiles = buildBag(shots);
-  const gaps = detectGaps(profiles);
-  const tasks = buildTasks({ profiles, gaps, shots, sessions });
+  const bag = readBag(join(process.cwd(), "data"));
+  const gaps = detectGaps(profiles, undefined, bag);
+  const tasks = buildTasks({ profiles, gaps, shots, sessions, bag });
   const profile = buildProfile({
     shots,
     sessions,
@@ -42,6 +44,7 @@ export default function Profile() {
     gaps,
     tasks,
     history: loadHistory(),
+    bag,
   });
 
   const roasts = profile.findings.filter((f) => f.roast !== null);

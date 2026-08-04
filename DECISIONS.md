@@ -6,6 +6,64 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-03 — The bag is asserted, because the ledger cannot say what you did not hit
+
+**Decided:** `yardages/data/bag.json` names the thirteen clubs actually owned —
+brand, model, head type, shaft, grip and loft — hand-written and committed. It
+is the second hand-edited file in the app, after `exclusions.json`, and the club
+vocabulary that was previously copied into four files now lives once in
+`lib/clubs.ts`.
+
+**Why:** every number on the bag page is derived from a shot, and that is
+exactly the limitation. The chart can only draw what was hit, so a club with no
+shots produces no region, no dot, no gap flag and no practice task — its absence
+reads as *nothing to report* rather than *never measured*. On the current ledger
+that hid four clubs out of thirteen: the utility wood, the 3 and 4 irons and the
+58°. No amount of cleverness over `shots.json` recovers them, because they are
+not in it. The bag is the one fact the record structurally cannot derive, so it
+is the one fact that gets asserted.
+
+Loft was the second half. `lib/tasks.ts` had two tasks reading "check loft and
+shaft on both" and "get the lofts checked" — the only places the app reached for
+equipment, both prose, because there were no numbers to check against. Now an
+overlap says whether the two clubs were *built* 4° apart, which decides whether
+the finding is a delivery problem or an equipment one. The chart already knew
+what the bag does; this is what it was meant to do.
+
+**Loft cross-checks bag order, it does not define it.** Sorting `BAG_ORDER` by
+the new lofts was tempting and is wrong twice over: the order has to sort clubs
+nobody owns and has no loft for, and in this bag it could not do the job anyway
+— the utility wood and the 3 iron are both 19°. That collision is a finding the
+profile now prints, not a defect in the sort key. Same reasoning as the existing
+rule that gaps are compared in bag order and never sorted by measured distance.
+
+**Two tiers per club, and the split is deliberate.** `brand`, `model`, `shaft`
+and `grip` are bare values: they are owner-attested, readable off the club, and
+no URL would make them more true. `loftDeg` carries the full `{value, source,
+confidence, checked, verified}` claim from `data/facts.json`, because loft is
+the field that can be wrong while you are looking straight at it — an adjustable
+sleeve nobody has read, an iron bent a degree, a wedge ground to order. Every
+loft is `verified: false` and the profile lists that as a standing unknown:
+writing the file did not answer the question, it created it.
+
+**The UW is keyed `"3 Hybrid"`.** The R50's `Club Type` list has no utility-wood
+entry, so a 19° Callaway UW logs in the rescue slot; the key is the slot the
+monitor records and `brand`/`model` say what the club is. That makes `headType`
+(asserted, physical) and `family()` (read off the name, positional) two genuinely
+different axes — the UW's head is a wood and its family is a rescue — so loft
+comparisons ask the head and role grouping asks the name.
+
+**Rejected:** deriving the bag from the ledger's distinct club names, which is
+circular and produces exactly the blind spot the file exists to remove. Also
+rejected: withholding a loft gap whose two clubs sit on different head types.
+The degrees are real arithmetic either way, so the number is printed and the
+*interpretation* is flagged with a dotted underline — flags, never corrections.
+A loft gap that steps over unmeasured clubs is a different case and **is**
+withheld: the gap table is built over measured clubs, so "Driver → 5 iron, 13°"
+would describe no pair of clubs in the bag.
+
+---
+
 ## 2026-08-03 — Split the miss into start line and curve
 
 **Decided:** `lib/ball-flight.ts` splits every shot into where it *started* and

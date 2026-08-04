@@ -31,8 +31,10 @@
  * the list for reasons that have nothing to do with how they were struck.
  */
 
+import { clubSpec, startsAHole, type BagSpec } from "./clubs";
 import type { LedgerSession, LedgerShot } from "./ledger";
 import {
+  bagCoverage,
   bagRank,
   coverageGaps,
   MIN_SHOTS_TO_DISPLAY,
@@ -70,12 +72,42 @@ export function rawShotsNeeded(
   return Math.ceil(usableShortfall * 1.15) + warmupShots;
 }
 
+/* Editorial thresholds for the sentences below — where a loft difference is
+ * worth naming, not where any measurement changes. */
+const LOFT = {
+  /** Two clubs this far apart in degrees were built to be different clubs. */
+  builtApartDeg: 3,
+};
+
+/**
+ * What the bag was BUILT to do, said beside what it actually does.
+ *
+ * This is the whole reason data/bag.json exists. Two clubs four degrees apart
+ * carrying two yards apart is a delivery problem; two clubs one degree apart
+ * carrying two yards apart is a bag problem, and the range cannot tell you
+ * which because both look identical in the ledger. Returns "" when the bag has
+ * no loft for one of them, and the task falls back to the sentence it used
+ * before there was any loft data at all.
+ */
+function builtApart(g: Gap): string {
+  if (g.loftGapDeg === null) return "";
+  const deg = `${g.loftGapDeg.toFixed(1)}°`;
+  if (!g.loftComparable) {
+    return `The bag has them ${deg} apart, but across two different head types, so the degrees do not compare directly.`;
+  }
+  return g.loftGapDeg >= LOFT.builtApartDeg
+    ? `The bag has them ${deg} apart, so they were built to be different clubs.`
+    : `The bag has them only ${deg} apart, so they were barely built to be different clubs.`;
+}
+
 export interface TaskInput {
   profiles: ClubProfile[];
   gaps: Gap[];
   shots: LedgerShot[];
   sessions: LedgerSession[];
   minShots?: number;
+  /** data/bag.json. Null when it has not been written; every bag task is then skipped. */
+  bag?: BagSpec | null;
 }
 
 export function buildTasks({
@@ -84,10 +116,39 @@ export function buildTasks({
   shots,
   sessions,
   minShots = MIN_SHOTS_TO_DISPLAY,
+  bag = null,
 }: TaskInput): Task[] {
   const tasks: Task[] = [];
   const shown = sortByBag(profiles.filter((p) => !p.suppressed));
   const longest = shown[0];
+
+  // ── 0. clubs you own that the monitor has never seen ──────────────────────
+  //
+  // Above everything else, because it is the only blind spot the ledger cannot
+  // see for itself. Every other task below starts from a club that appears in
+  // an export; these clubs appear in the bag and nowhere else, so without
+  // data/bag.json they produce no row, no dot, no gap flag and no task, and
+  // the page looks finished.
+  for (const club of bagCoverage(profiles, bag, minShots)?.neverRecorded ?? []) {
+    const spec = clubSpec(bag, club);
+    const named = [spec?.brand, spec?.model].filter(Boolean).join(" ");
+    const loft = spec?.loftDeg;
+    tasks.push({
+      id: `unrecorded-${club}`,
+      category: "blind spot",
+      title: `The ${club} has never been measured`,
+      evidence:
+        `${named || club} is in the bag${loft ? ` at ${loft.value}°` : ""} and has not one shot ` +
+        `on file across ${sessions.length} session${sessions.length === 1 ? "" : "s"}. ` +
+        "Both gaps beside it are guesses about a club nobody has hit at a monitor.",
+      action: `Hit ${rawShotsNeeded(minShots)} in one block, the same as any other club.`,
+      doneWhen: `${minShots} usable shots with the ${club}.`,
+      /* A club that starts a hole first: the gaps at the top of the bag are the
+       * widest, so the same bucket of balls buys more yardage up there. */
+      priority: 105 + (startsAHole(club) ? 5 : 0),
+      done: false,
+    });
+  }
 
   // ── 1. blind spots: nothing measured at all above the longest club ────────
   // The top of the bag is where a missing club hides the most yardage, because
@@ -237,24 +298,38 @@ export function buildTasks({
       });
     }
     if (g.verdict === "overlap") {
+      const built = builtApart(g);
       tasks.push({
         id: `overlap-${g.longer}-${g.shorter}`,
         category: "gapping",
         title: `${g.longer} and ${g.shorter} do the same job`,
-        evidence: `Only ${g.gapYd.toFixed(1)} yd apart. One of the two is redundant, which is where a hole elsewhere in the bag comes from.`,
-        action: `Check loft and shaft on both. On the range, hit them back to back and see whether the difference is real.`,
+        evidence:
+          `Only ${g.gapYd.toFixed(1)} yd apart. One of the two is redundant, which is where a ` +
+          `hole elsewhere in the bag comes from.` + (built ? ` ${built}` : ""),
+        action:
+          g.loftGapDeg === null
+            ? `Check loft and shaft on both. On the range, hit them back to back and see whether the difference is real.`
+            : g.loftGapDeg >= LOFT.builtApartDeg
+              ? `The heads are not the problem — hit them back to back in one block and watch the strike on the ${g.longer}.`
+              : `They were built to do nearly the same job. Hit them back to back, then decide which one leaves the bag.`,
         doneWhen: "The two sit more than 8 yd apart, or one leaves the bag.",
         priority: 20,
         done: false,
       });
     }
     if (g.verdict === "inverted") {
+      const built = builtApart(g);
       tasks.push({
         id: `inverted-${g.longer}-${g.shorter}`,
         category: "gapping",
         title: `${g.longer} carries shorter than ${g.shorter}`,
-        evidence: `${Math.abs(g.gapYd).toFixed(1)} yd the wrong way round. Either a strike problem with the longer club or a genuine equipment issue.`,
-        action: `Hit both in one block on the same day. If it holds, get the lofts checked.`,
+        evidence:
+          `${Math.abs(g.gapYd).toFixed(1)} yd the wrong way round. Either a strike problem with the ` +
+          `longer club or a genuine equipment issue.` + (built ? ` ${built}` : ""),
+        action:
+          g.loftGapDeg !== null && g.loftComparable && g.loftGapDeg >= LOFT.builtApartDeg
+            ? `Hit both in one block on the same day. If it holds with the lofts that far apart, it is the strike or the shaft, not the heads.`
+            : `Hit both in one block on the same day. If it holds, get the lofts checked.`,
         doneWhen: "Bag order matches carry order.",
         priority: 65,
         done: false,

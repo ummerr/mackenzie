@@ -9,6 +9,8 @@
  * and the effect of each is visible in `pnpm compare`.
  */
 
+import { WEDGE_CLUBS } from "../clubs";
+
 export interface ReviewThresholds {
   /** Shots at the start of each club's block in a session, treated as warmup. */
   warmupShotsPerClub: number;
@@ -97,7 +99,9 @@ export const REVIEW_THRESHOLDS: ReviewThresholds = {
   maxSessionWeightShare: 0.6,
   carryOutlierMad: 3,
   offlineOutlierMad: 3,
-  wedgeClubs: ["Pitching Wedge", "Gap Wedge", "Sand Wedge", "Lob Wedge"],
+  /* The vocabulary comes from lib/clubs.ts; the *choice* to treat those clubs
+   * differently is the tunable, and it stays here with every other one. */
+  wedgeClubs: WEDGE_CLUBS,
 };
 
 export function isWedge(club: string, t: ReviewThresholds = REVIEW_THRESHOLDS): boolean {

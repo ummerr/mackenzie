@@ -70,6 +70,48 @@ directions. Without it, `{"excluded": false}` produces a shot byte-identical to
 one nobody ever touched, and a hand-included shot could not survive a later
 automatic flag — manual precedence would work one way only.
 
+## The bag
+
+`data/bag.json` is the clubs you own. It is the second hand-edited file here,
+and the only thing on the site that is asserted rather than derived — because
+**a ledger of what you hit cannot tell you what you did not**. A club with no
+shots produces no row, no dot and no gap flag, so its absence reads as nothing
+to report rather than never measured. Today four of thirteen clubs have never
+been on the monitor, and without this file the bag page could not say so.
+
+Keyed by the club's R50 `Club Type` string, which must appear in `BAG_ORDER` in
+`lib/clubs.ts`. A key matching nothing there is reported as orphaned on every
+run, the same as an exclusions typo. The check runs the other way too: a club
+in the ledger that the bag does not list is printed under the table.
+
+Two tiers per club, and the split is the point:
+
+| Field | Shape | Why |
+|---|---|---|
+| `brand` `model` `headType` `shaft` `grip` | bare values | Owner-attested. You read them off the club; there is no page to cite that would make them more true. |
+| `loftDeg` | `{value, source, confidence, checked, verified}` | A claim, in the same shape as the map's `data/facts.json` — because loft is the field that can be wrong while you are looking at it. |
+
+Every loft in the file is what the club **left the factory as**, not what a
+gauge has measured on that club: a driver's sleeve is adjustable, an iron bends
+a degree in a car boot, a wedge is ground to order. All of them are
+`verified: false` and the profile lists that as a standing unknown. Unknown
+fields stay **absent, never guessed** — a blank shaft is a gap, a wrong one is a
+lie the app repeats forever.
+
+**Loft cross-checks bag order; it does not define it.** `BAG_ORDER` has to sort
+clubs nobody owns, and in this bag it could not be derived anyway — the utility
+wood and the 3 iron are both 19°, which is a finding rather than a bug. Note
+also that the utility wood is keyed `"3 Hybrid"`: the R50 has no utility-wood
+`Club Type`, so the key is the slot the monitor logs, and `brand`/`model` say
+what the club actually is.
+
+What this buys, all of it derived: the *N never measured* tile and the bag
+table on `/`, a loft column beside every carry gap, a practice task per
+unmeasured club, and two profile findings the range half cannot produce alone.
+A gap in degrees is only printed for clubs genuinely adjacent in the bag — the
+gap table is built over *measured* clubs, and a loft difference that steps over
+three of them is not a fact about a pair.
+
 ## The profile
 
 `/profile` is the only page that reads both halves of this repo. The shot ledger
@@ -207,6 +249,8 @@ app/
 lib/
   aliases.ts          header -> canonical field. Add a locale here, never in the parser
   units.ts            conversion driven by the file's own units row
+  clubs.ts            the club vocabulary: order, families, and the bag's shape. Pure
+  bag-file.ts         data/bag.json off the disk. The one impure file in lib/
   parse.ts            one CSV -> one session. Pure
   ledger.ts           many sessions -> one deduplicated ledger. Pure
   stats.ts            medians, bands, gap flags, the carry/total basis. Pure
@@ -229,6 +273,7 @@ scripts/
   compare.ts          before/after table for a heuristic change. Writes nothing
 data/
   raw/                real exports, verbatim, never edited
+  bag.json            hand-editable — the clubs you own, asserted not derived
   exclusions.json     hand-editable overrides
   sessions.json       generated
   shots.json          generated

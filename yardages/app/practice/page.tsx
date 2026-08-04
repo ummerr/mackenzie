@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { readBag } from "@/lib/bag-file";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
 import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
 import { buildTasks, type Task, type TaskCategory } from "@/lib/tasks";
@@ -29,7 +30,14 @@ export default function Practice() {
   const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
   const sessions = load<LedgerSession[]>("sessions.json");
   const profiles = buildBag(shots);
-  const tasks = buildTasks({ profiles, gaps: detectGaps(profiles), shots, sessions });
+  const bag = readBag(join(process.cwd(), "data"));
+  const tasks = buildTasks({
+    profiles,
+    gaps: detectGaps(profiles, undefined, bag),
+    shots,
+    sessions,
+    bag,
+  });
 
   const categories = [...new Set(tasks.map((t) => t.category))];
 

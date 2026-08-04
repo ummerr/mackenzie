@@ -17,6 +17,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { readBag } from "../lib/bag-file";
 import type { CourseHistory } from "../lib/course-history";
 import type { LedgerSession, LedgerShot } from "../lib/ledger";
 import { buildProfile, type GolferProfile } from "../lib/profile";
@@ -129,8 +130,9 @@ function main(): number {
   const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
   const sessions = load<LedgerSession[]>("sessions.json");
   const profiles = buildBag(shots);
-  const gaps = detectGaps(profiles);
-  const tasks = buildTasks({ profiles, gaps, shots, sessions });
+  const bag = readBag(join(ROOT, "data"));
+  const gaps = detectGaps(profiles, undefined, bag);
+  const tasks = buildTasks({ profiles, gaps, shots, sessions, bag });
 
   let history: CourseHistory | null = null;
   try {
@@ -142,7 +144,7 @@ function main(): number {
     );
   }
 
-  const profile = buildProfile({ shots, sessions, profiles, gaps, tasks, history });
+  const profile = buildProfile({ shots, sessions, profiles, gaps, tasks, history, bag });
   const next = render(profile);
 
   let prev = "";

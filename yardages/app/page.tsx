@@ -2,9 +2,11 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { Bag, type BasisView } from "./bag";
 import type { ShotDot } from "./bag-chart";
+import { readBag } from "@/lib/bag-file";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
 import {
   applyHeuristics,
+  bagCoverage,
   buildBag,
   coverageGaps,
   detectGaps,
@@ -33,6 +35,10 @@ const BASES: DistanceBasis[] = ["carry", "total"];
 export default function Home() {
   const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
   const sessions = load<LedgerSession[]>("sessions.json");
+  /* The clubs owned, which is not the same set as the clubs measured — the
+   * whole reason it is asserted by hand. Null when the file is absent, and
+   * every consumer below falls back to what the ledger alone can say. */
+  const bagSpec = readBag(join(process.cwd(), "data"));
 
   const views = Object.fromEntries(
     BASES.map((basis) => {
@@ -46,7 +52,10 @@ export default function Home() {
           const at = plotPoint(s, basis);
           return at ? [{ club: s.club, ...at }] : [];
         });
-      return [basis, { bag, gaps: detectGaps(bag), dots } satisfies BasisView];
+      return [
+        basis,
+        { bag, gaps: detectGaps(bag, undefined, bagSpec), dots } satisfies BasisView,
+      ];
     }),
   ) as Record<DistanceBasis, BasisView>;
 
@@ -58,6 +67,11 @@ export default function Home() {
       excludedCount={shots.filter((s) => s.isExcluded).length}
       coverage={coverageGaps(shots)}
       rollout={[...medianRolloutYd(shots)]}
+      clubs={bagSpec?.clubs ?? []}
+      /* Coverage is basis-independent: whether a club was ever hit is not a
+       * question about where the ball stopped. Built on carry, the basis every
+       * shot has. */
+      bagCoverage={bagCoverage(views.carry.bag, bagSpec)}
     />
   );
 }

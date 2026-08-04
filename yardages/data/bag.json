@@ -1,0 +1,228 @@
+{
+  "_README": [
+    "The bag, asserted by hand. Nothing here is derived from the ledger — the",
+    "ledger only knows what was hit, and the point of this file is the clubs",
+    "that were not.",
+    "",
+    "Keyed by the club's R50 `Club Type` string, which must appear in BAG_ORDER",
+    "in lib/clubs.ts. A key matching nothing there is reported as orphaned on",
+    "every run, the same as an exclusions.json typo.",
+    "",
+    "CONTRACT — two tiers per club, on purpose:",
+    "",
+    "  brand, model, headType, shaft, grip",
+    "    Owner-attested. Bare values, no source. You can read them off the club",
+    "    or the receipt, and there is no page to cite that would make them more",
+    "    true.",
+    "",
+    "  loftDeg  { value, source, confidence, checked, verified }",
+    "    A claim, in the same shape as the map's data/facts.json, because loft",
+    "    is the field that can be wrong. A driver has an adjustable sleeve, an",
+    "    iron drifts a degree with bending and a wedge is ground to order, so",
+    "    every number below is what the spec sheet says the club left the",
+    "    factory as — not what a loft gauge has measured on THIS club.",
+    "    verified stays false until somebody puts one on a machine.",
+    "",
+    "POLICY, inherited from data/facts.json: unknown fields stay absent, never",
+    "guessed. A missing shaft renders as a gap; a wrong one is a lie the app",
+    "repeats forever. Deliberately absent right now: Vokey model, grind and",
+    "bounce; the Callaway UW's family (Apex vs Paradym); the KBS flex, which",
+    "the order line does not state; and the shafts and grips in the driver,",
+    "the UW and the three wedges.",
+    "",
+    "STATUS: entered 2026-08-03. The eight iron lofts and the driver loft were",
+    "seeded from published specs and are ALL verified:false. The 19 on the UW",
+    "and the three wedge lofts are stamped on the clubs and owner-attested,",
+    "which is why they are high confidence and still unverified — nobody has",
+    "gauged them either.",
+    "",
+    "THE UW IS KEYED \"3 Hybrid\". The R50's Club Type list has no utility-wood",
+    "entry, so a 19-degree Callaway UW logs in the rescue slot. The key is the",
+    "slot the monitor will record; brand and model say what the club actually",
+    "is. See DECISIONS.md.",
+    "",
+    "The eight-iron order line is the receipt: 8 x P790, 8 x KBS S-Taper",
+    "Chrome, 8 x Tour Velvet 360. Three independent counts of the same eight",
+    "clubs, 3 iron through pitching wedge."
+  ],
+  "clubs": {
+    "Driver": {
+      "brand": "TaylorMade",
+      "model": "Stealth 2",
+      "headType": "wood",
+      "loftDeg": {
+        "value": 10.5,
+        "source": "https://www.taylormadegolf.com/Stealth-2-Driver/DW-TA123.html",
+        "confidence": "medium",
+        "checked": "2026-08-03",
+        "verified": false,
+        "note": "Head loft. The sleeve is adjustable +/-2 degrees and its current setting has never been checked, so the played loft is somewhere in 8.5-12.5."
+      }
+    },
+
+    "3 Hybrid": {
+      "brand": "Callaway",
+      "model": "UW",
+      "headType": "wood",
+      "loftDeg": {
+        "value": 19,
+        "source": "owner: stamped on the sole",
+        "confidence": "high",
+        "checked": "2026-08-03",
+        "verified": false
+      },
+      "note": "A utility wood, not a hybrid. Keyed to the slot the R50 will log it in — see the _README."
+    },
+
+    "3 Iron": {
+      "brand": "TaylorMade",
+      "model": "P790 (2021)",
+      "headType": "iron",
+      "shaft": "KBS S-Taper Steel, Chrome",
+      "grip": "Golf Pride Tour Velvet 360",
+      "loftDeg": {
+        "value": 19,
+        "source": "https://www.taylormadegolf.com/2021-P790-Irons/DW-TA097.html",
+        "confidence": "medium",
+        "checked": "2026-08-03",
+        "verified": false
+      }
+    },
+    "4 Iron": {
+      "brand": "TaylorMade",
+      "model": "P790 (2021)",
+      "headType": "iron",
+      "shaft": "KBS S-Taper Steel, Chrome",
+      "grip": "Golf Pride Tour Velvet 360",
+      "loftDeg": {
+        "value": 21,
+        "source": "https://www.taylormadegolf.com/2021-P790-Irons/DW-TA097.html",
+        "confidence": "medium",
+        "checked": "2026-08-03",
+        "verified": false
+      }
+    },
+    "5 Iron": {
+      "brand": "TaylorMade",
+      "model": "P790 (2021)",
+      "headType": "iron",
+      "shaft": "KBS S-Taper Steel, Chrome",
+      "grip": "Golf Pride Tour Velvet 360",
+      "loftDeg": {
+        "value": 23.5,
+        "source": "https://www.taylormadegolf.com/2021-P790-Irons/DW-TA097.html",
+        "confidence": "medium",
+        "checked": "2026-08-03",
+        "verified": false
+      }
+    },
+    "6 Iron": {
+      "brand": "TaylorMade",
+      "model": "P790 (2021)",
+      "headType": "iron",
+      "shaft": "KBS S-Taper Steel, Chrome",
+      "grip": "Golf Pride Tour Velvet 360",
+      "loftDeg": {
+        "value": 26.5,
+        "source": "https://www.taylormadegolf.com/2021-P790-Irons/DW-TA097.html",
+        "confidence": "medium",
+        "checked": "2026-08-03",
+        "verified": false
+      }
+    },
+    "7 Iron": {
+      "brand": "TaylorMade",
+      "model": "P790 (2021)",
+      "headType": "iron",
+      "shaft": "KBS S-Taper Steel, Chrome",
+      "grip": "Golf Pride Tour Velvet 360",
+      "loftDeg": {
+        "value": 30.5,
+        "source": "https://www.taylormadegolf.com/2021-P790-Irons/DW-TA097.html",
+        "confidence": "medium",
+        "checked": "2026-08-03",
+        "verified": false
+      }
+    },
+    "8 Iron": {
+      "brand": "TaylorMade",
+      "model": "P790 (2021)",
+      "headType": "iron",
+      "shaft": "KBS S-Taper Steel, Chrome",
+      "grip": "Golf Pride Tour Velvet 360",
+      "loftDeg": {
+        "value": 35,
+        "source": "https://www.taylormadegolf.com/2021-P790-Irons/DW-TA097.html",
+        "confidence": "medium",
+        "checked": "2026-08-03",
+        "verified": false
+      }
+    },
+    "9 Iron": {
+      "brand": "TaylorMade",
+      "model": "P790 (2021)",
+      "headType": "iron",
+      "shaft": "KBS S-Taper Steel, Chrome",
+      "grip": "Golf Pride Tour Velvet 360",
+      "loftDeg": {
+        "value": 40,
+        "source": "https://www.taylormadegolf.com/2021-P790-Irons/DW-TA097.html",
+        "confidence": "medium",
+        "checked": "2026-08-03",
+        "verified": false
+      }
+    },
+    "Pitching Wedge": {
+      "brand": "TaylorMade",
+      "model": "P790 (2021)",
+      "headType": "iron",
+      "shaft": "KBS S-Taper Steel, Chrome",
+      "grip": "Golf Pride Tour Velvet 360",
+      "loftDeg": {
+        "value": 45,
+        "source": "https://www.taylormadegolf.com/2021-P790-Irons/DW-TA097.html",
+        "confidence": "medium",
+        "checked": "2026-08-03",
+        "verified": false
+      },
+      "note": "A set pitching wedge, not a Vokey. It is an iron head and is compared as one."
+    },
+
+    "Gap Wedge": {
+      "brand": "Titleist",
+      "model": "Vokey",
+      "headType": "wedge",
+      "loftDeg": {
+        "value": 50,
+        "source": "owner: stamped on the sole",
+        "confidence": "high",
+        "checked": "2026-08-03",
+        "verified": false
+      }
+    },
+    "Sand Wedge": {
+      "brand": "Titleist",
+      "model": "Vokey",
+      "headType": "wedge",
+      "loftDeg": {
+        "value": 54,
+        "source": "owner: stamped on the sole",
+        "confidence": "high",
+        "checked": "2026-08-03",
+        "verified": false
+      }
+    },
+    "Lob Wedge": {
+      "brand": "Titleist",
+      "model": "Vokey",
+      "headType": "wedge",
+      "loftDeg": {
+        "value": 58,
+        "source": "owner: stamped on the sole",
+        "confidence": "high",
+        "checked": "2026-08-03",
+        "verified": false
+      }
+    }
+  }
+}

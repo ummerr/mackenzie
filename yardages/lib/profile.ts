@@ -35,10 +35,18 @@
  * `roast` string restates its own `evidence` and nothing more.
  */
 
+import { startsAHole, type BagSpec } from "./clubs";
 import type { CourseHistory, PlayedLayout } from "./course-history";
 import { meanScore, scorable, totalRounds } from "./course-history";
 import type { LedgerSession, LedgerShot } from "./ledger";
-import { median, sortByBag, type ClubProfile, type Gap } from "./stats";
+import {
+  bagCoverage,
+  median,
+  sortByBag,
+  type BagCoverage,
+  type ClubProfile,
+  type Gap,
+} from "./stats";
 import type { Task } from "./tasks";
 
 /* Every tunable in one place, the same discipline as yardages/thresholds.ts.
@@ -123,6 +131,8 @@ export interface ProfileInput {
   tasks: Task[];
   /** Null when data/course-history.json has not been snapshotted yet. */
   history: CourseHistory | null;
+  /** data/bag.json. Null when it has not been written. */
+  bag?: BagSpec | null;
 }
 
 const CONFIDENCE_WEIGHT: Record<Confidence, number> = {
@@ -130,13 +140,6 @@ const CONFIDENCE_WEIGHT: Record<Confidence, number> = {
   medium: 0.6,
   low: 0.3,
 };
-
-/* The clubs that decide where the next shot is played from, versus the clubs
- * that play it. A range export has no putter and never will, so it is not in
- * either list — see `unknowns`. */
-const TEE_CLUBS = ["Driver", "3 Wood", "4 Wood", "5 Wood", "7 Wood"];
-const RESCUE_CLUBS = ["2 Hybrid", "3 Hybrid", "4 Hybrid", "5 Hybrid", "6 Hybrid"];
-const LONG_IRONS = ["1 Iron", "2 Iron", "3 Iron", "4 Iron"];
 
 const yd = (v: number, d = 1) => `${v.toFixed(d)} yd`;
 const pct = (v: number) => `${Math.round(v * 100)}%`;
@@ -158,6 +161,36 @@ function statusOf(s: LedgerShot): string {
   return status ?? "excluded";
 }
 
+/**
+ * Pairs of clubs the bag itself puts at the same loft, or out of loft order.
+ *
+ * Walks `bag.json` rather than the profiles, because both halves of the answer
+ * may be clubs that have never been hit — which is exactly when this is worth
+ * knowing. Adjacent in bag order only: two clubs six slots apart sharing a loft
+ * would be a different and much stranger claim.
+ */
+function loftCollisions(
+  bag: BagSpec | null,
+): { a: string; b: string; loft: number; headA: string; headB: string }[] {
+  const withLoft = (bag?.clubs ?? []).filter((c) => c.loftDeg !== undefined);
+  const out: { a: string; b: string; loft: number; headA: string; headB: string }[] = [];
+  for (let i = 0; i < withLoft.length - 1; i += 1) {
+    const a = withLoft[i];
+    const b = withLoft[i + 1];
+    const la = a.loftDeg as { value: number };
+    const lb = b.loftDeg as { value: number };
+    if (lb.value > la.value) continue;
+    out.push({
+      a: a.club,
+      b: b.club,
+      loft: la.value,
+      headA: a.headType,
+      headB: b.headType,
+    });
+  }
+  return out;
+}
+
 /** Lateral width, in yards, of a club's measured aim band at its median carry. */
 export function coneWidthAt(p: ClubProfile): number | null {
   if (p.deviationP10Deg === null || p.deviationP90Deg === null) return null;
@@ -173,11 +206,13 @@ export function buildProfile({
   gaps,
   tasks,
   history,
+  bag = null,
 }: ProfileInput): GolferProfile {
   const findings: Finding[] = [];
   const trusted = shots.filter((s) => !s.isExcluded);
   const drawn = sortByBag(profiles.filter((p) => !p.suppressed));
   const onFile = new Set(shots.map((s) => s.club));
+  const coverage = bagCoverage(profiles, bag);
 
   const add = (f: Omit<Finding, "weight"> & { coverage: number }) => {
     const { coverage, ...rest } = f;
@@ -193,9 +228,8 @@ export function buildProfile({
    * driver with one shot on file is not a driver you have data about, but
    * saying "no driver shots" when the ledger holds one is exactly the kind of
    * round number this repo does not print. */
-  const teeFamily = [...TEE_CLUBS, ...RESCUE_CLUBS, ...LONG_IRONS];
-  const measuredTee = drawn.filter((p) => teeFamily.includes(p.club));
-  const teeShots = shots.filter((s) => teeFamily.includes(s.club));
+  const measuredTee = drawn.filter((p) => startsAHole(p.club));
+  const teeShots = shots.filter((s) => startsAHole(s.club));
   const teeClubsOnFile = [...new Set(teeShots.map((s) => s.club))];
 
   if (measuredTee.length === 0 && trusted.length > 0) {
@@ -223,6 +257,65 @@ export function buildProfile({
             "with anything that starts a hole. This is a very thorough study of the second shot."
           : "This is a very thorough study of the second shot.",
       falsifiedBy: "Any tee club drawn on the bag page — 15+ usable shots with it.",
+    });
+  }
+
+  /* ── the bag half ────────────────────────────────────────────────────────
+   *
+   * The only two findings here that the ledger cannot produce on its own. Both
+   * come from data/bag.json, which is asserted by hand precisely because a
+   * record of what you hit can never tell you what you did not.
+   */
+
+  if (coverage && coverage.neverRecorded.length > 0) {
+    const names = coverage.neverRecorded;
+    add({
+      id: "unmeasured-bag",
+      lens: "range",
+      confidence: "high",
+      coverage: names.length / coverage.owned,
+      claim:
+        "Part of the bag has never been to a monitor. The chart is not a picture " +
+        "of what you carry, it is a picture of what you happened to hit.",
+      evidence:
+        `${coverage.owned} clubs in the bag, ${coverage.recorded.length} with any shots on file. ` +
+        `Never recorded: ${names.join(", ")}.` +
+        (coverage.underSampled.length > 0
+          ? ` A further ${coverage.underSampled.length} — ` +
+            `${coverage.underSampled
+              .map((u) => `${u.club} (${u.active} usable of ${u.n})`)
+              .join(", ")} — ` +
+            `${coverage.underSampled.length === 1 ? "sits" : "sit"} under the threshold to be drawn.`
+          : ""),
+      roast:
+        `You own ${coverage.owned} clubs and have measured ${coverage.recorded.length}. ` +
+        `The ${names[names.length - 1]} is carried around every round as a decoration.`,
+      falsifiedBy: "Every club in data/bag.json with at least one shot in the ledger.",
+    });
+  }
+
+  /* Two clubs built to the same number. This one needs no range data at all —
+   * it is a claim about the bag, checkable the day it is written, and it is the
+   * kind of thing a ledger of what you hit structurally cannot notice. */
+  const collisions = loftCollisions(bag);
+  if (collisions.length > 0) {
+    const c = collisions[0];
+    add({
+      id: "same-loft-twice",
+      lens: "range",
+      confidence: "medium",
+      coverage: (collisions.length * 2) / Math.max(coverage?.owned ?? 14, 1),
+      claim:
+        "Two clubs in the bag are built to the same loft. Which of them goes " +
+        "further is a question about the heads, and nothing on file answers it.",
+      evidence:
+        collisions
+          .map((x) => `${x.a} and ${x.b} are both ${x.loft}°`)
+          .join("; ") +
+        `. Different head types — ${c.headA} against ${c.headB} — so this is not a duplicate ` +
+        "club, but it is not a gap either, and the ledger has never had both on the same day.",
+      roast: null,
+      falsifiedBy: `Both clubs measured, or one of them re-lofted. ${c.a} and ${c.b} carrying more than 8 yd apart settles it.`,
     });
   }
 
@@ -623,9 +716,9 @@ export function buildProfile({
   findings.sort((a, b) => b.weight - a.weight || a.id.localeCompare(b.id));
 
   return {
-    spec: buildSpec({ shots, trusted, sessions, drawn, history }),
+    spec: buildSpec({ shots, trusted, sessions, drawn, history, coverage }),
     findings,
-    unknowns: buildUnknowns(history),
+    unknowns: buildUnknowns(history, bag),
     sources: [
       {
         label: "Range",
@@ -655,12 +748,14 @@ function buildSpec({
   sessions,
   drawn,
   history,
+  coverage,
 }: {
   shots: LedgerShot[];
   trusted: LedgerShot[];
   sessions: LedgerSession[];
   drawn: ClubProfile[];
   history: CourseHistory | null;
+  coverage: BagCoverage | null;
 }): SpecLine[] {
   const longest = drawn[0] ?? null;
   const shortest = drawn[drawn.length - 1] ?? null;
@@ -674,6 +769,15 @@ function buildSpec({
       note: longest && shortest ? `${shortest.club} to ${longest.club}` : null,
     },
     { label: "Clubs measured", value: String(drawn.length), note: "15+ usable shots" },
+    ...(coverage
+      ? [
+          {
+            label: "Clubs in the bag",
+            value: String(coverage.owned),
+            note: `${coverage.recorded.length} with any shots on file`,
+          },
+        ]
+      : []),
     {
       label: "Shots on file",
       value: String(trusted.length),
@@ -725,7 +829,7 @@ function favouriteName(history: CourseHistory): string {
  * something the record can support; this is what it structurally cannot, listed
  * so that nobody — including a later session of this project — mistakes silence
  * for a finding. */
-function buildUnknowns(history: CourseHistory | null): Unknown[] {
+function buildUnknowns(history: CourseHistory | null, bag: BagSpec | null): Unknown[] {
   const unknowns: Unknown[] = [
     {
       id: "short-game",
@@ -753,6 +857,26 @@ function buildUnknowns(history: CourseHistory | null): Unknown[] {
       needs: "Per-shot environmentals, or enough sessions to model the correction.",
     },
   ];
+
+  /* Writing data/bag.json did not answer this question, it created it. Before
+   * the file existed there was no loft to be wrong about; now every gap in
+   * degrees on the bag page rests on a spec sheet nobody has checked against
+   * the clubs in the garage. */
+  if (bag && bag.clubs.length > 0) {
+    const lofts = bag.clubs.filter((c) => c.loftDeg !== undefined);
+    const verified = lofts.filter((c) => c.loftDeg?.verified).length;
+    unknowns.push({
+      id: "loft-unverified",
+      question: "Are the lofts on this page the lofts in the bag?",
+      why:
+        `${lofts.length} clubs carry a loft and ${verified} of them have been verified. ` +
+        "Every number is what the club left the factory as: the driver's sleeve is " +
+        "adjustable and its setting has never been read, irons bend a degree in a " +
+        "car boot, and a wedge is ground to order. Any finding below that compares " +
+        "degrees is comparing spec sheets, not clubs.",
+      needs: "One session on a loft-and-lie gauge, then `verified: true` in data/bag.json.",
+    });
+  }
 
   if (history) {
     unknowns.push(

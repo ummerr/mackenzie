@@ -15,6 +15,7 @@ takes it off. Hit the shots and the sentence retires itself.
 |---|---|
 | Measured range | **92–195 yd** — Sand Wedge to 5 Iron |
 | Clubs measured | **8** — 15+ usable shots |
+| Clubs in the bag | **13** — 9 with any shots on file |
 | Shots on file | **181** — of 255 logged |
 | Range sessions | **7** |
 | Rounds played | **166** |
@@ -71,9 +72,9 @@ of claim this repo refuses to print.
 - **gone when** — Median fun and conditioning ratings within a point of each other.
 - *course · medium confidence*
 
-### 08. 17 practice tasks are open, and the top one is aimed at the biggest blind spot above.
+### 08. 21 practice tasks are open, and the top one is aimed at the biggest blind spot above.
 
-- **why** — First on the list: Nothing is measured above 195 yd — 5 Iron at 195 yd is the longest club with enough data. Driver is in the ledger but below the threshold, so every gap above 195 yd is invisible — not wide, invisible.
+- **why** — First on the list: The 3 Hybrid has never been measured — Callaway UW is in the bag at 19° and has not one shot on file across 7 sessions. Both gaps beside it are guesses about a club nobody has hit at a monitor.
 - **gone when** — An empty practice list.
 - *range · high confidence*
 
@@ -83,17 +84,29 @@ of claim this repo refuses to print.
 - **gone when** — Every drawn club's 80% aim band under 30 yd wide at its median carry.
 - *range · high confidence*
 
-### 10. Some clubs are a different club depending on the day. Their session medians move by more than the gaps between neighbouring clubs.
+### 10. Part of the bag has never been to a monitor. The chart is not a picture of what you carry, it is a picture of what you happened to hit.
+
+- **why** — 13 clubs in the bag, 9 with any shots on file. Never recorded: 3 Hybrid, 3 Iron, 4 Iron, Lob Wedge. A further 1 — Driver (0 usable of 1) — sits under the threshold to be drawn.
+- **gone when** — Every club in data/bag.json with at least one shot in the ledger.
+- *range · high confidence*
+
+### 11. Some clubs are a different club depending on the day. Their session medians move by more than the gaps between neighbouring clubs.
 
 - **why** — 4 drawn clubs drift more than 10 yd between sessions. Worst: Pitching Wedge, 16.8 yd between its session medians over 3 sessions.
 - **gone when** — Every drawn club's session spread under 10 yd.
 - *range · medium confidence*
 
-### 11. 29% of logged swings do not count toward any number on this site.
+### 12. 29% of logged swings do not count toward any number on this site.
 
 - **why** — 74 of 255 shots excluded — warmup 49, auto-flagged 23, possible-partial 2. Warmup and partials are deliberate exclusions, not bad swings.
 - **gone when** — Under 20% of logged shots excluded.
 - *range · high confidence*
+
+### 13. Two clubs in the bag are built to the same loft. Which of them goes further is a question about the heads, and nothing on file answers it.
+
+- **why** — 3 Hybrid and 3 Iron are both 19°. Different head types — wood against iron — so this is not a duplicate club, but it is not a gap either, and the ledger has never had both on the same day.
+- **gone when** — Both clubs measured, or one of them re-lofted. 3 Hybrid and 3 Iron carrying more than 8 yd apart settles it.
+- *range · medium confidence*
 
 ## The roast
 
@@ -124,6 +137,10 @@ more — a roast that needs a fact you do not have is just an insult.
 >
 > — Worst is the 5 Iron: eight in ten of its shots land inside a 40 yd corridor at 195 yd. A good fairway is 30 yd wide.
 
+> You own 13 clubs and have measured 9. The Lob Wedge is carried around every round as a decoration.
+>
+> — 13 clubs in the bag, 9 with any shots on file. Never recorded: 3 Hybrid, 3 Iron, 4 Iron, Lob Wedge. A further 1 — Driver (0 usable of 1) — sits under the threshold to be drawn.
+
 > Your Pitching Wedge has a 17 yd opinion about what day of the week it is. A yardage book cannot help with that.
 >
 > — 4 drawn clubs drift more than 10 yd between sessions. Worst: Pitching Wedge, 16.8 yd between its session medians over 3 sessions.
@@ -150,6 +167,12 @@ Every measured shot was hit off a mat to a flat range with a monitor watching. N
 The R50 records environmentals per session, not per shot, and nothing here is altitude-, temperature- or wind-adjusted. A summer session at sea level and a cold one are averaged together as if they were the same day.
 
 **Needs:** Per-shot environmentals, or enough sessions to model the correction.
+
+### Are the lofts on this page the lofts in the bag?
+
+13 clubs carry a loft and 0 of them have been verified. Every number is what the club left the factory as: the driver's sleeve is adjustable and its setting has never been read, irons bend a degree in a car boot, and a wedge is ground to order. Any finding below that compares degrees is comparing spec sheets, not clubs.
+
+**Needs:** One session on a loft-and-lie gauge, then `verified: true` in data/bag.json.
 
 ### Is the golf getting better?
 
