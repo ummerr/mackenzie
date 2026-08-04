@@ -19,6 +19,16 @@
  * So: unmeasured ranks above under-measured, which ranks above biased, which
  * ranks above a problem already confirmed. Confirming something you already
  * know is the least valuable thing you can do with a bucket of balls.
+ *
+ * ── Always carry, never total ───────────────────────────────────────────────
+ *
+ * The bag chart lets you read the bag to either distance. This list does not,
+ * and should not: every task here is about a swing you have or have not
+ * measured, and a swing is measured at the point of landing. Rollout is the
+ * turf's contribution, it differs by six yards a club between a wedge and a
+ * mid-iron on this ledger, and no amount of range work changes it. Ranking
+ * practice by a number the range mat decides would put the wedges at the top of
+ * the list for reasons that have nothing to do with how they were struck.
  */
 
 import type { LedgerSession, LedgerShot } from "./ledger";
@@ -82,7 +92,7 @@ export function buildTasks({
   // ── 1. blind spots: nothing measured at all above the longest club ────────
   // The top of the bag is where a missing club hides the most yardage, because
   // the gaps up there are the widest.
-  if (longest?.medianCarryYd != null) {
+  if (longest?.medianDistanceYd != null) {
     const unmeasuredLonger = profiles.filter(
       (p) => p.suppressed && bagRank(p.club) < bagRank(longest.club),
     );
@@ -91,11 +101,11 @@ export function buildTasks({
       tasks.push({
         id: "blind-spot-long",
         category: "blind spot",
-        title: `Nothing is measured above ${longest.medianCarryYd.toFixed(0)} yd`,
+        title: `Nothing is measured above ${longest.medianDistanceYd.toFixed(0)} yd`,
         evidence:
-          `${longest.club} at ${longest.medianCarryYd.toFixed(0)} yd is the longest club with enough data. ` +
+          `${longest.club} at ${longest.medianDistanceYd.toFixed(0)} yd is the longest club with enough data. ` +
           `${names.join(", ")} ${names.length === 1 ? "is" : "are"} in the ledger but below the threshold, ` +
-          `so every gap above ${longest.medianCarryYd.toFixed(0)} yd is invisible — not wide, invisible.`,
+          `so every gap above ${longest.medianDistanceYd.toFixed(0)} yd is invisible — not wide, invisible.`,
         action: `Hit 20 each of ${names.join(", ")}, plus anything else you carry longer than a ${longest.club}.`,
         doneWhen: `Every club longer than the ${longest.club} has ${minShots}+ usable shots.`,
         priority: 100,

@@ -161,9 +161,9 @@ function statusOf(s: LedgerShot): string {
 /** Lateral width, in yards, of a club's measured aim band at its median carry. */
 export function coneWidthAt(p: ClubProfile): number | null {
   if (p.deviationP10Deg === null || p.deviationP90Deg === null) return null;
-  if (p.medianCarryYd === null) return null;
+  if (p.medianDistanceYd === null) return null;
   const rad = (d: number) => (d * Math.PI) / 180;
-  return (Math.sin(rad(p.deviationP90Deg)) - Math.sin(rad(p.deviationP10Deg))) * p.medianCarryYd;
+  return (Math.sin(rad(p.deviationP90Deg)) - Math.sin(rad(p.deviationP10Deg))) * p.medianDistanceYd;
 }
 
 export function buildProfile({
@@ -215,7 +215,7 @@ export function buildProfile({
           : `only ${teeShots.length} with a driver, wood, hybrid or long iron ` +
             `(${teeClubsOnFile.join(", ")}) — under the 15 a club needs to be drawn. `) +
         `The longest club measured is the ${longest?.club ?? "—"}` +
-        `${longest?.medianCarryYd != null ? `, ${yd(longest.medianCarryYd, 0)}` : ""}` +
+        `${longest?.medianDistanceYd != null ? `, ${yd(longest.medianDistanceYd, 0)}` : ""}` +
         (rounds !== null ? `, against ${rounds} rounds played.` : "."),
       roast:
         rounds !== null
@@ -300,7 +300,7 @@ export function buildProfile({
         `${PROFILE_THRESHOLDS.fairwayYd}-yard fairway at their own median carry.`,
       evidence:
         `Worst is the ${worst.p.club}: eight in ten of its shots land inside a ` +
-        `${yd(worst.width, 0)} corridor at ${yd(worst.p.medianCarryYd as number, 0)}. ` +
+        `${yd(worst.width, 0)} corridor at ${yd(worst.p.medianDistanceYd as number, 0)}. ` +
         `A good fairway is ${PROFILE_THRESHOLDS.fairwayYd} yd wide.`,
       roast:
         `Eight in ten ${worst.p.club}s finish inside ${yd(worst.width, 0)} of each other. ` +
@@ -668,8 +668,8 @@ function buildSpec({
     {
       label: "Measured range",
       value:
-        longest?.medianCarryYd != null && shortest?.medianCarryYd != null
-          ? `${shortest.medianCarryYd.toFixed(0)}–${longest.medianCarryYd.toFixed(0)} yd`
+        longest?.medianDistanceYd != null && shortest?.medianDistanceYd != null
+          ? `${shortest.medianDistanceYd.toFixed(0)}–${longest.medianDistanceYd.toFixed(0)} yd`
           : "—",
       note: longest && shortest ? `${shortest.club} to ${longest.club}` : null,
     },

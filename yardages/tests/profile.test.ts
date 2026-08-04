@@ -94,15 +94,15 @@ describe("coneWidthAt", () => {
     const p = {
       deviationP10Deg: -5.739,
       deviationP90Deg: 5.739,
-      medianCarryYd: 100,
+      medianDistanceYd: 100,
     } as ClubProfile;
     expect(coneWidthAt(p)).toBeCloseTo(20, 1);
-    expect(coneWidthAt({ ...p, medianCarryYd: 200 } as ClubProfile)).toBeCloseTo(40, 1);
+    expect(coneWidthAt({ ...p, medianDistanceYd: 200 } as ClubProfile)).toBeCloseTo(40, 1);
   });
 
   it("is null when the club has no measured aim", () => {
     expect(
-      coneWidthAt({ deviationP10Deg: null, deviationP90Deg: 3, medianCarryYd: 100 } as ClubProfile),
+      coneWidthAt({ deviationP10Deg: null, deviationP90Deg: 3, medianDistanceYd: 100 } as ClubProfile),
     ).toBeNull();
   });
 });

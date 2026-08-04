@@ -116,6 +116,63 @@ into.
 
 ---
 
+## 2026-08-03 — Carry or total, and the rollout the monitor never modelled
+
+**Decided:** the bag reads to either distance. One toggle in the masthead of
+`yardages/app/bag.tsx` governs the whole page — plan view, gap scorecard,
+headline gap and the table twin move together. `lib/stats.ts` grew a
+`DistanceBasis` and reads its three columns through one `BASIS` table, so a
+profile is the same statistics over a different measured pair rather than a
+second code path. `ClubProfile.medianCarryYd` became `medianDistanceYd`, and
+both the profile and every `Gap` carry the basis they were built on, so a table
+cannot label them wrong.
+
+**Why the whole page and not just the chart:** the toggle's natural home is the
+chart, and that is where it would have been worst. The gap scorecard sits beside
+the chart and the card sits under it; a control inside the chart would have left
+them reporting carry while the chart reported total. A page showing two bases at
+once is worse than a page showing the wrong one.
+
+**Decided:** a total that copies the carry is read as **absent**, not as zero
+roll. On 51 of 255 shots — 40 of them otherwise trusted — the R50 wrote the
+carry row into the total row verbatim: distance, deviation distance and
+deviation angle all identical, to seven decimal places. That is not a ball that
+stopped where it landed. `parse.ts` has flagged it as `total_is_carry_copy`
+since Phase 1; this is the first consumer that had to decide what it means.
+
+**Rejected:** counting them, which is what any naïve `median(totalYd)` does. It
+would have published a five iron that rolls nothing off 21 of its 26 shots, and
+the number would have looked like data. It is also not a small effect — the
+copies cluster in two sessions (17 of 34 on 2026-07-05, 33 of 42 on 2026-08-03)
+rather than scattering, so they bias particular clubs rather than adding noise.
+
+**The cost, taken deliberately:** dropping them takes 5 Iron, 7 Iron and Sand
+Wedge under the 15-shot display threshold, so three clubs that are drawn on
+carry go dark on total. That is the honest outcome — a club that only clears the
+bar on shots containing no rollout information has not been measured — and the
+page says so above the chart and in the held-back panel rather than letting
+three cones quietly vanish.
+
+**Rejected:** deriving total as carry plus a rollout constant. Roll is not a
+constant: 1.2 yd on a sand wedge, 10.3 on a five iron. And the export already
+carries measured `total_deviation_distance` and `total_deviation_angle`, which
+satisfy `deviation distance = distance × sin(deviation angle)` to under 0.02 yd
+— the same identity the carry columns satisfy. So the cone construction works
+unchanged on the total basis from its own measured pair, and nothing is a carry
+number reused at a longer radius.
+
+**Also:** the `Roll` column is the median of `total − carry` per swing, never
+the difference of the two published medians. The bases are computed over
+different shot sets, so differencing their medians subtracts one population from
+another and calls the answer rollout.
+
+**And:** `/practice` stays on carry and is documented as staying there. Every
+task in it is about a swing you have or have not measured, and rollout is the
+turf's contribution — ranking practice by it would sort the list by something no
+amount of range work changes.
+
+---
+
 ## 2026-08-02 — Draw the course, don't just point at it
 
 **Decided:** from z13 the map stops being a photograph with dots on it and

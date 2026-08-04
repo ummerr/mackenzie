@@ -26,7 +26,7 @@ pnpm ingest                         # data/raw/*.csv -> data/shots.json
 pnpm ingest:courses                 # ../data/courses.json -> data/course-history.json
 pnpm run profile                    # the two of them -> PROFILE.md
 pnpm dev                            # http://localhost:3000
-pnpm test                           # 230 tests over the real exports
+pnpm test                           # 239 tests over the real exports
 pnpm typecheck
 pnpm compare                        # old vs new stock yardages, side by side
 ```
@@ -157,7 +157,9 @@ Recon against the real exports in `data/raw/`. Read this before touching
   to the last decimal on 17 of 34 rows — the R50 declined to model rollout and
   copied carry. In the other it happens on 0 of 23. Session-dependent, so
   `total_is_carry_copy` flags it and any statistic over `total_yd` must exclude
-  those rows or it blends two different quantities. The bag chart uses carry.
+  those rows or it blends two different quantities. Across the whole ledger it
+  is 51 of 255 shots, 40 of them otherwise trusted. `lib/stats.ts` reads them as
+  absent on the total basis — see *Carry or total*.
 - **Environmentals are session-level.** Constant within a session, different
   between sessions.
 - **`descent_angle_deg` has no source column** in any observed export. The
@@ -189,7 +191,9 @@ independent lines of evidence, recorded in `DECISIONS.md`.
 
 ```
 app/
-  page.tsx            the bag: masthead, scoreboard, gap scorecard, table twin
+  page.tsx            server: builds both bases in full and hands them over
+  bag.tsx             the bag: masthead, scoreboard, gap scorecard, table twin.
+                      Owns the one piece of state on the page — carry or total
   bag-chart.tsx       the plan view. Every shot a dot, one region per club
   palette.ts          turf, the ordinal club ramp, the gap verdict tokens
   globals.css         the tokens themselves, both themes, one line each
@@ -204,7 +208,7 @@ lib/
   units.ts            conversion driven by the file's own units row
   parse.ts            one CSV -> one session. Pure
   ledger.ts           many sessions -> one deduplicated ledger. Pure
-  stats.ts            medians, bands, gap flags. Pure
+  stats.ts            medians, bands, gap flags, the carry/total basis. Pure
   tasks.ts            practice tasks derived from all of the above. Pure
   course-history.ts   the course snapshot's shape, and the arithmetic over it
   profile.ts          the golfer: findings, roasts, and what cannot be known. Pure
@@ -287,6 +291,48 @@ shrink a session's influence but never inflate it past what its sample size
 already justified. Possible partials are excluded from full-swing stock
 yardages and counted separately.
 
+## Carry or total
+
+The bag reads to either distance, and the toggle in the masthead governs the
+whole page at once — chart, gap scorecard, headline gap and the table twin all
+move together. A page showing carry in one panel and total in another would be
+worse than a page showing the wrong one.
+
+Neither basis is the real number. Carry is what clears the bunker; total is what
+runs through the back of the green. They are not a rescale of each other either:
+rollout in this ledger runs from 1.2 yd on a sand wedge to 10.3 on a five iron,
+so the short end of the bag compresses and the long end stretches. A bag that
+gaps cleanly on carry can gap badly on total, which is a finding about how the
+ball behaves once it lands and not an inconsistency between two views. The
+9i → PW gap is 12.1 yd on carry and 15.3 on total; PW → GW is 24.1 and 25.7.
+
+**Both bases are measured, never derived.** The export carries its own deviation
+distance and deviation angle for total as well as carry, and both satisfy
+`deviation distance = distance × sin(deviation angle)` to under 0.02 yd across
+the ledger. So the total view is drawn from the total columns — the same cone
+construction over its own measured pair, not carry angles reused at a longer
+radius.
+
+**A total that copies the carry is read as absent.** On 40 otherwise-trusted
+shots the R50 wrote the carry row into the total row verbatim: distance, offline
+and angle all identical. That is a rollout it never modelled, not a ball that
+stopped where it landed, and counting it as total would publish clubs that roll
+nothing — the five iron would be 21 of its 26 shots. Those shots drop out of the
+total basis entirely, which takes 5 Iron, 7 Iron and Sand Wedge below the
+15-shot display threshold. They go dark on total and the page says why, above
+the chart and in the held-back panel. A club that only clears the threshold on
+shots carrying no rollout information has not been measured.
+
+**Rollout is measured per swing, never as a difference of medians.** The `Roll`
+column is the median of `total − carry` on each shot that has both. Subtracting
+the two published medians would difference two different shot sets — total drops
+the copies and carry does not — and call the answer roll.
+
+**`/practice` stays on carry, deliberately.** Every task there is about a swing
+you have or have not measured, and a swing is measured at the point of landing.
+Rollout is the turf's contribution; ranking practice by it would sort the list
+by something no amount of range work changes.
+
 ## The plan view
 
 The bag chart is drawn as the hole it is — mown fairway, rough either side,
@@ -297,26 +343,26 @@ overruns them is a club that misses fairways, and you can see which side.
 Nothing decorative is placed where it could be read as data.
 
 Two layers, answering different questions. Every trusted shot is a dot at its
-actual carry and actual offline — that is the dispersion, with nothing
+actual distance and actual offline — that is the dispersion, with nothing
 summarised away. Over it, one region per club. The dots came second on purpose,
 because a summary cannot show you that a club's miss is two clusters rather
 than one spread, and this ledger contains exactly that.
 
 **The region is a cone, because the miss is angular.** The export derives
-`deviation distance = carry × sin(deviation angle)`, so offline yards are two
+`deviation distance = distance × sin(deviation angle)`, so offline yards are two
 things multiplied together and only one of them is the club: the same aim error
 puts a 6 iron further offline than a wedge purely because the ball went
 further. A rectangle with parallel sides says the miss is a fixed number of
 yards wide at every distance, which is not what the club did. So each club is
 the region between rays at its measured p10 and p90 *deviation angle*, cut off
-at its p25 and p75 carries — still exactly two measured quantile ranges, just
+at its p25 and p75 distances — still exactly two measured quantile ranges, just
 with the lateral one in the units the error is actually made in. Both are in the
 table twin, in degrees and in yards.
 
-The plot's y is the radial carry the export reports and its x is that carry's
-offline component, which is what makes a ray of constant angle a straight line
-here rather than a curve. Nothing is reprojected and no dot moves; the sides of
-the region simply converge on the tee the way the shots did. Because that
+The plot's y is the radial distance the export reports and its x is that
+distance's offline component, which is what makes a ray of constant angle a
+straight line here rather than a curve. Nothing is reprojected and no dot moves;
+the sides of the region simply converge on the tee the way the shots did. Because that
 convergence is about a yard across one club's interquartile band, the rays are
 drawn on past the region and fade out toward the tee. They are angle
 references, not a claim about where any ball was in mid-flight — a ball that

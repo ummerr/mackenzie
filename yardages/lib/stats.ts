@@ -49,6 +49,78 @@ export function sortByBag<T extends { club: string }>(items: T[]): T[] {
   );
 }
 
+// ── distance basis ──────────────────────────────────────────────────────────
+
+/**
+ * Which distance the bag is measured to: where the ball landed, or where it
+ * stopped.
+ *
+ * Neither one is the real number. Carry is what clears the bunker; total is
+ * what runs through the back of the green. A bag gapped on carry and a bag
+ * gapped on total are different bags, because rollout is not a constant — it is
+ * 2.9 yd on a gap wedge and 12.3 on a six iron in this ledger, so switching
+ * basis compresses the short end and stretches the long one. That is a finding,
+ * not a display preference, which is why both are computed the same way and
+ * neither is derived from the other.
+ */
+export type DistanceBasis = "carry" | "total";
+
+/**
+ * The three columns a basis reads: how far, how far offline, at what angle.
+ *
+ * The total basis reads *nothing* from a shot the parser flagged as a carry
+ * copy. On those rows the entire total block — distance, deviation distance and
+ * deviation angle — is the carry block repeated verbatim, which is not a ball
+ * that stopped where it landed but a rollout the monitor never modelled.
+ * Reading it as total would publish a five iron that rolls zero yards, on 21 of
+ * that club's 26 shots, and the number would look like data. Absent is the
+ * truthful reading, and a club that falls under the display threshold once its
+ * copies are dropped is meant to fall under it.
+ */
+const BASIS: Record<
+  DistanceBasis,
+  {
+    distance: (s: LedgerShot) => number | null;
+    offline: (s: LedgerShot) => number | null;
+    deviation: (s: LedgerShot) => number | null;
+  }
+> = {
+  carry: {
+    distance: (s) => s.carryYd,
+    offline: (s) => s.offlineYd,
+    deviation: (s) => s.carryDeviationAngleDeg,
+  },
+  total: {
+    distance: (s) => (s.totalIsCarryCopy ? null : s.totalYd),
+    offline: (s) => (s.totalIsCarryCopy ? null : s.totalDeviationYd),
+    deviation: (s) => (s.totalIsCarryCopy ? null : s.totalDeviationAngleDeg),
+  },
+};
+
+/** The word for a basis, wherever prose needs one. */
+export const BASIS_WORD: Record<DistanceBasis, string> = {
+  carry: "carry",
+  total: "total",
+};
+
+/**
+ * One shot as the dispersion layer plots it, or null when this basis cannot
+ * place it. The only route to a plotted point, so the carry-copy rule above
+ * governs the dots exactly as it governs the medians — a chart that drew 51
+ * shots the summary refuses to count would be two different answers on one
+ * frame.
+ */
+export function plotPoint(
+  s: LedgerShot,
+  basis: DistanceBasis,
+): { distanceYd: number; offlineYd: number } | null {
+  const read = BASIS[basis];
+  const distanceYd = read.distance(s);
+  const offlineYd = read.offline(s);
+  if (distanceYd === null || offlineYd === null) return null;
+  return { distanceYd, offlineYd };
+}
+
 // ── exclusion heuristics ────────────────────────────────────────────────────
 
 /**
@@ -81,19 +153,27 @@ export function applyHeuristics(
 
 export interface ClubProfile {
   club: string;
+  /** Which distance every number below is measured to. */
+  basis: DistanceBasis;
   /** Every shot with this club, including excluded ones. */
   n: number;
   /** Shots actually behind the numbers below. */
   active: number;
+  /**
+   * Trusted shots this basis cannot read a distance from, so `active + unusable`
+   * is the trusted count. Always 0 on the carry basis in this ledger; on the
+   * total basis it is the shots whose rollout the monitor never modelled.
+   */
+  unusable: number;
   sessions: number;
   /** True when `active` is under the display threshold. */
   suppressed: boolean;
 
-  medianCarryYd: number | null;
-  carryP25Yd: number | null;
-  carryP75Yd: number | null;
-  carryMinYd: number | null;
-  carryMaxYd: number | null;
+  medianDistanceYd: number | null;
+  distanceP25Yd: number | null;
+  distanceP75Yd: number | null;
+  distanceMinYd: number | null;
+  distanceMaxYd: number | null;
 
   /** 80th-percentile lateral band: p10 and p90 of offline, in yards. */
   offlineP10Yd: number | null;
@@ -122,6 +202,27 @@ export interface ClubProfile {
   sessionSpreadYd: number | null;
 }
 
+/**
+ * Median rollout per club: how much further the ball ran after it landed.
+ *
+ * Measured shot by shot and then taken as a median, NOT as the difference of
+ * the two published medians. The two bases are computed over different shot
+ * sets — total drops every carry copy — so subtracting one median from the
+ * other would difference two populations and call the result roll. Here both
+ * numbers always come off the same swing.
+ */
+export function medianRolloutYd(shots: LedgerShot[]): Map<string, number> {
+  const byClub = new Map<string, number[]>();
+  for (const s of shots) {
+    if (s.isExcluded || s.totalIsCarryCopy) continue;
+    if (s.carryYd === null || s.totalYd === null) continue;
+    const a = byClub.get(s.club) ?? [];
+    a.push(s.totalYd - s.carryYd);
+    byClub.set(s.club, a);
+  }
+  return new Map([...byClub].map(([club, rolls]) => [club, median(rolls)]));
+}
+
 export const MIN_SHOTS_TO_DISPLAY = 15;
 
 const medOrNull = (v: number[]): number | null => (v.length === 0 ? null : median(v));
@@ -130,22 +231,31 @@ export function clubProfile(
   allShots: LedgerShot[],
   club: string,
   minShots = MIN_SHOTS_TO_DISPLAY,
+  basis: DistanceBasis = "carry",
 ): ClubProfile {
+  const read = BASIS[basis];
   const mine = allShots.filter((s) => s.club === club);
-  const active = mine.filter((s) => !s.isExcluded);
+  const trusted = mine.filter((s) => !s.isExcluded);
+
+  /* A trusted shot the basis cannot read a distance from is not an active shot,
+   * however trusted it is. Counting it would let a club whose rollout was never
+   * modelled sail past the display threshold on the strength of shots that
+   * contribute nothing to the median underneath. */
+  const active = trusted.filter((s) => read.distance(s) !== null);
   const pick = (f: (s: LedgerShot) => number | null): number[] =>
     active.map(f).filter((v): v is number => v !== null);
 
-  const carries = pick((s) => s.carryYd);
-  const offline = pick((s) => s.offlineYd);
-  const deviation = pick((s) => s.carryDeviationAngleDeg);
+  const distances = pick(read.distance);
+  const offline = pick(read.offline);
+  const deviation = pick(read.deviation);
 
   // Per-session medians, to expose the pooling problem rather than hide it.
   const bySession = new Map<string, number[]>();
   for (const s of active) {
-    if (s.carryYd === null) continue;
+    const d = read.distance(s);
+    if (d === null) continue;
     const a = bySession.get(s.sessionId) ?? [];
-    a.push(s.carryYd);
+    a.push(d);
     bySession.set(s.sessionId, a);
   }
   const sessionMedians = [...bySession.values()]
@@ -154,16 +264,18 @@ export function clubProfile(
 
   return {
     club,
+    basis,
     n: mine.length,
     active: active.length,
+    unusable: trusted.length - active.length,
     sessions: new Set(mine.map((s) => s.sessionId)).size,
     suppressed: active.length < minShots,
 
-    medianCarryYd: medOrNull(carries),
-    carryP25Yd: carries.length ? quantile(carries, 0.25) : null,
-    carryP75Yd: carries.length ? quantile(carries, 0.75) : null,
-    carryMinYd: carries.length ? Math.min(...carries) : null,
-    carryMaxYd: carries.length ? Math.max(...carries) : null,
+    medianDistanceYd: medOrNull(distances),
+    distanceP25Yd: distances.length ? quantile(distances, 0.25) : null,
+    distanceP75Yd: distances.length ? quantile(distances, 0.75) : null,
+    distanceMinYd: distances.length ? Math.min(...distances) : null,
+    distanceMaxYd: distances.length ? Math.max(...distances) : null,
 
     // The 80th-percentile band: 10th to 90th percentile of lateral miss. Eight
     // shots in ten land inside it, which is the region worth planning against.
@@ -191,9 +303,10 @@ export function clubProfile(
 export function buildBag(
   shots: LedgerShot[],
   minShots = MIN_SHOTS_TO_DISPLAY,
+  basis: DistanceBasis = "carry",
 ): ClubProfile[] {
   const clubs = [...new Set(shots.map((s) => s.club))];
-  return sortByBag(clubs.map((c) => clubProfile(shots, c, minShots)));
+  return sortByBag(clubs.map((c) => clubProfile(shots, c, minShots, basis)));
 }
 
 // ── coverage ────────────────────────────────────────────────────────────────
@@ -244,7 +357,9 @@ export type GapVerdict = "ok" | "overlap" | "hole" | "inverted" | "unknown";
 export interface Gap {
   longer: string;
   shorter: string;
-  /** Median carry of the longer-lofted club minus the shorter. */
+  /** Which distance the two medians were measured to. */
+  basis: DistanceBasis;
+  /** Median distance of the longer-lofted club minus the shorter. */
   gapYd: number | null;
   verdict: GapVerdict;
   /** True when either club is suppressed, so the gap is not shown. */
@@ -261,10 +376,15 @@ export interface GapOptions {
 export const DEFAULT_GAPS: GapOptions = { overlapUnderYd: 8, holeOverYd: 15 };
 
 /**
- * Gaps between clubs adjacent *in the bag*, not adjacent by measured carry.
- * Sorting by carry first would silently repair an inversion — the case where a
- * lower-lofted club goes shorter — by reordering it out of existence, and that
- * is the single most actionable thing this chart can tell you.
+ * Gaps between clubs adjacent *in the bag*, not adjacent by measured distance.
+ * Sorting by distance first would silently repair an inversion — the case where
+ * a lower-lofted club goes shorter — by reordering it out of existence, and
+ * that is the single most actionable thing this chart can tell you.
+ *
+ * Whichever basis the profiles were built on is the basis these gaps are in;
+ * they are carried on the Gap so a table cannot label them wrong. A bag can gap
+ * cleanly on carry and badly on total, which is a real finding about rollout
+ * and not an inconsistency between two views.
  */
 export function detectGaps(
   profiles: ClubProfile[],
@@ -278,8 +398,8 @@ export function detectGaps(
     const b = ordered[i + 1];
     const suppressed = a.suppressed || b.suppressed;
     const gapYd =
-      a.medianCarryYd !== null && b.medianCarryYd !== null
-        ? a.medianCarryYd - b.medianCarryYd
+      a.medianDistanceYd !== null && b.medianDistanceYd !== null
+        ? a.medianDistanceYd - b.medianDistanceYd
         : null;
 
     let verdict: GapVerdict = "unknown";
@@ -290,7 +410,14 @@ export function detectGaps(
       else verdict = "ok";
     }
 
-    gaps.push({ longer: a.club, shorter: b.club, gapYd, verdict, suppressed });
+    gaps.push({
+      longer: a.club,
+      shorter: b.club,
+      basis: a.basis,
+      gapYd,
+      verdict,
+      suppressed,
+    });
   }
 
   return gaps;

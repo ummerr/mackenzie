@@ -11,8 +11,11 @@ import {
   detectGaps,
   mad,
   median,
+  medianRolloutYd,
+  plotPoint,
   quantile,
   sortByBag,
+  type DistanceBasis,
 } from "../lib/stats";
 
 // ── primitives, against distributions with known answers ────────────────────
@@ -309,10 +312,145 @@ describe("clubProfile", () => {
       carryDeviationAngleDeg: null,
     }));
     const p = clubProfile(applyHeuristics(blank), "7 Iron");
-    expect(p.medianCarryYd).toBeNull();
+    expect(p.medianDistanceYd).toBeNull();
     expect(p.offlineP90Yd).toBeNull();
     expect(p.deviationP90Deg).toBeNull();
     expect(p.sessionSpreadYd).toBeNull();
+  });
+});
+
+// ── distance basis ──────────────────────────────────────────────────────────
+
+/* The whole risk of a second basis is that it silently reads a carry number and
+ * labels it total. These tests exist to make that impossible to ship. */
+describe("distance basis", () => {
+  const clean = many(25, (i) => ({
+    shotIndex: i,
+    carryYd: 150,
+    totalYd: 160,
+    offlineYd: 3,
+    totalDeviationYd: 4,
+    carryDeviationAngleDeg: 1,
+    totalDeviationAngleDeg: 2,
+  }));
+
+  it("defaults to carry, so every existing caller is unchanged", () => {
+    const p = clubProfile(applyHeuristics(clean), "7 Iron");
+    expect(p.basis).toBe("carry");
+    expect(p.medianDistanceYd).toBe(150);
+  });
+
+  it("reads the total columns, not the carry ones, on the total basis", () => {
+    const p = clubProfile(applyHeuristics(clean), "7 Iron", undefined, "total");
+    expect(p.basis).toBe("total");
+    expect(p.medianDistanceYd).toBe(160);
+    // Offline and angle have to move with it, or the cone is a carry shape
+    // drawn at a total radius.
+    expect(p.medianOfflineYd).toBe(4);
+    expect(p.medianDeviationDeg).toBe(2);
+  });
+
+  /* The R50 sometimes writes the carry row into the total row verbatim. Reading
+   * that as a total would publish a club that rolls zero yards, off shots that
+   * contain no rollout information at all. */
+  it("refuses a total that is a verbatim copy of the carry", () => {
+    const copies = many(25, (i) => ({
+      shotIndex: i,
+      carryYd: 150,
+      totalYd: 150,
+      totalIsCarryCopy: true,
+      totalDeviationYd: 3,
+      totalDeviationAngleDeg: 1,
+    }));
+    const p = clubProfile(applyHeuristics(copies), "7 Iron", undefined, "total");
+    expect(p.medianDistanceYd).toBeNull();
+    expect(p.active).toBe(0);
+    expect(p.unusable).toBe(22); // 25 less 3 warmup, none of them usable
+    expect(p.suppressed).toBe(true);
+  });
+
+  it("suppresses a club that only clears the threshold on its copies", () => {
+    // 22 trusted shots, but only 6 with a modelled rollout.
+    const mixed = many(25, (i) => ({
+      shotIndex: i,
+      carryYd: 150,
+      totalYd: i < 19 ? 150 : 162,
+      totalIsCarryCopy: i < 19,
+    }));
+    const carry = clubProfile(applyHeuristics(mixed), "7 Iron");
+    const total = clubProfile(applyHeuristics(mixed), "7 Iron", undefined, "total");
+    expect(carry.suppressed).toBe(false);
+    expect(carry.active).toBe(22);
+    expect(total.suppressed).toBe(true);
+    expect(total.active).toBe(6);
+    expect(total.active + total.unusable).toBe(carry.active);
+  });
+
+  it("plots a point only where it counts a shot", () => {
+    const copy = shot({ totalIsCarryCopy: true, totalYd: 150, carryYd: 150 });
+    expect(plotPoint(copy, "carry")).toEqual({ distanceYd: 150, offlineYd: 0 });
+    expect(plotPoint(copy, "total")).toBeNull();
+  });
+
+  it("gaps carry their basis, and both bases gap the same bag differently", () => {
+    const bag = (basis: DistanceBasis) =>
+      buildBag(
+        [
+          ...many(20, (i) => ({ club: "8 Iron", shotIndex: i, carryYd: 150, totalYd: 162 })),
+          ...many(20, (i) => ({ club: "9 Iron", shotIndex: i, carryYd: 140, totalYd: 145 })),
+        ],
+        undefined,
+        basis,
+      );
+    const onCarry = detectGaps(bag("carry"))[0];
+    const onTotal = detectGaps(bag("total"))[0];
+    expect(onCarry.basis).toBe("carry");
+    expect(onTotal.basis).toBe("total");
+    // 10 yd apart where they land, 17 where they stop: fine becomes a hole,
+    // purely because the 8 iron runs 12 and the 9 iron runs 5.
+    expect(onCarry.gapYd).toBeCloseTo(10, 6);
+    expect(onCarry.verdict).toBe("ok");
+    expect(onTotal.gapYd).toBeCloseTo(17, 6);
+    expect(onTotal.verdict).toBe("hole");
+  });
+});
+
+describe("medianRolloutYd", () => {
+  it("measures roll on the same swing, never as a difference of medians", () => {
+    /* The trap this guards: the copies drag the total median down but carry no
+     * roll, so subtracting the published medians gives a different — and
+     * wrong — answer from the per-shot median. */
+    const shots = applyHeuristics(
+      many(25, (i) => ({
+        shotIndex: i,
+        carryYd: 150,
+        totalYd: i < 11 ? 150 : 170,
+        totalIsCarryCopy: i < 11,
+      })),
+    );
+    expect(medianRolloutYd(shots).get("7 Iron")).toBeCloseTo(20, 6);
+
+    const carry = clubProfile(shots, "7 Iron");
+    const total = clubProfile(shots, "7 Iron", undefined, "total");
+    expect(
+      (total.medianDistanceYd as number) - (carry.medianDistanceYd as number),
+    ).toBeCloseTo(20, 6);
+  });
+
+  it("ignores a club with no modelled rollout at all", () => {
+    const shots = applyHeuristics(
+      many(20, (i) => ({ shotIndex: i, totalIsCarryCopy: true, totalYd: 150, carryYd: 150 })),
+    );
+    expect(medianRolloutYd(shots).has("7 Iron")).toBe(false);
+  });
+
+  it("finds the real ledger's rollout running longer with the longer club", () => {
+    const real: LedgerShot[] = JSON.parse(
+      readFileSync(join(__dirname, "..", "data", "shots.json"), "utf8"),
+    );
+    const roll = medianRolloutYd(applyHeuristics(real));
+    // A wedge lands steep and stops; a mid-iron lands shallow and runs.
+    expect(roll.get("Gap Wedge")!).toBeLessThan(roll.get("6 Iron")!);
   });
 });
 
