@@ -73,23 +73,29 @@
 
   /* ── the club ramp ──────────────────────────────────────────────────────────
    * Ordinal, not categorical: index 0 is the shortest club drawn and the ramp
-   * deepens as the hole gets longer. One hue (64° OKLCH) with equal lightness
-   * steps, in both themes — only the band moves, because the pale end has to
-   * survive a pale fairway in one and a black one in the other.
+   * deepens as the hole gets longer. Two hue poles now, not one: warm 64° at
+   * the pale end, blue 240° at the deep end, hue falling monotonically through
+   * red and violet — never through green, which is the turf's — while equal
+   * lightness steps still carry the order, in both themes. Only the band moves
+   * between themes, because the pale end has to survive a pale fairway in one
+   * and a black one in the other.
    *
    *   light  L 0.735 → 0.295      dark  L 0.905 → 0.455
+   *   hue    64° → 240° in steps that widen through the irons,
+   *          where the cones actually overlap
    *
-   * Both bands are computed, not eyeballed, and both pass the four rules
-   * palette.ts states: monotone lightness, adjacent steps ≥ 0.06, hue spread
-   * under 6°, and the end nearest the turf at ≥ 2:1 against it. */
-  --club-0: light-dark(#e29648, #ffd7b6);
-  --club-1: light-dark(#cd8332, #ffba7e);
-  --club-2: light-dark(#b86f18, #ff9b2e);
-  --club-3: light-dark(#a15e00, #e98600);
-  --club-4: light-dark(#884f00, #cd7605);
-  --club-5: light-dark(#704000, #b26601);
-  --club-6: light-dark(#593200, #985600);
-  --club-7: light-dark(#432400, #7f4600);
+   * Both bands are computed, not eyeballed, and the four rules palette.ts
+   * states — monotone lightness, adjacent steps ≥ 0.06, one monotone hue path
+   * clear of the green band, and the end nearest the turf at ≥ 2:1 against
+   * it — are enforced by tests/palette.test.ts against this very file. */
+  --club-0: light-dark(#e6943d, #ffd7b4);
+  --club-1: light-dark(#dc754c, #ffb79c);
+  --club-2: light-dark(#c95b63, #fe9297);
+  --club-3: light-dark(#ab4879, #e37bab);
+  --club-4: light-dark(#843e8a, #b86ebe);
+  --club-5: light-dark(#56378f, #8467c4);
+  --club-6: light-dark(#1e3284, #4662b9);
+  --club-7: light-dark(#00304b, #015d8a);
 
   /* ── gap verdicts ───────────────────────────────────────────────────────────
    * Status tokens, reserved: never a series colour, and always shipped beside

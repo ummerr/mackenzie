@@ -20,18 +20,24 @@
  *
  *   CLUB_RAMP — an *ordinal* ramp, not a categorical palette. Clubs have a real
  *            order (loft, i.e. bag order), so swapping two of them would change
- *            the meaning; that makes one hue with monotone lightness steps
- *            correct and eight arbitrary hues wrong. One hue, 64° in OKLCH,
- *            equal lightness steps: 0.905 → 0.455 in dark, 0.735 → 0.295 in
- *            light. Only the band moves between themes, never the order and
- *            never the hue.
+ *            the meaning; that keeps eight arbitrary hues wrong. Order still
+ *            rides on monotone lightness, but the ramp now runs between two
+ *            hue poles — warm 64° OKLCH at the pale end, blue 240° at the deep
+ *            end — so the distance between two clubs is *nameable*: coral vs
+ *            violet sorts where two browns a step apart never did. Two poles
+ *            is the ceiling; a third would make it categorical (DECISIONS.md,
+ *            "Two hue poles in the club ramp too"). Equal lightness steps:
+ *            0.905 → 0.455 in dark, 0.735 → 0.295 in light. Only the band
+ *            moves between themes, never the order and never the poles.
  *
- * The ramp is validated, not eyeballed: in both themes all four ordinal checks
- * pass against the fairway surface — monotone lightness, every adjacent step
- * ≥ 0.06 apart, hue spread under 6°, and the end nearest the turf above the 2:1
- * floor for an ordinal ramp. In dark that binding end is the deep one, which is
- * the driver's, and the driver is the club least likely to have shots on file;
- * in light it is the pale one, for the same reason inverted.
+ * The ramp is validated, not eyeballed — the four ordinal checks run in
+ * tests/palette.test.ts against globals.css itself, per theme against the
+ * fairway surface: monotone lightness, every adjacent step ≥ 0.06 apart, one
+ * strictly monotone hue path from the warm pole to the cool with every step
+ * outside the turf's green band (90°–200°), and the end nearest the turf above
+ * the 2:1 floor for an ordinal ramp. In dark that binding end is the deep one,
+ * which is the driver's, and the driver is the club least likely to have shots
+ * on file; in light it is the pale one, for the same reason inverted.
  *
  * Identity never rests on hue anyway: every club drawn is also direct-labelled
  * in the right-hand gutter with its own colour chip beside it, which is the

@@ -633,7 +633,7 @@ export function BagChart({
                       r={hover === d.club ? F.dotOn : F.dot}
                       style={{ fill: colors.get(d.club) ?? CLUB_RAMP[2] }}
                       fillOpacity={
-                        faded ? 0.12 : hover === d.club ? 0.95 : 0.62
+                        faded ? 0.12 : hover === d.club ? 0.95 : 0.78
                       }
                     />
                   );
@@ -692,7 +692,7 @@ export function BagChart({
                   <polygon
                     points={points}
                     style={{ fill: b.color, stroke: b.color }}
-                    fillOpacity={on ? 0.16 : 0.06}
+                    fillOpacity={on ? 0.16 : 0.09}
                     strokeOpacity={on ? 1 : 0.85}
                     strokeWidth={on ? 2.25 : 1.5}
                     strokeLinejoin="round"

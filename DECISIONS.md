@@ -6,6 +6,48 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-14 — Two hue poles in the club ramp too
+
+**Decided:** the bag chart's club ramp runs between two hue poles — warm 64°
+OKLCH at the pale short end, blue 240° at the deep long end, hue falling
+strictly through red and violet and never entering the turf's green band
+(90°–200°). Lightness still carries the order, unchanged bands (light
+0.735 → 0.295, dark 0.905 → 0.455, every adjacent step ≥ 0.06), chroma held at
+0.14 until the gamut clips the ends. The hue steps widen through the irons,
+where the cones actually overlap, and the four ordinal gates now run as a test
+(`yardages/tests/palette.test.ts`) against `globals.css` itself instead of
+living as prose.
+
+**Why:** the same failure the lens ramp paid for on 2026-08-02, one section up
+the same site. Every step of the one-hue club ramp read as "some brown", on
+turf that is itself warm, and the compression was worst exactly where the
+chart's whole job is separation: the 6/7/8 iron cones nest completely and drew
+ramp steps 4/5/6 — three browns one lightness step apart, at 6% fill.
+Measured, the worst adjacent pair moves from ΔE 6.2 (lightness alone) to
+8.3–10.5 with hue on top, and the fully nesting 8i/6i pair to ~18. But as with
+the lens, the number is not the argument: purple-vs-indigo-vs-navy is a
+distinction you can *name* across a nested overlap, and coral-vs-violet names
+itself from across the room.
+
+**Rejected:** eight arbitrary hues — clubs have a real order and the ramp must
+keep showing it. Also rejected: routing the sweep through green for more hue
+room; the turf is scenery and nothing that carries a number may wear its
+colour. The lens entry's rainbow objection — that many nameable hues make the
+legend load-bearing — does not transfer here, because this chart's legend has
+been load-bearing since the day it was drawn: identity never rests on hue,
+every drawn club is direct-labelled with its own chip in the gutter and again
+in the phone rail. The hue path is wider than the lens's precisely because the
+labels were already paying the cost the lens refused.
+
+**Cost accepted:** the warm end of the light ramp passes the accent's
+neighbourhood — `--club-1` `#dc754c` sits ΔE 6.2 from `#ff6b35`, the 50-yd
+range flags (and, in dark, the hole verdict). The flags differ in shape,
+position and heat (chroma 0.19 against the ramp's 0.14), and verdicts ship
+beside their word. If the rhyme ever misleads on screen, the fix is a chroma
+dip on club-1 to ~0.12, which buys ΔE ≈ 8 without touching the ramp's shape.
+
+---
+
 ## 2026-08-03 — The bag is asserted, because the ledger cannot say what you did not hit
 
 **Decided:** `yardages/data/bag.json` names the thirteen clubs actually owned —

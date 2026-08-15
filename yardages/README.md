@@ -483,11 +483,15 @@ the viewBox scales tick labels with the frame, and a five-pixel axis is worse
 than a scrollbar. The scale stays 1:1 both ways at every size.
 
 **Club colour is an ordinal ramp, not a categorical palette.** Clubs have a real
-order, so swapping two of them would change the meaning — one hue with monotone
-lightness steps is right and eight arbitrary hues are wrong. The ramp is
-validated rather than eyeballed: monotone lightness, every adjacent step ≥ 0.06
-apart in OKLCH, hue spread under 6°, and the end nearest the turf above the
-contrast floor against it. It spans the clubs actually *drawn*, so no step is
+order, so swapping two of them would change the meaning — eight arbitrary hues
+are wrong. Monotone lightness steps carry that order, and the ramp runs between
+two hue poles — warm orange at the short end, blue at the long end, through
+rose and violet, never through the turf's green — so two clubs a step apart
+differ by a *nameable* hue and not just a shade (`DECISIONS.md`, "Two hue poles
+in the club ramp too"). The ramp is validated rather than eyeballed, and the
+gates run in `pnpm test` (`tests/palette.test.ts`): monotone lightness, every
+adjacent step ≥ 0.06 apart in OKLCH, one monotone hue path clear of the green
+band, and the end nearest the turf above the contrast floor against it. It spans the clubs actually *drawn*, so no step is
 spent on a mark nobody can see. Every club is direct-labelled with its own chip
 in the right-hand gutter, which is the legend and the label at once, so identity
 never rests on hue. Gap verdicts wear reserved status tokens and are never a
@@ -498,9 +502,9 @@ series colour.
 Light is the default and dark is the palette this site shipped with. Both are
 one hole drawn on two grounds. The fairway stays lighter than the rough in
 either theme — mown grass reflects and long grass does not, which is a fact
-about grass and not about the page. The club ramp likewise keeps its hue and its
-direction in both; only the lightness band moves, because the pale end has to
-survive a pale fairway in one theme and a black one in the other.
+about grass and not about the page. The club ramp likewise keeps its two hue
+poles and its direction in both; only the lightness band moves, because the pale
+end has to survive a pale fairway in one theme and a black one in the other.
 
 The mechanism is `light-dark()` in `app/globals.css` — every token is one
 declaration carrying both values, so the two themes stay diffable by eye and
