@@ -234,6 +234,20 @@ export function drawableOf(profiles: ClubProfile[]): ClubProfile[] {
   );
 }
 
+/**
+ * One ramp step per drawn club, shortest first, so all eight steps land on
+ * marks somebody can see. Exported so the gap scorecard's chips are the same
+ * colours as the chart's cones by construction, not by coincidence.
+ */
+export function clubColorsOf(profiles: ClubProfile[]): Map<string, string> {
+  const drawable = drawableOf(profiles);
+  return new Map(
+    [...drawable]
+      .reverse()
+      .map((p, i) => [p.club, clubColor(i, drawable.length)]),
+  );
+}
+
 const sinOf = (deg: number) => Math.sin((deg * Math.PI) / 180);
 
 /**
@@ -308,13 +322,8 @@ export function BagChart({
 
   const drawable = drawableOf(profiles);
 
-  /* One ramp step per drawn club, shortest first, so all eight steps land on
-   * marks somebody can see. Eight entries; not worth memoising. */
-  const colors = new Map(
-    [...drawable]
-      .reverse()
-      .map((p, i) => [p.club, clubColor(i, drawable.length)]),
-  );
+  /* Eight entries; not worth memoising. */
+  const colors = clubColorsOf(profiles);
 
   const boxes: Box[] = drawable.map((p) => ({
     p,

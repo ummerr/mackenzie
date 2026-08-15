@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { BagChart, mergeDomains, plotDomain, type ShotDot } from "./bag-chart";
+import {
+  BagChart,
+  clubColorsOf,
+  drawableOf,
+  mergeDomains,
+  plotDomain,
+  type ShotDot,
+} from "./bag-chart";
 import { VERDICT } from "./palette";
 import { short, type BagClub } from "@/lib/clubs";
 import {
@@ -88,6 +95,10 @@ export function Bag({
     )
     .map((p) => p.club);
 
+  /* The chart's own colours, so the scorecard's chips and the cones can only
+   * ever agree. */
+  const chipColors = clubColorsOf(bag);
+
   // The headline is whichever flagged gap is worst, not a fixed club.
   const worst =
     gaps
@@ -173,10 +184,15 @@ export function Bag({
         <aside className="space-y-px self-start">
           <section className="card p-4">
             <h2 className="stamp text-ink-2">Gaps on {basis}, in bag order</h2>
+            <GapSpine views={views} basis={basis} colors={chipColors} />
             <table className="mt-3 w-full border-collapse font-mono text-[11px]">
               <tbody>
                 {gaps.map((g) => (
-                  <GapRow key={`${g.longer}->${g.shorter}`} gap={g} />
+                  <GapRow
+                    key={`${g.longer}->${g.shorter}`}
+                    gap={g}
+                    colors={chipColors}
+                  />
                 ))}
               </tbody>
             </table>
@@ -590,18 +606,145 @@ const RULER_HI = 26;
 const rulerX = (v: number) =>
   ((Math.min(Math.max(v, RULER_LO), RULER_HI) - RULER_LO) / (RULER_HI - RULER_LO)) * RULER_W;
 
+/** The four zones of the ruler, in axis order. One list, so the key and every
+ * row's track can never disagree about where a cut falls. */
+const RULER_ZONES = [
+  { at: RULER_LO, to: 0, v: VERDICT.inverted },
+  { at: 0, to: DEFAULT_GAPS.overlapUnderYd, v: VERDICT.overlap },
+  { at: DEFAULT_GAPS.overlapUnderYd, to: DEFAULT_GAPS.holeOverYd, v: VERDICT.ok },
+  { at: DEFAULT_GAPS.holeOverYd, to: RULER_HI, v: VERDICT.hole },
+];
+
+/* The spine: the scorecard's whole subject, drawn once.
+ *
+ * Every drawn club as its chip from the chart, placed at its median on one
+ * shared distance axis, with the space between bag-order neighbours filled in
+ * the verdict's colour — so the 31 yd hole is drawn eleven times the size of
+ * the 2.7 yd overlap instead of one row taller. Position is measured distance
+ * but ORDER is still bag order, the same rule as the rows: an inverted pair
+ * draws its segment backwards rather than quietly resorting itself, which is
+ * the finding made visible.
+ *
+ * The axis is pinned across both bases, same rule as the chart frame — the
+ * toggle should move the chips, not the ground under them. */
+function GapSpine({
+  views,
+  basis,
+  colors,
+}: {
+  views: Record<DistanceBasis, BasisView>;
+  basis: DistanceBasis;
+  colors: Map<string, string>;
+}) {
+  const W = 300;
+  const AXIS = 25;
+  const medians = Object.values(views).flatMap((v) =>
+    drawableOf(v.bag).map((p) => p.medianDistanceYd as number),
+  );
+  if (medians.length < 2) return null;
+  const lo = Math.floor((Math.min(...medians) - 8) / 10) * 10;
+  const hi = Math.ceil((Math.max(...medians) + 8) / 10) * 10;
+  const x = (v: number) => ((v - lo) / (hi - lo)) * W;
+
+  const drawn = drawableOf(views[basis].bag);
+  const at = new Map(drawn.map((p) => [p.club, x(p.medianDistanceYd as number)]));
+  const segments = views[basis].gaps.filter(
+    (g) => !g.suppressed && at.has(g.longer) && at.has(g.shorter),
+  );
+  const ticks: number[] = [];
+  for (let t = Math.ceil(lo / 50) * 50; t <= hi; t += 50) ticks.push(t);
+
+  return (
+    <svg
+      viewBox={`0 0 ${W} 48`}
+      width="100%"
+      aria-hidden
+      className="mt-3 block"
+    >
+      {ticks.map((t) => (
+        <g key={t}>
+          <line
+            x1={x(t)}
+            x2={x(t)}
+            y1={AXIS - 7}
+            y2={AXIS + 7}
+            style={{ stroke: "var(--line)" }}
+            strokeWidth={1}
+          />
+          <text
+            x={x(t)}
+            y={47}
+            textAnchor="middle"
+            fontSize={7}
+            fontFamily="var(--font-mono)"
+            style={{ fill: "var(--ink-3)", fontVariantNumeric: "tabular-nums" }}
+          >
+            {t}
+          </text>
+        </g>
+      ))}
+      <line
+        x1={0}
+        x2={W}
+        y1={AXIS}
+        y2={AXIS}
+        style={{ stroke: "var(--line)" }}
+        strokeWidth={1}
+      />
+      {segments.map((g) => {
+        const a = at.get(g.longer) as number;
+        const b = at.get(g.shorter) as number;
+        return (
+          <rect
+            key={`${g.longer}->${g.shorter}`}
+            x={Math.min(a, b)}
+            y={AXIS - 2}
+            width={Math.max(Math.abs(a - b), 1.5)}
+            height={4}
+            style={{ fill: VERDICT[g.verdict].color }}
+            fillOpacity={0.85}
+          />
+        );
+      })}
+      {drawn.map((p, i) => {
+        const cx = at.get(p.club) as number;
+        const above = i % 2 === 1;
+        return (
+          <g key={p.club}>
+            <rect
+              x={cx - 3}
+              y={AXIS - 3}
+              width={6}
+              height={6}
+              style={{
+                fill: colors.get(p.club) ?? "var(--ink-3)",
+                stroke: "var(--paper-1)",
+              }}
+              strokeWidth={1.25}
+            />
+            <text
+              x={cx}
+              y={above ? AXIS - 11 : AXIS + 16}
+              textAnchor="middle"
+              fontSize={8}
+              fontFamily="var(--font-mono)"
+              style={{ fill: "var(--ink-2)" }}
+            >
+              {short(p.club)}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
 /** The ruler's key: the same track, its four zones, and where the cuts fall. */
 function GapScale() {
-  const zones = [
-    { at: RULER_LO, to: 0, v: VERDICT.inverted },
-    { at: 0, to: DEFAULT_GAPS.overlapUnderYd, v: VERDICT.overlap },
-    { at: DEFAULT_GAPS.overlapUnderYd, to: DEFAULT_GAPS.holeOverYd, v: VERDICT.ok },
-    { at: DEFAULT_GAPS.holeOverYd, to: RULER_HI, v: VERDICT.hole },
-  ];
   return (
     <div className="mt-3 flex items-start gap-3 border-t pt-2.5 rule">
       <svg width={RULER_W} height={18} aria-hidden className="shrink-0">
-        {zones.map((z) => (
+        {RULER_ZONES.map((z) => (
           <rect
             key={z.v.word}
             x={rulerX(z.at)}
@@ -633,13 +776,31 @@ function GapScale() {
   );
 }
 
-function GapRow({ gap }: { gap: Gap }) {
+/** A club's swatch from the chart, or an empty frame for a club it never drew. */
+function ClubChip({ color }: { color: string | undefined }) {
+  return (
+    <span
+      aria-hidden
+      className="mr-[3px] inline-block h-[7px] w-[7px] align-[-0.5px]"
+      style={
+        color
+          ? { background: color }
+          : { border: "1px solid var(--line-hard)" }
+      }
+    />
+  );
+}
+
+function GapRow({ gap, colors }: { gap: Gap; colors: Map<string, string> }) {
   const v = VERDICT[gap.verdict];
   const shownGap = gap.suppressed ? null : gap.gapYd;
   return (
     <tr className="border-b border-[var(--line-soft)]">
       <td className="py-2 pr-2 whitespace-nowrap text-ink-1">
-        {short(gap.longer)} <span className="text-ink-3">→</span> {short(gap.shorter)}
+        <ClubChip color={colors.get(gap.longer)} />
+        {short(gap.longer)} <span className="text-ink-3">→</span>{" "}
+        <ClubChip color={colors.get(gap.shorter)} />
+        {short(gap.shorter)}
       </td>
       <td className="py-2 pr-2 text-right tabular-nums text-ink-0">
         {shownGap === null ? "—" : shownGap.toFixed(1)}
@@ -666,15 +827,21 @@ function GapRow({ gap }: { gap: Gap }) {
       </td>
       <td className="py-2 pr-2">
         {shownGap !== null ? (
+          /* Every row carries the whole ruler, not just the ok band, so a bar
+           * reads against all four zones without a trip to the key below. The
+           * dot is the measurement itself — the bar is how far it travelled. */
           <svg width={RULER_W} height={12} aria-hidden className="block">
-            <rect
-              x={rulerX(DEFAULT_GAPS.overlapUnderYd)}
-              y={0}
-              width={rulerX(DEFAULT_GAPS.holeOverYd) - rulerX(DEFAULT_GAPS.overlapUnderYd)}
-              height={12}
-              style={{ fill: VERDICT.ok.color }}
-              fillOpacity={0.14}
-            />
+            {RULER_ZONES.map((z) => (
+              <rect
+                key={z.v.word}
+                x={rulerX(z.at)}
+                y={0}
+                width={rulerX(z.to) - rulerX(z.at)}
+                height={12}
+                style={{ fill: z.v.color }}
+                fillOpacity={0.1}
+              />
+            ))}
             <line
               x1={rulerX(0)}
               x2={rulerX(0)}
@@ -685,11 +852,17 @@ function GapRow({ gap }: { gap: Gap }) {
             />
             <rect
               x={Math.min(rulerX(0), rulerX(shownGap))}
-              y={3}
+              y={4.5}
               width={Math.max(Math.abs(rulerX(shownGap) - rulerX(0)), 1.5)}
-              height={6}
-              rx={1}
+              height={3}
               style={{ fill: v.color }}
+            />
+            <circle
+              cx={rulerX(shownGap)}
+              cy={6}
+              r={2.75}
+              style={{ fill: v.color, stroke: "var(--paper-1)" }}
+              strokeWidth={1.25}
             />
           </svg>
         ) : (
