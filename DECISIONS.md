@@ -6,6 +6,55 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-14 — A popup click replaces the HAR: the Grint extractor is a Chrome extension
+
+**Decided:** the second Grint source adapter's *capture* half is a Chrome MV3
+extension, `grint-extension/` — a third sibling subproject beside the map and
+`yardages/`. One popup click on a logged-in thegrint.com tab injects a
+sequential scraper (activeTab + scripting permissions, nothing else) that
+fetches all 13 `/trend/*` stats views with `range=ALL`, the `/handicap`
+record, every scorecard discovered under `/score`, and
+`/ajax/get_course_data/<course>/<tee>` per (course, tee) pair — then downloads
+one `grint-export-YYYY-MM-DD.json` bundle the user drops into `data/raw/`.
+`npm run grint:inventory` (`scripts/inventory-grint-export.mjs`) validates the
+bundle structurally, refuses anything secret-shaped, and prints what was and
+wasn't captured. The bundle stores verbatim *fragments* — inline Highcharts
+`<script>` blocks, scorecard/handicap table subtrees, raw `/ajax/*` bodies,
+never rewritten — with a full-page fallback plus warning whenever a selector
+matches nothing on a 200, so drift is visible instead of silent.
+
+**Why:** the RECON.md plan required a manual HAR capture every month, and a
+HAR carries the session cookie — a file that must never be committed sitting
+one `git add` from being committed. The extension needs the same five minutes
+*once* (install), then each capture is one click; it never reads
+`document.cookie` and records no headers, so the artifact is committable by
+construction. DOM capture of a live page turned out unnecessary: the classic
+client embeds every per-round data series inline in Highcharts config, so
+same-origin `fetch()` from a content script gets everything the SPA path
+would, with the browser handling auth. Fragments-not-pages because the
+existing raw precedent (`grint-played-2026-08-01.txt`) is itself a selective
+copy — verbatim in this repo has always meant *captured text is never
+edited*, not *the whole page is kept* — and full pages would put 10–30 MB per
+capture into git while dragging in other people's activity-feed data.
+
+**Rejected:** the HAR-based Python extractor (manual capture each run,
+cookie-bearing file on disk); full-page capture (size, other people's data,
+zero added parseable signal); a background service worker with the
+`downloads` permission (more surface for zero benefit — a Blob anchor click
+downloads fine); declarative content scripts with host permissions (injects
+on every visit for a once-a-month task); writing `parse-grint-export.mjs` in
+the same change (the parser must be written against a *real* bundle, and none
+exists until the first run — guessing DOM shapes is inventing data).
+
+**Cost accepted:** the `/score` listing's pagination shape and the scorecard
+URL pattern are guessed defensively (loose regexes, stop-on-no-new-IDs, hard
+cap, discovery metadata recorded in the bundle) and may need one round of
+correction after the first live run. Selector drift on Grint's side degrades
+to bigger bundles plus warnings rather than failures. The extension is
+Chrome-only and unpublished — load-unpacked is the install story.
+
+---
+
 ## 2026-08-14 — Two hue poles in the club ramp too
 
 **Decided:** the bag chart's club ramp runs between two hue poles — warm 64°

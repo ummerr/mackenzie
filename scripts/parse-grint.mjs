@@ -10,10 +10,12 @@
  * ---------------------------------------------------------------------------
  * ADAPTER SEAM
  * ---------------------------------------------------------------------------
- * This is one implementation of a Grint *source adapter*. When the HAR-based
- * extractor lands (see ../../golf/pipeline/grint/RECON.md), it becomes a second
- * adapter emitting the SAME two files with the same field names, and nothing
- * downstream — geocode, osm, build, the map — changes.
+ * This is one implementation of a Grint *source adapter*. The second capture
+ * path now exists — the Chrome extension in ../grint-extension/ downloads a
+ * grint-export-*.json bundle into data/raw/ (inventoried by
+ * inventory-grint-export.mjs). When its parser lands (parse-grint-export.mjs),
+ * it becomes a second adapter emitting the SAME two files with the same field
+ * names, and nothing downstream — geocode, osm, build, the map — changes.
  *
  * The contract an adapter must satisfy is documented in SPEC.md § Adapter contract.
  *

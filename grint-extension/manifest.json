@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Grint Export",
+  "version": "0.1.2",
+  "description": "Export your own TheGrint data — stats, scorecards, handicap record, course metadata — as one JSON bundle for the mackenzie pipeline.",
+
+  "permissions": ["activeTab", "scripting"],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Grint Export"
+  }
+}

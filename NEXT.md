@@ -49,6 +49,11 @@ HTML, licence gray area, hard name-matching problem).
 
 ## Then
 
+- **Run the first Grint capture.** Load `grint-extension/` unpacked in Chrome,
+  log in at thegrint.com, click **Scrape all**, move the downloaded
+  `grint-export-*.json` to `data/raw/`, run `npm run grint:inventory`, commit
+  the bundle if it passes. That first real bundle is what unblocks
+  `parse-grint-export.mjs` (see "Deliberately not doing yet").
 - **Deploy.** `vercel.json` is written and the site is fully static. Needs
   `vercel link`, a deploy, a subdomain (`courses.ummerr.com`), and a new `P-NN`
   row in `ummerr.github.io/index.html` next to the existing P-07 Golf card at
@@ -72,7 +77,7 @@ HTML, licence gray area, hard name-matching problem).
 - **Feed the profile.** `yardages/PROFILE.md` and `/profile` derive one golfer
   from both halves of this repo, and its own "what the record cannot say"
   section is a to-do list for this file. The two that would change it most:
-  round-level scores with dates (the Grint HAR extractor, below) would let the
+  round-level scores with dates (the Grint export bundle, below) would let the
   golf be plotted against time instead of averaged; par and rating/slope per
   layout would make an 88 mean something. Re-run `cd yardages && pnpm
   ingest:courses && pnpm run profile` after any map pipeline change, or the
@@ -107,9 +112,11 @@ HTML, licence gray area, hard name-matching problem).
 
 ## Deliberately not doing yet
 
-- **Grint HAR extractor** — recon is done (`golf/pipeline/grint/RECON.md`), the
-  adapter seam is in place, it just needs 5 minutes of logged-in clicking to
-  produce the HAR.
+- **parse-grint-export.mjs** — the second adapter. The capture side exists
+  (`grint-extension/` downloads a `grint-export-*.json` bundle; `npm run
+  grint:inventory` validates it), but the parser must be written against a
+  *real* captured bundle, and none has been committed yet. Run the extension
+  first; the inventory output is the parser's spec.
 - **Garmin R50** — no shot data exists anywhere in the tree and the export path
   is unproven. Needs its own recon before any code.
 - **courseRender as a base** — the right move for the strategy phase, wrong move
@@ -119,3 +126,4 @@ HTML, licence gray area, hard name-matching problem).
 - **2026-08-01** — session ended: 13 file(s) dirty, 0 commit(s) unpushed. Last touched: `.claude/`. <!-- campfire:2026-08-01 -->
 - **2026-08-02** — session ended: 18 file(s) dirty, 0 commit(s) unpushed. Last touched: `.claude/scheduled_tasks.lock`. <!-- campfire:2026-08-02 -->
 - **2026-08-03** — session ended: 3 file(s) dirty, 1 commit(s) unpushed. Last touched: `.claude/scheduled_tasks.lock`. <!-- campfire:2026-08-03 -->
+- **2026-08-14** — session ended: 9 file(s) dirty, 0 commit(s) unpushed. Last touched: `DECISIONS.md`. <!-- campfire:2026-08-14 -->
