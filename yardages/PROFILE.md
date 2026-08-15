@@ -16,8 +16,8 @@ takes it off. Hit the shots and the sentence retires itself.
 | Measured range | **92–195 yd** — Sand Wedge to 5 Iron |
 | Clubs measured | **8** — 15+ usable shots |
 | Clubs in the bag | **13** — 9 with any shots on file |
-| Shots on file | **181** — of 255 logged |
-| Range sessions | **7** |
+| Shots on file | **217** — of 301 logged |
+| Range sessions | **8** |
 | Rounds played | **166** |
 | Courses played | **84** — 11 US states, 3 countries |
 | Mean score | **88.4** — 79 layouts, 18 holes |
@@ -32,13 +32,13 @@ of claim this repo refuses to print.
 
 ### 01. Nothing on this site was measured on a golf course. The played record and the measured record share no shots at all.
 
-- **why** — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 181 trusted shots — every one of them hit off a mat in front of a monitor. 166 rounds played across 84 facilities, none of which put a single shot in this ledger.
+- **why** — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 217 trusted shots — every one of them hit off a mat in front of a monitor. 166 rounds played across 84 facilities, none of which put a single shot in this ledger.
 - **gone when** — Any on-course shot data in the ledger — a round imported from the R50's on-course mode, or a hand-entered card with clubs.
 - *both · high confidence*
 
 ### 02. There is no measured tee game. Every club with numbers is a club you reach for after the shot that decided where you were standing.
 
-- **why** — 181 trusted shots across 7 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 166 rounds played.
+- **why** — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 166 rounds played.
 - **gone when** — Any tee club drawn on the bag page — 15+ usable shots with it.
 - *both · high confidence*
 
@@ -60,22 +60,22 @@ of claim this repo refuses to print.
 - **gone when** — A course history where under half the layouts are one-and-done.
 - *course · high confidence*
 
-### 06. The miss is two-way. Some clubs sit right of the target line by their median and others sit left, which is a different problem from one bias you could aim off.
-
-- **why** — 3 of 8 drawn clubs miss right by their median (worst: 5 Iron, 17.6 yd right), 2 miss left (worst: Gap Wedge, 8.4 yd left).
-- **gone when** — Every drawn club's median offline inside ±5 yd, or all of them on the same side.
-- *range · high confidence*
-
-### 07. Courses are rated for fun ahead of conditioning.
+### 06. Courses are rated for fun ahead of conditioning.
 
 - **why** — Median fun 85.6, median conditioning 81.1, across 93 rated layouts.
 - **gone when** — Median fun and conditioning ratings within a point of each other.
 - *course · medium confidence*
 
-### 08. 21 practice tasks are open, and the top one is aimed at the biggest blind spot above.
+### 07. 21 practice tasks are open, and the top one is aimed at the biggest blind spot above.
 
-- **why** — First on the list: The 3 Hybrid has never been measured — Callaway UW is in the bag at 19° and has not one shot on file across 7 sessions. Both gaps beside it are guesses about a club nobody has hit at a monitor.
+- **why** — First on the list: The 3 Hybrid has never been measured — Callaway UW is in the bag at 19° and has not one shot on file across 8 sessions. Both gaps beside it are guesses about a club nobody has hit at a monitor.
 - **gone when** — An empty practice list.
+- *range · high confidence*
+
+### 08. The miss is two-way. Some clubs sit right of the target line by their median and others sit left, which is a different problem from one bias you could aim off.
+
+- **why** — 3 of 8 drawn clubs miss right by their median (worst: 5 Iron, 17.6 yd right), 1 miss left (worst: Pitching Wedge, 5.8 yd left).
+- **gone when** — Every drawn club's median offline inside ±5 yd, or all of them on the same side.
 - *range · high confidence*
 
 ### 09. 4 of 8 drawn clubs spray wider than a 30-yard fairway at their own median carry.
@@ -96,9 +96,9 @@ of claim this repo refuses to print.
 - **gone when** — Every drawn club's session spread under 10 yd.
 - *range · medium confidence*
 
-### 12. 29% of logged swings do not count toward any number on this site.
+### 12. 28% of logged swings do not count toward any number on this site.
 
-- **why** — 74 of 255 shots excluded — warmup 49, auto-flagged 23, possible-partial 2. Warmup and partials are deliberate exclusions, not bad swings.
+- **why** — 84 of 301 shots excluded — warmup 55, auto-flagged 27, possible-partial 2. Warmup and partials are deliberate exclusions, not bad swings.
 - **gone when** — Under 20% of logged shots excluded.
 - *range · high confidence*
 
@@ -113,13 +113,13 @@ of claim this repo refuses to print.
 The same findings, unsoftened. Each one restates its own evidence and nothing
 more — a roast that needs a fact you do not have is just an insult.
 
-> 166 rounds. 181 measured shots. The two sets do not intersect: not one number on this site came from a golf course.
+> 166 rounds. 217 measured shots. The two sets do not intersect: not one number on this site came from a golf course.
 >
-> — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 181 trusted shots — every one of them hit off a mat in front of a monitor. 166 rounds played across 84 facilities, none of which put a single shot in this ledger.
+> — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 217 trusted shots — every one of them hit off a mat in front of a monitor. 166 rounds played across 84 facilities, none of which put a single shot in this ledger.
 
 > 166 rounds played, 1 measured swing with anything that starts a hole. This is a very thorough study of the second shot.
 >
-> — 181 trusted shots across 7 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 166 rounds played.
+> — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 166 rounds played.
 
 > 3 pairs of clubs land within 8 yd of each other — 5 clubs doing the work of 3 — and none of them covers the 31 yd hole between the 5 Iron and the 6 Iron.
 >
@@ -129,9 +129,9 @@ more — a roast that needs a fact you do not have is just an insult.
 >
 > — 68 of 93 layouts played exactly once (73%). Most played: Rancho Park Golf Club at 10 rounds.
 
-> The 5 Iron goes right and the Gap Wedge goes left, so aiming off fixes exactly half your bag and breaks the other half.
+> The 5 Iron goes right and the Pitching Wedge goes left, so aiming off fixes exactly half your bag and breaks the other half.
 >
-> — 3 of 8 drawn clubs miss right by their median (worst: 5 Iron, 17.6 yd right), 2 miss left (worst: Gap Wedge, 8.4 yd left).
+> — 3 of 8 drawn clubs miss right by their median (worst: 5 Iron, 17.6 yd right), 1 miss left (worst: Pitching Wedge, 5.8 yd left).
 
 > Eight in ten 5 Irons finish inside 40 yd of each other. That is not a target, that is a postcode.
 >
@@ -188,7 +188,7 @@ The snapshot has no par, no yardage and no tee for any layout, so every average 
 
 ## Read from
 
-- **Range** — 255 shots over 7 Garmin R50 sessions, 2026-07-02 to 2026-08-03
+- **Range** — 301 shots over 8 Garmin R50 sessions, 2026-07-02 to 2026-08-14
 - **Courses** — 166 rounds over 93 layouts, from The Grint, captured 2026-08-01
 
 Regenerate with `pnpm profile`. The course half comes from

@@ -107,12 +107,14 @@ describe("buildTasks — against the real ledger", () => {
     expect(delivery[0].evidence).toContain("smash factor");
   });
 
-  it("will not call a bias confirmed on the back of a 4-shot session", () => {
-    // Gap Wedge appears in two sessions, but only one has enough shots to have
-    // a median. Counting the other as corroboration overstates the evidence.
-    const t = byId("bias-Gap Wedge")!;
-    expect(t.evidence).toContain("single session");
-    expect(t.action).toContain("different day");
+  it("retires a bias once a second real session clears it", () => {
+    // Gap Wedge carried an unconfirmed right bias while its only full session
+    // was 2026-08-02 — the 4-shot July block was never counted as
+    // corroboration. The 2026-08-14 session was the "different day" the task
+    // asked for, and it cleared the bias instead of confirming it: the pooled
+    // median miss is now inside the 8 yd line, so the task is gone, not
+    // reworded — which is the whole design.
+    expect(byId("bias-Gap Wedge")).toBeUndefined();
   });
 
   it("does not invent a task for a metric that is fully populated", () => {

@@ -69,11 +69,12 @@ describe("the split, against the real ledger", () => {
   });
 
   it("finds wedges that stop shorter than they landed, and calls them real", () => {
-    // Four shots genuinely spin back. They are not carry copies and not a bug.
+    // Five shots genuinely spin back — the fifth arrived with the 2026-08-14
+    // session. They are not carry copies and not a bug.
     const back = real.filter(
       (s) => s.carryYd !== null && s.totalYd !== null && (s.totalYd as number) < (s.carryYd as number),
     );
-    expect(back.length).toBe(4);
+    expect(back.length).toBe(5);
     expect(back.every((s) => !s.totalIsCarryCopy)).toBe(true);
     expect(back.every((s) => /Wedge/.test(s.club))).toBe(true);
   });
