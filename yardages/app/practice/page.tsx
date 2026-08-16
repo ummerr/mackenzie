@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { readBag } from "@/lib/bag-file";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
+import type { RoundHistory } from "@/lib/round-history";
 import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
 import { buildTasks, type Task, type TaskCategory } from "@/lib/tasks";
 
@@ -24,7 +25,16 @@ const CATEGORY_NOTE: Record<TaskCategory, string> = {
   consistency: "a number that moves between sessions, or a miss that repeats",
   data: "a metric the monitor did not record",
   gapping: "a distance problem the chart has already confirmed",
+  scoring: "a pattern from the scorecards — work no launch monitor will ever see",
 };
+
+function loadRounds(): RoundHistory | null {
+  try {
+    return load<RoundHistory>("round-history.json");
+  } catch {
+    return null;
+  }
+}
 
 export default function Practice() {
   const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
@@ -37,6 +47,7 @@ export default function Practice() {
     shots,
     sessions,
     bag,
+    roundHistory: loadRounds(),
   });
 
   const categories = [...new Set(tasks.map((t) => t.category))];

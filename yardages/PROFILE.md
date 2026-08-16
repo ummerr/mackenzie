@@ -22,6 +22,8 @@ takes it off. Hit the shots and the sentence retires itself.
 | Courses played | **84** — 11 US states, 3 countries |
 | Mean score | **88.4** — 79 layouts, 18 holes |
 | Favourite | **Bethpage State Park (Black)** — own ranking, no. 1 |
+| Handicap index | **12.9** — WHS, from 23.9 at the record's start |
+| Scored span | **2021-07-08 → 2026-07-26** — 166 dated rounds |
 
 ## The read
 
@@ -48,61 +50,79 @@ of claim this repo refuses to print.
 - **gone when** — A new snapshot of the map's course history with a different mean.
 - *course · high confidence*
 
-### 04. The bag is not evenly spaced: there are distances it cannot cover and distances it covers twice.
+### 04. The golf is getting better, and the raw scores hide it: the handicap fell while the scorecards stood still, which is what improvement looks like when the courses get harder too.
+
+- **why** — Trending handicap 23.9 at the record's start, 12.9 now, across 151 differentials (mean of the first 20: 18.9; the last 20: 16.9). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 89.3 (2026, 4).
+- **gone when** — A capture whose trending handicap ends no lower than it starts.
+- *course · high confidence*
+
+### 05. Putting is the biggest single line item in the score: 39% of all strokes happen on the green.
+
+- **why** — 134 eighteen-hole rounds carry putts: 35.7 per round against a 90.4 mean score. 354 holes took three or more putts, of 2609 recorded — one in 7.
+- **gone when** — A capture with putts under 35% of strokes, or three-putts under one hole in 10.
+- *course · high confidence*
+
+### 06. The bag is not evenly spaced: there are distances it cannot cover and distances it covers twice.
 
 - **why** — Worst gap 31.1 yd between 5 Iron and 6 Iron · 3 overlapping pairs under 8 yd apart.
 - **gone when** — No gap flagged as a hole, an inversion or an overlap on the bag page.
 - *range · high confidence*
 
-### 05. This is a collector's record, not a member's: most courses were played once and never again.
+### 07. The tee ball misses both ways in nearly equal measure — the course-side echo of the range's two-way miss, and the one pattern aiming off cannot fix.
+
+- **why** — 1521 driven holes carry a fairway result: 62% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 382 holes carry codes outside Grint's own legend and are excluded.
+- **gone when** — A capture where one side owns two-thirds of the misses, or the hit rate moves by five points.
+- *course · high confidence*
+
+### 08. This is a collector's record, not a member's: most courses were played once and never again.
 
 - **why** — 68 of 93 layouts played exactly once (73%). Most played: Rancho Park Golf Club at 10 rounds.
 - **gone when** — A course history where under half the layouts are one-and-done.
 - *course · high confidence*
 
-### 06. Courses are rated for fun ahead of conditioning.
+### 09. Courses are rated for fun ahead of conditioning.
 
 - **why** — Median fun 85.6, median conditioning 81.1, across 93 rated layouts.
 - **gone when** — Median fun and conditioning ratings within a point of each other.
 - *course · medium confidence*
 
-### 07. 21 practice tasks are open, and the top one is aimed at the biggest blind spot above.
+### 10. 22 practice tasks are open, and the top one is aimed at the biggest blind spot above.
 
 - **why** — First on the list: The 3 Hybrid has never been measured — Callaway UW is in the bag at 19° and has not one shot on file across 8 sessions. Both gaps beside it are guesses about a club nobody has hit at a monitor.
 - **gone when** — An empty practice list.
 - *range · high confidence*
 
-### 08. The miss is two-way. Some clubs sit right of the target line by their median and others sit left, which is a different problem from one bias you could aim off.
+### 11. The miss is two-way. Some clubs sit right of the target line by their median and others sit left, which is a different problem from one bias you could aim off.
 
 - **why** — 3 of 8 drawn clubs miss right by their median (worst: 5 Iron, 17.6 yd right), 1 miss left (worst: Pitching Wedge, 5.8 yd left).
 - **gone when** — Every drawn club's median offline inside ±5 yd, or all of them on the same side.
 - *range · high confidence*
 
-### 09. 4 of 8 drawn clubs spray wider than a 30-yard fairway at their own median carry.
+### 12. 4 of 8 drawn clubs spray wider than a 30-yard fairway at their own median carry.
 
 - **why** — Worst is the 5 Iron: eight in ten of its shots land inside a 40 yd corridor at 195 yd. A good fairway is 30 yd wide.
 - **gone when** — Every drawn club's 80% aim band under 30 yd wide at its median carry.
 - *range · high confidence*
 
-### 10. Part of the bag has never been to a monitor. The chart is not a picture of what you carry, it is a picture of what you happened to hit.
+### 13. Part of the bag has never been to a monitor. The chart is not a picture of what you carry, it is a picture of what you happened to hit.
 
 - **why** — 13 clubs in the bag, 9 with any shots on file. Never recorded: 3 Hybrid, 3 Iron, 4 Iron, Lob Wedge. A further 1 — Driver (0 usable of 1) — sits under the threshold to be drawn.
 - **gone when** — Every club in data/bag.json with at least one shot in the ledger.
 - *range · high confidence*
 
-### 11. Some clubs are a different club depending on the day. Their session medians move by more than the gaps between neighbouring clubs.
+### 14. Some clubs are a different club depending on the day. Their session medians move by more than the gaps between neighbouring clubs.
 
 - **why** — 4 drawn clubs drift more than 10 yd between sessions. Worst: Pitching Wedge, 16.8 yd between its session medians over 3 sessions.
 - **gone when** — Every drawn club's session spread under 10 yd.
 - *range · medium confidence*
 
-### 12. 28% of logged swings do not count toward any number on this site.
+### 15. 28% of logged swings do not count toward any number on this site.
 
 - **why** — 84 of 301 shots excluded — warmup 55, auto-flagged 27, possible-partial 2. Warmup and partials are deliberate exclusions, not bad swings.
 - **gone when** — Under 20% of logged shots excluded.
 - *range · high confidence*
 
-### 13. Two clubs in the bag are built to the same loft. Which of them goes further is a question about the heads, and nothing on file answers it.
+### 16. Two clubs in the bag are built to the same loft. Which of them goes further is a question about the heads, and nothing on file answers it.
 
 - **why** — 3 Hybrid and 3 Iron are both 19°. Different head types — wood against iron — so this is not a duplicate club, but it is not a gap either, and the ledger has never had both on the same day.
 - **gone when** — Both clubs measured, or one of them re-lofted. 3 Hybrid and 3 Iron carrying more than 8 yd apart settles it.
@@ -121,9 +141,21 @@ more — a roast that needs a fact you do not have is just an insult.
 >
 > — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 166 rounds played.
 
+> Five years took 11 strokes off the handicap and 2.4 off the scorecard. You did not learn to score, you learned to lose by the same amount at harder courses.
+>
+> — Trending handicap 23.9 at the record's start, 12.9 now, across 151 differentials (mean of the first 20: 18.9; the last 20: 16.9). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 89.3 (2026, 4).
+
+> 35.7 putts a round, and a three-putt every 7 holes. The greens are charging a second green fee.
+>
+> — 134 eighteen-hole rounds carry putts: 35.7 per round against a 90.4 mean score. 354 holes took three or more putts, of 2609 recorded — one in 7.
+
 > 3 pairs of clubs land within 8 yd of each other — 5 clubs doing the work of 3 — and none of them covers the 31 yd hole between the 5 Iron and the 6 Iron.
 >
 > — Worst gap 31.1 yd between 5 Iron and 6 Iron · 3 overlapping pairs under 8 yd apart.
+
+> 255 fairways missed left, 253 missed right. At least the misses are fair.
+>
+> — 1521 driven holes carry a fairway result: 62% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 382 holes carry codes outside Grint's own legend and are excluded.
 
 > 73% of the courses in this record got exactly one chance to make an impression, which is also how many chances they got to be learned.
 >
@@ -150,11 +182,11 @@ more — a roast that needs a fact you do not have is just an insult.
 Gaps in the data, not gaps in the analysis. Listed so that silence is never
 mistaken for a finding.
 
-### How much of the score is the short game?
+### How much of the score is the chipping and the sand?
 
-A range export has no putts, no chips and no bunker shots. On any ordinary scorecard those are around half the strokes, and none of them are here.
+The scorecards now carry putts per hole, so the green's share of the score is a finding rather than a gap. Everything between the fairway and the green is still invisible: chips, pitches, bunker shots and penalties all hide inside the strokes column with nothing to separate them.
 
-**Needs:** Shot-level on-course data, or a hand-kept putts-and-ups card.
+**Needs:** Shot-level on-course data, or a hand-kept ups-and-downs card.
 
 ### What happens from a real lie?
 
@@ -174,22 +206,17 @@ The R50 records environmentals per session, not per shot, and nothing here is al
 
 **Needs:** One session on a loft-and-lie gauge, then `verified: true` in data/bag.json.
 
-### Is the golf getting better?
-
-The course snapshot carries an average per layout, not a round-by-round history with dates, so nothing here can be plotted against time or against a practice session.
-
-**Needs:** Round-level scores with dates — the Grint HAR extractor in the parent repo's NEXT.md.
-
 ### Is a score of 88 good on this course?
 
-The snapshot has no par, no yardage and no tee for any layout, so every average is compared against every other average as though all 18-hole golf were equal.
+The rounds carry a course, a tee name and a differential, but still no par or yardage per layout, so a raw score is only comparable through the handicap math, never on the card's own terms.
 
-**Needs:** Par and rating/slope per layout, which The Grint has and the paste did not carry.
+**Needs:** Par and rating/slope per tee. The export's get_course_data calls came back empty for guessed tee ids — the real tee ids the scorecard page loads by JS are the missing key.
 
 ## Read from
 
 - **Range** — 301 shots over 8 Garmin R50 sessions, 2026-07-02 to 2026-08-14
 - **Courses** — 166 rounds over 93 layouts, from The Grint, captured 2026-08-01
+- **Rounds** — 166 dated scorecards, 2021-07-08 to 2026-07-26, from the Grint export bundle, captured 2026-08-15
 
 Regenerate with `pnpm profile`. The course half comes from
 `data/course-history.json`, itself a snapshot — `pnpm ingest:courses`.

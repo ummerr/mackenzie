@@ -4,6 +4,7 @@ import { readBag } from "@/lib/bag-file";
 import type { CourseHistory } from "@/lib/course-history";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
 import { buildProfile, type Finding, type Unknown } from "@/lib/profile";
+import type { RoundHistory } from "@/lib/round-history";
 import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
 import { buildTasks } from "@/lib/tasks";
 
@@ -28,6 +29,14 @@ function loadHistory(): CourseHistory | null {
   }
 }
 
+function loadRounds(): RoundHistory | null {
+  try {
+    return load<RoundHistory>("round-history.json");
+  } catch {
+    return null;
+  }
+}
+
 const LENS_WORD = { range: "range", course: "courses", both: "both" } as const;
 
 export default function Profile() {
@@ -36,7 +45,8 @@ export default function Profile() {
   const profiles = buildBag(shots);
   const bag = readBag(join(process.cwd(), "data"));
   const gaps = detectGaps(profiles, undefined, bag);
-  const tasks = buildTasks({ profiles, gaps, shots, sessions, bag });
+  const roundHistory = loadRounds();
+  const tasks = buildTasks({ profiles, gaps, shots, sessions, bag, roundHistory });
   const profile = buildProfile({
     shots,
     sessions,
@@ -44,6 +54,7 @@ export default function Profile() {
     gaps,
     tasks,
     history: loadHistory(),
+    roundHistory,
     bag,
   });
 

@@ -1,4 +1,5 @@
-/* Practice tasks, derived from the ledger — never a hand-written checklist.
+/* Practice tasks, derived from the ledger and the scorecards — never a
+ * hand-written checklist.
  *
  * A static list of goals is wrong the moment you hit balls, and worse, it goes
  * on claiming things the data has already disproved. Everything here is
@@ -33,6 +34,8 @@
 
 import { clubSpec, startsAHole, type BagSpec } from "./clubs";
 import type { LedgerSession, LedgerShot } from "./ledger";
+import type { RoundHistory } from "./round-history";
+import { eighteenHole, puttsPerRound, threePuttShare } from "./round-history";
 import {
   bagCoverage,
   bagRank,
@@ -44,7 +47,13 @@ import {
 } from "./stats";
 import { REVIEW_THRESHOLDS } from "./yardages/thresholds";
 
-export type TaskCategory = "blind spot" | "coverage" | "consistency" | "data" | "gapping";
+export type TaskCategory =
+  | "blind spot"
+  | "coverage"
+  | "consistency"
+  | "data"
+  | "gapping"
+  | "scoring";
 
 export interface Task {
   id: string;
@@ -108,6 +117,8 @@ export interface TaskInput {
   minShots?: number;
   /** data/bag.json. Null when it has not been written; every bag task is then skipped. */
   bag?: BagSpec | null;
+  /** data/round-history.json. Null before the first `pnpm ingest:rounds`. */
+  roundHistory?: RoundHistory | null;
 }
 
 export function buildTasks({
@@ -117,6 +128,7 @@ export function buildTasks({
   sessions,
   minShots = MIN_SHOTS_TO_DISPLAY,
   bag = null,
+  roundHistory = null,
 }: TaskInput): Task[] {
   const tasks: Task[] = [];
   const shown = sortByBag(profiles.filter((p) => !p.suppressed));
@@ -332,6 +344,41 @@ export function buildTasks({
             : `Hit both in one block on the same day. If it holds, get the lofts checked.`,
         doneWhen: "Bag order matches carry order.",
         priority: 65,
+        done: false,
+      });
+    }
+  }
+
+  // ── 7. scoring: what the scorecards say to practise ───────────────────────
+  //
+  // The one task family not derived from the ledger, and the one place the
+  // range list is allowed to hear from the course: a putting pattern needs no
+  // monitor to fix and no monitor ever sees it. Same contract as everything
+  // above — numbers on, numbers off — except the retiring ingest is
+  // `pnpm ingest:rounds`, not `pnpm ingest`.
+  if (roundHistory) {
+    const scored = eighteenHole(roundHistory);
+    const withPutts = scored.filter((r) => r.putts !== null);
+    const pp = puttsPerRound(withPutts);
+    const tp = threePuttShare(roundHistory.rounds);
+    const tpShare = tp.holes > 0 ? tp.threePutts / tp.holes : null;
+    if (pp !== null && tpShare !== null && tp.holes >= 500 && tpShare >= 0.1) {
+      tasks.push({
+        id: "three-putts",
+        category: "scoring",
+        title: `A three-putt every ${Math.round(1 / tpShare)} holes`,
+        evidence:
+          `${tp.threePutts} of ${tp.holes} recorded holes took three or more putts, and the ` +
+          `${withPutts.length} rounds that logged putting average ${pp.toFixed(1)} putts — ` +
+          "the largest single line item in the score, and the only one no launch monitor will ever see.",
+        action:
+          "Lag drill before every round: ten putts from 30+ feet, scored by finishing inside " +
+          "a flagstick's length, not by holing anything.",
+        doneWhen: `A capture with three-putts under one hole in 10.`,
+        /* Above confirmed gapping problems, below the blind spots: it is the
+         * biggest known leak, but a bucket of range balls cannot touch it, so
+         * it must not outrank the work only the range can do. */
+        priority: 60,
         done: false,
       });
     }

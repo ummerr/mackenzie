@@ -39,6 +39,15 @@ import { startsAHole, type BagSpec } from "./clubs";
 import type { CourseHistory, PlayedLayout } from "./course-history";
 import { meanScore, scorable, totalRounds } from "./course-history";
 import type { LedgerSession, LedgerShot } from "./ledger";
+import type { RoundHistory } from "./round-history";
+import {
+  differentialTrend,
+  eighteenHole,
+  fairwaySplit,
+  puttsPerRound,
+  threePuttShare,
+  yearlyMeans,
+} from "./round-history";
 import {
   bagCoverage,
   median,
@@ -73,6 +82,12 @@ export const PROFILE_THRESHOLDS = {
   smashSpread: 0.08,
   /** Share of swings discarded that is worth remarking on. */
   discardShare: 0.2,
+  /** Putts as a share of all strokes worth naming as the biggest line item. */
+  puttShare: 0.35,
+  /** Three-putt holes as a share of holes putted worth a finding and a task. */
+  threePuttShare: 0.1,
+  /** Trending-handicap movement, in strokes, before an arc is a direction. */
+  trendStrokes: 2,
 } as const;
 
 export type Lens = "range" | "course" | "both";
@@ -131,6 +146,8 @@ export interface ProfileInput {
   tasks: Task[];
   /** Null when data/course-history.json has not been snapshotted yet. */
   history: CourseHistory | null;
+  /** Null when data/round-history.json has not been snapshotted yet. */
+  roundHistory?: RoundHistory | null;
   /** data/bag.json. Null when it has not been written. */
   bag?: BagSpec | null;
 }
@@ -206,6 +223,7 @@ export function buildProfile({
   gaps,
   tasks,
   history,
+  roundHistory = null,
   bag = null,
 }: ProfileInput): GolferProfile {
   const findings: Finding[] = [];
@@ -697,6 +715,131 @@ export function buildProfile({
     }
   }
 
+  // ── the round half: scorecards with dates, from the Grint export ──────────
+  //
+  // course-history answers "where and how well on average"; this answers
+  // "when, and which strokes". The differentials are the one number in the
+  // whole record that normalises for course difficulty — that is what a
+  // differential is — so the trajectory finding leans on them rather than on
+  // raw scores, and the gap between the two IS one of the findings.
+
+  if (roundHistory && roundHistory.rounds.length >= PROFILE_THRESHOLDS.minRounds) {
+    const scored = eighteenHole(roundHistory);
+    const years = yearlyMeans(scored);
+    const trend = differentialTrend(roundHistory);
+
+    if (
+      trend &&
+      trend.firstTrending !== null &&
+      trend.lastTrending !== null &&
+      Math.abs(trend.firstTrending - trend.lastTrending) >= PROFILE_THRESHOLDS.trendStrokes
+    ) {
+      const better = trend.lastTrending < trend.firstTrending;
+      const first = years[0];
+      const last = years[years.length - 1];
+      const rawMoved = first && last ? first.meanStrokes - last.meanStrokes : null;
+      /* Trending handicap fell far while raw means barely moved. A differential
+       * is (score − rating) scaled by slope, so that divergence is arithmetic,
+       * not interpretation: the same scores against harder setups. */
+      const harderGolf =
+        better && rawMoved !== null && rawMoved < (trend.firstTrending - trend.lastTrending) / 2;
+      add({
+        id: "trajectory",
+        lens: "course",
+        confidence: "high",
+        coverage: 1,
+        claim: better
+          ? harderGolf
+            ? "The golf is getting better, and the raw scores hide it: the handicap fell while the scorecards stood still, which is what improvement looks like when the courses get harder too."
+            : "The golf is getting better, and the record can finally say so with dates on it."
+          : "The golf is getting worse by its own trending handicap.",
+        evidence:
+          `Trending handicap ${trend.firstTrending.toFixed(1)} at the record's start, ` +
+          `${trend.lastTrending.toFixed(1)} now, across ${trend.points} differentials ` +
+          `(mean of the first 20: ${trend.firstMean.toFixed(1)}; the last 20: ${trend.lastMean.toFixed(1)}). ` +
+          `Meanwhile the raw 18-hole mean moved from ${first?.meanStrokes.toFixed(1)} (${first?.year}, ` +
+          `${first?.rounds} rounds) to ${last?.meanStrokes.toFixed(1)} (${last?.year}, ${last?.rounds}).`,
+        roast: harderGolf
+          ? `Five years took ${(trend.firstTrending - trend.lastTrending).toFixed(0)} strokes off the ` +
+            `handicap and ${rawMoved === null ? "?" : rawMoved.toFixed(1)} off the scorecard. You did not ` +
+            "learn to score, you learned to lose by the same amount at harder courses."
+          : null,
+        falsifiedBy: better
+          ? "A capture whose trending handicap ends no lower than it starts."
+          : "A capture whose trending handicap ends lower than it starts.",
+      });
+    }
+
+    const withPutts = scored.filter((r) => r.putts !== null);
+    const pp = puttsPerRound(withPutts);
+    const meanStrokesWithPutts =
+      withPutts.length > 0
+        ? withPutts.reduce((a, r) => a + (r.strokes as number), 0) / withPutts.length
+        : null;
+    const tp = threePuttShare(roundHistory.rounds);
+    if (
+      pp !== null &&
+      meanStrokesWithPutts !== null &&
+      pp / meanStrokesWithPutts >= PROFILE_THRESHOLDS.puttShare
+    ) {
+      const share = pp / meanStrokesWithPutts;
+      const tpShare = tp.holes > 0 ? tp.threePutts / tp.holes : null;
+      add({
+        id: "putt-share",
+        lens: "course",
+        confidence: "high",
+        coverage: withPutts.length / Math.max(scored.length, 1),
+        claim:
+          "Putting is the biggest single line item in the score: " +
+          `${pct(share)} of all strokes happen on the green.`,
+        evidence:
+          `${withPutts.length} eighteen-hole rounds carry putts: ${pp.toFixed(1)} per round ` +
+          `against a ${meanStrokesWithPutts.toFixed(1)} mean score.` +
+          (tpShare === null
+            ? ""
+            : ` ${tp.threePutts} holes took three or more putts, of ${tp.holes} recorded — ` +
+              `one in ${Math.round(1 / tpShare)}.`),
+        roast:
+          tpShare !== null && tpShare >= PROFILE_THRESHOLDS.threePuttShare
+            ? `${pp.toFixed(1)} putts a round, and a three-putt every ` +
+              `${Math.round(1 / tpShare)} holes. The greens are charging a second green fee.`
+            : null,
+        falsifiedBy:
+          `A capture with putts under ${pct(PROFILE_THRESHOLDS.puttShare)} of strokes, or ` +
+          `three-putts under one hole in ${Math.round(1 / PROFILE_THRESHOLDS.threePuttShare)}.`,
+      });
+    }
+
+    const fw = fairwaySplit(roundHistory.rounds);
+    if (fw.classified >= 500) {
+      const off = fw.left + fw.right + fw.missed;
+      const sym = Math.abs(fw.left - fw.right) / Math.max(off, 1);
+      add({
+        id: "tee-two-way",
+        lens: "course",
+        confidence: "high",
+        coverage: fw.classified / Math.max(fw.classified + fw.unclassified, 1),
+        claim:
+          sym < 0.15
+            ? "The tee ball misses both ways in nearly equal measure — the course-side echo of the range's two-way miss, and the one pattern aiming off cannot fix."
+            : fw.left > fw.right
+              ? "The tee ball's miss leans left."
+              : "The tee ball's miss leans right.",
+        evidence:
+          `${fw.classified} driven holes carry a fairway result: ${pct(fw.hit / fw.classified)} hit, ` +
+          `${pct(fw.left / fw.classified)} missed left, ${pct(fw.right / fw.classified)} missed right` +
+          (fw.missed > 0 ? `, ${pct(fw.missed / fw.classified)} marked missed without a side` : "") +
+          `. ${fw.unclassified} holes carry codes outside Grint's own legend and are excluded.`,
+        roast:
+          sym < 0.15
+            ? `${fw.left} fairways missed left, ${fw.right} missed right. At least the misses are fair.`
+            : null,
+        falsifiedBy:
+          "A capture where one side owns two-thirds of the misses, or the hit rate moves by five points.",
+      });
+    }
+  }
+
   // ── practice, which is the profile's own to-do list ───────────────────────
 
   const openTasks = tasks.filter((t) => !t.done);
@@ -716,9 +859,9 @@ export function buildProfile({
   findings.sort((a, b) => b.weight - a.weight || a.id.localeCompare(b.id));
 
   return {
-    spec: buildSpec({ shots, trusted, sessions, drawn, history, coverage }),
+    spec: buildSpec({ shots, trusted, sessions, drawn, history, roundHistory, coverage }),
     findings,
-    unknowns: buildUnknowns(history, bag),
+    unknowns: buildUnknowns(history, roundHistory, bag),
     sources: [
       {
         label: "Range",
@@ -737,6 +880,18 @@ export function buildProfile({
             label: "Courses",
             detail: "not snapshotted — run `pnpm ingest:courses` inside the mackenzie repo",
           },
+      roundHistory
+        ? {
+            label: "Rounds",
+            detail:
+              `${roundHistory.rounds.length} dated scorecards, ` +
+              `${roundHistory.rounds[0]?.date} to ${roundHistory.rounds[roundHistory.rounds.length - 1]?.date}, ` +
+              `from the Grint export bundle, captured ${roundHistory.capturedAt.slice(0, 10)}`,
+          }
+        : {
+            label: "Rounds",
+            detail: "not snapshotted — run `pnpm ingest:rounds` inside the mackenzie repo",
+          },
     ],
     rangeOnly: history === null,
   };
@@ -748,6 +903,7 @@ function buildSpec({
   sessions,
   drawn,
   history,
+  roundHistory,
   coverage,
 }: {
   shots: LedgerShot[];
@@ -755,6 +911,7 @@ function buildSpec({
   sessions: LedgerSession[];
   drawn: ClubProfile[];
   history: CourseHistory | null;
+  roundHistory: RoundHistory | null;
   coverage: BagCoverage | null;
 }): SpecLine[] {
   const longest = drawn[0] ?? null;
@@ -808,6 +965,27 @@ function buildSpec({
       },
     );
   }
+
+  if (roundHistory) {
+    const trend = differentialTrend(roundHistory);
+    lines.push({
+      label: "Handicap index",
+      value: roundHistory.handicapIndex === null ? "—" : roundHistory.handicapIndex.toFixed(1),
+      note:
+        trend && trend.firstTrending !== null
+          ? `WHS, from ${trend.firstTrending.toFixed(1)} at the record's start`
+          : "WHS",
+    });
+    const first = roundHistory.rounds[0];
+    const last = roundHistory.rounds[roundHistory.rounds.length - 1];
+    if (first && last) {
+      lines.push({
+        label: "Scored span",
+        value: `${first.date} → ${last.date}`,
+        note: `${roundHistory.rounds.length} dated rounds`,
+      });
+    }
+  }
   return lines;
 }
 
@@ -829,16 +1007,31 @@ function favouriteName(history: CourseHistory): string {
  * something the record can support; this is what it structurally cannot, listed
  * so that nobody — including a later session of this project — mistakes silence
  * for a finding. */
-function buildUnknowns(history: CourseHistory | null, bag: BagSpec | null): Unknown[] {
+function buildUnknowns(
+  history: CourseHistory | null,
+  roundHistory: RoundHistory | null,
+  bag: BagSpec | null,
+): Unknown[] {
   const unknowns: Unknown[] = [
-    {
-      id: "short-game",
-      question: "How much of the score is the short game?",
-      why:
-        "A range export has no putts, no chips and no bunker shots. On any ordinary " +
-        "scorecard those are around half the strokes, and none of them are here.",
-      needs: "Shot-level on-course data, or a hand-kept putts-and-ups card.",
-    },
+    roundHistory
+      ? {
+          id: "short-game",
+          question: "How much of the score is the chipping and the sand?",
+          why:
+            "The scorecards now carry putts per hole, so the green's share of the score is a " +
+            "finding rather than a gap. Everything between the fairway and the green is still " +
+            "invisible: chips, pitches, bunker shots and penalties all hide inside the strokes " +
+            "column with nothing to separate them.",
+          needs: "Shot-level on-course data, or a hand-kept ups-and-downs card.",
+        }
+      : {
+          id: "short-game",
+          question: "How much of the score is the short game?",
+          why:
+            "A range export has no putts, no chips and no bunker shots. On any ordinary " +
+            "scorecard those are around half the strokes, and none of them are here.",
+          needs: "Shot-level on-course data, or a hand-kept putts-and-ups card.",
+        },
     {
       id: "lies",
       question: "What happens from a real lie?",
@@ -879,24 +1072,32 @@ function buildUnknowns(history: CourseHistory | null, bag: BagSpec | null): Unkn
   }
 
   if (history) {
-    unknowns.push(
-      {
+    /* "Is the golf getting better?" retired 2026-08-15: the round snapshot
+     * carries dates, so the answer is a finding now (see `trajectory`). */
+    if (!roundHistory) {
+      unknowns.push({
         id: "round-dates",
         question: "Is the golf getting better?",
         why:
           "The course snapshot carries an average per layout, not a round-by-round history " +
           "with dates, so nothing here can be plotted against time or against a practice session.",
-        needs: "Round-level scores with dates — the Grint HAR extractor in the parent repo's NEXT.md.",
-      },
-      {
-        id: "par-and-tees",
-        question: "Is a score of 88 good on this course?",
-        why:
-          "The snapshot has no par, no yardage and no tee for any layout, so every average " +
+        needs: "Round-level scores with dates — `pnpm ingest:rounds`, run inside the mackenzie repo.",
+      });
+    }
+    unknowns.push({
+      id: "par-and-tees",
+      question: "Is a score of 88 good on this course?",
+      why: roundHistory
+        ? "The rounds carry a course, a tee name and a differential, but still no par or " +
+          "yardage per layout, so a raw score is only comparable through the handicap math, " +
+          "never on the card's own terms."
+        : "The snapshot has no par, no yardage and no tee for any layout, so every average " +
           "is compared against every other average as though all 18-hole golf were equal.",
-        needs: "Par and rating/slope per layout, which The Grint has and the paste did not carry.",
-      },
-    );
+      needs: roundHistory
+        ? "Par and rating/slope per tee. The export's get_course_data calls came back empty " +
+          "for guessed tee ids — the real tee ids the scorecard page loads by JS are the missing key."
+        : "Par and rating/slope per layout, which The Grint has and the paste did not carry.",
+    });
   } else {
     unknowns.push({
       id: "no-course-half",

@@ -20,6 +20,7 @@ import { fileURLToPath } from "node:url";
 import { readBag } from "../lib/bag-file";
 import type { CourseHistory } from "../lib/course-history";
 import type { LedgerSession, LedgerShot } from "../lib/ledger";
+import type { RoundHistory } from "../lib/round-history";
 import { buildProfile, type GolferProfile } from "../lib/profile";
 import { applyHeuristics, buildBag, detectGaps } from "../lib/stats";
 import { buildTasks } from "../lib/tasks";
@@ -132,7 +133,6 @@ function main(): number {
   const profiles = buildBag(shots);
   const bag = readBag(join(ROOT, "data"));
   const gaps = detectGaps(profiles, undefined, bag);
-  const tasks = buildTasks({ profiles, gaps, shots, sessions, bag });
 
   let history: CourseHistory | null = null;
   try {
@@ -144,7 +144,27 @@ function main(): number {
     );
   }
 
-  const profile = buildProfile({ shots, sessions, profiles, gaps, tasks, history, bag });
+  let roundHistory: RoundHistory | null = null;
+  try {
+    roundHistory = load<RoundHistory>("round-history.json");
+  } catch {
+    console.warn(
+      "no data/round-history.json — no round-by-round half. " +
+        "Run `pnpm ingest:rounds` inside the mackenzie repo for it.",
+    );
+  }
+
+  const tasks = buildTasks({ profiles, gaps, shots, sessions, bag, roundHistory });
+  const profile = buildProfile({
+    shots,
+    sessions,
+    profiles,
+    gaps,
+    tasks,
+    history,
+    roundHistory,
+    bag,
+  });
   const next = render(profile);
 
   let prev = "";
