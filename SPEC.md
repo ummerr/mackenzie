@@ -159,7 +159,7 @@ Grint list and your single most-played course at 10 rounds; `revealed` and
 | Esri World Imagery | satellite basemap | none | free, attribution required | **in use** |
 | Esri Boundaries & Places | label overlay | none | free, attribution required | **in use** |
 | Hand curation | architect, year, championships, rankings, notes | — | time | **in use**, 25/84 |
-| Grint export extension | per-round + hole-level scores, all stats views, handicap record, course/tee data | logged-in browser tab | one popup click | **capture built** — `grint-extension/`, bundle inventoried by `grint:inventory`; parser not yet built |
+| Grint export extension | per-round + hole-level scores, dates, putts, fairway codes, differentials | logged-in browser tab | one popup click | **in use** — `grint-extension/` captures, `parse-grint-export.mjs` emits `rounds.json`; yardages snapshots it via `pnpm ingest:rounds` |
 | Golf Digest / Golfweek / Top100 | published rankings | none | brittle scrape, licence gray | *not built* |
 | Garmin R50 | shot telemetry | OAuth | unproven | *not built* |
 
@@ -177,10 +177,11 @@ flags[]`.
 **`facilities.json`** → `{ capturedAt, facilities: [...] }` where each has
 `slug, grintName, locality, region, country, layoutSlugs[], aliases[]`.
 
-The export-extension parser becomes the second adapter: `grint-extension/`
-captures a verbatim `grint-export-*.json` bundle into `data/raw/`, and
-`parse-grint-export.mjs` (not yet built) parses it. It will add per-round records,
-which is a new file (`rounds.json`) rather than a change to these two.
+The export-extension parser is the second adapter: `grint-extension/` captures
+a verbatim `grint-export-*.json` bundle into `data/raw/`, and
+`parse-grint-export.mjs` parses it into per-round records — the new file
+`data/rounds.json` (dates, per-hole strokes/putts/fairway codes, and the
+handicap-differential series in chart order), never a change to these two.
 
 ---
 
@@ -267,13 +268,15 @@ Everything above this line exists. Everything below does not.
 published rankings for the top 25. Capture the bucket list. Compute the physical
 vectors from geometry already on disk.
 
-**Phase 3 — rounds.** Capture side is built: `grint-extension/` scrapes the
-classic client from a logged-in tab (trend views, scorecards, handicap,
-`/ajax/get_course_data`) into a `grint-export-*.json` bundle in `data/raw/`.
-Remaining: run the first capture, then write `parse-grint-export.mjs` against
-the real markup. Adds `rounds.json`: dates, per-round scores, ideally
-hole-level. This is the first data that makes the map a record of *when*
-rather than only *whether*.
+**Phase 3 — rounds.** Done end to end on the data side: `grint-extension/`
+scrapes the classic client from a logged-in tab into a `grint-export-*.json`
+bundle, and `parse-grint-export.mjs` emits `data/rounds.json` — 166 rounds
+with dates, per-hole strokes/putts/fairway codes, and 151 handicap
+differentials. Yardages snapshots it (`pnpm ingest:rounds` →
+`round-history.json`) and the profile now answers "is the golf getting
+better" with numbers. Still open: the map itself does not draw rounds yet,
+and no layout carries par or rating/slope (the export's `get_course_data`
+calls need real tee ids, which the scorecard page only loads by JS).
 
 **Phase 4 — shots.** Garmin R50. Unproven: `gravityDopeRat/api/_lib/integrations/
 garmin/` establishes the auth pattern worth copying — bootstrap MFA locally once,

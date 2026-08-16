@@ -10,12 +10,13 @@
  * ---------------------------------------------------------------------------
  * ADAPTER SEAM
  * ---------------------------------------------------------------------------
- * This is one implementation of a Grint *source adapter*. The second capture
- * path now exists — the Chrome extension in ../grint-extension/ downloads a
- * grint-export-*.json bundle into data/raw/ (inventoried by
- * inventory-grint-export.mjs). When its parser lands (parse-grint-export.mjs),
- * it becomes a second adapter emitting the SAME two files with the same field
- * names, and nothing downstream — geocode, osm, build, the map — changes.
+ * This is one implementation of a Grint *source adapter*. The second exists:
+ * the Chrome extension in ../grint-extension/ downloads a grint-export-*.json
+ * bundle into data/raw/ (inventoried by inventory-grint-export.mjs), and
+ * parse-grint-export.mjs parses it — emitting per-round records as the NEW
+ * file data/rounds.json, never touching the two spine files above. Nothing
+ * downstream — geocode, osm, build, the map — changes shape because a second
+ * source arrived.
  *
  * The contract an adapter must satisfy is documented in SPEC.md § Adapter contract.
  *

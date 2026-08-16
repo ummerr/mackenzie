@@ -49,11 +49,10 @@ HTML, licence gray area, hard name-matching problem).
 
 ## Then
 
-- **Run the first Grint capture.** Load `grint-extension/` unpacked in Chrome,
-  log in at thegrint.com, click **Scrape all**, move the downloaded
-  `grint-export-*.json` to `data/raw/`, run `npm run grint:inventory`, commit
-  the bundle if it passes. That first real bundle is what unblocks
-  `parse-grint-export.mjs` (see "Deliberately not doing yet").
+- **Re-capture Grint monthly-ish.** The loop is one click end to end now:
+  extension → `data/raw/grint-export-*.json` → `npm run grint:inventory` →
+  `npm run rounds` → `cd yardages && pnpm ingest:rounds && pnpm run profile`,
+  commit what changed. Each capture retires or sharpens profile findings.
 - **Deploy.** `vercel.json` is written and the site is fully static. Needs
   `vercel link`, a deploy, a subdomain (`courses.ummerr.com`), and a new `P-NN`
   row in `ummerr.github.io/index.html` next to the existing P-07 Golf card at
@@ -76,12 +75,13 @@ HTML, licence gray area, hard name-matching problem).
   `data/geocode-overrides.json` once you know where they are.
 - **Feed the profile.** `yardages/PROFILE.md` and `/profile` derive one golfer
   from both halves of this repo, and its own "what the record cannot say"
-  section is a to-do list for this file. The two that would change it most:
-  round-level scores with dates (the Grint export bundle, below) would let the
-  golf be plotted against time instead of averaged; par and rating/slope per
-  layout would make an 88 mean something. Re-run `cd yardages && pnpm
-  ingest:courses && pnpm run profile` after any map pipeline change, or the
-  profile quotes a course record that has moved on.
+  section is a to-do list for this file. Round-level scores with dates landed
+  2026-08-15 (`data/rounds.json` → `pnpm ingest:rounds`), which retired "is
+  the golf getting better". The one that would change it most now: par and
+  rating/slope per tee, which would make an 88 mean something on the card's
+  own terms. Re-run `cd yardages && pnpm ingest:courses && pnpm ingest:rounds
+  && pnpm run profile` after any map pipeline change or new capture, or the
+  profile quotes a record that has moved on.
 - **Two overrides are inferred, not confirmed** — `tierra-rejada-golf-club`
   matched an OSM polygon tagged "Golf Development Complex" on the right road,
   and `lanier-islands-golf-course` is the centre of four *unnamed* golf ways on
@@ -112,11 +112,12 @@ HTML, licence gray area, hard name-matching problem).
 
 ## Deliberately not doing yet
 
-- **parse-grint-export.mjs** — the second adapter. The capture side exists
-  (`grint-extension/` downloads a `grint-export-*.json` bundle; `npm run
-  grint:inventory` validates it), but the parser must be written against a
-  *real* captured bundle, and none has been committed yet. Run the extension
-  first; the inventory output is the parser's spec.
+- **Tee ids for `get_course_data`** — the export's course-metadata calls used
+  a guessed tee index of 1 and came back empty; the real tee ids are loaded
+  by the scorecard page's JS at runtime. Finding where that JS gets them
+  (another `/ajax/*` action, most likely) is the key to par, rating and
+  slope per tee — the profile's last big unknown. Needs one DevTools session
+  on a scorecard page, not more scraping code.
 - **Garmin R50** — no shot data exists anywhere in the tree and the export path
   is unproven. Needs its own recon before any code.
 - **courseRender as a base** — the right move for the strategy phase, wrong move
@@ -127,3 +128,4 @@ HTML, licence gray area, hard name-matching problem).
 - **2026-08-02** — session ended: 18 file(s) dirty, 0 commit(s) unpushed. Last touched: `.claude/scheduled_tasks.lock`. <!-- campfire:2026-08-02 -->
 - **2026-08-03** — session ended: 3 file(s) dirty, 1 commit(s) unpushed. Last touched: `.claude/scheduled_tasks.lock`. <!-- campfire:2026-08-03 -->
 - **2026-08-14** — session ended: 9 file(s) dirty, 0 commit(s) unpushed. Last touched: `DECISIONS.md`. <!-- campfire:2026-08-14 -->
+- **2026-08-15** — session ended: 1 file(s) dirty, 2 commit(s) unpushed. Last touched: `yardages/NEXT.md`. <!-- campfire:2026-08-15 -->

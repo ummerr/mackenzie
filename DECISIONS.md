@@ -6,6 +6,45 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-15 — rounds.json exists, and the profile finally has dates
+
+**Decided:** `scripts/parse-grint-export.mjs` is the second Grint adapter. It
+parses the newest `data/raw/grint-export-*.json` into `data/rounds.json` —
+166 rounds, 2021-07-08 to 2026-07-26, each with date, course, tee name, and
+per-hole strokes/putts/fairway codes lifted from the scorecard edit forms —
+plus the 151 handicap differentials from the trend chart, in chart order, as
+a SEPARATE array. Yardages snapshots it (`pnpm ingest:rounds` →
+`data/round-history.json`, `lib/round-history.ts`), and the profile grew
+three findings (the trajectory, the putt share, the two-way tee miss), two
+spec lines (handicap index 12.9, the scored span), one scoring practice task
+(the three-putt drill), and retired "Is the golf getting better?" from the
+unknowns — the whole point of the exercise.
+
+**Why:** the differentials are the one number in the record that normalises
+for course difficulty, and they carried the headline the raw scores hid:
+trending handicap 23.9 → 12.9 while the yearly 18-hole means moved two
+strokes. Fairway codes decode from the form's own hidden inputs (lval=1
+rval=2 hval=3 mval=4), so left/right/hit is Grint's classification, not
+ours. A nine-hole card stores "0" on the unplayed nine, so zero-on-a-hole
+means "not played", read as such by the parser and the snapshot both.
+
+**Rejected:** joining differentials to rounds by position — the chart has
+its own row count (combined scores once, short rounds absent) and a guessed
+join is invented data; two arrays, two provenances, one file. Also rejected:
+emitting layouts/facilities from this adapter (the paste already does, and
+two writers to one spine file is a race); using the bundle's
+`get_course_data` payloads (fetched with a guessed tee index of 1, they came
+back empty — recorded, ignored, and the real tee ids are now a NEXT.md item);
+codes 7 and 8 in the fairway column (outside Grint's own legend, so they
+count as unclassified rather than as misses).
+
+**Cost accepted:** still no par, rating or slope per tee, so a raw score is
+only comparable through the handicap math — the profile says so in its own
+unknowns. The trajectory finding leans on a 4-round 2026 sample for its raw
+mean, printed with its n so nobody mistakes it for more than it is.
+
+---
+
 ## 2026-08-14 — A popup click replaces the HAR: the Grint extractor is a Chrome extension
 
 **Decided:** the second Grint source adapter's *capture* half is a Chrome MV3
