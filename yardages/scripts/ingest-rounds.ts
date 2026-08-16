@@ -55,6 +55,10 @@ interface SourceRounds {
     countsTowardHdcp: boolean | null;
     trendingHdcp: number | null;
   }[];
+  series?: {
+    girPerRound: { courseName: string | null; value: number }[];
+    parSavesPct: { courseName: string | null; value: number }[];
+  };
 }
 
 /** "" and "0"-on-an-unplayed-hole become null; everything else a number. */
@@ -103,6 +107,7 @@ function main(): number {
     handicapIndex: src.handicapIndex,
     rounds,
     differentials: src.differentials,
+    ...(src.series ? { series: src.series } : {}),
   };
 
   const scored = eighteenHole(history);

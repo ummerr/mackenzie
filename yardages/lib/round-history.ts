@@ -47,6 +47,11 @@ export interface DifferentialPoint {
   trendingHdcp: number | null;
 }
 
+export interface TrendPoint {
+  courseName: string | null;
+  value: number;
+}
+
 export interface RoundHistory {
   capturedAt: string;
   source: string;
@@ -54,6 +59,13 @@ export interface RoundHistory {
   /** Ascending by date. */
   rounds: PlayedRound[];
   differentials: DifferentialPoint[];
+  /** Per-round series from Grint's own charts, in chart order — same
+   *  provenance rule as the differentials: never joined to rounds.
+   *  Absent on snapshots taken before 2026-08-16. */
+  series?: {
+    girPerRound: TrendPoint[];
+    parSavesPct: TrendPoint[];
+  };
 }
 
 /** Grint's fairway codes, as declared by its own form (lval/rval/hval/mval). */

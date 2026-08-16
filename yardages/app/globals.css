@@ -53,6 +53,10 @@
    * stay readable. */
   --accent: light-dark(#ff6b35, #ff6b35);
   --accent-ink: light-dark(#b8420f, #ff6b35);
+  /* Second chart series (differential dots on /scratch). Blue, not green or
+   * gray: orange↔green fails deutan CVD separation and a gray fails the
+   * chroma floor — both validated pairs, see DECISIONS 2026-08-16. */
+  --chart-2: light-dark(#1e6ea1, #3b99cc);
 
   /* ── the hole ───────────────────────────────────────────────────────────────
    * Scenery for the bag chart, never an encoding. The fairway is lighter than
