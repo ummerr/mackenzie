@@ -172,24 +172,25 @@ export function parseTotalOnlyScorecard(html, meta, url) {
  * Points look like {y:23.9,name:'Wedgwood Country Club'} with optional
  * , color: '#A7CF3F' — names may contain \' escapes.
  */
+const POINT_RE = /\{y:([\d.]+),name:'((?:[^'\\]|\\.)*)'(?:,\s*color:\s*'[^']*')?\}/g;
+
+/** The named series' data points out of a view's inline chart scripts. */
+export function parseSeries(scripts, name) {
+  const blob = scripts.join("\n");
+  // The data: [...] array that follows the `name: '<name>'` declaring it.
+  const re = new RegExp(`name:\\s*'${name}'[\\s\\S]{0,200}?data:\\s*\\[([\\s\\S]*?)\\]`, "");
+  const m = blob.match(re);
+  if (!m) return null;
+  const pts = [];
+  for (const p of m[1].matchAll(POINT_RE)) {
+    pts.push({ y: Number(p[1]), name: decodeEntities(p[2].replace(/\\'/g, "'")) });
+  }
+  return pts;
+}
+
 export function parseDifferentials(scripts) {
   const blob = scripts.join("\n");
-  const point = /\{y:([\d.]+),name:'((?:[^'\\]|\\.)*)'(?:,\s*color:\s*'[^']*')?\}/g;
-
-  function seriesData(name) {
-    // The data: [...] array that follows the LAST `name: '<name>'` before it.
-    const re = new RegExp(
-      `name:\\s*'${name}'[\\s\\S]{0,200}?data:\\s*\\[([\\s\\S]*?)\\]`,
-      "",
-    );
-    const m = blob.match(re);
-    if (!m) return null;
-    const pts = [];
-    for (const p of m[1].matchAll(point)) {
-      pts.push({ y: Number(p[1]), name: decodeEntities(p[2].replace(/\\'/g, "'")) });
-    }
-    return pts;
-  }
+  const seriesData = (name) => parseSeries(scripts, name);
 
   const differential = seriesData("Hdcp Differential");
   const counts = seriesData("Counts towards Hdcp");
@@ -248,6 +249,19 @@ function main() {
   );
   const { handicapIndex, points } = parseDifferentials(trend?.payload.scripts ?? []);
 
+  // Two per-round series the scorecards don't carry (GIR needs par, saves need
+  // green-missed context) but Grint's own charts do — kept in chart order,
+  // same provenance rule as the differentials: never joined to rounds.
+  const viewScripts = (view) =>
+    bundle.resources.find((r) => r.kind === "trend" && r.meta.view === view)?.payload.scripts ??
+    [];
+  const toSeries = (pts) =>
+    (pts ?? []).map((p) => ({ courseName: p.name || null, value: p.y }));
+  const series = {
+    girPerRound: toSeries(parseSeries(viewScripts("gir"), "GIR per round")),
+    parSavesPct: toSeries(parseSeries(viewScripts("scrambling_par_saves"), "Par Saves %")),
+  };
+
   const out = {
     source: "thegrint",
     adapter: "parse-grint-export.mjs",
@@ -257,6 +271,7 @@ function main() {
     handicapIndex,
     rounds,
     differentials: points,
+    series,
   };
   writeFileSync(OUT, `${JSON.stringify(out, null, 2)}\n`);
 
@@ -271,6 +286,7 @@ function main() {
   console.log(`with a date   ${dated}`);
   console.log(`with putts    ${withPutts}`);
   console.log(`differentials ${points.length}  handicap index ${handicapIndex ?? "?"}`);
+  console.log(`series        gir ${series.girPerRound.length}, par saves ${series.parSavesPct.length}`);
   if (flagged.length > 0) {
     const byFlag = {};
     for (const r of flagged) for (const f of r.flags) byFlag[f] = (byFlag[f] || 0) + 1;
