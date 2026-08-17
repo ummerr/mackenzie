@@ -8,7 +8,7 @@ import { ExclusionPicker } from "./picker";
  * to be legible: this page exists so a bad shot can be excluded or a good one
  * rescued, and nothing else. */
 
-export const metadata = { title: "Sessions — Yardages" };
+export const metadata = { title: "Sessions — Mackenzie" };
 
 function load<T>(name: string): T {
   return JSON.parse(readFileSync(join(process.cwd(), "data", name), "utf8")) as T;

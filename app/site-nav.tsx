@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-/* The three sections, once. Rendered twice — inline in the masthead from `sm`
+/* The sections, once. Rendered twice — inline in the masthead from `sm`
  * up, and as a tab strip under it below that — because a phone cannot fit the
- * wordmark, three links and the theme control on one 360px line without one of
+ * wordmark, the links and the theme control on one 360px line without one of
  * them becoming unreadable or untappable.
  *
  * The strip is where a scorecard already puts its sections: a row of equal
@@ -16,9 +16,10 @@ import { usePathname } from "next/navigation";
  */
 
 const SECTIONS = [
-  { href: "/", label: "Bag" },
+  { href: "/", label: "Profile" },
+  { href: "/bag", label: "Bag" },
   { href: "/practice", label: "Practice" },
-  { href: "/profile", label: "Profile" },
+  { href: "/courses", label: "Courses" },
   { href: "/scratch", label: "Scratch" },
   { href: "/sessions", label: "Sessions" },
 ] as const;

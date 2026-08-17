@@ -20,7 +20,7 @@ import {
  */
 
 export const metadata = {
-  title: "Scratch — Yardages",
+  title: "Scratch — Mackenzie",
   description:
     "The road from a 12.9 index to scratch, ranked by what each gap costs, on the record's own arithmetic.",
 };

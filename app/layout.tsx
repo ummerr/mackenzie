@@ -18,8 +18,9 @@ const FAVICON =
   );
 
 export const metadata: Metadata = {
-  title: "YARDAGES — every shot I've hit",
-  description: "A longitudinal shot ledger for Garmin Approach R50 range sessions.",
+  title: "MACKENZIE — every shot and every course",
+  description:
+    "One golfer, derived from both halves of the record: the shot ledger and the course history.",
   icons: { icon: FAVICON },
 };
 
@@ -67,20 +68,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 href="/"
                 className="font-serif text-[23px] leading-none tracking-[0.02em] sm:text-[27px]"
               >
-                YARD<span className="text-accent-ink">AGES</span>
+                MAC<span className="text-accent-ink">KENZIE</span>
               </Link>
               <InlineNav />
             </div>
             <div className="flex items-center gap-4 sm:gap-5">
               <ThemeToggle />
-              <a
-                href="https://courses.ummerr.com/"
-                className="stamp text-ink-3 hover:text-accent-ink"
-              >
-                {/* The word is the link on a phone; the arrow alone would be a
-                    16px target with nothing to read. */}
-                Mackenzie<span className="hidden sm:inline"> ↗</span>
-              </a>
             </div>
           </div>
           <TabStrip />

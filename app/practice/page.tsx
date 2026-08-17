@@ -11,7 +11,7 @@ import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
 import { buildTasks, type Task, type TaskCategory } from "@/lib/tasks";
 
 export const metadata = {
-  title: "Practice — Yardages",
+  title: "Practice — Mackenzie",
   description: "What to hit next, derived from the ledger.",
 };
 
