@@ -3,8 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#0a0a09">
+<meta name="theme-color" content="#f7f4ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script>
+/* Same blocking theme stamp as app/layout.tsx, so the shared header band lands
+   in the right palette on the first frame. The map below stays dark either way. */
+try{var t=localStorage.getItem("theme");if(t==="dark"||t==="auto"||t==="light")document.documentElement.dataset.theme=t}catch(e){}
+</script>
 <title>MACKENZIE — every course I've played</title>
 <meta name="description" content="A mapped, sourced, multi-vector history of every golf course I've played.">
 
@@ -25,16 +30,34 @@
 </head>
 <body>
 
-<header class="head">
-  <div class="wordmark">MAC<span>KENZIE</span></div>
-  <nav class="head-nav" aria-label="Site">
+<!-- The same masthead as every app page — markup and metrics replicate
+     app/layout.tsx + app/site-nav.tsx, palette scoped in map.css. -->
+<header class="site-head">
+  <div class="site-head-row">
+    <div class="site-head-left">
+      <a class="site-wordmark" href="/">MAC<span>KENZIE</span></a>
+      <nav class="site-nav" aria-label="Site">
+        <a href="/">Profile</a>
+        <a href="/bag">Bag</a>
+        <a href="/practice">Practice</a>
+        <a href="/courses" aria-current="page">Courses</a>
+        <a href="/scratch">Scratch</a>
+        <a href="/sessions">Sessions</a>
+      </nav>
+    </div>
+    <button class="site-theme" id="theme-toggle" type="button" aria-label="Theme"></button>
+  </div>
+  <nav class="site-tabs" aria-label="Site">
     <a href="/">Profile</a>
     <a href="/bag">Bag</a>
     <a href="/practice">Practice</a>
+    <a href="/courses" aria-current="page">Courses</a>
+    <a href="/scratch">Scratch</a>
     <a href="/sessions">Sessions</a>
   </nav>
-  <div class="head-stats" id="head-stats"></div>
 </header>
+
+<div class="head-stats" id="head-stats"></div>
 
 <div id="map"></div>
 
@@ -67,6 +90,43 @@ window.addEventListener("unhandledrejection", function (e) {
   var b = document.getElementById("boot");
   if (b && !b.hidden) b.textContent = "unhandled: " + ((e.reason && e.reason.message) || e.reason);
 });
+
+/* The header's theme toggle — a vanilla replica of app/theme-toggle.tsx.
+   Same three states, same glyphs, same localStorage key, so the choice made
+   here follows you back into the app and vice versa. */
+(function () {
+  var ORDER = ["light", "dark", "auto"];
+  var LABEL = { light: "Day", dark: "Dusk", auto: "Auto" };
+  var TITLE = {
+    light: "Light. Click for dark.",
+    dark: "Dark. Click to follow the system.",
+    auto: "Following the system. Click for light.",
+  };
+  var GLYPH = {
+    light: '<svg width="9" height="9" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><circle cx="5" cy="5" r="3.4" fill="currentColor"/></svg>',
+    dark: '<svg width="9" height="9" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M7.6 6.6A3.9 3.9 0 0 1 3.4 1.1a4 4 0 1 0 4.2 5.5Z" fill="currentColor"/></svg>',
+    auto: '<svg width="9" height="9" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><circle cx="5" cy="5" r="3.4" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 1.6a3.4 3.4 0 0 1 0 6.8Z" fill="currentColor"/></svg>',
+  };
+  var btn = document.getElementById("theme-toggle");
+  if (!btn) return;
+  var theme = "light";
+  try {
+    var t = localStorage.getItem("theme");
+    if (ORDER.indexOf(t) >= 0) theme = t;
+  } catch (e) { /* private browsing */ }
+  function render() {
+    btn.innerHTML = GLYPH[theme] + LABEL[theme];
+    btn.title = TITLE[theme];
+    btn.setAttribute("aria-label", "Theme: " + LABEL[theme] + ". " + TITLE[theme]);
+  }
+  btn.addEventListener("click", function () {
+    theme = ORDER[(ORDER.indexOf(theme) + 1) % ORDER.length];
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem("theme", theme); } catch (e) { /* ditto */ }
+    render();
+  });
+  render();
+})();
 </script>
 <script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
 <script src="/courses/src/shared.js"></script>

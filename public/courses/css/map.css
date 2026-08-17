@@ -20,7 +20,12 @@
   --sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --rail-h: 52px;
-  --head-h: 56px;
+  /* The shared masthead: 48px row + 44px tab strip + 2px rule on a phone,
+     56px row + 2px rule from 640px up — the same metrics as app/layout.tsx. */
+  --head-h: 94px;
+}
+@media (min-width: 640px) {
+  :root { --head-h: 58px; }
 }
 
 * { box-sizing: border-box; }
@@ -35,46 +40,129 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── header ──────────────────────────────────────────────────────────────── */
+/* ── site header ─────────────────────────────────────────────────────────────
+ * A replica of the app masthead (app/layout.tsx + app/site-nav.tsx), so the
+ * map reads as one section of one site rather than a second site. The palette
+ * is the header's slice of app/globals.css, kept as the same light-dark()
+ * one-liners, with color-scheme scoped to the header element — the map below
+ * keeps its own dark satellite calibration. If the app header changes, change
+ * this block with it. Tokens are --hd-* because this file's --ink-* mean
+ * something else (dark grounds, not text). */
 
-.head {
+.site-head {
+  color-scheme: light;
+  --hd-paper-1: light-dark(#fffdf8, #131211);
+  --hd-paper-2: light-dark(#f1ece1, #1c1a18);
+  --hd-ink-0: light-dark(#161a15, #f2ede5);
+  --hd-ink-2: light-dark(#4f574c, #a9a29a);
+  --hd-ink-3: light-dark(#666d63, #8a8279);
+  --hd-line: light-dark(rgba(22, 26, 21, 0.12), rgba(242, 237, 229, 0.08));
+  --hd-line-hard: light-dark(rgba(22, 26, 21, 0.28), rgba(242, 237, 229, 0.2));
+  --hd-accent-ink: light-dark(#b8420f, #ff6b35);
+
   position: absolute;
   inset: 0 0 auto 0;
-  height: var(--head-h);
   z-index: 30;
+  background: var(--hd-paper-1);
+  border-bottom: 2px solid var(--hd-line-hard);
+}
+:root[data-theme="dark"] .site-head { color-scheme: dark; }
+:root[data-theme="auto"] .site-head { color-scheme: light dark; }
+
+.site-head-row {
   display: flex;
+  height: 48px;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 0 18px;
-  background: var(--ink-0);
-  border-bottom: 1px solid var(--line);
+  gap: 12px;
+  padding: 0 16px;
 }
-
-.wordmark {
-  font-family: var(--serif);
-  font-size: 27px;
-  letter-spacing: 0.02em;
-  line-height: 1;
-  white-space: nowrap;
-}
-.wordmark span { color: var(--accent); }
-
-/* Links back into the app: the map is one section of the merged site. */
-.head-nav {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.site-head-left {
   display: flex;
-  gap: 14px;
-  white-space: nowrap;
-  margin-right: auto;
+  align-items: baseline;
+  gap: 20px;
 }
-.head-nav a { color: var(--cream-2); text-decoration: none; }
-.head-nav a:hover { color: var(--cream-0); }
 
+.site-wordmark {
+  font-family: var(--serif);
+  font-size: 23px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--hd-ink-0);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-wordmark span { color: var(--hd-accent-ink); }
+
+/* The .stamp label style, verbatim from globals.css. */
+.site-nav a,
+.site-tabs a,
+.site-theme {
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  text-decoration: none;
+}
+
+.site-nav { display: none; }
+
+.site-tabs {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  border-top: 1px solid var(--hd-line);
+}
+.site-tabs a {
+  display: flex;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  color: var(--hd-ink-2);
+  border-right: 1px solid var(--hd-line);
+}
+.site-tabs a:last-child { border-right: 0; }
+.site-tabs a[aria-current="page"] {
+  background: var(--hd-paper-2);
+  color: var(--hd-ink-0);
+}
+
+.site-theme {
+  display: inline-flex;
+  width: 62px;
+  align-items: center;
+  gap: 6px;
+  color: var(--hd-ink-3);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.site-theme:hover { color: var(--hd-accent-ink); }
+
+@media (min-width: 640px) {
+  .site-head-row { height: 56px; padding: 0 20px; }
+  .site-wordmark { font-size: 27px; }
+  .site-nav { display: flex; gap: 16px; }
+  .site-nav a { color: var(--hd-ink-2); }
+  .site-nav a:hover,
+  .site-nav a[aria-current="page"] { color: var(--hd-ink-0); }
+  .site-tabs { display: none; }
+}
+
+/* The stats line the old header carried, now a chip on the map itself — the
+ * shared masthead has no per-page slot for it. Centered clear of the region
+ * rail (left) and the zoom control (right); the dossier covers it when open. */
 .head-stats {
+  position: absolute;
+  top: calc(var(--head-h) + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  background: var(--ink-0);
+  border: 1px solid var(--line);
+  padding: 9px 14px;
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.08em;
@@ -86,6 +174,9 @@ html, body {
   overflow: hidden;
 }
 .head-stats b { color: var(--cream-0); font-weight: 500; }
+@media (max-width: 1080px) {
+  .head-stats { display: none; }
+}
 
 /* ── map ─────────────────────────────────────────────────────────────────── */
 
