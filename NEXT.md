@@ -129,3 +129,4 @@ HTML, licence gray area, hard name-matching problem).
 - **2026-08-03** — session ended: 3 file(s) dirty, 1 commit(s) unpushed. Last touched: `.claude/scheduled_tasks.lock`. <!-- campfire:2026-08-03 -->
 - **2026-08-14** — session ended: 9 file(s) dirty, 0 commit(s) unpushed. Last touched: `DECISIONS.md`. <!-- campfire:2026-08-14 -->
 - **2026-08-15** — session ended: 1 file(s) dirty, 2 commit(s) unpushed. Last touched: `yardages/NEXT.md`. <!-- campfire:2026-08-15 -->
+- **2026-08-16** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `yardages/NEXT.md`. <!-- campfire:2026-08-16 -->
