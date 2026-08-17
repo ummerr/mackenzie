@@ -1,8 +1,8 @@
 # THE PLAYER
 
 A living spec of one golfer, derived from both halves of this repo: the shot
-ledger in `data/`, and the course history the map keeps in the parent
-directory. **Nothing here is written by hand.** `pnpm profile` regenerates it,
+ledger in `data/`, and the course history the map's pipeline builds.
+**Nothing here is written by hand.** `pnpm profile` regenerates it,
 and the diff is the point — this file exists so that a change in the golfer is
 a commit rather than a page that quietly reads differently than it did.
 
@@ -219,4 +219,4 @@ The rounds carry a course, a tee name and a differential, but still no par or ya
 - **Rounds** — 166 dated scorecards, 2021-07-08 to 2026-07-26, from the Grint export bundle, captured 2026-08-15
 
 Regenerate with `pnpm profile`. The course half comes from
-`data/course-history.json`, itself a snapshot — `pnpm ingest:courses`.
+`public/data/courses.json`, the map pipeline's artifact — `pnpm data:build`.

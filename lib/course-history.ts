@@ -1,20 +1,20 @@
 /* The course side of the profile, in the shape this app needs it.
  *
- * Yardages knows what the swing does. Mackenzie knows where it was taken and
- * what it shot. Neither half is a golfer on its own: a range ledger is a bag
- * with no scores, and a scorecard history is scores with no cause. The profile
- * is the join, so this file is the seam.
+ * The range ledger knows what the swing does. The map knows where it was taken
+ * and what it shot. Neither half is a golfer on its own: a range ledger is a
+ * bag with no scores, and a scorecard history is scores with no cause. The
+ * profile is the join, so this file is the seam.
  *
- * It is a SNAPSHOT, not a live read. `scripts/ingest-courses.ts` walks the
- * parent repo's `data/courses.json` and writes `data/course-history.json` here,
- * which is committed. The reason is the deploy: Yardages ships from its own
- * directory as its own Vercel project (README, "Deploy"), so `../data` does not
- * exist at build time on Vercel and a page that read it would render locally
- * and 500 in production. Same contract the rest of the repo already keeps —
- * generated files are committed, and a clean checkout builds with no work.
+ * `buildCourseHistory` reads the map pipeline's own artifact —
+ * `public/data/courses.json`, the same file the /courses map fetches — and
+ * reshapes it. It used to be a committed snapshot (data/course-history.json,
+ * written by an ingest script) because the app deployed from its own
+ * subdirectory and the pipeline's output was outside the deploy root; since
+ * the two sites merged into one project, the artifact is in the deploy root
+ * and the reshape happens at build time instead.
  *
- * Nothing here recomputes what the parent already decided. In particular the
- * nine-hole flags are the parent's: The Grint averages 9- and 18-hole rounds
+ * Nothing here recomputes what the pipeline already decided. In particular the
+ * nine-hole flags are the pipeline's: The Grint averages 9- and 18-hole rounds
  * into one number per layout, so a 40 and a 90 sit in the same column and any
  * mean over both is meaningless. `courses.json` marks them, this carries the
  * mark forward, and `profile.ts` splits on it rather than re-deriving it.
@@ -42,7 +42,7 @@ export interface PlayedLayout {
 }
 
 export interface CourseHistory {
-  /** When the parent repo captured the Grint paste this is derived from. */
+  /** When the Grint paste this is derived from was captured. */
   capturedAt: string;
   /** What it was derived from, for the same reason every fact carries a source. */
   source: string;
@@ -51,6 +51,92 @@ export interface CourseHistory {
   countries: string[];
   usStates: string[];
   played: PlayedLayout[];
+}
+
+/* The pipeline artifact's shape, narrowed to what is read here. Deliberately
+ * not imported from the map — it has no TypeScript to import, and a structural
+ * type written out is a record of the contract this reshape depends on. */
+export interface SourceFacility {
+  name: string;
+  slug: string;
+  region: string | null;
+  country: string;
+  played: boolean;
+  facts?: {
+    architect?: { value: string };
+    access?: { value: string };
+  };
+  layouts: {
+    grintLayoutName: string | null;
+    timesPlayed: number;
+    avgScore: number | null;
+    personalRank: number | null;
+    played: boolean;
+    flags: string[];
+    ratings: {
+      overall: number | null;
+      fun: number | null;
+      condition: number | null;
+    };
+  }[];
+}
+
+export interface SourceCourses {
+  capturedAt: string;
+  generatedFrom: string;
+  stats: { facilities: number; layouts: number; countries: string[]; usStates: string[] };
+  facilities: SourceFacility[];
+}
+
+/** Any flag that makes this layout's average incomparable to an 18-hole one. */
+const SHORT_ROUND_FLAGS = ["nine_hole_suspected", "mixed_round_lengths_suspected"];
+
+/** Reshape the map pipeline's courses.json. Nothing is recomputed — fields are
+ *  copied, renamed, and dropped; the pipeline's nine-hole flags come across as
+ *  they are. */
+export function buildCourseHistory(src: SourceCourses): CourseHistory {
+  const played: PlayedLayout[] = [];
+  for (const f of src.facilities) {
+    if (!f.played) continue;
+    for (const l of f.layouts) {
+      if (!l.played) continue;
+      played.push({
+        facility: f.name,
+        facilitySlug: f.slug,
+        layout: l.grintLayoutName,
+        region: f.region,
+        country: f.country,
+        timesPlayed: l.timesPlayed,
+        avgScore: l.avgScore,
+        shortRounds: l.flags.some((flag) => SHORT_ROUND_FLAGS.includes(flag)),
+        personalRank: l.personalRank,
+        ratingOverall: l.ratings.overall,
+        ratingFun: l.ratings.fun,
+        ratingCondition: l.ratings.condition,
+        architect: f.facts?.architect?.value ?? null,
+        access: f.facts?.access?.value ?? null,
+      });
+    }
+  }
+
+  // Bag order for courses: favourite first, and never file order, so any diff
+  // of this history is a diff of the record rather than of iteration order.
+  played.sort(
+    (a, b) =>
+      (a.personalRank ?? Infinity) - (b.personalRank ?? Infinity) ||
+      a.facilitySlug.localeCompare(b.facilitySlug) ||
+      (a.layout ?? "").localeCompare(b.layout ?? ""),
+  );
+
+  return {
+    capturedAt: src.capturedAt,
+    source: `public/data/courses.json (${src.generatedFrom})`,
+    facilities: src.stats.facilities,
+    layouts: src.stats.layouts,
+    countries: src.stats.countries,
+    usStates: src.stats.usStates,
+    played,
+  };
 }
 
 /** Rounds, not layouts: a course played nine times is nine rounds of evidence. */

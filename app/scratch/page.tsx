@@ -1,8 +1,9 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { ReactNode } from "react";
-import type { PlayedRound, RoundHistory } from "@/lib/round-history";
+import type { PlayedRound, RoundHistory, SourceRounds } from "@/lib/round-history";
 import {
+  buildRoundHistory,
   differentialTrend,
   eighteenHole,
   fairwaySplit,
@@ -12,7 +13,7 @@ import {
 } from "@/lib/round-history";
 
 /* The analysis /profile refuses to editorialise, editorialised: one question —
- * what stands between 12.9 and scratch — answered from the same snapshot,
+ * what stands between 12.9 and scratch — answered from the same record,
  * with the critique of its own evidence printed beside every claim. Same
  * contract as everything else here: nothing written by hand, every number
  * recomputed on render, every gap named with the condition that retires it.
@@ -26,9 +27,11 @@ export const metadata = {
 
 function loadRounds(): RoundHistory | null {
   try {
-    return JSON.parse(
-      readFileSync(join(process.cwd(), "data", "round-history.json"), "utf8"),
-    ) as RoundHistory;
+    return buildRoundHistory(
+      JSON.parse(
+        readFileSync(join(process.cwd(), "data", "rounds.json"), "utf8"),
+      ) as SourceRounds,
+    );
   } catch {
     return null;
   }
@@ -171,8 +174,8 @@ export default function Scratch() {
       <div className="mx-auto max-w-4xl px-4 py-6 sm:px-5 sm:py-8">
         <h1 className="font-serif text-[42px] leading-[0.9] sm:text-[56px]">THE ROAD TO SCRATCH</h1>
         <p className="mt-5 max-w-2xl text-[15px] leading-6 text-ink-1">
-          No round history has been snapshotted. Run <code className="font-mono text-[13px]">pnpm
-          ingest:rounds</code> inside the mackenzie repo, then this page derives itself.
+          No round history yet. Run <code className="font-mono text-[13px]">pnpm
+          data:rounds</code> (needs a Grint export bundle in data/raw/), then this page derives itself.
         </p>
       </div>
     );
@@ -452,8 +455,8 @@ export default function Scratch() {
       </section>
 
       <p className="mt-12 border-t pt-4 font-mono text-[11px] leading-relaxed text-ink-3 rule">
-        derived from data/round-history.json (captured {h.capturedAt.slice(0, 10)}) — itself a
-        snapshot of the parent repo&apos;s rounds.json, parsed from the Grint export bundle · GIR
+        derived from data/rounds.json (captured {h.capturedAt.slice(0, 10)}) — parsed from the
+        Grint export bundle · GIR
         and scramble rates read from TheGrint&apos;s own per-round charts · fairway codes decoded
         from the scorecard form&apos;s own legend (1 left · 2 right · 3 hit · 4 missed) · every
         claim above carries the condition that retires it

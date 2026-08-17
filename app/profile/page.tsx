@@ -1,10 +1,18 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { readBag } from "@/lib/bag-file";
-import type { CourseHistory } from "@/lib/course-history";
+import {
+  buildCourseHistory,
+  type CourseHistory,
+  type SourceCourses,
+} from "@/lib/course-history";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
 import { buildProfile, type Finding, type Unknown } from "@/lib/profile";
-import type { RoundHistory } from "@/lib/round-history";
+import {
+  buildRoundHistory,
+  type RoundHistory,
+  type SourceRounds,
+} from "@/lib/round-history";
 import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
 import { buildTasks } from "@/lib/tasks";
 
@@ -18,12 +26,16 @@ function load<T>(name: string): T {
   return JSON.parse(readFileSync(join(process.cwd(), "data", name), "utf8")) as T;
 }
 
-/* The course half is a committed snapshot, and a clean checkout of this app
- * alone will not have it — so its absence is a state, not a crash. The page
- * renders the range half and says which half is missing. */
+/* The course half is the map pipeline's artifact, and a checkout that has not
+ * run the pipeline may not have it — so its absence is a state, not a crash.
+ * The page renders the range half and says which half is missing. */
 function loadHistory(): CourseHistory | null {
   try {
-    return load<CourseHistory>("course-history.json");
+    const raw = readFileSync(
+      join(process.cwd(), "public", "data", "courses.json"),
+      "utf8",
+    );
+    return buildCourseHistory(JSON.parse(raw) as SourceCourses);
   } catch {
     return null;
   }
@@ -31,7 +43,7 @@ function loadHistory(): CourseHistory | null {
 
 function loadRounds(): RoundHistory | null {
   try {
-    return load<RoundHistory>("round-history.json");
+    return buildRoundHistory(load<SourceRounds>("rounds.json"));
   } catch {
     return null;
   }
@@ -82,9 +94,10 @@ export default function Profile() {
       {profile.rangeOnly && (
         <p className="mt-4 max-w-2xl border-l-2 pl-4 font-mono text-[11px] leading-5 text-ink-2"
            style={{ borderColor: "var(--verdict-overlap)" }}>
-          The course history has not been snapshotted, so this is the range half
-          only. Run <code className="text-ink-0">pnpm ingest:courses</code> inside
-          the mackenzie repo.
+          The map pipeline has not produced{" "}
+          <code className="text-ink-0">public/data/courses.json</code>, so this
+          is the range half only. Run{" "}
+          <code className="text-ink-0">pnpm data:build</code> first.
         </p>
       )}
 

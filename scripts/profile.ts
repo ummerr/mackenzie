@@ -1,4 +1,4 @@
-/* the ledger + the course snapshot  ->  PROFILE.md
+/* the ledger + the course record  ->  PROFILE.md
  *
  *   pnpm profile              rewrite PROFILE.md from the current data
  *   pnpm profile --dry-run    print it, write nothing
@@ -18,9 +18,17 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { readBag } from "../lib/bag-file";
-import type { CourseHistory } from "../lib/course-history";
+import {
+  buildCourseHistory,
+  type CourseHistory,
+  type SourceCourses,
+} from "../lib/course-history";
 import type { LedgerSession, LedgerShot } from "../lib/ledger";
-import type { RoundHistory } from "../lib/round-history";
+import {
+  buildRoundHistory,
+  type RoundHistory,
+  type SourceRounds,
+} from "../lib/round-history";
 import { buildProfile, type GolferProfile } from "../lib/profile";
 import { applyHeuristics, buildBag, detectGaps } from "../lib/stats";
 import { buildTasks } from "../lib/tasks";
@@ -42,8 +50,8 @@ function render(p: GolferProfile): string {
   out.push("");
   out.push(
     "A living spec of one golfer, derived from both halves of this repo: the shot",
-    "ledger in `data/`, and the course history the map keeps in the parent",
-    "directory. **Nothing here is written by hand.** `pnpm profile` regenerates it,",
+    "ledger in `data/`, and the course history the map's pipeline builds.",
+    "**Nothing here is written by hand.** `pnpm profile` regenerates it,",
     "and the diff is the point — this file exists so that a change in the golfer is",
     "a commit rather than a page that quietly reads differently than it did.",
   );
@@ -120,7 +128,7 @@ function render(p: GolferProfile): string {
   out.push("");
   out.push(
     "Regenerate with `pnpm profile`. The course half comes from",
-    "`data/course-history.json`, itself a snapshot — `pnpm ingest:courses`.",
+    "`public/data/courses.json`, the map pipeline's artifact — `pnpm data:build`.",
   );
   out.push("");
 
@@ -136,21 +144,22 @@ function main(): number {
 
   let history: CourseHistory | null = null;
   try {
-    history = load<CourseHistory>("course-history.json");
+    const raw = readFileSync(join(ROOT, "public", "data", "courses.json"), "utf8");
+    history = buildCourseHistory(JSON.parse(raw) as SourceCourses);
   } catch {
     console.warn(
-      "no data/course-history.json — writing the range half only. " +
-        "Run `pnpm ingest:courses` inside the mackenzie repo for the rest.",
+      "no public/data/courses.json — writing the range half only. " +
+        "Run `pnpm data:build` for the rest.",
     );
   }
 
   let roundHistory: RoundHistory | null = null;
   try {
-    roundHistory = load<RoundHistory>("round-history.json");
+    roundHistory = buildRoundHistory(load<SourceRounds>("rounds.json"));
   } catch {
     console.warn(
-      "no data/round-history.json — no round-by-round half. " +
-        "Run `pnpm ingest:rounds` inside the mackenzie repo for it.",
+      "no data/rounds.json — no round-by-round half. " +
+        "Run `pnpm data:rounds` for it (needs a grint-export bundle in data/raw/).",
     );
   }
 

@@ -2,7 +2,11 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { readBag } from "@/lib/bag-file";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
-import type { RoundHistory } from "@/lib/round-history";
+import {
+  buildRoundHistory,
+  type RoundHistory,
+  type SourceRounds,
+} from "@/lib/round-history";
 import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
 import { buildTasks, type Task, type TaskCategory } from "@/lib/tasks";
 
@@ -30,7 +34,7 @@ const CATEGORY_NOTE: Record<TaskCategory, string> = {
 
 function loadRounds(): RoundHistory | null {
   try {
-    return load<RoundHistory>("round-history.json");
+    return buildRoundHistory(load<SourceRounds>("rounds.json"));
   } catch {
     return null;
   }

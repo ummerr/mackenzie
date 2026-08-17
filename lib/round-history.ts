@@ -1,14 +1,14 @@
 /* The round-by-round side of the profile, in the shape this app needs it.
  *
- * course-history.json carries an average per layout; this carries the rounds
+ * The course history carries an average per layout; this carries the rounds
  * themselves — dates, strokes, putts, fairway codes — which is the difference
  * between "the record averages 88" and "the golf is getting better". Same
- * seam, same rules as lib/course-history.ts: it is a SNAPSHOT, written by
- * `scripts/ingest-rounds.ts` from the parent repo's `data/rounds.json`
- * (itself parsed from the Grint export bundle), committed so the deploy
- * builds without `../data` existing.
+ * seam, same rules as lib/course-history.ts: `buildRoundHistory` reshapes the
+ * pipeline's `data/rounds.json` (itself parsed from the Grint export bundle)
+ * at build time. It used to be a committed snapshot for the same
+ * separate-deploy reason, retired when the two sites merged.
  *
- * Nothing here recomputes what the parent decided. Fairway codes are Grint's
+ * Nothing here recomputes what the pipeline decided. Fairway codes are Grint's
  * own: the scorecard form's hidden inputs declare 1 = left, 2 = right,
  * 3 = hit, 4 = missed, and codes outside that map (7, 8 appear) are carried
  * but never guessed at — they count as "unclassified", not as misses.
@@ -65,6 +65,74 @@ export interface RoundHistory {
   series?: {
     girPerRound: TrendPoint[];
     parSavesPct: TrendPoint[];
+  };
+}
+
+/* The pipeline artifact's shape, narrowed to what is read here — a structural
+ * record of the contract, same as lib/course-history.ts. */
+export interface SourceRound {
+  roundId: string;
+  entry: "full" | "total-only";
+  date: string | null;
+  courseName: string | null;
+  teeName: string | null;
+  holesRecorded: number;
+  totals: { strokes: number | null; putts: number | null };
+  perHole: {
+    strokes: (string | null)[];
+    putts: (string | null)[];
+    fairways: (string | null)[];
+  } | null;
+  flags: string[];
+}
+
+export interface SourceRounds {
+  capturedAt: string;
+  rawFile: string;
+  handicapIndex: number | null;
+  rounds: SourceRound[];
+  differentials: DifferentialPoint[];
+  series?: {
+    girPerRound: TrendPoint[];
+    parSavesPct: TrendPoint[];
+  };
+}
+
+/** "" and "0"-on-an-unplayed-hole become null; everything else a number. */
+function holeNumbers(vals: (string | null)[] | undefined): (number | null)[] | null {
+  if (!vals) return null;
+  return vals.map((v) => (v === null || v === "" || v === "0" ? null : Number(v)));
+}
+
+/** Reshape the pipeline's rounds.json. Nothing is recomputed. Strings become
+ *  numbers, blanks become nulls, and Grint's "0" on the unplayed nine of a
+ *  nine-hole card becomes null too — that is the pipeline's own reading of the
+ *  form (parse-grint-export.mjs), and a zero-putt hole that was never played
+ *  must not count as a hole. Undated rounds are dropped. */
+export function buildRoundHistory(src: SourceRounds): RoundHistory {
+  const rounds: PlayedRound[] = src.rounds
+    .filter((r) => r.date !== null)
+    .map((r) => ({
+      roundId: r.roundId,
+      date: r.date as string,
+      courseName: r.courseName,
+      teeName: r.teeName,
+      entry: r.entry,
+      holes: r.holesRecorded,
+      strokes: r.totals.strokes,
+      putts: r.totals.putts,
+      holeStrokes: holeNumbers(r.perHole?.strokes),
+      holePutts: holeNumbers(r.perHole?.putts),
+      fairwayCodes: holeNumbers(r.perHole?.fairways),
+    }));
+
+  return {
+    capturedAt: src.capturedAt,
+    source: `data/rounds.json (${src.rawFile})`,
+    handicapIndex: src.handicapIndex,
+    rounds,
+    differentials: src.differentials,
+    ...(src.series ? { series: src.series } : {}),
   };
 }
 

@@ -144,9 +144,9 @@ export interface ProfileInput {
   profiles: ClubProfile[];
   gaps: Gap[];
   tasks: Task[];
-  /** Null when data/course-history.json has not been snapshotted yet. */
+  /** Null when the pipeline has not produced public/data/courses.json yet. */
   history: CourseHistory | null;
-  /** Null when data/round-history.json has not been snapshotted yet. */
+  /** Null when data/rounds.json has not been parsed from an export yet. */
   roundHistory?: RoundHistory | null;
   /** data/bag.json. Null when it has not been written. */
   bag?: BagSpec | null;
@@ -878,7 +878,7 @@ export function buildProfile({
           }
         : {
             label: "Courses",
-            detail: "not snapshotted — run `pnpm ingest:courses` inside the mackenzie repo",
+            detail: "no public/data/courses.json — run `pnpm data:build`",
           },
       roundHistory
         ? {
@@ -890,7 +890,7 @@ export function buildProfile({
           }
         : {
             label: "Rounds",
-            detail: "not snapshotted — run `pnpm ingest:rounds` inside the mackenzie repo",
+            detail: "no data/rounds.json — run `pnpm data:rounds`",
           },
     ],
     rangeOnly: history === null,
@@ -1079,9 +1079,9 @@ function buildUnknowns(
         id: "round-dates",
         question: "Is the golf getting better?",
         why:
-          "The course snapshot carries an average per layout, not a round-by-round history " +
+          "The course history carries an average per layout, not a round-by-round history " +
           "with dates, so nothing here can be plotted against time or against a practice session.",
-        needs: "Round-level scores with dates — `pnpm ingest:rounds`, run inside the mackenzie repo.",
+        needs: "Round-level scores with dates — `pnpm data:rounds`, from a Grint export bundle.",
       });
     }
     unknowns.push({
@@ -1091,7 +1091,7 @@ function buildUnknowns(
         ? "The rounds carry a course, a tee name and a differential, but still no par or " +
           "yardage per layout, so a raw score is only comparable through the handicap math, " +
           "never on the card's own terms."
-        : "The snapshot has no par, no yardage and no tee for any layout, so every average " +
+        : "The course history has no par, no yardage and no tee for any layout, so every average " +
           "is compared against every other average as though all 18-hole golf were equal.",
       needs: roundHistory
         ? "Par and rating/slope per tee. The export's get_course_data calls came back empty " +
@@ -1102,8 +1102,8 @@ function buildUnknowns(
     unknowns.push({
       id: "no-course-half",
       question: "What does any of this do to a score?",
-      why: "The course history has not been snapshotted, so this profile is the range half only.",
-      needs: "`pnpm ingest:courses`, run inside the mackenzie repo.",
+      why: "The map pipeline has not produced a course history, so this profile is the range half only.",
+      needs: "`pnpm data:build`, which writes public/data/courses.json.",
     });
   }
 

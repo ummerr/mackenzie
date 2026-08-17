@@ -117,7 +117,7 @@ export interface TaskInput {
   minShots?: number;
   /** data/bag.json. Null when it has not been written; every bag task is then skipped. */
   bag?: BagSpec | null;
-  /** data/round-history.json. Null before the first `pnpm ingest:rounds`. */
+  /** Built from data/rounds.json. Null before the first `pnpm data:rounds`. */
   roundHistory?: RoundHistory | null;
 }
 
@@ -355,7 +355,7 @@ export function buildTasks({
   // range list is allowed to hear from the course: a putting pattern needs no
   // monitor to fix and no monitor ever sees it. Same contract as everything
   // above — numbers on, numbers off — except the retiring ingest is
-  // `pnpm ingest:rounds`, not `pnpm ingest`.
+  // `pnpm data:rounds`, not `pnpm ingest`.
   if (roundHistory) {
     const scored = eighteenHole(roundHistory);
     const withPutts = scored.filter((r) => r.putts !== null);

@@ -1,15 +1,18 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import type { CourseHistory, PlayedLayout } from "../lib/course-history";
-import { meanScore, scorable, totalRounds } from "../lib/course-history";
+import type { CourseHistory, PlayedLayout, SourceCourses } from "../lib/course-history";
+import { buildCourseHistory, meanScore, scorable, totalRounds } from "../lib/course-history";
 import type { LedgerSession, LedgerShot } from "../lib/ledger";
 import { buildProfile, coneWidthAt, type GolferProfile } from "../lib/profile";
 import { applyHeuristics, buildBag, detectGaps, type ClubProfile } from "../lib/stats";
 import { buildTasks } from "../lib/tasks";
 
 const DATA = join(__dirname, "..", "data");
+const PUB = join(__dirname, "..", "public", "data");
 const load = <T,>(f: string): T => JSON.parse(readFileSync(join(DATA, f), "utf8")) as T;
+const realHistory = (): CourseHistory =>
+  buildCourseHistory(JSON.parse(readFileSync(join(PUB, "courses.json"), "utf8")) as SourceCourses);
 
 function realProfile(history: CourseHistory | null | undefined = undefined): GolferProfile {
   const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
@@ -22,7 +25,7 @@ function realProfile(history: CourseHistory | null | undefined = undefined): Gol
     profiles,
     gaps,
     tasks: buildTasks({ profiles, gaps, shots, sessions }),
-    history: history === undefined ? load<CourseHistory>("course-history.json") : history,
+    history: history === undefined ? realHistory() : history,
   });
 }
 
