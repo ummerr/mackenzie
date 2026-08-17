@@ -1,0 +1,613 @@
+/* MACKENZIE — map chrome.
+ * Tokens mirror ummerr.github.io/assets/css/style.css. The basemap is
+ * photographic, so every surface here is opaque ink with a hairline rule;
+ * translucent panels over satellite imagery are unreadable. */
+
+:root {
+  --ink-0: #0a0a09;
+  --ink-1: #131211;
+  --ink-2: #1c1a18;
+  --line: rgba(242, 237, 229, 0.08);
+  --line-soft: rgba(242, 237, 229, 0.05);
+  --cream-0: #f2ede5;
+  --cream-1: #c9c3ba;
+  --cream-2: #8f8981;
+  --cream-3: #5f5a53;
+  --accent: #ff6b35;
+  --accent-dim: rgba(255, 107, 53, 0.45);
+  --accent-faint: rgba(255, 107, 53, 0.12);
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --rail-h: 52px;
+  --head-h: 56px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ink-0);
+  color: var(--cream-0);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── header ──────────────────────────────────────────────────────────────── */
+
+.head {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: var(--head-h);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 18px;
+  background: var(--ink-0);
+  border-bottom: 1px solid var(--line);
+}
+
+.wordmark {
+  font-family: var(--serif);
+  font-size: 27px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.wordmark span { color: var(--accent); }
+
+/* Links back into the app: the map is one section of the merged site. */
+.head-nav {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  gap: 14px;
+  white-space: nowrap;
+  margin-right: auto;
+}
+.head-nav a { color: var(--cream-2); text-decoration: none; }
+.head-nav a:hover { color: var(--cream-0); }
+
+.head-stats {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--cream-2);
+  text-transform: uppercase;
+  display: flex;
+  gap: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.head-stats b { color: var(--cream-0); font-weight: 500; }
+
+/* ── map ─────────────────────────────────────────────────────────────────── */
+
+#map {
+  position: absolute;
+  inset: var(--head-h) 0 var(--rail-h) 0;
+  background: var(--ink-0);
+}
+
+/* Vignette. The oldest trick on a printed map and still the cheapest: darkening
+   the corners pulls the eye to the middle and, more usefully here, gives the
+   panels pinned to each edge a ground to sit on instead of floating over a
+   bright ocean. Sits above the canvas and below every control. */
+#map::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 45%, transparent 42%, rgba(10, 10, 9, 0.5) 100%),
+    linear-gradient(to bottom, rgba(10, 10, 9, 0.34), transparent 14%, transparent 86%, rgba(10, 10, 9, 0.34));
+}
+
+.maplibregl-ctrl-attrib {
+  font-family: var(--mono);
+  font-size: 9px !important;
+  background: rgba(10, 10, 9, 0.82) !important;
+  color: var(--cream-3) !important;
+}
+.maplibregl-ctrl-attrib a { color: var(--cream-2) !important; }
+.maplibregl-ctrl-group {
+  background: var(--ink-1) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: none !important;
+}
+.maplibregl-ctrl-group button + button { border-top: 1px solid var(--line) !important; }
+.maplibregl-ctrl-icon { filter: invert(0.82) sepia(0.1); }
+
+/* ── map furniture: scale, rose, plan toggle ─────────────────────────────── */
+
+/* All three live in MapLibre's bottom-left corner so they stack themselves.
+   Bottom-left is the only corner not claimed by the region panel, the legend,
+   the attribution or the dossier. */
+.maplibregl-ctrl-bottom-left { margin-bottom: 6px; }
+.maplibregl-ctrl-bottom-left .maplibregl-ctrl { margin: 0 0 8px 14px; }
+
+.maplibregl-ctrl-scale {
+  background: var(--ink-0) !important;
+  border: 1px solid var(--line) !important;
+  border-top: 0 !important;
+  color: var(--cream-2) !important;
+  font-family: var(--mono) !important;
+  font-size: 9px !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 6px 2px !important;
+  box-shadow: none;
+}
+
+.rose {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  cursor: pointer;
+  opacity: 0.72;
+  transition: opacity 0.2s;
+}
+.rose:hover, .rose.off-axis { opacity: 1; }
+.rose svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* --rose-turn is written by the map on every rotate event. */
+  transform: rotate(var(--rose-turn, 0deg));
+  transition: transform 0.05s linear;
+}
+/* The disc is opaque, not tinted: at 62px over an aerial, a translucent rose is
+   a smudge. It is furniture, and furniture has to sit on something. */
+.rose-ring { fill: var(--ink-0); stroke: var(--cream-3); stroke-width: 1.6; }
+.rose-ring-in { fill: none; stroke: var(--cream-3); stroke-width: 0.8; opacity: 0.55; }
+/* Lit half, shaded half — see the blade() comment in map.js. */
+.rose-major { fill: var(--cream-0); }
+.rose-major.rose-shade { fill: var(--cream-3); }
+.rose-minor { fill: var(--cream-2); opacity: 0.7; }
+.rose-minor.rose-shade { fill: var(--cream-3); opacity: 0.5; }
+.rose-north { fill: var(--accent); }
+.rose-north.rose-shade { fill: #a84522; }
+
+.view-toggle {
+  display: none;
+  background: var(--ink-0);
+  border: 1px solid var(--line);
+}
+.view-toggle.on { display: flex; }
+.view-toggle button {
+  background: none;
+  border: 0;
+  padding: 5px 10px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream-3);
+  cursor: pointer;
+}
+.view-toggle button + button { border-left: 1px solid var(--line); }
+.view-toggle button:hover { color: var(--cream-1); }
+.view-toggle button[aria-pressed="true"] { color: var(--cream-0); background: var(--ink-2); }
+
+/* ── bottom rail: which vector colours the pins ──────────────────────────── */
+
+.rail {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: var(--rail-h);
+  z-index: 30;
+  display: flex;
+  align-items: stretch;
+  background: var(--ink-0);
+  border-top: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.rail::-webkit-scrollbar { display: none; }
+
+.rail-btn {
+  flex: 1 0 auto;
+  min-width: 108px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  background: none;
+  border: 0;
+  border-right: 1px solid var(--line-soft);
+  color: var(--cream-2);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: color 0.16s, background 0.16s;
+  position: relative;
+}
+.rail-btn:hover { color: var(--cream-0); background: var(--ink-1); }
+.rail-btn[aria-pressed="true"] { color: var(--cream-0); background: var(--ink-2); }
+.rail-btn[aria-pressed="true"]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: var(--accent);
+}
+.rail-n { color: var(--cream-3); font-size: 10px; }
+.rail-btn[aria-pressed="true"] .rail-n { color: var(--accent); }
+
+/* ── region rail: the "11 states, 3 countries" story ─────────────────────── */
+
+.regions {
+  position: absolute;
+  top: calc(var(--head-h) + 14px);
+  left: 14px;
+  z-index: 20;
+  width: 168px;
+  /* Stops short of the bottom so it can never reach the scale bar and rose. */
+  max-height: calc(100% - var(--head-h) - var(--rail-h) - 150px);
+  overflow-y: auto;
+  background: var(--ink-0);
+  border: 1px solid var(--line);
+  scrollbar-width: thin;
+}
+.regions.collapsed .region-list { display: none; }
+
+.regions-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 11px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--cream-3);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--line-soft);
+  cursor: pointer;
+  user-select: none;
+}
+.regions-head:hover { color: var(--cream-1); }
+
+.region-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 11px;
+  background: none;
+  border: 0;
+  color: var(--cream-1);
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+  text-align: left;
+}
+.region-row:hover { background: var(--ink-2); color: var(--cream-0); }
+.region-row b { color: var(--cream-3); font-weight: 400; font-size: 10px; }
+.region-row:hover b { color: var(--accent); }
+.region-group {
+  padding: 9px 11px 3px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--cream-3);
+  text-transform: uppercase;
+}
+
+/* ── legend ──────────────────────────────────────────────────────────────── */
+
+.legend {
+  position: absolute;
+  right: 14px;
+  /* clears the MapLibre attribution strip, which sits at the map's bottom edge */
+  bottom: calc(var(--rail-h) + 34px);
+  z-index: 20;
+  background: var(--ink-0);
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--cream-3);
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.legend-title { color: var(--cream-1); margin-bottom: 7px; }
+.legend-ramp {
+  width: 132px;
+  height: 7px;
+  /* Must stay in step with RAMP in src/shared.js — same five stops. */
+  background: linear-gradient(90deg, #85f1f2, #a9d7dd, #d1bba4, #ee9867, #ff6b35);
+}
+.legend-ends { display: flex; justify-content: space-between; margin-top: 5px; }
+.legend-size { margin-top: 9px; padding-top: 8px; border-top: 1px solid var(--line-soft); }
+
+/* The course key. Two columns because four surfaces plus the routing is five
+   rows stacked, which is taller than the ramp it appears beneath and makes the
+   legend the largest object on the map. */
+.legend-key {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 12px;
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--cream-1);
+}
+.legend-key span { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.legend-key i {
+  width: 9px;
+  height: 9px;
+  flex: none;
+  border: 1px solid rgba(10, 10, 9, 0.6);
+}
+/* The routing is a line, not a surface, so its swatch is one too. */
+.legend-key .legend-route { grid-column: 1 / -1; }
+.legend-key .legend-route i {
+  width: 14px;
+  height: 0;
+  border: 0;
+  border-top: 1.5px dashed var(--accent);
+}
+.legend-src { margin-top: 8px; color: var(--cream-3); opacity: 0.7; }
+
+/* ── hover card ──────────────────────────────────────────────────────────── */
+
+.card {
+  position: absolute;
+  z-index: 40;
+  min-width: 172px;
+  max-width: 250px;
+  background: var(--ink-0);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--accent);
+  padding: 10px 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.card.on { opacity: 1; }
+.card-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.15;
+  margin-bottom: 3px;
+}
+.card-place, .card-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--cream-2);
+}
+.card-meta { margin-top: 6px; color: var(--cream-1); }
+.card-meta b { color: var(--accent); font-weight: 500; }
+
+/* ── dossier ─────────────────────────────────────────────────────────────── */
+
+.dossier {
+  position: absolute;
+  top: var(--head-h);
+  right: 0;
+  bottom: var(--rail-h);
+  width: 380px;
+  max-width: 100%;
+  z-index: 35;
+  background: var(--ink-0);
+  border-left: 1px solid var(--line);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+  scrollbar-width: thin;
+}
+.dossier.on { transform: none; }
+
+.dos-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  margin: 8px 10px 0 0;
+  width: 26px;
+  height: 26px;
+  background: var(--ink-1);
+  border: 1px solid var(--line);
+  color: var(--cream-2);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+.dos-close:hover { color: var(--accent); border-color: var(--accent-dim); }
+
+.dos-body { padding: 20px 20px 40px; }
+
+.dos-name {
+  font-family: var(--serif);
+  font-size: 31px;
+  line-height: 1.06;
+  margin: 0 0 6px;
+}
+.dos-place {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--cream-2);
+  text-transform: uppercase;
+}
+
+.spec-rule {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin: 26px 0 11px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.spec-index { font-family: var(--mono); font-size: 10px; color: var(--accent); }
+.spec-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--cream-2);
+  text-transform: uppercase;
+}
+
+.kv { display: grid; grid-template-columns: 96px 1fr; gap: 6px 12px; font-size: 13px; }
+.kv dt {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--cream-3);
+  text-transform: uppercase;
+  padding-top: 2px;
+}
+/* min-width:0 defeats the grid item's default min-width:auto, which otherwise
+   lets a long unbroken URL push the column wider than the panel. */
+.kv dd { margin: 0; min-width: 0; color: var(--cream-0); line-height: 1.45; overflow-wrap: anywhere; }
+.kv dt { min-width: 0; overflow-wrap: anywhere; }
+.kv dd small {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--cream-3);
+  margin-top: 2px;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+.kv a { color: var(--cream-2); text-decoration: none; border-bottom: 1px solid var(--line); }
+.kv a:hover { color: var(--accent); border-color: var(--accent-dim); }
+
+.badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  margin-left: 5px;
+  border: 1px solid var(--line);
+  color: var(--cream-3);
+  vertical-align: 1px;
+}
+.badge.warn { color: var(--accent); border-color: var(--accent-dim); }
+
+/* layout block */
+.layout { margin-bottom: 20px; }
+.layout-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+.layout-name { font-size: 14px; color: var(--cream-0); }
+.layout-rank {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.layout-sub {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--cream-3);
+  letter-spacing: 0.05em;
+  margin-bottom: 9px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 66px 1fr 34px;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 5px;
+}
+.bar-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  color: var(--cream-3);
+  text-transform: uppercase;
+}
+.bar-track { height: 5px; background: var(--ink-2); border-radius: 3px; overflow: hidden; }
+/* display:block is load-bearing: .bar-track is blockified for free as a grid
+   item, but .bar-fill is a plain inline <span> inside it, and width/height do
+   not apply to inline boxes — without this the fill silently never renders. */
+.bar-fill { display: block; height: 100%; border-radius: 3px; background: var(--accent); }
+.bar-val { font-family: var(--mono); font-size: 10px; color: var(--cream-1); text-align: right; }
+
+.flagline {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-top: 7px;
+  line-height: 1.5;
+}
+
+.note { font-size: 12.5px; line-height: 1.55; color: var(--cream-1); }
+.cite {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--cream-3);
+  margin-top: 4px;
+  word-break: break-all;
+}
+.cite a { color: var(--cream-3); }
+
+.empty {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--cream-3);
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+
+/* ── loading / error ─────────────────────────────────────────────────────── */
+
+.boot {
+  position: absolute;
+  inset: var(--head-h) 0 var(--rail-h) 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  background: var(--ink-0);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--cream-3);
+  text-transform: uppercase;
+}
+.boot[hidden] { display: none; }
+
+/* ── mobile ──────────────────────────────────────────────────────────────── */
+
+@media (max-width: 720px) {
+  .head-stats { display: none; }
+  .regions { display: none; }
+  .legend { display: none; }
+  .dossier { width: 100%; top: auto; height: 62%; border-left: 0; border-top: 1px solid var(--line); }
+  /* Its own height is not far enough. The panel is anchored `bottom: var(--rail-h)`
+     so it clears the rail when open — which means translating by 100% leaves
+     exactly one rail's worth of it on screen, parked on top of the rail with a
+     higher z-index. The whole lens rail was unreachable, showing a stray close
+     button where six buttons should be. */
+  .dossier { transform: translateY(calc(100% + var(--rail-h))); }
+  .dossier.on { transform: none; }
+
+  /* The attribution goes full-width and two lines deep at this size, straight
+     through the scale bar. Lift the corner clear of it. */
+  .maplibregl-ctrl-bottom-left { margin-bottom: 48px; }
+  /* And drop the rose — 62px is a sixth of the screen, and the navigation
+     control's own compass is already there for the one job it does. */
+  .rose { display: none; }
+}

@@ -6,7 +6,42 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
-## 2026-08-15 — rounds.json exists, and the profile finally has dates
+## 2026-08-17 — One site, one project: the merge
+
+**Decided:** Mackenzie and Yardages are one Next.js app deploying as one Vercel
+project (`mackenzie`). The app hoisted from `yardages/` to the repo root; the
+map stayed exactly what it was — zero-build vanilla JS — and moved under
+`public/courses/`, served at `/courses` through a rewrite. The profile is the
+front page, the bag moved to `/bag`, and the nav is six sections under one
+MACKENZIE wordmark. Published pipeline artifacts (`courses.json`,
+`course-polygons.geojson`, `holes/`) write to `public/data/`; everything else
+in `data/` — raw exports, caches, `rounds.json`, the ledger — is build-time
+only and no longer publicly served, which closes the hole where the 26 MB
+Grint export bundle was one URL away. The `yardages` Vercel project is
+retired.
+
+**Why:** this reverses 2026-08-02 ("Yardages is its own Vercel project, not a
+route"), and the reason is that the decision's own premise expired. The
+snapshot seam — `ingest-courses.ts`, `ingest-rounds.ts`, and their committed
+copies — existed for exactly one sentence of rationale: `../data` does not
+exist at build time when the app deploys from its own directory. One deploy
+root contains the data, so the seam dissolved into `buildCourseHistory` /
+`buildRoundHistory` in `lib/`, pure and tested, reading the pipeline's own
+artifacts with no copy to go stale. One golfer was already the product — the
+profile page read both halves through the seam — so one site is the shape the
+content already had.
+
+**What was kept from the old decision:** the map is still not a React route.
+"Static-first, no bundler" survives intact for the map itself; only its
+hosting changed. Its dark satellite-calibrated theme stays dark inside a
+light-first app, and its viewport rules stay its own — a full-bleed map page
+gets to pin zoom; the app pages still must not.
+
+**Rejected:** porting the map into React (regression risk on a working page
+for zero information gain); keeping two projects and cross-linking (the
+snapshot seam and its staleness class survive); Vercel `cleanUrls` for
+`/courses` and `/ball-flight` (prod-only behavior — the rewrites in
+`next.config.ts` work identically in `next dev`).
 
 **Decided:** `scripts/parse-grint-export.mjs` is the second Grint adapter. It
 parses the newest `data/raw/grint-export-*.json` into `data/rounds.json` —

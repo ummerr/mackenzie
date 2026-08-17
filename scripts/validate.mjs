@@ -18,6 +18,7 @@ import { dirname, resolve } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA = resolve(__dirname, "../data");
+const PUB = resolve(__dirname, "../public/data");
 const readJson = (n, fb) => {
   const p = resolve(DATA, n);
   return existsSync(p) ? JSON.parse(readFileSync(p, "utf8")) : fb;
@@ -28,9 +29,10 @@ const warnings = [];
 const err = (m) => errors.push(m);
 const warn = (m) => warnings.push(m);
 
-const built = readJson("courses.json", null);
+const builtPath = resolve(PUB, "courses.json");
+const built = existsSync(builtPath) ? JSON.parse(readFileSync(builtPath, "utf8")) : null;
 if (!built) {
-  console.error("data/courses.json missing — run `npm run build` first");
+  console.error("public/data/courses.json missing — run `pnpm data:build` first");
   process.exit(1);
 }
 const { facilities, lenses, stats } = built;
