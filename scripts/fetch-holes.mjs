@@ -25,7 +25,8 @@ import { dirname, resolve } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA = resolve(__dirname, "../data");
-const OUT = resolve(DATA, "holes");
+/* Hole geometry is a published artifact — the map lazy-fetches it. */
+const OUT = resolve(__dirname, "../public/data/holes");
 
 const ENDPOINTS = [
   "https://overpass-api.de/api/interpreter",
@@ -407,7 +408,7 @@ for (const f of targets) {
   };
 }
 
-writeFileSync(resolve(DATA, "holes", "index.json"), JSON.stringify(index, null, 2) + "\n");
+writeFileSync(resolve(OUT, "index.json"), JSON.stringify(index, null, 2) + "\n");
 
 const drawable = Object.values(index).filter((v) => v.plan).length;
 const bytes = Object.values(index).reduce((n, v) => n + v.bytes, 0);

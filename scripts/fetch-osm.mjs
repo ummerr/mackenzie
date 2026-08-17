@@ -24,6 +24,8 @@ import { dirname, resolve } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA = resolve(__dirname, "../data");
+/* course-polygons.geojson is a published artifact — the map fetches it. */
+const PUB = resolve(__dirname, "../public/data");
 
 /**
  * Mirror list, probed 2026-08-01. Two notes worth keeping:
@@ -473,7 +475,7 @@ for (const f of facilities) {
 writeFileSync(resolve(DATA, "osm-cache.json"), JSON.stringify(cache, null, 2) + "\n");
 writeFileSync(resolve(DATA, "geocache.json"), JSON.stringify(geocache, null, 2) + "\n");
 writeFileSync(
-  resolve(DATA, "course-polygons.geojson"),
+  resolve(PUB, "course-polygons.geojson"),
   JSON.stringify({ type: "FeatureCollection", features }, null, 2) + "\n",
 );
 

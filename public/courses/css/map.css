@@ -60,6 +60,20 @@ html, body {
 }
 .wordmark span { color: var(--accent); }
 
+/* Links back into the app: the map is one section of the merged site. */
+.head-nav {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  gap: 14px;
+  white-space: nowrap;
+  margin-right: auto;
+}
+.head-nav a { color: var(--cream-2); text-decoration: none; }
+.head-nav a:hover { color: var(--cream-0); }
+
 .head-stats {
   font-family: var(--mono);
   font-size: 11px;

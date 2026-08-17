@@ -161,11 +161,11 @@
 
   async function load() {
     const [courses, polys] = await Promise.all([
-      fetch("data/courses.json").then((r) => {
+      fetch("/data/courses.json").then((r) => {
         if (!r.ok) throw new Error(`courses.json ${r.status}`);
         return r.json();
       }),
-      fetch("data/course-polygons.geojson")
+      fetch("/data/course-polygons.geojson")
         .then((r) => (r.ok ? r.json() : { type: "FeatureCollection", features: [] }))
         .catch(() => ({ type: "FeatureCollection", features: [] })),
     ]);

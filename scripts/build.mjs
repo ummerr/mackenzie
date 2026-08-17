@@ -23,6 +23,9 @@ import { dirname, resolve } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA = resolve(__dirname, "../data");
+/* Published artifacts live under public/ so the site serves them; everything
+   else in data/ (raw exports, caches) stays private. */
+const PUB = resolve(__dirname, "../public/data");
 const readJson = (n, fb) => {
   const p = resolve(DATA, n);
   return existsSync(p) ? JSON.parse(readFileSync(p, "utf8")) : fb;
@@ -33,7 +36,10 @@ const { facilities } = readJson("facilities.json", null) ?? {};
 if (!layouts || !facilities) throw new Error("run `npm run parse` first");
 
 const geocache = readJson("geocache.json", {});
-const polygons = readJson("course-polygons.geojson", { features: [] });
+const polygonsPath = resolve(PUB, "course-polygons.geojson");
+const polygons = existsSync(polygonsPath)
+  ? JSON.parse(readFileSync(polygonsPath, "utf8"))
+  : { features: [] };
 const facts = readJson("facts.json", {});
 const { lenses } = readJson("weights.json", { lenses: {} });
 
@@ -185,7 +191,7 @@ for (const fac of out) {
 }
 
 writeFileSync(
-  resolve(DATA, "courses.json"),
+  resolve(PUB, "courses.json"),
   JSON.stringify(
     {
       generatedFrom: "layouts.json + geocache.json + course-polygons.geojson + facts.json",

@@ -14,19 +14,25 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="MACKENZIE — every course I've played">
 <meta property="og:description" content="94 courses, 84 places, 11 states, 3 countries. Mapped, sourced, and rankable through six different lenses.">
-<meta property="og:url" content="https://courses.ummerr.com/">
+<meta property="og:url" content="https://courses.ummerr.com/courses">
 <meta name="twitter:card" content="summary">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500&family=Instrument+Serif&display=swap" rel="stylesheet">
 <link href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css" rel="stylesheet">
-<link href="css/map.css" rel="stylesheet">
+<link href="/courses/css/map.css" rel="stylesheet">
 </head>
 <body>
 
 <header class="head">
   <div class="wordmark">MAC<span>KENZIE</span></div>
+  <nav class="head-nav" aria-label="Site">
+    <a href="/">Profile</a>
+    <a href="/bag">Bag</a>
+    <a href="/practice">Practice</a>
+    <a href="/sessions">Sessions</a>
+  </nav>
   <div class="head-stats" id="head-stats"></div>
 </header>
 
@@ -63,9 +69,9 @@ window.addEventListener("unhandledrejection", function (e) {
 });
 </script>
 <script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
-<script src="src/shared.js"></script>
-<script src="src/panel.js"></script>
-<script src="src/course.js"></script>
-<script src="src/map.js"></script>
+<script src="/courses/src/shared.js"></script>
+<script src="/courses/src/panel.js"></script>
+<script src="/courses/src/course.js"></script>
+<script src="/courses/src/map.js"></script>
 </body>
 </html>

@@ -72,7 +72,7 @@ const CoursePlan = (function () {
     if (!state.manifest[slug]) return;
     state.inflight.add(slug);
     try {
-      const res = await fetch(`data/holes/${slug}.geojson`);
+      const res = await fetch(`/data/holes/${slug}.geojson`);
       if (!res.ok) throw new Error(String(res.status));
       const fc = await res.json();
       // Stamp the slug on every feature so the selected-course highlight and
@@ -367,7 +367,7 @@ const CoursePlan = (function () {
     });
 
     try {
-      const res = await fetch("data/holes/index.json");
+      const res = await fetch("/data/holes/index.json");
       state.manifest = res.ok ? await res.json() : {};
     } catch {
       state.manifest = {};
