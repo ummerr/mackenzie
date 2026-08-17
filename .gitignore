@@ -2,6 +2,9 @@ node_modules/
 .DS_Store
 .vercel
 *.log
+.next/
+next-env.d.ts
+*.tsbuildinfo
 
 # Scratch / research files. Numbered scratch gets cleaned and promoted into data/.
 0[0-9]_*.json
