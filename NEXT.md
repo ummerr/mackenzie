@@ -3,9 +3,11 @@
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
 next.
 
-**State as of 2026-08-02:** the full pipeline runs end to end, `npm run validate`
-exits clean, and the map is deployed. The map now draws the courses themselves
-from z13 — see `DECISIONS.md § Draw the course, don't just point at it`.
+**State as of 2026-08-17:** the two sites are one Next.js app — profile at `/`,
+map at `/courses` — deploying as the single `mackenzie` Vercel project. The
+pipeline runs end to end, `pnpm data:validate` exits clean. The map draws the
+courses themselves from z13 — see `DECISIONS.md § Draw the course, don't just
+point at it`.
 
 ---
 
@@ -23,7 +25,7 @@ for the ones already marked `confidence: "low"` or `"medium"` — Royal
 Westmoreland's year, Griffith Park's Wilson-course attribution, the Sandpiper
 "best public ocean course" line.
 
-`npm run validate` prints the remaining count each run.
+`pnpm data:validate` prints the remaining count each run.
 
 ### 2. Capture the bucket list
 
@@ -50,13 +52,12 @@ HTML, licence gray area, hard name-matching problem).
 ## Then
 
 - **Re-capture Grint monthly-ish.** The loop is one click end to end now:
-  extension → `data/raw/grint-export-*.json` → `npm run grint:inventory` →
-  `npm run rounds` → `cd yardages && pnpm ingest:rounds && pnpm run profile`,
-  commit what changed. Each capture retires or sharpens profile findings.
-- **Deploy.** `vercel.json` is written and the site is fully static. Needs
-  `vercel link`, a deploy, a subdomain (`courses.ummerr.com`), and a new `P-NN`
-  row in `ummerr.github.io/index.html` next to the existing P-07 Golf card at
-  line 109.
+  extension → `data/raw/grint-export-*.json` → `pnpm data:inventory` →
+  `pnpm data:rounds` → `pnpm run profile`, commit what changed. Each capture retires or sharpens profile findings.
+- **Deploy.** One Vercel project now (`mackenzie`), `vercel deploy --prod`
+  from the repo root. Still pending: the `courses.ummerr.com` DNS record, and a
+  new `P-NN` row in `ummerr.github.io/index.html` next to the existing P-07
+  Golf card at line 109.
 - **Physical vectors — now mostly a counting exercise.** `data/holes/` has the
   geometry: bunker count and area, water count and area, total yardage from the
   hole centrelines, green sizes. `areaAcres` is still the only one `build.mjs`
@@ -67,21 +68,21 @@ HTML, licence gray area, hard name-matching problem).
 - **The 14 courses with no drawable plan.** `holes/index.json` flags them.
   Several are real gaps in OSM (Royal Westmoreland comes back with one pond,
   Sandy Lane with seven bunkers) and a few are worth fixing upstream in OSM
-  itself, which fixes them here on the next `npm run holes --force`.
+  itself, which fixes them here on the next `pnpm data:holes --force`.
 - **Two facilities still on a town centroid**, both because OSM has nothing
   under their name: `serket-golf-club` (nothing called Serket within 9km of
   Henderson — probably a rebrand; find the former name) and
   `the-links-golf-club` (Marlton NJ). Each is a one-line entry in
   `data/geocode-overrides.json` once you know where they are.
-- **Feed the profile.** `yardages/PROFILE.md` and `/profile` derive one golfer
+- **Feed the profile.** `PROFILE.md` and the front page derive one golfer
   from both halves of this repo, and its own "what the record cannot say"
   section is a to-do list for this file. Round-level scores with dates landed
-  2026-08-15 (`data/rounds.json` → `pnpm ingest:rounds`), which retired "is
-  the golf getting better". The one that would change it most now: par and
-  rating/slope per tee, which would make an 88 mean something on the card's
-  own terms. Re-run `cd yardages && pnpm ingest:courses && pnpm ingest:rounds
-  && pnpm run profile` after any map pipeline change or new capture, or the
-  profile quotes a record that has moved on.
+  2026-08-15 (`data/rounds.json`), which retired "is the golf getting better".
+  The one that would change it most now: par and rating/slope per tee, which
+  would make an 88 mean something on the card's own terms. The pages read the
+  pipeline's artifacts directly since the merge, so a rebuild is enough —
+  just re-run `pnpm run profile` and commit `PROFILE.md` after any pipeline
+  change or new capture.
 - **Two overrides are inferred, not confirmed** — `tierra-rejada-golf-club`
   matched an OSM polygon tagged "Golf Development Complex" on the right road,
   and `lanier-islands-golf-course` is the centre of four *unnamed* golf ways on
@@ -118,8 +119,6 @@ HTML, licence gray area, hard name-matching problem).
   (another `/ajax/*` action, most likely) is the key to par, rating and
   slope per tee — the profile's last big unknown. Needs one DevTools session
   on a scorecard page, not more scraping code.
-- **Garmin R50** — no shot data exists anywhere in the tree and the export path
-  is unproven. Needs its own recon before any code.
 - **courseRender as a base** — the right move for the strategy phase, wrong move
   for drawing 84 dots. See `SPEC.md § Roadmap`.
 

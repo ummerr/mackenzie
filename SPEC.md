@@ -159,7 +159,7 @@ Grint list and your single most-played course at 10 rounds; `revealed` and
 | Esri World Imagery | satellite basemap | none | free, attribution required | **in use** |
 | Esri Boundaries & Places | label overlay | none | free, attribution required | **in use** |
 | Hand curation | architect, year, championships, rankings, notes | — | time | **in use**, 25/84 |
-| Grint export extension | per-round + hole-level scores, dates, putts, fairway codes, differentials | logged-in browser tab | one popup click | **in use** — `grint-extension/` captures, `parse-grint-export.mjs` emits `rounds.json`; yardages snapshots it via `pnpm ingest:rounds` |
+| Grint export extension | per-round + hole-level scores, dates, putts, fairway codes, differentials | logged-in browser tab | one popup click | **in use** — `grint-extension/` captures, `parse-grint-export.mjs` emits `rounds.json`; the profile pages read it directly via `lib/round-history.ts` |
 | Golf Digest / Golfweek / Top100 | published rankings | none | brittle scrape, licence gray | *not built* |
 | Garmin R50 | shot telemetry | OAuth | unproven | *not built* |
 
@@ -272,9 +272,9 @@ vectors from geometry already on disk.
 scrapes the classic client from a logged-in tab into a `grint-export-*.json`
 bundle, and `parse-grint-export.mjs` emits `data/rounds.json` — 166 rounds
 with dates, per-hole strokes/putts/fairway codes, and 151 handicap
-differentials. Yardages snapshots it (`pnpm ingest:rounds` →
-`round-history.json`) and the profile now answers "is the golf getting
-better" with numbers. Still open: the map itself does not draw rounds yet,
+differentials. The profile reads it directly (`lib/round-history.ts`, since
+the 2026-08-17 merge) and now answers "is the golf getting better" with
+numbers. Still open: the map itself does not draw rounds yet,
 and no layout carries par or rating/slope (the export's `get_course_data`
 calls need real tee ids, which the scorecard page only loads by JS).
 
