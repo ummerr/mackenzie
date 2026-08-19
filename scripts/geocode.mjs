@@ -116,6 +116,20 @@ async function nominatim(q, countryCode) {
  *  Note: format=jsonv2 names the field `category`; format=json calls it `class`. */
 const categoryOf = (r) => r.category ?? r.class;
 
+/** The result's locality/region/country out of addressdetails=1, or null.
+ *  Cached alongside the coordinate: for a facility the paste never described
+ *  (rounds_only), this is the only place-name source we have, and its
+ *  provenance is the cache entry's own `source: "nominatim"`. */
+function addressOf(r) {
+  const a = r.address ?? {};
+  const locality = a.city ?? a.town ?? a.village ?? a.hamlet ?? a.municipality ?? null;
+  // "US-CA" -> "CA"; matches the paste's two-letter state column.
+  const iso = a["ISO3166-2-lvl4"] ?? null;
+  const region = iso?.includes("-") ? iso.split("-")[1] : null;
+  const country = a.country_code ? a.country_code.toUpperCase() : null;
+  return locality || region || country ? { locality, region, country } : null;
+}
+
 function pickResult(results) {
   if (!results?.length) return null;
   const golf =
@@ -130,6 +144,7 @@ function pickResult(results) {
       precision: isCourse ? "course_feature" : "named_place",
       display: golf.display_name,
       osmId: golf.osm_type && golf.osm_id ? `${golf.osm_type}/${golf.osm_id}` : null,
+      address: addressOf(golf),
     };
   }
   const first = results[0];
@@ -139,6 +154,7 @@ function pickResult(results) {
     precision: "named_place",
     display: first.display_name,
     osmId: first.osm_type && first.osm_id ? `${first.osm_type}/${first.osm_id}` : null,
+    address: addressOf(first),
   };
 }
 
@@ -192,8 +208,9 @@ for (const f of facilities) {
     }
 
     // Last resort: the town. Flagged so the map can render it differently and
-    // the coverage table can count it as not-really-located.
-    if (!hit) {
+    // the coverage table can count it as not-really-located. A rounds_only
+    // facility has no town on record, so there is no fallback to ask for.
+    if (!hit && (f.locality || f.region)) {
       const town = pickResult(
         await nominatim([f.locality, f.region, COUNTRY_NAME[f.country]].filter(Boolean).join(", "), f.country),
       );

@@ -450,6 +450,113 @@ html, body {
 }
 .legend-src { margin-top: 8px; color: var(--cream-3); opacity: 0.7; }
 
+/* ── list view ───────────────────────────────────────────────────────────────
+ * The same layouts as the map, as a ranked table. Sits over the map between
+ * masthead and rail; the rail keeps working, so switching lens re-sorts the
+ * table live. Above the region/legend panels (20), below the dossier (35). */
+
+.list {
+  position: absolute;
+  inset: var(--head-h) 0 var(--rail-h) 0;
+  z-index: 25;
+  display: none;
+  overflow: auto;
+  background: var(--ink-0);
+  scrollbar-width: thin;
+}
+.list.on { display: block; }
+
+.list-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 18px 20px 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cream-2);
+}
+.list-note { color: var(--accent); font-size: 9.5px; }
+
+.list-grid { padding: 0 8px 40px; min-width: 640px; }
+
+.list-row {
+  display: grid;
+  grid-template-columns: 34px 52px minmax(180px, 2.2fr) minmax(110px, 1.3fr) 52px 46px 46px 40px 42px 64px;
+  gap: 0 10px;
+  align-items: baseline;
+  width: 100%;
+  padding: 7px 12px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--cream-1);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  text-align: left;
+  cursor: pointer;
+}
+.list-row:hover { background: var(--ink-2); color: var(--cream-0); }
+.list-row .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.list-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--ink-0);
+  border-bottom: 1px solid var(--line);
+  color: var(--cream-3);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: default;
+}
+.list-header:hover { background: var(--ink-0); color: var(--cream-3); }
+
+.list-pos { color: var(--cream-3); font-size: 10px; }
+.list-rank { color: var(--accent); font-size: 10.5px; white-space: nowrap; }
+.list-name {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--cream-0);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.list-flag { font-style: normal; color: var(--accent); font-size: 9px; margin-left: 6px; }
+.list-place {
+  color: var(--cream-2);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.list-score { display: flex; align-items: baseline; gap: 6px; justify-content: flex-end; font-variant-numeric: tabular-nums; }
+.list-score i { width: 8px; height: 8px; flex: none; align-self: center; border: 1px solid rgba(10, 10, 9, 0.6); }
+.list-score.none { color: var(--cream-3); }
+
+/* The rail's list switch sits apart from the lenses it follows. */
+.rail-mode { border-left: 1px solid var(--line); margin-left: auto; min-width: 84px; }
+.rail-mode[aria-pressed="true"] { color: var(--accent); }
+
+@media (max-width: 720px) {
+  /* Drop the survey columns; rank, course, rounds and the lens score carry the
+     phone view. The grid keeps its horizontal scroll as a fallback. */
+  .list-row { grid-template-columns: 30px 44px minmax(140px, 2fr) 44px 56px; }
+  /* nth-child, not class, so the header row's cells hide in step with the
+     body rows' — both are plain spans in the same positions. */
+  .list-row > span:nth-child(4),
+  .list-row > span:nth-child(6),
+  .list-row > span:nth-child(7),
+  .list-row > span:nth-child(8),
+  .list-row > span:nth-child(9) { display: none; }
+  .list-grid { min-width: 0; }
+}
+
 /* ── hover card ──────────────────────────────────────────────────────────── */
 
 .card {

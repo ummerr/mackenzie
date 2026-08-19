@@ -31,10 +31,15 @@ Three properties are non-negotiable and everything else follows from them:
 Three files at three levels of trust. Keeping them apart is the whole design.
 
 ```
-data/facilities.json   a physical place.       Machine-derived.   84 records
-data/layouts.json      a playable routing.     From Grint.        94 records
+data/facilities.json   a physical place.       Machine-derived.   85 records
+data/layouts.json      a playable routing.     From Grint.        96 records
 data/facts.json        an external claim.      Hand-curated.      25 facilities
 ```
+
+Two of the 96 layouts (and one of the 85 facilities) come from the round
+record, not the paste — see *Courses the paste hasn't met* below. They carry
+`origin: "rounds"` and the `rounds_only` flag; everything the paste alone
+knows (rank, ratings, avgScore, locality) is null on them, never guessed.
 
 ### Facility vs. layout
 
@@ -183,6 +188,23 @@ a verbatim `grint-export-*.json` bundle into `data/raw/`, and
 `data/rounds.json` (dates, per-hole strokes/putts/fairway codes, and the
 handicap-differential series in chart order), never a change to these two.
 
+### Courses the paste hasn't met
+
+`rounds-to-spine.mjs` (`data:spine`) closes the gap between the two adapters:
+a course present in `data/rounds.json` but absent from the spine — played
+after the last paste — is APPENDED to the two spine files with only what the
+record can honestly say (verbatim name, a count of real rounds, the Grint
+course id) and null for everything else, flagged `rounds_only`. Slug rules
+and the facility-alias table stay in step with `parse-grint.mjs`, and the
+alias table also maps a RENAMED course to its facility (Brambles → Hidden
+Valley Lake G&CC, same property, OSM relation/3570262), so a rebrand becomes
+a second layout rather than a second pin. The geocoder caches Nominatim's
+addressdetails, and the build falls back to them for the place fields where
+the paste is silent, stamped `placeFrom: "nominatim"`. A null rank is
+*unknown, not last*: the rank scale normalizes over ranked layouts only, and
+unranked courses render muted on the RANK lens and sit at the bottom of the
+list view labelled as awaiting the next paste.
+
 ---
 
 ## 5. Pipeline
@@ -192,7 +214,13 @@ data/raw/grint-*.txt
         │  parse-grint.mjs      verbatim + flags; asserts 93/11/3 against Grint's header
         ▼
 facilities.json ── layouts.json
+        │  rounds-to-spine.mjs  appends courses only the round record knows
+        │                       (rounds_only, unranked); >10 additions = drift, fails
+        ▼
+facilities.json ── layouts.json
         │  geocode.mjs          overrides → muni seeds → cache → Nominatim
+        │                       (also caches Nominatim addressdetails as the
+        │                        place fallback for paste-less facilities)
         ▼
 geocache.json  (each entry carries a `precision`)
         │  fetch-osm.mjs        batched Overpass; repairs coordinates; stitches relations
@@ -274,9 +302,13 @@ bundle, and `parse-grint-export.mjs` emits `data/rounds.json` — 166 rounds
 with dates, per-hole strokes/putts/fairway codes, and 151 handicap
 differentials. The profile reads it directly (`lib/round-history.ts`, since
 the 2026-08-17 merge) and now answers "is the golf getting better" with
-numbers. Still open: the map itself does not draw rounds yet,
-and no layout carries par or rating/slope (the export's `get_course_data`
-calls need real tee ids, which the scorecard page only loads by JS).
+numbers. Since 2026-08-19 the record also feeds the map: courses played
+after the last paste reach the spine via `rounds-to-spine.mjs` (unranked,
+`rounds_only`), and the map's rail carries a LIST view — the full ranking
+as a table, sorted by any lens. Still open: rounds themselves (dates,
+scores) aren't drawn on the map, and no layout carries par or rating/slope
+(the export's `get_course_data` calls need real tee ids, which the
+scorecard page only loads by JS).
 
 **Phase 4 — shots.** Garmin R50. Unproven: `gravityDopeRat/api/_lib/integrations/
 garmin/` establishes the auth pattern worth copying — bootstrap MFA locally once,

@@ -1537,6 +1537,46 @@
       "flags": [
         "nine_hole_suspected"
       ]
+    },
+    {
+      "slug": "bennett-valley-golf-course",
+      "facilitySlug": "bennett-valley-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Bennett Valley Golf Course",
+      "grintCourseId": "421",
+      "personalRank": null,
+      "timesPlayed": 1,
+      "avgScore": null,
+      "ratings": {
+        "overall": null,
+        "fun": null,
+        "condition": null
+      },
+      "played": true,
+      "flags": [
+        "rounds_only"
+      ],
+      "origin": "rounds"
+    },
+    {
+      "slug": "hidden-valley-lake-golf-and-country-club--brambles-golf",
+      "facilitySlug": "hidden-valley-lake-golf-and-country-club",
+      "grintLayoutName": null,
+      "grintFacilityName": "Brambles Golf",
+      "grintCourseId": "43726",
+      "personalRank": null,
+      "timesPlayed": 1,
+      "avgScore": null,
+      "ratings": {
+        "overall": null,
+        "fun": null,
+        "condition": null
+      },
+      "played": true,
+      "flags": [
+        "rounds_only"
+      ],
+      "origin": "rounds"
     }
   ]
 }

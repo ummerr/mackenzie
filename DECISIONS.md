@@ -6,6 +6,56 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-19 — Rounds reach the map without a paste; the list view lands
+
+**Decided:** a third pipeline step, `rounds-to-spine.mjs` (`data:spine`, between
+`data:parse` and `data:geocode`), appends to `layouts.json`/`facilities.json`
+any course the round record knows that the paste doesn't. Appended records carry
+only what the record can honestly say: verbatim `grintName`, `timesPlayed`
+counted from real rounds, `grintCourseId`, and **null** for rank, ratings,
+avgScore and locality — flagged `rounds_only`, `origin: "rounds"`. The geocoder
+now also caches Nominatim's `addressdetails` (locality/region/ISO state), and
+`build.mjs` uses that as the place fallback where the paste is silent, stamped
+`placeFrom: "nominatim"`. `build.mjs` treats a null rank as *unknown, not last*:
+the rank scale normalizes over ranked layouts only, and the null vector drops
+out of every lens (the map's `-1` sentinel already rendered that as muted).
+
+Also: the map gained a **LIST** switch on the lens rail — the same 96 layouts
+as a table sorted by the active lens (RANK = the Grint personal ranking),
+showing rounds/avg/three ratings/lens score, unranked rows at the bottom
+labelled as awaiting the next paste. Clicking a row flies to the pin and opens
+the dossier.
+
+**Why:** two new rounds (Bennett Valley, Brambles) existed in `rounds.json` but
+not on the map, and the only prior path was a fresh ranking paste — manual, and
+not something a new round should wait on. Verified against the full record
+before building: 95 distinct course strings in rounds.json, 93 slug-match the
+paste exactly, so the only additions are genuinely new courses. A >10-addition
+run fails as parser drift rather than minting a facility per drifted name.
+
+**The Brambles lesson, paid for twice.** Name-only geocoding sent "Brambles
+Golf" to a named place in *England* (52.94, -2.66) — plausible-looking, wrong
+by 8,500 km, and the Nominatim address fallback would have stamped it `GB`,
+defeating the country bbox check. Caught because the round was played the day
+after Bennett Valley (Santa Rosa). And Brambles turned out not to be a new
+facility at all: it is the 2024 Kyle Phillips redesign of Hidden Valley Lake
+G&CC (OSM relation/3570262, 19210 Hartmann Road), which the paste already
+ranks 88th. So: `FACILITY_ALIASES` in the spine step maps a renamed course to
+its facility — Brambles is now a second, unranked *layout* of Hidden Valley
+Lake, one pin on one place, `aliases` recording the new name. An aliased
+no-pipe name gets `facility--parsed-name` as its layout slug so it can't
+collide with the layout already holding the facility slug.
+
+**Rejected:** computing avgScore/ratings for rounds_only layouts from the
+record (Grint's numbers are Grint's; ours would be a second, disagreeing
+definition under the same field name). **Rejected:** a separate
+`facilities-from-rounds.json` (every consumer would need a second read path;
+per-record `origin` keeps provenance legible in one file). **Rejected:**
+sorting unranked layouts into the rank scale at the bottom — a course you
+haven't ranked is unknown, not 96th.
+
+---
+
 ## 2026-08-19 — Incremental capture: delta bundles, merged by the adapter
 
 **Decided:** the extension gains an incremental mode. The popup takes the

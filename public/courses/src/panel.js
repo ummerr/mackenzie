@@ -44,19 +44,29 @@ function bar(label, value) {
     </div>`;
 }
 
-function layoutBlock(l, facilityLayoutCount) {
-  const name = l.grintLayoutName ?? (facilityLayoutCount > 1 ? "Main course" : "The course");
+function layoutBlock(l, f, rankedTotal) {
+  const facilityLayoutCount = f.layoutCount;
+  const name =
+    l.grintLayoutName ??
+    // A renamed course merged by alias plays under its own Grint name.
+    (l.grintFacilityName && l.grintFacilityName !== f.grintName
+      ? l.grintFacilityName
+      : facilityLayoutCount > 1
+        ? "Main course"
+        : "The course");
   const plays = l.timesPlayed === 1 ? "1 round" : `${l.timesPlayed} rounds`;
   const avg = l.avgScore ? `avg ${l.avgScore.toFixed(1)}` : "no score";
   const flags = l.flags.length
     ? `<div class="flagline">${l.flags.map((f) => `▲ ${esc(FLAG_LABEL[f] ?? f)}`).join("<br>")}</div>`
     : "";
+  const rank =
+    l.personalRank == null ? "unranked" : `${ordinal(l.personalRank)} of ${rankedTotal}`;
 
   return `
     <div class="layout">
       <div class="layout-head">
         <span class="layout-name">${esc(name)}</span>
-        <span class="layout-rank">${ordinal(l.personalRank)} of 94</span>
+        <span class="layout-rank">${rank}</span>
       </div>
       <div class="layout-sub">${esc(plays)} · ${esc(avg)}</div>
       ${BARS.map(([lab, k]) => bar(lab, l.ratings[k])).join("")}
@@ -64,9 +74,10 @@ function layoutBlock(l, facilityLayoutCount) {
     </div>`;
 }
 
-function renderDossier(f) {
+function renderDossier(f, stats) {
   const facts = f.facts ?? {};
   const t = f.osmTags ?? {};
+  const rankedTotal = stats?.ranked ?? 94;
 
   const identity = [
     claim("Architect", facts.architect),
@@ -115,7 +126,7 @@ function renderDossier(f) {
       <div class="dos-place">${esc(place(f))}</div>
 
       ${section("01", "Your record", "", "")}
-      ${f.layouts.map((l) => layoutBlock(l, f.layoutCount)).join("")}
+      ${f.layouts.map((l) => layoutBlock(l, f, rankedTotal)).join("")}
 
       ${section(
         "02",
@@ -137,7 +148,16 @@ function renderDossier(f) {
          <dt>Boundary</dt><dd>${
            f.hasPolygon ? `matched <code>${esc(f.osmId)}</code>` : "not found in OSM"
          }<small>${f.hasPolygon ? "outline drawn on the map" : "renders as a pin only"}</small></dd>
-         <dt>Grint name</dt><dd>${esc(f.grintName)}<small>data/raw/grint-played-2026-08-01.txt</small></dd>
+         <dt>Grint name</dt><dd>${esc(f.grintName)}<small>${
+           f.origin === "rounds"
+             ? "data/rounds.json — the round record; awaiting the next ranking paste"
+             : "data/raw/grint-played-2026-08-01.txt"
+         }</small></dd>
+         ${
+           f.placeFrom === "nominatim"
+             ? `<dt>Place</dt><dd>${esc(place(f) || "—")}<small>from the geocoder (Nominatim), not from Grint</small></dd>`
+             : ""
+         }
          ${f.aliases?.length ? `<dt>Also listed</dt><dd>${f.aliases.map(esc).join("<br>")}<small>merged into one facility</small></dd>` : ""}`,
         "",
       )}

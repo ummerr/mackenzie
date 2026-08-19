@@ -58,7 +58,10 @@ const playedLayouts = layouts.filter((l) => l.played && l.avgScore);
 const cleanScores = playedLayouts.filter((l) => !l.flags.includes("nine_hole_suspected"));
 const meanScore = cleanScores.reduce((s, l) => s + l.avgScore, 0) / cleanScores.length;
 const maxPlays = Math.max(...layouts.map((l) => l.timesPlayed));
-const N = layouts.length;
+/** The rank scale runs over RANKED layouts only — a rounds_only course has no
+ *  rank at all (null vector, not last place) and must not stretch the scale. */
+const ranked = layouts.filter((l) => l.personalRank != null);
+const N = ranked.length;
 
 const clamp01 = (x) => Math.max(0, Math.min(1, x));
 
@@ -76,8 +79,10 @@ function vectorsFor(layout, fact) {
   const bestExternal = ranks.length ? Math.min(...ranks) : null;
 
   return {
-    // Inverted so 1st becomes 1.0 and last becomes ~0.
-    personalRank: clamp01((N - layout.personalRank) / (N - 1)),
+    // Inverted so 1st becomes 1.0 and last becomes ~0. Null when the paste
+    // never ranked this course (rounds_only) — unknown, not last.
+    personalRank:
+      layout.personalRank == null ? null : clamp01((N - layout.personalRank) / (N - 1)),
     rating: r.overall == null ? null : clamp01(r.overall / 100),
     fun: r.fun == null ? null : clamp01(r.fun / 100),
     condition: r.condition == null ? null : clamp01(r.condition / 100),
@@ -127,7 +132,9 @@ for (const f of facilities) {
   const geo = geocache[f.slug];
   const poly = polygonBySlug.get(f.slug);
   const fact = facts[f.slug] ?? null;
-  const own = (layoutsBySlug.get(f.slug) ?? []).sort((a, b) => a.personalRank - b.personalRank);
+  const own = (layoutsBySlug.get(f.slug) ?? []).sort(
+    (a, b) => (a.personalRank ?? Infinity) - (b.personalRank ?? Infinity),
+  );
 
   if (geo?.lat != null) withCoords++;
   if (poly) withPolygon++;
@@ -140,13 +147,20 @@ for (const f of facilities) {
     return { ...l, vectors, scores };
   });
 
+  /* Where the paste is silent (rounds_only facilities), the geocoder's
+     addressdetails fill in — machine-derived like the coordinate itself, and
+     placeFrom says which source is speaking. */
+  const rankVals = own.map((l) => l.personalRank).filter((r) => r != null);
+
   out.push({
     slug: f.slug,
     name: fact?.displayName?.value ?? f.grintName,
     grintName: f.grintName,
-    locality: f.locality,
-    region: f.region,
-    country: f.country,
+    locality: f.locality ?? geo?.address?.locality ?? null,
+    region: f.region ?? geo?.address?.region ?? null,
+    country: f.country ?? geo?.address?.country ?? null,
+    placeFrom: f.locality != null || f.region != null ? "grint" : geo?.address ? "nominatim" : null,
+    origin: f.origin ?? "paste",
     aliases: f.aliases,
 
     lat: geo?.lat ?? null,
@@ -158,7 +172,7 @@ for (const f of facilities) {
     hasPolygon: Boolean(poly),
 
     // Facility rollups, so the map can size and sort pins without walking layouts.
-    bestRank: Math.min(...own.map((l) => l.personalRank)),
+    bestRank: rankVals.length ? Math.min(...rankVals) : null,
     totalPlays: own.reduce((s, l) => s + l.timesPlayed, 0),
     layoutCount: own.length,
     played: own.some((l) => l.played),
@@ -199,10 +213,13 @@ writeFileSync(
       stats: {
         facilities: out.length,
         layouts: layouts.length,
+        ranked: N,
         played: layouts.filter((l) => l.played).length,
         meanScore: Number(meanScore.toFixed(1)),
-        countries: [...new Set(out.map((f) => f.country))],
-        usStates: [...new Set(out.filter((f) => f.country === "US").map((f) => f.region))].sort(),
+        countries: [...new Set(out.map((f) => f.country))].filter(Boolean),
+        usStates: [...new Set(out.filter((f) => f.country === "US").map((f) => f.region))]
+          .filter(Boolean)
+          .sort(),
       },
       lenses,
       facilities: out,

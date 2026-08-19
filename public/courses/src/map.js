@@ -183,7 +183,9 @@
           slug: f.slug,
           name: f.name,
           place: place(f),
-          bestRank: f.bestRank,
+          /* 9999 = unranked (rounds_only). A sortable sentinel rather than
+             null: label collision sorts on this, and null would win ties. */
+          bestRank: f.bestRank ?? 9999,
           totalPlays: f.totalPlays,
           layoutCount: f.layoutCount,
           avg: f.layouts.find((l) => l.avgScore)?.avgScore ?? null,
@@ -209,20 +211,36 @@
   }
 
   function renderRail() {
-    $("#rail").innerHTML = RAIL.map(
-      (r) =>
-        `<button class="rail-btn" data-lens="${r.lens}" aria-pressed="${r.lens === state.lens}">
-           <span class="rail-n">${r.n}</span>${r.label}
-         </button>`,
-    ).join("");
+    $("#rail").innerHTML =
+      RAIL.map(
+        (r) =>
+          `<button class="rail-btn" data-lens="${r.lens}" aria-pressed="${r.lens === state.lens}">
+             <span class="rail-n">${r.n}</span>${r.label}
+           </button>`,
+      ).join("") +
+      /* The list is a view of the same data, so its switch lives with the
+         lens switches — and stays reachable on a phone, where the top chrome
+         is hidden but the rail scrolls. */
+      `<button class="rail-btn rail-mode" id="list-toggle" aria-pressed="false">
+         <span class="rail-n">☰</span>LIST
+       </button>`;
 
     $("#rail").addEventListener("click", (e) => {
+      const mode = e.target.closest("#list-toggle");
+      if (mode) {
+        CourseList.toggle();
+        mode.setAttribute("aria-pressed", String(CourseList.isOpen()));
+        return;
+      }
       const btn = e.target.closest(".rail-btn");
       if (!btn) return;
       state.lens = btn.dataset.lens;
-      $$(".rail-btn").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lens === state.lens)));
+      $$(".rail-btn[data-lens]").forEach((b) =>
+        b.setAttribute("aria-pressed", String(b.dataset.lens === state.lens)),
+      );
       paintByLens();
       renderLegend();
+      CourseList.lensChanged();
     });
   }
 
@@ -276,7 +294,14 @@
     const groups = new Map();
     for (const f of courses.facilities) {
       if (f.lat == null) continue;
-      const key = f.country === "US" ? f.region : COUNTRY_LABEL[f.country] ?? f.country;
+      /* A rounds_only facility can lack region and country until the geocoder
+         has run; "Unfiled" keeps it in the panel instead of a "null" row. */
+      const key =
+        f.country === "US"
+          ? f.region ?? "Unfiled"
+          : f.country
+            ? COUNTRY_LABEL[f.country] ?? f.country
+            : "Unfiled";
       if (!groups.has(key)) groups.set(key, { key, country: f.country, items: [], plays: 0 });
       const g = groups.get(key);
       g.items.push(f);
@@ -349,7 +374,7 @@
     const f = state.data.courses.facilities.find((x) => x.slug === slug);
     if (!f) return;
     state.selected = slug;
-    $("#dossier-content").innerHTML = renderDossier(f);
+    $("#dossier-content").innerHTML = renderDossier(f, state.data.courses.stats);
     $("#dossier").classList.add("on");
     $("#dossier").scrollTop = 0;
     state.map.setFilter("facility-selected", ["==", ["get", "slug"], slug]);
@@ -693,7 +718,7 @@
         map.getCanvas().style.cursor = "pointer";
         if (hovered !== p.slug) {
           hovered = p.slug;
-          const bits = [`${ordinal(p.bestRank)}`];
+          const bits = [p.bestRank >= 9999 ? "unranked" : `${ordinal(p.bestRank)}`];
           if (p.avg) bits.push(`${Number(p.avg).toFixed(0)} avg`);
           bits.push(p.totalPlays === 1 ? "1 round" : `${p.totalPlays} rounds`);
           card.innerHTML = `
@@ -764,9 +789,28 @@
     renderRegions(data.courses);
     renderLegend();
 
+    CourseList.install(data.courses, {
+      getLens: () => state.lens,
+      onPick: (slug) => {
+        CourseList.close();
+        $("#list-toggle")?.setAttribute("aria-pressed", "false");
+        openDossier(slug);
+        const f = data.courses.facilities.find((x) => x.slug === slug);
+        if (f?.lat != null) {
+          map.easeTo({ center: [f.lon, f.lat], zoom: Math.max(map.getZoom(), 13), duration: 800 });
+        }
+      },
+    });
+
     $("#dossier-close").addEventListener("click", closeDossier);
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeDossier();
+      if (e.key !== "Escape") return;
+      if (CourseList.isOpen()) {
+        CourseList.close();
+        $("#list-toggle")?.setAttribute("aria-pressed", "false");
+        return;
+      }
+      closeDossier();
     });
   }
 

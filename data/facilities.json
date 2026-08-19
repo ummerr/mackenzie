@@ -867,9 +867,12 @@
       "region": "CA",
       "country": "US",
       "layoutSlugs": [
-        "hidden-valley-lake-golf-and-country-club"
+        "hidden-valley-lake-golf-and-country-club",
+        "hidden-valley-lake-golf-and-country-club--brambles-golf"
       ],
-      "aliases": []
+      "aliases": [
+        "Brambles Golf"
+      ]
     },
     {
       "slug": "jackson-park-golf-course",
@@ -936,6 +939,18 @@
         "westchester-golf-course"
       ],
       "aliases": []
+    },
+    {
+      "slug": "bennett-valley-golf-course",
+      "grintName": "Bennett Valley Golf Course",
+      "locality": null,
+      "region": null,
+      "country": null,
+      "layoutSlugs": [
+        "bennett-valley-golf-course"
+      ],
+      "aliases": [],
+      "origin": "rounds"
     }
   ]
 }

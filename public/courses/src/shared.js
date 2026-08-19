@@ -117,6 +117,7 @@ const FLAG_LABEL = {
   nine_hole_suspected: "Average looks like 9-hole rounds",
   mixed_round_lengths_suspected: "Average may mix 9- and 18-hole rounds",
   unreviewed: "Not reviewed",
+  rounds_only: "From the round record — not in the ranking paste yet",
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -131,9 +132,14 @@ const ordinal = (n) => {
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
-const place = (f) =>
-  [f.locality, f.region].filter(Boolean).join(", ") +
-  (f.country !== "US" ? `, ${COUNTRY_LABEL[f.country] ?? f.country}` : "");
+/* A rounds_only facility can have every place field null (geocoder still
+   pending), so the string is built from whatever exists rather than assuming
+   the paste's locality/region/country are all present. */
+const place = (f) => {
+  const local = [f.locality, f.region].filter(Boolean).join(", ");
+  const abroad = f.country && f.country !== "US" ? COUNTRY_LABEL[f.country] ?? f.country : "";
+  return [local, abroad].filter(Boolean).join(", ");
+};
 
 /** Interpolate the ramp at t in 0..1. Returns a hex string. */
 function rampAt(t) {

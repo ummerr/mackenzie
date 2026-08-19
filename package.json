@@ -15,6 +15,7 @@
     "profile": "tsx scripts/profile.ts",
     "flight": "tsx scripts/ball-flight.ts",
     "data:parse": "node scripts/parse-grint.mjs",
+    "data:spine": "node scripts/rounds-to-spine.mjs",
     "data:geocode": "node scripts/geocode.mjs",
     "data:osm": "node scripts/fetch-osm.mjs",
     "data:holes": "node scripts/fetch-holes.mjs",
@@ -22,7 +23,7 @@
     "data:validate": "node scripts/validate.mjs",
     "data:inventory": "node scripts/inventory-grint-export.mjs",
     "data:rounds": "node scripts/parse-grint-export.mjs",
-    "data:all": "pnpm data:parse && pnpm data:geocode && pnpm data:osm && pnpm data:holes && pnpm data:build && pnpm data:validate"
+    "data:all": "pnpm data:parse && pnpm data:spine && pnpm data:geocode && pnpm data:osm && pnpm data:holes && pnpm data:build && pnpm data:validate"
   },
   "dependencies": {
     "next": "^15.5.0",

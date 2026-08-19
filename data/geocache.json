@@ -742,5 +742,19 @@
     "osmId": "way/22729525",
     "source": "nominatim",
     "query": "Westchester Golf Course, Westchester, CA, United States"
+  },
+  "bennett-valley-golf-course": {
+    "lat": 38.4226423,
+    "lon": -122.6597347,
+    "precision": "course_feature",
+    "display": "Bennett Valley Golf Course, 3330, Yulupa Avenue, Santa Rosa, Sonoma County, California, 95405, United States",
+    "osmId": "way/28834407",
+    "address": {
+      "locality": "Santa Rosa",
+      "region": "CA",
+      "country": "US"
+    },
+    "source": "nominatim",
+    "query": "Bennett Valley Golf Course"
   }
 }

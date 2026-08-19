@@ -682,5 +682,14 @@
     "water": 1,
     "plan": true,
     "bytes": 73281
+  },
+  "bennett-valley-golf-course": {
+    "features": 34,
+    "greens": 0,
+    "holes": 0,
+    "bunkers": 0,
+    "water": 14,
+    "plan": false,
+    "bytes": 13155
   }
 }

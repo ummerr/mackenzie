@@ -18,7 +18,7 @@ try{var t=localStorage.getItem("theme");if(t==="dark"||t==="auto"||t==="light")d
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="MACKENZIE — every course I've played">
-<meta property="og:description" content="94 courses, 84 places, 11 states, 3 countries. Mapped, sourced, and rankable through six different lenses.">
+<meta property="og:description" content="96 courses, 85 places, 11 states, 3 countries. Mapped, sourced, and rankable through six different lenses.">
 <meta property="og:url" content="https://courses.ummerr.com/courses">
 <meta name="twitter:card" content="summary">
 
@@ -69,6 +69,8 @@ try{var t=localStorage.getItem("theme");if(t==="dark"||t==="auto"||t==="light")d
 </aside>
 
 <div class="legend" id="legend"></div>
+
+<div class="list" id="list" aria-label="Course list"></div>
 
 <div class="card" id="card"></div>
 
@@ -131,6 +133,7 @@ window.addEventListener("unhandledrejection", function (e) {
 <script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
 <script src="/courses/src/shared.js"></script>
 <script src="/courses/src/panel.js"></script>
+<script src="/courses/src/list.js"></script>
 <script src="/courses/src/course.js"></script>
 <script src="/courses/src/map.js"></script>
 </body>
