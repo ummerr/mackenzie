@@ -1,10 +1,10 @@
 {
   "source": "thegrint",
   "adapter": "parse-grint-export.mjs",
-  "capturedAt": "2026-08-15T06:22:33.662Z",
-  "rawFile": "raw/grint-export-2026-08-15.json",
+  "capturedAt": "2026-08-19T15:39:47.011Z",
+  "rawFile": "raw/grint-export-2026-08-19.json",
   "userId": "1221374",
-  "handicapIndex": 12.9,
+  "handicapIndex": 13.3,
   "rounds": [
     {
       "roundId": "13764594",
@@ -14,7 +14,7 @@
       "courseGrintId": "4872",
       "courseName": "Wedgwood Country Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 98,
@@ -114,7 +114,7 @@
       "courseGrintId": "4864",
       "courseName": "Marlton | The Links Golf Club",
       "teeName": "Ii/iii",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 88,
@@ -212,7 +212,7 @@
       "courseGrintId": "4864",
       "courseName": "Marlton | The Links Golf Club",
       "teeName": "II",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 46,
@@ -312,7 +312,7 @@
       "courseGrintId": "4872",
       "courseName": "Wedgwood Country Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -410,7 +410,7 @@
       "courseGrintId": "4782",
       "courseName": "Kresson Golf Course",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 81,
@@ -508,7 +508,7 @@
       "courseGrintId": "4864",
       "courseName": "Marlton | The Links Golf Club",
       "teeName": "II",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -606,7 +606,7 @@
       "courseGrintId": "918",
       "courseName": "Westchester Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 83,
@@ -704,7 +704,7 @@
       "courseGrintId": "14568",
       "courseName": "Roosevelt Municipal Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 40,
@@ -804,7 +804,7 @@
       "courseGrintId": "758",
       "courseName": "Rancho Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 42,
@@ -904,7 +904,7 @@
       "courseGrintId": "14551",
       "courseName": "Penmar Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 40,
@@ -1004,7 +1004,7 @@
       "courseGrintId": "14551",
       "courseName": "Penmar Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 40,
@@ -1104,7 +1104,7 @@
       "courseGrintId": "758",
       "courseName": "Rancho Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 43,
@@ -1204,7 +1204,7 @@
       "courseGrintId": "918",
       "courseName": "Westchester Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 35,
@@ -1304,7 +1304,7 @@
       "courseGrintId": "867",
       "courseName": "Oaks/Creek | Temecula Creek Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 46,
@@ -1404,7 +1404,7 @@
       "courseGrintId": "869",
       "courseName": "Creek/StoneHouse | Temecula Creek Golf Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 40,
@@ -1504,7 +1504,7 @@
       "courseGrintId": "13590",
       "courseName": "Redhawk Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 100,
@@ -1602,7 +1602,7 @@
       "courseGrintId": "11340",
       "courseName": "Cross Creek Golf Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -1700,7 +1700,7 @@
       "courseGrintId": "14551",
       "courseName": "Penmar Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 38,
@@ -1800,7 +1800,7 @@
       "courseGrintId": "566",
       "courseName": "Wilson | Griffith Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 49,
@@ -1900,7 +1900,7 @@
       "courseGrintId": "448",
       "courseName": "E.O. Nay - Course 2 | Brookside Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 83,
@@ -1998,7 +1998,7 @@
       "courseGrintId": "918",
       "courseName": "Westchester Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 38,
@@ -2098,7 +2098,7 @@
       "courseGrintId": "14551",
       "courseName": "Penmar Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 43,
@@ -2198,7 +2198,7 @@
       "courseGrintId": "16381",
       "courseName": "Westdrift | Manhattan Country Club",
       "teeName": "Black",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 40,
@@ -2298,7 +2298,7 @@
       "courseGrintId": "4705",
       "courseName": "Ron Jaworskis Valleybrook Golf Course",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 88,
@@ -2396,7 +2396,7 @@
       "courseGrintId": "4872",
       "courseName": "Wedgwood Country Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -2494,7 +2494,7 @@
       "courseGrintId": "4872",
       "courseName": "Wedgwood Country Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 94,
@@ -2592,7 +2592,7 @@
       "courseGrintId": "8616",
       "courseName": "Lakeside/Hillside | Cantigny Golf & Tennis Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 93,
@@ -2690,7 +2690,7 @@
       "courseGrintId": "2310",
       "courseName": "Jackson Park Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 87,
@@ -2788,7 +2788,7 @@
       "courseGrintId": "13723",
       "courseName": "Billy Caldwell Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 46,
@@ -2888,7 +2888,7 @@
       "courseGrintId": "12316",
       "courseName": "Don Valley Golf Course",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 41,
@@ -2988,7 +2988,7 @@
       "courseGrintId": "21855",
       "courseName": "Cherry Downs Golf & Count",
       "teeName": "White/Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 98,
@@ -3086,7 +3086,7 @@
       "courseGrintId": "19427",
       "courseName": "South | The Club At Bond Head",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 100,
@@ -3184,7 +3184,7 @@
       "courseGrintId": "4828",
       "courseName": "Blue/Red | Ramblewood Country Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 45,
@@ -3285,7 +3285,7 @@
       "courseGrintId": "758",
       "courseName": "Rancho Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 100,
@@ -3383,7 +3383,7 @@
       "courseGrintId": "11448",
       "courseName": "Angeles National Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 95,
@@ -3481,7 +3481,7 @@
       "courseGrintId": "758",
       "courseName": "Rancho Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 90,
@@ -3579,7 +3579,7 @@
       "courseGrintId": "10434",
       "courseName": "Heritage Palms Golf Club",
       "teeName": "Regular",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 85,
@@ -3677,7 +3677,7 @@
       "courseGrintId": "758",
       "courseName": "Rancho Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 83,
@@ -3775,7 +3775,7 @@
       "courseGrintId": "447",
       "courseName": "C.W. Koiner - Course 1 | Brookside Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 47,
@@ -3876,7 +3876,7 @@
       "courseGrintId": "447",
       "courseName": "C.W. Koiner - Course 1 | Brookside Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 44,
@@ -3977,7 +3977,7 @@
       "courseGrintId": "447",
       "courseName": "C.W. Koiner - Course 1 | Brookside Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 49,
@@ -4078,7 +4078,7 @@
       "courseGrintId": "758",
       "courseName": "Rancho Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 97,
@@ -4176,7 +4176,7 @@
       "courseGrintId": "11201",
       "courseName": "Tierra Rejada Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 100,
@@ -4274,7 +4274,7 @@
       "courseGrintId": "447",
       "courseName": "C.W. Koiner - Course 1 | Brookside Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 48,
@@ -4375,7 +4375,7 @@
       "courseGrintId": "817",
       "courseName": "Balboa | Sepulveda Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 88,
@@ -4473,7 +4473,7 @@
       "courseGrintId": "11829",
       "courseName": "Rustic Canyon Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 96,
@@ -4571,7 +4571,7 @@
       "courseGrintId": "566",
       "courseName": "Wilson | Griffith Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 47,
@@ -4671,7 +4671,7 @@
       "courseGrintId": "647",
       "courseName": "Meadow Club Fairfax",
       "teeName": "Blue/White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -4769,7 +4769,7 @@
       "courseGrintId": "11448",
       "courseName": "Angeles National Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 51,
@@ -4869,7 +4869,7 @@
       "courseGrintId": "567",
       "courseName": "Harding | Griffith Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -4967,7 +4967,7 @@
       "courseGrintId": "2007",
       "courseName": "Beach/Kings | Waikoloa Beach & Kings’ Golf Course",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 43,
@@ -5067,7 +5067,7 @@
       "courseGrintId": "10619",
       "courseName": "Makani Golf Club",
       "teeName": "Member",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 50,
@@ -5167,7 +5167,7 @@
       "courseGrintId": "758",
       "courseName": "Rancho Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 45,
@@ -5267,7 +5267,7 @@
       "courseGrintId": "11829",
       "courseName": "Rustic Canyon Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -5365,7 +5365,7 @@
       "courseGrintId": "11201",
       "courseName": "Tierra Rejada Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 94,
@@ -5463,7 +5463,7 @@
       "courseGrintId": "620",
       "courseName": "Lakewood Country Club & Tennis Center",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 47,
@@ -5563,7 +5563,7 @@
       "courseGrintId": "29561",
       "courseName": "Barbados Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 99,
@@ -5661,7 +5661,7 @@
       "courseGrintId": "19465",
       "courseName": "Royal Westmoreland Golf",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 102,
@@ -5759,7 +5759,7 @@
       "courseGrintId": "17371",
       "courseName": "The Country Club | Sandy Lane Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 97,
@@ -5857,7 +5857,7 @@
       "courseGrintId": "11201",
       "courseName": "Tierra Rejada Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 95,
@@ -5955,7 +5955,7 @@
       "courseGrintId": "566",
       "courseName": "Wilson | Griffith Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -6053,7 +6053,7 @@
       "courseGrintId": "447",
       "courseName": "C.W. Koiner - Course 1 | Brookside Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 96,
@@ -6151,7 +6151,7 @@
       "courseGrintId": "665",
       "courseName": "Montebello Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -6249,7 +6249,7 @@
       "courseGrintId": "816",
       "courseName": "Encino | Sepulveda Golf Complex",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 83,
@@ -6347,7 +6347,7 @@
       "courseGrintId": "11829",
       "courseName": "Rustic Canyon Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 94,
@@ -6445,7 +6445,7 @@
       "courseGrintId": "9673",
       "courseName": "Acworth | Cobblestone Golf Course",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -6543,7 +6543,7 @@
       "courseGrintId": "8428",
       "courseName": "Lanier Islands Golf Course",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 89,
@@ -6641,7 +6641,7 @@
       "courseGrintId": "10153",
       "courseName": "Cherokee Run Golf Club",
       "teeName": "Augusta",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 93,
@@ -6739,7 +6739,7 @@
       "courseGrintId": "19819",
       "courseName": "Indian Spring Country Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 93,
@@ -6837,7 +6837,7 @@
       "courseGrintId": "3817",
       "courseName": "University Of Michigan Golf Course",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -6935,7 +6935,7 @@
       "courseGrintId": "10311",
       "courseName": "Leslie Park Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 95,
@@ -7033,7 +7033,7 @@
       "courseGrintId": "11124",
       "courseName": "Lake Forest Golf Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 90,
@@ -7131,7 +7131,7 @@
       "courseGrintId": "758",
       "courseName": "Rancho Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -7229,7 +7229,7 @@
       "courseGrintId": "758",
       "courseName": "Rancho Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 88,
@@ -7327,7 +7327,7 @@
       "courseGrintId": "11201",
       "courseName": "Tierra Rejada Golf Club",
       "teeName": "Tournament",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 85,
@@ -7425,7 +7425,7 @@
       "courseGrintId": "801",
       "courseName": "Sandpiper Golf Course",
       "teeName": "Gold",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 90,
@@ -7523,7 +7523,7 @@
       "courseGrintId": "704",
       "courseName": "Ojai Valley Inn and Spa",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 88,
@@ -7621,7 +7621,7 @@
       "courseGrintId": "6061",
       "courseName": "Eastmoreland Golf Course",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -7719,7 +7719,7 @@
       "courseGrintId": "6126",
       "courseName": "Great Blue | Heron Lakes Golf Course",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 88,
@@ -7817,7 +7817,7 @@
       "courseGrintId": "6127",
       "courseName": "Greenback | Heron Lakes Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 84,
@@ -7915,7 +7915,7 @@
       "courseGrintId": "4864",
       "courseName": "Marlton | The Links Golf Club",
       "teeName": "II",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 90,
@@ -8013,7 +8013,7 @@
       "courseGrintId": "11829",
       "courseName": "Rustic Canyon Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -8111,7 +8111,7 @@
       "courseGrintId": "636",
       "courseName": "Los Robles Greens Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 79,
@@ -8209,7 +8209,7 @@
       "courseGrintId": "8864",
       "courseName": "Hidden Valley Lake Golf & Country Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 98,
@@ -8307,7 +8307,7 @@
       "courseGrintId": "647",
       "courseName": "Meadow Club Fairfax",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 86,
@@ -8405,7 +8405,7 @@
       "courseGrintId": "816",
       "courseName": "Encino | Sepulveda Golf Complex",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 82,
@@ -8503,7 +8503,7 @@
       "courseGrintId": "11201",
       "courseName": "Tierra Rejada Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 89,
@@ -8601,7 +8601,7 @@
       "courseGrintId": "11829",
       "courseName": "Rustic Canyon Golf Course",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 88,
@@ -8699,7 +8699,7 @@
       "courseGrintId": "816",
       "courseName": "Encino | Sepulveda Golf Complex",
       "teeName": "Black",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 84,
@@ -8797,7 +8797,7 @@
       "courseGrintId": "817",
       "courseName": "Balboa | Sepulveda Golf Club",
       "teeName": "Black",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 81,
@@ -8895,7 +8895,7 @@
       "courseGrintId": "11829",
       "courseName": "Rustic Canyon Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 89,
@@ -8993,7 +8993,7 @@
       "courseGrintId": "584",
       "courseName": "Babe Zaharias | Industry Hills Golf Club At Pacific Palms Resort",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -9091,7 +9091,7 @@
       "courseGrintId": "593",
       "courseName": "Knollwood Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 84,
@@ -9189,7 +9189,7 @@
       "courseGrintId": "636",
       "courseName": "Los Robles Greens Golf Course",
       "teeName": "Black",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 90,
@@ -9287,7 +9287,7 @@
       "courseGrintId": "17038",
       "courseName": "Tahoe Donner Golf Course",
       "teeName": "Silver",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -9385,7 +9385,7 @@
       "courseGrintId": "11240",
       "courseName": "Coyote Moon Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 95,
@@ -9483,7 +9483,7 @@
       "courseGrintId": "4936",
       "courseName": "Edgewood Tahoe Resort Golf",
       "teeName": "Blue/White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 94,
@@ -9581,7 +9581,7 @@
       "courseGrintId": "11162",
       "courseName": "Valley Course | Coyote Creek Golf Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 86,
@@ -9679,7 +9679,7 @@
       "courseGrintId": "5429",
       "courseName": "Van Cortlandt Park Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 87,
@@ -9777,7 +9777,7 @@
       "courseGrintId": "5115",
       "courseName": "Forest Park Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 82,
@@ -9875,7 +9875,7 @@
       "courseGrintId": "22353",
       "courseName": "New Sunningdale | Sunningdale Golf & Country Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 90,
@@ -9973,7 +9973,7 @@
       "courseGrintId": "17232",
       "courseName": "Shawneeki Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 93,
@@ -10071,7 +10071,7 @@
       "courseGrintId": "11467",
       "courseName": "Commemorative Course | Oak Quarry Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 88,
@@ -10169,7 +10169,7 @@
       "courseGrintId": "704",
       "courseName": "Ojai Valley Inn and Spa",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 93,
@@ -10267,7 +10267,7 @@
       "courseGrintId": "11467",
       "courseName": "Commemorative Course | Oak Quarry Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 87,
@@ -10365,7 +10365,7 @@
       "courseGrintId": "11201",
       "courseName": "Tierra Rejada Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -10463,7 +10463,7 @@
       "courseGrintId": "11270",
       "courseName": "Black Gold Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 90,
@@ -10561,7 +10561,7 @@
       "courseGrintId": "647",
       "courseName": "Meadow Club Fairfax",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 86,
@@ -10659,7 +10659,7 @@
       "courseGrintId": "11201",
       "courseName": "Tierra Rejada Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -10757,7 +10757,7 @@
       "courseGrintId": "36080",
       "courseName": "Ke'olu | Hualalai Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 88,
@@ -10855,7 +10855,7 @@
       "courseGrintId": "36080",
       "courseName": "Ke'olu | Hualalai Golf Club",
       "teeName": "Champ-Reg",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 89,
@@ -10953,7 +10953,7 @@
       "courseGrintId": "36080",
       "courseName": "Ke'olu | Hualalai Golf Club",
       "teeName": "Champ-Reg",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 9,
       "totals": {
         "strokes": 44,
@@ -11053,7 +11053,7 @@
       "courseGrintId": "36080",
       "courseName": "Ke'olu | Hualalai Golf Club",
       "teeName": "Champ-Reg",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 93,
@@ -11151,7 +11151,7 @@
       "courseGrintId": "11201",
       "courseName": "Tierra Rejada Golf Club",
       "teeName": "Tournament",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 93,
@@ -11249,7 +11249,7 @@
       "courseGrintId": "9939",
       "courseName": "Snow Mountain | Las Vegas Paiute Golf Resort",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 102,
@@ -11347,7 +11347,7 @@
       "courseGrintId": "9940",
       "courseName": "Wolf | Las Vegas Paiute Golf Resort",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 94,
@@ -11445,7 +11445,7 @@
       "courseGrintId": "10642",
       "courseName": "Serket Golf Club",
       "teeName": "Gold",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 89,
@@ -11543,7 +11543,7 @@
       "courseGrintId": "585",
       "courseName": "Dwight Eisenhower | Industry Hills Golf Club At Pacific Palms Resort",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 95,
@@ -11641,7 +11641,7 @@
       "courseGrintId": "566",
       "courseName": "Wilson | Griffith Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -11739,7 +11739,7 @@
       "courseGrintId": "11467",
       "courseName": "Commemorative Course | Oak Quarry Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 87,
@@ -11837,7 +11837,7 @@
       "courseGrintId": "585",
       "courseName": "Dwight Eisenhower | Industry Hills Golf Club At Pacific Palms Resort",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 94,
@@ -11935,7 +11935,7 @@
       "courseGrintId": "636",
       "courseName": "Los Robles Greens Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 90,
@@ -12033,7 +12033,7 @@
       "courseGrintId": "11448",
       "courseName": "Angeles National Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -12131,7 +12131,7 @@
       "courseGrintId": "391",
       "courseName": "Alhambra Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 88,
@@ -12229,7 +12229,7 @@
       "courseGrintId": "11270",
       "courseName": "Black Gold Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 97,
@@ -12327,7 +12327,7 @@
       "courseGrintId": "926",
       "courseName": "River/Pine | Whittier Narrows Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 95,
@@ -12425,7 +12425,7 @@
       "courseGrintId": "11467",
       "courseName": "Commemorative Course | Oak Quarry Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 85,
@@ -12523,7 +12523,7 @@
       "courseGrintId": "13590",
       "courseName": "Redhawk Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 97,
@@ -12621,7 +12621,7 @@
       "courseGrintId": "869",
       "courseName": "Creek/StoneHouse | Temecula Creek Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -12719,7 +12719,7 @@
       "courseGrintId": "9049",
       "courseName": "Stadium Course | PGA West Stadium Clubhouse",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 95,
@@ -12817,7 +12817,7 @@
       "courseGrintId": "17713",
       "courseName": "Celebrity | Indian Wells Golf Resort",
       "teeName": "Yellow",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 93,
@@ -12915,7 +12915,7 @@
       "courseGrintId": "11270",
       "courseName": "Black Gold Golf Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 93,
@@ -13013,7 +13013,7 @@
       "courseGrintId": "758",
       "courseName": "Rancho Park Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 87,
@@ -13111,7 +13111,7 @@
       "courseGrintId": "5349",
       "courseName": "Upper Course | Sleepy Hollow Country Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -13209,7 +13209,7 @@
       "courseGrintId": "4994",
       "courseName": "Black | Bethpage State Park Golf Course",
       "teeName": "Middle",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 98,
@@ -13307,7 +13307,7 @@
       "courseGrintId": "11846",
       "courseName": "Canyon Crest/Ridgeline | Moorpark Country Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 96,
@@ -13405,7 +13405,7 @@
       "courseGrintId": "9245",
       "courseName": "Ocean North | Pelican Hill Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -13503,7 +13503,7 @@
       "courseGrintId": "11270",
       "courseName": "Black Gold Golf Club",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 87,
@@ -13601,7 +13601,7 @@
       "courseGrintId": "10879",
       "courseName": "Nicklaus Course | Hualalai Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 85,
@@ -13699,7 +13699,7 @@
       "courseGrintId": "36080",
       "courseName": "Ke'olu | Hualalai Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -13799,7 +13799,7 @@
       "courseGrintId": "36080",
       "courseName": "Ke'olu | Hualalai Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 80,
@@ -13899,7 +13899,7 @@
       "courseGrintId": "36080",
       "courseName": "Ke'olu | Hualalai Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 80,
@@ -13997,7 +13997,7 @@
       "courseGrintId": "10879",
       "courseName": "Nicklaus Course | Hualalai Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 81,
@@ -14095,7 +14095,7 @@
       "courseGrintId": "10884",
       "courseName": "Tobacco Road Golf Club",
       "teeName": "Plow",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 89,
@@ -14193,7 +14193,7 @@
       "courseGrintId": "9685",
       "courseName": "Mid South Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 92,
@@ -14291,7 +14291,7 @@
       "courseGrintId": "5115",
       "courseName": "Forest Park Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 84,
@@ -14389,7 +14389,7 @@
       "courseGrintId": "5395",
       "courseName": "The Creek Club Locust Valley",
       "teeName": "Red",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 87,
@@ -14487,7 +14487,7 @@
       "courseGrintId": "647",
       "courseName": "Meadow Club Fairfax",
       "teeName": "Blue",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 90,
@@ -14585,7 +14585,7 @@
       "courseGrintId": "10845",
       "courseName": "Canyon/Lake | Cinnabar Hills Golf Club",
       "teeName": "Cinnabar",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 90,
@@ -14683,7 +14683,7 @@
       "courseGrintId": "5349",
       "courseName": "Upper Course | Sleepy Hollow Country Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 88,
@@ -14781,7 +14781,7 @@
       "courseGrintId": "19563",
       "courseName": "North | TPC Toronto at Osprey Valley",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 93,
@@ -14879,7 +14879,7 @@
       "courseGrintId": "19564",
       "courseName": "Hoot | TPC Toronto at Osprey Valley",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 94,
@@ -14977,7 +14977,7 @@
       "courseGrintId": "4864",
       "courseName": "Marlton | The Links Golf Club",
       "teeName": "II",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 93,
@@ -15075,7 +15075,7 @@
       "courseGrintId": "328",
       "courseName": "Oakcreek Country Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 89,
@@ -15173,7 +15173,7 @@
       "courseGrintId": "10879",
       "courseName": "Nicklaus Course | Hualalai Golf Club",
       "teeName": "Championship",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 82,
@@ -15271,7 +15271,7 @@
       "courseGrintId": "36080",
       "courseName": "Ke'olu | Hualalai Golf Club",
       "teeName": "Champ-Reg",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -15369,7 +15369,7 @@
       "courseGrintId": "36080",
       "courseName": "Ke'olu | Hualalai Golf Club",
       "teeName": "Champ-Reg",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 85,
@@ -15467,7 +15467,7 @@
       "courseGrintId": "20433",
       "courseName": "18 Holes | Kukio Makai Beach Golf Club",
       "teeName": "Tee II",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 82,
@@ -15565,7 +15565,7 @@
       "courseGrintId": "11281",
       "courseName": "Scottsdale Silverado Golf Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 88,
@@ -15663,7 +15663,7 @@
       "courseGrintId": "9906",
       "courseName": "Raptor | Grayhawk Golf Club",
       "teeName": "Terra Cotta",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 94,
@@ -15761,7 +15761,7 @@
       "courseGrintId": "8206",
       "courseName": "Champions | Tpc Of Scottsdale",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 88,
@@ -15859,7 +15859,7 @@
       "courseGrintId": "12091",
       "courseName": "Eagle Vines Golf Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 90,
@@ -15976,7 +15976,7 @@
       "courseGrintId": "884",
       "courseName": "Tilden Park Golf Course",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 85,
@@ -16074,7 +16074,7 @@
       "courseGrintId": "12822",
       "courseName": "Ussher's Creek | Legends On The Niagara Golf Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -16172,7 +16172,7 @@
       "courseGrintId": "12821",
       "courseName": "Battlefield | Legends On The Niagara Golf Club",
       "teeName": "White",
-      "courseHandicap": "11.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -16258,6 +16258,202 @@
           "D",
           "",
           ""
+        ]
+      },
+      "flags": []
+    },
+    {
+      "roundId": "61978478",
+      "entry": "full",
+      "url": "https://thegrint.com/score/edit_score/61978478?handicap_company_id=3",
+      "date": "2026-08-15",
+      "courseGrintId": "421",
+      "courseName": "Bennett Valley Golf Course",
+      "teeName": "White",
+      "courseHandicap": "12.0",
+      "holesRecorded": 18,
+      "totals": {
+        "strokes": 89,
+        "putts": 38
+      },
+      "perHole": {
+        "strokes": [
+          "7",
+          "5",
+          "6",
+          "5",
+          "6",
+          "4",
+          "5",
+          "3",
+          "5",
+          "6",
+          "4",
+          "6",
+          "4",
+          "4",
+          "4",
+          "4",
+          "5",
+          "6"
+        ],
+        "putts": [
+          "3",
+          "2",
+          "2",
+          "1",
+          "2",
+          "3",
+          "2",
+          "2",
+          "3",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "3",
+          "2",
+          "1",
+          "2"
+        ],
+        "fairways": [
+          "8",
+          "7",
+          "8",
+          "5",
+          "3",
+          "3",
+          "3",
+          "3",
+          "3",
+          "3",
+          "1",
+          "8",
+          "3",
+          "3",
+          "3",
+          "3",
+          "2",
+          "8"
+        ],
+        "shotCodes": [
+          "",
+          "D",
+          "",
+          "",
+          "S",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "flags": []
+    },
+    {
+      "roundId": "62039042",
+      "entry": "full",
+      "url": "https://thegrint.com/score/edit_score/62039042?handicap_company_id=3",
+      "date": "2026-08-16",
+      "courseGrintId": "43726",
+      "courseName": "Brambles Golf",
+      "teeName": "Middle",
+      "courseHandicap": "12.0",
+      "holesRecorded": 18,
+      "totals": {
+        "strokes": 90,
+        "putts": 35
+      },
+      "perHole": {
+        "strokes": [
+          "5",
+          "6",
+          "4",
+          "6",
+          "6",
+          "6",
+          "7",
+          "4",
+          "4",
+          "4",
+          "4",
+          "5",
+          "5",
+          "5",
+          "5",
+          "3",
+          "6",
+          "5"
+        ],
+        "putts": [
+          "1",
+          "3",
+          "2",
+          "2",
+          "2",
+          "2",
+          "3",
+          "2",
+          "1",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "1",
+          "2",
+          "2"
+        ],
+        "fairways": [
+          "1",
+          "1",
+          "4",
+          "7",
+          "7",
+          "7",
+          "3",
+          "2",
+          "5",
+          "2",
+          "2",
+          "7",
+          "8",
+          "8",
+          "7",
+          "8",
+          "3",
+          "3"
+        ],
+        "shotCodes": [
+          "",
+          "",
+          "",
+          "D",
+          "D",
+          "D",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "D",
+          "",
+          "D",
+          "",
+          "",
+          "",
+          "S"
         ]
       },
       "flags": []
@@ -17185,14 +17381,14 @@
       "seq": 132,
       "courseName": "The Creek Club Locust Valley",
       "differential": 13.8,
-      "countsTowardHdcp": true,
+      "countsTowardHdcp": false,
       "trendingHdcp": 10.6
     },
     {
       "seq": 133,
       "courseName": "Meadow Club Fairfax",
       "differential": 15,
-      "countsTowardHdcp": true,
+      "countsTowardHdcp": false,
       "trendingHdcp": 10.8
     },
     {
@@ -17290,7 +17486,7 @@
       "seq": 147,
       "courseName": "Eagle Vines Golf Club",
       "differential": 16.7,
-      "countsTowardHdcp": false,
+      "countsTowardHdcp": true,
       "trendingHdcp": 11.4
     },
     {
@@ -17320,6 +17516,20 @@
       "differential": 20.5,
       "countsTowardHdcp": false,
       "trendingHdcp": 12.9
+    },
+    {
+      "seq": 152,
+      "courseName": "Bennett Valley Golf Course",
+      "differential": 18.4,
+      "countsTowardHdcp": false,
+      "trendingHdcp": 13.2
+    },
+    {
+      "seq": 153,
+      "courseName": "Brambles Golf",
+      "differential": 15.7,
+      "countsTowardHdcp": true,
+      "trendingHdcp": 13.3
     }
   ],
   "series": {
@@ -17899,6 +18109,14 @@
       {
         "courseName": "Battlefield | Legends On The Niagara Golf Club",
         "value": 4
+      },
+      {
+        "courseName": "Bennett Valley Golf Course",
+        "value": 7
+      },
+      {
+        "courseName": "Brambles Golf",
+        "value": 3
       }
     ],
     "parSavesPct": [
@@ -18481,6 +18699,14 @@
       {
         "courseName": "Battlefield | Legends On The Niagara Golf Club",
         "value": 14
+      },
+      {
+        "courseName": "Bennett Valley Golf Course",
+        "value": 0
+      },
+      {
+        "courseName": "Brambles Golf",
+        "value": 27
       }
     ]
   }

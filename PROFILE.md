@@ -22,8 +22,8 @@ takes it off. Hit the shots and the sentence retires itself.
 | Courses played | **84** — 11 US states, 3 countries |
 | Mean score | **88.4** — 79 layouts, 18 holes |
 | Favourite | **Bethpage State Park (Black)** — own ranking, no. 1 |
-| Handicap index | **12.9** — WHS, from 23.9 at the record's start |
-| Scored span | **2021-07-08 → 2026-07-26** — 166 dated rounds |
+| Handicap index | **13.3** — WHS, from 23.9 at the record's start |
+| Scored span | **2021-07-08 → 2026-08-16** — 168 dated rounds |
 
 ## The read
 
@@ -52,13 +52,13 @@ of claim this repo refuses to print.
 
 ### 04. The golf is getting better, and the raw scores hide it: the handicap fell while the scorecards stood still, which is what improvement looks like when the courses get harder too.
 
-- **why** — Trending handicap 23.9 at the record's start, 12.9 now, across 151 differentials (mean of the first 20: 18.9; the last 20: 16.9). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 89.3 (2026, 4).
+- **why** — Trending handicap 23.9 at the record's start, 13.3 now, across 153 differentials (mean of the first 20: 18.9; the last 20: 17.1). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 89.3 (2026, 6).
 - **gone when** — A capture whose trending handicap ends no lower than it starts.
 - *course · high confidence*
 
 ### 05. Putting is the biggest single line item in the score: 39% of all strokes happen on the green.
 
-- **why** — 134 eighteen-hole rounds carry putts: 35.7 per round against a 90.4 mean score. 354 holes took three or more putts, of 2609 recorded — one in 7.
+- **why** — 136 eighteen-hole rounds carry putts: 35.7 per round against a 90.4 mean score. 360 holes took three or more putts, of 2645 recorded — one in 7.
 - **gone when** — A capture with putts under 35% of strokes, or three-putts under one hole in 10.
 - *course · high confidence*
 
@@ -70,7 +70,7 @@ of claim this repo refuses to print.
 
 ### 07. The tee ball misses both ways in nearly equal measure — the course-side echo of the range's two-way miss, and the one pattern aiming off cannot fix.
 
-- **why** — 1521 driven holes carry a fairway result: 62% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 382 holes carry codes outside Grint's own legend and are excluded.
+- **why** — 1542 driven holes carry a fairway result: 62% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 397 holes carry codes outside Grint's own legend and are excluded.
 - **gone when** — A capture where one side owns two-thirds of the misses, or the hit rate moves by five points.
 - *course · high confidence*
 
@@ -143,19 +143,19 @@ more — a roast that needs a fact you do not have is just an insult.
 
 > Five years took 11 strokes off the handicap and 2.4 off the scorecard. You did not learn to score, you learned to lose by the same amount at harder courses.
 >
-> — Trending handicap 23.9 at the record's start, 12.9 now, across 151 differentials (mean of the first 20: 18.9; the last 20: 16.9). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 89.3 (2026, 4).
+> — Trending handicap 23.9 at the record's start, 13.3 now, across 153 differentials (mean of the first 20: 18.9; the last 20: 17.1). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 89.3 (2026, 6).
 
 > 35.7 putts a round, and a three-putt every 7 holes. The greens are charging a second green fee.
 >
-> — 134 eighteen-hole rounds carry putts: 35.7 per round against a 90.4 mean score. 354 holes took three or more putts, of 2609 recorded — one in 7.
+> — 136 eighteen-hole rounds carry putts: 35.7 per round against a 90.4 mean score. 360 holes took three or more putts, of 2645 recorded — one in 7.
 
 > 3 pairs of clubs land within 8 yd of each other — 5 clubs doing the work of 3 — and none of them covers the 31 yd hole between the 5 Iron and the 6 Iron.
 >
 > — Worst gap 31.1 yd between 5 Iron and 6 Iron · 3 overlapping pairs under 8 yd apart.
 
-> 255 fairways missed left, 253 missed right. At least the misses are fair.
+> 258 fairways missed left, 257 missed right. At least the misses are fair.
 >
-> — 1521 driven holes carry a fairway result: 62% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 382 holes carry codes outside Grint's own legend and are excluded.
+> — 1542 driven holes carry a fairway result: 62% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 397 holes carry codes outside Grint's own legend and are excluded.
 
 > 73% of the courses in this record got exactly one chance to make an impression, which is also how many chances they got to be learned.
 >
@@ -216,7 +216,7 @@ The rounds carry a course, a tee name and a differential, but still no par or ya
 
 - **Range** — 301 shots over 8 Garmin R50 sessions, 2026-07-02 to 2026-08-14
 - **Courses** — 166 rounds over 93 layouts, from The Grint, captured 2026-08-01
-- **Rounds** — 166 dated scorecards, 2021-07-08 to 2026-07-26, from the Grint export bundle, captured 2026-08-15
+- **Rounds** — 168 dated scorecards, 2021-07-08 to 2026-08-16, from the Grint export bundle, captured 2026-08-19
 
 Regenerate with `pnpm profile`. The course half comes from
 `public/data/courses.json`, the map pipeline's artifact — `pnpm data:build`.
