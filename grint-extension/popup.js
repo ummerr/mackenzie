@@ -3,8 +3,55 @@ const phaseEl = document.getElementById("phase");
 const fillEl = document.getElementById("fill");
 const noteEl = document.getElementById("note");
 const errorsEl = document.getElementById("errors");
+const prevEl = document.getElementById("prev-bundle");
 
 let tabId = null;
+
+// Distilled from the previous bundle the user picked: just enough for the
+// scraper to skip what's already captured. Null means a full scrape.
+let baseline = null;
+
+prevEl.addEventListener("change", () => {
+  baseline = null;
+  btn.textContent = "Scrape all";
+  const file = prevEl.files && prevEl.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const bundle = JSON.parse(reader.result);
+      if (bundle.format !== "grint-export/1") {
+        throw new Error(`not a grint-export/1 bundle (format: ${bundle.format})`);
+      }
+      const roundIds = [];
+      const courseTees = [];
+      for (const r of bundle.resources || []) {
+        if (r.kind === "scorecard" && r.meta && r.meta.roundId) {
+          roundIds.push(String(r.meta.roundId));
+        }
+        if (r.kind === "courseData" && r.meta && r.meta.courseId) {
+          courseTees.push(`${r.meta.courseId}/${r.meta.teeId}`);
+        }
+      }
+      if (roundIds.length === 0) {
+        throw new Error("bundle has no scorecards — run a full scrape instead");
+      }
+      baseline = { rawFile: file.name, roundIds, courseTees };
+      btn.textContent = "Scrape new rounds";
+      noteEl.classList.remove("ok");
+      noteEl.textContent = `Incremental: ${roundIds.length} rounds already captured will be skipped.`;
+    } catch (e) {
+      prevEl.value = "";
+      noteEl.classList.remove("ok");
+      noteEl.textContent = `Could not use that file: ${e.message || e}`;
+    }
+  };
+  reader.onerror = () => {
+    prevEl.value = "";
+    noteEl.textContent = "Could not read that file.";
+  };
+  reader.readAsText(file);
+});
 
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
   const tab = tabs[0];
@@ -21,6 +68,15 @@ btn.addEventListener("click", async () => {
   btn.disabled = true;
   phaseEl.textContent = "starting…";
   try {
+    // Always set the baseline slot — explicitly null for a full scrape — so a
+    // re-run in the same tab never inherits a stale one.
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      func: (b) => {
+        window.__GRINT_BASELINE = b;
+      },
+      args: [baseline],
+    });
     await chrome.scripting.executeScript({
       target: { tabId },
       files: ["constants.js", "extract.js", "scraper.js"],

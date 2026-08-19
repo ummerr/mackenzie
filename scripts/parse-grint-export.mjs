@@ -211,27 +211,85 @@ export function parseDifferentials(scripts) {
 }
 
 // ---------------------------------------------------------------------------
+// bundle merging
+// ---------------------------------------------------------------------------
+
+/**
+ * Merge a full bundle with the incremental bundles captured after it.
+ *
+ * The extension's incremental mode (bundle.baseline set) captures only the
+ * rounds missing from a previous bundle, plus fresh trend/handicap
+ * aggregates. The record is therefore: the newest FULL bundle — the only
+ * capture that can reflect a round deleted on Grint — plus every incremental
+ * captured after it, the newest scorecard winning per roundId.
+ *
+ * Takes [{file, bundle}] in any order; returns null when no full bundle
+ * exists. Chain order follows capturedAt, not filenames.
+ */
+export function mergeBundles(bundles) {
+  const sorted = [...bundles].sort((a, b) =>
+    (a.bundle.capturedAt ?? "").localeCompare(b.bundle.capturedAt ?? ""),
+  );
+  const lastFull = sorted.findLastIndex((b) => !b.bundle.baseline);
+  if (lastFull === -1) return null;
+  const chain = sorted.slice(lastFull);
+
+  const cardById = new Map();
+  for (const { bundle } of chain) {
+    for (const r of bundle.resources) {
+      if (r.kind === "scorecard") cardById.set(r.meta.roundId, r);
+    }
+  }
+  // Aggregates come from the newest bundle that has them — incrementals
+  // always refetch trend and handicap, so in practice the newest capture.
+  const newestResource = (pred) => {
+    for (let i = chain.length - 1; i >= 0; i--) {
+      const r = chain[i].bundle.resources.find(pred);
+      if (r) return r;
+    }
+    return null;
+  };
+  const newest = chain[chain.length - 1].bundle;
+  return {
+    files: chain.map((c) => c.file),
+    capturedAt: newest.capturedAt,
+    userId: newest.userId,
+    scorecards: [...cardById.values()],
+    newestResource,
+  };
+}
+
+// ---------------------------------------------------------------------------
 // main
 // ---------------------------------------------------------------------------
 
 function main() {
   const candidates = readdirSync(RAW)
-    .filter((f) => /^grint-export-\d{4}-\d{2}-\d{2}\.json$/.test(f))
+    .filter((f) => /^grint-export-\d{4}-\d{2}-\d{2}(-\d{4})?\.json$/.test(f))
     .sort();
   if (candidates.length === 0) {
     console.error(`No grint-export-*.json in ${RAW}. Run the extension first.`);
     return 1;
   }
-  const rawFile = candidates[candidates.length - 1];
-  const bundle = JSON.parse(readFileSync(resolve(RAW, rawFile), "utf8"));
-  if (bundle.format !== "grint-export/1") {
-    console.error(`Unexpected bundle format ${bundle.format}`);
+  const bundles = [];
+  for (const file of candidates) {
+    const bundle = JSON.parse(readFileSync(resolve(RAW, file), "utf8"));
+    if (bundle.format !== "grint-export/1") {
+      console.error(`Unexpected bundle format ${bundle.format} in ${file}`);
+      return 1;
+    }
+    bundles.push({ file, bundle });
+  }
+  const merged = mergeBundles(bundles);
+  if (!merged) {
+    console.error(
+      "Only incremental bundles found — the merge needs a full scrape as its base.",
+    );
     return 1;
   }
 
   const rounds = [];
-  for (const r of bundle.resources) {
-    if (r.kind !== "scorecard") continue;
+  for (const r of merged.scorecards) {
     const html = r.payload.html || "";
     const round = r.url.includes("edit_short_score")
       ? parseTotalOnlyScorecard(html, r.meta, r.url)
@@ -244,7 +302,7 @@ function main() {
       (a.date ?? "").localeCompare(b.date ?? "") || a.roundId.localeCompare(b.roundId),
   );
 
-  const trend = bundle.resources.find(
+  const trend = merged.newestResource(
     (r) => r.kind === "trend" && r.meta.view === "handicap_index",
   );
   const { handicapIndex, points } = parseDifferentials(trend?.payload.scripts ?? []);
@@ -253,7 +311,7 @@ function main() {
   // green-missed context) but Grint's own charts do — kept in chart order,
   // same provenance rule as the differentials: never joined to rounds.
   const viewScripts = (view) =>
-    bundle.resources.find((r) => r.kind === "trend" && r.meta.view === view)?.payload.scripts ??
+    merged.newestResource((r) => r.kind === "trend" && r.meta.view === view)?.payload.scripts ??
     [];
   const toSeries = (pts) =>
     (pts ?? []).map((p) => ({ courseName: p.name || null, value: p.y }));
@@ -265,9 +323,9 @@ function main() {
   const out = {
     source: "thegrint",
     adapter: "parse-grint-export.mjs",
-    capturedAt: bundle.capturedAt,
-    rawFile: `raw/${rawFile}`,
-    userId: bundle.userId,
+    capturedAt: merged.capturedAt,
+    rawFile: merged.files.map((f) => `raw/${f}`).join(" + "),
+    userId: merged.userId,
     handicapIndex,
     rounds,
     differentials: points,
@@ -281,7 +339,7 @@ function main() {
   const eighteen = rounds.filter((r) => r.holesRecorded === 18).length;
   const nine = rounds.filter((r) => r.holesRecorded === 9).length;
   const flagged = rounds.filter((r) => r.flags.length > 0);
-  console.log(`parsed ${rawFile} (captured ${bundle.capturedAt})`);
+  console.log(`parsed ${merged.files.join(" + ")} (captured ${merged.capturedAt})`);
   console.log(`rounds        ${rounds.length}  (${eighteen}×18 holes, ${nine}×9, ${rounds.length - eighteen - nine} other)`);
   console.log(`with a date   ${dated}`);
   console.log(`with putts    ${withPutts}`);
@@ -301,4 +359,7 @@ function main() {
   return 0;
 }
 
-process.exit(main());
+// Importable for tests (mergeBundles, the parse helpers); runs only as a CLI.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  process.exit(main());
+}

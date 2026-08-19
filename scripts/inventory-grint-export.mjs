@@ -30,7 +30,7 @@ const notes = [];
 // ---- locate the newest bundle ----------------------------------------------
 
 const candidates = readdirSync(RAW)
-  .filter((f) => /^grint-export-\d{4}-\d{2}-\d{2}\.json$/.test(f))
+  .filter((f) => /^grint-export-\d{4}-\d{2}-\d{2}(-\d{4})?\.json$/.test(f))
   .sort();
 
 if (candidates.length === 0) {
@@ -107,8 +107,18 @@ const noData = resources
   .map((r) => r.meta.view);
 if (noData.length) notes.push(`trend views with no chart data (PRO gate?): ${noData.join(", ")}`);
 if (!byKind.get("handicap")) notes.push("no handicap resource captured");
-if (recomputed.scorecardsOk < rounds) {
-  notes.push(`${rounds - recomputed.scorecardsOk} of ${rounds} rounds have no scorecard resource`);
+// An incremental bundle deliberately skips scorecards its baseline already
+// holds; only the remainder is expected to be present.
+const skippedScorecards = bundle.baseline?.skippedScorecards ?? 0;
+if (bundle.baseline) {
+  notes.push(
+    `incremental capture against ${bundle.baseline.rawFile}: ` +
+      `${bundle.baseline.knownRounds} rounds known, ${skippedScorecards} scorecards skipped — ` +
+      `pnpm data:rounds merges it over the newest full bundle`,
+  );
+}
+if (recomputed.scorecardsOk < rounds - skippedScorecards) {
+  notes.push(`${rounds - skippedScorecards - recomputed.scorecardsOk} of ${rounds - skippedScorecards} expected rounds have no scorecard resource`);
 }
 if (bundle.discovery?.paginationPattern) {
   notes.push(`pagination pattern adopted: ${bundle.discovery.paginationPattern}`);

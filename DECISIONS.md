@@ -6,6 +6,53 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-19 — Incremental capture: delta bundles, merged by the adapter
+
+**Decided:** the extension gains an incremental mode. The popup takes the
+previous bundle as an optional file input, distills it in the popup to just
+the captured round ids and (course, tee) pairs, and injects that baseline
+into the tab before the scraper. With a baseline, discovery stops at the
+first newest-first listing wave that yields nothing new, scorecards already
+captured are skipped, course metadata already fetched is skipped, and the
+trend views and handicap record are always refetched (they are aggregates —
+every new round changes them). The download is a small *delta* bundle — same
+`grint-export/1` format plus a `baseline` field, filename suffixed with HHMM
+so a same-day full bundle never collides. `parse-grint-export.mjs` now merges
+instead of reading one file: the newest **full** bundle is the base, every
+delta captured after it layers on top (newest scorecard wins per roundId,
+aggregates from the newest capture), ordered by `capturedAt`, never by
+filename. `mergeBundles` is exported and unit-tested.
+
+**Why:** a full scrape refetches ~168 scorecards at the polite ~0.6 s each —
+minutes of wall clock and ~27 MB of git per run, to capture the two rounds
+that are actually new. A weekly update is one page of discovery, two
+scorecard fetches and 13 cheap trend views: well under a minute, and the
+delta bundle is a few hundred KB. The baseline travels through a file input
+because the extension deliberately has no storage permission and no host
+access to the repo — the previous bundle is the one artifact both sides
+already share, and reducing it to ids in the popup keeps the injected payload
+tiny. Merging lives in the adapter, not the extension, per the standing
+contract: the extension only captures, so a merge fix can be replayed over
+history.
+
+**Rejected:** having the extension emit a pre-merged full bundle (27 MB of
+re-serialized old capture per run in git, and a "capture" whose contents the
+extension partly wrote — verbatim by construction dies); a `storage`
+permission remembering the last run (state invisible to git, a permission the
+README promises not to hold); a since-date field typed by the user (round ids
+are exact; dates invite off-by-one-timezone holes); merging *all* bundles
+ever (a round deleted on Grint would resurrect from an old delta — the
+newest-full-bundle base is what lets a periodic full re-scrape reflect
+deletions).
+
+**Cost accepted:** a delta can never record a deletion, so a deletion stays
+invisible until the next full scrape — acceptable for a ledger that grows by
+addition. The early-stop assumes the `/score` listing is strictly
+newest-first; if Grint ever reorders it, the stop could miss a backdated
+round until the next full scrape.
+
+---
+
 ## 2026-08-17 — One site, one project: the merge
 
 **Decided:** Mackenzie and Yardages are one Next.js app deploying as one Vercel

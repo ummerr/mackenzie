@@ -22,6 +22,16 @@
   const C = window.__GRINT.constants;
   const X = window.__GRINT.extract;
 
+  // Incremental mode: the popup distilled a previous bundle into round ids and
+  // course/tee pairs already captured. Known scorecards and course data are
+  // skipped, and round discovery stops at the first listing wave that yields
+  // nothing new — the listing is newest-first, so everything past that wave is
+  // already in the baseline. Trend views and the handicap record are always
+  // refetched: they are aggregates that change with every round.
+  const baseline = window.__GRINT_BASELINE || null;
+  const knownRounds = new Set(baseline ? baseline.roundIds : []);
+  const knownCourseTees = new Set(baseline ? baseline.courseTees : []);
+
   const bundle = {
     format: C.FORMAT,
     capturedAt: new Date().toISOString(),
@@ -34,6 +44,14 @@
     warnings: [],
     summary: {},
   };
+  if (baseline) {
+    bundle.baseline = {
+      rawFile: baseline.rawFile,
+      knownRounds: knownRounds.size,
+      skippedScorecards: 0,
+      skippedCourseTees: 0,
+    };
+  }
 
   let consecutiveAuthFailures = 0;
 
@@ -145,7 +163,13 @@
   }
 
   function download() {
-    const name = `grint-export-${new Date().toISOString().slice(0, 10)}.json`;
+    // Incremental bundles carry an HHMM suffix so a same-day full bundle and
+    // its follow-ups never collide; the parser orders bundles by capturedAt,
+    // not by filename.
+    const stamp = new Date().toISOString();
+    const name = baseline
+      ? `grint-export-${stamp.slice(0, 10)}-${stamp.slice(11, 13)}${stamp.slice(14, 16)}.json`
+      : `grint-export-${stamp.slice(0, 10)}.json`;
     const blob = new Blob([JSON.stringify(bundle, null, 2)], {
       type: "application/json",
     });
@@ -172,10 +196,11 @@
       ).size,
       errors: bundle.errors.length,
     };
+    if (baseline) bundle.summary.skippedScorecards = bundle.baseline.skippedScorecards;
     const filename = download();
     report({
       phase: "done",
-      note: `${note} Saved ${filename}. Move it to data/raw/ and run npm run grint:inventory.`,
+      note: `${note} Saved ${filename}. Move it to data/raw/ and run pnpm data:rounds.`,
       summary: bundle.summary,
       errors: bundle.errors.length,
     });
@@ -303,8 +328,15 @@
     // /score/listMoreScores with an incrementing wave and the current row
     // count, and appends the returned <tr> rows. Replay that loop verbatim,
     // with the filter values the page itself carries (typeScore defaults to
-    // "0" = All Rounds), until the server sends an empty body.
-    if (scoreDoc) {
+    // "0" = All Rounds), until the server sends an empty body — or, with a
+    // baseline, until a wave brings only rounds the baseline already has.
+    const firstPageAllKnown =
+      baseline && [...roundById.keys()].every((id) => knownRounds.has(id));
+    if (scoreDoc && firstPageAllKnown) {
+      // Every round on the first listing page is already captured; anything
+      // deeper in the scroll is older still. Nothing new to page through.
+      bundle.discovery.stoppedEarly = "first page all known";
+    } else if (scoreDoc) {
       const filters = X.extractScoreFilters(scoreDoc);
       let offset =
         scoreDoc.querySelectorAll(".tableListScore > tbody > tr").length ||
@@ -364,17 +396,34 @@
         offset += parsed.rowCount;
         emptyWaves = fresh === 0 ? emptyWaves + 1 : 0;
         wave++;
+        if (
+          baseline &&
+          parsed.roundLinks.length > 0 &&
+          parsed.roundLinks.every(({ roundId }) => knownRounds.has(roundId))
+        ) {
+          // Newest-first listing: a wave of nothing-but-known rounds means the
+          // rest of the scroll is older than the baseline. Stop here.
+          bundle.discovery.stoppedEarly = `wave ${wave - 1} all known`;
+          break;
+        }
       }
       bundle.discovery.wavesFetched = wave - 1;
     }
     bundle.discovery.scorePagesFetched = visitedPages.size;
     bundle.discovery.roundIdsFound = roundById.size;
+    if (baseline) {
+      bundle.discovery.newRoundIds = [...roundById.keys()].filter(
+        (id) => !knownRounds.has(id),
+      ).length;
+    }
 
     // ---- Phase 4: scorecards ------------------------------------------------
+    const toFetch = [...roundById].filter(([id]) => !knownRounds.has(id));
+    if (baseline) bundle.baseline.skippedScorecards = roundById.size - toFetch.length;
     const courseTeePairs = new Map(); // "courseId/teeId" -> {courseId, teeId, guessed}
     let done = 0;
-    for (const [roundId, url] of roundById) {
-      report({ phase: "scorecards", done, total: roundById.size, errors: bundle.errors.length });
+    for (const [roundId, url] of toFetch) {
+      report({ phase: "scorecards", done, total: toFetch.length, errors: bundle.errors.length });
       done++;
       // Belt and braces: never GET anything destructive-shaped, whatever the
       // link regexes let through.
@@ -415,6 +464,10 @@
     for (const { courseId, teeId, teeName, guessed } of courseTeePairs.values()) {
       report({ phase: "course data", done: cdone, total: courseTeePairs.size, errors: bundle.errors.length });
       cdone++;
+      if (baseline && knownCourseTees.has(`${courseId}/${teeId}`)) {
+        bundle.baseline.skippedCourseTees++;
+        continue;
+      }
       await politeDelay();
       const url = `${C.BASE}/ajax/get_course_data/${courseId}/${teeId}`;
       try {

@@ -24,7 +24,31 @@ so a parser fix can be replayed over history.
    rounds takes 2–4 minutes. Progress shows per phase. Closing the popup does
    **not** stop the run — the bundle downloads when it finishes.
 4. Move the downloaded `grint-export-YYYY-MM-DD.json` to `../data/raw/`.
-5. From the repo root: `npm run grint:inventory` to validate and summarize it.
+5. From the repo root: `pnpm data:inventory` to validate and summarize it.
+
+## Incremental runs
+
+A full scrape refetches every scorecard to capture the two that are new.
+Instead, feed the popup the **previous bundle** (the file input under the
+button): the button becomes **Scrape new rounds**, and the run
+
+- stops round discovery at the first listing wave with nothing new (the
+  listing is newest-first, so everything deeper is older than the baseline),
+- skips every scorecard and course/tee fetch the previous bundle already
+  holds,
+- still refetches all trend views and the handicap record — aggregates change
+  with every round.
+
+A weekly update drops from minutes to well under one. The download is a small
+*delta* bundle: same format plus a `baseline` field, filename suffixed with
+the capture time (`grint-export-YYYY-MM-DD-HHMM.json`) so it never collides
+with a same-day full bundle. Drop it in `../data/raw/` next to the full one —
+`pnpm data:rounds` merges the newest full bundle with every delta captured
+after it.
+
+A delta can never record a round *deleted* on Grint. Run a plain **Scrape
+all** occasionally (or after deleting a round); a new full bundle re-baselines
+the merge.
 
 ## What it captures
 

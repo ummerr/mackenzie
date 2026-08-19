@@ -74,6 +74,21 @@
     .errors { color: #f87171; }
     .ok { color: #4ade80; }
 
+    .prev {
+      display: block;
+      margin-top: 10px;
+      font-size: 11px;
+      color: #a1a1aa;
+      line-height: 1.5;
+    }
+    .prev input {
+      display: block;
+      margin-top: 6px;
+      width: 100%;
+      font-size: 11px;
+      color: #d4d4d8;
+    }
+
     .hint {
       margin-top: 12px;
       padding-top: 10px;
@@ -91,6 +106,12 @@
   </div>
 
   <button class="scrape-btn" id="scrape-btn">Scrape all</button>
+
+  <label class="prev" for="prev-bundle">
+    Previous bundle (optional) — makes the run incremental: only rounds not
+    already in it are fetched.
+    <input type="file" id="prev-bundle" accept=".json,application/json" />
+  </label>
 
   <div class="phase" id="phase"></div>
   <div class="bar"><div class="fill" id="fill"></div></div>
