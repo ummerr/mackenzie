@@ -3,14 +3,17 @@ import { join } from "node:path";
 import type { ReactNode } from "react";
 import type { PlayedRound, RoundHistory, SourceRounds } from "@/lib/round-history";
 import {
+  asOf,
   buildRoundHistory,
   differentialTrend,
   eighteenHole,
   fairwaySplit,
   puttsPerRound,
+  since,
   threePuttShare,
   yearlyMeans,
 } from "@/lib/round-history";
+import { PROFILE_THRESHOLDS } from "@/lib/profile";
 
 /* The analysis /profile refuses to editorialise, editorialised: one question —
  * what stands between 12.9 and scratch — answered from the same record,
@@ -200,7 +203,14 @@ export default function Scratch() {
   const saves = h.series?.parSavesPct.map((p) => p.value) ?? [];
   const savesMean = mean(saves);
   const bestPutts = withPutts.length ? Math.min(...withPutts.map((r) => r.putts as number)) : null;
-  const recentRounds = h.rounds.filter((r) => r.date >= "2025-01-01").length;
+  /* The recent window the whole repo uses — anchored to the newest card, never
+   * the wall clock, with quick-entry echoes deduped — instead of a date literal
+   * that quietly means something different every season. */
+  const newest = asOf(h.rounds);
+  const recentRounds = newest
+    ? since(h.rounds, PROFILE_THRESHOLDS.recentMonths, newest).length
+    : 0;
+  const recentLabel = `the last ${PROFILE_THRESHOLDS.recentMonths} months`;
   const rounds2022 = h.rounds.filter((r) => r.date.startsWith("2022")).length;
 
   const puttYears = years.filter((y) => y.rounds > 0);
@@ -363,13 +373,14 @@ export default function Scratch() {
         </p>
         <ul className="mt-3 max-w-2xl list-disc space-y-2 pl-5 text-[14px] leading-6 text-ink-1 marker:text-accent-ink">
           <li>
-            <strong className="text-ink-0">The 2025–26 story rests on {recentRounds} rounds.</strong>{" "}
+            <strong className="text-ink-0">The recent story rests on {recentRounds} rounds
+            in {recentLabel}.</strong>{" "}
             The improving means, the falling three-putt rate, the rising GIR — all real numbers,
             all thin samples. One buddies trip rewrites them.
           </li>
           <li>
             <strong className="text-ink-0">Volume collapsed exactly when the golf got good.</strong>{" "}
-            {rounds2022} rounds in 2022; {recentRounds} across 2025–26. The record proves
+            {rounds2022} rounds in 2022; {recentRounds} in {recentLabel}. The record proves
             improvement happened; it cannot prove it survives playing more.
           </li>
           <li>
@@ -415,7 +426,7 @@ export default function Scratch() {
             rows={[
               { k: "fact", v: `${pp === null ? "—" : f1(pp)} putts per round; ${tp.threePutts} three-putts over ${tp.holes} recorded holes; own best round used ${bestPutts ?? "—"}` },
               { k: "cost", v: `~${threePuttsPerRound === null ? "—" : f1(threePuttsPerRound)} strokes/round in three-putts alone; the gap between mean and own-best putting is ${pp !== null && bestPutts !== null ? f1(pp - bestPutts) : "—"} strokes`, accent: true },
-              { k: "move", v: "the lag drill already on the practice list — the 2025–26 numbers say it is working; the sample says keep proving it" },
+              { k: "move", v: "the lag drill already on the practice list — the recent numbers say it is working; the sample says keep proving it" },
               { k: "retired", v: "three-putts under one hole in ten, sustained over a season" },
             ]} />
           <GapEntry n="03" title="The tee ball is unmeasured and misses both ways"
@@ -425,9 +436,9 @@ export default function Scratch() {
               { k: "move", v: "fifteen measured drivers; until then every tee-ball theory is a guess wearing a number" },
               { k: "retired", v: "the driver drawn on the bag page, and one side owning two-thirds of the misses" },
             ]} />
-          <GapEntry n="04" title={`${recentRounds} rounds in two years`}
+          <GapEntry n="04" title={`${recentRounds} rounds in ${recentLabel}`}
             rows={[
-              { k: "fact", v: `${rounds2022} rounds in 2022 → ${recentRounds} across 2025–26` },
+              { k: "fact", v: `${rounds2022} rounds in 2022 → ${recentRounds} in ${recentLabel}` },
               { k: "cost", v: "not strokes — proof. Every encouraging recent number rests on a sample one trip could overturn", accent: true },
               { k: "move", v: "the cheapest fix on this page: play. Twenty rounds makes every other line here trustworthy" },
               { k: "retired", v: "a season with 20+ posted rounds" },

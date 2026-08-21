@@ -7,11 +7,18 @@ import {
   type SourceCourses,
 } from "@/lib/course-history";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
-import { buildProfile, type Finding, type Unknown } from "@/lib/profile";
+import {
+  buildProfile,
+  PROFILE_THRESHOLDS,
+  type Finding,
+  type Unknown,
+} from "@/lib/profile";
 import {
   buildRoundHistory,
+  type RecentForm,
   type RoundHistory,
   type SourceRounds,
+  type StatPair,
 } from "@/lib/round-history";
 import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
 import { buildTasks } from "@/lib/tasks";
@@ -132,6 +139,9 @@ export default function Profile() {
         </ol>
       </section>
 
+      {/* ── recent form ───────────────────────────────────────────────────── */}
+      {profile.recentForm && <RecentFormSection form={profile.recentForm} />}
+
       {/* ── the roast ─────────────────────────────────────────────────────── */}
       {roasts.length > 0 && (
         <section className="mt-10">
@@ -189,6 +199,62 @@ export default function Profile() {
         </p>
       </section>
     </div>
+  );
+}
+
+/* Both numbers, always: the recent figure answers "what does the golf do now",
+ * the career figure answers "what has it ever done", and printing only one
+ * would hide that recency moved it — the same publishing rule the yardage
+ * profiles follow. */
+function RecentFormSection({ form }: { form: RecentForm }) {
+  const lastN = form.recentRounds.slice(-PROFILE_THRESHOLDS.recentRoundCount);
+  const num = (v: number | null, digits = 1) => (v === null ? "—" : v.toFixed(digits));
+  const pctOf = (v: number | null) => (v === null ? "—" : `${(v * 100).toFixed(0)}%`);
+  const rows: { label: string; pair: StatPair; fmt: (v: number | null) => string; unit: string }[] = [
+    { label: "Scoring", pair: form.scoring, fmt: (v) => num(v), unit: "rounds" },
+    { label: "Putts / round", pair: form.putts, fmt: (v) => num(v), unit: "rounds" },
+    { label: "Three-putt share", pair: form.threePutt, fmt: pctOf, unit: "holes" },
+    { label: "Fairways hit", pair: form.fairwayHit, fmt: pctOf, unit: "holes" },
+  ];
+  return (
+    <section className="mt-10">
+      <h2 className="stamp text-ink-2">Recent form</h2>
+      <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+        The last {form.months} months (since {form.cutoff}), measured from the
+        newest card ({form.asOf}) — never from today, so the profile reads the
+        same until the record changes. Quick-entry echoes of a card already on
+        file are not counted twice.
+      </p>
+
+      <ul className="mt-5 space-y-px">
+        {lastN.map((r) => (
+          <li
+            key={r.roundId}
+            className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l-2 bg-paper-1 px-3 py-2.5 sm:px-4"
+            style={{ borderColor: "var(--line)" }}
+          >
+            <span className="font-mono text-[11px] tabular-nums text-ink-3">{r.date}</span>
+            <span className="text-[15px] leading-snug text-ink-0">{r.courseName ?? "—"}</span>
+            <span className="ml-auto shrink-0 font-mono text-[11px] tabular-nums text-ink-1">
+              {r.strokes ?? "—"} strokes
+              {r.putts !== null ? ` · ${r.putts} putts` : ""}
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <dl className="mt-4 space-y-1 font-mono text-[11px] leading-5">
+        {rows.map((row) => (
+          <div key={row.label} className="flex flex-wrap gap-x-3">
+            <dt className="w-32 shrink-0 text-ink-1">{row.label}</dt>
+            <dd className="text-ink-2">
+              {row.fmt(row.pair.recent)} recent ({row.pair.recentN} {row.unit}) ·{" "}
+              {row.fmt(row.pair.career)} career ({row.pair.careerN} {row.unit})
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
   );
 }
 

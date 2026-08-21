@@ -39,12 +39,16 @@ import { startsAHole, type BagSpec } from "./clubs";
 import type { CourseHistory, PlayedLayout } from "./course-history";
 import { meanScore, scorable, totalRounds } from "./course-history";
 import type { LedgerSession, LedgerShot } from "./ledger";
-import type { RoundHistory } from "./round-history";
+import type { RecentForm, RoundHistory } from "./round-history";
 import {
+  differentialTail,
   differentialTrend,
   eighteenHole,
   fairwaySplit,
+  lastNDistinct,
+  mean,
   puttsPerRound,
+  recentVsCareer,
   threePuttShare,
   yearlyMeans,
 } from "./round-history";
@@ -88,6 +92,22 @@ export const PROFILE_THRESHOLDS = {
   threePuttShare: 0.1,
   /** Trending-handicap movement, in strokes, before an arc is a direction. */
   trendStrokes: 2,
+  /** The window that counts as "recent form", in calendar months measured from
+   *  the newest round — never from the wall clock, or `--check` fails on a
+   *  Tuesday. */
+  recentMonths: 18,
+  /** How many distinct rounds the "last N" table and spec line show. */
+  recentRoundCount: 5,
+  /** Below this many distinct recent rounds, recent form is an anecdote, not
+   *  a finding. */
+  minRecentRounds: 5,
+  /** Differential chart points in the recent tail — sliced by position, since
+   *  the chart is never joined to rounds. Twelve is roughly the same eighteen
+   *  months at the current playing rate. */
+  recentDiffWindow: 12,
+  /** Recent-vs-career gaps worth naming as a direction. */
+  recentDeltaStrokes: 2,
+  recentDeltaPutts: 1.5,
 } as const;
 
 export type Lens = "range" | "course" | "both";
@@ -131,6 +151,9 @@ export interface GolferProfile {
   spec: SpecLine[];
   findings: Finding[];
   unknowns: Unknown[];
+  /** The recent window beside the whole record — null without round data or
+   *  when the window holds fewer than `minRecentRounds` distinct rounds. */
+  recentForm: RecentForm | null;
   sources: { label: string; detail: string }[];
   /** True when only the range half was available. */
   rangeOnly: boolean;
@@ -723,10 +746,24 @@ export function buildProfile({
   // differential is — so the trajectory finding leans on them rather than on
   // raw scores, and the gap between the two IS one of the findings.
 
+  const form = roundHistory
+    ? recentVsCareer(roundHistory, PROFILE_THRESHOLDS.recentMonths)
+    : null;
+
   if (roundHistory && roundHistory.rounds.length >= PROFILE_THRESHOLDS.minRounds) {
     const scored = eighteenHole(roundHistory);
     const years = yearlyMeans(scored);
     const trend = differentialTrend(roundHistory);
+    const tail = differentialTail(roundHistory, PROFILE_THRESHOLDS.recentDiffWindow);
+    /* The tail can disagree with the arc: a career that got better and a
+     * recent stretch giving strokes back. Both are the chart's own numbers,
+     * so when they point opposite ways the finding says so instead of letting
+     * the five-year story bury the last twelve points. */
+    const tailWorse =
+      tail !== null &&
+      tail.trendingStart !== null &&
+      tail.trendingEnd !== null &&
+      tail.trendingEnd - tail.trendingStart >= PROFILE_THRESHOLDS.trendStrokes;
 
     if (
       trend &&
@@ -743,31 +780,100 @@ export function buildProfile({
        * not interpretation: the same scores against harder setups. */
       const harderGolf =
         better && rawMoved !== null && rawMoved < (trend.firstTrending - trend.lastTrending) / 2;
+      const tailEvidence =
+        tail !== null && tail.trendingStart !== null && tail.trendingEnd !== null
+          ? ` Over the last ${tail.points} chart points the trending handicap moved from ` +
+            `${tail.trendingStart.toFixed(1)} to ${tail.trendingEnd.toFixed(1)} ` +
+            `(mean differential ${tail.mean.toFixed(1)}).`
+          : "";
       add({
         id: "trajectory",
         lens: "course",
         confidence: "high",
         coverage: 1,
         claim: better
-          ? harderGolf
-            ? "The golf is getting better, and the raw scores hide it: the handicap fell while the scorecards stood still, which is what improvement looks like when the courses get harder too."
-            : "The golf is getting better, and the record can finally say so with dates on it."
+          ? tailWorse
+            ? "The golf got better over the whole record and worse over the recent stretch: the career arc and the last dozen differentials point opposite ways."
+            : harderGolf
+              ? "The golf is getting better, and the raw scores hide it: the handicap fell while the scorecards stood still, which is what improvement looks like when the courses get harder too."
+              : "The golf is getting better, and the record can finally say so with dates on it."
           : "The golf is getting worse by its own trending handicap.",
         evidence:
           `Trending handicap ${trend.firstTrending.toFixed(1)} at the record's start, ` +
           `${trend.lastTrending.toFixed(1)} now, across ${trend.points} differentials ` +
           `(mean of the first 20: ${trend.firstMean.toFixed(1)}; the last 20: ${trend.lastMean.toFixed(1)}). ` +
           `Meanwhile the raw 18-hole mean moved from ${first?.meanStrokes.toFixed(1)} (${first?.year}, ` +
-          `${first?.rounds} rounds) to ${last?.meanStrokes.toFixed(1)} (${last?.year}, ${last?.rounds}).`,
-        roast: harderGolf
-          ? `Five years took ${(trend.firstTrending - trend.lastTrending).toFixed(0)} strokes off the ` +
-            `handicap and ${rawMoved === null ? "?" : rawMoved.toFixed(1)} off the scorecard. You did not ` +
-            "learn to score, you learned to lose by the same amount at harder courses."
-          : null,
+          `${first?.rounds} rounds) to ${last?.meanStrokes.toFixed(1)} (${last?.year}, ${last?.rounds}).` +
+          tailEvidence,
+        roast:
+          better && tailWorse && tail.trendingStart !== null && tail.trendingEnd !== null
+            ? `The career took ${(trend.firstTrending - trend.lastTrending).toFixed(0)} strokes off the ` +
+              `handicap; the last ${tail.points} differentials gave ` +
+              `${(tail.trendingEnd - tail.trendingStart).toFixed(1)} back.`
+            : harderGolf
+              ? `Five years took ${(trend.firstTrending - trend.lastTrending).toFixed(0)} strokes off the ` +
+                `handicap and ${rawMoved === null ? "?" : rawMoved.toFixed(1)} off the scorecard. You did not ` +
+                "learn to score, you learned to lose by the same amount at harder courses."
+              : null,
         falsifiedBy: better
-          ? "A capture whose trending handicap ends no lower than it starts."
+          ? tailWorse
+            ? `A capture whose last ${PROFILE_THRESHOLDS.recentDiffWindow} differentials leave the trending handicap no higher than they found it.`
+            : "A capture whose trending handicap ends no lower than it starts."
           : "A capture whose trending handicap ends lower than it starts.",
       });
+    }
+
+    /* Recent form as its own finding, gated on enough distinct rounds to be
+     * more than an anecdote. On today's data the raw recent stats sit beside
+     * the career figures while the differential tail worsens — the honest
+     * claim is that divergence, never "recent is worse" read off raw means. */
+    if (form !== null && form.scoring.recentN >= PROFILE_THRESHOLDS.minRecentRounds) {
+      const s = form.scoring;
+      const p = form.putts;
+      const scoreDelta =
+        s.recent !== null && s.career !== null ? Math.abs(s.recent - s.career) : null;
+      const puttDelta =
+        p.recent !== null && p.career !== null ? Math.abs(p.recent - p.career) : null;
+      const rawMoved =
+        (scoreDelta !== null && scoreDelta >= PROFILE_THRESHOLDS.recentDeltaStrokes) ||
+        (puttDelta !== null && puttDelta >= PROFILE_THRESHOLDS.recentDeltaPutts);
+      if (tailWorse || rawMoved) {
+        const rawAgrees = !rawMoved;
+        add({
+          id: "recent-form",
+          lens: "course",
+          confidence: s.recentN >= 10 ? "medium" : "low",
+          coverage: s.careerN > 0 ? s.recentN / s.careerN : 0,
+          claim: tailWorse
+            ? rawAgrees
+              ? "The recent scorecards look like the career record; the recent differentials do not."
+              : "Recent form moved on the scorecards and on the differentials both."
+            : s.recent !== null && s.career !== null && s.recent < s.career
+              ? "The recent scorecards run ahead of the career record."
+              : "The recent scorecards run behind the career record.",
+          evidence:
+            `Last ${form.months} months (since ${form.cutoff}, ${s.recentN} distinct 18-hole rounds): ` +
+            `${s.recent === null ? "—" : s.recent.toFixed(1)} mean strokes against ` +
+            `${s.career === null ? "—" : s.career.toFixed(1)} over the career's ${s.careerN}` +
+            (p.recent !== null && p.career !== null
+              ? `; ${p.recent.toFixed(1)} putts a round against ${p.career.toFixed(1)}`
+              : "") +
+            "." +
+            (tail !== null && tail.trendingStart !== null && tail.trendingEnd !== null
+              ? ` The last ${tail.points} differentials average ${tail.mean.toFixed(1)} and moved ` +
+                `the trending handicap from ${tail.trendingStart.toFixed(1)} to ${tail.trendingEnd.toFixed(1)}.`
+              : ""),
+          roast:
+            tailWorse && rawAgrees
+              ? "Same scores, worse handicap: the recent courses were easier, and the scorecards didn't notice."
+              : null,
+          falsifiedBy:
+            `A capture where the recent window and the career agree — the trending-handicap ` +
+            `tail within ${PROFILE_THRESHOLDS.trendStrokes} strokes flat, and the recent means ` +
+            `within ${PROFILE_THRESHOLDS.recentDeltaStrokes} strokes and ` +
+            `${PROFILE_THRESHOLDS.recentDeltaPutts} putts of career.`,
+        });
+      }
     }
 
     const withPutts = scored.filter((r) => r.putts !== null);
@@ -862,6 +968,8 @@ export function buildProfile({
     spec: buildSpec({ shots, trusted, sessions, drawn, history, roundHistory, coverage }),
     findings,
     unknowns: buildUnknowns(history, roundHistory, bag),
+    recentForm:
+      form !== null && form.scoring.recentN >= PROFILE_THRESHOLDS.minRecentRounds ? form : null,
     sources: [
       {
         label: "Range",
@@ -983,6 +1091,19 @@ function buildSpec({
         label: "Scored span",
         value: `${first.date} → ${last.date}`,
         note: `${roundHistory.rounds.length} dated rounds`,
+      });
+    }
+    /* Deduped on purpose: the record carries quick-entry echoes of full cards,
+     * and a "last 5" that counts an echo is a last 4 wearing a costume. */
+    const recent = lastNDistinct(eighteenHole(roundHistory), PROFILE_THRESHOLDS.recentRoundCount);
+    const recentMean = recent.length > 0 ? mean(recent.map((r) => r.strokes as number)) : null;
+    const careerScored = eighteenHole(roundHistory);
+    const careerMean = mean(careerScored.map((r) => r.strokes as number));
+    if (recentMean !== null && careerMean !== null) {
+      lines.push({
+        label: "Recent scoring",
+        value: recentMean.toFixed(1),
+        note: `last ${recent.length} rounds; career ${careerMean.toFixed(1)} over ${careerScored.length}`,
       });
     }
   }

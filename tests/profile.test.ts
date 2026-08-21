@@ -4,7 +4,13 @@ import { describe, expect, it } from "vitest";
 import type { CourseHistory, PlayedLayout, SourceCourses } from "../lib/course-history";
 import { buildCourseHistory, meanScore, scorable, totalRounds } from "../lib/course-history";
 import type { LedgerSession, LedgerShot } from "../lib/ledger";
-import { buildProfile, coneWidthAt, type GolferProfile } from "../lib/profile";
+import { buildProfile, coneWidthAt, PROFILE_THRESHOLDS, type GolferProfile } from "../lib/profile";
+import {
+  buildRoundHistory,
+  type DifferentialPoint,
+  type RoundHistory,
+  type SourceRound,
+} from "../lib/round-history";
 import { applyHeuristics, buildBag, detectGaps, type ClubProfile } from "../lib/stats";
 import { buildTasks } from "../lib/tasks";
 
@@ -14,7 +20,10 @@ const load = <T,>(f: string): T => JSON.parse(readFileSync(join(DATA, f), "utf8"
 const realHistory = (): CourseHistory =>
   buildCourseHistory(JSON.parse(readFileSync(join(PUB, "courses.json"), "utf8")) as SourceCourses);
 
-function realProfile(history: CourseHistory | null | undefined = undefined): GolferProfile {
+function realProfile(
+  history: CourseHistory | null | undefined = undefined,
+  roundHistory: RoundHistory | null = null,
+): GolferProfile {
   const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
   const sessions = load<LedgerSession[]>("sessions.json");
   const profiles = buildBag(shots);
@@ -24,8 +33,9 @@ function realProfile(history: CourseHistory | null | undefined = undefined): Gol
     sessions,
     profiles,
     gaps,
-    tasks: buildTasks({ profiles, gaps, shots, sessions }),
+    tasks: buildTasks({ profiles, gaps, shots, sessions, roundHistory }),
     history: history === undefined ? realHistory() : history,
+    roundHistory,
   });
 }
 
@@ -194,6 +204,142 @@ describe("buildProfile — findings that must not fire on clean data", () => {
     const found = findingsFor(history(played)).find((f) => f.id === "favourites-punish");
     expect(found).toBeDefined();
     expect(found?.claim).toContain("beat you");
+  });
+});
+
+/* The round half, previously untested here: the trajectory finding, the
+ * recent-form finding, and the recency spec line. Synthetic histories only —
+ * these are behavioural guards, and the failure each one names is the reason
+ * it exists. */
+
+let nextRoundId = 0;
+function srcRound(date: string, strokes: number, over: Partial<SourceRound> = {}): SourceRound {
+  return {
+    roundId: `pr-${++nextRoundId}`,
+    entry: "full",
+    date,
+    courseName: "Test Course",
+    teeName: "White",
+    holesRecorded: 18,
+    totals: { strokes, putts: 34 },
+    perHole: { strokes: [], putts: [], fairways: [] },
+    flags: [],
+    ...over,
+  };
+}
+
+function roundHistoryOf(
+  rounds: SourceRound[],
+  differentials: DifferentialPoint[] = [],
+): RoundHistory {
+  return buildRoundHistory({
+    capturedAt: "2026-08-19T00:00:00Z",
+    rawFile: "test.json",
+    handicapIndex: 13.3,
+    rounds,
+    differentials,
+  });
+}
+
+const diffPt = (seq: number, differential: number, trendingHdcp: number): DifferentialPoint => ({
+  seq,
+  courseName: null,
+  differential,
+  countsTowardHdcp: true,
+  trendingHdcp,
+});
+
+/* 26 rounds ending 2024-06-01: 20 in 2021, six inside 18 months of the newest
+ * card. Enough for the round block's minRounds gate and the recent gate both. */
+function baseRounds(): SourceRound[] {
+  const old = Array.from({ length: 20 }, (_, i) =>
+    srcRound(`2021-${String((i % 12) + 1).padStart(2, "0")}-15`, 92),
+  );
+  const recent = [84, 86, 88, 90, 92, 94].map((s, i) =>
+    srcRound(`2024-0${i + 1}-01`, s),
+  );
+  return [...old, ...recent];
+}
+
+/* 40 chart points whose whole arc improves (trending 24 → 13) while the last
+ * 12 give strokes back (9.5 → 13) — the shape the real record has today. */
+function divergingDiffs(): DifferentialPoint[] {
+  const falling = Array.from({ length: 28 }, (_, i) => diffPt(i + 1, 20, 24 - i * 0.5));
+  const rising = Array.from({ length: 12 }, (_, i) => diffPt(29 + i, 17, 9.5 + i * 0.32));
+  rising[11] = diffPt(40, 17, 13);
+  return [...falling, ...rising];
+}
+
+/* The same arc with the tail still falling — career and recent form agree. */
+function agreeingDiffs(): DifferentialPoint[] {
+  return Array.from({ length: 40 }, (_, i) => diffPt(i + 1, 20, 24 - i * 0.28));
+}
+
+describe("buildProfile — the round half", () => {
+  it("says the career arc and the recent tail point opposite ways when they do — claiming improvement the recent record contradicts is the failure this exists for", () => {
+    const p = realProfile(null, roundHistoryOf(baseRounds(), divergingDiffs()));
+    const t = p.findings.find((f) => f.id === "trajectory");
+    expect(t).toBeDefined();
+    expect(t?.claim).toContain("opposite ways");
+    // The tail's numbers ride in the evidence, so the reconciliation is checkable.
+    expect(t?.evidence).toContain("Over the last 12 chart points");
+    expect(t?.evidence).toContain("9.5 to 13.0");
+    expect(t?.falsifiedBy).toContain("last 12 differentials");
+  });
+
+  it("keeps the single-direction claim when the tail agrees with the arc", () => {
+    const p = realProfile(null, roundHistoryOf(baseRounds(), agreeingDiffs()));
+    const t = p.findings.find((f) => f.id === "trajectory");
+    expect(t).toBeDefined();
+    expect(t?.claim).not.toContain("opposite ways");
+    expect(t?.claim).toContain("getting better");
+  });
+
+  it("emits recent-form with both n's printed and low confidence under ten recent rounds", () => {
+    const p = realProfile(null, roundHistoryOf(baseRounds(), divergingDiffs()));
+    const f = p.findings.find((x) => x.id === "recent-form");
+    expect(f).toBeDefined();
+    expect(f?.confidence).toBe("low");
+    expect(f?.evidence).toContain("6 distinct 18-hole rounds");
+    expect(f?.evidence).toContain("over the career's 26");
+  });
+
+  it("stays silent under minRecentRounds — two rounds passing as form is the failure", () => {
+    const thin = [
+      ...Array.from({ length: 20 }, (_, i) =>
+        srcRound(`2021-${String((i % 12) + 1).padStart(2, "0")}-15`, 92),
+      ),
+      srcRound("2024-04-01", 88),
+      srcRound("2024-05-01", 90),
+      srcRound("2024-06-01", 92),
+    ];
+    const p = realProfile(null, roundHistoryOf(thin, divergingDiffs()));
+    expect(p.findings.some((f) => f.id === "recent-form")).toBe(false);
+    expect(p.recentForm).toBeNull();
+  });
+
+  it("anchors the window to the newest round, never today — Date.now creep would break `pnpm profile --check`", () => {
+    // The record ends in 2024. On any wall-clock date, the window must still be
+    // measured from 2024-06-01 and produce the same object.
+    const p = realProfile(null, roundHistoryOf(baseRounds(), divergingDiffs()));
+    expect(p.recentForm).not.toBeNull();
+    expect(p.recentForm?.asOf).toBe("2024-06-01");
+    expect(p.recentForm?.cutoff).toBe("2022-12-01");
+  });
+
+  it("computes the Recent scoring spec line over deduped rounds — an echo would move the mean", () => {
+    const echo = srcRound("2024-06-01", 94, {
+      entry: "total-only",
+      holesRecorded: 18,
+      perHole: null,
+      totals: { strokes: 94, putts: null },
+    });
+    const p = realProfile(null, roundHistoryOf([...baseRounds(), echo], divergingDiffs()));
+    const line = p.spec.find((s) => s.label === "Recent scoring");
+    expect(line).toBeDefined();
+    // Last 5 distinct: 86, 88, 90, 92, 94. Counting the echo would say 91.6.
+    expect(line?.value).toBe("90.0");
+    expect(line?.note).toContain("last 5 rounds");
   });
 });
 

@@ -35,7 +35,10 @@
 import { clubSpec, startsAHole, type BagSpec } from "./clubs";
 import type { LedgerSession, LedgerShot } from "./ledger";
 import type { RoundHistory } from "./round-history";
-import { eighteenHole, puttsPerRound, threePuttShare } from "./round-history";
+import { eighteenHole, puttsPerRound, recentVsCareer, threePuttShare } from "./round-history";
+/* Safe to import at runtime: profile.ts's only import from this file is
+ * `import type { Task }`, which is erased, so there is no cycle. */
+import { PROFILE_THRESHOLDS } from "./profile";
 import {
   bagCoverage,
   bagRank,
@@ -362,7 +365,19 @@ export function buildTasks({
     const pp = puttsPerRound(withPutts);
     const tp = threePuttShare(roundHistory.rounds);
     const tpShare = tp.holes > 0 ? tp.threePutts / tp.holes : null;
+    /* The same recent window the profile uses — anchored to the newest round,
+     * never the wall clock, and deduped of quick-entry echoes. Computed once
+     * here rather than per task so every scoring task reads the same record. */
+    const form = recentVsCareer(roundHistory, PROFILE_THRESHOLDS.recentMonths);
+    const formOk =
+      form !== null && form.scoring.recentN >= PROFILE_THRESHOLDS.minRecentRounds ? form : null;
     if (pp !== null && tpShare !== null && tp.holes >= 500 && tpShare >= 0.1) {
+      const recentTp =
+        formOk !== null && formOk.threePutt.recent !== null && formOk.threePutt.recentN > 0
+          ? ` The last ${formOk.months} months say the same thing: one in ` +
+            `${Math.round(1 / Math.max(formOk.threePutt.recent, 1e-9))} over ` +
+            `${formOk.threePutt.recentN} recent holes.`
+          : "";
       tasks.push({
         id: "three-putts",
         category: "scoring",
@@ -370,7 +385,8 @@ export function buildTasks({
         evidence:
           `${tp.threePutts} of ${tp.holes} recorded holes took three or more putts, and the ` +
           `${withPutts.length} rounds that logged putting average ${pp.toFixed(1)} putts — ` +
-          "the largest single line item in the score, and the only one no launch monitor will ever see.",
+          "the largest single line item in the score, and the only one no launch monitor will ever see." +
+          recentTp,
         action:
           "Lag drill before every round: ten putts from 30+ feet, scored by finishing inside " +
           "a flagstick's length, not by holing anything.",
@@ -381,6 +397,81 @@ export function buildTasks({
         priority: 60,
         done: false,
       });
+    }
+
+    /* Recency tasks: a pattern that WORSENED in the recent window, not one the
+     * career merely confirms. Neither fires on today's data — the recent raw
+     * stats sit slightly ahead of career — and that is the point: these are
+     * guards for a future capture, not sentences for this one. Priority 62
+     * sits above three-putts (60, a known career-long leak) and below the
+     * inverted-gapping blind spots (65): a newly worsening pattern is worth
+     * more than a confirmed old one, per the information-gain ordering above. */
+    if (formOk !== null) {
+      const p = formOk.putts;
+      if (
+        p.recent !== null &&
+        p.career !== null &&
+        p.recentN >= PROFILE_THRESHOLDS.minRecentRounds &&
+        p.recent - p.career >= PROFILE_THRESHOLDS.recentDeltaPutts
+      ) {
+        tasks.push({
+          id: "recent-putting",
+          category: "scoring",
+          title: `The putting got worse recently`,
+          evidence:
+            `The last ${formOk.months} months average ${p.recent.toFixed(1)} putts a round over ` +
+            `${p.recentN} rounds, against ${p.career.toFixed(1)} across the career's ${p.careerN} — ` +
+            `${(p.recent - p.career).toFixed(1)} strokes a round given back on the greens alone.`,
+          action:
+            "Bring the lag drill forward: ten putts from 30+ feet before every round, and log " +
+            "putts per hole so the next capture can retire this.",
+          doneWhen:
+            `A capture whose last-${formOk.months}-month putts per round sits back within ` +
+            `${PROFILE_THRESHOLDS.recentDeltaPutts} of the career figure.`,
+          priority: 62,
+          done: false,
+        });
+      }
+
+      const s = formOk.scoring;
+      if (
+        s.recent !== null &&
+        s.career !== null &&
+        s.recentN >= PROFILE_THRESHOLDS.minRecentRounds &&
+        s.recent - s.career >= PROFILE_THRESHOLDS.recentDeltaStrokes
+      ) {
+        /* Point the action at a measured stat that moved with the scores —
+         * putts against their own threshold, else fairways if the hit rate
+         * fell — rather than hand-waving at "practice more". The two are in
+         * different units, so each is judged against itself, never converted
+         * into the other with an invented exchange rate. */
+        const puttGap =
+          p.recent !== null && p.career !== null ? p.recent - p.career : null;
+        const f = formOk.fairwayHit;
+        const fwFell =
+          f.recent !== null && f.career !== null && f.recent < f.career;
+        const culprit =
+          puttGap !== null && puttGap >= PROFILE_THRESHOLDS.recentDeltaPutts
+            ? "the putting moved with them — start with the lag drill"
+            : fwFell
+              ? "the fairway rate fell with them — start on the tee ball"
+              : "neither putts nor fairways moved with them, so the leak is in the strokes the card cannot itemise";
+        tasks.push({
+          id: "recent-scoring",
+          category: "scoring",
+          title: `The scores got worse recently`,
+          evidence:
+            `The last ${formOk.months} months average ${s.recent.toFixed(1)} strokes over ` +
+            `${s.recentN} distinct 18-hole rounds, against ${s.career.toFixed(1)} across the ` +
+            `career's ${s.careerN}.`,
+          action: `Of the stats the scorecards carry, ${culprit}.`,
+          doneWhen:
+            `A capture whose last-${formOk.months}-month scoring mean sits back within ` +
+            `${PROFILE_THRESHOLDS.recentDeltaStrokes} strokes of the career figure.`,
+          priority: 62,
+          done: false,
+        });
+      }
     }
   }
 

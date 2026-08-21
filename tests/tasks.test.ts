@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import type { LedgerSession, LedgerShot } from "../lib/ledger";
+import { buildRoundHistory, type SourceRound } from "../lib/round-history";
 import { applyHeuristics, buildBag, detectGaps } from "../lib/stats";
 import { buildTasks, rawShotsNeeded, type Task } from "../lib/tasks";
 
@@ -128,6 +129,107 @@ describe("buildTasks — against the real ledger", () => {
       expect(t.action.length).toBeGreaterThan(20);
       expect(t.doneWhen.length).toBeGreaterThan(5);
     }
+  });
+});
+
+/* The recency tasks are guards for a future capture: on the real record today
+ * neither fires, because the recent raw stats sit slightly ahead of career.
+ * These synthetic histories exercise both sides of each guard so the tasks
+ * cannot silently fire on noise or sleep through a real decline. */
+
+let nextRoundId = 0;
+function taskRound(date: string, strokes: number, putts: number | null): SourceRound {
+  return {
+    roundId: `tr-${++nextRoundId}`,
+    entry: "full",
+    date,
+    courseName: "Test Course",
+    teeName: "White",
+    holesRecorded: 18,
+    totals: { strokes, putts },
+    perHole: { strokes: [], putts: [], fairways: [] },
+    flags: [],
+  };
+}
+
+function tasksWithRounds(rounds: SourceRound[]): Task[] {
+  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
+  const sessions = load<LedgerSession[]>("sessions.json");
+  const profiles = buildBag(shots);
+  const roundHistory = buildRoundHistory({
+    capturedAt: "2026-08-19T00:00:00Z",
+    rawFile: "test.json",
+    handicapIndex: 13.3,
+    rounds,
+    differentials: [],
+  });
+  return buildTasks({ profiles, gaps: detectGaps(profiles), shots, sessions, roundHistory });
+}
+
+// 20 rounds in 2021 with steady numbers, six inside 18 months of the newest.
+const oldRounds = (strokes: number, putts: number) =>
+  Array.from({ length: 20 }, (_, i) =>
+    taskRound(`2021-${String((i % 12) + 1).padStart(2, "0")}-15`, strokes, putts),
+  );
+const recentRounds = (strokes: number, putts: number) =>
+  Array.from({ length: 6 }, (_, i) => taskRound(`2024-0${i + 1}-01`, strokes, putts));
+
+describe("buildTasks — recency", () => {
+  it("fires recent-putting when the recent window gives back more than the threshold", () => {
+    const tasks = tasksWithRounds([...oldRounds(88, 30), ...recentRounds(95, 36)]);
+    const t = tasks.find((x) => x.id === "recent-putting");
+    expect(t).toBeDefined();
+    // A newly worsening pattern outranks the confirmed career-long leak (60)
+    // and stays under the inverted-gapping blind spots (65).
+    expect(t?.priority).toBe(62);
+    expect(t?.evidence).toContain("36.0 putts a round");
+    expect(t?.doneWhen).toContain("career figure");
+  });
+
+  it("stays quiet when recent putting matches career — a task that fires on noise teaches nothing", () => {
+    const tasks = tasksWithRounds([...oldRounds(88, 30), ...recentRounds(88, 30)]);
+    expect(tasks.some((x) => x.id === "recent-putting")).toBe(false);
+    expect(tasks.some((x) => x.id === "recent-scoring")).toBe(false);
+  });
+
+  it("fires recent-scoring and names the stat that moved with it", () => {
+    const tasks = tasksWithRounds([...oldRounds(88, 30), ...recentRounds(95, 36)]);
+    const t = tasks.find((x) => x.id === "recent-scoring");
+    expect(t).toBeDefined();
+    expect(t?.priority).toBe(62);
+    // Putts worsened past their own threshold alongside the scores, so the
+    // action points at the greens rather than hand-waving.
+    expect(t?.action).toContain("lag drill");
+  });
+
+  it("teaches the career three-putt task what the recent window says", () => {
+    // Two 3-putts in 18 holes is a share of 0.111 — over the firing threshold —
+    // and 34 such rounds clear the 500-hole gate. The career task then carries
+    // the recent share beside the career one, per both-numbers-always.
+    const putts = [...Array(16).fill("2"), "3", "3"];
+    const card = (date: string): SourceRound => ({
+      ...taskRound(date, 90, 38),
+      perHole: { strokes: Array(18).fill("5"), putts, fairways: Array(18).fill("") },
+    });
+    const rounds = [
+      ...Array.from({ length: 28 }, (_, i) =>
+        card(`2021-${String((i % 12) + 1).padStart(2, "0")}-15`),
+      ),
+      ...Array.from({ length: 6 }, (_, i) => card(`2024-0${i + 1}-01`)),
+    ];
+    const t = tasksWithRounds(rounds).find((x) => x.id === "three-putts");
+    expect(t).toBeDefined();
+    expect(t?.evidence).toContain("The last 18 months say the same thing");
+    expect(t?.evidence).toContain("108 recent holes");
+  });
+
+  it("keeps recent-scoring honest when nothing measured moved with the scores", () => {
+    // Scores up, putting flat, no fairway data: the action must say the card
+    // cannot itemise the leak, not invent a culprit.
+    const tasks = tasksWithRounds([...oldRounds(88, 33), ...recentRounds(95, 33)]);
+    const t = tasks.find((x) => x.id === "recent-scoring");
+    expect(t).toBeDefined();
+    expect(t?.action).toContain("cannot itemise");
   });
 });
 

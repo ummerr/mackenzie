@@ -18,12 +18,13 @@ takes it off. Hit the shots and the sentence retires itself.
 | Clubs in the bag | **13** — 9 with any shots on file |
 | Shots on file | **217** — of 301 logged |
 | Range sessions | **8** |
-| Rounds played | **166** |
-| Courses played | **84** — 11 US states, 3 countries |
+| Rounds played | **168** |
+| Courses played | **85** — 11 US states, 3 countries |
 | Mean score | **88.4** — 79 layouts, 18 holes |
 | Favourite | **Bethpage State Park (Black)** — own ranking, no. 1 |
 | Handicap index | **13.3** — WHS, from 23.9 at the record's start |
 | Scored span | **2021-07-08 → 2026-08-16** — 168 dated rounds |
+| Recent scoring | **89.2** — last 5 rounds; career 90.4 over 139 |
 
 ## The read
 
@@ -34,26 +35,26 @@ of claim this repo refuses to print.
 
 ### 01. Nothing on this site was measured on a golf course. The played record and the measured record share no shots at all.
 
-- **why** — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 217 trusted shots — every one of them hit off a mat in front of a monitor. 166 rounds played across 84 facilities, none of which put a single shot in this ledger.
+- **why** — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 217 trusted shots — every one of them hit off a mat in front of a monitor. 168 rounds played across 85 facilities, none of which put a single shot in this ledger.
 - **gone when** — Any on-course shot data in the ledger — a round imported from the R50's on-course mode, or a hand-entered card with clubs.
 - *both · high confidence*
 
 ### 02. There is no measured tee game. Every club with numbers is a club you reach for after the shot that decided where you were standing.
 
-- **why** — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 166 rounds played.
+- **why** — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 168 rounds played.
 - **gone when** — Any tee club drawn on the bag page — 15+ usable shots with it.
 - *both · high confidence*
 
 ### 03. Over 18 holes the record averages 88.4, weighted by how often each course was played.
 
-- **why** — 79 layouts with comparable 18-hole averages across 166 rounds. Best average 76.7 at Rancho Park Golf Club, worst 102.0 at Las Vegas Paiute Golf Resort. 14 layouts held out as short or unscored rounds.
+- **why** — 79 layouts with comparable 18-hole averages across 168 rounds. Best average 76.7 at Rancho Park Golf Club, worst 102.0 at Las Vegas Paiute Golf Resort. 16 layouts held out as short or unscored rounds.
 - **gone when** — A new snapshot of the map's course history with a different mean.
 - *course · high confidence*
 
-### 04. The golf is getting better, and the raw scores hide it: the handicap fell while the scorecards stood still, which is what improvement looks like when the courses get harder too.
+### 04. The golf got better over the whole record and worse over the recent stretch: the career arc and the last dozen differentials point opposite ways.
 
-- **why** — Trending handicap 23.9 at the record's start, 13.3 now, across 153 differentials (mean of the first 20: 18.9; the last 20: 17.1). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 89.3 (2026, 6).
-- **gone when** — A capture whose trending handicap ends no lower than it starts.
+- **why** — Trending handicap 23.9 at the record's start, 13.3 now, across 153 differentials (mean of the first 20: 18.9; the last 20: 17.1). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 89.3 (2026, 6). Over the last 12 chart points the trending handicap moved from 9.7 to 13.3 (mean differential 17.1).
+- **gone when** — A capture whose last 12 differentials leave the trending handicap no higher than they found it.
 - *course · high confidence*
 
 ### 05. Putting is the biggest single line item in the score: 39% of all strokes happen on the green.
@@ -76,7 +77,7 @@ of claim this repo refuses to print.
 
 ### 08. This is a collector's record, not a member's: most courses were played once and never again.
 
-- **why** — 68 of 93 layouts played exactly once (73%). Most played: Rancho Park Golf Club at 10 rounds.
+- **why** — 70 of 95 layouts played exactly once (74%). Most played: Rancho Park Golf Club at 10 rounds.
 - **gone when** — A course history where under half the layouts are one-and-done.
 - *course · high confidence*
 
@@ -128,22 +129,49 @@ of claim this repo refuses to print.
 - **gone when** — Both clubs measured, or one of them re-lofted. 3 Hybrid and 3 Iron carrying more than 8 yd apart settles it.
 - *range · medium confidence*
 
+### 17. The recent scorecards look like the career record; the recent differentials do not.
+
+- **why** — Last 18 months (since 2025-02-16, 9 distinct 18-hole rounds): 89.6 mean strokes against 90.4 over the career's 139; 34.8 putts a round against 35.7. The last 12 differentials average 17.1 and moved the trending handicap from 9.7 to 13.3.
+- **gone when** — A capture where the recent window and the career agree — the trending-handicap tail within 2 strokes flat, and the recent means within 2 strokes and 1.5 putts of career.
+- *course · low confidence*
+
+## Recent form
+
+The last 18 months (since 2025-02-16), measured from the newest
+card (2026-08-16) — never from today, so this file reads the same until the
+record changes. Quick-entry echoes of a card already on file are not counted twice.
+
+| Date | Course | Strokes | Putts |
+|---|---|---|---|
+| 2026-07-19 | Tilden Park Golf Course | 85 | 35 |
+| 2026-07-25 | Ussher's Creek \| Legends On The Niagara Golf Club | 91 | 35 |
+| 2026-07-26 | Battlefield \| Legends On The Niagara Golf Club | 91 | 33 |
+| 2026-08-15 | Bennett Valley Golf Course | 89 | 38 |
+| 2026-08-16 | Brambles Golf | 90 | 35 |
+
+| | Recent | Career |
+|---|---|---|
+| Scoring | **89.6** (9 rounds) | 90.4 (139 rounds) |
+| Putts / round | **34.8** (9 rounds) | 35.7 (136 rounds) |
+| Three-putt share | **7%** (162 holes) | 14% (2645 holes) |
+| Fairways hit | **75%** (126 holes) | 62% (1542 holes) |
+
 ## The roast
 
 The same findings, unsoftened. Each one restates its own evidence and nothing
 more — a roast that needs a fact you do not have is just an insult.
 
-> 166 rounds. 217 measured shots. The two sets do not intersect: not one number on this site came from a golf course.
+> 168 rounds. 217 measured shots. The two sets do not intersect: not one number on this site came from a golf course.
 >
-> — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 217 trusted shots — every one of them hit off a mat in front of a monitor. 166 rounds played across 84 facilities, none of which put a single shot in this ledger.
+> — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 217 trusted shots — every one of them hit off a mat in front of a monitor. 168 rounds played across 85 facilities, none of which put a single shot in this ledger.
 
-> 166 rounds played, 1 measured swing with anything that starts a hole. This is a very thorough study of the second shot.
+> 168 rounds played, 1 measured swing with anything that starts a hole. This is a very thorough study of the second shot.
 >
-> — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 166 rounds played.
+> — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 168 rounds played.
 
-> Five years took 11 strokes off the handicap and 2.4 off the scorecard. You did not learn to score, you learned to lose by the same amount at harder courses.
+> The career took 11 strokes off the handicap; the last 12 differentials gave 3.6 back.
 >
-> — Trending handicap 23.9 at the record's start, 13.3 now, across 153 differentials (mean of the first 20: 18.9; the last 20: 17.1). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 89.3 (2026, 6).
+> — Trending handicap 23.9 at the record's start, 13.3 now, across 153 differentials (mean of the first 20: 18.9; the last 20: 17.1). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 89.3 (2026, 6). Over the last 12 chart points the trending handicap moved from 9.7 to 13.3 (mean differential 17.1).
 
 > 35.7 putts a round, and a three-putt every 7 holes. The greens are charging a second green fee.
 >
@@ -157,9 +185,9 @@ more — a roast that needs a fact you do not have is just an insult.
 >
 > — 1542 driven holes carry a fairway result: 62% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 397 holes carry codes outside Grint's own legend and are excluded.
 
-> 73% of the courses in this record got exactly one chance to make an impression, which is also how many chances they got to be learned.
+> 74% of the courses in this record got exactly one chance to make an impression, which is also how many chances they got to be learned.
 >
-> — 68 of 93 layouts played exactly once (73%). Most played: Rancho Park Golf Club at 10 rounds.
+> — 70 of 95 layouts played exactly once (74%). Most played: Rancho Park Golf Club at 10 rounds.
 
 > The 5 Iron goes right and the Pitching Wedge goes left, so aiming off fixes exactly half your bag and breaks the other half.
 >
@@ -176,6 +204,10 @@ more — a roast that needs a fact you do not have is just an insult.
 > Your Pitching Wedge has a 17 yd opinion about what day of the week it is. A yardage book cannot help with that.
 >
 > — 4 drawn clubs drift more than 10 yd between sessions. Worst: Pitching Wedge, 16.8 yd between its session medians over 3 sessions.
+
+> Same scores, worse handicap: the recent courses were easier, and the scorecards didn't notice.
+>
+> — Last 18 months (since 2025-02-16, 9 distinct 18-hole rounds): 89.6 mean strokes against 90.4 over the career's 139; 34.8 putts a round against 35.7. The last 12 differentials average 17.1 and moved the trending handicap from 9.7 to 13.3.
 
 ## What the record cannot say
 
@@ -215,7 +247,7 @@ The rounds carry a course, a tee name and a differential, but still no par or ya
 ## Read from
 
 - **Range** — 301 shots over 8 Garmin R50 sessions, 2026-07-02 to 2026-08-14
-- **Courses** — 166 rounds over 93 layouts, from The Grint, captured 2026-08-01
+- **Courses** — 168 rounds over 95 layouts, from The Grint, captured 2026-08-01
 - **Rounds** — 168 dated scorecards, 2021-07-08 to 2026-08-16, from the Grint export bundle, captured 2026-08-19
 
 Regenerate with `pnpm profile`. The course half comes from

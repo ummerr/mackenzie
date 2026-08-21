@@ -213,6 +213,189 @@ export function yearlyMeans(
     .sort((a, b) => a.year.localeCompare(b.year));
 }
 
+/* ------------------------------------------------------------------------- *
+ * Recent form. Every window below anchors to the newest round in the record,
+ * never the wall clock — the same rule lib/yardages/recency-weighting.ts
+ * documents: byte-identical inputs must produce byte-identical output, or
+ * `pnpm profile --check` fails on a Tuesday and every test decays under
+ * itself.
+ * ------------------------------------------------------------------------- */
+
+/** The date of the newest dated round — the record's "as of". */
+export function asOf(rounds: PlayedRound[]): string | null {
+  let max: string | null = null;
+  for (const r of rounds) {
+    if (max === null || r.date > max) max = r.date;
+  }
+  return max;
+}
+
+function daysInMonth(year: number, month1: number): number {
+  if (month1 === 2) {
+    const leap = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+    return leap ? 29 : 28;
+  }
+  return [31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month1 - 1];
+}
+
+/** `date` minus `months` calendar months, day clamped to the target month's
+ *  last day ("2026-03-31" − 1 → "2026-02-28", leap-aware). Pure string and
+ *  integer arithmetic — a Date here would overflow Feb 31 into Mar 3 and
+ *  drag the wall clock's timezone in with it. */
+export function monthsBefore(date: string, months: number): string {
+  const year = Number(date.slice(0, 4));
+  const month = Number(date.slice(5, 7));
+  const day = Number(date.slice(8, 10));
+  const total = year * 12 + (month - 1) - months;
+  const ty = Math.floor(total / 12);
+  const tm = total - ty * 12 + 1;
+  const td = Math.min(day, daysInMonth(ty, tm));
+  return `${String(ty).padStart(4, "0")}-${String(tm).padStart(2, "0")}-${String(td).padStart(2, "0")}`;
+}
+
+/** One entry per real round: a `total-only` entry is dropped when a `full`
+ *  entry shares its date, course, and strokes — Grint's quick-entry echo of
+ *  the same card. Everything else survives: two full cards on one date at one
+ *  course is a 36-hole day, and a total-only card with different strokes is a
+ *  second round, not a duplicate. This is a windowing rule, not a correction —
+ *  `RoundHistory.rounds` itself is never touched. */
+export function distinctRounds(rounds: PlayedRound[]): PlayedRound[] {
+  const fullKeys = new Set(
+    rounds
+      .filter((r) => r.entry === "full")
+      .map((r) => `${r.date}|${r.courseName}|${r.strokes}`),
+  );
+  return rounds.filter(
+    (r) => r.entry !== "total-only" || !fullKeys.has(`${r.date}|${r.courseName}|${r.strokes}`),
+  );
+}
+
+/** The last `n` of `distinctRounds(rounds)`, ascending by date. */
+export function lastNDistinct(rounds: PlayedRound[], n: number): PlayedRound[] {
+  return [...distinctRounds(rounds)].sort((a, b) => a.date.localeCompare(b.date)).slice(-n);
+}
+
+/** Distinct rounds dated on or after `monthsBefore(asOfDate, months)`. */
+export function since(rounds: PlayedRound[], months: number, asOfDate: string): PlayedRound[] {
+  const cutoff = monthsBefore(asOfDate, months);
+  return distinctRounds(rounds).filter((r) => r.date >= cutoff);
+}
+
+/** A stat with both of its answers: what the recent window says and what the
+ *  whole record says, each with the n behind it. Publishing only one would
+ *  hide that recency moved it — the club-profile module's rule, kept here. */
+export interface StatPair {
+  recent: number | null;
+  career: number | null;
+  /** Rounds behind the number — or holes, for the per-hole shares. */
+  recentN: number;
+  careerN: number;
+}
+
+export interface RecentForm {
+  /** The newest round's date — every window is measured from here. */
+  asOf: string;
+  /** `monthsBefore(asOf, months)`. */
+  cutoff: string;
+  months: number;
+  /** Distinct 18-hole scored rounds in the window, ascending by date. */
+  recentRounds: PlayedRound[];
+  /** Mean 18-hole strokes. */
+  scoring: StatPair;
+  /** Putts per round, over rounds that recorded them. */
+  putts: StatPair;
+  /** Three-putt holes as a share of holes putted; n is holes. */
+  threePutt: StatPair;
+  /** Fairways hit as a share of classified holes; n is classified holes. */
+  fairwayHit: StatPair;
+}
+
+/** Recent window vs the whole record, side by side. Career means the WHOLE
+ *  record, recent included — that dilutes the deltas, which biases toward
+ *  "no finding", the conservative direction; the evidence strings print both
+ *  numbers and both n's so nothing is hidden. */
+export function recentVsCareer(h: RoundHistory, months: number): RecentForm | null {
+  const anchor = asOf(h.rounds);
+  if (anchor === null) return null;
+  const cutoff = monthsBefore(anchor, months);
+
+  const career = [...distinctRounds(h.rounds)].sort((a, b) => a.date.localeCompare(b.date));
+  const recent = career.filter((r) => r.date >= cutoff);
+  const career18 = career.filter((r) => r.holes === 18 && r.strokes !== null);
+  const recent18 = recent.filter((r) => r.holes === 18 && r.strokes !== null);
+
+  const pair = (
+    rec: number | null,
+    car: number | null,
+    recentN: number,
+    careerN: number,
+  ): StatPair => ({ recent: rec, career: car, recentN, careerN });
+
+  const withPutts = (rs: PlayedRound[]) => rs.filter((r) => r.putts !== null);
+  const tpRecent = threePuttShare(recent);
+  const tpCareer = threePuttShare(career);
+  const fwRecent = fairwaySplit(recent);
+  const fwCareer = fairwaySplit(career);
+
+  return {
+    asOf: anchor,
+    cutoff,
+    months,
+    recentRounds: recent18,
+    scoring: pair(
+      mean(recent18.map((r) => r.strokes as number)),
+      mean(career18.map((r) => r.strokes as number)),
+      recent18.length,
+      career18.length,
+    ),
+    putts: pair(
+      puttsPerRound(recent18),
+      puttsPerRound(career18),
+      withPutts(recent18).length,
+      withPutts(career18).length,
+    ),
+    threePutt: pair(
+      tpRecent.holes > 0 ? tpRecent.threePutts / tpRecent.holes : null,
+      tpCareer.holes > 0 ? tpCareer.threePutts / tpCareer.holes : null,
+      tpRecent.holes,
+      tpCareer.holes,
+    ),
+    fairwayHit: pair(
+      fwRecent.classified > 0 ? fwRecent.hit / fwRecent.classified : null,
+      fwCareer.classified > 0 ? fwCareer.hit / fwCareer.classified : null,
+      fwRecent.classified,
+      fwCareer.classified,
+    ),
+  };
+}
+
+/**
+ * The tail of the handicap chart: mean differential over the last `window`
+ * points, and where the trending line stood at the tail's start and end.
+ * Sliced by POSITION only — the chart is its own provenance and is never
+ * joined to rounds by date (a guessed join is invented data), so this tail
+ * knowingly carries whatever duplicates the chart itself carries.
+ */
+export function differentialTail(
+  h: RoundHistory,
+  window: number,
+): {
+  mean: number;
+  trendingStart: number | null;
+  trendingEnd: number | null;
+  points: number;
+} | null {
+  const pts = h.differentials;
+  if (pts.length < window) return null;
+  const tail = pts.slice(-window);
+  return {
+    mean: mean(tail.map((p) => p.differential)) as number,
+    trendingStart: tail[0]?.trendingHdcp ?? null,
+    trendingEnd: tail[tail.length - 1]?.trendingHdcp ?? null,
+    points: tail.length,
+  };
+}
+
 /**
  * The handicap's own arc: mean differential over the first and last `window`
  * chart points, plus where the trending line started and ended. Differentials

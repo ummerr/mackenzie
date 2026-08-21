@@ -29,7 +29,7 @@ import {
   type RoundHistory,
   type SourceRounds,
 } from "../lib/round-history";
-import { buildProfile, type GolferProfile } from "../lib/profile";
+import { buildProfile, PROFILE_THRESHOLDS, type GolferProfile } from "../lib/profile";
 import { applyHeuristics, buildBag, detectGaps } from "../lib/stats";
 import { buildTasks } from "../lib/tasks";
 
@@ -88,6 +88,41 @@ function render(p: GolferProfile): string {
     out.push(`- *${f.lens} · ${f.confidence} confidence*`);
     out.push("");
   });
+
+  /* The same section the page renders — the two must not drift apart on the
+   * one block that changes most often. Both numbers always, per the rule in
+   * lib/yardages/club-profile.ts: recent answers "now", career answers "ever". */
+  if (p.recentForm) {
+    const form = p.recentForm;
+    const num = (v: number | null) => (v === null ? "—" : v.toFixed(1));
+    const pctOf = (v: number | null) => (v === null ? "—" : `${(v * 100).toFixed(0)}%`);
+    out.push("## Recent form");
+    out.push("");
+    out.push(
+      `The last ${form.months} months (since ${form.cutoff}), measured from the newest`,
+      `card (${form.asOf}) — never from today, so this file reads the same until the`,
+      "record changes. Quick-entry echoes of a card already on file are not counted twice.",
+    );
+    out.push("");
+    out.push("| Date | Course | Strokes | Putts |");
+    out.push("|---|---|---|---|");
+    for (const r of form.recentRounds.slice(-PROFILE_THRESHOLDS.recentRoundCount)) {
+      // Grint course names can carry a literal "|" (layout | facility), which
+      // would split the table cell.
+      const course = (r.courseName ?? "—").replace(/\|/g, "\\|");
+      out.push(`| ${r.date} | ${course} | ${r.strokes ?? "—"} | ${r.putts ?? "—"} |`);
+    }
+    out.push("");
+    out.push("| | Recent | Career |");
+    out.push("|---|---|---|");
+    out.push(
+      `| Scoring | **${num(form.scoring.recent)}** (${form.scoring.recentN} rounds) | ${num(form.scoring.career)} (${form.scoring.careerN} rounds) |`,
+      `| Putts / round | **${num(form.putts.recent)}** (${form.putts.recentN} rounds) | ${num(form.putts.career)} (${form.putts.careerN} rounds) |`,
+      `| Three-putt share | **${pctOf(form.threePutt.recent)}** (${form.threePutt.recentN} holes) | ${pctOf(form.threePutt.career)} (${form.threePutt.careerN} holes) |`,
+      `| Fairways hit | **${pctOf(form.fairwayHit.recent)}** (${form.fairwayHit.recentN} holes) | ${pctOf(form.fairwayHit.career)} (${form.fairwayHit.careerN} holes) |`,
+    );
+    out.push("");
+  }
 
   const roasts = p.findings.filter((f) => f.roast !== null);
   if (roasts.length > 0) {

@@ -6,6 +6,63 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-20 — Recent form is a window, not a rewrite
+
+**Decided:** the profile, the spec sheet, and the practice list learn what the
+last 18 months say, without recomputing anything the record already settled.
+New windowing helpers in `lib/round-history.ts` (`asOf`, `monthsBefore`,
+`distinctRounds`, `lastNDistinct`, `since`, `recentVsCareer`,
+`differentialTail`); recency thresholds in `PROFILE_THRESHOLDS`
+(`recentMonths: 18`, `recentRoundCount: 5`, `minRecentRounds: 5`,
+`recentDiffWindow: 12`, delta gates); a `recent-form` finding and a "Recent
+form" section on `/` and in `PROFILE.md` (last-5 table plus recent-vs-career
+lines); two guard-gated scoring tasks (`recent-putting`, `recent-scoring`, both
+priority 62 — a newly worsening pattern outranks the confirmed career leak at
+60, stays under the blind spots at 65); and `/scratch` loses its hard-coded
+`>= "2025-01-01"` filter for the same window.
+
+**The finding that forced it:** the trajectory line said "the golf is getting
+better" from the first-20-vs-last-20 differentials, while the last 12 chart
+points walked the trending handicap from 9.7 back to 13.3. Both are the chart's
+own numbers, so the reconciled claim is the divergence itself — career arc one
+way, recent tail the other. The recent *raw* stats are meanwhile slightly
+better than career (89.6 vs 90.4; 34.8 putts vs 35.7), which is why no
+implementation may write "recent form is worse" off raw means: the honest
+recent story on this record is "same scorecards, worse differentials".
+
+**Rules kept, and why they live where they do:**
+
+- **Every window anchors to `asOf(rounds)` — the newest card — never the wall
+  clock.** Same law as `lib/yardages/recency-weighting.ts`: byte-identical
+  inputs must render byte-identical output, or `pnpm profile --check` fails on
+  a Tuesday. `monthsBefore` is pure string/integer arithmetic (month-end
+  clamped, leap-aware) because a `Date` would drag the timezone in.
+- **The total-only dedup is a windowing rule, not a correction.** The record
+  carries a quick-entry echo of the 2026-06-30 Eagle Vines card (same date,
+  course, strokes); `distinctRounds` drops the echo *when counting*, and
+  `RoundHistory.rounds` itself is never touched — flags, never corrections. A
+  "last 5" that counts an echo is a last 4 wearing a costume; a total-only card
+  with *different* strokes survives, because that is a second round.
+- **Career means the whole record, recent included.** Splitting it would
+  sharpen every delta; diluting biases toward "no finding", which is the
+  conservative direction, and both numbers print with both n's regardless —
+  the club-profile module's both-numbers-always rule, now on the round side.
+- **The differential tail slices by position only** and knowingly carries the
+  chart's own Eagle Vines duplicate — the two-arrays-two-provenances rule
+  stands; a guessed join is still invented data.
+- Recent-form confidence caps at low under 10 distinct rounds and its weight is
+  its data share, so nine rounds can never outrank what 168 agree on.
+
+**Rejected:** exponential recency *weighting* of round stats (the range
+half's `recencyWeight` exists for a ledger where sessions pile up weekly; 10
+rounds in 18 months is a window, and a half-life over it is precision
+theatre). **Rejected:** reading `perHole.shotCodes` for penalty/sand recency
+(no legend on file; a guessed S/D/O/W/F semantics is a claim without a
+source). **Rejected:** dedup inside `buildRoundHistory` (a correction wearing
+a reshape's clothes — the echo is real data about how the round was entered).
+
+---
+
 ## 2026-08-19 — Rounds reach the map without a paste; the list view lands
 
 **Decided:** a third pipeline step, `rounds-to-spine.mjs` (`data:spine`, between
