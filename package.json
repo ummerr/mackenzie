@@ -23,6 +23,7 @@
     "data:validate": "node scripts/validate.mjs",
     "data:inventory": "node scripts/inventory-grint-export.mjs",
     "data:rounds": "node scripts/parse-grint-export.mjs",
+    "data:garmin:inventory": "node scripts/inventory-garmin-export.mjs",
     "data:all": "pnpm data:parse && pnpm data:spine && pnpm data:geocode && pnpm data:osm && pnpm data:holes && pnpm data:build && pnpm data:validate"
   },
   "dependencies": {

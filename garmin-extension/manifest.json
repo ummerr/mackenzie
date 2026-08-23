@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Garmin Golf Export",
+  "version": "0.1.0",
+  "description": "Export your own Garmin Connect golf data — scorecards, AutoShot shot-by-shot detail, club list, aggregate stats — as one JSON bundle for the mackenzie pipeline.",
+
+  "permissions": ["activeTab", "scripting"],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Garmin Golf Export"
+  }
+}

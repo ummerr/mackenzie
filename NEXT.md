@@ -131,3 +131,5 @@ HTML, licence gray area, hard name-matching problem).
 - **2026-08-16** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `yardages/NEXT.md`. <!-- campfire:2026-08-16 -->
 - **2026-08-19** — session ended: 14 file(s) dirty, 0 commit(s) unpushed. Last touched: `DECISIONS.md`. <!-- campfire:2026-08-19 -->
 - **2026-08-20** — session ended: 11 file(s) dirty, 0 commit(s) unpushed. Last touched: `DECISIONS.md`. <!-- campfire:2026-08-20 -->
+- **2026-08-21** — session ended: 4 file(s) dirty, 0 commit(s) unpushed. Last touched: `DECISIONS.md`. <!-- campfire:2026-08-21 -->
+- **2026-08-22** — session ended: 5 file(s) dirty, 0 commit(s) unpushed. Last touched: `DECISIONS.md`. <!-- campfire:2026-08-22 -->

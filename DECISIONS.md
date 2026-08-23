@@ -6,6 +6,97 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-21 — The Garmin capture is a sibling extension, and it stores JSON, not pages
+
+**Decided:** on-course AutoShot data comes in through `garmin-extension/`, a
+capture-only Chrome MV3 extension built as the direct sibling of
+`grint-extension/` — same permission posture (`activeTab` + `scripting` only),
+same popup-injects-baseline incremental mode, same polite sequential fetch
+discipline, same "the extension captures, Node parses" contract. The decisive
+difference from the Grint capture: connect.garmin.com's golf pages are fed by
+JSON endpoints (`gcs-golfcommunity/api/v2` — scorecard summary, per-scorecard
+detail, per-hole `holeShots`, the club list, four shot-stats views), so there
+is no `extract.js`, no selectors, no full-page fallback. Every resource stores
+the raw response **text** byte-verbatim (`payload: { json: rawText }`), and
+the drift signal is a parse probe: a 200 whose body isn't JSON is a warning in
+the bundle and a structural violation at the inventory gate
+(`scripts/inventory-garmin-export.mjs`, `pnpm data:garmin:inventory`), because
+these endpoints have no legitimate non-JSON answer.
+
+**Secret hygiene, tightened for an OAuth site:** the scraper fetches with
+`credentials: "same-origin"` only and never reads `document.cookie`. The
+inventory grep grows Garmin-shaped patterns (`bearer`, `access_token`,
+`refresh_token`, `jwt`, `localStorage`) on top of the Grint set. The original
+form of this rule also forbade reading the SPA's storage or setting an
+`Authorization` header, with "revisit here if the proxy demands a token" —
+see the next paragraph, where exactly that happened. What survives unchanged
+is the invariant the rule was protecting: **nothing token-shaped may ever be
+written into the bundle**, because the bundle is committed to a public repo
+and must be committable by construction. No request or response headers are
+recorded, and the inventory gate enforces the invariant mechanically.
+
+**The auth scheme, learned the hard way (2026-08-22), then resolved by
+observation.** Four wrong guesses, each paid for by a live run, before the
+answer came from reading the SPA's own request in the Network panel:
+
+- `/modern/proxy` returns `402 Payment Required` without Garmin's quirky
+  `NK: NT` header; with it, from the `/app` client, it either redirects every
+  call to SSO or answers `200` with an **empty body** unless a
+  `DI-Backend` routing header is also sent. A dead end for the new client.
+- The bare `/gcs-golfcommunity` path `404`s.
+- A runtime bearer token on any of those paths was rejected `401`.
+
+The actual scheme, captured verbatim from the SPA's working `scorecard/detail`
+request, is disarmingly plain: base path **`/golf-api/gcs-golfcommunity/api/v2`**,
+same-origin, **session cookie only** (`credentials: "include"`), `Accept: */*`,
+and a **`connect-csrf-token`** header echoed from the page. No bearer, no
+`DI-Backend`, no `NK`. Two lessons banked: (1) when the target is a first-party
+SPA, **read its real request before writing the client** — the same "against
+real captured payloads, not guesses" rule that governs the parsers applies to
+the transport; four round-trips would have been one. (2) The verbatim capture
+also revealed a `club/types?maxClubTypeId=42` endpoint (the clubId → club-type
+map), now captured as its own resource kind.
+
+A first successful capture (partial — the hour-old test session expired
+mid-run) then settled the hole-shots call: a **multi-value** `hole-numbers`
+list answers HTTP 400, so only a single value works per hole; but the SPA's
+own call omits `hole-numbers` entirely and returns every hole's shots at once,
+each entry stamped with its `holeNumber`. The scraper now uses that
+all-at-once call first (≈one request per scorecard instead of eighteen — the
+difference between finishing and timing out) and per-hole-fills only holes it
+didn't return. The shot shape it captured is what makes Phase E possible: each
+shot carries `shotType` (TEE/APPROACH/CHIP/PUTT), `meters`, `clubId` (→
+`clubTypeId` → the types map), and a `lie` on both `startLoc` and `endLoc` —
+the on-course short-game and lie data the profile's `buildUnknowns` has been
+listing as unanswerable. Dates come from `formattedStartTime`
+(local-offset-stamped), never the UTC epoch.
+
+The scraper keeps an ordered strategy table anyway — `golf-api` first, then
+the legacy `proxy-di` / `proxy` / `direct` fallbacks — and takes the first
+that returns *parseable data* (never a bare 200). Every attempt's status,
+content-type, and a 60-char body head are recorded in
+`discovery.authAttempts`, the winner in `discovery.authStrategy`, so any
+future scheme change is diagnosable from the bundle and the popup line rather
+than another live round-trip. The CSRF token (a double-submit token, not a
+session secret) is read into memory and, like any bearer token a fallback
+might use, is never written into the bundle.
+
+**Two unknowns deferred to the first real capture, deliberately:** whether one
+batched `hole-numbers=1,2,…` call per scorecard works (probed on the first
+scorecard, adopted pattern recorded in `discovery.holeShotPattern`, per-hole
+fallback), and every field name inside `holeShots`/`detail` — the parser gets
+written against a committed fixture from a real bundle, not guessed shapes,
+same house rule that governed the Grint adapter.
+
+**Rejected:** scraping the rendered golf-shots page or its hole imagery (the
+shot list is a JSON API away, and images add binary weight plus someone else's
+copyrighted artwork to a public repo — the site already draws its own maps
+from shot coordinates plus `public/data/holes/`); the official Garmin Golf
+Premium API (a partner program, not a personal-data path); a HAR-based
+extractor (rejected once already for Grint — a HAR is a cookie-bearing file);
+and reading the SPA's token to call the API from outside the browser, per the
+paragraph above.
+
 ## 2026-08-20 — Recent form is a window, not a rewrite
 
 **Decided:** the profile, the spec sheet, and the practice list learn what the
