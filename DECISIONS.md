@@ -6,6 +6,38 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-22 — The Garmin↔Grint join is proposed by machine, confirmed by hand
+
+**Decided:** `data/round-links.json` is a CURATED file. `pnpm data:links`
+proposes — candidates by facility slug + date (±1 day only for rounds
+flagged `date_from_utc`), strokes equality recorded as corroboration but
+never the key — and a human flips `status` from `proposed` to `confirmed`
+by editing the file. Reruns preserve confirmed/rejected entries verbatim
+and are diff-stable. Zero candidates is a finding, not a failure: the R50
+simulator rounds (`roundType: "SIMULATION"`, seven of the first nine
+scorecards) are Garmin-only by nature and their entries say so.
+`validate.mjs` enforces the invariants — dangling ids and double-confirms
+are errors, pending proposals a counted warning. Garmin spellings that
+differ from Grint's for the same place live in `GARMIN_FACILITY_ALIASES`
+(one attested entry: Garmin "Harding Park Golf Course", Grint "TPC
+Harding Park Golf Course"), explicit and never fuzzy.
+
+**Also decided, the unknowns' retirement terms:** the profile's
+`short-game` and `lies` unknowns retire when the shot record clears
+`GARMIN_THRESHOLDS.minShotRounds` (5) shot-bearing rounds; below it they
+stay but name what exists ("2 round(s) of AutoShot shot data exist,
+below the 5…"). Every Garmin-derived share is a share of RECORDED shots
+with the coverage printed beside it — AutoShot hears full swings, so at
+Presidio the watch caught 56 of 98 strokes and no honest claim can
+pretend otherwise.
+
+**Rejected:** auto-confirming links that match on all three axes (a
+guessed cross-source join is invented data, and the cost of a human
+minute per capture is nothing against a silent misjoin feeding the
+profile); filtering simulator rounds out of `garmin-rounds.json` (the
+adapter is verbatim — a downstream reader decides what a virtual Pebble
+Beach round is evidence of).
+
 ## 2026-08-22 — Per-shot GPS coordinates stay verbatim in the public repo
 
 **Decided:** the Garmin bundles keep every shot's `startLoc`/`endLoc`

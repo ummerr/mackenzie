@@ -53,7 +53,20 @@ HTML, licence gray area, hard name-matching problem).
 
 - **Re-capture Grint monthly-ish.** The loop is one click end to end now:
   extension → `data/raw/grint-export-*.json` → `pnpm data:inventory` →
-  `pnpm data:rounds` → `pnpm run profile`, commit what changed. Each capture retires or sharpens profile findings.
+  `pnpm data:rounds` → `pnpm data:spine` (new courses reach the map; follow
+  with geocode/osm/holes/build if it appended) → `pnpm run profile`, commit
+  what changed. Each capture retires or sharpens profile findings.
+- **Re-capture Garmin after on-course rounds.** Same loop, sibling pipeline:
+  garmin-extension → `data/raw/garmin-export-*.json` →
+  `pnpm data:garmin:inventory` → `pnpm data:garmin` → `pnpm data:links`
+  (confirm the proposals by editing `data/round-links.json`) →
+  `pnpm run profile`. At 5 shot-bearing rounds (2 as of 2026-08-23) the
+  short-game and lies unknowns retire and three new findings switch on —
+  see `GARMIN_THRESHOLDS` in `lib/garmin-shots.ts`.
+- **Confirm the two proposed round links** in `data/round-links.json` —
+  Harding Park 91 → 62185587 and Presidio 98 → 62319577, both matched on
+  facility, date and strokes; flip `status` to `confirmed` and commit.
+  `pnpm data:validate` reminds until then.
 - **Deploy.** One Vercel project now (`mackenzie`), `vercel deploy --prod`
   from the repo root. Still pending: the `courses.ummerr.com` DNS record, and a
   new `P-NN` row in `ummerr.github.io/index.html` next to the existing P-07
