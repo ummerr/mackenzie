@@ -52,6 +52,13 @@ const OUT = resolve(DATA, "garmin-rounds.json");
 const M_TO_YD = 1.0936132983377078;
 const toYards = (m) => (typeof m === "number" ? Math.round(m * M_TO_YD * 10) / 10 : null);
 
+/** A location's pixel position on Garmin's per-hole map frame, or null when
+ *  the capture carried none. Verbatim integers — no scaling here. */
+const mapPoint = (loc) =>
+  loc && typeof loc.x === "number" && typeof loc.y === "number"
+    ? { x: loc.x, y: loc.y }
+    : null;
+
 /**
  * Garmin clubType name → BAG_ORDER string (lib/clubs.ts). Garmin's own type
  * table already uses the bag's exact vocabulary ("Driver", "3 Wood",
@@ -165,6 +172,13 @@ export function parseGarminRound(detailJson, shots, clubIndex) {
       yards: toYards(s.meters),
       startLie: s.startLoc?.lie ?? null,
       endLie: s.endLoc?.lie ?? null,
+      // Where the shot started and ended on Garmin's per-hole map frame —
+      // pixel positions on the IMG_730X730 raster, tee low, green high. The
+      // raster itself is Garmin's and is never fetched; the coordinates are
+      // the shot's own geometry, and they are what the diary traces are
+      // drawn from.
+      startMap: mapPoint(s.startLoc),
+      endMap: mapPoint(s.endLoc),
       raw: s,
     };
   };

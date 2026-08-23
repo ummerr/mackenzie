@@ -249,7 +249,7 @@ The rounds carry a course, a tee name and a differential, but still no par or ya
 - **Range** — 301 shots over 8 Garmin R50 sessions, 2026-07-02 to 2026-08-14
 - **Courses** — 170 rounds over 97 layouts, from The Grint, captured 2026-08-01
 - **Rounds** — 170 dated scorecards, 2021-07-08 to 2026-08-22, from the Grint export bundle, captured 2026-08-23
-- **Shots on course** — 107 AutoShot shots over 2 of 9 rounds (the rest are R50 simulator rounds, which carry no shots), from the Garmin export bundle, captured 2026-08-23
+- **Shots on course** — 108 AutoShot shots over 2 of 9 rounds (the rest are R50 simulator rounds, which carry no shots), from the Garmin export bundle, captured 2026-08-23
 
 Regenerate with `pnpm profile`. The course half comes from
 `public/data/courses.json`, the map pipeline's artifact — `pnpm data:build`.

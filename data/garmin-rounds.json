@@ -1,8 +1,8 @@
 {
   "source": "garmin-connect",
   "adapter": "parse-garmin-export.mjs",
-  "capturedAt": "2026-08-23T03:25:17.344Z",
-  "rawFile": "raw/garmin-export-2026-08-23-0325.json",
+  "capturedAt": "2026-08-23T03:58:18.696Z",
+  "rawFile": "raw/garmin-export-2026-08-23-0358.json",
   "userId": 134747949,
   "clubs": [
     {
@@ -1175,7 +1175,7 @@
       "totals": {
         "strokes": 91,
         "putts": null,
-        "shots": 51
+        "shots": 52
       },
       "holes": [
         {
@@ -1194,6 +1194,14 @@
               "yards": 297.8,
               "startLie": "TeeBox",
               "endLie": "Unknown",
+              "startMap": {
+                "x": 361,
+                "y": 645
+              },
+              "endMap": {
+                "x": 285,
+                "y": 213
+              },
               "raw": {
                 "id": 10612560485,
                 "scorecardId": 379296644,
@@ -1235,6 +1243,14 @@
               "yards": 85.4,
               "startLie": "Unknown",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 285,
+                "y": 213
+              },
+              "endMap": {
+                "x": 367,
+                "y": 118
+              },
               "raw": {
                 "id": 10612560486,
                 "scorecardId": 379296644,
@@ -1276,6 +1292,14 @@
               "yards": 21.2,
               "startLie": "Fairway",
               "endLie": "Green",
+              "startMap": {
+                "x": 367,
+                "y": 118
+              },
+              "endMap": {
+                "x": 364,
+                "y": 87
+              },
               "raw": {
                 "id": 10612560487,
                 "scorecardId": 379296644,
@@ -1326,6 +1350,14 @@
               "yards": 148.8,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 388,
+                "y": 549
+              },
+              "endMap": {
+                "x": 372,
+                "y": 348
+              },
               "raw": {
                 "id": 10612561803,
                 "scorecardId": 379296644,
@@ -1367,6 +1399,14 @@
               "yards": 195.7,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 372,
+                "y": 348
+              },
+              "endMap": {
+                "x": 363,
+                "y": 82
+              },
               "raw": {
                 "id": 10612561804,
                 "scorecardId": 379296644,
@@ -1408,6 +1448,14 @@
               "yards": 27.4,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 363,
+                "y": 82
+              },
+              "endMap": {
+                "x": 397,
+                "y": 66
+              },
               "raw": {
                 "id": 10612561805,
                 "scorecardId": 379296644,
@@ -1458,6 +1506,14 @@
               "yards": 160.6,
               "startLie": "TeeBox",
               "endLie": "Unknown",
+              "startMap": {
+                "x": 372,
+                "y": 569
+              },
+              "endMap": {
+                "x": 275,
+                "y": 163
+              },
               "raw": {
                 "id": 10612562209,
                 "scorecardId": 379296644,
@@ -1499,6 +1555,14 @@
               "yards": 36.7,
               "startLie": "Unknown",
               "endLie": "Green",
+              "startMap": {
+                "x": 275,
+                "y": 163
+              },
+              "endMap": {
+                "x": 368,
+                "y": 141
+              },
               "raw": {
                 "id": 10612562210,
                 "scorecardId": 379296644,
@@ -1549,6 +1613,14 @@
               "yards": 109.2,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 326,
+                "y": 599
+              },
+              "endMap": {
+                "x": 353,
+                "y": 491
+              },
               "raw": {
                 "id": 10612564956,
                 "scorecardId": 379296644,
@@ -1590,6 +1662,14 @@
               "yards": 59.6,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 353,
+                "y": 491
+              },
+              "endMap": {
+                "x": 346,
+                "y": 430
+              },
               "raw": {
                 "id": 10612564957,
                 "scorecardId": 379296644,
@@ -1631,6 +1711,14 @@
               "yards": 127.6,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 346,
+                "y": 430
+              },
+              "endMap": {
+                "x": 347,
+                "y": 300
+              },
               "raw": {
                 "id": 10612564958,
                 "scorecardId": 379296644,
@@ -1672,6 +1760,14 @@
               "yards": 147.3,
               "startLie": "Rough",
               "endLie": "Unknown",
+              "startMap": {
+                "x": 347,
+                "y": 300
+              },
+              "endMap": {
+                "x": 397,
+                "y": 158
+              },
               "raw": {
                 "id": 10612564959,
                 "scorecardId": 379296644,
@@ -1713,6 +1809,14 @@
               "yards": 100.7,
               "startLie": "Unknown",
               "endLie": "Green",
+              "startMap": {
+                "x": 397,
+                "y": 158
+              },
+              "endMap": {
+                "x": 316,
+                "y": 94
+              },
               "raw": {
                 "id": 10612564960,
                 "scorecardId": 379296644,
@@ -1763,6 +1867,14 @@
               "yards": 221.8,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 421,
+                "y": 566
+              },
+              "endMap": {
+                "x": 296,
+                "y": 284
+              },
               "raw": {
                 "id": 10612566695,
                 "scorecardId": 379296644,
@@ -1804,6 +1916,14 @@
               "yards": 143.9,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 296,
+                "y": 284
+              },
+              "endMap": {
+                "x": 375,
+                "y": 100
+              },
               "raw": {
                 "id": 10612566696,
                 "scorecardId": 379296644,
@@ -1845,6 +1965,14 @@
               "yards": 32.1,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 366,
+                "y": 96
+              },
+              "endMap": {
+                "x": 321,
+                "y": 97
+              },
               "raw": {
                 "id": 10612566697,
                 "scorecardId": 379296644,
@@ -1895,6 +2023,14 @@
               "yards": 257.8,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 364,
+                "y": 558
+              },
+              "endMap": {
+                "x": 411,
+                "y": 236
+              },
               "raw": {
                 "id": 10612567065,
                 "scorecardId": 379296644,
@@ -1936,6 +2072,14 @@
               "yards": 145.4,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 411,
+                "y": 236
+              },
+              "endMap": {
+                "x": 349,
+                "y": 63
+              },
               "raw": {
                 "id": 10612567066,
                 "scorecardId": 379296644,
@@ -1986,6 +2130,14 @@
               "yards": 243.5,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 364,
+                "y": 602
+              },
+              "endMap": {
+                "x": 332,
+                "y": 203
+              },
               "raw": {
                 "id": 10612568686,
                 "scorecardId": 379296644,
@@ -2027,6 +2179,14 @@
               "yards": 65.6,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 332,
+                "y": 203
+              },
+              "endMap": {
+                "x": 371,
+                "y": 103
+              },
               "raw": {
                 "id": 10612568687,
                 "scorecardId": 379296644,
@@ -2068,6 +2228,14 @@
               "yards": 16.7,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 371,
+                "y": 103
+              },
+              "endMap": {
+                "x": 398,
+                "y": 96
+              },
               "raw": {
                 "id": 10612568688,
                 "scorecardId": 379296644,
@@ -2118,6 +2286,14 @@
               "yards": 180.7,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 376,
+                "y": 502
+              },
+              "endMap": {
+                "x": 387,
+                "y": 108
+              },
               "raw": {
                 "id": 10612569098,
                 "scorecardId": 379296644,
@@ -2168,6 +2344,14 @@
               "yards": 203.6,
               "startLie": "TeeBox",
               "endLie": "Unknown",
+              "startMap": {
+                "x": 376,
+                "y": 632
+              },
+              "endMap": {
+                "x": 320,
+                "y": 399
+              },
               "raw": {
                 "id": 10612570997,
                 "scorecardId": 379296644,
@@ -2209,6 +2393,14 @@
               "yards": 201.8,
               "startLie": "Unknown",
               "endLie": "Rough",
+              "startMap": {
+                "x": 320,
+                "y": 399
+              },
+              "endMap": {
+                "x": 411,
+                "y": 180
+              },
               "raw": {
                 "id": 10612570998,
                 "scorecardId": 379296644,
@@ -2250,6 +2442,14 @@
               "yards": 79.6,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 411,
+                "y": 180
+              },
+              "endMap": {
+                "x": 385,
+                "y": 90
+              },
               "raw": {
                 "id": 10612570999,
                 "scorecardId": 379296644,
@@ -2300,6 +2500,14 @@
               "yards": 259,
               "startLie": "TeeBox",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 336,
+                "y": 627
+              },
+              "endMap": {
+                "x": 361,
+                "y": 353
+              },
               "raw": {
                 "id": 10612572761,
                 "scorecardId": 379296644,
@@ -2341,6 +2549,14 @@
               "yards": 205.7,
               "startLie": "Fairway",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 361,
+                "y": 353
+              },
+              "endMap": {
+                "x": 368,
+                "y": 134
+              },
               "raw": {
                 "id": 10612572762,
                 "scorecardId": 379296644,
@@ -2382,6 +2598,14 @@
               "yards": 20.9,
               "startLie": "Fairway",
               "endLie": "Rough",
+              "startMap": {
+                "x": 368,
+                "y": 134
+              },
+              "endMap": {
+                "x": 361,
+                "y": 113
+              },
               "raw": {
                 "id": 10612572763,
                 "scorecardId": 379296644,
@@ -2423,6 +2647,14 @@
               "yards": 19.5,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 361,
+                "y": 113
+              },
+              "endMap": {
+                "x": 346,
+                "y": 99
+              },
               "raw": {
                 "id": 10612572764,
                 "scorecardId": 379296644,
@@ -2473,6 +2705,14 @@
               "yards": 193.5,
               "startLie": "TeeBox",
               "endLie": "Unknown",
+              "startMap": {
+                "x": 378,
+                "y": 530
+              },
+              "endMap": {
+                "x": 323,
+                "y": 57
+              },
               "raw": {
                 "id": 10612578407,
                 "scorecardId": 379296644,
@@ -2514,6 +2754,14 @@
               "yards": 27.3,
               "startLie": "Unknown",
               "endLie": "Rough",
+              "startMap": {
+                "x": 323,
+                "y": 57
+              },
+              "endMap": {
+                "x": 388,
+                "y": 75
+              },
               "raw": {
                 "id": 10612578408,
                 "scorecardId": 379296644,
@@ -2555,6 +2803,14 @@
               "yards": 18.6,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 388,
+                "y": 75
+              },
+              "endMap": {
+                "x": 405,
+                "y": 117
+              },
               "raw": {
                 "id": 10612578409,
                 "scorecardId": 379296644,
@@ -2605,6 +2861,14 @@
               "yards": 101.9,
               "startLie": "TeeBox",
               "endLie": "TeeBox",
+              "startMap": {
+                "x": 332,
+                "y": 630
+              },
+              "endMap": {
+                "x": 355,
+                "y": 512
+              },
               "raw": {
                 "id": 10612579487,
                 "scorecardId": 379296644,
@@ -2646,6 +2910,14 @@
               "yards": 188.3,
               "startLie": "TeeBox",
               "endLie": "Unknown",
+              "startMap": {
+                "x": 355,
+                "y": 512
+              },
+              "endMap": {
+                "x": 325,
+                "y": 292
+              },
               "raw": {
                 "id": 10612579489,
                 "scorecardId": 379296644,
@@ -2687,6 +2959,14 @@
               "yards": 166.5,
               "startLie": "Unknown",
               "endLie": "Bunker",
+              "startMap": {
+                "x": 325,
+                "y": 292
+              },
+              "endMap": {
+                "x": 318,
+                "y": 95
+              },
               "raw": {
                 "id": 10612579492,
                 "scorecardId": 379296644,
@@ -2728,6 +3008,14 @@
               "yards": 22.6,
               "startLie": "Bunker",
               "endLie": "Green",
+              "startMap": {
+                "x": 318,
+                "y": 95
+              },
+              "endMap": {
+                "x": 344,
+                "y": 102
+              },
               "raw": {
                 "id": 10612579496,
                 "scorecardId": 379296644,
@@ -2778,6 +3066,14 @@
               "yards": 275.1,
               "startLie": "TeeBox",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 350,
+                "y": 602
+              },
+              "endMap": {
+                "x": 374,
+                "y": 227
+              },
               "raw": {
                 "id": 10612582559,
                 "scorecardId": 379296644,
@@ -2819,6 +3115,14 @@
               "yards": 100.2,
               "startLie": "Fairway",
               "endLie": "Green",
+              "startMap": {
+                "x": 374,
+                "y": 227
+              },
+              "endMap": {
+                "x": 377,
+                "y": 91
+              },
               "raw": {
                 "id": 10612582561,
                 "scorecardId": 379296644,
@@ -2869,6 +3173,14 @@
               "yards": 263.4,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 376,
+                "y": 589
+              },
+              "endMap": {
+                "x": 380,
+                "y": 258
+              },
               "raw": {
                 "id": 10612583902,
                 "scorecardId": 379296644,
@@ -2910,6 +3222,14 @@
               "yards": 150.7,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 380,
+                "y": 258
+              },
+              "endMap": {
+                "x": 357,
+                "y": 70
+              },
               "raw": {
                 "id": 10612583903,
                 "scorecardId": 379296644,
@@ -2951,6 +3271,14 @@
               "yards": 26,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 357,
+                "y": 70
+              },
+              "endMap": {
+                "x": 389,
+                "y": 65
+              },
               "raw": {
                 "id": 10612583904,
                 "scorecardId": 379296644,
@@ -3001,6 +3329,14 @@
               "yards": 273.3,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 348,
+                "y": 639
+              },
+              "endMap": {
+                "x": 370,
+                "y": 238
+              },
               "raw": {
                 "id": 10612584779,
                 "scorecardId": 379296644,
@@ -3042,6 +3378,14 @@
               "yards": 105.1,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 370,
+                "y": 238
+              },
+              "endMap": {
+                "x": 325,
+                "y": 90
+              },
               "raw": {
                 "id": 10612584781,
                 "scorecardId": 379296644,
@@ -3092,6 +3436,14 @@
               "yards": 176.2,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 402,
+                "y": 550
+              },
+              "endMap": {
+                "x": 410,
+                "y": 256
+              },
               "raw": {
                 "id": 10612585753,
                 "scorecardId": 379296644,
@@ -3133,6 +3485,14 @@
               "yards": 43.1,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 410,
+                "y": 256
+              },
+              "endMap": {
+                "x": 406,
+                "y": 184
+              },
               "raw": {
                 "id": 10612585754,
                 "scorecardId": 379296644,
@@ -3174,6 +3534,14 @@
               "yards": 56.9,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 405,
+                "y": 185
+              },
+              "endMap": {
+                "x": 405,
+                "y": 90
+              },
               "raw": {
                 "id": 10612585755,
                 "scorecardId": 379296644,
@@ -3224,6 +3592,14 @@
               "yards": 145.2,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 387,
+                "y": 575
+              },
+              "endMap": {
+                "x": 423,
+                "y": 167
+              },
               "raw": {
                 "id": 10612587703,
                 "scorecardId": 379296644,
@@ -3265,6 +3641,14 @@
               "yards": 10.1,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 423,
+                "y": 167
+              },
+              "endMap": {
+                "x": 407,
+                "y": 143
+              },
               "raw": {
                 "id": 10612587704,
                 "scorecardId": 379296644,
@@ -3311,10 +3695,18 @@
               "club": "Driver",
               "clubId": 950232105,
               "shotType": "TEE",
-              "meters": 251.174,
-              "yards": 274.7,
+              "meters": 251.299,
+              "yards": 274.8,
               "startLie": "TeeBox",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 417,
+                "y": 575
+              },
+              "endMap": {
+                "x": 364,
+                "y": 207
+              },
               "raw": {
                 "id": 10612588883,
                 "scorecardId": 379296644,
@@ -3326,22 +3718,22 @@
                 "holeNumber": 18,
                 "autoShotType": "USED",
                 "startLoc": {
-                  "lat": 450068261,
-                  "lon": -1461446853,
+                  "lat": 450068242,
+                  "lon": -1461446841,
                   "x": 417,
                   "y": 575,
                   "lie": "TeeBox",
                   "lieSource": "CARTOGRAPHY"
                 },
                 "endLoc": {
-                  "lat": 450078019,
-                  "lon": -1461415134,
+                  "lat": 450077988,
+                  "lon": -1461415098,
                   "x": 364,
                   "y": 207,
                   "lie": "Fairway",
                   "lieSource": "CARTOGRAPHY"
                 },
-                "meters": 251.174,
+                "meters": 251.299,
                 "shotSource": "DEVICE_AUTO",
                 "shotType": "TEE",
                 "excludeFromStats": false
@@ -3351,11 +3743,19 @@
               "order": 2,
               "club": "Gap Wedge",
               "clubId": 950232118,
-              "shotType": "UNKNOWN",
-              "meters": 97.1975,
-              "yards": 106.3,
+              "shotType": "APPROACH",
+              "meters": 96.8345,
+              "yards": 105.9,
               "startLie": "Fairway",
               "endLie": "Rough",
+              "startMap": {
+                "x": 364,
+                "y": 207
+              },
+              "endMap": {
+                "x": 294,
+                "y": 82
+              },
               "raw": {
                 "id": 10612588884,
                 "scorecardId": 379296644,
@@ -3367,36 +3767,44 @@
                 "holeNumber": 18,
                 "autoShotType": "USED",
                 "startLoc": {
-                  "lat": 450078019,
-                  "lon": -1461415134,
+                  "lat": 450077988,
+                  "lon": -1461415098,
                   "x": 364,
                   "y": 207,
                   "lie": "Fairway",
                   "lieSource": "CARTOGRAPHY"
                 },
                 "endLoc": {
-                  "lat": 450084998,
-                  "lon": -1461405356,
+                  "lat": 450084968,
+                  "lon": -1461405388,
                   "x": 294,
                   "y": 82,
                   "lie": "Rough",
                   "lieSource": "CARTOGRAPHY"
                 },
-                "meters": 97.1975,
+                "meters": 96.8345,
                 "shotSource": "DEVICE_AUTO",
-                "shotType": "UNKNOWN",
+                "shotType": "APPROACH",
                 "excludeFromStats": false
               }
             },
             {
               "order": 3,
-              "club": null,
-              "clubId": 0,
+              "club": "Lob Wedge",
+              "clubId": 950232120,
               "shotType": "CHIP",
-              "meters": 7.5061,
-              "yards": 8.2,
+              "meters": 7.05603,
+              "yards": 7.7,
               "startLie": "Rough",
-              "endLie": "Green",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 294,
+                "y": 82
+              },
+              "endMap": {
+                "x": 284,
+                "y": 85
+              },
               "raw": {
                 "id": 10612588885,
                 "scorecardId": 379296644,
@@ -3404,27 +3812,76 @@
                 "shotTime": 1787237588000,
                 "shotOrder": 3,
                 "shotTimeZoneOffset": -25200000,
-                "clubId": 0,
+                "clubId": 950232120,
                 "holeNumber": 18,
                 "autoShotType": "USED",
                 "startLoc": {
-                  "lat": 450084998,
-                  "lon": -1461405356,
+                  "lat": 450084968,
+                  "lon": -1461405388,
                   "x": 294,
                   "y": 82,
                   "lie": "Rough",
                   "lieSource": "CARTOGRAPHY"
                 },
                 "endLoc": {
-                  "lat": 450085396,
-                  "lon": -1461406240,
-                  "x": 286,
-                  "y": 90,
+                  "lat": 450085625,
+                  "lon": -1461405862,
+                  "x": 284,
+                  "y": 85,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 7.05603,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "CHIP",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 4,
+              "club": "Lob Wedge",
+              "clubId": 950232120,
+              "shotType": "CHIP",
+              "meters": 12.0326,
+              "yards": 13.2,
+              "startLie": "Rough",
+              "endLie": "Green",
+              "startMap": {
+                "x": 284,
+                "y": 85
+              },
+              "endMap": {
+                "x": 270,
+                "y": 96
+              },
+              "raw": {
+                "id": 10625417614,
+                "scorecardId": 379296644,
+                "playerProfileId": 134747949,
+                "shotTime": 1787237589000,
+                "shotOrder": 4,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232120,
+                "holeNumber": 18,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 450085625,
+                  "lon": -1461405862,
+                  "x": 284,
+                  "y": 85,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 450086434,
+                  "lon": -1461407132,
+                  "x": 270,
+                  "y": 96,
                   "lie": "Green",
                   "lieSource": "CARTOGRAPHY"
                 },
-                "meters": 7.5061,
-                "shotSource": "DEVICE_AUTO",
+                "meters": 12.0326,
+                "shotSource": "CLIENT",
                 "shotType": "CHIP",
                 "excludeFromStats": false
               }
@@ -3467,6 +3924,14 @@
               "yards": 220.3,
               "startLie": "TeeBox",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 413,
+                "y": 605
+              },
+              "endMap": {
+                "x": 312,
+                "y": 269
+              },
               "raw": {
                 "id": 10625067130,
                 "scorecardId": 379752055,
@@ -3508,6 +3973,14 @@
               "yards": 109.4,
               "startLie": "Fairway",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 312,
+                "y": 269
+              },
+              "endMap": {
+                "x": 427,
+                "y": 138
+              },
               "raw": {
                 "id": 10625067126,
                 "scorecardId": 379752055,
@@ -3549,6 +4022,14 @@
               "yards": 28.5,
               "startLie": "Fairway",
               "endLie": "Green",
+              "startMap": {
+                "x": 427,
+                "y": 138
+              },
+              "endMap": {
+                "x": 438,
+                "y": 94
+              },
               "raw": {
                 "id": 10625067145,
                 "scorecardId": 379752055,
@@ -3599,6 +4080,14 @@
               "yards": 227.8,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 339,
+                "y": 621
+              },
+              "endMap": {
+                "x": 317,
+                "y": 340
+              },
               "raw": {
                 "id": 10625067129,
                 "scorecardId": 379752055,
@@ -3640,6 +4129,14 @@
               "yards": 102.7,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 317,
+                "y": 340
+              },
+              "endMap": {
+                "x": 320,
+                "y": 213
+              },
               "raw": {
                 "id": 10625067119,
                 "scorecardId": 379752055,
@@ -3681,6 +4178,14 @@
               "yards": 145.7,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 320,
+                "y": 213
+              },
+              "endMap": {
+                "x": 380,
+                "y": 43
+              },
               "raw": {
                 "id": 10625067163,
                 "scorecardId": 379752055,
@@ -3722,6 +4227,14 @@
               "yards": 54.7,
               "startLie": "Rough",
               "endLie": "Bunker",
+              "startMap": {
+                "x": 380,
+                "y": 43
+              },
+              "endMap": {
+                "x": 327,
+                "y": 85
+              },
               "raw": {
                 "id": 10625067111,
                 "scorecardId": 379752055,
@@ -3763,6 +4276,14 @@
               "yards": 13.2,
               "startLie": "Bunker",
               "endLie": "Green",
+              "startMap": {
+                "x": 327,
+                "y": 85
+              },
+              "endMap": {
+                "x": 343,
+                "y": 82
+              },
               "raw": {
                 "id": 10625067159,
                 "scorecardId": 379752055,
@@ -3813,6 +4334,14 @@
               "yards": 250.2,
               "startLie": "TeeBox",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 368,
+                "y": 624
+              },
+              "endMap": {
+                "x": 368,
+                "y": 263
+              },
               "raw": {
                 "id": 10625067142,
                 "scorecardId": 379752055,
@@ -3854,6 +4383,14 @@
               "yards": 125.6,
               "startLie": "Fairway",
               "endLie": "Rough",
+              "startMap": {
+                "x": 368,
+                "y": 263
+              },
+              "endMap": {
+                "x": 360,
+                "y": 82
+              },
               "raw": {
                 "id": 10625067117,
                 "scorecardId": 379752055,
@@ -3895,6 +4432,14 @@
               "yards": 21.4,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 360,
+                "y": 82
+              },
+              "endMap": {
+                "x": 373,
+                "y": 110
+              },
               "raw": {
                 "id": 10625153108,
                 "scorecardId": 379752055,
@@ -3945,6 +4490,14 @@
               "yards": 143.2,
               "startLie": "TeeBox",
               "endLie": "Bunker",
+              "startMap": {
+                "x": 300,
+                "y": 560
+              },
+              "endMap": {
+                "x": 459,
+                "y": 138
+              },
               "raw": {
                 "id": 10625067128,
                 "scorecardId": 379752055,
@@ -3986,6 +4539,14 @@
               "yards": 52.6,
               "startLie": "Bunker",
               "endLie": "Bunker",
+              "startMap": {
+                "x": 459,
+                "y": 138
+              },
+              "endMap": {
+                "x": 381,
+                "y": 284
+              },
               "raw": {
                 "id": 10625067114,
                 "scorecardId": 379752055,
@@ -4027,6 +4588,14 @@
               "yards": 39.8,
               "startLie": "Bunker",
               "endLie": "Green",
+              "startMap": {
+                "x": 381,
+                "y": 284
+              },
+              "endMap": {
+                "x": 417,
+                "y": 164
+              },
               "raw": {
                 "id": 10625155410,
                 "scorecardId": 379752055,
@@ -4068,6 +4637,14 @@
               "yards": 38.2,
               "startLie": "Green",
               "endLie": "Bunker",
+              "startMap": {
+                "x": 417,
+                "y": 164
+              },
+              "endMap": {
+                "x": 389,
+                "y": 281
+              },
               "raw": {
                 "id": 10625067115,
                 "scorecardId": 379752055,
@@ -4118,6 +4695,14 @@
               "yards": 205.4,
               "startLie": "TeeBox",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 345,
+                "y": 626
+              },
+              "endMap": {
+                "x": 338,
+                "y": 274
+              },
               "raw": {
                 "id": 10625067141,
                 "scorecardId": 379752055,
@@ -4159,6 +4744,14 @@
               "yards": 86.3,
               "startLie": "Fairway",
               "endLie": "Green",
+              "startMap": {
+                "x": 338,
+                "y": 274
+              },
+              "endMap": {
+                "x": 349,
+                "y": 127
+              },
               "raw": {
                 "id": 10625067125,
                 "scorecardId": 379752055,
@@ -4209,6 +4802,14 @@
               "yards": 265.7,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 379,
+                "y": 618
+              },
+              "endMap": {
+                "x": 348,
+                "y": 234
+              },
               "raw": {
                 "id": 10625067165,
                 "scorecardId": 379752055,
@@ -4250,6 +4851,14 @@
               "yards": 105.2,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 348,
+                "y": 234
+              },
+              "endMap": {
+                "x": 388,
+                "y": 86
+              },
               "raw": {
                 "id": 10625067139,
                 "scorecardId": 379752055,
@@ -4300,6 +4909,14 @@
               "yards": 129.8,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 382,
+                "y": 541
+              },
+              "endMap": {
+                "x": 413,
+                "y": 252
+              },
               "raw": {
                 "id": 10625067158,
                 "scorecardId": 379752055,
@@ -4341,6 +4958,14 @@
               "yards": 64.4,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 413,
+                "y": 252
+              },
+              "endMap": {
+                "x": 358,
+                "y": 118
+              },
               "raw": {
                 "id": 10625067137,
                 "scorecardId": 379752055,
@@ -4391,6 +5016,14 @@
               "yards": 272.3,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 372,
+                "y": 626
+              },
+              "endMap": {
+                "x": 339,
+                "y": 243
+              },
               "raw": {
                 "id": 10625067149,
                 "scorecardId": 379752055,
@@ -4432,6 +5065,14 @@
               "yards": 108.2,
               "startLie": "Rough",
               "endLie": "Bunker",
+              "startMap": {
+                "x": 339,
+                "y": 243
+              },
+              "endMap": {
+                "x": 400,
+                "y": 103
+              },
               "raw": {
                 "id": 10625067160,
                 "scorecardId": 379752055,
@@ -4473,6 +5114,14 @@
               "yards": 7.2,
               "startLie": "Bunker",
               "endLie": "Rough",
+              "startMap": {
+                "x": 400,
+                "y": 103
+              },
+              "endMap": {
+                "x": 390,
+                "y": 105
+              },
               "raw": {
                 "id": 10625067140,
                 "scorecardId": 379752055,
@@ -4514,6 +5163,14 @@
               "yards": 17.1,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 390,
+                "y": 105
+              },
+              "endMap": {
+                "x": 375,
+                "y": 124
+              },
               "raw": {
                 "id": 10625291513,
                 "scorecardId": 379752055,
@@ -4564,6 +5221,14 @@
               "yards": 283.8,
               "startLie": "TeeBox",
               "endLie": "Bunker",
+              "startMap": {
+                "x": 387,
+                "y": 635
+              },
+              "endMap": {
+                "x": 331,
+                "y": 334
+              },
               "raw": {
                 "id": 10625067132,
                 "scorecardId": 379752055,
@@ -4605,6 +5270,14 @@
               "yards": 61.5,
               "startLie": "Bunker",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 331,
+                "y": 334
+              },
+              "endMap": {
+                "x": 352,
+                "y": 271
+              },
               "raw": {
                 "id": 10625067131,
                 "scorecardId": 379752055,
@@ -4646,6 +5319,14 @@
               "yards": 171.7,
               "startLie": "Fairway",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 352,
+                "y": 271
+              },
+              "endMap": {
+                "x": 396,
+                "y": 91
+              },
               "raw": {
                 "id": 10625067143,
                 "scorecardId": 379752055,
@@ -4687,6 +5368,14 @@
               "yards": 18.6,
               "startLie": "Fairway",
               "endLie": "Green",
+              "startMap": {
+                "x": 396,
+                "y": 91
+              },
+              "endMap": {
+                "x": 394,
+                "y": 111
+              },
               "raw": {
                 "id": 10625067156,
                 "scorecardId": 379752055,
@@ -4737,6 +5426,14 @@
               "yards": 233.4,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 380,
+                "y": 654
+              },
+              "endMap": {
+                "x": 321,
+                "y": 397
+              },
               "raw": {
                 "id": 10625067164,
                 "scorecardId": 379752055,
@@ -4778,6 +5475,14 @@
               "yards": 112.7,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 321,
+                "y": 397
+              },
+              "endMap": {
+                "x": 332,
+                "y": 270
+              },
               "raw": {
                 "id": 10625067144,
                 "scorecardId": 379752055,
@@ -4819,6 +5524,14 @@
               "yards": 65.9,
               "startLie": "Rough",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 332,
+                "y": 270
+              },
+              "endMap": {
+                "x": 357,
+                "y": 200
+              },
               "raw": {
                 "id": 10625067161,
                 "scorecardId": 379752055,
@@ -4860,6 +5573,14 @@
               "yards": 86.2,
               "startLie": "Fairway",
               "endLie": "Green",
+              "startMap": {
+                "x": 357,
+                "y": 200
+              },
+              "endMap": {
+                "x": 353,
+                "y": 103
+              },
               "raw": {
                 "id": 10625067147,
                 "scorecardId": 379752055,
@@ -4910,6 +5631,14 @@
               "yards": 272.5,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 353,
+                "y": 614
+              },
+              "endMap": {
+                "x": 468,
+                "y": 270
+              },
               "raw": {
                 "id": 10625067152,
                 "scorecardId": 379752055,
@@ -4951,6 +5680,14 @@
               "yards": 141,
               "startLie": "Rough",
               "endLie": "Bunker",
+              "startMap": {
+                "x": 468,
+                "y": 270
+              },
+              "endMap": {
+                "x": 343,
+                "y": 130
+              },
               "raw": {
                 "id": 10625067122,
                 "scorecardId": 379752055,
@@ -4992,6 +5729,14 @@
               "yards": 21.8,
               "startLie": "Bunker",
               "endLie": "Rough",
+              "startMap": {
+                "x": 343,
+                "y": 130
+              },
+              "endMap": {
+                "x": 321,
+                "y": 111
+              },
               "raw": {
                 "id": 10625067135,
                 "scorecardId": 379752055,
@@ -5033,6 +5778,14 @@
               "yards": 18,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 321,
+                "y": 111
+              },
+              "endMap": {
+                "x": 345,
+                "y": 110
+              },
               "raw": {
                 "id": 10625067157,
                 "scorecardId": 379752055,
@@ -5083,6 +5836,14 @@
               "yards": 262,
               "startLie": "TeeBox",
               "endLie": "Unknown",
+              "startMap": {
+                "x": 344,
+                "y": 640
+              },
+              "endMap": {
+                "x": 312,
+                "y": 300
+              },
               "raw": {
                 "id": 10625067154,
                 "scorecardId": 379752055,
@@ -5124,6 +5885,14 @@
               "yards": 109.3,
               "startLie": "Unknown",
               "endLie": "Rough",
+              "startMap": {
+                "x": 312,
+                "y": 300
+              },
+              "endMap": {
+                "x": 388,
+                "y": 180
+              },
               "raw": {
                 "id": 10625067136,
                 "scorecardId": 379752055,
@@ -5165,6 +5934,14 @@
               "yards": 82.6,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 388,
+                "y": 180
+              },
+              "endMap": {
+                "x": 336,
+                "y": 85
+              },
               "raw": {
                 "id": 10625067116,
                 "scorecardId": 379752055,
@@ -5215,6 +5992,14 @@
               "yards": 174.2,
               "startLie": "TeeBox",
               "endLie": "Green",
+              "startMap": {
+                "x": 339,
+                "y": 594
+              },
+              "endMap": {
+                "x": 355,
+                "y": 139
+              },
               "raw": {
                 "id": 10625067166,
                 "scorecardId": 379752055,
@@ -5265,6 +6050,14 @@
               "yards": 126.9,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 352,
+                "y": 630
+              },
+              "endMap": {
+                "x": 320,
+                "y": 436
+              },
               "raw": {
                 "id": 10625067146,
                 "scorecardId": 379752055,
@@ -5306,6 +6099,14 @@
               "yards": 41.8,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 320,
+                "y": 436
+              },
+              "endMap": {
+                "x": 330,
+                "y": 372
+              },
               "raw": {
                 "id": 10625067155,
                 "scorecardId": 379752055,
@@ -5347,6 +6148,14 @@
               "yards": 184.6,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 330,
+                "y": 372
+              },
+              "endMap": {
+                "x": 397,
+                "y": 94
+              },
               "raw": {
                 "id": 10625067134,
                 "scorecardId": 379752055,
@@ -5388,6 +6197,14 @@
               "yards": 31.3,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 397,
+                "y": 94
+              },
+              "endMap": {
+                "x": 356,
+                "y": 120
+              },
               "raw": {
                 "id": 10625067112,
                 "scorecardId": 379752055,
@@ -5438,6 +6255,14 @@
               "yards": 155.7,
               "startLie": "TeeBox",
               "endLie": "Unknown",
+              "startMap": {
+                "x": 346,
+                "y": 625
+              },
+              "endMap": {
+                "x": 269,
+                "y": 242
+              },
               "raw": {
                 "id": 10625067151,
                 "scorecardId": 379752055,
@@ -5479,6 +6304,14 @@
               "yards": 38.2,
               "startLie": "Unknown",
               "endLie": "Green",
+              "startMap": {
+                "x": 269,
+                "y": 242
+              },
+              "endMap": {
+                "x": 350,
+                "y": 190
+              },
               "raw": {
                 "id": 10625067113,
                 "scorecardId": 379752055,
@@ -5529,6 +6362,14 @@
               "yards": 268.8,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 388,
+                "y": 635
+              },
+              "endMap": {
+                "x": 464,
+                "y": 237
+              },
               "raw": {
                 "id": 10625067109,
                 "scorecardId": 379752055,
@@ -5570,6 +6411,14 @@
               "yards": 42.4,
               "startLie": "Rough",
               "endLie": "Unknown",
+              "startMap": {
+                "x": 464,
+                "y": 237
+              },
+              "endMap": {
+                "x": 430,
+                "y": 183
+              },
               "raw": {
                 "id": 10625067133,
                 "scorecardId": 379752055,
@@ -5611,6 +6460,14 @@
               "yards": 51,
               "startLie": "Unknown",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 429,
+                "y": 182
+              },
+              "endMap": {
+                "x": 388,
+                "y": 117
+              },
               "raw": {
                 "id": 10625067138,
                 "scorecardId": 379752055,
@@ -5661,6 +6518,14 @@
               "yards": 243,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 425,
+                "y": 642
+              },
+              "endMap": {
+                "x": 317,
+                "y": 271
+              },
               "raw": {
                 "id": 10625071620,
                 "scorecardId": 379752055,
@@ -5702,6 +6567,14 @@
               "yards": 73.3,
               "startLie": "Rough",
               "endLie": "Rough",
+              "startMap": {
+                "x": 317,
+                "y": 271
+              },
+              "endMap": {
+                "x": 406,
+                "y": 196
+              },
               "raw": {
                 "id": 10625071621,
                 "scorecardId": 379752055,
@@ -5743,6 +6616,14 @@
               "yards": 40.7,
               "startLie": "Rough",
               "endLie": "Green",
+              "startMap": {
+                "x": 406,
+                "y": 196
+              },
+              "endMap": {
+                "x": 419,
+                "y": 133
+              },
               "raw": {
                 "id": 10625071622,
                 "scorecardId": 379752055,
@@ -5793,6 +6674,14 @@
               "yards": 315.8,
               "startLie": "TeeBox",
               "endLie": "Rough",
+              "startMap": {
+                "x": 365,
+                "y": 644
+              },
+              "endMap": {
+                "x": 424,
+                "y": 284
+              },
               "raw": {
                 "id": 10625067153,
                 "scorecardId": 379752055,
@@ -5834,6 +6723,14 @@
               "yards": 105.2,
               "startLie": "Rough",
               "endLie": "Fairway",
+              "startMap": {
+                "x": 424,
+                "y": 284
+              },
+              "endMap": {
+                "x": 390,
+                "y": 167
+              },
               "raw": {
                 "id": 10625067150,
                 "scorecardId": 379752055,
@@ -5875,6 +6772,14 @@
               "yards": 72.4,
               "startLie": "Fairway",
               "endLie": "Green",
+              "startMap": {
+                "x": 390,
+                "y": 167
+              },
+              "endMap": {
+                "x": 375,
+                "y": 84
+              },
               "raw": {
                 "id": 10625067162,
                 "scorecardId": 379752055,

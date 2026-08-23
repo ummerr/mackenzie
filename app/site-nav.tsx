@@ -19,6 +19,7 @@ const SECTIONS = [
   { href: "/", label: "Profile" },
   { href: "/bag", label: "Bag" },
   { href: "/practice", label: "Practice" },
+  { href: "/diary", label: "Diary" },
   { href: "/courses", label: "Courses" },
   { href: "/scratch", label: "Scratch" },
   { href: "/sessions", label: "Sessions" },

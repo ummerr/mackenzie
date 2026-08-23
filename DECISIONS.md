@@ -6,6 +6,43 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-22 — The diary draws its own traces; Garmin's imagery stays Garmin's
+
+**Decided:** a new `/diary` page renders every shot the watch heard, round by
+round, hole by hole: the shot chain (club, yards, Garmin's verbatim lies) and
+an SVG trace per hole. The traces are drawn from the shot coordinates the
+capture already carries — each shot's pixel position on Garmin's per-hole map
+frame (`startLoc`/`endLoc` x/y on the IMG_730X730 raster, tee low, green
+high). The parser now surfaces them as `startMap`/`endMap` beside
+club/yards/lies (the adapter decides what is surfaced — same rule as every
+other field), and `buildGarminShots` carries them through the seam while
+still dropping `raw`.
+
+**The question that forced it:** the user asked whether the export's
+"screenshots" could illustrate a player diary. The bundle holds no images —
+by the JSON-only decision above — and each hole's `holeImageUrl` is a signed,
+*expiring* link to Garmin's own raster, which is theirs and is never fetched.
+But the coordinates are the record's own numbers, so the diary draws the
+trace itself on a turf-coloured card: solid segments are shots, a dotted
+segment is the gap between one shot's end and the next one's start (a walk, a
+drop, or cartography disagreeing with itself).
+
+**The join, used for the first time:** per-hole putts on the diary come from
+the linked Grint card — read ONLY from `status: "confirmed"` entries in
+`data/round-links.json`, the pipeline's one human-made join. Every hole
+prints its arithmetic honestly: heard shots + linked putts vs the scorecard's
+strokes, with any remainder named "strokes nothing recorded" rather than
+absorbed. A round without a confirmed link says its putts are unlinked.
+
+**Rejected:** hot-linking `holeImageUrl` (expiring token, someone else's
+copyrighted raster, and a page that rots within days); deriving putts from
+the shot stream (AutoShot heard 1 putt in 108 shots — the watch cannot hear
+putts, so the Grint card is the only honest source); reading raw at the lib
+seam for the coordinates (raw stays dropped there; surfacing is the
+adapter's job).
+
+---
+
 ## 2026-08-22 — The Garmin↔Grint join is proposed by machine, confirmed by hand
 
 **Decided:** `data/round-links.json` is a CURATED file. `pnpm data:links`

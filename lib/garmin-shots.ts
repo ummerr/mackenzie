@@ -28,6 +28,11 @@ export interface GarminShot {
   /** Garmin's own lie strings, verbatim. */
   startLie: string | null;
   endLie: string | null;
+  /** Pixel positions on Garmin's per-hole map frame (tee low, green high) —
+   *  the shot's own geometry, which the diary draws its traces from. The
+   *  map raster itself is Garmin's and is never fetched. */
+  startMap: { x: number; y: number } | null;
+  endMap: { x: number; y: number } | null;
 }
 
 export interface GarminHole {
@@ -88,6 +93,8 @@ export interface SourceGarminRound {
       yards: number | null;
       startLie: string | null;
       endLie: string | null;
+      startMap: { x: number; y: number } | null;
+      endMap: { x: number; y: number } | null;
     }[];
   }[];
   flags: string[];
@@ -145,6 +152,8 @@ export function buildGarminShots(src: SourceGarminRounds): GarminShots {
             yards: s.yards,
             startLie: s.startLie,
             endLie: s.endLie,
+            startMap: s.startMap,
+            endMap: s.endMap,
           })),
         })),
         flags: r.flags,

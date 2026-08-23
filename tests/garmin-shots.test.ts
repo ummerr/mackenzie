@@ -23,6 +23,8 @@ function shot(over: Partial<GarminShot> = {}): GarminShot {
     yards: 140,
     startLie: "Fairway",
     endLie: "Green",
+    startMap: { x: 300, y: 500 },
+    endMap: { x: 320, y: 220 },
     ...over,
   };
 }
@@ -104,6 +106,14 @@ describe("buildGarminShots", () => {
   it("drops the adapter's raw objects at the seam", () => {
     const g = buildGarminShots(src);
     expect("raw" in (g.rounds[0].holes[0].shots[0] as object)).toBe(false);
+  });
+
+  it("surfaces the map-frame coordinates the diary traces are drawn from", () => {
+    // The coordinates ride the surfaced fields, not raw — losing them here
+    // would silently blank every trace on the diary page.
+    const s = buildGarminShots(src).rounds[0].holes[0].shots[0];
+    expect(s.startMap).toEqual({ x: 300, y: 500 });
+    expect(s.endMap).toEqual({ x: 320, y: 220 });
   });
 });
 

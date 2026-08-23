@@ -84,6 +84,10 @@ describe("parseGarminRound — on-course AutoShot card", () => {
     expect(first.startLie).toBe("TeeBox");
     expect(first.endLie).toBe("Fairway");
     expect(first.raw.startLoc.lat).toBe(450842403); // verbatim survives
+    // The map-frame pixel coordinates are surfaced fields now — the diary's
+    // hole traces read them, so a shot whose raw carries x/y must expose them.
+    expect(first.startMap).toEqual({ x: first.raw.startLoc.x, y: first.raw.startLoc.y });
+    expect(first.endMap).toEqual({ x: first.raw.endLoc.x, y: first.raw.endLoc.y });
   });
 
   it("has no per-hole putts — AutoShot cards do not carry them", () => {
