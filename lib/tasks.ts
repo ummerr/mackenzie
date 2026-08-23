@@ -564,7 +564,7 @@ export function buildTasks({
         evidence:
           `${tp.threePutts} of ${tp.holes} recorded holes took three or more putts, and the ` +
           `${withPutts.length} rounds that logged putting average ${pp.toFixed(1)} putts — ` +
-          "the largest single line item in the score, and the only one no launch monitor will ever see." +
+          "the largest single line item in the score, and the only one the scorecards alone can see." +
           recentTp +
           screenTp,
         action:
@@ -572,8 +572,9 @@ export function buildTasks({
           "a flagstick's length, not by holing anything.",
         doneWhen: `A capture with three-putts under one hole in 10.`,
         /* Above confirmed gapping problems, below the blind spots: it is the
-         * biggest known leak, but a bucket of range balls cannot touch it, so
-         * it must not outrank the work only the range can do. */
+         * biggest known leak, but it is already measured — and by this list's
+         * own rule, confirming a known problem must not outrank measuring
+         * something unknown. */
         priority: 60,
         done: false,
       });

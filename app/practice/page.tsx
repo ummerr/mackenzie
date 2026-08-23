@@ -23,7 +23,7 @@ const CATEGORY_NOTE: Record<TaskCategory, string> = {
   consistency: "a number that moves between sessions, or a miss that repeats",
   data: "a metric the monitor did not record",
   gapping: "a distance problem the chart has already confirmed",
-  scoring: "a pattern from the scorecards — work no launch monitor will ever see",
+  scoring: "a pattern from the scorecards or the watch — course-side work",
   "wedge matrix":
     "a partial-swing cell of the scoring bag — measured only as a block labeled by hand in data/wedge-blocks.json",
 };

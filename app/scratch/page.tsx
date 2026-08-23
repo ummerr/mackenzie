@@ -2,7 +2,7 @@ import { join } from "node:path";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { readBag, readWedgeBlocks } from "@/lib/bag-file";
-import type { GarminShots } from "@/lib/garmin-shots";
+import { shotRounds, type GarminShots } from "@/lib/garmin-shots";
 import { buildLeaks, type Leak } from "@/lib/leaks";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
 import { loadGarmin, loadJson, loadLinkedGrint, loadRounds } from "@/lib/load";
@@ -353,6 +353,9 @@ export default function Scratch() {
    * beats a silent contradiction. */
   const scorecardByRound = new Map<string, string>();
   for (const [scorecardId, r] of loadLinkedGrint()) scorecardByRound.set(r.roundId, scorecardId);
+  const watchShots = garminShots
+    ? shotRounds(garminShots).reduce((a, r) => a + r.shotCount, 0)
+    : 0;
 
   const spec: { v: string; k: string; accent?: boolean }[] = [
     { v: h.handicapIndex === null ? "—" : f1(h.handicapIndex), k: "handicap index, from 23.9", accent: true },
@@ -531,8 +534,16 @@ export default function Scratch() {
             capture</strong>, so raw scores are only comparable through the handicap math.
           </li>
           <li>
-            <strong className="text-ink-0">The range and the course have never met.</strong> Every
-            range conclusion is an inference about the course, not a measurement of it.
+            <strong className="text-ink-0">The monitor and the course have never met.</strong>{" "}
+            {watchShots > 0 ? (
+              <>
+                The watch now stands between them — {watchShots} shots measured on grass — but
+                not one launch-monitor number was struck on a course, so every range conclusion
+                is still an inference about the course, checked only where the watch overlaps it.
+              </>
+            ) : (
+              <>Every range conclusion is an inference about the course, not a measurement of it.</>
+            )}
           </li>
         </ul>
       </section>
