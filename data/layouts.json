@@ -1577,6 +1577,46 @@
         "rounds_only"
       ],
       "origin": "rounds"
+    },
+    {
+      "slug": "tpc-harding-park-golf-course",
+      "facilitySlug": "tpc-harding-park-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "TPC Harding Park Golf Course",
+      "grintCourseId": "568",
+      "personalRank": null,
+      "timesPlayed": 1,
+      "avgScore": null,
+      "ratings": {
+        "overall": null,
+        "fun": null,
+        "condition": null
+      },
+      "played": true,
+      "flags": [
+        "rounds_only"
+      ],
+      "origin": "rounds"
+    },
+    {
+      "slug": "presidio-golf-course",
+      "facilitySlug": "presidio-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Presidio Golf Course",
+      "grintCourseId": "741",
+      "personalRank": null,
+      "timesPlayed": 1,
+      "avgScore": null,
+      "ratings": {
+        "overall": null,
+        "fun": null,
+        "condition": null
+      },
+      "played": true,
+      "flags": [
+        "rounds_only"
+      ],
+      "origin": "rounds"
     }
   ]
 }

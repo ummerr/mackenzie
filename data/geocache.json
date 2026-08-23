@@ -756,5 +756,33 @@
     },
     "source": "nominatim",
     "query": "Bennett Valley Golf Course"
+  },
+  "tpc-harding-park-golf-course": {
+    "lat": 37.7216512,
+    "lon": -122.489086,
+    "precision": "course_feature",
+    "display": "TPC Harding Park, 99, Harding Road, San Francisco, California, 94132, United States",
+    "osmId": "way/16753068",
+    "address": {
+      "locality": "San Francisco",
+      "region": "CA",
+      "country": "US"
+    },
+    "source": "nominatim",
+    "query": "TPC Harding Park Golf Course"
+  },
+  "presidio-golf-course": {
+    "lat": 37.791628,
+    "lon": -122.4655924,
+    "precision": "course_feature",
+    "display": "Presidio Golf Course, 300, Finley Road, Presidio Terrace, Richmond District, San Francisco, California, 94129, United States",
+    "osmId": "way/16650363",
+    "address": {
+      "locality": "San Francisco",
+      "region": "CA",
+      "country": "US"
+    },
+    "source": "nominatim",
+    "query": "Presidio Golf Course"
   }
 }

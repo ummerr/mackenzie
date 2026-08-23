@@ -18,8 +18,8 @@ takes it off. Hit the shots and the sentence retires itself.
 | Clubs in the bag | **13** — 9 with any shots on file |
 | Shots on file | **217** — of 301 logged |
 | Range sessions | **8** |
-| Rounds played | **168** |
-| Courses played | **85** — 11 US states, 3 countries |
+| Rounds played | **170** |
+| Courses played | **87** — 11 US states, 3 countries |
 | Mean score | **88.4** — 79 layouts, 18 holes |
 | Favourite | **Bethpage State Park (Black)** — own ranking, no. 1 |
 | Handicap index | **13.5** — WHS, from 23.9 at the record's start |
@@ -35,19 +35,19 @@ of claim this repo refuses to print.
 
 ### 01. Nothing on this site was measured on a golf course. The played record and the measured record share no shots at all.
 
-- **why** — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 217 trusted shots — every one of them hit off a mat in front of a monitor. 168 rounds played across 85 facilities, none of which put a single shot in this ledger.
+- **why** — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 217 trusted shots — every one of them hit off a mat in front of a monitor. 170 rounds played across 87 facilities, none of which put a single shot in this ledger.
 - **gone when** — Any on-course shot data in the ledger — a round imported from the R50's on-course mode, or a hand-entered card with clubs.
 - *both · high confidence*
 
 ### 02. There is no measured tee game. Every club with numbers is a club you reach for after the shot that decided where you were standing.
 
-- **why** — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 168 rounds played.
+- **why** — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 170 rounds played.
 - **gone when** — Any tee club drawn on the bag page — 15+ usable shots with it.
 - *both · high confidence*
 
 ### 03. Over 18 holes the record averages 88.4, weighted by how often each course was played.
 
-- **why** — 79 layouts with comparable 18-hole averages across 168 rounds. Best average 76.7 at Rancho Park Golf Club, worst 102.0 at Las Vegas Paiute Golf Resort. 16 layouts held out as short or unscored rounds.
+- **why** — 79 layouts with comparable 18-hole averages across 170 rounds. Best average 76.7 at Rancho Park Golf Club, worst 102.0 at Las Vegas Paiute Golf Resort. 18 layouts held out as short or unscored rounds.
 - **gone when** — A new snapshot of the map's course history with a different mean.
 - *course · high confidence*
 
@@ -77,7 +77,7 @@ of claim this repo refuses to print.
 
 ### 08. This is a collector's record, not a member's: most courses were played once and never again.
 
-- **why** — 70 of 95 layouts played exactly once (74%). Most played: Rancho Park Golf Club at 10 rounds.
+- **why** — 72 of 97 layouts played exactly once (74%). Most played: Rancho Park Golf Club at 10 rounds.
 - **gone when** — A course history where under half the layouts are one-and-done.
 - *course · high confidence*
 
@@ -161,13 +161,13 @@ record changes. Quick-entry echoes of a card already on file are not counted twi
 The same findings, unsoftened. Each one restates its own evidence and nothing
 more — a roast that needs a fact you do not have is just an insult.
 
-> 168 rounds. 217 measured shots. The two sets do not intersect: not one number on this site came from a golf course.
+> 170 rounds. 217 measured shots. The two sets do not intersect: not one number on this site came from a golf course.
 >
-> — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 217 trusted shots — every one of them hit off a mat in front of a monitor. 168 rounds played across 85 facilities, none of which put a single shot in this ledger.
+> — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 217 trusted shots — every one of them hit off a mat in front of a monitor. 170 rounds played across 87 facilities, none of which put a single shot in this ledger.
 
-> 168 rounds played, 1 measured swing with anything that starts a hole. This is a very thorough study of the second shot.
+> 170 rounds played, 1 measured swing with anything that starts a hole. This is a very thorough study of the second shot.
 >
-> — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 168 rounds played.
+> — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 170 rounds played.
 
 > The career took 10 strokes off the handicap; the last 12 differentials gave 4.1 back.
 >
@@ -187,7 +187,7 @@ more — a roast that needs a fact you do not have is just an insult.
 
 > 74% of the courses in this record got exactly one chance to make an impression, which is also how many chances they got to be learned.
 >
-> — 70 of 95 layouts played exactly once (74%). Most played: Rancho Park Golf Club at 10 rounds.
+> — 72 of 97 layouts played exactly once (74%). Most played: Rancho Park Golf Club at 10 rounds.
 
 > The 5 Iron goes right and the Pitching Wedge goes left, so aiming off fixes exactly half your bag and breaks the other half.
 >
@@ -247,7 +247,7 @@ The rounds carry a course, a tee name and a differential, but still no par or ya
 ## Read from
 
 - **Range** — 301 shots over 8 Garmin R50 sessions, 2026-07-02 to 2026-08-14
-- **Courses** — 168 rounds over 95 layouts, from The Grint, captured 2026-08-01
+- **Courses** — 170 rounds over 97 layouts, from The Grint, captured 2026-08-01
 - **Rounds** — 170 dated scorecards, 2021-07-08 to 2026-08-22, from the Grint export bundle, captured 2026-08-23
 
 Regenerate with `pnpm profile`. The course half comes from

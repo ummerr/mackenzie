@@ -2,10 +2,10 @@
   "generatedFrom": "layouts.json + geocache.json + course-polygons.geojson + facts.json",
   "capturedAt": "2026-08-01",
   "stats": {
-    "facilities": 85,
-    "layouts": 96,
+    "facilities": 87,
+    "layouts": 98,
     "ranked": 94,
-    "played": 95,
+    "played": 97,
     "meanScore": 89.8,
     "countries": [
       "US",
@@ -9608,6 +9608,210 @@
           "grintLayoutName": null,
           "grintFacilityName": "Bennett Valley Golf Course",
           "grintCourseId": "421",
+          "personalRank": null,
+          "timesPlayed": 1,
+          "avgScore": null,
+          "ratings": {
+            "overall": null,
+            "fun": null,
+            "condition": null
+          },
+          "played": true,
+          "flags": [
+            "rounds_only"
+          ],
+          "origin": "rounds",
+          "vectors": {
+            "personalRank": null,
+            "rating": null,
+            "fun": null,
+            "condition": null,
+            "replayRate": 0.31622776601683794,
+            "funMinusCondition": null,
+            "scoringDelta": null,
+            "externalRanking": null,
+            "hasArchitect": null
+          },
+          "scores": {
+            "grint": {
+              "score": null,
+              "coverage": 0
+            },
+            "scoring": {
+              "score": null,
+              "coverage": 0
+            },
+            "enjoyment": {
+              "score": 0.3162,
+              "coverage": 0.5
+            },
+            "revealed": {
+              "score": 0.3162,
+              "coverage": 0.5
+            },
+            "conditioning": {
+              "score": null,
+              "coverage": 0
+            },
+            "underrated": {
+              "score": null,
+              "coverage": 0
+            },
+            "architecture": {
+              "score": null,
+              "coverage": 0
+            }
+          }
+        }
+      ],
+      "scores": {
+        "grint": null,
+        "scoring": null,
+        "enjoyment": 0.3162,
+        "revealed": 0.3162,
+        "conditioning": null,
+        "underrated": null,
+        "architecture": null
+      }
+    },
+    {
+      "slug": "tpc-harding-park-golf-course",
+      "name": "TPC Harding Park Golf Course",
+      "grintName": "TPC Harding Park Golf Course",
+      "locality": "San Francisco",
+      "region": "CA",
+      "country": "US",
+      "placeFrom": "nominatim",
+      "origin": "rounds",
+      "aliases": [],
+      "lat": 37.7216512,
+      "lon": -122.489086,
+      "precision": "course_feature",
+      "osmId": "way/16753068",
+      "areaAcres": 182.6,
+      "hasPolygon": true,
+      "bestRank": null,
+      "totalPlays": 1,
+      "layoutCount": 1,
+      "played": true,
+      "osmTags": {
+        "holes": null,
+        "par": null,
+        "access": null,
+        "website": "https://tpc.com/tpc-harding-park-golf",
+        "operator": null,
+        "architect": null
+      },
+      "facts": null,
+      "layouts": [
+        {
+          "slug": "tpc-harding-park-golf-course",
+          "facilitySlug": "tpc-harding-park-golf-course",
+          "grintLayoutName": null,
+          "grintFacilityName": "TPC Harding Park Golf Course",
+          "grintCourseId": "568",
+          "personalRank": null,
+          "timesPlayed": 1,
+          "avgScore": null,
+          "ratings": {
+            "overall": null,
+            "fun": null,
+            "condition": null
+          },
+          "played": true,
+          "flags": [
+            "rounds_only"
+          ],
+          "origin": "rounds",
+          "vectors": {
+            "personalRank": null,
+            "rating": null,
+            "fun": null,
+            "condition": null,
+            "replayRate": 0.31622776601683794,
+            "funMinusCondition": null,
+            "scoringDelta": null,
+            "externalRanking": null,
+            "hasArchitect": null
+          },
+          "scores": {
+            "grint": {
+              "score": null,
+              "coverage": 0
+            },
+            "scoring": {
+              "score": null,
+              "coverage": 0
+            },
+            "enjoyment": {
+              "score": 0.3162,
+              "coverage": 0.5
+            },
+            "revealed": {
+              "score": 0.3162,
+              "coverage": 0.5
+            },
+            "conditioning": {
+              "score": null,
+              "coverage": 0
+            },
+            "underrated": {
+              "score": null,
+              "coverage": 0
+            },
+            "architecture": {
+              "score": null,
+              "coverage": 0
+            }
+          }
+        }
+      ],
+      "scores": {
+        "grint": null,
+        "scoring": null,
+        "enjoyment": 0.3162,
+        "revealed": 0.3162,
+        "conditioning": null,
+        "underrated": null,
+        "architecture": null
+      }
+    },
+    {
+      "slug": "presidio-golf-course",
+      "name": "Presidio Golf Course",
+      "grintName": "Presidio Golf Course",
+      "locality": "San Francisco",
+      "region": "CA",
+      "country": "US",
+      "placeFrom": "nominatim",
+      "origin": "rounds",
+      "aliases": [],
+      "lat": 37.791628,
+      "lon": -122.4655924,
+      "precision": "course_feature",
+      "osmId": "way/16650363",
+      "areaAcres": 118.9,
+      "hasPolygon": true,
+      "bestRank": null,
+      "totalPlays": 1,
+      "layoutCount": 1,
+      "played": true,
+      "osmTags": {
+        "holes": null,
+        "par": null,
+        "access": null,
+        "website": "https://www.presidiogolf.com/",
+        "operator": null,
+        "architect": null
+      },
+      "facts": null,
+      "layouts": [
+        {
+          "slug": "presidio-golf-course",
+          "facilitySlug": "presidio-golf-course",
+          "grintLayoutName": null,
+          "grintFacilityName": "Presidio Golf Course",
+          "grintCourseId": "741",
           "personalRank": null,
           "timesPlayed": 1,
           "avgScore": null,

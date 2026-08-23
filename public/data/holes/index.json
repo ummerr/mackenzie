@@ -691,5 +691,23 @@
     "water": 14,
     "plan": false,
     "bytes": 13155
+  },
+  "tpc-harding-park-golf-course": {
+    "features": 313,
+    "greens": 43,
+    "holes": 26,
+    "bunkers": 60,
+    "water": 0,
+    "plan": true,
+    "bytes": 129031
+  },
+  "presidio-golf-course": {
+    "features": 184,
+    "greens": 20,
+    "holes": 18,
+    "bunkers": 45,
+    "water": 0,
+    "plan": true,
+    "bytes": 86549
   }
 }

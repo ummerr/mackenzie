@@ -951,6 +951,30 @@
       ],
       "aliases": [],
       "origin": "rounds"
+    },
+    {
+      "slug": "tpc-harding-park-golf-course",
+      "grintName": "TPC Harding Park Golf Course",
+      "locality": null,
+      "region": null,
+      "country": null,
+      "layoutSlugs": [
+        "tpc-harding-park-golf-course"
+      ],
+      "aliases": [],
+      "origin": "rounds"
+    },
+    {
+      "slug": "presidio-golf-course",
+      "grintName": "Presidio Golf Course",
+      "locality": null,
+      "region": null,
+      "country": null,
+      "layoutSlugs": [
+        "presidio-golf-course"
+      ],
+      "aliases": [],
+      "origin": "rounds"
     }
   ]
 }
