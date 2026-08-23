@@ -1,19 +1,9 @@
-import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { readBag, readWedgeBlocks } from "@/lib/bag-file";
 import { buildWedgeMatrix } from "@/lib/wedge-matrix";
-import {
-  buildCourseHistory,
-  type CourseHistory,
-  type SourceCourses,
-} from "@/lib/course-history";
-import {
-  buildGarminShots,
-  GARMIN_THRESHOLDS,
-  type GarminShots,
-  type SourceGarminRounds,
-} from "@/lib/garmin-shots";
+import { GARMIN_THRESHOLDS } from "@/lib/garmin-shots";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
+import { loadGarmin, loadHistory, loadJson, loadRounds } from "@/lib/load";
 import {
   buildProfile,
   PROFILE_THRESHOLDS,
@@ -21,13 +11,7 @@ import {
   type OnCourse,
   type Unknown,
 } from "@/lib/profile";
-import {
-  buildRoundHistory,
-  type RecentForm,
-  type RoundHistory,
-  type SourceRounds,
-  type StatPair,
-} from "@/lib/round-history";
+import type { RecentForm, RoundHistory, StatPair } from "@/lib/round-history";
 import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
 import { buildTasks } from "@/lib/tasks";
 
@@ -37,47 +21,12 @@ export const metadata = {
     "What the shot ledger and the course history, read together, say about the golfer.",
 };
 
-function load<T>(name: string): T {
-  return JSON.parse(readFileSync(join(process.cwd(), "data", name), "utf8")) as T;
-}
-
-/* The course half is the map pipeline's artifact, and a checkout that has not
- * run the pipeline may not have it — so its absence is a state, not a crash.
- * The page renders the range half and says which half is missing. */
-function loadHistory(): CourseHistory | null {
-  try {
-    const raw = readFileSync(
-      join(process.cwd(), "public", "data", "courses.json"),
-      "utf8",
-    );
-    return buildCourseHistory(JSON.parse(raw) as SourceCourses);
-  } catch {
-    return null;
-  }
-}
-
-function loadRounds(): RoundHistory | null {
-  try {
-    return buildRoundHistory(load<SourceRounds>("rounds.json"));
-  } catch {
-    return null;
-  }
-}
-
-function loadGarmin(): GarminShots | null {
-  try {
-    return buildGarminShots(load<SourceGarminRounds>("garmin-rounds.json"));
-  } catch {
-    return null;
-  }
-}
-
 const LENS_WORD = { range: "range", course: "courses", both: "both" } as const;
 
 export default function Profile() {
   const blocks = readWedgeBlocks(join(process.cwd(), "data"))?.blocks ?? [];
-  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"), undefined, blocks);
-  const sessions = load<LedgerSession[]>("sessions.json");
+  const shots = applyHeuristics(loadJson<LedgerShot[]>("shots.json"), undefined, blocks);
+  const sessions = loadJson<LedgerSession[]>("sessions.json");
   const profiles = buildBag(shots);
   const bag = readBag(join(process.cwd(), "data"));
   const gaps = detectGaps(profiles, undefined, bag);

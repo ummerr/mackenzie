@@ -1,13 +1,8 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import {
-  buildGarminShots,
   shotRounds,
   type GarminHole,
   type GarminRound,
   type GarminShot,
-  type GarminShots,
-  type SourceGarminRounds,
 } from "@/lib/garmin-shots";
 import {
   garminCourseSlug,
@@ -17,74 +12,14 @@ import {
   type HolePaint,
   type XY,
 } from "@/lib/hole-geometry";
-import {
-  buildRoundHistory,
-  type PlayedRound,
-  type SourceRounds,
-} from "@/lib/round-history";
+import { loadCourseGeo, loadGarmin, loadLinkedGrint } from "@/lib/load";
+import type { PlayedRound } from "@/lib/round-history";
 
 export const metadata = {
   title: "Diary — Mackenzie",
   description:
     "Every shot the watch heard, round by round, hole by hole — traced on each hole's own frame.",
 };
-
-function load<T>(name: string): T {
-  return JSON.parse(readFileSync(join(process.cwd(), "data", name), "utf8")) as T;
-}
-
-function loadGarmin(): GarminShots | null {
-  try {
-    return buildGarminShots(load<SourceGarminRounds>("garmin-rounds.json"));
-  } catch {
-    return null;
-  }
-}
-
-/* The course drawings under the traces — the map's own OSM-drawn geometry
- * (pnpm data:holes). A course the map has not drawn is simply absent, and
- * its holes fall back to the bare trace. */
-function loadCourseGeo(slug: string): CourseGeo | null {
-  try {
-    return JSON.parse(
-      readFileSync(
-        join(process.cwd(), "public", "data", "holes", `${slug}.geojson`),
-        "utf8",
-      ),
-    ) as CourseGeo;
-  } catch {
-    return null;
-  }
-}
-
-/* The one place the two ledgers meet. Only links a human moved to "confirmed"
- * are read — a proposed link is a guess, and a guessed join is invented data.
- * The Grint card contributes what the watch cannot hear: the putts. */
-interface RoundLink {
-  scorecardId: string;
-  roundId: string | null;
-  status: string;
-}
-
-function loadLinkedGrint(): Map<string, PlayedRound> {
-  const out = new Map<string, PlayedRound>();
-  try {
-    const links = load<{ links: RoundLink[] }>("round-links.json").links.filter(
-      (l) => l.status === "confirmed" && l.roundId !== null,
-    );
-    if (links.length === 0) return out;
-    const history = buildRoundHistory(load<SourceRounds>("rounds.json"));
-    const byId = new Map(history.rounds.map((r) => [r.roundId, r]));
-    for (const l of links) {
-      const r = byId.get(l.roundId as string);
-      if (r) out.set(l.scorecardId, r);
-    }
-  } catch {
-    // Either file may be absent on a checkout that has not run the pipeline;
-    // the diary then simply says the putts are unlinked.
-  }
-  return out;
-}
 
 export default function Diary() {
   const garmin = loadGarmin();

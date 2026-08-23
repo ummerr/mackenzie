@@ -1,10 +1,8 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import type { ReactNode } from "react";
-import type { PlayedRound, RoundHistory, SourceRounds } from "@/lib/round-history";
+import { loadRounds } from "@/lib/load";
+import type { PlayedRound, RoundHistory } from "@/lib/round-history";
 import {
   asOf,
-  buildRoundHistory,
   differentialTrend,
   eighteenHole,
   fairwaySplit,
@@ -27,18 +25,6 @@ export const metadata = {
   description:
     "The road from a 12.9 index to scratch, ranked by what each gap costs, on the record's own arithmetic.",
 };
-
-function loadRounds(): RoundHistory | null {
-  try {
-    return buildRoundHistory(
-      JSON.parse(
-        readFileSync(join(process.cwd(), "data", "rounds.json"), "utf8"),
-      ) as SourceRounds,
-    );
-  } catch {
-    return null;
-  }
-}
 
 const f1 = (n: number) => n.toFixed(1);
 const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);

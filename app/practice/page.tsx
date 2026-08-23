@@ -1,18 +1,8 @@
-import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { readBag, readWedgeBlocks } from "@/lib/bag-file";
 import { buildWedgeMatrix } from "@/lib/wedge-matrix";
-import {
-  buildGarminShots,
-  type GarminShots,
-  type SourceGarminRounds,
-} from "@/lib/garmin-shots";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
-import {
-  buildRoundHistory,
-  type RoundHistory,
-  type SourceRounds,
-} from "@/lib/round-history";
+import { loadGarmin, loadJson, loadRounds } from "@/lib/load";
 import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
 import { buildTasks, type Task, type TaskCategory } from "@/lib/tasks";
 
@@ -20,10 +10,6 @@ export const metadata = {
   title: "Practice — Mackenzie",
   description: "What to hit next, derived from the ledger.",
 };
-
-function load<T>(name: string): T {
-  return JSON.parse(readFileSync(join(process.cwd(), "data", name), "utf8")) as T;
-}
 
 /* Categories are kinds of work, not severities, so they wear ink rather than
  * status colour — nothing here is good or bad, it is just what is unmeasured.
@@ -40,26 +26,10 @@ const CATEGORY_NOTE: Record<TaskCategory, string> = {
     "a partial-swing cell of the scoring bag — measured only as a block labeled by hand in data/wedge-blocks.json",
 };
 
-function loadRounds(): RoundHistory | null {
-  try {
-    return buildRoundHistory(load<SourceRounds>("rounds.json"));
-  } catch {
-    return null;
-  }
-}
-
-function loadGarmin(): GarminShots | null {
-  try {
-    return buildGarminShots(load<SourceGarminRounds>("garmin-rounds.json"));
-  } catch {
-    return null;
-  }
-}
-
 export default function Practice() {
   const blocks = readWedgeBlocks(join(process.cwd(), "data"))?.blocks ?? [];
-  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"), undefined, blocks);
-  const sessions = load<LedgerSession[]>("sessions.json");
+  const shots = applyHeuristics(loadJson<LedgerShot[]>("shots.json"), undefined, blocks);
+  const sessions = loadJson<LedgerSession[]>("sessions.json");
   const profiles = buildBag(shots);
   const bag = readBag(join(process.cwd(), "data"));
   const tasks = buildTasks({

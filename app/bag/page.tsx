@@ -1,16 +1,11 @@
-import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { Bag, type BasisView, type CourseCheck } from "../bag";
 import type { ShotDot } from "../bag-chart";
 import { readBag, readWedgeBlocks } from "@/lib/bag-file";
 import { buildWedgeMatrix } from "@/lib/wedge-matrix";
-import {
-  buildGarminShots,
-  courseClubDistances,
-  shotRounds,
-  type SourceGarminRounds,
-} from "@/lib/garmin-shots";
+import { courseClubDistances, shotRounds } from "@/lib/garmin-shots";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
+import { loadGarmin, loadJson } from "@/lib/load";
 import {
   applyHeuristics,
   bagCoverage,
@@ -33,23 +28,16 @@ import {
  * list in the payload, on a ledger of a few hundred shots.
  */
 
-function load<T>(name: string): T {
-  return JSON.parse(readFileSync(join(process.cwd(), "data", name), "utf8")) as T;
-}
-
-/* The on-course check on the range numbers: per-club medians over clear full
+/* The on-course medians beside the range's: per-club medians over clear full
  * swings from the AutoShot record. Absent (null) on a checkout that has not
  * run `pnpm data:garmin` — an absence, not a crash, same as every other
  * artifact this app reads. */
 function loadCourse(): CourseCheck | null {
-  try {
-    const g = buildGarminShots(load<SourceGarminRounds>("garmin-rounds.json"));
-    const bearing = shotRounds(g);
-    if (bearing.length === 0) return null;
-    return { rounds: bearing.length, clubs: courseClubDistances(bearing) };
-  } catch {
-    return null;
-  }
+  const g = loadGarmin();
+  if (g === null) return null;
+  const bearing = shotRounds(g);
+  if (bearing.length === 0) return null;
+  return { rounds: bearing.length, clubs: courseClubDistances(bearing) };
 }
 
 export const metadata = {
@@ -64,8 +52,8 @@ export default function Home() {
    * shot leaves the full-swing pipeline entirely, so the blocks are an input
    * to classification, not an afterthought. */
   const blocks = readWedgeBlocks(join(process.cwd(), "data"))?.blocks ?? [];
-  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"), undefined, blocks);
-  const sessions = load<LedgerSession[]>("sessions.json");
+  const shots = applyHeuristics(loadJson<LedgerShot[]>("shots.json"), undefined, blocks);
+  const sessions = loadJson<LedgerSession[]>("sessions.json");
   /* The clubs owned, which is not the same set as the clubs measured — the
    * whole reason it is asserted by hand. Null when the file is absent, and
    * every consumer below falls back to what the ledger alone can say. */
