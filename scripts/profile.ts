@@ -25,6 +25,7 @@ import {
 } from "../lib/course-history";
 import {
   buildGarminShots,
+  GARMIN_THRESHOLDS,
   type GarminShots,
   type SourceGarminRounds,
 } from "../lib/garmin-shots";
@@ -129,6 +130,57 @@ function render(p: GolferProfile): string {
     out.push("");
   }
 
+  /* The on-course record, same object the page's "On the course" section
+   * renders. Gate-independent by design: findings wait for minShotRounds, the
+   * record does not — it just prints its sample sizes. */
+  if (p.onCourse) {
+    const oc = p.onCourse;
+    const s = oc.split;
+    const share = (n: number, d: number) => (d > 0 ? `${Math.round((n / d) * 100)}%` : "—");
+    out.push("## On the course");
+    out.push("");
+    out.push(
+      `What AutoShot heard over ${oc.rounds} round${oc.rounds === 1 ? "" : "s"} (as of ${oc.asOf};`,
+      `the record's other ${oc.simRounds} rounds are simulator rounds with nothing to hear).`,
+      `Findings from this data switch on at ${GARMIN_THRESHOLDS.minShotRounds} shot-bearing rounds —`,
+      `until then this is the record, not a claim. The watch caught ${s.shots} of the`,
+      `${s.strokes} strokes the scorecards count (${share(s.shots, s.strokes)}); putts and some`,
+      "chips never become shots, so every share below is a share of recorded shots.",
+    );
+    out.push("");
+    out.push("| | Shots | Of recorded |");
+    out.push("|---|---|---|");
+    out.push(
+      `| Tee | ${s.tee} | ${share(s.tee, s.shots)} |`,
+      `| Approach | ${s.approach} | ${share(s.approach, s.shots)} |`,
+      `| Short game | ${s.shortGame} | ${share(s.shortGame, s.shots)} |`,
+      `| Putts | ${s.putts} | ${share(s.putts, s.shots)} |`,
+      `| Unclassified | ${s.other} | ${share(s.other, s.shots)} |`,
+    );
+    out.push("");
+    out.push(
+      `Lies (non-tee, Garmin's own strings): ${oc.lies.map((l) => `${l.lie} ${l.shots}`).join(" · ")}.`,
+    );
+    if (oc.clubs.length > 0) {
+      out.push("");
+      out.push(
+        `Clubs the course has measured — clear full swings only (no chips, no punch-outs)`,
+        `at ${GARMIN_THRESHOLDS.minShotsPerClub}+ shots; course yards are point-to-point, where the ball`,
+        "came to rest, so nearer a range total than a carry:",
+      );
+      out.push("");
+      out.push("| Club | On course | On the range |");
+      out.push("|---|---|---|");
+      for (const c of oc.clubs) {
+        out.push(
+          `| ${c.club} | **${c.medianYd.toFixed(0)} yd** (${c.shots} swings) | ` +
+            `${c.rangeYd !== null ? `${c.rangeYd.toFixed(0)} yd` : "unmeasured — this is the club's first number"} |`,
+        );
+      }
+    }
+    out.push("");
+  }
+
   const roasts = p.findings.filter((f) => f.roast !== null);
   if (roasts.length > 0) {
     out.push("## The roast");
@@ -213,7 +265,7 @@ function main(): number {
     );
   }
 
-  const tasks = buildTasks({ profiles, gaps, shots, sessions, bag, roundHistory });
+  const tasks = buildTasks({ profiles, gaps, shots, sessions, bag, roundHistory, garminShots });
   const profile = buildProfile({
     shots,
     sessions,

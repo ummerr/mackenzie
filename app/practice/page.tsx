@@ -1,6 +1,11 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { readBag } from "@/lib/bag-file";
+import {
+  buildGarminShots,
+  type GarminShots,
+  type SourceGarminRounds,
+} from "@/lib/garmin-shots";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
 import {
   buildRoundHistory,
@@ -40,6 +45,14 @@ function loadRounds(): RoundHistory | null {
   }
 }
 
+function loadGarmin(): GarminShots | null {
+  try {
+    return buildGarminShots(load<SourceGarminRounds>("garmin-rounds.json"));
+  } catch {
+    return null;
+  }
+}
+
 export default function Practice() {
   const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
   const sessions = load<LedgerSession[]>("sessions.json");
@@ -52,6 +65,7 @@ export default function Practice() {
     sessions,
     bag,
     roundHistory: loadRounds(),
+    garminShots: loadGarmin(),
   });
 
   const categories = [...new Set(tasks.map((t) => t.category))];

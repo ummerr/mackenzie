@@ -40,6 +40,10 @@ export interface GarminHole {
   strokes: number | null;
   putts: number | null;
   par: number | null;
+  /** Garmin's own: HIT | LEFT | RIGHT — the tee ball's verdict on driven
+   *  holes. Carried on the R50 screen rounds; the on-course cards rarely
+   *  have it. */
+  fairwayShotOutcome: string | null;
   shots: GarminShot[];
 }
 
@@ -84,6 +88,7 @@ export interface SourceGarminRound {
     strokes: number | null;
     putts: number | null;
     par: number | null;
+    fairwayShotOutcome: string | null;
     shots: {
       order: number | null;
       club: string | null;
@@ -115,6 +120,16 @@ export const GARMIN_THRESHOLDS = {
   /** Shots a club needs before its on-course median is worth comparing to
    *  its range median. */
   minShotsPerClub: 10,
+  /** Screen-play (R50 sim) task guards. The screen's launch is measured and
+   *  its flight is modelled, so screen numbers speak about club delivery,
+   *  and only above these floors. */
+  minScreenHolesPerPar: 15,
+  /** Strokes-over-par gap between par types worth practising against. */
+  screenParGapStrokes: 0.3,
+  minScreenDriven: 50,
+  /** One side must own this share of the misses to be a direction. */
+  screenMissShare: 2 / 3,
+  minScreenPuttHoles: 100,
 } as const;
 
 /** Reshape the pipeline's garmin-rounds.json. Nothing is recomputed; the
@@ -143,6 +158,7 @@ export function buildGarminShots(src: SourceGarminRounds): GarminShots {
           strokes: h.strokes,
           putts: h.putts,
           par: h.par,
+          fairwayShotOutcome: h.fairwayShotOutcome,
           shots: h.shots.map((s) => ({
             order: s.order,
             club: s.club,
@@ -166,6 +182,13 @@ export function shotRounds(g: GarminShots): GarminRound[] {
   return g.rounds.filter((r) => r.shotCount > 0);
 }
 
+/** The R50 simulator rounds — played on a screen, so they carry no AutoShot
+ *  shots, but their scorecards (strokes, putts, pars, tee-ball outcome) are
+ *  real records of real swings whose flight was modelled. */
+export function simRounds(g: GarminShots): GarminRound[] {
+  return g.rounds.filter((r) => r.flags.includes("simulation"));
+}
+
 /** The date of the newest shot-bearing round — the shot record's "as of",
  *  anchored to the record, never the wall clock. */
 export function asOfGarmin(g: GarminShots): string | null {
@@ -179,9 +202,7 @@ export function asOfGarmin(g: GarminShots): string | null {
 const allShots = (rounds: GarminRound[]): GarminShot[] =>
   rounds.flatMap((r) => r.holes.flatMap((h) => h.shots));
 
-/** Recorded shots by category, plus the coverage that qualifies every share:
- *  how many strokes the scorecards say happened vs how many became shots. */
-export function strokeCategorySplit(rounds: GarminRound[]): {
+export interface StrokeCategorySplit {
   tee: number;
   approach: number;
   shortGame: number;
@@ -189,7 +210,11 @@ export function strokeCategorySplit(rounds: GarminRound[]): {
   other: number;
   shots: number;
   strokes: number;
-} {
+}
+
+/** Recorded shots by category, plus the coverage that qualifies every share:
+ *  how many strokes the scorecards say happened vs how many became shots. */
+export function strokeCategorySplit(rounds: GarminRound[]): StrokeCategorySplit {
   const out = { tee: 0, approach: 0, shortGame: 0, putts: 0, other: 0, shots: 0, strokes: 0 };
   for (const r of rounds) out.strokes += r.strokes ?? 0;
   for (const s of allShots(rounds)) {
@@ -222,9 +247,14 @@ export function lieSplit(rounds: GarminRound[]): { lie: string; shots: number }[
     .sort((a, b) => b.shots - a.shots || a.lie.localeCompare(b.lie));
 }
 
-/** Per-club on-course median yards over full-swing shots (tee shots included,
- *  putts and short game excluded — a 12-yard chip with a 9 Iron is not what
- *  the 9 Iron carries). Only clubs at or above `minShots`. */
+/** Per-club on-course median yards over CLEAR full swings: tee shots
+ *  included; putts, chips and short game excluded (a 12-yard chip with a
+ *  9 Iron is not what the 9 Iron carries); recoveries excluded too — a
+ *  punch-out from the trees is a full swing deliberately not hit the club's
+ *  distance, and one of them can drag a ten-shot median for weeks. Only
+ *  clubs at or above `minShots`. Distances are Garmin's point-to-point
+ *  yards — where the ball came to REST, so nearer a range "total" than a
+ *  carry. */
 export function courseClubDistances(
   rounds: GarminRound[],
   minShots: number = GARMIN_THRESHOLDS.minShotsPerClub,
@@ -232,7 +262,7 @@ export function courseClubDistances(
   const byClub = new Map<string, number[]>();
   for (const s of allShots(rounds)) {
     if (s.club === null || s.yards === null) continue;
-    if (s.shotType === "PUTT" || s.shotType === "CHIP") continue;
+    if (s.shotType === "PUTT" || s.shotType === "CHIP" || s.shotType === "RECOVERY") continue;
     if (s.yards <= GARMIN_THRESHOLDS.shortGameYd) continue;
     byClub.set(s.club, [...(byClub.get(s.club) ?? []), s.yards]);
   }
@@ -245,4 +275,102 @@ export function courseClubDistances(
     .filter(([, xs]) => xs.length >= minShots)
     .map(([club, xs]) => ({ club, shots: xs.length, medianYd: median(xs) }))
     .sort((a, b) => b.medianYd - a.medianYd);
+}
+
+/** Strokes over par by par type, over holes that recorded both. The screen's
+ *  scorecards are the only place this record has enough par-tagged holes to
+ *  say anything — the Grint perHole arrays carry no pars. */
+export function parTypeScoring(
+  rounds: GarminRound[],
+): { par: number; holes: number; meanOverPar: number }[] {
+  const byPar = new Map<number, number[]>();
+  for (const r of rounds) {
+    for (const h of r.holes) {
+      if (h.par === null || h.strokes === null) continue;
+      byPar.set(h.par, [...(byPar.get(h.par) ?? []), h.strokes - h.par]);
+    }
+  }
+  return [...byPar.entries()]
+    .map(([par, overs]) => ({
+      par,
+      holes: overs.length,
+      meanOverPar: overs.reduce((a, b) => a + b, 0) / overs.length,
+    }))
+    .sort((a, b) => a.par - b.par);
+}
+
+/** The tee ball's verdicts on driven holes, verbatim from Garmin's
+ *  fairwayShotOutcome. Anything outside HIT/LEFT/RIGHT is carried in `other`
+ *  rather than redistributed. */
+export function fairwayOutcomes(rounds: GarminRound[]): {
+  driven: number;
+  hit: number;
+  left: number;
+  right: number;
+  other: number;
+} {
+  const out = { driven: 0, hit: 0, left: 0, right: 0, other: 0 };
+  for (const r of rounds) {
+    for (const h of r.holes) {
+      if (h.fairwayShotOutcome == null) continue;
+      out.driven += 1;
+      if (h.fairwayShotOutcome === "HIT") out.hit += 1;
+      else if (h.fairwayShotOutcome === "LEFT") out.left += 1;
+      else if (h.fairwayShotOutcome === "RIGHT") out.right += 1;
+      else out.other += 1;
+    }
+  }
+  return out;
+}
+
+/** Putting over holes that recorded putts — on this record, the screen's. */
+export function puttingRecord(rounds: GarminRound[]): {
+  holes: number;
+  threePutts: number;
+} {
+  let holes = 0;
+  let threePutts = 0;
+  for (const r of rounds) {
+    for (const h of r.holes) {
+      if (h.putts === null) continue;
+      holes += 1;
+      if (h.putts >= 3) threePutts += 1;
+    }
+  }
+  return { holes, threePutts };
+}
+
+/* ---------------------------------------------------------------------------
+ * The on-course record as one object — what the watch has heard so far,
+ * regardless of whether it clears the findings gate. A finding is a claim and
+ * waits for minShotRounds; the record is just the record, and publishing it
+ * with its sample sizes is how a thin sample stays honest instead of hidden.
+ * The page and PROFILE.md both render this object, so they cannot drift.
+ * ------------------------------------------------------------------------- */
+
+export interface OnCourseRecord {
+  /** Newest shot-bearing round — the record's "as of". */
+  asOf: string;
+  /** Shot-bearing rounds — the denominator of every claim-to-be. */
+  rounds: number;
+  /** Simulator rounds in the record, which carry no shots by nature. */
+  simRounds: number;
+  split: StrokeCategorySplit;
+  lies: { lie: string; shots: number }[];
+  /** Clubs with enough clear full swings for a median. */
+  clubs: { club: string; shots: number; medianYd: number }[];
+}
+
+export function onCourseRecord(g: GarminShots): OnCourseRecord | null {
+  const bearing = shotRounds(g);
+  const asOf = asOfGarmin(g);
+  if (bearing.length === 0 || asOf === null) return null;
+  return {
+    asOf,
+    rounds: bearing.length,
+    simRounds: g.rounds.filter((r) => r.flags.includes("simulation")).length,
+    split: strokeCategorySplit(bearing),
+    lies: lieSplit(bearing),
+    clubs: courseClubDistances(bearing),
+  };
 }

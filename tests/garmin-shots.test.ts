@@ -3,9 +3,14 @@ import {
   asOfGarmin,
   buildGarminShots,
   courseClubDistances,
+  fairwayOutcomes,
   GARMIN_THRESHOLDS,
   lieSplit,
+  onCourseRecord,
+  parTypeScoring,
+  puttingRecord,
   shotRounds,
+  simRounds,
   strokeCategorySplit,
   type GarminRound,
   type GarminShot,
@@ -41,7 +46,7 @@ function round(over: Partial<GarminRound> = {}, shots: GarminShot[] = []): Garmi
     holesRecorded: 18,
     strokes: 90,
     shotCount: shots.length,
-    holes: [{ number: 1, strokes: 5, putts: null, par: 4, shots }],
+    holes: [{ number: 1, strokes: 5, putts: null, par: 4, fairwayShotOutcome: null, shots }],
     flags: [],
     ...over,
   };
@@ -74,6 +79,7 @@ describe("buildGarminShots", () => {
             strokes: 5,
             putts: null,
             par: 4,
+            fairwayShotOutcome: null,
             shots: [{ ...shot(), raw: { secret: "never surfaces" } } as never],
           },
         ],
@@ -196,5 +202,109 @@ describe("courseClubDistances", () => {
     expect(courseClubDistances(rounds)).toEqual([
       { club: "7 Iron", shots: 10, medianYd: 134.5 },
     ]);
+  });
+
+  it("excludes recoveries — a punch-out is deliberately not the club's distance", () => {
+    // Ten clean swings around 135 and one 60-yard punch-out from the trees:
+    // counting the recovery would print a ten-shot median dragged by a shot
+    // that was never trying to go the club's distance.
+    const seven = Array.from({ length: 10 }, (_, i) =>
+      shot({ club: "7 Iron", yards: 130 + i }),
+    );
+    const rounds = [
+      round({}, [...seven, shot({ club: "7 Iron", shotType: "RECOVERY", yards: 60 })]),
+    ];
+    expect(courseClubDistances(rounds)).toEqual([
+      { club: "7 Iron", shots: 10, medianYd: 134.5 },
+    ]);
+  });
+});
+
+describe("onCourseRecord", () => {
+  it("is null with no shot-bearing rounds — a record of nothing is not a record", () => {
+    expect(onCourseRecord(record([round({ roundType: "SIMULATION" }, [])]))).toBeNull();
+  });
+
+  it("assembles the whole record with its anchors and sample sizes", () => {
+    const g = record([
+      round({ scorecardId: "1", date: "2026-08-20", strokes: 91 }, [
+        shot({ shotType: "TEE", yards: 260 }),
+        shot({ startLie: "Rough" }),
+      ]),
+      round({ scorecardId: "2", date: "2026-08-22", strokes: 98 }, [shot()]),
+      round(
+        { scorecardId: "3", date: "2026-08-25", roundType: "SIMULATION", flags: ["simulation"] },
+        [],
+      ),
+    ]);
+    const oc = onCourseRecord(g);
+    expect(oc).not.toBeNull();
+    // Anchored to the newest SHOT-BEARING round; the newer sim must not move it.
+    expect(oc!.asOf).toBe("2026-08-22");
+    expect(oc!.rounds).toBe(2);
+    expect(oc!.simRounds).toBe(1);
+    expect(oc!.split.shots).toBe(3);
+    expect(oc!.split.strokes).toBe(189);
+    // Two non-tee shots, verbatim lies.
+    expect(oc!.lies).toEqual([
+      { lie: "Fairway", shots: 1 },
+      { lie: "Rough", shots: 1 },
+    ]);
+    // No club reaches minShotsPerClub here — held back, not padded.
+    expect(oc!.clubs).toEqual([]);
+  });
+});
+
+describe("screen scorecard readers", () => {
+  const holeOf = (par: number, strokes: number, over: object = {}) => ({
+    number: 1, strokes, putts: 2, par, fairwayShotOutcome: null, shots: [], ...over,
+  });
+
+  it("parTypeScoring groups strokes-over-par by par, skipping holes missing either", () => {
+    const r = round({
+      holes: [
+        holeOf(3, 4), holeOf(3, 5), holeOf(5, 5),
+        holeOf(4, 5, { strokes: null }), // no strokes — not a scored hole
+        holeOf(4, 5, { par: null }),     // no par — nothing to score against
+      ] as never,
+    });
+    expect(parTypeScoring([r])).toEqual([
+      { par: 3, holes: 2, meanOverPar: 1.5 },
+      { par: 5, holes: 1, meanOverPar: 0 },
+    ]);
+  });
+
+  it("fairwayOutcomes counts verbatim verdicts and carries the unexpected in `other`", () => {
+    const r = round({
+      holes: [
+        holeOf(4, 5, { fairwayShotOutcome: "HIT" }),
+        holeOf(4, 5, { fairwayShotOutcome: "LEFT" }),
+        holeOf(4, 5, { fairwayShotOutcome: "RIGHT" }),
+        holeOf(4, 5, { fairwayShotOutcome: "RIGHT" }),
+        holeOf(4, 5, { fairwayShotOutcome: "LONG" }), //unknown verdict — counted, not redistributed
+        holeOf(3, 3), // par 3, no tee-ball verdict
+      ] as never,
+    });
+    expect(fairwayOutcomes([r])).toEqual({ driven: 5, hit: 1, left: 1, right: 2, other: 1 });
+  });
+
+  it("puttingRecord counts three-putts over holes that recorded putts", () => {
+    const r = round({
+      holes: [
+        holeOf(4, 5, { putts: 2 }),
+        holeOf(4, 6, { putts: 3 }),
+        holeOf(4, 7, { putts: 4 }),
+        holeOf(4, 5, { putts: null }),
+      ] as never,
+    });
+    expect(puttingRecord([r])).toEqual({ holes: 3, threePutts: 2 });
+  });
+
+  it("simRounds selects by the simulation flag, not the roundType string", () => {
+    const g = record([
+      round({ scorecardId: "1", flags: ["simulation"] }),
+      round({ scorecardId: "2" }),
+    ]);
+    expect(simRounds(g).map((r) => r.scorecardId)).toEqual(["1"]);
   });
 });

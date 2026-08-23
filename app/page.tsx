@@ -8,6 +8,7 @@ import {
 } from "@/lib/course-history";
 import {
   buildGarminShots,
+  GARMIN_THRESHOLDS,
   type GarminShots,
   type SourceGarminRounds,
 } from "@/lib/garmin-shots";
@@ -16,6 +17,7 @@ import {
   buildProfile,
   PROFILE_THRESHOLDS,
   type Finding,
+  type OnCourse,
   type Unknown,
 } from "@/lib/profile";
 import {
@@ -78,7 +80,8 @@ export default function Profile() {
   const bag = readBag(join(process.cwd(), "data"));
   const gaps = detectGaps(profiles, undefined, bag);
   const roundHistory = loadRounds();
-  const tasks = buildTasks({ profiles, gaps, shots, sessions, bag, roundHistory });
+  const garminShots = loadGarmin();
+  const tasks = buildTasks({ profiles, gaps, shots, sessions, bag, roundHistory, garminShots });
   const profile = buildProfile({
     shots,
     sessions,
@@ -87,7 +90,7 @@ export default function Profile() {
     tasks,
     history: loadHistory(),
     roundHistory,
-    garminShots: loadGarmin(),
+    garminShots,
     bag,
   });
 
@@ -155,6 +158,9 @@ export default function Profile() {
 
       {/* ── recent form ───────────────────────────────────────────────────── */}
       {profile.recentForm && <RecentFormSection form={profile.recentForm} />}
+
+      {/* ── on the course ─────────────────────────────────────────────────── */}
+      {profile.onCourse && <OnCourseSection oc={profile.onCourse} />}
 
       {/* ── the roast ─────────────────────────────────────────────────────── */}
       {roasts.length > 0 && (
@@ -268,6 +274,92 @@ function RecentFormSection({ form }: { form: RecentForm }) {
           </div>
         ))}
       </dl>
+    </section>
+  );
+}
+
+/* The on-course record, gate-independent: the findings above wait for
+ * minShotRounds because a finding is a claim; the record itself is published
+ * as soon as it exists, with every sample size printed. What grounds the
+ * range-built profile is not a verdict — it is these numbers sitting next to
+ * the ledger's. */
+function OnCourseSection({ oc }: { oc: OnCourse }) {
+  const s = oc.split;
+  const pctOf = (n: number, d: number) => (d > 0 ? `${Math.round((n / d) * 100)}%` : "—");
+  const catRows: [string, number][] = [
+    ["Tee", s.tee],
+    ["Approach", s.approach],
+    ["Short game", s.shortGame],
+    ["Putts", s.putts],
+    ["Unclassified", s.other],
+  ];
+  return (
+    <section className="mt-10">
+      <h2 className="stamp text-ink-2">On the course</h2>
+      <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+        What AutoShot heard over {oc.rounds} round{oc.rounds === 1 ? "" : "s"} (as
+        of {oc.asOf}; the record&rsquo;s other {oc.simRounds} rounds are simulator
+        rounds with nothing to hear). Findings from this data switch on at{" "}
+        {GARMIN_THRESHOLDS.minShotRounds} shot-bearing rounds — until then this is
+        the record, not a claim. The watch hears full swings: it caught{" "}
+        {s.shots} of the {s.strokes} strokes the scorecards count (
+        {pctOf(s.shots, s.strokes)}); putts and some chips never become shots, so
+        every share below is a share of recorded shots.
+      </p>
+
+      <dl className="mt-5 space-y-1 font-mono text-[11px] leading-5">
+        {catRows.map(([label, n]) => (
+          <div key={label} className="flex flex-wrap gap-x-3">
+            <dt className="w-32 shrink-0 text-ink-1">{label}</dt>
+            <dd className="tabular-nums text-ink-2">
+              {n} shots · {pctOf(n, s.shots)} of recorded
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      <h3 className="stamp mt-5 text-ink-3">Where the ball was played from</h3>
+      <dl className="mt-2 space-y-1 font-mono text-[11px] leading-5">
+        {oc.lies.map((l) => (
+          <div key={l.lie} className="flex flex-wrap gap-x-3">
+            <dt className="w-32 shrink-0 text-ink-1">{l.lie}</dt>
+            <dd className="tabular-nums text-ink-2">
+              {l.shots} non-tee shot{l.shots === 1 ? "" : "s"}
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      {oc.clubs.length > 0 && (
+        <>
+          <h3 className="stamp mt-5 text-ink-3">Clubs the course has measured</h3>
+          <p className="mt-1 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+            Clear full swings only — no chips, no punch-outs — at{" "}
+            {GARMIN_THRESHOLDS.minShotsPerClub}+ shots. Course yards are
+            point-to-point, where the ball came to rest, so they sit nearer a
+            range total than a carry.
+          </p>
+          <ul className="mt-2 space-y-px">
+            {oc.clubs.map((c) => (
+              <li
+                key={c.club}
+                className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l-2 bg-paper-1 px-3 py-2 sm:px-4"
+                style={{ borderColor: "var(--line)" }}
+              >
+                <span className="text-[14px] leading-snug text-ink-0">{c.club}</span>
+                <span className="font-mono text-[11px] tabular-nums text-ink-1">
+                  {c.medianYd.toFixed(0)} yd on course ({c.shots} swings)
+                </span>
+                <span className="ml-auto shrink-0 font-mono text-[11px] tabular-nums text-ink-2">
+                  {c.rangeYd !== null
+                    ? `${c.rangeYd.toFixed(0)} yd on the range`
+                    : "unmeasured on the range — this is the club's first number"}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </section>
   );
 }

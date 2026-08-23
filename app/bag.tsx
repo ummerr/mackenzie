@@ -52,6 +52,15 @@ export interface BagProps {
   clubs: BagClub[];
   /** Which of those clubs the ledger has anything to say about. */
   bagCoverage: BagCoverage | null;
+  /** On-course medians from the AutoShot record — clear full swings only —
+   *  for clubs with enough of them. Null when no shot-bearing rounds exist. */
+  course: CourseCheck | null;
+}
+
+export interface CourseCheck {
+  /** Shot-bearing rounds behind the medians. */
+  rounds: number;
+  clubs: { club: string; shots: number; medianYd: number }[];
 }
 
 const yd = (v: number | null, d = 0) => (v === null ? "—" : v.toFixed(d));
@@ -65,6 +74,7 @@ export function Bag({
   rollout,
   clubs,
   bagCoverage,
+  course,
 }: BagProps) {
   const [basis, setBasis] = useState<DistanceBasis>("carry");
 
@@ -259,6 +269,11 @@ export function Bag({
         basis={basis}
         unusable={unusable}
       />
+
+      {/* ── the course beside the range ──────────────────────────────────── */}
+      {course && course.clubs.length > 0 && (
+        <CourseBesideRange course={course} bag={bag} basis={basis} />
+      )}
 
       {/* ── the card ─────────────────────────────────────────────────────── */}
       <section className="mt-10">
@@ -899,6 +914,60 @@ function GapRow({ gap, colors }: { gap: Gap; colors: Map<string, string> }) {
  * Sorted in bag order, which is the same order as everything above it, so the
  * rows line up with the chart's regions by eye.
  */
+/* The course checking the range's homework. Only clubs with enough CLEAR full
+ * swings on grass appear (no chips, no punch-outs), and both numbers print
+ * with both sample sizes — the both-numbers rule at the course/range seam.
+ * The course yard is point-to-point, where the ball came to REST, so it reads
+ * against "total" more fairly than against "carry"; the note says so rather
+ * than letting the toggle quietly change what the comparison means. A club
+ * the range never measured is the headline, not a gap: the course just gave
+ * it its first number. */
+function CourseBesideRange({
+  course,
+  bag,
+  basis,
+}: {
+  course: CourseCheck;
+  bag: ClubProfile[];
+  basis: DistanceBasis;
+}) {
+  return (
+    <section className="card mt-10 p-4">
+      <h2 className="stamp text-ink-2">The course beside the range</h2>
+      <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+        Median over clear full swings AutoShot heard on grass ({course.rounds}{" "}
+        round{course.rounds === 1 ? "" : "s"}), next to this page&rsquo;s{" "}
+        {basis} median. Course yards are point-to-point — where the ball came to
+        rest — so they read closest to <em>total</em>; on carry, some of the gap
+        is just roll.
+      </p>
+      <ul className="mt-3 space-y-px">
+        {course.clubs.map((c) => {
+          const range = bag.find((p) => p.club === c.club);
+          const rangeYd = range && !range.suppressed ? range.medianDistanceYd : null;
+          return (
+            <li
+              key={c.club}
+              className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l-2 bg-paper-1 px-3 py-2 sm:px-4"
+              style={{ borderColor: "var(--line)" }}
+            >
+              <span className="text-[14px] leading-snug text-ink-0">{c.club}</span>
+              <span className="font-mono text-[11px] tabular-nums text-ink-1">
+                course {c.medianYd.toFixed(0)} yd ({c.shots} swings)
+              </span>
+              <span className="ml-auto shrink-0 font-mono text-[11px] tabular-nums text-ink-2">
+                {rangeYd !== null
+                  ? `range ${rangeYd.toFixed(0)} yd on ${basis}`
+                  : "no drawn range number — the course is this club's first measurement"}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+}
+
 function WhatsInTheBag({
   clubs,
   coverage,

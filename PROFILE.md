@@ -87,9 +87,9 @@ of claim this repo refuses to print.
 - **gone when** — Median fun and conditioning ratings within a point of each other.
 - *course · medium confidence*
 
-### 10. 22 practice tasks are open, and the top one is aimed at the biggest blind spot above.
+### 10. 23 practice tasks are open, and the top one is aimed at the biggest blind spot above.
 
-- **why** — First on the list: The 3 Hybrid has never been measured — Callaway UW is in the bag at 19° and has not one shot on file across 8 sessions. Both gaps beside it are guesses about a club nobody has hit at a monitor.
+- **why** — First on the list: The 3 Hybrid has never been measured — Callaway UW is in the bag at 19° and has not one shot on file across 8 sessions. Both gaps beside it are guesses about a club nobody has hit at a monitor. AutoShot has meanwhile heard 13 full swings with it on the course — median 220 yd point-to-point — a number to check the monitor against, not a substitute for it.
 - **gone when** — An empty practice list.
 - *range · high confidence*
 
@@ -155,6 +155,35 @@ record changes. Quick-entry echoes of a card already on file are not counted twi
 | Putts / round | **34.8** (11 rounds) | 35.7 (138 rounds) |
 | Three-putt share | **8%** (198 holes) | 14% (2681 holes) |
 | Fairways hit | **73%** (148 holes) | 62% (1564 holes) |
+
+## On the course
+
+What AutoShot heard over 2 rounds (as of 2026-08-22;
+the record's other 7 rounds are simulator rounds with nothing to hear).
+Findings from this data switch on at 5 shot-bearing rounds —
+until then this is the record, not a claim. The watch caught 108 of the
+189 strokes the scorecards count (57%); putts and some
+chips never become shots, so every share below is a share of recorded shots.
+
+| | Shots | Of recorded |
+|---|---|---|
+| Tee | 31 | 29% |
+| Approach | 34 | 31% |
+| Short game | 31 | 29% |
+| Putts | 1 | 1% |
+| Unclassified | 11 | 10% |
+
+Lies (non-tee, Garmin's own strings): Rough 41 · Fairway 13 · Unknown 9 · Bunker 7 · TeeBox 6 · Green 1.
+
+Clubs the course has measured — clear full swings only (no chips, no punch-outs)
+at 10+ shots; course yards are point-to-point, where the ball
+came to rest, so nearer a range total than a carry:
+
+| Club | On course | On the range |
+|---|---|---|
+| Driver | **263 yd** (18 swings) | unmeasured — this is the club's first number |
+| 3 Hybrid | **220 yd** (13 swings) | unmeasured — this is the club's first number |
+| Gap Wedge | **103 yd** (10 swings) | 98 yd |
 
 ## The roast
 

@@ -6,6 +6,79 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-22 — The screen's scorecards are swings too; the practice list learns from them
+
+**Decided:** `buildTasks` takes `garminShots`, and the practice list learns
+two things from the Garmin record. First, the tasks about unmeasured clubs
+stop lying by omission: a task that says "the 3 Hybrid has never been
+measured" while AutoShot holds 13 on-course swings with it now cites the
+course median — explicitly "a number to check the monitor against, not a
+substitute for it" (course yards are point-to-point over a handful of
+rounds; a monitor's carry is a different measurement). Second, the R50
+simulator rounds — 7 of the 9 Garmin rounds, dismissed until now as
+shotless — are read as what they are: real swings whose launch was measured
+and whose flight was modelled. New helpers (`simRounds`, `parTypeScoring`,
+`fairwayOutcomes`, `puttingRecord`) and two guard-gated screen tasks:
+
+- `screen-par-threes` (fires today, priority 59 — under the three-putt
+  task's 60, because 38 modelled holes never outrank five years of real
+  greens): par 3s run +0.76 a hole on the screen against +0.32 on the par
+  5s, and a par 3 is one iron and the putter. Guards:
+  `minScreenHolesPerPar` (15) each side, gap ≥ `screenParGapStrokes` (0.3).
+- `screen-tee-miss` (armed, silent today): fires only when one side owns
+  ≥ 2/3 of the screen's driven-hole misses over ≥ 50 driven holes. Today's
+  split — 18 left, 24 right of 70 — is a coin toss, not a direction, and a
+  task that fires on a coin toss teaches the wrong lesson at the range.
+- The career three-putt task gains a screen clause (11 three-putts in 108
+  sim holes — the screen corroborating real greens is a clause, not a
+  second task saying "lag drill" twice), gated at `minScreenPuttHoles` (100).
+
+Every screen sentence names itself screen data ("the launch is measured,
+the flight is modelled") so modelled flight is never passed off as course
+evidence. `GarminHole` now surfaces `fairwayShotOutcome` for this.
+
+**Rejected:** a screen-scoring finding on the profile (the sims are seven
+rounds at seven bucket-list courses — scoring level there says more about
+Pebble than about the golfer; only intra-screen comparisons like par type
+and miss side are honest); folding screen holes into the career three-putt
+denominator (two provenances, one number — the clause keeps them apart).
+
+---
+
+## 2026-08-22 — The record publishes below the gate; only claims wait for it
+
+**Decided:** the profile page and PROFILE.md gain an "On the course" section
+and the bag page gains "The course beside the range", both fed by a new
+`onCourseRecord()` in `lib/garmin-shots.ts` and `GolferProfile.onCourse`.
+These render as soon as ANY shot-bearing round exists — the findings still
+wait for `minShotRounds` (5), because a finding is a claim, but the record
+itself is not a claim and hiding it until the gate made the gate look like an
+absence of data. The section says the gate out loud ("findings switch on at
+5; this is the record, not a claim") and every number carries its n.
+
+**What it surfaced immediately:** the Driver's first number ever — 263 yd
+median over 18 on-course swings — and the 3 Hybrid's (220 yd over 13), both
+clubs the range ledger never measured; the Gap Wedge beside its range figure
+(103 vs 98); and 41 of the 77 non-tee shots starting from the rough. The
+"unmeasured driver" gap `/scratch` names is now half-answered by the course.
+
+**Two honesty rules baked in:** (1) `courseClubDistances` now excludes
+RECOVERY shots — a punch-out is a full swing deliberately not hit the club's
+distance, and one of them drags a ten-shot median for weeks; "clear full
+swings" means no putts, no chips, no short game, no recoveries. (2) Garmin
+distances are point-to-point to where the ball came to REST, so they read
+against a range *total* more fairly than a carry — both sections print that
+caveat instead of letting the bag's carry/total toggle silently change what
+the comparison means.
+
+**Rejected:** loosening the findings gate (the gate is right; the fix was
+publishing the record, not lowering the bar for claims); a per-club display
+threshold below `minShotsPerClub` (a 5-shot median is a coin toss wearing a
+number); converting course yards to "carry-equivalent" by subtracting range
+rollout (an invented exchange rate between two different measurements).
+
+---
+
 ## 2026-08-22 — The diary draws its own traces; Garmin's imagery stays Garmin's
 
 **Decided:** a new `/diary` page renders every shot the watch heard, round by

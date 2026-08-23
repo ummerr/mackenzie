@@ -41,9 +41,11 @@ import {
   courseClubDistances,
   GARMIN_THRESHOLDS,
   lieSplit,
+  onCourseRecord,
   shotRounds,
   strokeCategorySplit,
   type GarminShots,
+  type OnCourseRecord,
 } from "./garmin-shots";
 import { meanScore, scorable, totalRounds } from "./course-history";
 import type { LedgerSession, LedgerShot } from "./ledger";
@@ -155,6 +157,15 @@ export interface Unknown {
   needs: string;
 }
 
+/** The on-course record with each club's range number beside it — the
+ *  both-numbers rule applied to the course/range seam. `rangeYd` is null for
+ *  a club the range ledger has not measured (or has suppressed), which is
+ *  itself information: for those, the course median is the first number the
+ *  club has ever had. */
+export interface OnCourse extends OnCourseRecord {
+  clubs: { club: string; shots: number; medianYd: number; rangeYd: number | null }[];
+}
+
 export interface GolferProfile {
   spec: SpecLine[];
   findings: Finding[];
@@ -162,6 +173,10 @@ export interface GolferProfile {
   /** The recent window beside the whole record — null without round data or
    *  when the window holds fewer than `minRecentRounds` distinct rounds. */
   recentForm: RecentForm | null;
+  /** What the watch has heard on the course, gate-independent: the findings
+   *  wait for `GARMIN_THRESHOLDS.minShotRounds`, but the record itself is
+   *  published as soon as it exists, sample sizes attached. */
+  onCourse: OnCourse | null;
   sources: { label: string; detail: string }[];
   /** True when only the range half was available. */
   rangeOnly: boolean;
@@ -1067,12 +1082,27 @@ export function buildProfile({
 
   findings.sort((a, b) => b.weight - a.weight || a.id.localeCompare(b.id));
 
+  /* The on-course record, decorated with each club's range median where the
+   * range has one — computed here because `drawn` lives here, so the page and
+   * PROFILE.md render one object instead of joining twice. */
+  const onCourseBare = garminShots ? onCourseRecord(garminShots) : null;
+  const onCourse: OnCourse | null = onCourseBare
+    ? {
+        ...onCourseBare,
+        clubs: onCourseBare.clubs.map((c) => ({
+          ...c,
+          rangeYd: drawn.find((p) => p.club === c.club)?.medianDistanceYd ?? null,
+        })),
+      }
+    : null;
+
   return {
     spec: buildSpec({ shots, trusted, sessions, drawn, history, roundHistory, coverage }),
     findings,
     unknowns: buildUnknowns(history, roundHistory, garminShots, bag),
     recentForm:
       form !== null && form.scoring.recentN >= PROFILE_THRESHOLDS.minRecentRounds ? form : null,
+    onCourse,
     sources: [
       {
         label: "Range",

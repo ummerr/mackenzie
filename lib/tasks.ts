@@ -33,6 +33,16 @@
  */
 
 import { clubSpec, startsAHole, type BagSpec } from "./clubs";
+import {
+  courseClubDistances,
+  fairwayOutcomes,
+  GARMIN_THRESHOLDS,
+  parTypeScoring,
+  puttingRecord,
+  shotRounds,
+  simRounds,
+  type GarminShots,
+} from "./garmin-shots";
 import type { LedgerSession, LedgerShot } from "./ledger";
 import type { RoundHistory } from "./round-history";
 import { eighteenHole, puttsPerRound, recentVsCareer, threePuttShare } from "./round-history";
@@ -122,6 +132,8 @@ export interface TaskInput {
   bag?: BagSpec | null;
   /** Built from data/rounds.json. Null before the first `pnpm data:rounds`. */
   roundHistory?: RoundHistory | null;
+  /** Built from data/garmin-rounds.json. Null before the first `pnpm data:garmin`. */
+  garminShots?: GarminShots | null;
 }
 
 export function buildTasks({
@@ -132,10 +144,31 @@ export function buildTasks({
   minShots = MIN_SHOTS_TO_DISPLAY,
   bag = null,
   roundHistory = null,
+  garminShots = null,
 }: TaskInput): Task[] {
   const tasks: Task[] = [];
   const shown = sortByBag(profiles.filter((p) => !p.suppressed));
   const longest = shown[0];
+
+  /* What the course has meanwhile measured, for the tasks about unmeasured
+   * clubs. The course median does not retire a range task — point-to-point
+   * yards over a handful of rounds answer a different question than a
+   * monitor's carry — but a task that says "never been measured" while the
+   * watch holds 18 swings would be lying by omission. */
+  const courseYd = new Map(
+    (garminShots ? courseClubDistances(shotRounds(garminShots)) : []).map((c) => [
+      c.club,
+      c,
+    ]),
+  );
+  const courseNote = (club: string): string => {
+    const c = courseYd.get(club);
+    return c
+      ? ` AutoShot has meanwhile heard ${c.shots} full swings with it on the course — ` +
+          `median ${c.medianYd.toFixed(0)} yd point-to-point — a number to check the ` +
+          "monitor against, not a substitute for it."
+      : "";
+  };
 
   // ── 0. clubs you own that the monitor has never seen ──────────────────────
   //
@@ -155,7 +188,8 @@ export function buildTasks({
       evidence:
         `${named || club} is in the bag${loft ? ` at ${loft.value}°` : ""} and has not one shot ` +
         `on file across ${sessions.length} session${sessions.length === 1 ? "" : "s"}. ` +
-        "Both gaps beside it are guesses about a club nobody has hit at a monitor.",
+        "Both gaps beside it are guesses about a club nobody has hit at a monitor." +
+        courseNote(club),
       action: `Hit ${rawShotsNeeded(minShots)} in one block, the same as any other club.`,
       doneWhen: `${minShots} usable shots with the ${club}.`,
       /* A club that starts a hole first: the gaps at the top of the bag are the
@@ -181,7 +215,8 @@ export function buildTasks({
         evidence:
           `${longest.club} at ${longest.medianDistanceYd.toFixed(0)} yd is the longest club with enough data. ` +
           `${names.join(", ")} ${names.length === 1 ? "is" : "are"} in the ledger but below the threshold, ` +
-          `so every gap above ${longest.medianDistanceYd.toFixed(0)} yd is invisible — not wide, invisible.`,
+          `so every gap above ${longest.medianDistanceYd.toFixed(0)} yd is invisible — not wide, invisible.` +
+          names.map(courseNote).join(""),
         action: `Hit 20 each of ${names.join(", ")}, plus anything else you carry longer than a ${longest.club}.`,
         doneWhen: `Every club longer than the ${longest.club} has ${minShots}+ usable shots.`,
         priority: 100,
@@ -200,10 +235,11 @@ export function buildTasks({
       category: "coverage",
       title: `Measure the ${p.club}`,
       evidence:
-        p.n === 0
+        (p.n === 0
           ? "No shots on file."
           : `${p.active} usable shot${p.active === 1 ? "" : "s"} of ${p.n} hit. ` +
-            `Below ${minShots}, so it is suppressed and both gaps beside it read "not shown".`,
+            `Below ${minShots}, so it is suppressed and both gaps beside it read "not shown".`) +
+        courseNote(p.club),
       action:
         `Hit about ${raw} in one block — ${shortfall} more usable, plus ` +
         `${REVIEW_THRESHOLDS.warmupShotsPerClub} warmup and a mishit or two.`,
@@ -378,6 +414,17 @@ export function buildTasks({
             `${Math.round(1 / Math.max(formOk.threePutt.recent, 1e-9))} over ` +
             `${formOk.threePutt.recentN} recent holes.`
           : "";
+      /* The screen corroborating a real-green pattern is worth a clause, not
+       * a second task saying "lag drill" twice. */
+      const screenPutts = garminShots
+        ? puttingRecord(simRounds(garminShots))
+        : { holes: 0, threePutts: 0 };
+      const screenTp =
+        screenPutts.holes >= GARMIN_THRESHOLDS.minScreenPuttHoles && screenPutts.threePutts > 0
+          ? ` The R50 screen agrees: ${screenPutts.threePutts} three-putts in ` +
+            `${screenPutts.holes} sim holes (one in ` +
+            `${Math.round(screenPutts.holes / screenPutts.threePutts)}).`
+          : "";
       tasks.push({
         id: "three-putts",
         category: "scoring",
@@ -386,7 +433,8 @@ export function buildTasks({
           `${tp.threePutts} of ${tp.holes} recorded holes took three or more putts, and the ` +
           `${withPutts.length} rounds that logged putting average ${pp.toFixed(1)} putts — ` +
           "the largest single line item in the score, and the only one no launch monitor will ever see." +
-          recentTp,
+          recentTp +
+          screenTp,
         action:
           "Lag drill before every round: ten putts from 30+ feet, scored by finishing inside " +
           "a flagstick's length, not by holing anything.",
@@ -469,6 +517,75 @@ export function buildTasks({
             `A capture whose last-${formOk.months}-month scoring mean sits back within ` +
             `${PROFILE_THRESHOLDS.recentDeltaStrokes} strokes of the career figure.`,
           priority: 62,
+          done: false,
+        });
+      }
+    }
+  }
+
+  /* ── screen play: the R50 sim scorecards ─────────────────────────────────
+   * Seven-plus rounds at Pebble, Augusta and friends are still swings: the
+   * screen measures the launch and models the flight, so its scorecards
+   * speak about club delivery — above the GARMIN_THRESHOLDS floors, and
+   * always named as screen numbers, never passed off as course ones. */
+  if (garminShots) {
+    const screen = simRounds(garminShots);
+    const byPar = new Map(parTypeScoring(screen).map((p) => [p.par, p]));
+    const p3 = byPar.get(3);
+    const p5 = byPar.get(5);
+    if (
+      p3 &&
+      p5 &&
+      p3.holes >= GARMIN_THRESHOLDS.minScreenHolesPerPar &&
+      p5.holes >= GARMIN_THRESHOLDS.minScreenHolesPerPar &&
+      p3.meanOverPar - p5.meanOverPar >= GARMIN_THRESHOLDS.screenParGapStrokes
+    ) {
+      tasks.push({
+        id: "screen-par-threes",
+        category: "scoring",
+        title: "Par 3s are the screen's leak",
+        evidence:
+          `Over ${p3.holes} par-3 holes on the R50 screen the scoring runs ` +
+          `+${p3.meanOverPar.toFixed(2)} a hole, against +${p5.meanOverPar.toFixed(2)} ` +
+          `across ${p5.holes} par 5s — and a par 3 is nothing but one iron and the putter. ` +
+          "Screen numbers: the launch is measured, the flight is modelled, so this speaks " +
+          "about club delivery, not wind.",
+        action:
+          "An iron-precision block played as nine screen par 3s: three flags between " +
+          "150 and 200 yd, scored by finishing inside ten yards of the flag — not by contact.",
+        doneWhen:
+          `A capture whose screen par-3 mean sits within ` +
+          `${GARMIN_THRESHOLDS.screenParGapStrokes} strokes-over-par of the par-5 mean.`,
+        /* Below three-putts (60): thirty-eight holes of modelled flight must
+         * not outrank a five-year record from real greens — but it is range
+         * work, so it stays a task rather than a footnote. */
+        priority: 59,
+        done: false,
+      });
+    }
+
+    const fw = fairwayOutcomes(screen);
+    const misses = fw.left + fw.right;
+    if (fw.driven >= GARMIN_THRESHOLDS.minScreenDriven && misses > 0) {
+      const side = fw.left > fw.right ? "left" : "right";
+      const owned = Math.max(fw.left, fw.right);
+      if (owned / misses >= GARMIN_THRESHOLDS.screenMissShare) {
+        tasks.push({
+          id: "screen-tee-miss",
+          category: "scoring",
+          title: `The screen tee ball misses ${side}`,
+          evidence:
+            `${fw.driven} driven holes on the R50 screen: ${fw.hit} fairways, and ` +
+            `${owned} of the ${misses} misses went ${side}. The screen's launch is ` +
+            "measured, so an owned side is club delivery, not gust or lie.",
+          action:
+            "A start-line block with the driver: gate drill at the range, ten balls, " +
+            "called before contact.",
+          doneWhen: "A capture where neither side owns two-thirds of the screen misses.",
+          /* Under the inverted-gapping blind spots (65): a tee ball with an
+           * owned side is cheap strokes, but a measured-launch pattern over
+           * modelled flight still ranks under a confirmed range inversion. */
+          priority: 63,
           done: false,
         });
       }

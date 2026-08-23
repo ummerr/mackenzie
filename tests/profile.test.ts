@@ -458,6 +458,46 @@ describe("buildProfile — the on-course shot half", () => {
     expect(sg?.evidence).toContain("the watch heard");
   });
 
+  it("publishes the on-course record below the gate — the record is not a claim", () => {
+    // Two rounds: well under minShotRounds, so no findings — but the record
+    // itself must still be on the profile with its sample sizes. Hiding it
+    // until the gate would make the gate look like an absence of data.
+    const p = withGarmin(
+      garminShotsOf([
+        garminRound("1", "2026-08-20", shotsFor()),
+        garminRound("2", "2026-08-22", shotsFor()),
+      ]),
+    );
+    expect(p.findings.map((f) => f.id)).not.toContain("short-game-share");
+    expect(p.onCourse).not.toBeNull();
+    expect(p.onCourse?.rounds).toBe(2);
+    expect(p.onCourse?.asOf).toBe("2026-08-22");
+    expect(p.onCourse?.split.shots).toBe(10);
+    expect(p.onCourse?.split.strokes).toBe(180);
+  });
+
+  it("has no on-course record without the shot half", () => {
+    expect(withGarmin(null).onCourse).toBeNull();
+  });
+
+  it("decorates each measured club with its range median, null when the range never measured it", () => {
+    // Ten 7 Iron swings (the range has drawn it) and ten 2 Iron swings (no
+    // range data exists for it): both clear minShotsPerClub, and the range
+    // column must say "number" for one and "null" for the other — a null
+    // rangeYd is the course giving a club its first number, not a bug.
+    const seven = Array.from({ length: 10 }, () => shot({ yards: 130 }));
+    const twoIron = Array.from({ length: 10 }, () => shot({ club: "2 Iron", yards: 200 }));
+    const p = withGarmin(
+      garminShotsOf([
+        garminRound("1", "2026-08-20", seven),
+        garminRound("2", "2026-08-22", twoIron),
+      ]),
+    );
+    const clubs = p.onCourse?.clubs ?? [];
+    expect(clubs.find((c) => c.club === "7 Iron")?.rangeYd).not.toBeNull();
+    expect(clubs.find((c) => c.club === "2 Iron")?.rangeYd).toBeNull();
+  });
+
   it("compares a club to the range only at minShotsPerClub, with the gap in the claim", () => {
     // 10 full-swing 7 Iron shots per the threshold, medians deliberately short
     // of the range number so the direction is fixed.

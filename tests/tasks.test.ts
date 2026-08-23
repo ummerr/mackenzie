@@ -249,3 +249,113 @@ describe("buildTasks — retires its own tasks", () => {
     expect(buildTasks({ profiles: [], gaps: [], shots: [], sessions: [] })).toEqual([]);
   });
 });
+
+/* Screen-play tasks: the R50 sim scorecards are real swings with modelled
+ * flight, so each guard is tested from both sides — a task that fires on a
+ * modelled coin toss teaches the wrong lesson at the range. */
+
+import type { GarminHole, GarminRound, GarminShots } from "../lib/garmin-shots";
+
+function simHole(number: number, par: number, strokes: number, over: Partial<GarminHole> = {}): GarminHole {
+  return { number, strokes, putts: 2, par, fairwayShotOutcome: null, shots: [], ...over };
+}
+
+function simRound(id: string, date: string, holes: GarminHole[]): GarminRound {
+  return {
+    scorecardId: id,
+    date,
+    roundType: "SIMULATION",
+    courseName: "Screen Course",
+    teeBox: "White",
+    teeBoxRating: 70,
+    teeBoxSlope: 120,
+    holesRecorded: holes.length,
+    strokes: holes.reduce((a, h) => a + (h.strokes ?? 0), 0),
+    shotCount: 0,
+    holes,
+    flags: ["simulation"],
+  };
+}
+
+function tasksWithGarmin(rounds: GarminRound[]): Task[] {
+  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
+  const sessions = load<LedgerSession[]>("sessions.json");
+  const profiles = buildBag(shots);
+  const garminShots: GarminShots = { capturedAt: "2026-08-23T00:00:00Z", source: "test", rounds };
+  return buildTasks({ profiles, gaps: detectGaps(profiles), shots, sessions, garminShots });
+}
+
+describe("buildTasks — screen play", () => {
+  // 18 par-3 and 18 par-5 holes, both past minScreenHolesPerPar.
+  const parHoles = (p3Over: number, p5Over: number): GarminHole[] => [
+    ...Array.from({ length: 18 }, (_, i) => simHole(i + 1, 3, 3 + p3Over)),
+    ...Array.from({ length: 18 }, (_, i) => simHole(i + 19, 5, 5 + p5Over)),
+  ];
+
+  it("fires screen-par-threes when par 3s run past par 5s by the threshold", () => {
+    const t = tasksWithGarmin([simRound("s1", "2026-07-02", parHoles(1, 0))]).find(
+      (x) => x.id === "screen-par-threes",
+    );
+    expect(t).toBeDefined();
+    // Screen numbers say so out loud — modelled flight is never passed off as course data.
+    expect(t?.evidence).toContain("R50 screen");
+    expect(t?.evidence).toContain("the flight is modelled");
+    // Below three-putts (60): 38 modelled holes never outrank five real years.
+    expect(t?.priority).toBe(59);
+  });
+
+  it("stays quiet when par types score alike, or the sample is thin", () => {
+    const alike = tasksWithGarmin([simRound("s1", "2026-07-02", parHoles(1, 1))]);
+    expect(alike.some((x) => x.id === "screen-par-threes")).toBe(false);
+    // Same gap, but only 9 holes a type: an anecdote, not a leak.
+    const thin = tasksWithGarmin([
+      simRound("s1", "2026-07-02", [
+        ...Array.from({ length: 9 }, (_, i) => simHole(i + 1, 3, 4)),
+        ...Array.from({ length: 9 }, (_, i) => simHole(i + 10, 5, 5)),
+      ]),
+    ]);
+    expect(thin.some((x) => x.id === "screen-par-threes")).toBe(false);
+  });
+
+  it("fires screen-tee-miss only when one side owns two thirds of the misses", () => {
+    const driven = (left: number, right: number, hit: number): GarminHole[] => [
+      ...Array.from({ length: left }, (_, i) => simHole(i + 1, 4, 5, { fairwayShotOutcome: "LEFT" })),
+      ...Array.from({ length: right }, (_, i) => simHole(i + 30, 4, 5, { fairwayShotOutcome: "RIGHT" })),
+      ...Array.from({ length: hit }, (_, i) => simHole(i + 60, 4, 5, { fairwayShotOutcome: "HIT" })),
+    ];
+    // 30 of 40 misses right, 60 driven: an owned side.
+    const owned = tasksWithGarmin([simRound("s1", "2026-07-02", driven(10, 30, 20))]).find(
+      (x) => x.id === "screen-tee-miss",
+    );
+    expect(owned).toBeDefined();
+    expect(owned?.title).toContain("right");
+    // The real record's shape — a near-even split — is NOT a direction.
+    const even = tasksWithGarmin([simRound("s1", "2026-07-02", driven(18, 24, 28))]);
+    expect(even.some((x) => x.id === "screen-tee-miss")).toBe(false);
+  });
+
+  it("grounds the unmeasured-club tasks with the course medians", () => {
+    // Ten full on-course swings with a club the range holds under threshold:
+    // its coverage task must cite the course number rather than say "nothing".
+    const courseRound: GarminRound = {
+      ...simRound("c1", "2026-08-20", []),
+      roundType: "ALL",
+      flags: [],
+      shotCount: 10,
+      holes: [
+        {
+          number: 1, strokes: 5, putts: null, par: 4, fairwayShotOutcome: null,
+          shots: Array.from({ length: 10 }, (_, i) => ({
+            order: i + 1, club: "Driver", clubId: 1, shotType: "TEE",
+            meters: 240, yards: 262.5, startLie: "TeeBox", endLie: "Fairway",
+            startMap: null, endMap: null,
+          })),
+        },
+      ],
+    };
+    const t = tasksWithGarmin([courseRound]).find((x) => x.id === "coverage-Driver");
+    expect(t).toBeDefined();
+    expect(t?.evidence).toContain("AutoShot has meanwhile heard 10 full swings");
+    expect(t?.evidence).toContain("a number to check the monitor against");
+  });
+});
