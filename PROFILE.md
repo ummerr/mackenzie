@@ -22,9 +22,9 @@ takes it off. Hit the shots and the sentence retires itself.
 | Courses played | **85** — 11 US states, 3 countries |
 | Mean score | **88.4** — 79 layouts, 18 holes |
 | Favourite | **Bethpage State Park (Black)** — own ranking, no. 1 |
-| Handicap index | **13.3** — WHS, from 23.9 at the record's start |
-| Scored span | **2021-07-08 → 2026-08-16** — 168 dated rounds |
-| Recent scoring | **89.2** — last 5 rounds; career 90.4 over 139 |
+| Handicap index | **13.5** — WHS, from 23.9 at the record's start |
+| Scored span | **2021-07-08 → 2026-08-22** — 170 dated rounds |
+| Recent scoring | **91.8** — last 5 rounds; career 90.5 over 141 |
 
 ## The read
 
@@ -53,13 +53,13 @@ of claim this repo refuses to print.
 
 ### 04. The golf got better over the whole record and worse over the recent stretch: the career arc and the last dozen differentials point opposite ways.
 
-- **why** — Trending handicap 23.9 at the record's start, 13.3 now, across 153 differentials (mean of the first 20: 18.9; the last 20: 17.1). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 89.3 (2026, 6). Over the last 12 chart points the trending handicap moved from 9.7 to 13.3 (mean differential 17.1).
+- **why** — Trending handicap 23.9 at the record's start, 13.5 now, across 154 differentials (mean of the first 20: 18.9; the last 20: 17.2). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 90.6 (2026, 8). Over the last 12 chart points the trending handicap moved from 9.4 to 13.5 (mean differential 17.6).
 - **gone when** — A capture whose last 12 differentials leave the trending handicap no higher than they found it.
 - *course · high confidence*
 
 ### 05. Putting is the biggest single line item in the score: 39% of all strokes happen on the green.
 
-- **why** — 136 eighteen-hole rounds carry putts: 35.7 per round against a 90.4 mean score. 360 holes took three or more putts, of 2645 recorded — one in 7.
+- **why** — 138 eighteen-hole rounds carry putts: 35.7 per round against a 90.5 mean score. 364 holes took three or more putts, of 2681 recorded — one in 7.
 - **gone when** — A capture with putts under 35% of strokes, or three-putts under one hole in 10.
 - *course · high confidence*
 
@@ -71,7 +71,7 @@ of claim this repo refuses to print.
 
 ### 07. The tee ball misses both ways in nearly equal measure — the course-side echo of the range's two-way miss, and the one pattern aiming off cannot fix.
 
-- **why** — 1542 driven holes carry a fairway result: 62% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 397 holes carry codes outside Grint's own legend and are excluded.
+- **why** — 1564 driven holes carry a fairway result: 62% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 411 holes carry codes outside Grint's own legend and are excluded.
 - **gone when** — A capture where one side owns two-thirds of the misses, or the hit rate moves by five points.
 - *course · high confidence*
 
@@ -131,30 +131,30 @@ of claim this repo refuses to print.
 
 ### 17. The recent scorecards look like the career record; the recent differentials do not.
 
-- **why** — Last 18 months (since 2025-02-16, 9 distinct 18-hole rounds): 89.6 mean strokes against 90.4 over the career's 139; 34.8 putts a round against 35.7. The last 12 differentials average 17.1 and moved the trending handicap from 9.7 to 13.3.
+- **why** — Last 18 months (since 2025-02-22, 11 distinct 18-hole rounds): 90.5 mean strokes against 90.5 over the career's 141; 34.8 putts a round against 35.7. The last 12 differentials average 17.6 and moved the trending handicap from 9.4 to 13.5.
 - **gone when** — A capture where the recent window and the career agree — the trending-handicap tail within 2 strokes flat, and the recent means within 2 strokes and 1.5 putts of career.
-- *course · low confidence*
+- *course · medium confidence*
 
 ## Recent form
 
-The last 18 months (since 2025-02-16), measured from the newest
-card (2026-08-16) — never from today, so this file reads the same until the
+The last 18 months (since 2025-02-22), measured from the newest
+card (2026-08-22) — never from today, so this file reads the same until the
 record changes. Quick-entry echoes of a card already on file are not counted twice.
 
 | Date | Course | Strokes | Putts |
 |---|---|---|---|
-| 2026-07-19 | Tilden Park Golf Course | 85 | 35 |
-| 2026-07-25 | Ussher's Creek \| Legends On The Niagara Golf Club | 91 | 35 |
 | 2026-07-26 | Battlefield \| Legends On The Niagara Golf Club | 91 | 33 |
 | 2026-08-15 | Bennett Valley Golf Course | 89 | 38 |
 | 2026-08-16 | Brambles Golf | 90 | 35 |
+| 2026-08-20 | TPC Harding Park Golf Course | 91 | 33 |
+| 2026-08-22 | Presidio Golf Course | 98 | 37 |
 
 | | Recent | Career |
 |---|---|---|
-| Scoring | **89.6** (9 rounds) | 90.4 (139 rounds) |
-| Putts / round | **34.8** (9 rounds) | 35.7 (136 rounds) |
-| Three-putt share | **7%** (162 holes) | 14% (2645 holes) |
-| Fairways hit | **75%** (126 holes) | 62% (1542 holes) |
+| Scoring | **90.5** (11 rounds) | 90.5 (141 rounds) |
+| Putts / round | **34.8** (11 rounds) | 35.7 (138 rounds) |
+| Three-putt share | **8%** (198 holes) | 14% (2681 holes) |
+| Fairways hit | **73%** (148 holes) | 62% (1564 holes) |
 
 ## The roast
 
@@ -169,21 +169,21 @@ more — a roast that needs a fact you do not have is just an insult.
 >
 > — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 168 rounds played.
 
-> The career took 11 strokes off the handicap; the last 12 differentials gave 3.6 back.
+> The career took 10 strokes off the handicap; the last 12 differentials gave 4.1 back.
 >
-> — Trending handicap 23.9 at the record's start, 13.3 now, across 153 differentials (mean of the first 20: 18.9; the last 20: 17.1). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 89.3 (2026, 6). Over the last 12 chart points the trending handicap moved from 9.7 to 13.3 (mean differential 17.1).
+> — Trending handicap 23.9 at the record's start, 13.5 now, across 154 differentials (mean of the first 20: 18.9; the last 20: 17.2). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 90.6 (2026, 8). Over the last 12 chart points the trending handicap moved from 9.4 to 13.5 (mean differential 17.6).
 
 > 35.7 putts a round, and a three-putt every 7 holes. The greens are charging a second green fee.
 >
-> — 136 eighteen-hole rounds carry putts: 35.7 per round against a 90.4 mean score. 360 holes took three or more putts, of 2645 recorded — one in 7.
+> — 138 eighteen-hole rounds carry putts: 35.7 per round against a 90.5 mean score. 364 holes took three or more putts, of 2681 recorded — one in 7.
 
 > 3 pairs of clubs land within 8 yd of each other — 5 clubs doing the work of 3 — and none of them covers the 31 yd hole between the 5 Iron and the 6 Iron.
 >
 > — Worst gap 31.1 yd between 5 Iron and 6 Iron · 3 overlapping pairs under 8 yd apart.
 
-> 258 fairways missed left, 257 missed right. At least the misses are fair.
+> 263 fairways missed left, 260 missed right. At least the misses are fair.
 >
-> — 1542 driven holes carry a fairway result: 62% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 397 holes carry codes outside Grint's own legend and are excluded.
+> — 1564 driven holes carry a fairway result: 62% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 411 holes carry codes outside Grint's own legend and are excluded.
 
 > 74% of the courses in this record got exactly one chance to make an impression, which is also how many chances they got to be learned.
 >
@@ -207,7 +207,7 @@ more — a roast that needs a fact you do not have is just an insult.
 
 > Same scores, worse handicap: the recent courses were easier, and the scorecards didn't notice.
 >
-> — Last 18 months (since 2025-02-16, 9 distinct 18-hole rounds): 89.6 mean strokes against 90.4 over the career's 139; 34.8 putts a round against 35.7. The last 12 differentials average 17.1 and moved the trending handicap from 9.7 to 13.3.
+> — Last 18 months (since 2025-02-22, 11 distinct 18-hole rounds): 90.5 mean strokes against 90.5 over the career's 141; 34.8 putts a round against 35.7. The last 12 differentials average 17.6 and moved the trending handicap from 9.4 to 13.5.
 
 ## What the record cannot say
 
@@ -248,7 +248,7 @@ The rounds carry a course, a tee name and a differential, but still no par or ya
 
 - **Range** — 301 shots over 8 Garmin R50 sessions, 2026-07-02 to 2026-08-14
 - **Courses** — 168 rounds over 95 layouts, from The Grint, captured 2026-08-01
-- **Rounds** — 168 dated scorecards, 2021-07-08 to 2026-08-16, from the Grint export bundle, captured 2026-08-19
+- **Rounds** — 170 dated scorecards, 2021-07-08 to 2026-08-22, from the Grint export bundle, captured 2026-08-23
 
 Regenerate with `pnpm profile`. The course half comes from
 `public/data/courses.json`, the map pipeline's artifact — `pnpm data:build`.
