@@ -1289,6 +1289,16 @@ function Caveats({
           </li>
         ))}
       </ul>
+      <p className="mt-2.5 font-mono text-[11px] leading-5 text-ink-3">
+        The offline numbers above are landing positions. Where each miss came
+        from — started off line, or bent in the air — is its own report:{" "}
+        <a
+          href="/ball-flight"
+          className="text-ink-1 underline decoration-1 underline-offset-2"
+        >
+          the flight, not just the landing →
+        </a>
+      </p>
     </section>
   );
 }

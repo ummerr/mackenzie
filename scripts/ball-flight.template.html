@@ -2,7 +2,7 @@
 
 <style>
   /* ── tokens ──────────────────────────────────────────────────────────────
-     Inherited from the Yardages app (app/globals.css) so this reads as part of
+     Inherited from the app (app/globals.css) so this reads as part of
      the same publication, plus ONE addition: a two-hue series pair for the
      start/curve split, which the app had no need for. Both modes validated
      against these exact surfaces — light #0b6ba0/#b8420f (CVD dE 19.9), dark
@@ -189,7 +189,7 @@
   svg { display: block; max-width: 100%; height: auto; }
   svg text { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
   /* Chrome must not eat the pointer. Axis text and gridlines are painted over
-     the marks, and with 181 overlapping dots a label sitting on top of one is
+     the marks, and with hundreds of overlapping dots a label sitting on top of one is
      enough to make it unhoverable. Only marks take the pointer. */
   svg * { pointer-events: none; }
   svg [data-tip] { pointer-events: auto; }
@@ -253,7 +253,7 @@
 <div class="wrap">
 
   <header>
-    <p class="stamp">Yardages &middot; ball flight &middot; 181 trusted shots, 7 sessions</p>
+    <p class="stamp"><a href="/bag" style="color:inherit;text-decoration:none">MACKENZIE &middot; the bag</a> &middot; ball flight &middot; <span id="hdr-count">&mdash;</span></p>
     <h1>The ball is not going where you aimed. That is two different problems.</h1>
     <p class="deck">
       A shot that finishes 15 yards right either <em>started</em> there or <em>bent</em>
@@ -278,7 +278,7 @@
         <p class="stamp">Every trusted shot &middot; scale 1:1 both ways</p>
         <p class="stamp" id="hero-note"></p>
       </div>
-      <div class="scroll"><svg id="hero" role="img" aria-label="Scatter of 181 shots: start line across, curvature up the page, divided into nine named ball-flight regions"></svg></div>
+      <div class="scroll"><svg id="hero" role="img" aria-label="Scatter of every readable shot: start line across, curvature up the page, divided into nine named ball-flight regions"></svg></div>
       <figcaption id="hero-cap"></figcaption>
     </figure>
   </section>
@@ -400,11 +400,12 @@
       curve = carry &times; ( sin(carry_deviation_angle) &minus; sin(launch_direction) )
     </p>
     <p>
-      Two checks before trusting it. Curvature must track the spin axis &mdash; it does,
-      at <b>r&nbsp;=&nbsp;0.93 with 100% sign agreement</b> on all 158 real curves. Start
-      line must track the club face &mdash; it does, at <b>r&nbsp;=&nbsp;0.97</b>, slope
-      0.88. And the two parts reconstruct the export's own offline column to
-      <b>0.018 yd</b>, so the split is arithmetic rather than interpretation.
+      Two checks before trusting it, computed from the same data this page draws.
+      Curvature must track the spin axis &mdash; <span id="v-spin">&mdash;</span>. Start
+      line must track the club face &mdash; <span id="v-face">&mdash;</span>. And the two
+      parts reconstruct the export's own offline column to
+      <b><span id="v-recon">&mdash;</span></b>, so the split is arithmetic rather than
+      interpretation.
     </p>
     <details>
       <summary>Every number in this report</summary>
@@ -419,6 +420,27 @@
 <script>
 const D = __DATA__;
 const $ = (s) => document.querySelector(s);
+
+/* The narrative numbers, filled from the injected report — never typed into
+ * this template, so the prose cannot outlive the data it describes. */
+{
+  const V = D.validation ?? {};
+  $("#hdr-count").textContent = D.n + " trusted shots, " + (V.sessions ?? "?") + " sessions";
+  $("#v-spin").innerHTML = V.spinAxis
+    ? "it does, at <b>r&nbsp;=&nbsp;" + V.spinAxis.r.toFixed(2) + " with " + V.spinAxis.signAgreementPct + "% sign agreement</b> on all " + V.spinAxis.curves + " real curves"
+    : "not checkable on this ledger";
+  $("#v-face").innerHTML = V.startFace
+    ? "it does, at <b>r&nbsp;=&nbsp;" + V.startFace.r.toFixed(2) + "</b>, slope " + V.startFace.slope.toFixed(2)
+    : "not checkable on this ledger";
+  $("#v-recon").textContent =
+    V.reconstructionErrYd === null || V.reconstructionErrYd === undefined
+      ? "—"
+      : V.reconstructionErrYd + " yd";
+  $("#hero").setAttribute(
+    "aria-label",
+    "Scatter of " + D.n + " shots: start line across, curvature up the page, divided into nine named ball-flight regions",
+  );
+}
 const NS = "http://www.w3.org/2000/svg";
 const el = (n, a = {}) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); return e; };
 const short = (c) => c.replace("Pitching Wedge","PW").replace("Gap Wedge","GW").replace("Sand Wedge","SW").replace("Lob Wedge","LW").replace(" Iron","i").replace(" Hybrid","H").replace(" Wood","W");

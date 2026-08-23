@@ -22,12 +22,13 @@
  * invented, and `tests/ball-flight.test.ts` holds it to reconstructing that
  * column to within 0.02 yd across the whole ledger.
  *
- * Two independent checks that the halves mean what they are named, both in the
- * tests: curvature must track the spin axis (r = 0.93, and the sign agrees on
- * every one of the 158 real curves), and start line must track the club face
- * (r = 0.97). Neither is used to compute anything — they are there so a future
- * firmware change that redefines a column fails loudly instead of quietly
- * relabelling aim as curve.
+ * Two independent checks that the halves mean what they are named: curvature
+ * must track the spin axis (with the sign agreeing on the real curves), and
+ * start line must track the club face. Neither is used to compute anything —
+ * the report carries the live values (`validation`) and the page prints them,
+ * so a future firmware change that redefines a column fails loudly instead of
+ * quietly relabelling aim as curve, and the prose can never outlive its own
+ * numbers.
  */
 
 import type { LedgerShot } from "./ledger";
@@ -138,6 +139,20 @@ export function clubFlight(shots: LedgerShot[], club: string): ClubFlight {
   };
 }
 
+/** The live versions of the report's own honesty checks — computed from the
+ *  current ledger so the page's prose can never quote a number the data has
+ *  outgrown. */
+export interface FlightValidation {
+  /** Distinct sessions among readable shots. */
+  sessions: number;
+  /** Curvature vs spin axis, over real curves only. */
+  spinAxis: { r: number; signAgreementPct: number; curves: number } | null;
+  /** Start line vs club face, over shots where the club was tracked. */
+  startFace: { r: number; slope: number; n: number } | null;
+  /** Median |start + curve − the export's own offline column|, yards. */
+  reconstructionErrYd: number | null;
+}
+
 export interface FlightReport {
   n: number;
   threshold: number;
@@ -146,6 +161,7 @@ export interface FlightReport {
   shots: { c: string; s: number; v: number; y: number; p: number | null }[];
   /** Least-squares fit of curvature on face-to-path, and its correlation. */
   fit: { r: number; slope: number; intercept: number; n: number } | null;
+  validation: FlightValidation;
   clubs: ClubFlight[];
   tally: Record<string, number>;
   straightPct: number;
@@ -203,6 +219,68 @@ export function fitCurveOnFaceToPath(
   };
 }
 
+/** Plain least squares, shared by the honesty checks. */
+function lsq(xs: number[], ys: number[]): { r: number; slope: number } | null {
+  const n = xs.length;
+  if (n < 3) return null;
+  const mx = xs.reduce((a, b) => a + b, 0) / n;
+  const my = ys.reduce((a, b) => a + b, 0) / n;
+  let sxy = 0;
+  let sxx = 0;
+  let syy = 0;
+  for (let i = 0; i < n; i += 1) {
+    const a = xs[i] - mx;
+    const b = ys[i] - my;
+    sxy += a * b;
+    sxx += a * a;
+    syy += b * b;
+  }
+  if (sxx === 0 || syy === 0) return null;
+  return {
+    r: Math.round((sxy / Math.sqrt(sxx * syy)) * 100) / 100,
+    slope: Math.round((sxy / sxx) * 100) / 100,
+  };
+}
+
+export function buildValidation(shots: LedgerShot[], t = STRAIGHT_YD): FlightValidation {
+  const sessions = new Set(shots.map((s) => s.sessionId)).size;
+
+  const curved = shots.filter((s) => Math.abs(curveYd(s)) > t && s.spinAxisDeg !== null);
+  let spinAxis: FlightValidation["spinAxis"] = null;
+  const spinFit = lsq(
+    curved.map((s) => s.spinAxisDeg as number),
+    curved.map(curveYd),
+  );
+  if (spinFit) {
+    const agree = curved.filter(
+      (s) => Math.sign(s.spinAxisDeg as number) === Math.sign(curveYd(s)),
+    ).length;
+    spinAxis = {
+      r: spinFit.r,
+      signAgreementPct: Math.round((100 * agree) / curved.length),
+      curves: curved.length,
+    };
+  }
+
+  const faced = shots.filter((s) => s.faceAngleDeg !== null);
+  const faceFit = lsq(
+    faced.map((s) => s.faceAngleDeg as number),
+    faced.map((s) => s.launchDirectionDeg as number),
+  );
+  const startFace = faceFit ? { r: faceFit.r, slope: faceFit.slope, n: faced.length } : null;
+
+  const withOffline = shots.filter((s) => s.offlineYd !== null);
+  const reconstructionErrYd =
+    withOffline.length === 0
+      ? null
+      : Math.round(
+          median(withOffline.map((s) => Math.abs(startYd(s) + curveYd(s) - (s.offlineYd as number)))) *
+            1000,
+        ) / 1000;
+
+  return { sessions, spinAxis, startFace, reconstructionErrYd };
+}
+
 /** Everything the report draws, from classified shots. Pure. */
 export function buildFlightReport(all: LedgerShot[], t = STRAIGHT_YD): FlightReport {
   const shots = all.filter(isReadable);
@@ -237,6 +315,7 @@ export function buildFlightReport(all: LedgerShot[], t = STRAIGHT_YD): FlightRep
       p: s.faceToPathDeg === null ? null : r1(s.faceToPathDeg),
     })),
     fit: fitCurveOnFaceToPath(shots),
+    validation: buildValidation(shots, t),
     clubs,
     tally,
     straightPct: pct(
