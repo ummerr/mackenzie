@@ -30,6 +30,8 @@ function shot(over: Partial<GarminShot> = {}): GarminShot {
     endLie: "Green",
     startMap: { x: 300, y: 500 },
     endMap: { x: 320, y: 220 },
+    startGeo: { lat: 37.789174, lon: -122.462697 },
+    endGeo: { lat: 37.790293, lon: -122.462828 },
     ...over,
   };
 }
@@ -46,7 +48,9 @@ function round(over: Partial<GarminRound> = {}, shots: GarminShot[] = []): Garmi
     holesRecorded: 18,
     strokes: 90,
     shotCount: shots.length,
-    holes: [{ number: 1, strokes: 5, putts: null, par: 4, fairwayShotOutcome: null, shots }],
+    holes: [
+      { number: 1, strokes: 5, putts: null, par: 4, fairwayShotOutcome: null, pin: null, shots },
+    ],
     flags: [],
     ...over,
   };
@@ -80,6 +84,7 @@ describe("buildGarminShots", () => {
             putts: null,
             par: 4,
             fairwayShotOutcome: null,
+            pin: { lat: 37.789583, lon: -122.463012 },
             shots: [{ ...shot(), raw: { secret: "never surfaces" } } as never],
           },
         ],
@@ -120,6 +125,15 @@ describe("buildGarminShots", () => {
     const s = buildGarminShots(src).rounds[0].holes[0].shots[0];
     expect(s.startMap).toEqual({ x: 300, y: 500 });
     expect(s.endMap).toEqual({ x: 320, y: 220 });
+  });
+
+  it("surfaces the geographic frame — shot degrees and the hole's pin", () => {
+    // The hole drawings project from these; losing them here would silently
+    // drop every course drawing back to the bare-trace fallback.
+    const h = buildGarminShots(src).rounds[0].holes[0];
+    expect(h.pin).toEqual({ lat: 37.789583, lon: -122.463012 });
+    expect(h.shots[0].startGeo).toEqual({ lat: 37.789174, lon: -122.462697 });
+    expect(h.shots[0].endGeo).toEqual({ lat: 37.790293, lon: -122.462828 });
   });
 });
 
@@ -257,7 +271,7 @@ describe("onCourseRecord", () => {
 
 describe("screen scorecard readers", () => {
   const holeOf = (par: number, strokes: number, over: object = {}) => ({
-    number: 1, strokes, putts: 2, par, fairwayShotOutcome: null, shots: [], ...over,
+    number: 1, strokes, putts: 2, par, fairwayShotOutcome: null, pin: null, shots: [], ...over,
   });
 
   it("parTypeScoring groups strokes-over-par by par, skipping holes missing either", () => {

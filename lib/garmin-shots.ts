@@ -33,6 +33,10 @@ export interface GarminShot {
    *  map raster itself is Garmin's and is never fetched. */
   startMap: { x: number; y: number } | null;
   endMap: { x: number; y: number } | null;
+  /** The same locations in WGS84 degrees (converted from Garmin semicircles
+   *  by the adapter) — the frame the hole drawings are projected from. */
+  startGeo: { lat: number; lon: number } | null;
+  endGeo: { lat: number; lon: number } | null;
 }
 
 export interface GarminHole {
@@ -44,6 +48,8 @@ export interface GarminHole {
    *  holes. Carried on the R50 screen rounds; the on-course cards rarely
    *  have it. */
   fairwayShotOutcome: string | null;
+  /** The day's flag position in degrees, from the holeShots payload. */
+  pin: { lat: number; lon: number } | null;
   shots: GarminShot[];
 }
 
@@ -89,6 +95,7 @@ export interface SourceGarminRound {
     putts: number | null;
     par: number | null;
     fairwayShotOutcome: string | null;
+    pin: { lat: number; lon: number } | null;
     shots: {
       order: number | null;
       club: string | null;
@@ -100,6 +107,8 @@ export interface SourceGarminRound {
       endLie: string | null;
       startMap: { x: number; y: number } | null;
       endMap: { x: number; y: number } | null;
+      startGeo: { lat: number; lon: number } | null;
+      endGeo: { lat: number; lon: number } | null;
     }[];
   }[];
   flags: string[];
@@ -159,6 +168,7 @@ export function buildGarminShots(src: SourceGarminRounds): GarminShots {
           putts: h.putts,
           par: h.par,
           fairwayShotOutcome: h.fairwayShotOutcome,
+          pin: h.pin,
           shots: h.shots.map((s) => ({
             order: s.order,
             club: s.club,
@@ -170,6 +180,8 @@ export function buildGarminShots(src: SourceGarminRounds): GarminShots {
             endLie: s.endLie,
             startMap: s.startMap,
             endMap: s.endMap,
+            startGeo: s.startGeo,
+            endGeo: s.endGeo,
           })),
         })),
         flags: r.flags,

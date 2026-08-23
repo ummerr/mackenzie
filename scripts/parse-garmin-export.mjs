@@ -59,6 +59,17 @@ const mapPoint = (loc) =>
     ? { x: loc.x, y: loc.y }
     : null;
 
+/** Garmin semicircles → degrees, rounded to 1e-6° (~0.11 m) so the JSON stays
+ *  small. The record's own geometry, never Garmin's imagery. */
+const SEMI = 180 / 2 ** 31;
+const geoPoint = (loc) =>
+  loc && typeof loc.lat === "number" && typeof loc.lon === "number"
+    ? {
+        lat: Math.round(loc.lat * SEMI * 1e6) / 1e6,
+        lon: Math.round(loc.lon * SEMI * 1e6) / 1e6,
+      }
+    : null;
+
 /**
  * Garmin clubType name → BAG_ORDER string (lib/clubs.ts). Garmin's own type
  * table already uses the bag's exact vocabulary ("Driver", "3 Wood",
@@ -123,9 +134,11 @@ export function parseHolePars(s) {
 /**
  * One scorecardDetail payload + its merged shot list → a round record.
  * `shots` is every shot for this scorecard (any hole), verbatim from the
- * holeShots payloads; `clubIndex` from buildClubIndex.
+ * holeShots payloads; `clubIndex` from buildClubIndex; `pinByHole` maps
+ * holeNumber → pin {lat, lon} in degrees, from the holeShots payloads'
+ * pinPosition fields.
  */
-export function parseGarminRound(detailJson, shots, clubIndex) {
+export function parseGarminRound(detailJson, shots, clubIndex, pinByHole = new Map()) {
   const flags = [];
   const detail = detailJson?.scorecardDetails?.[0];
   const sc = detail?.scorecard;
@@ -179,6 +192,10 @@ export function parseGarminRound(detailJson, shots, clubIndex) {
       // drawn from.
       startMap: mapPoint(s.startLoc),
       endMap: mapPoint(s.endLoc),
+      // The same locations in WGS84 degrees (converted from Garmin's
+      // semicircles) — the frame the hole drawings are projected from.
+      startGeo: geoPoint(s.startLoc),
+      endGeo: geoPoint(s.endLoc),
       raw: s,
     };
   };
@@ -190,6 +207,8 @@ export function parseGarminRound(detailJson, shots, clubIndex) {
     putts: h.putts ?? null,
     fairwayShotOutcome: h.fairwayShotOutcome ?? null,
     par: pars?.[h.number - 1] ?? null,
+    // The day's flag position in degrees, from the holeShots payload.
+    pin: pinByHole.get(h.number) ?? null,
     shots: (shotsByHole.get(h.number) ?? [])
       .slice()
       .sort((a, b) => (a.shotOrder ?? 0) - (b.shotOrder ?? 0))
@@ -317,10 +336,16 @@ function main() {
 
   const rounds = [];
   for (const [id, detailRes] of merged.detailById) {
-    const shots = (merged.shotsById.get(id) ?? [])
-      .flatMap((r) => payload(r)?.holeShots ?? [])
-      .flatMap((h) => h.shots ?? []);
-    const round = parseGarminRound(payload(detailRes), shots, clubIndex);
+    const holeEntries = (merged.shotsById.get(id) ?? []).flatMap(
+      (r) => payload(r)?.holeShots ?? [],
+    );
+    const shots = holeEntries.flatMap((h) => h.shots ?? []);
+    const pinByHole = new Map();
+    for (const h of holeEntries) {
+      const pin = geoPoint(h.pinPosition);
+      if (pin && h.holeNumber != null) pinByHole.set(h.holeNumber, pin);
+    }
+    const round = parseGarminRound(payload(detailRes), shots, clubIndex, pinByHole);
     if (round) rounds.push(round);
   }
   rounds.sort(

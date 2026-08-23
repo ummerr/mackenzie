@@ -25,9 +25,21 @@ const payload = (pred: (r: any) => boolean) => {
 };
 const detailOf = (id: string) =>
   payload((r) => r.kind === "scorecardDetail" && String(r.meta.scorecardId) === id);
-const shotsOf = (id: string) =>
-  (payload((r) => r.kind === "holeShots" && String(r.meta.scorecardId) === id)?.holeShots ?? [])
-    .flatMap((h: any) => h.shots ?? []);
+const holeEntriesOf = (id: string) =>
+  payload((r) => r.kind === "holeShots" && String(r.meta.scorecardId) === id)?.holeShots ?? [];
+const shotsOf = (id: string) => holeEntriesOf(id).flatMap((h: any) => h.shots ?? []);
+
+/** Garmin semicircles → degrees at the adapter's 1e-6° rounding. */
+const deg = (v: number) => Math.round(((v * 180) / 2 ** 31) * 1e6) / 1e6;
+const pinsOf = (id: string) =>
+  new Map(
+    holeEntriesOf(id)
+      .filter((h: any) => h.pinPosition)
+      .map((h: any) => [
+        h.holeNumber,
+        { lat: deg(h.pinPosition.lat), lon: deg(h.pinPosition.lon) },
+      ]),
+  );
 
 const clubIndex = buildClubIndex(
   payload((r) => r.kind === "clubs"),
@@ -55,7 +67,12 @@ describe("buildClubIndex", () => {
 });
 
 describe("parseGarminRound — on-course AutoShot card", () => {
-  const round = parseGarminRound(detailOf(ON_COURSE), shotsOf(ON_COURSE), clubIndex);
+  const round = parseGarminRound(
+    detailOf(ON_COURSE),
+    shotsOf(ON_COURSE),
+    clubIndex,
+    pinsOf(ON_COURSE),
+  );
 
   it("takes the date from the local-offset formattedStartTime, unflagged", () => {
     expect(round.date).toBe("2026-08-22");
@@ -90,6 +107,25 @@ describe("parseGarminRound — on-course AutoShot card", () => {
     expect(first.endMap).toEqual({ x: first.raw.endLoc.x, y: first.raw.endLoc.y });
   });
 
+  it("surfaces the geographic frame — shot degrees and the day's pins", () => {
+    const first = round.holes[0].shots[0];
+    // Semicircles → degrees at 1e-6° — the hole drawings project from these.
+    expect(first.startGeo).toEqual({
+      lat: deg(first.raw.startLoc.lat),
+      lon: deg(first.raw.startLoc.lon),
+    });
+    expect(first.endGeo).toEqual({
+      lat: deg(first.raw.endLoc.lat),
+      lon: deg(first.raw.endLoc.lon),
+    });
+    // Every fixture hole carries a pinPosition; each surfaces as the hole's pin.
+    const pins = pinsOf(ON_COURSE);
+    expect(pins.size).toBeGreaterThan(0);
+    for (const h of round.holes) {
+      expect(h.pin).toEqual(pins.get(h.number) ?? null);
+    }
+  });
+
   it("has no per-hole putts — AutoShot cards do not carry them", () => {
     expect(round.totals.putts).toBeNull();
     expect(round.holes.every((h: any) => h.putts === null)).toBe(true);
@@ -121,6 +157,10 @@ describe("parseGarminRound — simulator card", () => {
     expect(round.totals.putts).not.toBeNull();
     expect(round.totals.shots).toBe(0);
     expect(round.courseName).toBe("Pinehurst Resort ~ The Cradle");
+  });
+
+  it("defaults every pin to null when no pin map is passed", () => {
+    expect(round.holes.every((h: any) => h.pin === null)).toBe(true);
   });
 });
 

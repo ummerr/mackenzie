@@ -75,6 +75,25 @@
   --turf-tick: light-dark(#4f5a45, #94a692);
   --turf-muted: light-dark(#5a6650, #7b8f7a);
 
+  /* ── the course ─────────────────────────────────────────────────────────────
+   * The diary's hole drawings — scenery under the shot trace, never an
+   * encoding. Dark values are the /courses map's TURF palette
+   * (public/courses/src/shared.js); light values are the same surfaces
+   * re-lit for the cream paper. Same fact as the turf tokens: mown grass
+   * is lighter than long, so wash < rough < fairway < green in both themes,
+   * and the ink trace must stay legible on every fill. */
+  --course-wash: light-dark(#e4e8d2, #1a2e20);
+  --course-rough: light-dark(#dde3c8, #1b3325);
+  --course-fairway: light-dark(#eef3da, #2f5f42);
+  --course-tee: light-dark(#c9d8a8, #3d7351);
+  --course-green: light-dark(#d3ecc0, #63b07a);
+  --course-green-edge: light-dark(#9dbd85, #8fd0a1);
+  --course-sand: light-dark(#f0e4c2, #e0cfa8);
+  --course-sand-edge: light-dark(#c0ad7f, #93805a);
+  --course-water: light-dark(#cfe3ea, #1b4a5e);
+  --course-water-edge: light-dark(#79a8bb, #4f9db8);
+  --course-penalty: light-dark(#e2cabb, #4a2f26);
+
   /* ── the club ramp ──────────────────────────────────────────────────────────
    * Ordinal, not categorical: index 0 is the shortest club drawn and the ramp
    * deepens as the hole gets longer. Two hue poles now, not one: warm 64° at
