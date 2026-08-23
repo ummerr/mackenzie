@@ -24,18 +24,21 @@ export interface SourceRef {
   missing: string | null;
 }
 
+/* Every field is optional so a page can build only the rows it reads —
+ * filter the result by id; a source the page never touches just goes
+ * unrendered rather than falsely reported missing. */
 export function buildSources({
-  shots,
-  sessions,
-  history,
-  roundHistory,
-  garminShots,
+  shots = [],
+  sessions = [],
+  history = null,
+  roundHistory = null,
+  garminShots = null,
 }: {
-  shots: LedgerShot[];
-  sessions: LedgerSession[];
-  history: CourseHistory | null;
-  roundHistory: RoundHistory | null;
-  garminShots: GarminShots | null;
+  shots?: LedgerShot[];
+  sessions?: LedgerSession[];
+  history?: CourseHistory | null;
+  roundHistory?: RoundHistory | null;
+  garminShots?: GarminShots | null;
 }): SourceRef[] {
   return [
     roundHistory

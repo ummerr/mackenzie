@@ -14,6 +14,7 @@ import {
 } from "@/lib/profile";
 import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
 import { buildTasks } from "@/lib/tasks";
+import { Provenance } from "./provenance";
 
 export const metadata = {
   title: "Profile — Mackenzie",
@@ -222,24 +223,18 @@ export default function Profile() {
       </section>
 
       {/* ── provenance ────────────────────────────────────────────────────── */}
-      <section className="mt-10 border-t pt-4 rule">
-        <h2 className="stamp text-ink-2">Read from</h2>
-        <dl className="mt-3 space-y-1 font-mono text-[11px] leading-5">
-          {profile.sources.map((s) => (
-            <div key={s.label} className="flex flex-wrap gap-x-3">
-              <dt className="w-20 shrink-0 text-ink-1">{s.label}</dt>
-              <dd className="text-ink-3">{s.detail}</dd>
-            </div>
-          ))}
-        </dl>
-        <p className="mt-3 max-w-2xl font-mono text-[10px] leading-4 text-ink-3">
-          The same profile is written to{" "}
-          <code className="text-ink-2">PROFILE.md</code> by{" "}
-          <code className="text-ink-2">pnpm profile</code>, so every change to the
-          golfer is a commit rather than a page that quietly reads differently
-          than it did last month.
-        </p>
-      </section>
+      <Provenance
+        sources={profile.sources}
+        note={
+          <>
+            The same profile is written to{" "}
+            <code className="text-ink-2">PROFILE.md</code> by{" "}
+            <code className="text-ink-2">pnpm profile</code>, so every change to
+            the golfer is a commit rather than a page that quietly reads
+            differently than it did last month.
+          </>
+        }
+      />
     </div>
   );
 }

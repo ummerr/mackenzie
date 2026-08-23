@@ -16,8 +16,10 @@ import {
   type HolePaint,
   type XY,
 } from "@/lib/hole-geometry";
-import { loadCourseGeo, loadGarmin, loadLinkedGrint } from "@/lib/load";
+import { loadCourseGeo, loadGarmin, loadLinkedGrint, loadRounds } from "@/lib/load";
 import type { PlayedRound } from "@/lib/round-history";
+import { buildSources } from "@/lib/sources";
+import { Provenance } from "../provenance";
 
 export const metadata = {
   title: "Diary — Mackenzie",
@@ -121,6 +123,13 @@ export default function Diary() {
           </ul>
         </section>
       )}
+
+      <Provenance
+        sources={buildSources({ garminShots: garmin, roundHistory: loadRounds() }).filter(
+          (s) => s.id === "watch" || s.id === "scorecards",
+        )}
+        note="The putts arrive through data/round-links.json — machine-proposed, human-confirmed; only confirmed links are read."
+      />
     </div>
   );
 }

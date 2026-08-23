@@ -7,6 +7,8 @@ import { buildLeaks, type Leak } from "@/lib/leaks";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
 import { loadGarmin, loadJson, loadLinkedGrint, loadRounds } from "@/lib/load";
 import type { PlayedRound, RecentForm, RoundHistory, StatPair } from "@/lib/round-history";
+import { buildSources } from "@/lib/sources";
+import { Provenance } from "../provenance";
 import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
 import { buildTasks } from "@/lib/tasks";
 import { buildWedgeMatrix } from "@/lib/wedge-matrix";
@@ -566,13 +568,19 @@ export default function Scratch() {
         </blockquote>
       </section>
 
-      <p className="mt-12 border-t pt-4 font-mono text-[11px] leading-relaxed text-ink-3 rule">
-        derived from data/rounds.json (captured {h.capturedAt.slice(0, 10)}) — parsed from the
-        Grint export bundle · GIR
-        and scramble rates read from TheGrint&apos;s own per-round charts · fairway codes decoded
-        from the scorecard form&apos;s own legend (1 left · 2 right · 3 hit · 4 missed) · every
-        claim above carries the condition that retires it
-      </p>
+      <Provenance
+        sources={buildSources({ roundHistory: h, garminShots }).filter(
+          (s) => s.id === "scorecards" || s.id === "watch",
+        )}
+        note={
+          <>
+            GIR and scramble rates read from TheGrint&apos;s own per-round charts ·
+            fairway codes decoded from the scorecard form&apos;s own legend (1 left ·
+            2 right · 3 hit · 4 missed) · every claim above carries the condition
+            that retires it
+          </>
+        }
+      />
     </div>
   );
 }

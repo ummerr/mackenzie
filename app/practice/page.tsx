@@ -3,7 +3,9 @@ import { readBag, readWedgeBlocks } from "@/lib/bag-file";
 import { buildWedgeMatrix } from "@/lib/wedge-matrix";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
 import { loadGarmin, loadJson, loadRounds } from "@/lib/load";
+import { buildSources } from "@/lib/sources";
 import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
+import { Provenance } from "../provenance";
 import { buildTasks, type Task, type TaskCategory } from "@/lib/tasks";
 
 export const metadata = {
@@ -32,14 +34,16 @@ export default function Practice() {
   const sessions = loadJson<LedgerSession[]>("sessions.json");
   const profiles = buildBag(shots);
   const bag = readBag(join(process.cwd(), "data"));
+  const roundHistory = loadRounds();
+  const garminShots = loadGarmin();
   const tasks = buildTasks({
     profiles,
     gaps: detectGaps(profiles, undefined, bag),
     shots,
     sessions,
     bag,
-    roundHistory: loadRounds(),
-    garminShots: loadGarmin(),
+    roundHistory,
+    garminShots,
     wedgeMatrix: buildWedgeMatrix(shots, blocks, profiles),
   });
 
@@ -90,6 +94,12 @@ export default function Practice() {
           ))}
         </dl>
       </section>
+
+      <Provenance
+        sources={buildSources({ shots, sessions, roundHistory, garminShots }).filter(
+          (s) => s.id !== "map",
+        )}
+      />
     </div>
   );
 }

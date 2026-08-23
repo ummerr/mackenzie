@@ -6,6 +6,8 @@ import { buildWedgeMatrix } from "@/lib/wedge-matrix";
 import { courseClubDistances, shotRounds } from "@/lib/garmin-shots";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
 import { loadGarmin, loadJson } from "@/lib/load";
+import { buildSources } from "@/lib/sources";
+import { Provenance } from "../provenance";
 import {
   applyHeuristics,
   bagCoverage,
@@ -79,6 +81,7 @@ export default function Home() {
   ) as Record<DistanceBasis, BasisView>;
 
   return (
+    <>
     <Bag
       views={views}
       sessionCount={sessions.length}
@@ -96,5 +99,14 @@ export default function Home() {
        * R50 never modelled the roll of a half wedge. */
       wedgeMatrix={buildWedgeMatrix(shots, blocks, views.carry.bag)}
     />
+    {/* Same container geometry as Bag's own root, so the block lines up. */}
+    <div className="mx-auto max-w-7xl px-4 pb-8 sm:px-5">
+      <Provenance
+        sources={buildSources({ shots, sessions, garminShots: loadGarmin() }).filter(
+          (s) => s.id === "range" || s.id === "watch",
+        )}
+      />
+    </div>
+    </>
   );
 }
