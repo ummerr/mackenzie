@@ -6,6 +6,11 @@ import {
   type CourseHistory,
   type SourceCourses,
 } from "@/lib/course-history";
+import {
+  buildGarminShots,
+  type GarminShots,
+  type SourceGarminRounds,
+} from "@/lib/garmin-shots";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
 import {
   buildProfile,
@@ -56,6 +61,14 @@ function loadRounds(): RoundHistory | null {
   }
 }
 
+function loadGarmin(): GarminShots | null {
+  try {
+    return buildGarminShots(load<SourceGarminRounds>("garmin-rounds.json"));
+  } catch {
+    return null;
+  }
+}
+
 const LENS_WORD = { range: "range", course: "courses", both: "both" } as const;
 
 export default function Profile() {
@@ -74,6 +87,7 @@ export default function Profile() {
     tasks,
     history: loadHistory(),
     roundHistory,
+    garminShots: loadGarmin(),
     bag,
   });
 

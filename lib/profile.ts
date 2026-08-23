@@ -37,6 +37,14 @@
 
 import { startsAHole, type BagSpec } from "./clubs";
 import type { CourseHistory, PlayedLayout } from "./course-history";
+import {
+  courseClubDistances,
+  GARMIN_THRESHOLDS,
+  lieSplit,
+  shotRounds,
+  strokeCategorySplit,
+  type GarminShots,
+} from "./garmin-shots";
 import { meanScore, scorable, totalRounds } from "./course-history";
 import type { LedgerSession, LedgerShot } from "./ledger";
 import type { RecentForm, RoundHistory } from "./round-history";
@@ -171,6 +179,8 @@ export interface ProfileInput {
   history: CourseHistory | null;
   /** Null when data/rounds.json has not been parsed from an export yet. */
   roundHistory?: RoundHistory | null;
+  /** Null when data/garmin-rounds.json has not been parsed from an export yet. */
+  garminShots?: GarminShots | null;
   /** data/bag.json. Null when it has not been written. */
   bag?: BagSpec | null;
 }
@@ -247,6 +257,7 @@ export function buildProfile({
   tasks,
   history,
   roundHistory = null,
+  garminShots = null,
   bag = null,
 }: ProfileInput): GolferProfile {
   const findings: Finding[] = [];
@@ -946,6 +957,98 @@ export function buildProfile({
     }
   }
 
+  // ── the on-course shot record (Garmin AutoShot) ───────────────────────────
+  // Three findings the range ledger structurally could not make, gated behind
+  // GARMIN_THRESHOLDS.minShotRounds: below it the shot record is an anecdote
+  // and stays in the unknowns (buildUnknowns names what exists). Every share
+  // is a share of RECORDED shots — AutoShot hears full swings, not putts —
+  // and the evidence prints the coverage beside the claim.
+
+  if (garminShots) {
+    const shotBearing = shotRounds(garminShots);
+    if (shotBearing.length >= GARMIN_THRESHOLDS.minShotRounds) {
+      // The shot record's share of the whole round record, for ranking: a
+      // handful of tracked rounds must not outrank five years of scorecards.
+      const shotShare = roundHistory
+        ? shotBearing.length / Math.max(1, roundHistory.rounds.length)
+        : 0.1;
+
+      const split = strokeCategorySplit(shotBearing);
+      if (split.shots > 0 && split.strokes > 0) {
+        add({
+          id: "short-game-share",
+          lens: "course",
+          confidence: "medium",
+          coverage: shotShare,
+          claim:
+            `The record finally has on-course shots, and ${pct(split.shortGame / split.shots)} ` +
+            `of the recorded ones are short game — inside ${GARMIN_THRESHOLDS.shortGameYd} yd or chips.`,
+          evidence:
+            `${split.shots} AutoShot shots over ${shotBearing.length} rounds: ${split.tee} tee, ` +
+            `${split.approach} approach/layup/recovery, ${split.shortGame} short game, ` +
+            `${split.putts} putts, ${split.other} unclassified. The scorecards count ` +
+            `${split.strokes} strokes, so the watch heard ${pct(split.shots / split.strokes)} of them — ` +
+            `without a putter sensor, putts and some chips never become shots.`,
+          roast: null,
+          falsifiedBy:
+            "A capture moving the short-game share by ten points, or putter-sensor data closing the coverage gap.",
+        });
+      }
+
+      const lies = lieSplit(shotBearing);
+      const lieTotal = lies.reduce((a, l) => a + l.shots, 0);
+      if (lieTotal > 0) {
+        const named = lies.filter((l) => l.lie !== "Unknown");
+        const top = named[0] ?? lies[0];
+        add({
+          id: "lie-mix",
+          lens: "course",
+          confidence: "medium",
+          coverage: shotShare,
+          claim:
+            `The ledger knows its lies now: ${pct(top.shots / lieTotal)} of the recorded ` +
+            `non-tee shots start from the ${top.lie.toLowerCase()}.`,
+          evidence:
+            `${lieTotal} non-tee shots with a start lie, Garmin's own strings: ` +
+            `${lies.map((l) => `${l.lie} ${l.shots}`).join(", ")}.`,
+          roast: null,
+          falsifiedBy: "A capture where the leading lie changes or its share moves by ten points.",
+        });
+      }
+
+      const onCourse = courseClubDistances(shotBearing);
+      const comparable = onCourse
+        .map((c) => ({
+          ...c,
+          rangeYd: drawn.find((p) => p.club === c.club)?.medianDistanceYd ?? null,
+        }))
+        .filter((c): c is typeof c & { rangeYd: number } => c.rangeYd !== null);
+      if (comparable.length > 0) {
+        const deltas = comparable.map((c) => c.medianYd - c.rangeYd);
+        const meanDelta = (mean(deltas) as number);
+        add({
+          id: "course-vs-range",
+          lens: "both",
+          confidence: "medium",
+          coverage: shotShare,
+          claim:
+            `${comparable.length} clubs have enough on-course shots to face their range numbers, ` +
+            `and on grass they run ${Math.abs(meanDelta).toFixed(1)} yd ` +
+            `${meanDelta >= 0 ? "longer" : "shorter"} than off the mat.`,
+          evidence: comparable
+            .map((c) => `${c.club} ${c.medianYd.toFixed(0)} yd on course (${c.shots} shots) vs ${c.rangeYd.toFixed(0)} yd range`)
+            .join(" · "),
+          roast:
+            meanDelta < -5
+              ? `The mat has been flattering the bag by ${Math.abs(meanDelta).toFixed(0)} yards a club.`
+              : null,
+          falsifiedBy:
+            "A capture where the mean course-vs-range gap crosses zero or shrinks under 3 yd.",
+        });
+      }
+    }
+  }
+
   // ── practice, which is the profile's own to-do list ───────────────────────
 
   const openTasks = tasks.filter((t) => !t.done);
@@ -967,7 +1070,7 @@ export function buildProfile({
   return {
     spec: buildSpec({ shots, trusted, sessions, drawn, history, roundHistory, coverage }),
     findings,
-    unknowns: buildUnknowns(history, roundHistory, bag),
+    unknowns: buildUnknowns(history, roundHistory, garminShots, bag),
     recentForm:
       form !== null && form.scoring.recentN >= PROFILE_THRESHOLDS.minRecentRounds ? form : null,
     sources: [
@@ -999,6 +1102,19 @@ export function buildProfile({
         : {
             label: "Rounds",
             detail: "no data/rounds.json — run `pnpm data:rounds`",
+          },
+      garminShots
+        ? {
+            label: "Shots on course",
+            detail:
+              `${shotRounds(garminShots).reduce((a, r) => a + r.shotCount, 0)} AutoShot shots ` +
+              `over ${shotRounds(garminShots).length} of ${garminShots.rounds.length} rounds ` +
+              `(the rest are R50 simulator rounds, which carry no shots), from the Garmin ` +
+              `export bundle, captured ${garminShots.capturedAt.slice(0, 10)}`,
+          }
+        : {
+            label: "Shots on course",
+            detail: "no data/garmin-rounds.json — run `pnpm data:garmin`",
           },
     ],
     rangeOnly: history === null,
@@ -1131,36 +1247,66 @@ function favouriteName(history: CourseHistory): string {
 function buildUnknowns(
   history: CourseHistory | null,
   roundHistory: RoundHistory | null,
+  garminShots: GarminShots | null,
   bag: BagSpec | null,
 ): Unknown[] {
-  const unknowns: Unknown[] = [
-    roundHistory
-      ? {
-          id: "short-game",
-          question: "How much of the score is the chipping and the sand?",
-          why:
-            "The scorecards now carry putts per hole, so the green's share of the score is a " +
-            "finding rather than a gap. Everything between the fairway and the green is still " +
-            "invisible: chips, pitches, bunker shots and penalties all hide inside the strokes " +
-            "column with nothing to separate them.",
-          needs: "Shot-level on-course data, or a hand-kept ups-and-downs card.",
-        }
-      : {
-          id: "short-game",
-          question: "How much of the score is the short game?",
-          why:
-            "A range export has no putts, no chips and no bunker shots. On any ordinary " +
-            "scorecard those are around half the strokes, and none of them are here.",
-          needs: "Shot-level on-course data, or a hand-kept putts-and-ups card.",
-        },
-    {
+  /* Shot-level on-course data exists since the Garmin AutoShot capture
+   * (2026-08-23); "short-game" and "lies" retire when the record clears
+   * GARMIN_THRESHOLDS.minShotRounds shot-bearing rounds — below it the
+   * unknown stays, but says what exists instead of pretending nothing does. */
+  const shotBearing = garminShots ? shotRounds(garminShots).length : 0;
+  const shotsExist = shotBearing > 0;
+  const shotsSuffice = shotBearing >= GARMIN_THRESHOLDS.minShotRounds;
+  const belowThreshold = (question: string) =>
+    `${shotBearing} round(s) of AutoShot shot data exist, below the ` +
+    `${GARMIN_THRESHOLDS.minShotRounds} the profile needs before ${question}`;
+
+  const unknowns: Unknown[] = [];
+  if (!shotsSuffice) {
+    unknowns.push(
+      shotsExist
+        ? {
+            id: "short-game",
+            question: "How much of the score is the chipping and the sand?",
+            why:
+              belowThreshold("the split is a finding") +
+              " — and AutoShot hears full swings only, so putts and some chips stay invisible without a putter sensor.",
+            needs: "More captured on-course rounds — the extension, then `pnpm data:garmin`.",
+          }
+        : roundHistory
+          ? {
+              id: "short-game",
+              question: "How much of the score is the chipping and the sand?",
+              why:
+                "The scorecards now carry putts per hole, so the green's share of the score is a " +
+                "finding rather than a gap. Everything between the fairway and the green is still " +
+                "invisible: chips, pitches, bunker shots and penalties all hide inside the strokes " +
+                "column with nothing to separate them.",
+              needs: "Shot-level on-course data, or a hand-kept ups-and-downs card.",
+            }
+          : {
+              id: "short-game",
+              question: "How much of the score is the short game?",
+              why:
+                "A range export has no putts, no chips and no bunker shots. On any ordinary " +
+                "scorecard those are around half the strokes, and none of them are here.",
+              needs: "Shot-level on-course data, or a hand-kept putts-and-ups card.",
+            },
+    );
+    unknowns.push({
       id: "lies",
       question: "What happens from a real lie?",
-      why:
-        "Every measured shot was hit off a mat to a flat range with a monitor watching. " +
-        "Nothing in the ledger has been hit from rough, sand, a slope or under pressure.",
-      needs: "On-course tracking, which the R50 does not export.",
-    },
+      why: shotsExist
+        ? belowThreshold("the lie mix is a finding") +
+          ". Until then, every measured number still comes off a mat."
+        : "Every measured shot was hit off a mat to a flat range with a monitor watching. " +
+          "Nothing in the ledger has been hit from rough, sand, a slope or under pressure.",
+      needs: shotsExist
+        ? "More captured on-course rounds — the extension, then `pnpm data:garmin`."
+        : "On-course tracking — the garmin-extension AutoShot capture, then `pnpm data:garmin`.",
+    });
+  }
+  unknowns.push(
     {
       id: "conditions",
       question: "How much of each number is the weather?",
@@ -1170,7 +1316,7 @@ function buildUnknowns(
         "cold one are averaged together as if they were the same day.",
       needs: "Per-shot environmentals, or enough sessions to model the correction.",
     },
-  ];
+  );
 
   /* Writing data/bag.json did not answer this question, it created it. Before
    * the file existed there was no loft to be wrong about; now every gap in

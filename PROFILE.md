@@ -216,15 +216,15 @@ mistaken for a finding.
 
 ### How much of the score is the chipping and the sand?
 
-The scorecards now carry putts per hole, so the green's share of the score is a finding rather than a gap. Everything between the fairway and the green is still invisible: chips, pitches, bunker shots and penalties all hide inside the strokes column with nothing to separate them.
+2 round(s) of AutoShot shot data exist, below the 5 the profile needs before the split is a finding — and AutoShot hears full swings only, so putts and some chips stay invisible without a putter sensor.
 
-**Needs:** Shot-level on-course data, or a hand-kept ups-and-downs card.
+**Needs:** More captured on-course rounds — the extension, then `pnpm data:garmin`.
 
 ### What happens from a real lie?
 
-Every measured shot was hit off a mat to a flat range with a monitor watching. Nothing in the ledger has been hit from rough, sand, a slope or under pressure.
+2 round(s) of AutoShot shot data exist, below the 5 the profile needs before the lie mix is a finding. Until then, every measured number still comes off a mat.
 
-**Needs:** On-course tracking, which the R50 does not export.
+**Needs:** More captured on-course rounds — the extension, then `pnpm data:garmin`.
 
 ### How much of each number is the weather?
 
@@ -249,6 +249,7 @@ The rounds carry a course, a tee name and a differential, but still no par or ya
 - **Range** — 301 shots over 8 Garmin R50 sessions, 2026-07-02 to 2026-08-14
 - **Courses** — 170 rounds over 97 layouts, from The Grint, captured 2026-08-01
 - **Rounds** — 170 dated scorecards, 2021-07-08 to 2026-08-22, from the Grint export bundle, captured 2026-08-23
+- **Shots on course** — 107 AutoShot shots over 2 of 9 rounds (the rest are R50 simulator rounds, which carry no shots), from the Garmin export bundle, captured 2026-08-23
 
 Regenerate with `pnpm profile`. The course half comes from
 `public/data/courses.json`, the map pipeline's artifact — `pnpm data:build`.

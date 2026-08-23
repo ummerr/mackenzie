@@ -23,6 +23,11 @@ import {
   type CourseHistory,
   type SourceCourses,
 } from "../lib/course-history";
+import {
+  buildGarminShots,
+  type GarminShots,
+  type SourceGarminRounds,
+} from "../lib/garmin-shots";
 import type { LedgerSession, LedgerShot } from "../lib/ledger";
 import {
   buildRoundHistory,
@@ -198,6 +203,16 @@ function main(): number {
     );
   }
 
+  let garminShots: GarminShots | null = null;
+  try {
+    garminShots = buildGarminShots(load<SourceGarminRounds>("garmin-rounds.json"));
+  } catch {
+    console.warn(
+      "no data/garmin-rounds.json — no on-course shot half. " +
+        "Run `pnpm data:garmin` for it (needs a garmin-export bundle in data/raw/).",
+    );
+  }
+
   const tasks = buildTasks({ profiles, gaps, shots, sessions, bag, roundHistory });
   const profile = buildProfile({
     shots,
@@ -207,6 +222,7 @@ function main(): number {
     tasks,
     history,
     roundHistory,
+    garminShots,
     bag,
   });
   const next = render(profile);

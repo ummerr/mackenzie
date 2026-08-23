@@ -365,3 +365,111 @@ describe("buildProfile — against the real ledger", () => {
     expect(profile.findings[0].lens).toBe("both");
   });
 });
+
+describe("buildProfile — the on-course shot half", () => {
+  const garminRound = (id: string, date: string, shots: object[]): object => ({
+    scorecardId: id,
+    date,
+    roundType: "ALL",
+    courseName: "Somewhere Municipal",
+    teeBox: "White",
+    teeBoxRating: 70,
+    teeBoxSlope: 120,
+    holesRecorded: 18,
+    strokes: 90,
+    shotCount: shots.length,
+    holes: [{ number: 1, strokes: 5, putts: null, par: 4, shots }],
+    flags: [],
+  });
+  const shot = (over: object = {}): object => ({
+    order: 1,
+    club: "7 Iron",
+    clubId: 1,
+    shotType: "APPROACH",
+    meters: 128,
+    yards: 140,
+    startLie: "Fairway",
+    endLie: "Green",
+    ...over,
+  });
+  const shotsFor = () => [
+    shot({ shotType: "TEE", club: "Driver", yards: 220, startLie: "TeeBox" }),
+    shot(), shot(), shot({ startLie: "Rough" }),
+    shot({ shotType: "CHIP", yards: 15, startLie: "Rough" }),
+  ];
+  const garminShotsOf = (rounds: object[]): object => ({
+    capturedAt: "2026-08-23T00:00:00Z",
+    source: "test",
+    rounds,
+  });
+  const withGarmin = (garminShots: object | null): GolferProfile => {
+    const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
+    const sessions = load<LedgerSession[]>("sessions.json");
+    const profiles = buildBag(shots);
+    const gaps = detectGaps(profiles);
+    return buildProfile({
+      shots,
+      sessions,
+      profiles,
+      gaps,
+      tasks: [],
+      history: realHistory(),
+      roundHistory: null,
+      garminShots: garminShots as never,
+    });
+  };
+
+  it("changes nothing when the shot record is absent — the unknowns stand", () => {
+    const p = withGarmin(null);
+    expect(p.unknowns.map((u) => u.id)).toContain("short-game");
+    expect(p.unknowns.map((u) => u.id)).toContain("lies");
+    expect(p.findings.map((f) => f.id)).not.toContain("short-game-share");
+    expect(p.sources.find((s) => s.label === "Shots on course")?.detail).toContain(
+      "pnpm data:garmin",
+    );
+  });
+
+  it("keeps the unknowns below minShotRounds, but says what exists", () => {
+    const p = withGarmin(
+      garminShotsOf([garminRound("1", "2026-08-20", shotsFor()), garminRound("2", "2026-08-22", shotsFor())]),
+    );
+    const shortGame = p.unknowns.find((u) => u.id === "short-game");
+    expect(shortGame).toBeDefined();
+    expect(shortGame?.why).toContain("2 round(s) of AutoShot shot data exist");
+    expect(p.findings.map((f) => f.id)).not.toContain("short-game-share");
+  });
+
+  it("retires short-game and lies above the threshold, and the findings appear", () => {
+    const rounds = Array.from({ length: 5 }, (_, i) =>
+      garminRound(String(i + 1), `2026-08-1${i}`, shotsFor()),
+    );
+    const p = withGarmin(garminShotsOf(rounds));
+    expect(p.unknowns.map((u) => u.id)).not.toContain("short-game");
+    expect(p.unknowns.map((u) => u.id)).not.toContain("lies");
+    const ids = p.findings.map((f) => f.id);
+    expect(ids).toContain("short-game-share");
+    expect(ids).toContain("lie-mix");
+    const lieMix = p.findings.find((f) => f.id === "lie-mix");
+    // 4 non-tee shots a round: Fairway 2, Rough 2 — the leading named lie.
+    expect(lieMix?.evidence).toContain("Fairway 10");
+    expect(lieMix?.evidence).toContain("Rough 10");
+    const sg = p.findings.find((f) => f.id === "short-game-share");
+    // Every share prints its coverage caveat beside it.
+    expect(sg?.evidence).toContain("the watch heard");
+  });
+
+  it("compares a club to the range only at minShotsPerClub, with the gap in the claim", () => {
+    // 10 full-swing 7 Iron shots per the threshold, medians deliberately short
+    // of the range number so the direction is fixed.
+    const seven = Array.from({ length: 10 }, (_, i) => shot({ yards: 120 + (i % 3) }));
+    const rounds = Array.from({ length: 5 }, (_, i) =>
+      garminRound(String(i + 1), `2026-08-1${i}`, i === 0 ? seven : shotsFor()),
+    );
+    const p = withGarmin(garminShotsOf(rounds));
+    const f = p.findings.find((x) => x.id === "course-vs-range");
+    expect(f).toBeDefined();
+    expect(f?.lens).toBe("both");
+    expect(f?.evidence).toContain("7 Iron");
+    expect(f?.evidence).toContain("on course");
+  });
+});
