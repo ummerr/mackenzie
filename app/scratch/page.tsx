@@ -1,6 +1,13 @@
+import { join } from "node:path";
 import type { ReactNode } from "react";
-import { loadRounds } from "@/lib/load";
+import { readBag, readWedgeBlocks } from "@/lib/bag-file";
+import { buildLeaks, type Leak } from "@/lib/leaks";
+import type { LedgerSession, LedgerShot } from "@/lib/ledger";
+import { loadGarmin, loadJson, loadRounds } from "@/lib/load";
 import type { PlayedRound, RoundHistory } from "@/lib/round-history";
+import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
+import { buildTasks } from "@/lib/tasks";
+import { buildWedgeMatrix } from "@/lib/wedge-matrix";
 import {
   asOf,
   differentialTrend,
@@ -131,18 +138,21 @@ function Mini({ title, pts, min, max, unit = "" }: {
   );
 }
 
-/* ── one ranked gap ── */
+/* ── one ranked leak — the engine's output, drawn ── */
 
-function GapEntry({ n, title, rows }: {
-  n: string;
-  title: string;
-  rows: { k: string; v: ReactNode; accent?: boolean }[];
-}) {
+function LeakEntry({ n, leak }: { n: string; leak: Leak }) {
+  const rows: { k: string; v: ReactNode; accent?: boolean }[] = [
+    { k: "fact", v: leak.fact },
+    { k: "cost", v: leak.cost, accent: true },
+    { k: "move", v: leak.move },
+    { k: "retired", v: leak.retiredWhen },
+  ];
   return (
     <div className="border-t pt-5 pb-2 rule">
-      <h3 className="text-[17px] leading-snug text-ink-0">
-        <span className="mr-3 font-mono text-[13px] font-bold text-accent-ink">{n}</span>
-        {title}
+      <h3 className="flex flex-wrap items-baseline gap-x-3 text-[17px] leading-snug text-ink-0">
+        <span className="font-mono text-[13px] font-bold text-accent-ink">{n}</span>
+        {leak.title}
+        <span className="stamp ml-auto shrink-0 text-ink-3">{leak.source}</span>
       </h3>
       <dl className="mt-2 space-y-1.5 font-mono text-[11px] leading-5 sm:pl-8">
         {rows.map((r) => (
@@ -216,6 +226,33 @@ export default function Scratch() {
         : { y: y.year, v: +((t.threePutts / t.holes) * 100).toFixed(1), n: rs.length };
     })
     .filter((p): p is { y: string; v: number; n: number } => p !== null);
+
+  /* The leak engine reads the whole record: the scorecards price the leaks,
+   * the range and the watch say which are located, and the practice list
+   * supplies each move — computed here so no sentence goes stale. */
+  const blocks = readWedgeBlocks(join(process.cwd(), "data"))?.blocks ?? [];
+  const shots = applyHeuristics(loadJson<LedgerShot[]>("shots.json"), undefined, blocks);
+  const sessions = loadJson<LedgerSession[]>("sessions.json");
+  const profiles = buildBag(shots);
+  const bag = readBag(join(process.cwd(), "data"));
+  const garminShots = loadGarmin();
+  const tasks = buildTasks({
+    profiles,
+    gaps: detectGaps(profiles, undefined, bag),
+    shots,
+    sessions,
+    bag,
+    roundHistory: h,
+    garminShots,
+    wedgeMatrix: buildWedgeMatrix(shots, blocks, profiles),
+  });
+  const leaks = buildLeaks({
+    roundHistory: h,
+    garminShots,
+    profiles,
+    tasks,
+    recentMonths: PROFILE_THRESHOLDS.recentMonths,
+  });
 
   const spec: { v: string; k: string; accent?: boolean }[] = [
     { v: h.handicapIndex === null ? "—" : f1(h.handicapIndex), k: "handicap index, from 23.9", accent: true },
@@ -391,51 +428,22 @@ export default function Scratch() {
         </ul>
       </section>
 
-      {/* ── the gaps ── */}
-      <section className="mt-10">
-        <h2 className="font-serif text-[26px] leading-tight">The gaps, ranked</h2>
+      {/* ── the leaks ── */}
+      <section className="mt-10" id="leaks">
+        <h2 className="font-serif text-[26px] leading-tight">The leaks, ranked</h2>
         <p className="mt-2 max-w-2xl text-[14px] leading-6 text-ink-1">
           Scratch means the best eight of the last twenty differentials average{" "}
           <code className="font-mono text-[13px]">0.0</code>. Today that number is{" "}
           <code className="font-mono text-[13px] text-accent-ink">{best8 === null ? "—" : best8.toFixed(2)}</code>.
-          Ranked by what each gap costs, on this record&apos;s own arithmetic:
+          Where the strokes leak, on this record&apos;s own arithmetic: leaks the record
+          can price come first, ranked by strokes; the ones whose cost is unknown by
+          construction follow, ranked by how much of the record says they exist. Each
+          move is the open practice task that addresses it, joined on render.
         </p>
         <div className="mt-5">
-          <GapEntry n="01" title={`The approach game caps everything: ${girMean === null ? "few" : f1(girMean)} greens a round`}
-            rows={[
-              { k: "fact", v: `${girMean === null ? "—" : f1(girMean)} GIR per round career${girLast20 === null ? "" : `, ${f1(girLast20)} over the last 20`}; ~13 missed greens per round` },
-              { k: "cost", v: `the structural ceiling — at a ${savesMean === null ? "—" : f1(savesMean)}% save rate, ~11 of those misses are bogey-or-worse before the putter or driver say anything`, accent: true },
-              { k: "move", v: "the measured half's job: the 31-yd 5i–6i hole, the clubs spraying wider than a fairway, and the unmeasured long irons are all approach clubs — the practice list already targets them" },
-              { k: "retired", v: "a capture averaging 9+ GIR over 20 rounds" },
-            ]} />
-          <GapEntry n="02" title={`The green gives back ${threePuttsPerRound === null ? "strokes" : f1(threePuttsPerRound) + " strokes"} a round`}
-            rows={[
-              { k: "fact", v: `${pp === null ? "—" : f1(pp)} putts per round; ${tp.threePutts} three-putts over ${tp.holes} recorded holes; own best round used ${bestPutts ?? "—"}` },
-              { k: "cost", v: `~${threePuttsPerRound === null ? "—" : f1(threePuttsPerRound)} strokes/round in three-putts alone; the gap between mean and own-best putting is ${pp !== null && bestPutts !== null ? f1(pp - bestPutts) : "—"} strokes`, accent: true },
-              { k: "move", v: "the lag drill already on the practice list — the recent numbers say it is working; the sample says keep proving it" },
-              { k: "retired", v: "three-putts under one hole in ten, sustained over a season" },
-            ]} />
-          <GapEntry n="03" title="The tee ball is unmeasured and misses both ways"
-            rows={[
-              { k: "fact", v: `${Math.round(((fw.left + fw.right + fw.missed) / fwTotal) * 100)}% of fairways missed, split ${Math.round((fw.left / fwTotal) * 100)}/${Math.round((fw.right / fwTotal) * 100)} left/right; the driver has one launch-monitor swing in five years` },
-              { k: "cost", v: "unknown by construction — a two-way miss can't be aimed off, and an unmeasured club can't be diagnosed", accent: true },
-              { k: "move", v: "fifteen measured drivers; until then every tee-ball theory is a guess wearing a number" },
-              { k: "retired", v: "the driver drawn on the bag page, and one side owning two-thirds of the misses" },
-            ]} />
-          <GapEntry n="04" title={`${recentRounds} rounds in ${recentLabel}`}
-            rows={[
-              { k: "fact", v: `${rounds2022} rounds in 2022 → ${recentRounds} in ${recentLabel}` },
-              { k: "cost", v: "not strokes — proof. Every encouraging recent number rests on a sample one trip could overturn", accent: true },
-              { k: "move", v: "the cheapest fix on this page: play. Twenty rounds makes every other line here trustworthy" },
-              { k: "retired", v: "a season with 20+ posted rounds" },
-            ]} />
-          <GapEntry n="05" title="The invisible 60 yards"
-            rows={[
-              { k: "fact", v: `par saved on ${savesMean === null ? "—" : f1(savesMean)}% of missed greens; no shot between fairway and green is recorded anywhere` },
-              { k: "cost", v: "unknown — which is the finding. The scramble rate says the leak exists; nothing on file locates it", accent: true },
-              { k: "move", v: "a hand-kept ups-and-downs card for ten rounds would locate it for the price of a pencil" },
-              { k: "retired", v: "any shot-level short-game data at all" },
-            ]} />
+          {leaks.map((l, i) => (
+            <LeakEntry key={l.id} n={String(i + 1).padStart(2, "0")} leak={l} />
+          ))}
         </div>
         <blockquote className="mt-6 max-w-2xl border-l-2 pl-4 text-[14px] italic leading-6 text-ink-1"
           style={{ borderColor: "var(--accent-ink)" }}>
