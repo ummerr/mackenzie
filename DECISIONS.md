@@ -6,6 +6,31 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-22 — Per-shot GPS coordinates stay verbatim in the public repo
+
+**Decided:** the Garmin bundles keep every shot's `startLoc`/`endLoc`
+lat/lon exactly as the API served them, and the bundles (plus the trimmed
+`fixtures/garmin-export-fixture.json`) are committed to this public repo.
+House style — evidence is not edited — and the practical reading of what
+the coordinates are: points on public golf courses the site already draws
+polygon-by-polygon from OSM, timestamped hours-to-weeks in the past. They
+reveal that the golfer was at Presidio on a Saturday, which `data/rounds.json`
+has published since the Grint adapter landed. Nothing in them locates a
+home, a route, or a live position; the extension never captures rounds the
+account marks private (`publicRound` is Garmin's flag, not ours — the
+capture is the account owner exporting their own data).
+
+**Rejected:** rounding or stripping coordinates (would break the future
+strategy phase — shot dots on the hole geometry are the entire point of
+capturing locations — and edited evidence is the one thing this repo
+refuses to hold); a private submodule for raw bundles (splits provenance
+across two repos, and the summary above already concludes the risk is the
+one this repo accepted the day it published a round ledger).
+
+**Revisit if:** a capture ever includes a round at a private residence
+course, or Garmin starts embedding anything identity-shaped beyond
+`playerProfileId` (already public in the ledger) in shot records.
+
 ## 2026-08-21 — The Garmin capture is a sibling extension, and it stores JSON, not pages
 
 **Decided:** on-course AutoShot data comes in through `garmin-extension/`, a
