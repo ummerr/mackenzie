@@ -1,0 +1,129 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { describe, expect, it } from "vitest";
+import {
+  buildClubIndex,
+  parseGarminRound,
+  parseHolePars,
+  // @ts-expect-error — plain .mjs script module, no type declarations
+} from "../scripts/parse-garmin-export.mjs";
+
+/* Fixture-driven, per the house rule: the parser is written against a real
+ * captured bundle (fixtures/garmin-export-fixture.json — summary, one
+ * 18-hole on-course detail, one 9-hole simulator detail, their holeShots,
+ * clubs, clubTypes), never guessed field names. The two cards cover the two
+ * capture modes: on-course AutoShot (shots, no per-hole putts, local-offset
+ * start time) and R50 simulation (no shots, per-hole putts, UTC start time). */
+
+const fixture = JSON.parse(
+  readFileSync(resolve(__dirname, "../fixtures/garmin-export-fixture.json"), "utf8"),
+);
+
+const payload = (pred: (r: any) => boolean) => {
+  const r = fixture.resources.find(pred);
+  return r ? JSON.parse(r.payload.json) : null;
+};
+const detailOf = (id: string) =>
+  payload((r) => r.kind === "scorecardDetail" && String(r.meta.scorecardId) === id);
+const shotsOf = (id: string) =>
+  (payload((r) => r.kind === "holeShots" && String(r.meta.scorecardId) === id)?.holeShots ?? [])
+    .flatMap((h: any) => h.shots ?? []);
+
+const clubIndex = buildClubIndex(
+  payload((r) => r.kind === "clubs"),
+  payload((r) => r.kind === "clubTypes"),
+);
+
+const ON_COURSE = "379752055"; // Presidio, 18 holes, AutoShot
+const SIMULATOR = "375908980"; // Pinehurst Cradle, 9 holes, R50 sim
+
+describe("buildClubIndex", () => {
+  it("resolves every attested Garmin type to its BAG_ORDER name", () => {
+    const unresolved = [...clubIndex.values()].filter(
+      (c: any) => c.garminType !== null && c.club === null,
+    );
+    expect(unresolved).toEqual([]);
+  });
+
+  it("carries type name, model, and retirement verbatim", () => {
+    const driver = [...clubIndex.values()].find((c: any) => c.garminType === "Driver") as any;
+    expect(driver.club).toBe("Driver");
+    expect(driver.model).toBe("Taylor Made Stealth 2");
+    const threeWood = [...clubIndex.values()].find((c: any) => c.garminType === "3 Wood") as any;
+    expect(threeWood.retired).toBe(true);
+  });
+});
+
+describe("parseGarminRound — on-course AutoShot card", () => {
+  const round = parseGarminRound(detailOf(ON_COURSE), shotsOf(ON_COURSE), clubIndex);
+
+  it("takes the date from the local-offset formattedStartTime, unflagged", () => {
+    expect(round.date).toBe("2026-08-22");
+    expect(round.startTimeRaw).toBe("2026-08-22T13:11:01-07:00");
+    expect(round.flags).not.toContain("date_from_utc");
+    expect(round.flags).not.toContain("simulation");
+  });
+
+  it("carries course, tee, rating, slope, and par verbatim", () => {
+    expect(round.courseName).toBe("Presidio Golf Course");
+    expect(round.teeBox).toBe("Black");
+    expect(round.teeBoxRating).toBe(72.5);
+    expect(round.teeBoxSlope).toBe(136);
+    expect(round.holePars).toBe("454344345544343445");
+    expect(round.holes[0].par).toBe(4);
+    expect(round.holes[2].par).toBe(4);
+  });
+
+  it("joins shots to holes and converts meters to yards", () => {
+    expect(round.totals.strokes).toBe(98);
+    expect(round.totals.shots).toBeGreaterThan(0);
+    const first = round.holes[0].shots[0];
+    expect(first.meters).toBe(201.426);
+    expect(first.yards).toBe(220.3); // 201.426 × 1.0936… rounded to 0.1
+    expect(first.club).toBe("3 Hybrid"); // clubId 955153681 per the clubs payload
+    expect(first.startLie).toBe("TeeBox");
+    expect(first.endLie).toBe("Fairway");
+    expect(first.raw.startLoc.lat).toBe(450842403); // verbatim survives
+  });
+
+  it("has no per-hole putts — AutoShot cards do not carry them", () => {
+    expect(round.totals.putts).toBeNull();
+    expect(round.holes.every((h: any) => h.putts === null)).toBe(true);
+  });
+
+  it("orders shots by shotOrder within a hole", () => {
+    for (const h of round.holes) {
+      const orders = h.shots.map((s: any) => s.order);
+      expect(orders).toEqual([...orders].sort((a: number, b: number) => a - b));
+    }
+  });
+});
+
+describe("parseGarminRound — simulator card", () => {
+  const round = parseGarminRound(detailOf(SIMULATOR), shotsOf(SIMULATOR), clubIndex);
+
+  it("is flagged simulation and date_from_utc, never silently local", () => {
+    expect(round.roundType).toBe("SIMULATION");
+    expect(round.flags).toContain("simulation");
+    expect(round.flags).toContain("date_from_utc");
+    expect(round.date).toBe("2026-08-01");
+  });
+
+  it("is a nine-hole card with per-hole putts and no shots", () => {
+    expect(round.holesRecorded).toBe(9);
+    expect(round.flags).toContain("nine_hole_round");
+    expect(round.flags).toContain("no_shots");
+    expect(round.totals.strokes).toBe(35);
+    expect(round.totals.putts).not.toBeNull();
+    expect(round.totals.shots).toBe(0);
+    expect(round.courseName).toBe("Pinehurst Resort ~ The Cradle");
+  });
+});
+
+describe("parseHolePars", () => {
+  it("splits the digit string and rejects anything else", () => {
+    expect(parseHolePars("333333333")).toEqual([3, 3, 3, 3, 3, 3, 3, 3, 3]);
+    expect(parseHolePars(null)).toBeNull();
+    expect(parseHolePars("")).toBeNull();
+  });
+});
