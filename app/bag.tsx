@@ -60,13 +60,13 @@ export interface BagProps {
   bagCoverage: BagCoverage | null;
   /** On-course medians from the AutoShot record — clear full swings only —
    *  for clubs with enough of them. Null when no shot-bearing rounds exist. */
-  course: CourseCheck | null;
+  course: CourseMedians | null;
   /** The scoring bag: partial-wedge cells from labeled blocks, full row from
    *  the stock yardages. Always present — an empty matrix is the finding. */
   wedgeMatrix: WedgeMatrix;
 }
 
-export interface CourseCheck {
+export interface CourseMedians {
   /** Shot-bearing rounds behind the medians. */
   rounds: number;
   clubs: { club: string; shots: number; medianYd: number }[];
@@ -284,7 +284,7 @@ export function Bag({
         blockWarnings={wedgeMatrix.warnings}
       />
 
-      {/* ── the course beside the range ──────────────────────────────────── */}
+      {/* ── course and range, side by side ───────────────────────────────── */}
       {course && course.clubs.length > 0 && (
         <CourseBesideRange course={course} bag={bag} basis={basis} />
       )}
@@ -928,9 +928,10 @@ function GapRow({ gap, colors }: { gap: Gap; colors: Map<string, string> }) {
  * Sorted in bag order, which is the same order as everything above it, so the
  * rows line up with the chart's regions by eye.
  */
-/* The course checking the range's homework. Only clubs with enough CLEAR full
- * swings on grass appear (no chips, no punch-outs), and both numbers print
- * with both sample sizes — the both-numbers rule at the course/range seam.
+/* Two records of the same club, side by side. Only clubs with enough CLEAR
+ * full swings on grass appear (no chips, no punch-outs), and both numbers
+ * print with both sample sizes — the both-numbers rule at the course/range
+ * seam; neither number grades the other.
  * The course yard is point-to-point, where the ball came to REST, so it reads
  * against "total" more fairly than against "carry"; the note says so rather
  * than letting the toggle quietly change what the comparison means. A club
@@ -941,19 +942,21 @@ function CourseBesideRange({
   bag,
   basis,
 }: {
-  course: CourseCheck;
+  course: CourseMedians;
   bag: ClubProfile[];
   basis: DistanceBasis;
 }) {
   return (
     <section className="card mt-10 p-4">
-      <h2 className="stamp text-ink-2">The course beside the range</h2>
+      <h2 className="stamp text-ink-2">Course and range, side by side</h2>
       <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
         Median over clear full swings AutoShot heard on grass ({course.rounds}{" "}
         round{course.rounds === 1 ? "" : "s"}), next to this page&rsquo;s{" "}
-        {basis} median. Course yards are point-to-point — where the ball came to
-        rest — so they read closest to <em>total</em>; on carry, some of the gap
-        is just roll.
+        {basis} median — two measurements of the same club, neither grading the
+        other. Course yards are point-to-point — where the ball came to rest —
+        so they read closest to <em>total</em>; on carry, some of the gap is
+        just roll. The rounds behind the course numbers are traced shot by shot
+        on <a className="text-ink-1 underline decoration-1 underline-offset-2" href="/diary">the diary</a>.
       </p>
       <ul className="mt-3 space-y-px">
         {course.clubs.map((c) => {

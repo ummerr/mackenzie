@@ -1,8 +1,12 @@
+import Link from "next/link";
 import {
+  GARMIN_THRESHOLDS,
+  onCourseRecord,
   shotRounds,
   type GarminHole,
   type GarminRound,
   type GarminShot,
+  type OnCourseRecord,
 } from "@/lib/garmin-shots";
 import {
   garminCourseSlug,
@@ -52,6 +56,7 @@ export default function Diary() {
     .filter((r) => r.flags.includes("simulation"))
     .sort((a, b) => b.date.localeCompare(a.date));
   const totalShots = heard.reduce((n, r) => n + r.shotCount, 0);
+  const record = onCourseRecord(garmin);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:px-5 sm:py-8">
@@ -69,12 +74,15 @@ export default function Diary() {
         draws. All of it drawn here, not copied from anywhere.
       </p>
       <p className="mt-3 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
-        The watch hears full swings; putts and some chips never become shots, so
-        every hole prints what it heard against what the scorecard says
-        happened. Putts ride in from the Grint card through the confirmed round
-        link — the one human-made join in the pipeline — and holes the link
-        cannot explain say so.
+        Each record hears what the other cannot: the watch the swings, the card
+        the putts. Putts and some chips never become shots, so every hole
+        prints what the watch heard against what the scorecard says happened —
+        putts ride in from the Grint card through the confirmed round link, the
+        one human-made join in the pipeline, and holes the link cannot explain
+        say so.
       </p>
+
+      {record && <TheRecord oc={record} />}
 
       {heard.map((r) => (
         <RoundEntry
@@ -117,6 +125,70 @@ export default function Diary() {
   );
 }
 
+/* ── the aggregate record ─────────────────────────────────────────────── */
+
+/* Gate-independent by design: the profile's findings wait for minShotRounds
+ * because a finding is a claim; the record itself is published as soon as it
+ * exists, with every sample size printed. Moved here from the front page —
+ * this is the on-course record's home, and the per-club course-vs-range
+ * table's home is the bag page. */
+function TheRecord({ oc }: { oc: OnCourseRecord }) {
+  const s = oc.split;
+  const pctOf = (n: number, d: number) => (d > 0 ? `${Math.round((n / d) * 100)}%` : "—");
+  const catRows: [string, number][] = [
+    ["Tee", s.tee],
+    ["Approach", s.approach],
+    ["Short game", s.shortGame],
+    ["Putts", s.putts],
+    ["Unclassified", s.other],
+  ];
+  return (
+    <section className="mt-10">
+      <h2 className="stamp text-ink-2">The record</h2>
+      <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+        What AutoShot heard over {oc.rounds} round{oc.rounds === 1 ? "" : "s"} (as
+        of {oc.asOf}; the record&rsquo;s other {oc.simRounds} rounds are simulator
+        rounds with nothing to hear). Findings from this data switch on at{" "}
+        {GARMIN_THRESHOLDS.minShotRounds} shot-bearing rounds — until then this is
+        the record, not a claim. The watch hears full swings: it caught{" "}
+        {s.shots} of the {s.strokes} strokes the scorecards count (
+        {pctOf(s.shots, s.strokes)}); putts and some chips never become shots, so
+        every share below is a share of recorded shots.
+      </p>
+
+      <dl className="mt-5 space-y-1 font-mono text-[11px] leading-5">
+        {catRows.map(([label, n]) => (
+          <div key={label} className="flex flex-wrap gap-x-3">
+            <dt className="w-32 shrink-0 text-ink-1">{label}</dt>
+            <dd className="tabular-nums text-ink-2">
+              {n} shots · {pctOf(n, s.shots)} of recorded
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      <h3 className="stamp mt-5 text-ink-3">Where the ball was played from</h3>
+      <dl className="mt-2 space-y-1 font-mono text-[11px] leading-5">
+        {oc.lies.map((l) => (
+          <div key={l.lie} className="flex flex-wrap gap-x-3">
+            <dt className="w-32 shrink-0 text-ink-1">{l.lie}</dt>
+            <dd className="tabular-nums text-ink-2">
+              {l.shots} non-tee shot{l.shots === 1 ? "" : "s"}
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      <p className="mt-3 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+        The clubs the course has measured sit beside their range numbers on{" "}
+        <Link href="/bag" className="text-ink-1 underline decoration-1 underline-offset-2">
+          the bag page →
+        </Link>
+      </p>
+    </section>
+  );
+}
+
 /* ── one round ────────────────────────────────────────────────────────── */
 
 function RoundEntry({
@@ -130,7 +202,9 @@ function RoundEntry({
 }) {
   const heardStrokes = round.strokes;
   return (
-    <section className="mt-10">
+    /* Anchored by scorecard id so the scorecards' pages can point at the
+     * watch's copy of the same round. */
+    <section className="mt-10 scroll-mt-6" id={round.scorecardId}>
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h2 className="stamp text-ink-2">{round.date}</h2>
         <span className="text-[15px] text-ink-0">{round.courseName ?? "—"}</span>

@@ -1,16 +1,19 @@
 import { join } from "node:path";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { readBag, readWedgeBlocks } from "@/lib/bag-file";
+import type { GarminShots } from "@/lib/garmin-shots";
 import { buildLeaks, type Leak } from "@/lib/leaks";
 import type { LedgerSession, LedgerShot } from "@/lib/ledger";
-import { loadGarmin, loadJson, loadRounds } from "@/lib/load";
-import type { PlayedRound, RoundHistory } from "@/lib/round-history";
+import { loadGarmin, loadJson, loadLinkedGrint, loadRounds } from "@/lib/load";
+import type { PlayedRound, RecentForm, RoundHistory, StatPair } from "@/lib/round-history";
 import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
 import { buildTasks } from "@/lib/tasks";
 import { buildWedgeMatrix } from "@/lib/wedge-matrix";
 import {
   asOf,
   differentialTrend,
+  recentVsCareer,
   eighteenHole,
   fairwaySplit,
   puttsPerRound,
@@ -138,6 +141,90 @@ function Mini({ title, pts, min, max, unit = "" }: {
   );
 }
 
+/* Both numbers, always: the recent figure answers "what does the golf do now",
+ * the career figure answers "what has it ever done", and printing only one
+ * would hide that recency moved it. Moved here from the front page — the
+ * scorecards' recent window is this page's fact-family. A round the watch
+ * also heard links to its diary entry: the same round carries two stroke
+ * counts, one per ledger, and the link is the join saying so. */
+function RecentFormSection({
+  form,
+  scorecardByRound,
+  garmin,
+}: {
+  form: RecentForm;
+  scorecardByRound: Map<string, string>;
+  garmin: GarminShots | null;
+}) {
+  const lastN = form.recentRounds.slice(-PROFILE_THRESHOLDS.recentRoundCount);
+  const num = (v: number | null, digits = 1) => (v === null ? "—" : v.toFixed(digits));
+  const pctOf = (v: number | null) => (v === null ? "—" : `${(v * 100).toFixed(0)}%`);
+  const shotCountByCard = new Map(
+    (garmin?.rounds ?? []).map((r) => [r.scorecardId, r.shotCount]),
+  );
+  const rows: { label: string; pair: StatPair; fmt: (v: number | null) => string; unit: string }[] = [
+    { label: "Scoring", pair: form.scoring, fmt: (v) => num(v), unit: "rounds" },
+    { label: "Putts / round", pair: form.putts, fmt: (v) => num(v), unit: "rounds" },
+    { label: "Three-putt share", pair: form.threePutt, fmt: pctOf, unit: "holes" },
+    { label: "Fairways hit", pair: form.fairwayHit, fmt: pctOf, unit: "holes" },
+  ];
+  return (
+    <section className="mt-10" id="recent">
+      <h2 className="font-serif text-[26px] leading-tight">Recent form</h2>
+      <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+        The last {form.months} months (since {form.cutoff}), measured from the
+        newest card ({form.asOf}) — never from today, so the page reads the
+        same until the record changes. Quick-entry echoes of a card already on
+        file are not counted twice.
+      </p>
+
+      <ul className="mt-5 space-y-px">
+        {lastN.map((r) => {
+          const scorecardId = scorecardByRound.get(r.roundId) ?? null;
+          const heard = scorecardId !== null ? (shotCountByCard.get(scorecardId) ?? null) : null;
+          return (
+            <li
+              key={r.roundId}
+              className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l-2 bg-paper-1 px-3 py-2.5 sm:px-4"
+              style={{ borderColor: "var(--line)" }}
+            >
+              <span className="font-mono text-[11px] tabular-nums text-ink-3">{r.date}</span>
+              <span className="text-[15px] leading-snug text-ink-0">{r.courseName ?? "—"}</span>
+              <span className="ml-auto shrink-0 font-mono text-[11px] tabular-nums text-ink-1">
+                {r.strokes ?? "—"} strokes
+                {r.putts !== null ? ` · ${r.putts} putts` : ""}
+                {scorecardId !== null && heard !== null && (
+                  <>
+                    {" · "}
+                    <Link
+                      href={`/diary#${scorecardId}`}
+                      className="text-ink-1 underline decoration-1 underline-offset-2"
+                    >
+                      the watch heard {heard} →
+                    </Link>
+                  </>
+                )}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+
+      <dl className="mt-4 space-y-1 font-mono text-[11px] leading-5">
+        {rows.map((row) => (
+          <div key={row.label} className="flex flex-wrap gap-x-3">
+            <dt className="w-32 shrink-0 text-ink-1">{row.label}</dt>
+            <dd className="text-ink-2">
+              {row.fmt(row.pair.recent)} recent ({row.pair.recentN} {row.unit}) ·{" "}
+              {row.fmt(row.pair.career)} career ({row.pair.careerN} {row.unit})
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}
+
 /* ── one ranked leak — the engine's output, drawn ── */
 
 function LeakEntry({ n, leak }: { n: string; leak: Leak }) {
@@ -253,6 +340,17 @@ export default function Scratch() {
     tasks,
     recentMonths: PROFILE_THRESHOLDS.recentMonths,
   });
+
+  /* The recent window beside the whole record — the same gate the profile
+   * uses, rendered here because the scorecards' trends live on this page. */
+  const form = recentVsCareer(h, PROFILE_THRESHOLDS.recentMonths);
+  const recentForm =
+    form !== null && form.scoring.recentN >= PROFILE_THRESHOLDS.minRecentRounds ? form : null;
+  /* The watch's copy of a recent round, where a human confirmed the join —
+   * the same round carries two stroke counts, one per ledger, and a link
+   * beats a silent contradiction. */
+  const scorecardByRound = new Map<string, string>();
+  for (const [scorecardId, r] of loadLinkedGrint()) scorecardByRound.set(r.roundId, scorecardId);
 
   const spec: { v: string; k: string; accent?: boolean }[] = [
     { v: h.handicapIndex === null ? "—" : f1(h.handicapIndex), k: "handicap index, from 23.9", accent: true },
@@ -387,6 +485,15 @@ export default function Scratch() {
           )}
         </p>
       </section>
+
+      {/* ── recent form ── */}
+      {recentForm && (
+        <RecentFormSection
+          form={recentForm}
+          scorecardByRound={scorecardByRound}
+          garmin={garminShots}
+        />
+      )}
 
       {/* ── the critique ── */}
       <section className="mt-10">

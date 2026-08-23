@@ -1,5 +1,5 @@
 import { join } from "node:path";
-import { Bag, type BasisView, type CourseCheck } from "../bag";
+import { Bag, type BasisView, type CourseMedians } from "../bag";
 import type { ShotDot } from "../bag-chart";
 import { readBag, readWedgeBlocks } from "@/lib/bag-file";
 import { buildWedgeMatrix } from "@/lib/wedge-matrix";
@@ -32,7 +32,7 @@ import {
  * swings from the AutoShot record. Absent (null) on a checkout that has not
  * run `pnpm data:garmin` — an absence, not a crash, same as every other
  * artifact this app reads. */
-function loadCourse(): CourseCheck | null {
+function loadCourse(): CourseMedians | null {
   const g = loadGarmin();
   if (g === null) return null;
   const bearing = shotRounds(g);
