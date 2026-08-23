@@ -123,6 +123,47 @@ for (const [slug, rec] of Object.entries(facts)) {
   }
 }
 
+// --- round links (Garmin ↔ Grint) --------------------------------------------
+// Curated joins only: every link must point at rounds that exist, no Grint
+// round may be claimed by two confirmed links, and pending proposals are a
+// human's to-do, not an error.
+
+const roundLinks = readJson("round-links.json", null);
+let linkStats = null;
+if (roundLinks) {
+  const garminIds = new Set(
+    readJson("garmin-rounds.json", { rounds: [] }).rounds.map((r) => r.scorecardId),
+  );
+  const grintIds = new Set(readJson("rounds.json", { rounds: [] }).rounds.map((r) => r.roundId));
+  const confirmedRoundIds = new Map();
+  const LINK_STATUSES = new Set(["proposed", "confirmed", "rejected"]);
+  for (const l of roundLinks.links) {
+    if (!LINK_STATUSES.has(l.status)) {
+      err(`round-links: ${l.scorecardId} has unknown status "${l.status}"`);
+    }
+    if (!garminIds.has(l.scorecardId)) {
+      err(`round-links: scorecardId ${l.scorecardId} is not in garmin-rounds.json`);
+    }
+    if (l.roundId !== null && !grintIds.has(l.roundId)) {
+      err(`round-links: roundId ${l.roundId} is not in rounds.json`);
+    }
+    if (l.status === "confirmed" && l.roundId !== null) {
+      const prior = confirmedRoundIds.get(l.roundId);
+      if (prior) err(`round-links: Grint round ${l.roundId} confirmed by both ${prior} and ${l.scorecardId}`);
+      confirmedRoundIds.set(l.roundId, l.scorecardId);
+    }
+  }
+  const pending = roundLinks.links.filter((l) => l.status === "proposed" && l.roundId !== null).length;
+  const unlinked = roundLinks.links.filter((l) => l.roundId === null && l.status !== "rejected").length;
+  if (pending > 0) warn(`${pending} round link(s) proposed, awaiting confirmation in data/round-links.json`);
+  linkStats = {
+    total: roundLinks.links.length,
+    confirmed: confirmedRoundIds.size,
+    pending,
+    unlinked,
+  };
+}
+
 // --- lenses ------------------------------------------------------------------
 
 const KNOWN_VECTORS = new Set(
@@ -168,6 +209,11 @@ console.log(`\n  ── spine ────────────────�
 console.log(`  facilities ${stats.facilities}   layouts ${stats.layouts}   played ${stats.played}`);
 console.log(`  countries ${stats.countries.join(" ")}   US states ${stats.usStates.length}`);
 console.log(`  lenses     ${Object.keys(lenses).join(", ")}`);
+if (linkStats) {
+  console.log(
+    `  links      ${linkStats.total} Garmin scorecards — ${linkStats.confirmed} confirmed, ${linkStats.pending} proposed, ${linkStats.unlinked} unlinked`,
+  );
+}
 
 // --- verdict -----------------------------------------------------------------
 

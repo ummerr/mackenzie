@@ -1,0 +1,110 @@
+{
+  "source": "link-rounds.mjs over data/garmin-rounds.json + data/rounds.json",
+  "policy": "proposed by machine, confirmed by hand — edit status to confirmed or rejected; reruns preserve those verbatim",
+  "links": [
+    {
+      "scorecardId": "370331965",
+      "garminDate": "2026-07-02",
+      "garminCourseName": "Meadow Club",
+      "roundId": null,
+      "status": "proposed",
+      "basis": null,
+      "candidates": [],
+      "note": "no Grint round matches — a simulator round is Garmin-only by nature"
+    },
+    {
+      "scorecardId": "370752150",
+      "garminDate": "2026-07-04",
+      "garminCourseName": "TPC Toronto at Osprey Valley ~ North",
+      "roundId": null,
+      "status": "proposed",
+      "basis": null,
+      "candidates": [],
+      "note": "no Grint round matches — a simulator round is Garmin-only by nature"
+    },
+    {
+      "scorecardId": "370774405",
+      "garminDate": "2026-07-04",
+      "garminCourseName": "Pebble Beach Golf Links ~ Golf Links",
+      "roundId": null,
+      "status": "proposed",
+      "basis": null,
+      "candidates": [],
+      "note": "no Grint round matches — a simulator round is Garmin-only by nature"
+    },
+    {
+      "scorecardId": "370971398",
+      "garminDate": "2026-07-05",
+      "garminCourseName": "Torrey Pines Municipal Golf Course ~ South",
+      "roundId": null,
+      "status": "proposed",
+      "basis": null,
+      "candidates": [],
+      "note": "no Grint round matches — a simulator round is Garmin-only by nature"
+    },
+    {
+      "scorecardId": "370988628",
+      "garminDate": "2026-07-06",
+      "garminCourseName": "Augusta National Golf Club ~ Par 3 Course",
+      "roundId": null,
+      "status": "proposed",
+      "basis": null,
+      "candidates": [],
+      "note": "no Grint round matches — a simulator round is Garmin-only by nature"
+    },
+    {
+      "scorecardId": "375908980",
+      "garminDate": "2026-08-01",
+      "garminCourseName": "Pinehurst Resort ~ The Cradle",
+      "roundId": null,
+      "status": "proposed",
+      "basis": null,
+      "candidates": [],
+      "note": "no Grint round matches — a simulator round is Garmin-only by nature"
+    },
+    {
+      "scorecardId": "375921500",
+      "garminDate": "2026-08-01",
+      "garminCourseName": "The Bay Hill Club & Lodge ~ Championship",
+      "roundId": null,
+      "status": "proposed",
+      "basis": null,
+      "candidates": [],
+      "note": "no Grint round matches — a simulator round is Garmin-only by nature"
+    },
+    {
+      "scorecardId": "379296644",
+      "garminDate": "2026-08-20",
+      "garminCourseName": "Harding Park Golf Course ~ Harding",
+      "roundId": "62185587",
+      "status": "proposed",
+      "basis": "same facility, same date, same strokes",
+      "candidates": [
+        {
+          "roundId": "62185587",
+          "date": "2026-08-20",
+          "courseName": "TPC Harding Park Golf Course",
+          "strokes": 91
+        }
+      ],
+      "note": null
+    },
+    {
+      "scorecardId": "379752055",
+      "garminDate": "2026-08-22",
+      "garminCourseName": "Presidio Golf Course",
+      "roundId": "62319577",
+      "status": "proposed",
+      "basis": "same facility, same date, same strokes",
+      "candidates": [
+        {
+          "roundId": "62319577",
+          "date": "2026-08-22",
+          "courseName": "Presidio Golf Course",
+          "strokes": 98
+        }
+      ],
+      "note": null
+    }
+  ]
+}
