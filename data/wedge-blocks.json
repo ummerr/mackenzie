@@ -1,0 +1,4 @@
+{
+  "_README": "Hand-asserted labels for deliberate partial-wedge blocks — the wedge matrix's only source. The ledger cannot say which swing a shot was meant to be, so, like bag.json, this file asserts it. After a session: one entry per labeled block, with the session id from data/sessions.json, the club exactly as the R50 names it, swing 'half' or 'three-quarter' (a full swing is the stock yardage and is never labeled), and the first and last shotTimestamp of the block, inclusive. Timestamps come from the CSV, so labels survive re-ingest. Shots inside a block leave the full-swing statistics entirely and are reviewed against their own cell.",
+  "blocks": []
+}

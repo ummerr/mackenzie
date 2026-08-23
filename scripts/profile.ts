@@ -17,7 +17,8 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { readBag } from "../lib/bag-file";
+import { readBag, readWedgeBlocks } from "../lib/bag-file";
+import { buildWedgeMatrix } from "../lib/wedge-matrix";
 import {
   buildCourseHistory,
   type CourseHistory,
@@ -228,11 +229,13 @@ function render(p: GolferProfile): string {
 }
 
 function main(): number {
-  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
+  const blocks = readWedgeBlocks(join(ROOT, "data"))?.blocks ?? [];
+  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"), undefined, blocks);
   const sessions = load<LedgerSession[]>("sessions.json");
   const profiles = buildBag(shots);
   const bag = readBag(join(ROOT, "data"));
   const gaps = detectGaps(profiles, undefined, bag);
+  const wedgeMatrix = buildWedgeMatrix(shots, blocks, profiles);
 
   let history: CourseHistory | null = null;
   try {
@@ -265,7 +268,16 @@ function main(): number {
     );
   }
 
-  const tasks = buildTasks({ profiles, gaps, shots, sessions, bag, roundHistory, garminShots });
+  const tasks = buildTasks({
+    profiles,
+    gaps,
+    shots,
+    sessions,
+    bag,
+    roundHistory,
+    garminShots,
+    wedgeMatrix,
+  });
   const profile = buildProfile({
     shots,
     sessions,
@@ -276,6 +288,7 @@ function main(): number {
     roundHistory,
     garminShots,
     bag,
+    wedgeMatrix,
   });
   const next = render(profile);
 

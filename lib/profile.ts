@@ -71,6 +71,7 @@ import {
   type Gap,
 } from "./stats";
 import type { Task } from "./tasks";
+import { WEDGE_MATRIX_THRESHOLDS, type WedgeMatrix } from "./wedge-matrix";
 
 /* Every tunable in one place, the same discipline as yardages/thresholds.ts.
  * These are editorial thresholds — where a fact becomes worth printing — not
@@ -198,6 +199,8 @@ export interface ProfileInput {
   garminShots?: GarminShots | null;
   /** data/bag.json. Null when it has not been written. */
   bag?: BagSpec | null;
+  /** From `buildWedgeMatrix`. Null before data/wedge-blocks.json exists. */
+  wedgeMatrix?: WedgeMatrix | null;
 }
 
 const CONFIDENCE_WEIGHT: Record<Confidence, number> = {
@@ -274,6 +277,7 @@ export function buildProfile({
   roundHistory = null,
   garminShots = null,
   bag = null,
+  wedgeMatrix = null,
 }: ProfileInput): GolferProfile {
   const findings: Finding[] = [];
   const trusted = shots.filter((s) => !s.isExcluded);
@@ -1099,7 +1103,7 @@ export function buildProfile({
   return {
     spec: buildSpec({ shots, trusted, sessions, drawn, history, roundHistory, coverage }),
     findings,
-    unknowns: buildUnknowns(history, roundHistory, garminShots, bag),
+    unknowns: buildUnknowns(history, roundHistory, garminShots, bag, wedgeMatrix),
     recentForm:
       form !== null && form.scoring.recentN >= PROFILE_THRESHOLDS.minRecentRounds ? form : null,
     onCourse,
@@ -1279,6 +1283,7 @@ function buildUnknowns(
   roundHistory: RoundHistory | null,
   garminShots: GarminShots | null,
   bag: BagSpec | null,
+  wedgeMatrix: WedgeMatrix | null,
 ): Unknown[] {
   /* Shot-level on-course data exists since the Garmin AutoShot capture
    * (2026-08-23); "short-game" and "lies" retire when the record clears
@@ -1336,6 +1341,33 @@ function buildUnknowns(
         : "On-course tracking — the garmin-extension AutoShot capture, then `pnpm data:garmin`.",
     });
   }
+  /* The scoring window between a chip and a full wedge. Fires only for wedges
+   * whose FULL swing is measured — a wedge with no swings at all is already an
+   * unmeasured-club problem, not a matrix one — and retires cell by cell as
+   * labeled blocks land in data/wedge-blocks.json. */
+  if (wedgeMatrix) {
+    const fullOk = new Set(
+      wedgeMatrix.cells.filter((c) => c.swing === "full" && !c.suppressed).map((c) => c.club),
+    );
+    const eligible = wedgeMatrix.cells.filter((c) => c.swing !== "full" && fullOk.has(c.club));
+    const shown = eligible.filter((c) => !c.suppressed);
+    if (eligible.length > 0 && shown.length < eligible.length) {
+      unknowns.push({
+        id: "wedge-matrix",
+        question: "What do the wedges carry at less than a full swing?",
+        why:
+          `${shown.length} of ${eligible.length} partial-wedge cells are measured. Between a ` +
+          "full wedge and a chip lives most of the scoring window, and the ledger cannot see " +
+          "a partial's length — the classifier can prove a shorter swing happened, never " +
+          "which one was meant.",
+        needs:
+          "Labeled blocks — hit one length of one wedge in a single block " +
+          `(${WEDGE_MATRIX_THRESHOLDS.minShotsPerCell} usable shots light a cell), then record ` +
+          "it in data/wedge-blocks.json.",
+      });
+    }
+  }
+
   unknowns.push(
     {
       id: "conditions",

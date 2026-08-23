@@ -87,7 +87,7 @@ of claim this repo refuses to print.
 - **gone when** — Median fun and conditioning ratings within a point of each other.
 - *course · medium confidence*
 
-### 10. 23 practice tasks are open, and the top one is aimed at the biggest blind spot above.
+### 10. 24 practice tasks are open, and the top one is aimed at the biggest blind spot above.
 
 - **why** — First on the list: The 3 Hybrid has never been measured — Callaway UW is in the bag at 19° and has not one shot on file across 8 sessions. Both gaps beside it are guesses about a club nobody has hit at a monitor. AutoShot has meanwhile heard 13 full swings with it on the course — median 220 yd point-to-point — a number to check the monitor against, not a substitute for it.
 - **gone when** — An empty practice list.
@@ -254,6 +254,12 @@ mistaken for a finding.
 2 round(s) of AutoShot shot data exist, below the 5 the profile needs before the lie mix is a finding. Until then, every measured number still comes off a mat.
 
 **Needs:** More captured on-course rounds — the extension, then `pnpm data:garmin`.
+
+### What do the wedges carry at less than a full swing?
+
+0 of 6 partial-wedge cells are measured. Between a full wedge and a chip lives most of the scoring window, and the ledger cannot see a partial's length — the classifier can prove a shorter swing happened, never which one was meant.
+
+**Needs:** Labeled blocks — hit one length of one wedge in a single block (8 usable shots light a cell), then record it in data/wedge-blocks.json.
 
 ### How much of each number is the weather?
 

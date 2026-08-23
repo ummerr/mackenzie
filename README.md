@@ -123,6 +123,8 @@ Everything else is generated. These are yours:
 
 - **`data/bag.json`** — the clubs you own, asserted not derived. See "The bag".
 - **`data/exclusions.json`** — shot overrides, see above.
+- **`data/wedge-blocks.json`** — deliberate partial-wedge blocks, labeled by
+  hand. See "The wedge matrix".
 - **`data/facts.json`** — external claims about courses. Every one carries a
   source. See the contract in the file's own `_README`.
 - **`data/weights.json`** — the map's ranking lenses.
@@ -170,6 +172,37 @@ unmeasured club, and two profile findings the range half cannot produce alone.
 A gap in degrees is only printed for clubs genuinely adjacent in the bag — the
 gap table is built over *measured* clubs, and a loft difference that steps over
 three of them is not a fact about a pair.
+
+## The wedge matrix
+
+`data/wedge-blocks.json` is the second asserted ledger file, and it exists for
+the same reason as the first: **the ledger cannot say which swing a shot was
+meant to be**. The classifier can prove a partial happened — reduced club
+speed, normal smash — but "shorter than full" is not a yardage, so every
+deliberate half wedge has been silently dropped from every number on the site.
+The matrix on `/bag` ("The scoring bag") shows each wedge at half,
+three-quarter and full; the full column is the bag chart's own stock carry, and
+the partial cells fill **only** from blocks labeled here.
+
+To record a block, after a session lands in the ledger:
+
+```json
+{ "sessionId": "2026-08-14T19:52:12", "club": "Gap Wedge",
+  "swing": "three-quarter", "from": "2026-08-14T20:10:00",
+  "to": "2026-08-14T20:18:00" }
+```
+
+`sessionId` is the id in `data/sessions.json`, the club is the R50 `Club Type`
+string, and `from`/`to` are the first and last `shotTimestamp` of the block,
+inclusive — timestamps come from the CSV, so labels survive re-ingest. `swing`
+is `half` or `three-quarter` only; a full swing is the stock yardage and is
+never labeled. Shots inside a block leave the full-swing statistics entirely —
+they neither poison the club median nor get flagged against it — and are
+reviewed against their own cell: same warmup rule, same smash and carry-outlier
+tests, at the cell's own 8-shot display gate (`WEDGE_MATRIX_THRESHOLDS` in
+`lib/wedge-matrix.ts`). A block that matches no shots is reported as orphaned,
+exactly like a stale exclusion override. An unlabeled partial block buys
+nothing — hitting the shots is half the work; the label is the other half.
 
 ## The profile
 

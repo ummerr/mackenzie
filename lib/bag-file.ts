@@ -15,6 +15,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseBag, type BagSpec } from "./clubs";
+import { parseWedgeBlocks, type WedgeBlocksFile } from "./wedge-matrix";
 
 export function readBag(dataDir: string): BagSpec | null {
   let raw: unknown;
@@ -36,4 +37,18 @@ export function readBag(dataDir: string): BagSpec | null {
   }
 
   return bag;
+}
+
+/** data/wedge-blocks.json, same contract: a missing file is a state, not a crash. */
+export function readWedgeBlocks(dataDir: string): WedgeBlocksFile | null {
+  let raw: unknown;
+  try {
+    raw = JSON.parse(readFileSync(join(dataDir, "wedge-blocks.json"), "utf8"));
+  } catch {
+    return null;
+  }
+
+  const file = parseWedgeBlocks(raw);
+  for (const w of file.warnings) console.warn(`wedge-blocks.json: ${w}`);
+  return file;
 }

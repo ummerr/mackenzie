@@ -53,11 +53,13 @@ import {
   bagCoverage,
   bagRank,
   coverageGaps,
+  DEFAULT_GAPS,
   MIN_SHOTS_TO_DISPLAY,
   sortByBag,
   type ClubProfile,
   type Gap,
 } from "./stats";
+import { WEDGE_MATRIX_THRESHOLDS, type WedgeCell, type WedgeMatrix } from "./wedge-matrix";
 import { REVIEW_THRESHOLDS } from "./yardages/thresholds";
 
 export type TaskCategory =
@@ -66,7 +68,8 @@ export type TaskCategory =
   | "consistency"
   | "data"
   | "gapping"
-  | "scoring";
+  | "scoring"
+  | "wedge matrix";
 
 export interface Task {
   id: string;
@@ -122,6 +125,55 @@ function builtApart(g: Gap): string {
     : `The bag has them only ${deg} apart, so they were barely built to be different clubs.`;
 }
 
+/**
+ * What the wedge matrix says about a confirmed hole.
+ *
+ * The hole task's doneWhen has always read "a measured shot type covers the
+ * middle of the window", and until the matrix existed that condition had no
+ * mechanical test — a hole could only retire by the full swings moving. Now it
+ * has one: lay the displayed partial-cell medians inside the window and
+ * measure the widest stretch left between neighbours. If nothing wider than
+ * `holeOverYd` remains, there is no distance in the window without a measured
+ * swing for it, which is the definition of the hole being gone.
+ */
+function holeCoverage(
+  g: Gap,
+  medians: Map<string, number | null>,
+  m: WedgeMatrix | null,
+): { covered: boolean; note: string } {
+  const none = { covered: false, note: "" };
+  if (!m) return none;
+  const hi = medians.get(g.longer) ?? null;
+  const lo = medians.get(g.shorter) ?? null;
+  if (hi === null || lo === null) return none;
+  const inside = m.cells
+    .filter(
+      (c): c is WedgeCell & { medianCarryYd: number } =>
+        c.swing !== "full" &&
+        !c.suppressed &&
+        c.medianCarryYd !== null &&
+        c.medianCarryYd > lo &&
+        c.medianCarryYd < hi,
+    )
+    .sort((a, b) => a.medianCarryYd - b.medianCarryYd);
+  if (inside.length === 0) return none;
+
+  const points = [lo, ...inside.map((c) => c.medianCarryYd), hi];
+  let widest = 0;
+  for (let i = 0; i < points.length - 1; i += 1) {
+    widest = Math.max(widest, points[i + 1] - points[i]);
+  }
+  if (widest <= DEFAULT_GAPS.holeOverYd) return { covered: true, note: "" };
+
+  const names = inside
+    .map((c) => `the ${c.swing} ${c.club} at ${c.medianCarryYd.toFixed(0)} yd`)
+    .join(" and ");
+  return {
+    covered: false,
+    note: ` The matrix already covers part of it — ${names} — but ${widest.toFixed(1)} yd of the window is still unmeasured.`,
+  };
+}
+
 export interface TaskInput {
   profiles: ClubProfile[];
   gaps: Gap[];
@@ -134,6 +186,8 @@ export interface TaskInput {
   roundHistory?: RoundHistory | null;
   /** Built from data/garmin-rounds.json. Null before the first `pnpm data:garmin`. */
   garminShots?: GarminShots | null;
+  /** Built from data/wedge-blocks.json. Null before the file exists. */
+  wedgeMatrix?: WedgeMatrix | null;
 }
 
 export function buildTasks({
@@ -145,6 +199,7 @@ export function buildTasks({
   bag = null,
   roundHistory = null,
   garminShots = null,
+  wedgeMatrix = null,
 }: TaskInput): Task[] {
   const tasks: Task[] = [];
   const shown = sortByBag(profiles.filter((p) => !p.suppressed));
@@ -334,19 +389,27 @@ export function buildTasks({
   }
 
   // ── 6. gapping: problems already confirmed ────────────────────────────────
+  const medianByClub = new Map(profiles.map((p) => [p.club, p.medianDistanceYd]));
   for (const g of gaps) {
     if (g.suppressed || g.gapYd === null) continue;
     if (g.verdict === "hole") {
-      tasks.push({
-        id: `hole-${g.longer}-${g.shorter}`,
-        category: "gapping",
-        title: `${g.gapYd.toFixed(1)} yd hole between ${g.longer} and ${g.shorter}`,
-        evidence: `Their medians are ${g.gapYd.toFixed(1)} yd apart. Any shot landing in that window needs a swing you have not measured.`,
-        action: `Build a repeatable partial ${g.longer} for the middle of the gap, and measure it as its own block.`,
-        doneWhen: "A measured shot type covers the middle of the window.",
-        priority: 30 + Math.abs(g.gapYd),
-        done: false,
-      });
+      const cover = holeCoverage(g, medianByClub, wedgeMatrix);
+      if (!cover.covered) {
+        tasks.push({
+          id: `hole-${g.longer}-${g.shorter}`,
+          category: "gapping",
+          title: `${g.gapYd.toFixed(1)} yd hole between ${g.longer} and ${g.shorter}`,
+          evidence:
+            `Their medians are ${g.gapYd.toFixed(1)} yd apart. Any shot landing in that window ` +
+            `needs a swing you have not measured.` + cover.note,
+          action:
+            `Build a repeatable partial ${g.longer} for the middle of the gap, measure it as its ` +
+            `own block, and label the block in data/wedge-blocks.json so the matrix can retire this.`,
+          doneWhen: "A measured shot type covers the middle of the window.",
+          priority: 30 + Math.abs(g.gapYd),
+          done: false,
+        });
+      }
     }
     if (g.verdict === "overlap") {
       const built = builtApart(g);
@@ -383,6 +446,75 @@ export function buildTasks({
             : `Hit both in one block on the same day. If it holds, get the lofts checked.`,
         doneWhen: "Bag order matches carry order.",
         priority: 65,
+        done: false,
+      });
+    }
+  }
+
+  // ── 6b. the wedge matrix: partial cells with no labeled block behind them ──
+  //
+  // The scoring bag's own coverage tasks. Kept apart from section 2 because
+  // the remedy is different in kind: a suppressed club needs shots, a
+  // suppressed cell needs shots AND a line in data/wedge-blocks.json — the
+  // label is the measurement, and a block hit but never labeled bought
+  // nothing. Only wedges whose FULL swing is measured appear here: every cell
+  // is judged relative to a full swing, so the full-swing coverage task (which
+  // ranks far higher) has to clear first.
+  if (wedgeMatrix) {
+    const fullOk = new Set(
+      wedgeMatrix.cells.filter((c) => c.swing === "full" && !c.suppressed).map((c) => c.club),
+    );
+    const partials = wedgeMatrix.cells.filter((c) => c.swing !== "full");
+    const eligible = partials.filter((c) => fullOk.has(c.club));
+    const empty = eligible.filter((c) => c.n === 0);
+
+    if (empty.length > 0) {
+      const byClub = sortByBag([...new Set(empty.map((c) => c.club))].map((club) => ({ club })));
+      const list = byClub
+        .map((x) => {
+          const swings = empty.filter((c) => c.club === x.club).map((c) => c.swing);
+          return `${x.club} (${swings.join(", ")})`;
+        })
+        .join(", ");
+      tasks.push({
+        id: "wedge-matrix-empty",
+        category: "wedge matrix",
+        title: `${empty.length} of ${eligible.length} wedge-matrix cells have never been measured`,
+        evidence:
+          `Every measured wedge has a full-swing number and nothing below it: ${list}. ` +
+          "Between a full wedge and a chip lives most of the scoring window, and the ledger " +
+          "cannot see a partial's length — only a labeled block can say what a half swing carries.",
+        action:
+          `Pick one wedge and one length. Call the carry before every swing, hit about ` +
+          `${rawShotsNeeded(WEDGE_MATRIX_THRESHOLDS.minShotsPerCell)} in a single block, then ` +
+          "record the block in data/wedge-blocks.json — session, club, swing, first and last " +
+          "shot time. Unlabeled, the block buys nothing.",
+        doneWhen: "Every partial cell of a measured wedge holds at least one labeled block.",
+        /* Above the unconfirmed biases (55), below three-putts (60): an
+         * unmeasured scoring window is a blind spot, and blind spots outrank
+         * confirmed problems — but the full-swing work above still outranks
+         * this, because every cell is read against a full swing. */
+        priority: 56,
+        done: false,
+      });
+    }
+
+    for (const c of partials) {
+      if (c.n === 0 || c.active >= WEDGE_MATRIX_THRESHOLDS.minShotsPerCell) continue;
+      const shortfall = WEDGE_MATRIX_THRESHOLDS.minShotsPerCell - c.active;
+      tasks.push({
+        id: `wedge-cell-${c.club}-${c.swing}`,
+        category: "wedge matrix",
+        title: `Finish measuring the ${c.swing} ${c.club}`,
+        evidence:
+          `${c.active} usable shot${c.active === 1 ? "" : "s"} of ${c.n} labeled. Below ` +
+          `${WEDGE_MATRIX_THRESHOLDS.minShotsPerCell}, so the cell shows its count and no number.`,
+        action:
+          `Hit about ${rawShotsNeeded(shortfall)} more in one labeled block and add it to ` +
+          "data/wedge-blocks.json.",
+        doneWhen: `${WEDGE_MATRIX_THRESHOLDS.minShotsPerCell} usable shots in the cell.`,
+        // Cheapest cells first, the section-2 formula at matrix scale.
+        priority: 44 + Math.max(0, WEDGE_MATRIX_THRESHOLDS.minShotsPerCell - shortfall),
         done: false,
       });
     }

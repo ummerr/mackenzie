@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { readBag } from "@/lib/bag-file";
+import { readBag, readWedgeBlocks } from "@/lib/bag-file";
+import { buildWedgeMatrix } from "@/lib/wedge-matrix";
 import {
   buildGarminShots,
   type GarminShots,
@@ -35,6 +36,8 @@ const CATEGORY_NOTE: Record<TaskCategory, string> = {
   data: "a metric the monitor did not record",
   gapping: "a distance problem the chart has already confirmed",
   scoring: "a pattern from the scorecards — work no launch monitor will ever see",
+  "wedge matrix":
+    "a partial-swing cell of the scoring bag — measured only as a block labeled by hand in data/wedge-blocks.json",
 };
 
 function loadRounds(): RoundHistory | null {
@@ -54,7 +57,8 @@ function loadGarmin(): GarminShots | null {
 }
 
 export default function Practice() {
-  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
+  const blocks = readWedgeBlocks(join(process.cwd(), "data"))?.blocks ?? [];
+  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"), undefined, blocks);
   const sessions = load<LedgerSession[]>("sessions.json");
   const profiles = buildBag(shots);
   const bag = readBag(join(process.cwd(), "data"));
@@ -66,6 +70,7 @@ export default function Practice() {
     bag,
     roundHistory: loadRounds(),
     garminShots: loadGarmin(),
+    wedgeMatrix: buildWedgeMatrix(shots, blocks, profiles),
   });
 
   const categories = [...new Set(tasks.map((t) => t.category))];

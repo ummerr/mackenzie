@@ -257,7 +257,7 @@ describe("buildTasks — retires its own tasks", () => {
 import type { GarminHole, GarminRound, GarminShots } from "../lib/garmin-shots";
 
 function simHole(number: number, par: number, strokes: number, over: Partial<GarminHole> = {}): GarminHole {
-  return { number, strokes, putts: 2, par, fairwayShotOutcome: null, shots: [], ...over };
+  return { number, strokes, putts: 2, par, fairwayShotOutcome: null, pin: null, shots: [], ...over };
 }
 
 function simRound(id: string, date: string, holes: GarminHole[]): GarminRound {
@@ -344,11 +344,11 @@ describe("buildTasks — screen play", () => {
       shotCount: 10,
       holes: [
         {
-          number: 1, strokes: 5, putts: null, par: 4, fairwayShotOutcome: null,
+          number: 1, strokes: 5, putts: null, par: 4, fairwayShotOutcome: null, pin: null,
           shots: Array.from({ length: 10 }, (_, i) => ({
             order: i + 1, club: "Driver", clubId: 1, shotType: "TEE",
             meters: 240, yards: 262.5, startLie: "TeeBox", endLie: "Fairway",
-            startMap: null, endMap: null,
+            startMap: null, endMap: null, startGeo: null, endGeo: null,
           })),
         },
       ],

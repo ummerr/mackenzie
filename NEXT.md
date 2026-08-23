@@ -63,6 +63,14 @@ HTML, licence gray area, hard name-matching problem).
   `pnpm run profile`. At 5 shot-bearing rounds (2 as of 2026-08-23) the
   short-game and lies unknowns retire and three new findings switch on —
   see `GARMIN_THRESHOLDS` in `lib/garmin-shots.ts`.
+- **Hit the first labeled wedge blocks.** The wedge matrix on `/bag` is 0 of 6
+  partial cells measured, and the 21.8 yd PW→GW hole names where to start: a
+  three-quarter Pitching Wedge block for the middle of that window. One length,
+  one wedge, ~13 swings in a single block, then record it in
+  `data/wedge-blocks.json` (session, club, swing, first and last shot time) and
+  `pnpm ingest`-adjacent surfaces pick it up on the next render. The hole task
+  retires itself once measured cells split the window under 15 yd — see
+  `WEDGE_MATRIX_THRESHOLDS` in `lib/wedge-matrix.ts`.
 - **Confirm the two proposed round links** in `data/round-links.json` —
   Harding Park 91 → 62185587 and Presidio 98 → 62319577, both matched on
   facility, date and strokes; flip `status` to `confirmed` and commit.
@@ -146,3 +154,4 @@ HTML, licence gray area, hard name-matching problem).
 - **2026-08-20** — session ended: 11 file(s) dirty, 0 commit(s) unpushed. Last touched: `DECISIONS.md`. <!-- campfire:2026-08-20 -->
 - **2026-08-21** — session ended: 4 file(s) dirty, 0 commit(s) unpushed. Last touched: `DECISIONS.md`. <!-- campfire:2026-08-21 -->
 - **2026-08-22** — session ended: 5 file(s) dirty, 0 commit(s) unpushed. Last touched: `DECISIONS.md`. <!-- campfire:2026-08-22 -->
+- **2026-08-23** — session ended: 7 file(s) dirty, 0 commit(s) unpushed. Last touched: `data/garmin-rounds.json`. <!-- campfire:2026-08-23 -->

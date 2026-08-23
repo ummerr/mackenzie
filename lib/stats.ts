@@ -10,6 +10,7 @@
  */
 
 import type { LedgerShot } from "./ledger";
+import type { WedgeBlock } from "./wedge-matrix";
 import { classifyShots, isTrusted } from "./yardages/classify-shot";
 import { REVIEW_THRESHOLDS, type ReviewThresholds } from "./yardages/thresholds";
 
@@ -130,8 +131,10 @@ export function plotPoint(
 export function applyHeuristics(
   shots: LedgerShot[],
   t: ReviewThresholds = REVIEW_THRESHOLDS,
+  /** data/wedge-blocks.json. Null when it has not been written; no shot is then labeled. */
+  blocks: readonly WedgeBlock[] | null = null,
 ): LedgerShot[] {
-  return classifyShots(shots, t).shots.map((s) => ({
+  return classifyShots(shots, t, blocks).shots.map((s) => ({
     ...s,
     isExcluded: !isTrusted(s),
     exclusionReason: isTrusted(s) ? null : (s.explanation ?? s.reviewStatus),

@@ -2,7 +2,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { Bag, type BasisView, type CourseCheck } from "../bag";
 import type { ShotDot } from "../bag-chart";
-import { readBag } from "@/lib/bag-file";
+import { readBag, readWedgeBlocks } from "@/lib/bag-file";
+import { buildWedgeMatrix } from "@/lib/wedge-matrix";
 import {
   buildGarminShots,
   courseClubDistances,
@@ -59,7 +60,11 @@ export const metadata = {
 const BASES: DistanceBasis[] = ["carry", "total"];
 
 export default function Home() {
-  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
+  /* The labeled partial blocks, read before the classifier runs: a labeled
+   * shot leaves the full-swing pipeline entirely, so the blocks are an input
+   * to classification, not an afterthought. */
+  const blocks = readWedgeBlocks(join(process.cwd(), "data"))?.blocks ?? [];
+  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"), undefined, blocks);
   const sessions = load<LedgerSession[]>("sessions.json");
   /* The clubs owned, which is not the same set as the clubs measured — the
    * whole reason it is asserted by hand. Null when the file is absent, and
@@ -99,6 +104,9 @@ export default function Home() {
        * shot has. */
       bagCoverage={bagCoverage(views.carry.bag, bagSpec)}
       course={loadCourse()}
+      /* Carry basis, always: a partial is measured where it lands, and the
+       * R50 never modelled the roll of a half wedge. */
+      wedgeMatrix={buildWedgeMatrix(shots, blocks, views.carry.bag)}
     />
   );
 }

@@ -23,6 +23,7 @@
  */
 
 import type { LedgerShot } from "../ledger";
+import { blockOf, type WedgeBlock } from "../wedge-matrix";
 import { madsBelow, mad, median } from "./robust-stats";
 import { isWedge, REVIEW_THRESHOLDS, type ReviewThresholds } from "./thresholds";
 
@@ -32,7 +33,12 @@ export type ShotReviewStatus =
   | "manually-excluded"
   | "warmup"
   | "phantom"
-  | "possible-partial";
+  | "possible-partial"
+  /* A shot inside a hand-asserted block in data/wedge-blocks.json. Not
+   * "possible" — the label confirms it. Set aside before the warmup counter
+   * and the club pools, and reviewed in lib/wedge-matrix.ts against its own
+   * cell instead of the club's full-swing median. */
+  | "labeled-partial";
 
 export type ShotFlagReason =
   | "warmup"
@@ -42,6 +48,7 @@ export type ShotFlagReason =
   | "distance-outlier"
   | "offline-outlier"
   | "possible-partial"
+  | "labeled-partial"
   | "missing-data";
 
 /** "low" means the verdict rests on fewer metrics than it wanted, not that it is a guess. */
@@ -79,6 +86,7 @@ const NOT_TRUSTED: ReadonlySet<ShotReviewStatus> = new Set<ShotReviewStatus>([
   "warmup",
   "phantom",
   "possible-partial",
+  "labeled-partial",
 ]);
 
 export const isTrusted = (s: { reviewStatus: ShotReviewStatus }): boolean =>
@@ -264,20 +272,28 @@ export interface ClassificationResult {
  *
  *   1. manual overrides, which win in both directions and are never revisited
  *   2. phantoms, from the parser
- *   3. warmup, per (session, club) block
- *   4. club medians, computed from ONLY what survived 1-3
- *   5. club-relative rules, gated on sample size
+ *   3. labeled partial blocks, set aside like phantoms — they neither occupy
+ *      warmup positions (the full-swing warmup count counts full swings only)
+ *      nor enter the club pools (twenty half swings would drag the carry
+ *      floor down and let genuine mishits through the filter)
+ *   4. warmup, per (session, club) block
+ *   5. club medians, computed from ONLY what survived 1-4
+ *   6. club-relative rules, gated on sample size
  *
- * Step 4 after step 3 is the important one. Warmup shots are systematically
+ * Step 5 after step 4 is the important one. Warmup shots are systematically
  * worse, so leaving them in the median drags the carry floor down with it,
  * which lets genuinely bad shots through the very filter meant to catch them.
+ *
+ * `blocks = null` (the default) reproduces the pre-matrix behavior exactly.
  */
 export function classifyShots(
   shots: LedgerShot[],
   t: ReviewThresholds = REVIEW_THRESHOLDS,
+  blocks: readonly WedgeBlock[] | null = null,
 ): ClassificationResult {
   const verdicts = new Map<number, Verdict>();
   const manual = shots.map(manualState);
+  const labeled = new Set<number>();
 
   // ── 1-2: deterministic, per shot ──────────────────────────────────────────
   shots.forEach((s, i) => {
@@ -301,7 +317,31 @@ export function classifyShots(
     }
   });
 
-  // ── 3: warmup, per (session, club) block, in shot order ───────────────────
+  // ── 3: labeled partial blocks, set aside like phantoms ────────────────────
+  //
+  // A label wins over a manual INCLUDE, deliberately: pulling a half swing
+  // into the full-swing pool is exactly the poisoning the label exists to
+  // prevent, and a hand that wrote both entries almost certainly meant the
+  // more specific one. Manual exclusion and phantom (above) still win — a
+  // block can contain a swing the monitor missed or a shot excluded by hand.
+  if (blocks && blocks.length > 0) {
+    shots.forEach((s, i) => {
+      if (verdicts.has(i)) return;
+      const b = blockOf(s, blocks);
+      if (!b) return;
+      labeled.add(i);
+      verdicts.set(i, {
+        status: "labeled-partial",
+        reasons: ["labeled-partial"],
+        explanation:
+          `Labeled ${b.swing} block in data/wedge-blocks.json — ` +
+          "reviewed in the wedge matrix, not against the full swing",
+        certainty: "high",
+      });
+    });
+  }
+
+  // ── 4: warmup, per (session, club) block, in shot order ───────────────────
   const order = shots
     .map((s, i) => ({ s, i }))
     .sort((a, b) => a.s.sessionId.localeCompare(b.s.sessionId) || a.s.shotIndex - b.s.shotIndex);
@@ -309,7 +349,12 @@ export function classifyShots(
   const blockCount = new Map<string, number>();
   for (const { s, i } of order) {
     const decided = verdicts.get(i);
-    if (decided && (decided.status === "phantom" || decided.status === "manually-excluded")) {
+    if (
+      decided &&
+      (decided.status === "phantom" ||
+        decided.status === "manually-excluded" ||
+        decided.status === "labeled-partial")
+    ) {
       continue;
     }
     const key = `${s.sessionId}#${s.club}`;
@@ -327,10 +372,10 @@ export function classifyShots(
     }
   }
 
-  // ── 4: club pools, from what survived ─────────────────────────────────────
+  // ── 5: club pools, from what survived ─────────────────────────────────────
   const pool = new Map<string, number[]>();
   shots.forEach((s, i) => {
-    if (verdicts.has(i)) return; // phantom, manual exclusion or warmup
+    if (verdicts.has(i)) return; // phantom, manual exclusion, labeled block or warmup
     const list = pool.get(s.club) ?? [];
     list.push(i);
     pool.set(s.club, list);
@@ -366,7 +411,7 @@ export function classifyShots(
     });
   }
 
-  // ── 5: club-relative rules ────────────────────────────────────────────────
+  // ── 6: club-relative rules ────────────────────────────────────────────────
   for (const [club, idx] of pool) {
     const stats = clubStats.get(club)!;
     const smashPool = idx
@@ -513,7 +558,7 @@ export function classifyShots(
       certainty: "high" as ClassificationCertainty,
     };
 
-    if (manual[i] === "include") {
+    if (manual[i] === "include" && !labeled.has(i)) {
       return {
         ...s,
         reviewStatus: "included",

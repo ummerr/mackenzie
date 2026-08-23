@@ -6,6 +6,100 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-23 — The wedge matrix is asserted in blocks, because a partial's length is intent
+
+**Decided:** a second asserted ledger file, `data/wedge-blocks.json`, records
+that a range block was a deliberate half or three-quarter wedge block —
+session id, club, swing, first and last `shotTimestamp` inclusive (the
+exclusions.json addressing, so labels survive re-ingest). The matrix it feeds
+is club × {half, ¾, full} for the four wedges: the full row is read verbatim
+from the stock yardages, and only the partial cells come from labeled shots.
+Labeled shots leave the full-swing pipeline entirely — `classifyShots` sets
+them aside like phantoms (a new `labeled-partial` status, in `NOT_TRUSTED`),
+before the warmup counter and the club pools — and `lib/wedge-matrix.ts`
+reviews them against their own cell instead: same warmup rule, same smash and
+carry-outlier tests, gated per cell at `minSampleForClubRelativeRules`.
+Cells display at 8 usable shots (`WEDGE_MATRIX_THRESHOLDS.minShotsPerCell`),
+not the bag chart's 15. The matrix renders on `/bag` as "The scoring bag",
+carry-only whatever the basis toggle says; `/practice` gains a `wedge matrix`
+task family (one aggregate task for never-measured cells of measured wedges at
+priority 56, per-cell top-ups at 45–51); and the profile carries a new unknown
+that retires cell by cell. The confirmed-hole task finally has a mechanical
+`doneWhen`: displayed cell medians laid inside the window, task gone when no
+stretch wider than `holeOverYd` remains.
+
+**Why:** the classifier could already *see* partials — reduced club speed,
+normal smash — but seeing one proves a shorter swing happened, never which
+one was meant. The length of a partial is intent, and intent is the one thing
+no monitor measures, so like the bag it is asserted. Meanwhile
+`possible-partial` mapped to excluded, so every deliberate partial vanished
+from every surface; and the 21.8 yd PW→GW hole's prescribed remedy ("build a
+repeatable partial, measure it as its own block") had nowhere to be recorded.
+Precedence order inside a block: phantom and manual exclusion beat the label
+(a block can contain a swing the monitor missed); the label beats a manual
+*include*, because pulling a half swing into the full-swing pool is exactly
+the poisoning the label exists to prevent.
+
+**Rejected:** deriving swing labels from club speed (names no length, and 46
+shots have no club speed at all); synthetic pseudo-clubs like "Gap Wedge ¾"
+in `BAG_ORDER`/`detectGaps` (breaks `bagRank`, and a swing is not a club); a
+"full" swing label (a second source for a number the stock yardages already
+own — two sources will eventually disagree); a 15-shot per-cell gate (8 cells
+× 15 = 120 shots, 40% of the current ledger, before the matrix says
+anything); clock-position vocabulary (9:00/10:30 is unverifiable
+self-report without video — half/three-quarter is coarse and honest);
+non-wedge knock-down blocks (**revisit if** a knocked-down 8 iron block is
+actually hit and wants a home); R50 `Tag`/`Note` capture as the labeling
+mechanism (the columns exist and are whitelisted in `RAW_ONLY_HEADERS`, but
+they are blank in all 8 sessions on file — promote them if the device ever
+writes them).
+
+---
+
+## 2026-08-23 — The diary draws the hole under the trace, from geometry we already own
+
+**Decided:** the `/diary` traces now ride over the hole itself — fairway,
+tee boxes, bunkers, green, the day's pin — drawn from two things the repo
+already held unused. The Garmin capture carries every shot's WGS84 position
+(`raw.startLoc/endLoc` lat/lon in semicircles, `deg = v·180/2³¹`) and a
+per-hole `pinPosition`; the adapter now surfaces them as `startGeo`/`endGeo`
+per shot and `pin` per hole (rounded to 1e-6° ≈ 0.11 m), and
+`buildGarminShots` carries them through the seam. The course shapes come
+from the map's own OSM-drawn `public/data/holes/<slug>.geojson` — the
+`/courses` plan and the diary now draw from the same files. A new
+`lib/hole-geometry.ts` projects both into one frame: equirectangular local
+metres about the first shot (the `fetch-holes.mjs` constants), rotated so
+the target — pin, else matched green, else last shot's end — sits due north
+of the tee. `garminCourseSlug` mirrors `link-rounds.mjs`'s
+`garminFacilitySlug` (app code doesn't import pipeline `.mjs`); a parity
+test holds the two together.
+
+**Feature selection is by proximity, never by ref:** Harding's geojson
+shares hole refs 1–9 with the adjacent Fleming 9 and has no hole-18
+centerline, so nothing reads refs or centerlines. The frame is the shots ∪
+pin ∪ matched green ∪ the tee boxes the round left from, padded 10%; every
+polygon touching it paints, and the SVG edge clips the neighbours — context,
+like a yardage book. Greens and tees centred inside a `range` polygon are
+the range's furniture (Harding 1 runs beside 14 OSM target greens) and stay
+out. A frame over 700 m is a mis-assigned shot, not a hole, and falls back.
+
+**Superseded in part (2026-08-22 "draws its own traces"):** the pixel-frame
+card is no longer the primary drawing but remains the fallback — courses
+without a geojson, or shots without degrees, still get the bare trace on
+`startMap`/`endMap`. Unchanged in full: Garmin's raster imagery is never
+fetched; every mark is our own drawing of the record's own numbers. New
+`--course-*` tokens in globals.css pair the `/courses` map's dark TURF
+palette with light values re-lit for the paper; scenery, never an encoding.
+
+**Rejected:** matching holes by geojson `ref` (ambiguous at Harding);
+importing `link-rounds.mjs` into the app (the pipeline side of the seam
+stays untyped and unimported); fetching Garmin's `holeImageUrl` raster
+(still expiring, still theirs); clipping polygons to the hole corridor
+(the frame edge already clips, and honest neighbours beat invented
+boundaries).
+
+---
+
 ## 2026-08-22 — The screen's scorecards are swings too; the practice list learns from them
 
 **Decided:** `buildTasks` takes `garminShots`, and the practice list learns

@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { readBag } from "@/lib/bag-file";
+import { readBag, readWedgeBlocks } from "@/lib/bag-file";
+import { buildWedgeMatrix } from "@/lib/wedge-matrix";
 import {
   buildCourseHistory,
   type CourseHistory,
@@ -74,14 +75,25 @@ function loadGarmin(): GarminShots | null {
 const LENS_WORD = { range: "range", course: "courses", both: "both" } as const;
 
 export default function Profile() {
-  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
+  const blocks = readWedgeBlocks(join(process.cwd(), "data"))?.blocks ?? [];
+  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"), undefined, blocks);
   const sessions = load<LedgerSession[]>("sessions.json");
   const profiles = buildBag(shots);
   const bag = readBag(join(process.cwd(), "data"));
   const gaps = detectGaps(profiles, undefined, bag);
   const roundHistory = loadRounds();
   const garminShots = loadGarmin();
-  const tasks = buildTasks({ profiles, gaps, shots, sessions, bag, roundHistory, garminShots });
+  const wedgeMatrix = buildWedgeMatrix(shots, blocks, profiles);
+  const tasks = buildTasks({
+    profiles,
+    gaps,
+    shots,
+    sessions,
+    bag,
+    roundHistory,
+    garminShots,
+    wedgeMatrix,
+  });
   const profile = buildProfile({
     shots,
     sessions,
@@ -92,6 +104,7 @@ export default function Profile() {
     roundHistory,
     garminShots,
     bag,
+    wedgeMatrix,
   });
 
   const roasts = profile.findings.filter((f) => f.roast !== null);

@@ -20,6 +20,12 @@ import {
   type DistanceBasis,
   type Gap,
 } from "@/lib/stats";
+import {
+  WEDGE_MATRIX_THRESHOLDS,
+  WEDGE_SWINGS,
+  type WedgeCell,
+  type WedgeMatrix,
+} from "@/lib/wedge-matrix";
 
 /* The page body, and the one piece of state it has: which distance you mean.
  *
@@ -55,6 +61,9 @@ export interface BagProps {
   /** On-course medians from the AutoShot record — clear full swings only —
    *  for clubs with enough of them. Null when no shot-bearing rounds exist. */
   course: CourseCheck | null;
+  /** The scoring bag: partial-wedge cells from labeled blocks, full row from
+   *  the stock yardages. Always present — an empty matrix is the finding. */
+  wedgeMatrix: WedgeMatrix;
 }
 
 export interface CourseCheck {
@@ -75,6 +84,7 @@ export function Bag({
   clubs,
   bagCoverage,
   course,
+  wedgeMatrix,
 }: BagProps) {
   const [basis, setBasis] = useState<DistanceBasis>("carry");
 
@@ -259,6 +269,9 @@ export function Bag({
         </aside>
       </div>
 
+      {/* ── the scoring bag ──────────────────────────────────────────────── */}
+      <ScoringBag matrix={wedgeMatrix} basis={basis} />
+
       {clubs.length > 0 && (
         <WhatsInTheBag clubs={clubs} coverage={bagCoverage} bag={bag} />
       )}
@@ -268,6 +281,7 @@ export function Bag({
         coverage={coverage}
         basis={basis}
         unusable={unusable}
+        blockWarnings={wedgeMatrix.warnings}
       />
 
       {/* ── the course beside the range ──────────────────────────────────── */}
@@ -1105,6 +1119,103 @@ function WhatsInTheBag({
   );
 }
 
+/* The scoring bag: each wedge at half, three-quarter and full. The partial
+ * cells come only from blocks labeled by hand in data/wedge-blocks.json; the
+ * full column is the bag chart's own stock carry, read verbatim, so the two
+ * tables can never disagree about the same swing. Carries regardless of the
+ * basis toggle — a partial is measured where it lands, and the R50 never
+ * modelled the roll of a half wedge. */
+function ScoringBag({ matrix, basis }: { matrix: WedgeMatrix; basis: DistanceBasis }) {
+  const partials = matrix.cells.filter((c) => c.swing !== "full");
+  const measured = partials.filter((c) => !c.suppressed).length;
+  const wedges = [...new Set(matrix.cells.map((c) => c.club))];
+  const columns = [...WEDGE_SWINGS, "full" as const];
+  const swingWord = { half: "half", "three-quarter": "¾", full: "full" };
+
+  return (
+    <section className="mt-10">
+      <h2 className="stamp text-ink-2">The scoring bag</h2>
+      <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-2">
+        What each wedge carries at less than a full swing. The ledger cannot see
+        a partial&rsquo;s length — only a block labeled by hand in{" "}
+        <code className="text-ink-0">data/wedge-blocks.json</code> can say what a
+        half swing carries — so an empty cell is a swing nobody has measured,
+        not a swing that does not exist.
+      </p>
+
+      <div className="card mt-3 max-w-2xl overflow-x-auto pan-x">
+        <table className="w-full border-collapse text-left font-mono text-[11px]">
+          <thead>
+            <tr className="border-b rule">
+              <th className="px-3 py-2 font-normal text-ink-3">carry, yd</th>
+              {columns.map((s) => (
+                <th key={s} className="px-3 py-2 text-right font-normal text-ink-3">
+                  {swingWord[s]}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {wedges.map((club) => (
+              <tr key={club} className="border-b last:border-b-0 rule">
+                <td className="px-3 py-2.5 text-ink-1">{short(club)}</td>
+                {columns.map((s) => {
+                  const c = matrix.cells.find((x) => x.club === club && x.swing === s);
+                  return (
+                    <td key={s} className="px-3 py-2.5 text-right align-top">
+                      {c && <MatrixCell c={c} />}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p className="mt-2 max-w-2xl font-mono text-[10px] leading-4 text-ink-3">
+        {measured} of {partials.length} partial cells measured. A partial cell
+        shows its median at {WEDGE_MATRIX_THRESHOLDS.minShotsPerCell} usable
+        labeled shots, with the middle-half band beneath; the full column is the
+        chart&rsquo;s own stock carry at its {MIN_SHOTS_TO_DISPLAY}-shot gate.
+        Carries always
+        {basis === "total" && (
+          <> &mdash; the basis toggle does not move this table, because the
+          monitor never modelled the roll of a partial wedge</>
+        )}
+        . <span className="text-ink-2">/practice</span> says which cell to hit
+        next.
+      </p>
+    </section>
+  );
+}
+
+function MatrixCell({ c }: { c: WedgeCell }) {
+  if (!c.suppressed && c.medianCarryYd !== null) {
+    return (
+      <>
+        <div className="text-[15px] font-semibold tabular-nums text-ink-0">
+          {c.medianCarryYd.toFixed(0)}
+        </div>
+        {c.carryP25Yd !== null && c.carryP75Yd !== null && (
+          <div className="text-[10px] tabular-nums text-ink-3">
+            {c.carryP25Yd.toFixed(0)}&ndash;{c.carryP75Yd.toFixed(0)}
+          </div>
+        )}
+      </>
+    );
+  }
+  const gate =
+    c.source === "stock" ? MIN_SHOTS_TO_DISPLAY : WEDGE_MATRIX_THRESHOLDS.minShotsPerCell;
+  return c.n > 0 ? (
+    <span className="tabular-nums text-ink-3">
+      &mdash; ({c.active} of {gate})
+    </span>
+  ) : (
+    <span className="text-ink-3">&mdash;</span>
+  );
+}
+
 /* Pooling across sessions is the largest source of error in these numbers, and
  * it is invisible in the chart. Name it explicitly rather than let a wide band
  * be read as shot-to-shot dispersion. */
@@ -1113,16 +1224,20 @@ function Caveats({
   coverage,
   basis,
   unusable,
+  blockWarnings,
 }: {
   profiles: ClubProfile[];
   coverage: CoverageGap[];
   basis: DistanceBasis;
   unusable: number;
+  blockWarnings: string[];
 }) {
   const pooled = profiles.filter((p) => (p.sessionSpreadYd ?? 0) > 10);
   const gaps = coverage.filter((c) => c.field === "smashFactor" || c.field === "clubSpeedMph");
   const rollNote = basis === "total" && unusable > 0;
-  if (pooled.length === 0 && gaps.length === 0 && !rollNote) return null;
+  if (pooled.length === 0 && gaps.length === 0 && !rollNote && blockWarnings.length === 0) {
+    return null;
+  }
 
   return (
     <section
@@ -1161,6 +1276,13 @@ function Caveats({
             but not the club.
             {c.field === "smashFactor" &&
               " Those shots skip the smash-based mishit test entirely, so they are filtered more loosely than the rest."}
+          </li>
+        ))}
+        {/* An asserted file that points at nothing is a typo about to become a
+            missing cell — the same treatment an orphaned exclusion gets. */}
+        {blockWarnings.map((w) => (
+          <li key={w}>
+            <span className="text-ink-0">wedge-blocks.json</span> — {w}
           </li>
         ))}
       </ul>
