@@ -15,13 +15,17 @@ import { usePathname } from "next/navigation";
  * data.
  */
 
-const SECTIONS = [
+/* Ordered as the site is read: the digest, then the three shot records in a
+ * row — range, course, scorecards — then the work they prescribe, the map,
+ * and the tool. Exported so tests/nav-parity.test.ts can hold the courses
+ * page's hand-replicated header to the same list. */
+export const SECTIONS = [
   { href: "/", label: "Profile" },
   { href: "/bag", label: "Bag" },
-  { href: "/practice", label: "Practice" },
   { href: "/diary", label: "Diary" },
-  { href: "/courses", label: "Courses" },
   { href: "/scratch", label: "Scratch" },
+  { href: "/practice", label: "Practice" },
+  { href: "/courses", label: "Courses" },
   { href: "/sessions", label: "Sessions" },
 ] as const;
 
