@@ -1,7 +1,8 @@
 # THE PLAYER
 
-A living spec of one golfer, derived from both halves of this repo: the shot
-ledger in `data/`, and the course history the map's pipeline builds.
+A living spec of one golfer, derived from every record this repo keeps: a
+launch-monitor ledger, a watch that hears the course, five seasons of
+scorecards, and a map of everywhere they happened.
 **Nothing here is written by hand.** `pnpm profile` regenerates it,
 and the diff is the point — this file exists so that a change in the golfer is
 a commit rather than a page that quietly reads differently than it did.
@@ -11,20 +12,84 @@ takes it off. Hit the shots and the sentence retires itself.
 
 ## The spec
 
+### From the range — Garmin R50 launch monitor
+
 | | |
 |---|---|
 | Measured range | **92–195 yd** — Sand Wedge to 5 Iron |
-| Clubs measured | **8** — 15+ usable shots |
-| Clubs in the bag | **13** — 9 with any shots on file |
-| Shots on file | **217** — of 301 logged |
-| Range sessions | **8** |
-| Rounds played | **170** |
-| Courses played | **87** — 11 US states, 3 countries |
+| Clubs measured | **8** — of 13 owned · 15+ usable shots each |
+| Shots on file | **217** — of 301 logged · 8 sessions |
+
+### From the watch — Garmin S70 · AutoShot
+
+| | |
+|---|---|
+| Rounds heard | **2** — of 9 — the rest are R50 simulator rounds with nothing to hear |
+| Shots heard | **108** — 57% of the 189 strokes on the cards |
+| Clubs with a course number | **3** — 10+ clear full swings each |
+
+### From the scorecards — TheGrint
+
+| | |
+|---|---|
+| Handicap index | **13.5** — WHS, from 23.9 at the record's start |
+| Rounds | **170** — 2021-07-08 → 2026-08-22 |
+| Recent scoring | **91.8** — last 5 rounds; career 90.5 over 141 |
+
+### From the map — every course played
+
+| | |
+|---|---|
+| Courses played | **87** — 170 rounds · 11 US states, 3 countries |
 | Mean score | **88.4** — 79 layouts, 18 holes |
 | Favourite | **Bethpage State Park (Black)** — own ranking, no. 1 |
-| Handicap index | **13.5** — WHS, from 23.9 at the record's start |
-| Scored span | **2021-07-08 → 2026-08-22** — 170 dated rounds |
-| Recent scoring | **91.8** — last 5 rounds; career 90.5 over 141 |
+
+## The leaks
+
+Where the strokes go, ranked by what each leak costs: leaks the record can
+price come first, ranked in strokes; the ones whose cost is unknown by
+construction follow, ranked by how much of the record says they exist.
+Each move is the open practice task that addresses it, joined on render.
+
+### 01. The approach game caps everything: 5.1 greens a round
+
+- **fact** — 5.1 GIR per round career, 5.5 over the last 20; ~13 missed greens per round
+- **cost** — the structural ceiling — at a 14.6% save rate, ~11 of those misses are bogey-or-worse before the putter or driver say anything
+- **move** — the approach clubs are the practice list's whole top end — first up: The 3 Hybrid has never been measured
+- **retired when** — a capture averaging 9+ GIR over 20 rounds
+- *scorecards*
+
+### 02. The green gives back 2.6 strokes a round
+
+- **fact** — 35.7 putts per round; 364 three-putts over 2681 recorded holes; own best round used 29
+- **cost** — ~2.6 strokes/round in three-putts alone; the gap between mean and own-best putting is 6.7 strokes
+- **move** — already on the practice list: A three-putt every 7 holes
+- **retired when** — three-putts under one hole in 10, sustained over a season
+- *scorecards*
+
+### 03. The tee ball is unmeasured and misses both ways
+
+- **fact** — 38% of fairways missed, split 17/17 left/right; the driver has one launch-monitor swing on file
+- **cost** — unknown by construction — a two-way miss can't be aimed off, and an unmeasured club can't be diagnosed
+- **move** — on the practice list: Measure the Driver
+- **retired when** — the driver drawn on the bag page, and one side owning two-thirds of the misses
+- *scorecards + range*
+
+### 04. 11 rounds in the last 18 months
+
+- **fact** — 58 rounds in 2022 → 11 in the last 18 months
+- **cost** — not strokes — proof. Every encouraging recent number rests on a sample one trip could overturn
+- **move** — the cheapest fix on this list: play. 20 rounds makes every other line here trustworthy
+- **retired when** — a season with 20+ posted rounds
+- *scorecards*
+
+### 05. The invisible 60 yards
+
+- **fact** — par saved on 14.6% of missed greens; 2 rounds of AutoShot shot data exist, 3 short of a claim
+- **cost** — unknown — which is the finding. The scramble rate says the leak exists; nothing on file locates it
+- **move** — keep wearing the watch: 3 more shot-bearing rounds and the short-game split becomes a finding instead of a guess
+- **retired when** — 5 shot-bearing rounds on the watch, or any hand-kept short-game card
+- *scorecards + watch*
 
 ## The read
 
@@ -33,10 +98,10 @@ sounds. Every comparison is internal — this club against that club, these
 courses against those — because a benchmark without a source is the one kind
 of claim this repo refuses to print.
 
-### 01. Nothing on this site was measured on a golf course. The played record and the measured record share no shots at all.
+### 01. The range ledger and the scorecards still share no shots. The watch is the only seam between them, and it is 108 shots wide so far.
 
-- **why** — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 217 trusted shots — every one of them hit off a mat in front of a monitor. 170 rounds played across 87 facilities, none of which put a single shot in this ledger.
-- **gone when** — Any on-course shot data in the ledger — a round imported from the R50's on-course mode, or a hand-entered card with clubs.
+- **why** — 8 clubs measured over 217 trusted shots, every one hit off a mat in front of a monitor. 170 rounds played across 87 facilities, none with a shot in that ledger. The only measurements made on grass are the 108 AutoShot shots over 2 rounds on the diary.
+- **gone when** — A shot in both ledgers — an R50 round-mode import, or enough watch rounds to read every drawn club's course number against its range number.
 - *both · high confidence*
 
 ### 02. There is no measured tee game. Every club with numbers is a club you reach for after the shot that decided where you were standing.
@@ -190,9 +255,9 @@ came to rest, so nearer a range total than a carry:
 The same findings, unsoftened. Each one restates its own evidence and nothing
 more — a roast that needs a fact you do not have is just an insult.
 
-> 170 rounds. 217 measured shots. The two sets do not intersect: not one number on this site came from a golf course.
+> 170 rounds and 217 measured shots that have still never met — the watch is carrying the entire introduction.
 >
-> — 8 clubs measured, from the 5 Iron down to the Sand Wedge, over 217 trusted shots — every one of them hit off a mat in front of a monitor. 170 rounds played across 87 facilities, none of which put a single shot in this ledger.
+> — 8 clubs measured over 217 trusted shots, every one hit off a mat in front of a monitor. 170 rounds played across 87 facilities, none with a shot in that ledger. The only measurements made on grass are the 108 AutoShot shots over 2 rounds on the diary.
 
 > 170 rounds played, 1 measured swing with anything that starts a hole. This is a very thorough study of the second shot.
 >
@@ -281,9 +346,9 @@ The rounds carry a course, a tee name and a differential, but still no par or ya
 
 ## Read from
 
-- **Range** — 301 shots over 8 Garmin R50 sessions, 2026-07-02 to 2026-08-14
+- **Scorecards** — 170 dated scorecards, 2021-07-08 to 2026-08-22, from the Grint export bundle, captured 2026-08-23
 - **Courses** — 170 rounds over 97 layouts, from The Grint, captured 2026-08-01
-- **Rounds** — 170 dated scorecards, 2021-07-08 to 2026-08-22, from the Grint export bundle, captured 2026-08-23
+- **Range** — 301 shots over 8 Garmin R50 sessions, 2026-07-02 to 2026-08-14
 - **Shots on course** — 108 AutoShot shots over 2 of 9 rounds (the rest are R50 simulator rounds, which carry no shots), from the Garmin export bundle, captured 2026-08-23
 
 Regenerate with `pnpm profile`. The course half comes from

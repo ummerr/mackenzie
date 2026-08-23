@@ -48,7 +48,9 @@ import {
   type OnCourseRecord,
 } from "./garmin-shots";
 import { meanScore, scorable, totalRounds } from "./course-history";
+import { buildLeaks, type Leak } from "./leaks";
 import type { LedgerSession, LedgerShot } from "./ledger";
+import { buildSources, type SourceRef } from "./sources";
 import type { RecentForm, RoundHistory } from "./round-history";
 import {
   differentialTail,
@@ -150,6 +152,21 @@ export interface SpecLine {
   note: string | null;
 }
 
+/** One source's corner of the spec sheet. Four groups, identical treatment —
+ *  the range is not the anchor and the others are not its supplements. A
+ *  source that is absent keeps its group, tiles dashed, with the command that
+ *  would fill it: absence is a state every source can be in. */
+export interface SpecGroup {
+  id: "range" | "watch" | "scorecards" | "map";
+  /** "From the range", "From the watch", … */
+  label: string;
+  /** What the group reads from — printed beside the label. */
+  device: string;
+  lines: SpecLine[];
+  /** Null when the artifact exists; the command that builds it when not. */
+  missing: string | null;
+}
+
 export interface Unknown {
   id: string;
   question: string;
@@ -168,8 +185,12 @@ export interface OnCourse extends OnCourseRecord {
 }
 
 export interface GolferProfile {
-  spec: SpecLine[];
+  spec: SpecGroup[];
   findings: Finding[];
+  /** Where the score leaks, ranked by what each leak costs — from
+   *  lib/leaks.ts, on the object so the page and PROFILE.md render one
+   *  answer. */
+  leaks: Leak[];
   unknowns: Unknown[];
   /** The recent window beside the whole record — null without round data or
    *  when the window holds fewer than `minRecentRounds` distinct rounds. */
@@ -178,7 +199,7 @@ export interface GolferProfile {
    *  wait for `GARMIN_THRESHOLDS.minShotRounds`, but the record itself is
    *  published as soon as it exists, sample sizes attached. */
   onCourse: OnCourse | null;
-  sources: { label: string; detail: string }[];
+  sources: SourceRef[];
   /** True when only the range half was available. */
   rangeOnly: boolean;
 }
@@ -743,28 +764,61 @@ export function buildProfile({
 
     // ── the join ────────────────────────────────────────────────────────────
 
+    /* The old form of this finding claimed nothing on the site was measured
+     * on a golf course. The AutoShot record falsified that — its own
+     * falsifiedBy said so — so below it gates on the watch and, once the
+     * watch has heard anything, narrows to the claim that is still true:
+     * the range ledger and the scorecards share no shots, and the watch is
+     * the only seam between them. */
     if (drawn.length > 0 && rounds > 0) {
       const shortest = drawn[drawn.length - 1];
-      add({
-        id: "measured-half",
-        lens: "both",
-        confidence: "high",
-        coverage: 1,
-        claim:
-          "Nothing on this site was measured on a golf course. The played record and " +
-          "the measured record share no shots at all.",
-        evidence:
-          `${drawn.length} clubs measured, from the ${longest?.club} down to the ` +
-          `${shortest.club}, over ${trusted.length} trusted shots — every one of them ` +
-          `hit off a mat in front of a monitor. ${rounds} rounds played across ` +
-          `${history.facilities} facilities, none of which put a single shot in this ledger.`,
-        roast:
-          `${rounds} rounds. ${trusted.length} measured shots. The two sets do not intersect: ` +
-          "not one number on this site came from a golf course.",
-        falsifiedBy:
-          "Any on-course shot data in the ledger — a round imported from the R50's " +
-          "on-course mode, or a hand-entered card with clubs.",
-      });
+      const bearing = garminShots ? shotRounds(garminShots) : [];
+      const heardShots = bearing.reduce((a, r) => a + r.shotCount, 0);
+      if (bearing.length === 0) {
+        add({
+          id: "measured-half",
+          lens: "both",
+          confidence: "high",
+          coverage: 1,
+          claim:
+            "Nothing on this site was measured on a golf course. The played record and " +
+            "the measured record share no shots at all.",
+          evidence:
+            `${drawn.length} clubs measured, from the ${longest?.club} down to the ` +
+            `${shortest.club}, over ${trusted.length} trusted shots — every one of them ` +
+            `hit off a mat in front of a monitor. ${rounds} rounds played across ` +
+            `${history.facilities} facilities, none of which put a single shot in this ledger.`,
+          roast:
+            `${rounds} rounds. ${trusted.length} measured shots. The two sets do not intersect: ` +
+            "not one number on this site came from a golf course.",
+          falsifiedBy:
+            "Any on-course shot data in the ledger — an AutoShot round from the watch, a " +
+            "round imported from the R50's on-course mode, or a hand-entered card with clubs.",
+        });
+      } else {
+        add({
+          id: "measured-half",
+          lens: "both",
+          confidence: "high",
+          coverage: 1,
+          claim:
+            "The range ledger and the scorecards still share no shots. The watch is the " +
+            "only seam between them, and it is " +
+            `${heardShots} shots wide so far.`,
+          evidence:
+            `${drawn.length} clubs measured over ${trusted.length} trusted shots, every one ` +
+            `hit off a mat in front of a monitor. ${rounds} rounds played across ` +
+            `${history.facilities} facilities, none with a shot in that ledger. The only ` +
+            `measurements made on grass are the ${heardShots} AutoShot shots over ` +
+            `${bearing.length} round${bearing.length === 1 ? "" : "s"} on the diary.`,
+          roast:
+            `${rounds} rounds and ${trusted.length} measured shots that have still never met — ` +
+            "the watch is carrying the entire introduction.",
+          falsifiedBy:
+            "A shot in both ledgers — an R50 round-mode import, or enough watch rounds to " +
+            "read every drawn club's course number against its range number.",
+        });
+      }
     }
   }
 
@@ -1101,60 +1155,38 @@ export function buildProfile({
     : null;
 
   return {
-    spec: buildSpec({ shots, trusted, sessions, drawn, history, roundHistory, coverage }),
+    spec: buildSpec({
+      shots,
+      trusted,
+      sessions,
+      drawn,
+      history,
+      roundHistory,
+      garminShots,
+      coverage,
+    }),
     findings,
+    leaks: buildLeaks({
+      roundHistory,
+      garminShots,
+      profiles,
+      tasks,
+      recentMonths: PROFILE_THRESHOLDS.recentMonths,
+    }),
     unknowns: buildUnknowns(history, roundHistory, garminShots, bag, wedgeMatrix),
     recentForm:
       form !== null && form.scoring.recentN >= PROFILE_THRESHOLDS.minRecentRounds ? form : null,
     onCourse,
-    sources: [
-      {
-        label: "Range",
-        detail:
-          `${shots.length} shots over ${sessions.length} Garmin R50 sessions` +
-          (sessions.length > 0
-            ? `, ${sessions[0].id.slice(0, 10)} to ${sessions[sessions.length - 1].id.slice(0, 10)}`
-            : ""),
-      },
-      history
-        ? {
-            label: "Courses",
-            detail: `${totalRounds(history)} rounds over ${history.played.length} layouts, from The Grint, captured ${history.capturedAt}`,
-          }
-        : {
-            label: "Courses",
-            detail: "no public/data/courses.json — run `pnpm data:build`",
-          },
-      roundHistory
-        ? {
-            label: "Rounds",
-            detail:
-              `${roundHistory.rounds.length} dated scorecards, ` +
-              `${roundHistory.rounds[0]?.date} to ${roundHistory.rounds[roundHistory.rounds.length - 1]?.date}, ` +
-              `from the Grint export bundle, captured ${roundHistory.capturedAt.slice(0, 10)}`,
-          }
-        : {
-            label: "Rounds",
-            detail: "no data/rounds.json — run `pnpm data:rounds`",
-          },
-      garminShots
-        ? {
-            label: "Shots on course",
-            detail:
-              `${shotRounds(garminShots).reduce((a, r) => a + r.shotCount, 0)} AutoShot shots ` +
-              `over ${shotRounds(garminShots).length} of ${garminShots.rounds.length} rounds ` +
-              `(the rest are R50 simulator rounds, which carry no shots), from the Garmin ` +
-              `export bundle, captured ${garminShots.capturedAt.slice(0, 10)}`,
-          }
-        : {
-            label: "Shots on course",
-            detail: "no data/garmin-rounds.json — run `pnpm data:garmin`",
-          },
-    ],
+    sources: buildSources({ shots, sessions, history, roundHistory, garminShots }),
     rangeOnly: history === null,
   };
 }
 
+/* The spec sheet, grouped by source — four groups, identical treatment. Each
+ * group gets three tiles; a group whose artifact is absent keeps its place
+ * with the tiles dashed and the command that fills them, which replaces the
+ * old asymmetry where the range tiles were unconditional and everyone else
+ * rendered behind an `if`. */
 function buildSpec({
   shots,
   trusted,
@@ -1162,6 +1194,7 @@ function buildSpec({
   drawn,
   history,
   roundHistory,
+  garminShots,
   coverage,
 }: {
   shots: LedgerShot[];
@@ -1170,94 +1203,177 @@ function buildSpec({
   drawn: ClubProfile[];
   history: CourseHistory | null;
   roundHistory: RoundHistory | null;
+  garminShots: GarminShots | null;
   coverage: BagCoverage | null;
-}): SpecLine[] {
+}): SpecGroup[] {
+  const dash = (labels: string[]): SpecLine[] =>
+    labels.map((label) => ({ label, value: "—", note: null }));
+
+  /* ── from the range ── */
   const longest = drawn[0] ?? null;
   const shortest = drawn[drawn.length - 1] ?? null;
-  const lines: SpecLine[] = [
-    {
-      label: "Measured range",
-      value:
-        longest?.medianDistanceYd != null && shortest?.medianDistanceYd != null
-          ? `${shortest.medianDistanceYd.toFixed(0)}–${longest.medianDistanceYd.toFixed(0)} yd`
-          : "—",
-      note: longest && shortest ? `${shortest.club} to ${longest.club}` : null,
-    },
-    { label: "Clubs measured", value: String(drawn.length), note: "15+ usable shots" },
-    ...(coverage
-      ? [
-          {
-            label: "Clubs in the bag",
-            value: String(coverage.owned),
-            note: `${coverage.recorded.length} with any shots on file`,
-          },
-        ]
-      : []),
-    {
-      label: "Shots on file",
-      value: String(trusted.length),
-      note: `of ${shots.length} logged`,
-    },
-    { label: "Range sessions", value: String(sessions.length), note: null },
-  ];
+  const range: SpecGroup = {
+    id: "range",
+    label: "From the range",
+    device: "Garmin R50 launch monitor",
+    missing: null,
+    lines: [
+      {
+        label: "Measured range",
+        value:
+          longest?.medianDistanceYd != null && shortest?.medianDistanceYd != null
+            ? `${shortest.medianDistanceYd.toFixed(0)}–${longest.medianDistanceYd.toFixed(0)} yd`
+            : "—",
+        note: longest && shortest ? `${shortest.club} to ${longest.club}` : null,
+      },
+      {
+        label: "Clubs measured",
+        value: String(drawn.length),
+        note: coverage ? `of ${coverage.owned} owned · 15+ usable shots each` : "15+ usable shots each",
+      },
+      {
+        label: "Shots on file",
+        value: String(trusted.length),
+        note: `of ${shots.length} logged · ${sessions.length} sessions`,
+      },
+    ],
+  };
 
-  if (history) {
-    const scored = scorable(history);
-    const mean = meanScore(scored);
-    lines.push(
-      { label: "Rounds played", value: String(totalRounds(history)), note: null },
-      {
-        label: "Courses played",
-        value: String(history.facilities),
-        note: `${history.usStates.length} US states, ${history.countries.length} countries`,
-      },
-      {
-        label: "Mean score",
-        value: mean === null ? "—" : mean.toFixed(1),
-        note: `${scored.length} layouts, 18 holes`,
-      },
-      {
-        label: "Favourite",
-        value: favouriteName(history),
-        note: "own ranking, no. 1",
-      },
-    );
+  /* ── from the watch ── */
+  let watch: SpecGroup;
+  if (garminShots) {
+    const bearing = shotRounds(garminShots);
+    const split = strokeCategorySplit(bearing);
+    const courseClubs = courseClubDistances(bearing);
+    watch = {
+      id: "watch",
+      label: "From the watch",
+      device: "Garmin S70 · AutoShot",
+      missing: null,
+      lines: [
+        {
+          label: "Rounds heard",
+          value: String(bearing.length),
+          note: `of ${garminShots.rounds.length} — the rest are R50 simulator rounds with nothing to hear`,
+        },
+        {
+          label: "Shots heard",
+          value: String(split.shots),
+          note:
+            split.strokes > 0
+              ? `${Math.round((split.shots / split.strokes) * 100)}% of the ${split.strokes} strokes on the cards`
+              : null,
+        },
+        {
+          label: "Clubs with a course number",
+          value: String(courseClubs.length),
+          note: `${GARMIN_THRESHOLDS.minShotsPerClub}+ clear full swings each`,
+        },
+      ],
+    };
+  } else {
+    watch = {
+      id: "watch",
+      label: "From the watch",
+      device: "Garmin S70 · AutoShot",
+      missing: "pnpm data:garmin",
+      lines: dash(["Rounds heard", "Shots heard", "Clubs with a course number"]),
+    };
   }
 
+  /* ── from the scorecards ── */
+  let scorecards: SpecGroup;
   if (roundHistory) {
     const trend = differentialTrend(roundHistory);
-    lines.push({
-      label: "Handicap index",
-      value: roundHistory.handicapIndex === null ? "—" : roundHistory.handicapIndex.toFixed(1),
-      note:
-        trend && trend.firstTrending !== null
-          ? `WHS, from ${trend.firstTrending.toFixed(1)} at the record's start`
-          : "WHS",
-    });
     const first = roundHistory.rounds[0];
     const last = roundHistory.rounds[roundHistory.rounds.length - 1];
-    if (first && last) {
-      lines.push({
-        label: "Scored span",
-        value: `${first.date} → ${last.date}`,
-        note: `${roundHistory.rounds.length} dated rounds`,
-      });
-    }
     /* Deduped on purpose: the record carries quick-entry echoes of full cards,
      * and a "last 5" that counts an echo is a last 4 wearing a costume. */
     const recent = lastNDistinct(eighteenHole(roundHistory), PROFILE_THRESHOLDS.recentRoundCount);
     const recentMean = recent.length > 0 ? mean(recent.map((r) => r.strokes as number)) : null;
     const careerScored = eighteenHole(roundHistory);
     const careerMean = mean(careerScored.map((r) => r.strokes as number));
-    if (recentMean !== null && careerMean !== null) {
-      lines.push({
-        label: "Recent scoring",
-        value: recentMean.toFixed(1),
-        note: `last ${recent.length} rounds; career ${careerMean.toFixed(1)} over ${careerScored.length}`,
-      });
-    }
+    scorecards = {
+      id: "scorecards",
+      label: "From the scorecards",
+      device: "TheGrint",
+      missing: null,
+      lines: [
+        {
+          label: "Handicap index",
+          value: roundHistory.handicapIndex === null ? "—" : roundHistory.handicapIndex.toFixed(1),
+          note:
+            trend && trend.firstTrending !== null
+              ? `WHS, from ${trend.firstTrending.toFixed(1)} at the record's start`
+              : "WHS",
+        },
+        {
+          label: "Rounds",
+          value: String(roundHistory.rounds.length),
+          note: first && last ? `${first.date} → ${last.date}` : null,
+        },
+        {
+          label: "Recent scoring",
+          value: recentMean === null ? "—" : recentMean.toFixed(1),
+          note:
+            recentMean !== null && careerMean !== null
+              ? `last ${recent.length} rounds; career ${careerMean.toFixed(1)} over ${careerScored.length}`
+              : null,
+        },
+      ],
+    };
+  } else {
+    scorecards = {
+      id: "scorecards",
+      label: "From the scorecards",
+      device: "TheGrint",
+      missing: "pnpm data:rounds",
+      lines: dash(["Handicap index", "Rounds", "Recent scoring"]),
+    };
   }
-  return lines;
+
+  /* ── from the map ── */
+  let map: SpecGroup;
+  if (history) {
+    const scored = scorable(history);
+    const meanOf = meanScore(scored);
+    map = {
+      id: "map",
+      label: "From the map",
+      device: "every course played",
+      missing: null,
+      lines: [
+        {
+          label: "Courses played",
+          value: String(history.facilities),
+          note: `${totalRounds(history)} rounds · ${history.usStates.length} US states, ${history.countries.length} countries`,
+        },
+        {
+          label: "Mean score",
+          value: meanOf === null ? "—" : meanOf.toFixed(1),
+          note: `${scored.length} layouts, 18 holes`,
+        },
+        {
+          label: "Favourite",
+          value: favouriteName(history),
+          note: "own ranking, no. 1",
+        },
+      ],
+    };
+  } else {
+    map = {
+      id: "map",
+      label: "From the map",
+      device: "every course played",
+      missing: "pnpm data:build",
+      lines: dash(["Courses played", "Mean score", "Favourite"]),
+    };
+  }
+
+  /* Group order matches the nav — the order you would visit the pages —
+   * while the provenance list in lib/sources.ts orders by record length.
+   * Two orders, two stated rules, zero favourites. */
+  return [range, watch, scorecards, map];
 }
 
 function favouriteName(history: CourseHistory): string {

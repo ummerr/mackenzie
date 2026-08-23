@@ -56,8 +56,9 @@ function render(p: GolferProfile): string {
   out.push("# THE PLAYER");
   out.push("");
   out.push(
-    "A living spec of one golfer, derived from both halves of this repo: the shot",
-    "ledger in `data/`, and the course history the map's pipeline builds.",
+    "A living spec of one golfer, derived from every record this repo keeps: a",
+    "launch-monitor ledger, a watch that hears the course, five seasons of",
+    "scorecards, and a map of everywhere they happened.",
     "**Nothing here is written by hand.** `pnpm profile` regenerates it,",
     "and the diff is the point — this file exists so that a change in the golfer is",
     "a commit rather than a page that quietly reads differently than it did.",
@@ -71,12 +72,43 @@ function render(p: GolferProfile): string {
 
   out.push("## The spec");
   out.push("");
-  out.push("| | |");
-  out.push("|---|---|");
-  for (const s of p.spec) {
-    out.push(`| ${s.label} | **${s.value}**${s.note ? ` — ${s.note}` : ""} |`);
+  for (const g of p.spec) {
+    out.push(`### ${g.label} — ${g.device}`);
+    out.push("");
+    if (g.missing) {
+      out.push(`No artifact on this checkout — run \`${g.missing}\`.`);
+      out.push("");
+      continue;
+    }
+    out.push("| | |");
+    out.push("|---|---|");
+    for (const s of g.lines) {
+      out.push(`| ${s.label} | **${s.value}**${s.note ? ` — ${s.note}` : ""} |`);
+    }
+    out.push("");
   }
-  out.push("");
+
+  if (p.leaks.length > 0) {
+    out.push("## The leaks");
+    out.push("");
+    out.push(
+      "Where the strokes go, ranked by what each leak costs: leaks the record can",
+      "price come first, ranked in strokes; the ones whose cost is unknown by",
+      "construction follow, ranked by how much of the record says they exist.",
+      "Each move is the open practice task that addresses it, joined on render.",
+    );
+    out.push("");
+    p.leaks.forEach((l, i) => {
+      out.push(`### ${String(i + 1).padStart(2, "0")}. ${l.title}`);
+      out.push("");
+      out.push(`- **fact** — ${l.fact}`);
+      out.push(`- **cost** — ${l.cost}`);
+      out.push(`- **move** — ${l.move}`);
+      out.push(`- **retired when** — ${l.retiredWhen}`);
+      out.push(`- *${l.source}*`);
+      out.push("");
+    });
+  }
 
   out.push("## The read");
   out.push("");

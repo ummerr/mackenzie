@@ -335,7 +335,9 @@ describe("buildProfile — the round half", () => {
       totals: { strokes: 94, putts: null },
     });
     const p = realProfile(null, roundHistoryOf([...baseRounds(), echo], divergingDiffs()));
-    const line = p.spec.find((s) => s.label === "Recent scoring");
+    const line = p.spec
+      .flatMap((g) => g.lines)
+      .find((s) => s.label === "Recent scoring");
     expect(line).toBeDefined();
     // Last 5 distinct: 86, 88, 90, 92, 94. Counting the echo would say 91.6.
     expect(line?.value).toBe("90.0");
@@ -427,6 +429,21 @@ describe("buildProfile — the on-course shot half", () => {
     expect(p.sources.find((s) => s.label === "Shots on course")?.detail).toContain(
       "pnpm data:garmin",
     );
+  });
+
+  it("narrows the measured-half claim once the watch has heard anything — the old claim is falsified", () => {
+    // Without watch data the broad claim stands.
+    const before = withGarmin(null).findings.find((f) => f.id === "measured-half");
+    expect(before?.claim).toContain("Nothing on this site was measured on a golf course");
+    // One shot-bearing round and the broad claim would be false: the finding
+    // must narrow to the seam instead of publishing its own counterexample.
+    const after = withGarmin(
+      garminShotsOf([garminRound("1", "2026-08-20", shotsFor())]),
+    ).findings.find((f) => f.id === "measured-half");
+    expect(after).toBeDefined();
+    expect(after?.claim).not.toContain("Nothing on this site was measured");
+    expect(after?.claim).toContain("The range ledger and the scorecards still share no shots");
+    expect(after?.evidence).toContain("5 AutoShot shots");
   });
 
   it("keeps the unknowns below minShotRounds, but says what exists", () => {
