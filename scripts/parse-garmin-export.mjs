@@ -132,6 +132,54 @@ export function parseHolePars(s) {
 }
 
 /**
+ * The per-shot detail rows out of a shot-stats view's payload — measurements
+ * only. Garmin's view-level aggregates (percentGreenInRegulation,
+ * percentUpDown, strokesGainedRatings and their peers) are model outputs
+ * against an unstated baseline and are deliberately not ingested; the
+ * per-shot strokesGained field is dropped for the same reason. What survives
+ * is what a device measured: distances, lies, outcomes, one observed putt.
+ * Distances arrive in meters and are carried both ways, like every other
+ * Garmin distance. offsetAngle is carried verbatim (degrees, no legend on
+ * file) — downstream readers must not interpret it until one exists.
+ */
+export function parseShotStats(view, json) {
+  if (!json) return [];
+  const id = (v) => (v != null ? String(v) : null);
+  const num = (v) => (typeof v === "number" ? v : null);
+  if (view === "approach" || view === "chip") {
+    return (json.shotOrientationDetail ?? []).map((d) => ({
+      shotId: id(d.shotId),
+      scorecardId: id(d.scorecardId),
+      holeNumber: d.holeNumber ?? null,
+      clubId: d.clubId ?? null,
+      startingDistanceToHoleM: num(d.startingDistanceToHole),
+      startingDistanceToHoleYd: toYards(d.startingDistanceToHole),
+      remainingDistanceM: num(d.remainingDistance),
+      remainingDistanceYd: toYards(d.remainingDistance),
+      offsetAngleDeg: num(d.offsetAngle),
+      startingLie: d.startingLieType ?? null,
+      endingLie: d.endingLieType ?? null,
+      ...(view === "chip" ? { onePuttAfter: d.onePuttAfter ?? null } : {}),
+    }));
+  }
+  if (view === "drive") {
+    return (json.shotDispersionDetails ?? []).map((d) => ({
+      shotId: id(d.shotId),
+      scorecardId: id(d.scorecardId),
+      holeNumber: d.holeNumber ?? null,
+      clubId: d.clubId ?? null,
+      shotTime: d.shotTime ?? null,
+      shotDistanceM: num(d.shotDistance),
+      shotDistanceYd: toYards(d.shotDistance),
+      dispersionDistanceM: num(d.dispersionDistance),
+      dispersionDistanceYd: toYards(d.dispersionDistance),
+      fairwayShotOutcome: d.fairwayShotOutcome ?? null,
+    }));
+  }
+  return [];
+}
+
+/**
  * One scorecardDetail payload + its merged shot list → a round record.
  * `shots` is every shot for this scorecard (any hole), verbatim from the
  * holeShots payloads; `clubIndex` from buildClubIndex; `pinByHole` maps
@@ -354,6 +402,21 @@ function main() {
       a.scorecardId.localeCompare(b.scorecardId),
   );
 
+  // Per-shot stats detail, newest capture wins (the endpoints return the
+  // whole career each time, same as clubs). Same artifact, sibling block to
+  // `rounds` — the precedent is rounds.json carrying `differentials` and
+  // `series` beside its rounds.
+  const statsView = (view) =>
+    parseShotStats(
+      view,
+      payload(merged.newestResource((r) => r.kind === "shotStats" && r.meta?.view === view)),
+    );
+  const stats = {
+    approach: statsView("approach"),
+    chip: statsView("chip"),
+    drive: statsView("drive"),
+  };
+
   const out = {
     source: "garmin-connect",
     adapter: "parse-garmin-export.mjs",
@@ -362,6 +425,7 @@ function main() {
     userId: merged.userId,
     clubs: [...clubIndex.values()],
     rounds,
+    stats,
   };
   writeFileSync(OUT, `${JSON.stringify(out, null, 2)}\n`);
 
@@ -379,6 +443,10 @@ function main() {
   console.log(`with a date   ${dated}`);
   console.log(`with shots    ${withShots.length}  (${totalShots} shots total)`);
   console.log(`clubs         ${clubIndex.size} in the bag list${unmapped.size ? `, UNMAPPED types: ${[...unmapped].join(", ")}` : ""}`);
+  console.log(
+    `shot stats    approach ${stats.approach.length}, chip ${stats.chip.length}, drive ${stats.drive.length}` +
+      ` (per-shot detail only; Garmin's model aggregates are not ingested)`,
+  );
   const flagged = rounds.filter((r) => r.flags.length > 0);
   if (flagged.length > 0) {
     const byFlag = {};

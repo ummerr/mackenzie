@@ -6,6 +6,53 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-24 — The measurements come in, the model stays out
+
+**Decided:** the Garmin adapter now reads the shot-stats endpoints
+(`shotStats/approach|chip|drive`) it always captured, and emits **per-shot
+detail only** into a `stats` block beside `rounds` in
+`data/garmin-rounds.json`: starting distance to the hole, distance
+remaining, lies, drive dispersion, one observed putt after a chip. Every
+Garmin-computed number is refused at the adapter — the view-level
+aggregates (`percentGreenInRegulation`, `percentUpDown`,
+`strokesGainedRatings`), the per-shot `strokesGained`, and every peer
+field (`group*`, `ranking*`). `lib/approach.ts` computes the <150-yd bands,
+green-hit shares and proximities from the surviving measurements, so every
+number the site prints is derivable and explainable. `offsetAngle` is
+carried verbatim and never interpreted — no legend on file.
+
+**Why:** the per-shot rows are measurements — the same standing as a shot's
+`meters`. The aggregates are model outputs against an unstated baseline
+over `numberOfRounds: 2`, which is a benchmark without a source; and the
+peer fields compare to golfers who are not this one, which the repo refuses
+outright. Units were verified before conversion: a detail row's distances
+only satisfy the triangle inequality against its shot's `meters` if read as
+meters (155.4 start / 11.3 remaining / 165.2 traveled works in meters;
+yards is geometrically impossible), so `M_TO_YD` applies as everywhere.
+
+**Rejected:** surfacing Garmin's strokes-gained "labeled as Garmin's
+model". More signal sooner, but numbers the site can neither derive nor
+defend, and one "labeled" exception becomes the precedent for the next.
+
+## 2026-08-24 — The course beats the sim
+
+**Decided:** where a course-derived figure and a sim/screen-derived figure
+answer the same question, the course figure is the headline and the ranking
+input; the sim figure rides in the note. Populations are never pooled —
+`lib/approach.ts` splits course and sim rows by the round's own
+`simulation` flag even while the sim side is empty by construction.
+
+**Why:** the R50's screen measures launch and models flight over invented
+holes; the course record is the golf actually played. The tasks engine
+already ranked screen-derived tasks below course-confirmed ones informally
+(`screen-tee-miss` priority comment); this states the rule once so new
+surfaces inherit it instead of rediscovering it.
+
+**Rejected:** pooling course and sim rounds for bigger samples — a bigger n
+of a different question.
+
+---
+
 ## 2026-08-23 — The hole under the trace is the photograph, not the drawing
 
 **Decided:** the diary's hole cards lay the shot trace over Esri World

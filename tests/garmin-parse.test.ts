@@ -5,6 +5,7 @@ import {
   buildClubIndex,
   parseGarminRound,
   parseHolePars,
+  parseShotStats,
   // @ts-expect-error — plain .mjs script module, no type declarations
 } from "../scripts/parse-garmin-export.mjs";
 
@@ -169,5 +170,96 @@ describe("parseHolePars", () => {
     expect(parseHolePars("333333333")).toEqual([3, 3, 3, 3, 3, 3, 3, 3, 3]);
     expect(parseHolePars(null)).toBeNull();
     expect(parseHolePars("")).toBeNull();
+  });
+});
+
+/* The shot-stats detail reader: measurements survive, the model does not.
+ * Synthetic payloads because the fixture predates the stats capture — field
+ * names copied verbatim from the real bundles (DECISIONS.md 2026-08-24). */
+
+describe("parseShotStats", () => {
+  const approachJson = {
+    numberOfRounds: 2,
+    percentGreenInRegulation: 0.0,
+    shotOrientationDetail: [
+      {
+        remainingDistance: 11.34,
+        startingDistanceToHole: 155.38,
+        offsetAngle: 31,
+        shotId: 10612569098,
+        clubId: 950232114,
+        scorecardId: 379296644,
+        holeNumber: 8,
+        startingLieType: "TeeBox",
+        endingLieType: "Rough",
+        strokesGained: -0.32,
+      },
+    ],
+  };
+
+  it("converts meters to yards and stringifies the ids", () => {
+    const rows = parseShotStats("approach", approachJson);
+    expect(rows).toHaveLength(1);
+    expect(rows[0].scorecardId).toBe("379296644");
+    expect(rows[0].shotId).toBe("10612569098");
+    expect(rows[0].startingDistanceToHoleM).toBe(155.38);
+    expect(rows[0].startingDistanceToHoleYd).toBeCloseTo(169.9, 1);
+    expect(rows[0].remainingDistanceYd).toBeCloseTo(12.4, 1);
+    expect(rows[0].startingLie).toBe("TeeBox");
+    expect(rows[0].endingLie).toBe("Rough");
+  });
+
+  it("drops Garmin's model outputs — per-shot strokesGained included", () => {
+    const rows = parseShotStats("approach", approachJson);
+    expect(rows[0]).not.toHaveProperty("strokesGained");
+    // And the view-level aggregate is simply never read.
+    expect(JSON.stringify(rows)).not.toContain("percentGreenInRegulation");
+  });
+
+  it("keeps the chip view's observed onePuttAfter", () => {
+    const rows = parseShotStats("chip", {
+      shotOrientationDetail: [
+        {
+          remainingDistance: 2.1,
+          startingDistanceToHole: 21.4,
+          shotId: 1,
+          scorecardId: 2,
+          holeNumber: 4,
+          clubId: 3,
+          startingLieType: "Bunker",
+          endingLieType: "Green",
+          onePuttAfter: true,
+          strokesGained: -1,
+        },
+      ],
+    });
+    expect(rows[0].onePuttAfter).toBe(true);
+    expect(rows[0]).not.toHaveProperty("strokesGained");
+  });
+
+  it("reads the drive view's dispersion rows", () => {
+    const rows = parseShotStats("drive", {
+      shotDispersionDetails: [
+        {
+          shotId: 10625067109,
+          scorecardId: 379752055,
+          holeNumber: 16,
+          shotTime: "2026-08-23T00:33:55.000Z",
+          clubId: 950232105,
+          dispersionDistance: 64.85,
+          shotDistance: 245.8,
+          fairwayShotOutcome: "RIGHT",
+        },
+      ],
+    });
+    expect(rows[0].shotDistanceYd).toBeCloseTo(268.8, 1);
+    expect(rows[0].dispersionDistanceYd).toBeCloseTo(70.9, 1);
+    expect(rows[0].fairwayShotOutcome).toBe("RIGHT");
+    expect(rows[0].shotTime).toBe("2026-08-23T00:33:55.000Z");
+  });
+
+  it("returns [] for a missing payload or an unknown view", () => {
+    expect(parseShotStats("approach", null)).toEqual([]);
+    expect(parseShotStats("putt", { usingClubtrack: false })).toEqual([]);
   });
 });

@@ -71,10 +71,56 @@ export interface GarminRound {
   flags: string[];
 }
 
+/* Per-shot detail from Garmin's shot-stats endpoints — measurements only.
+ * The adapter already refused the view-level aggregates and the per-shot
+ * strokesGained (model outputs against an unstated baseline); what reaches
+ * here is what a device measured. Distances carried both ways, like every
+ * other Garmin distance. offsetAngleDeg has no legend on file and must be
+ * carried, never interpreted. */
+export interface ApproachDetail {
+  shotId: string | null;
+  scorecardId: string | null;
+  holeNumber: number | null;
+  clubId: number | null;
+  startingDistanceToHoleM: number | null;
+  startingDistanceToHoleYd: number | null;
+  remainingDistanceM: number | null;
+  remainingDistanceYd: number | null;
+  offsetAngleDeg: number | null;
+  startingLie: string | null;
+  endingLie: string | null;
+}
+
+export interface ChipDetail extends ApproachDetail {
+  /** Observed: did exactly one putt follow this chip. */
+  onePuttAfter: boolean | null;
+}
+
+export interface DriveDetail {
+  shotId: string | null;
+  scorecardId: string | null;
+  holeNumber: number | null;
+  clubId: number | null;
+  shotTime: string | null;
+  shotDistanceM: number | null;
+  shotDistanceYd: number | null;
+  dispersionDistanceM: number | null;
+  dispersionDistanceYd: number | null;
+  fairwayShotOutcome: string | null;
+}
+
+export interface GarminShotStats {
+  approach: ApproachDetail[];
+  chip: ChipDetail[];
+  drive: DriveDetail[];
+}
+
 export interface GarminShots {
   capturedAt: string;
   source: string;
   rounds: GarminRound[];
+  /** Absent on artifacts written before 2026-08-24. */
+  stats: GarminShotStats | null;
 }
 
 /* The pipeline artifact's shape, narrowed to what is read here — a structural
@@ -118,6 +164,8 @@ export interface SourceGarminRounds {
   capturedAt: string;
   rawFile: string;
   rounds: SourceGarminRound[];
+  /** Absent on artifacts written before 2026-08-24. */
+  stats?: GarminShotStats;
 }
 
 export const GARMIN_THRESHOLDS = {
@@ -149,6 +197,7 @@ export function buildGarminShots(src: SourceGarminRounds): GarminShots {
   return {
     capturedAt: src.capturedAt,
     source: `data/garmin-rounds.json (${src.rawFile})`,
+    stats: src.stats ?? null,
     rounds: src.rounds
       .filter((r) => r.date !== null)
       .map((r) => ({

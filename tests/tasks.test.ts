@@ -281,7 +281,7 @@ function tasksWithGarmin(rounds: GarminRound[]): Task[] {
   const shots = applyHeuristics(load<LedgerShot[]>("shots.json"));
   const sessions = load<LedgerSession[]>("sessions.json");
   const profiles = buildBag(shots);
-  const garminShots: GarminShots = { capturedAt: "2026-08-23T00:00:00Z", source: "test", rounds };
+  const garminShots: GarminShots = { capturedAt: "2026-08-23T00:00:00Z", source: "test", rounds, stats: null };
   return buildTasks({ profiles, gaps: detectGaps(profiles), shots, sessions, garminShots });
 }
 

@@ -153,6 +153,7 @@ const garmin = (rounds: GarminRound[]): GarminShots => ({
   capturedAt: "2026-08-23T00:00:00Z",
   source: "test",
   rounds,
+  stats: null,
 });
 
 function inputs(over: Partial<LeakInputs> = {}): LeakInputs {
