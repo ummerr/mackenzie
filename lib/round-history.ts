@@ -52,6 +52,34 @@ export interface TrendPoint {
   value: number;
 }
 
+/** One charted round of the putt-distribution chart: how many holes took 0,
+ *  1, 2, 3, or 4+ putts. Five lines of one chart, zipped by the chart's own
+ *  x-axis at parse time — a within-chart join, not an invented one. */
+export interface PuttDistPoint {
+  courseName: string | null;
+  putts0: number;
+  putts1: number;
+  putts2: number;
+  putts3: number;
+  putts4Plus: number;
+}
+
+/** Per-round series from Grint's own charts, in chart order — same
+ *  provenance rule as the differentials: never joined to rounds. The later
+ *  fields are optional because they joined the artifact later; an older
+ *  snapshot simply does not carry them. */
+export interface TrendSeries {
+  girPerRound: TrendPoint[];
+  parSavesPct: TrendPoint[];
+  /** % of fairways hit per round. Absent before 2026-08-24. */
+  fairwayHitPct?: TrendPoint[];
+  /** % of par-3 greens hit per round — the card side's only look at the
+   *  approach game by hole length. Absent before 2026-08-24. */
+  par3HitPct?: TrendPoint[];
+  /** Putt-count distribution per round. Absent before 2026-08-24. */
+  puttDist?: PuttDistPoint[];
+}
+
 export interface RoundHistory {
   capturedAt: string;
   source: string;
@@ -59,13 +87,8 @@ export interface RoundHistory {
   /** Ascending by date. */
   rounds: PlayedRound[];
   differentials: DifferentialPoint[];
-  /** Per-round series from Grint's own charts, in chart order — same
-   *  provenance rule as the differentials: never joined to rounds.
-   *  Absent on snapshots taken before 2026-08-16. */
-  series?: {
-    girPerRound: TrendPoint[];
-    parSavesPct: TrendPoint[];
-  };
+  /** Absent on snapshots taken before 2026-08-16. */
+  series?: TrendSeries;
 }
 
 /* The pipeline artifact's shape, narrowed to what is read here — a structural
@@ -92,10 +115,7 @@ export interface SourceRounds {
   handicapIndex: number | null;
   rounds: SourceRound[];
   differentials: DifferentialPoint[];
-  series?: {
-    girPerRound: TrendPoint[];
-    parSavesPct: TrendPoint[];
-  };
+  series?: TrendSeries;
 }
 
 /** "" and "0"-on-an-unplayed-hole become null; everything else a number. */

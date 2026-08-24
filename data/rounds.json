@@ -18927,6 +18927,2220 @@
         "courseName": "Presidio Golf Course",
         "value": 0
       }
+    ],
+    "fairwayHitPct": [
+      {
+        "courseName": "Marlton | The Links Golf Club",
+        "value": 85.7
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 57.1
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 81.8
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 85.7
+      },
+      {
+        "courseName": "Barbados Golf Club",
+        "value": 100
+      },
+      {
+        "courseName": "C.W. Koiner - Course 1 | Brookside Golf Club",
+        "value": 40
+      },
+      {
+        "courseName": "Montebello Golf Course",
+        "value": 42.9
+      },
+      {
+        "courseName": "Encino | Sepulveda Golf Complex",
+        "value": 35.7
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "value": 46.2
+      },
+      {
+        "courseName": "Acworth | Cobblestone Golf Course",
+        "value": 23.1
+      },
+      {
+        "courseName": "Lanier Islands Golf Course",
+        "value": 50
+      },
+      {
+        "courseName": "Cherokee Run Golf Club",
+        "value": 28.6
+      },
+      {
+        "courseName": "Indian Spring Country Club",
+        "value": 42.9
+      },
+      {
+        "courseName": "University Of Michigan Golf Course",
+        "value": 35.7
+      },
+      {
+        "courseName": "Leslie Park Golf Course",
+        "value": 35.7
+      },
+      {
+        "courseName": "Lake Forest Golf Club",
+        "value": 57.1
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "value": 21.4
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "value": 46.2
+      },
+      {
+        "courseName": "Sandpiper Golf Course",
+        "value": 50
+      },
+      {
+        "courseName": "Ojai Valley Inn and Spa",
+        "value": 61.5
+      },
+      {
+        "courseName": "Eastmoreland Golf Course",
+        "value": 50
+      },
+      {
+        "courseName": "Great Blue | Heron Lakes Golf Course",
+        "value": 50
+      },
+      {
+        "courseName": "Greenback | Heron Lakes Golf Course",
+        "value": 42.9
+      },
+      {
+        "courseName": "Marlton | The Links Golf Club",
+        "value": 64.3
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "value": 46.2
+      },
+      {
+        "courseName": "Los Robles Greens Golf Course",
+        "value": 46.2
+      },
+      {
+        "courseName": "Hidden Valley Lake Golf & Country Club",
+        "value": 14.3
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "value": 21.4
+      },
+      {
+        "courseName": "Encino | Sepulveda Golf Complex",
+        "value": 28.6
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "value": 23.1
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "value": 69.2
+      },
+      {
+        "courseName": "Encino | Sepulveda Golf Complex",
+        "value": 50
+      },
+      {
+        "courseName": "Balboa | Sepulveda Golf Club",
+        "value": 60
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "value": 46.2
+      },
+      {
+        "courseName": "Babe Zaharias | Industry Hills Golf Club At Pacific Palms Resort",
+        "value": 57.1
+      },
+      {
+        "courseName": "Knollwood Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Los Robles Greens Golf Course",
+        "value": 38.5
+      },
+      {
+        "courseName": "Tahoe Donner Golf Course",
+        "value": 28.6
+      },
+      {
+        "courseName": "Coyote Moon Golf Course",
+        "value": 42.9
+      },
+      {
+        "courseName": "Edgewood Tahoe Resort Golf",
+        "value": 50
+      },
+      {
+        "courseName": "Valley Course | Coyote Creek Golf Club",
+        "value": 28.6
+      },
+      {
+        "courseName": "Van Cortlandt Park Golf Course",
+        "value": 38.5
+      },
+      {
+        "courseName": "Forest Park Golf Course",
+        "value": 69.2
+      },
+      {
+        "courseName": "New Sunningdale | Sunningdale Golf & Country Club",
+        "value": 46.2
+      },
+      {
+        "courseName": "Shawneeki Golf Club",
+        "value": 35.7
+      },
+      {
+        "courseName": "Commemorative Course | Oak Quarry Golf Club",
+        "value": 21.4
+      },
+      {
+        "courseName": "Ojai Valley Inn and Spa",
+        "value": 53.8
+      },
+      {
+        "courseName": "Commemorative Course | Oak Quarry Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "value": 76.9
+      },
+      {
+        "courseName": "Black Gold Golf Club",
+        "value": 64.3
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "value": 57.1
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "value": 76.9
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "value": 42.9
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "value": 21.4
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "value": 23.1
+      },
+      {
+        "courseName": "Snow Mountain | Las Vegas Paiute Golf Resort",
+        "value": 64.3
+      },
+      {
+        "courseName": "Wolf | Las Vegas Paiute Golf Resort",
+        "value": 71.4
+      },
+      {
+        "courseName": "Serket Golf Club",
+        "value": 42.9
+      },
+      {
+        "courseName": "Dwight Eisenhower | Industry Hills Golf Club At Pacific Palms Resort",
+        "value": 50
+      },
+      {
+        "courseName": "Wilson | Griffith Park Golf Club",
+        "value": 33.3
+      },
+      {
+        "courseName": "Commemorative Course | Oak Quarry Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Dwight Eisenhower | Industry Hills Golf Club At Pacific Palms Resort",
+        "value": 42.9
+      },
+      {
+        "courseName": "Los Robles Greens Golf Course",
+        "value": 61.5
+      },
+      {
+        "courseName": "Angeles National Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Alhambra Golf Course",
+        "value": 30.8
+      },
+      {
+        "courseName": "Black Gold Golf Club",
+        "value": 35.7
+      },
+      {
+        "courseName": "River/Pine | Whittier Narrows Golf Course",
+        "value": 28.6
+      },
+      {
+        "courseName": "Commemorative Course | Oak Quarry Golf Club",
+        "value": 42.9
+      },
+      {
+        "courseName": "Redhawk Golf Course",
+        "value": 57.1
+      },
+      {
+        "courseName": "Creek/StoneHouse | Temecula Creek Golf Club",
+        "value": 35.7
+      },
+      {
+        "courseName": "Stadium Course | PGA West Stadium Clubhouse",
+        "value": 42.9
+      },
+      {
+        "courseName": "Celebrity | Indian Wells Golf Resort",
+        "value": 50
+      },
+      {
+        "courseName": "Black Gold Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "value": 57.1
+      },
+      {
+        "courseName": "Upper Course | Sleepy Hollow Country Club",
+        "value": 57.1
+      },
+      {
+        "courseName": "Black | Bethpage State Park Golf Course",
+        "value": 28.6
+      },
+      {
+        "courseName": "Canyon Crest/Ridgeline | Moorpark Country Club",
+        "value": 7.7
+      },
+      {
+        "courseName": "Ocean North | Pelican Hill Golf Club",
+        "value": 35.7
+      },
+      {
+        "courseName": "Black Gold Golf Club",
+        "value": 64.3
+      },
+      {
+        "courseName": "Nicklaus Course | Hualalai Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "value": 85.7
+      },
+      {
+        "courseName": "Nicklaus Course | Hualalai Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Mid South Club",
+        "value": 42.9
+      },
+      {
+        "courseName": "Forest Park Golf Course",
+        "value": 30.8
+      },
+      {
+        "courseName": "The Creek Club Locust Valley",
+        "value": 42.9
+      },
+      {
+        "courseName": "Canyon/Lake | Cinnabar Hills Golf Club",
+        "value": 71.4
+      },
+      {
+        "courseName": "Upper Course | Sleepy Hollow Country Club",
+        "value": 92.9
+      },
+      {
+        "courseName": "North | TPC Toronto at Osprey Valley",
+        "value": 50
+      },
+      {
+        "courseName": "Hoot | TPC Toronto at Osprey Valley",
+        "value": 78.6
+      },
+      {
+        "courseName": "Marlton | The Links Golf Club",
+        "value": 78.6
+      },
+      {
+        "courseName": "Oakcreek Country Club",
+        "value": 57.1
+      },
+      {
+        "courseName": "Nicklaus Course | Hualalai Golf Club",
+        "value": 64.3
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "value": 71.4
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "value": 71.4
+      },
+      {
+        "courseName": "18 Holes | Kukio Makai Beach Golf Club",
+        "value": 71.4
+      },
+      {
+        "courseName": "Scottsdale Silverado Golf Club",
+        "value": 100
+      },
+      {
+        "courseName": "Raptor | Grayhawk Golf Club",
+        "value": 85.7
+      },
+      {
+        "courseName": "Champions | Tpc Of Scottsdale",
+        "value": 76.9
+      },
+      {
+        "courseName": "Eagle Vines Golf Club",
+        "value": 78.6
+      },
+      {
+        "courseName": "Tilden Park Golf Course",
+        "value": 42.9
+      },
+      {
+        "courseName": "Ussher's Creek | Legends On The Niagara Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Battlefield | Legends On The Niagara Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Bennett Valley Golf Course",
+        "value": 50
+      },
+      {
+        "courseName": "Brambles Golf",
+        "value": 21.4
+      },
+      {
+        "courseName": "TPC Harding Park Golf Course",
+        "value": 42.9
+      },
+      {
+        "courseName": "Presidio Golf Course",
+        "value": 35.7
+      }
+    ],
+    "par3HitPct": [
+      {
+        "courseName": "Marlton | The Links Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Wedgwood Country Club",
+        "value": 50
+      },
+      {
+        "courseName": "Kresson Golf Course",
+        "value": 14.3
+      },
+      {
+        "courseName": "Marlton | The Links Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Westchester Golf Course",
+        "value": 33.3
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 20
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 60
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 20
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 57.1
+      },
+      {
+        "courseName": "Redhawk Golf Course",
+        "value": 25
+      },
+      {
+        "courseName": "Cross Creek Golf Club",
+        "value": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 80
+      },
+      {
+        "courseName": "E.O. Nay - Course 2 | Brookside Golf Club",
+        "value": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 33.3
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 33.3
+      },
+      {
+        "courseName": "Ron Jaworskis Valleybrook Golf Course",
+        "value": 50
+      },
+      {
+        "courseName": "Wedgwood Country Club",
+        "value": 50
+      },
+      {
+        "courseName": "Wedgwood Country Club",
+        "value": 0
+      },
+      {
+        "courseName": "Lakeside/Hillside | Cantigny Golf & Tennis Club",
+        "value": 50
+      },
+      {
+        "courseName": "Jackson Park Golf Course",
+        "value": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 66.7
+      },
+      {
+        "courseName": "Cherry Downs Golf & Count",
+        "value": 0
+      },
+      {
+        "courseName": "South | The Club At Bond Head",
+        "value": 25
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Angeles National Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "value": 0
+      },
+      {
+        "courseName": "Heritage Palms Golf Club",
+        "value": 0
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "value": 0
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "value": 20
+      },
+      {
+        "courseName": "Balboa | Sepulveda Golf Club",
+        "value": 0
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "value": 20
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 50
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "value": 50
+      },
+      {
+        "courseName": "Harding | Griffith Park Golf Club",
+        "value": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "value": 0
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "value": 0
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "value": 20
+      },
+      {
+        "courseName": "Barbados Golf Club",
+        "value": 100
+      },
+      {
+        "courseName": "Royal Westmoreland Golf",
+        "value": 0
+      },
+      {
+        "courseName": "The Country Club | Sandy Lane Golf Club",
+        "value": 20
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "value": 40
+      },
+      {
+        "courseName": "Wilson | Griffith Park Golf Club",
+        "value": 33.3
+      },
+      {
+        "courseName": "C.W. Koiner - Course 1 | Brookside Golf Club",
+        "value": 33.3
+      },
+      {
+        "courseName": "Montebello Golf Course",
+        "value": 50
+      },
+      {
+        "courseName": "Encino | Sepulveda Golf Complex",
+        "value": 50
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "value": 60
+      },
+      {
+        "courseName": "Acworth | Cobblestone Golf Course",
+        "value": 20
+      },
+      {
+        "courseName": "Lanier Islands Golf Course",
+        "value": 50
+      },
+      {
+        "courseName": "Cherokee Run Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Indian Spring Country Club",
+        "value": 25
+      },
+      {
+        "courseName": "University Of Michigan Golf Course",
+        "value": 50
+      },
+      {
+        "courseName": "Leslie Park Golf Course",
+        "value": 50
+      },
+      {
+        "courseName": "Lake Forest Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "value": 0
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "value": 40
+      },
+      {
+        "courseName": "Sandpiper Golf Course",
+        "value": 0
+      },
+      {
+        "courseName": "Ojai Valley Inn and Spa",
+        "value": 20
+      },
+      {
+        "courseName": "Eastmoreland Golf Course",
+        "value": 75
+      },
+      {
+        "courseName": "Great Blue | Heron Lakes Golf Course",
+        "value": 75
+      },
+      {
+        "courseName": "Greenback | Heron Lakes Golf Course",
+        "value": 0
+      },
+      {
+        "courseName": "Marlton | The Links Golf Club",
+        "value": 0
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "value": 40
+      },
+      {
+        "courseName": "Los Robles Greens Golf Course",
+        "value": 40
+      },
+      {
+        "courseName": "Hidden Valley Lake Golf & Country Club",
+        "value": 25
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "value": 50
+      },
+      {
+        "courseName": "Encino | Sepulveda Golf Complex",
+        "value": 25
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "value": 60
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "value": 80
+      },
+      {
+        "courseName": "Encino | Sepulveda Golf Complex",
+        "value": 25
+      },
+      {
+        "courseName": "Balboa | Sepulveda Golf Club",
+        "value": 0
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "value": 40
+      },
+      {
+        "courseName": "Babe Zaharias | Industry Hills Golf Club At Pacific Palms Resort",
+        "value": 0
+      },
+      {
+        "courseName": "Knollwood Golf Club",
+        "value": 75
+      },
+      {
+        "courseName": "Los Robles Greens Golf Course",
+        "value": 20
+      },
+      {
+        "courseName": "Tahoe Donner Golf Course",
+        "value": 75
+      },
+      {
+        "courseName": "Coyote Moon Golf Course",
+        "value": 50
+      },
+      {
+        "courseName": "Edgewood Tahoe Resort Golf",
+        "value": 25
+      },
+      {
+        "courseName": "Valley Course | Coyote Creek Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Van Cortlandt Park Golf Course",
+        "value": 40
+      },
+      {
+        "courseName": "Forest Park Golf Course",
+        "value": 80
+      },
+      {
+        "courseName": "New Sunningdale | Sunningdale Golf & Country Club",
+        "value": 60
+      },
+      {
+        "courseName": "Shawneeki Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Commemorative Course | Oak Quarry Golf Club",
+        "value": 0
+      },
+      {
+        "courseName": "Ojai Valley Inn and Spa",
+        "value": 20
+      },
+      {
+        "courseName": "Commemorative Course | Oak Quarry Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "value": 60
+      },
+      {
+        "courseName": "Black Gold Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "value": 50
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "value": 80
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "value": 75
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "value": 20
+      },
+      {
+        "courseName": "Snow Mountain | Las Vegas Paiute Golf Resort",
+        "value": 50
+      },
+      {
+        "courseName": "Wolf | Las Vegas Paiute Golf Resort",
+        "value": 100
+      },
+      {
+        "courseName": "Serket Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Dwight Eisenhower | Industry Hills Golf Club At Pacific Palms Resort",
+        "value": 50
+      },
+      {
+        "courseName": "Wilson | Griffith Park Golf Club",
+        "value": 33.3
+      },
+      {
+        "courseName": "Commemorative Course | Oak Quarry Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Dwight Eisenhower | Industry Hills Golf Club At Pacific Palms Resort",
+        "value": 75
+      },
+      {
+        "courseName": "Los Robles Greens Golf Course",
+        "value": 20
+      },
+      {
+        "courseName": "Angeles National Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Alhambra Golf Course",
+        "value": 0
+      },
+      {
+        "courseName": "Black Gold Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "River/Pine | Whittier Narrows Golf Course",
+        "value": 50
+      },
+      {
+        "courseName": "Commemorative Course | Oak Quarry Golf Club",
+        "value": 75
+      },
+      {
+        "courseName": "Redhawk Golf Course",
+        "value": 100
+      },
+      {
+        "courseName": "Creek/StoneHouse | Temecula Creek Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Stadium Course | PGA West Stadium Clubhouse",
+        "value": 0
+      },
+      {
+        "courseName": "Celebrity | Indian Wells Golf Resort",
+        "value": 50
+      },
+      {
+        "courseName": "Black Gold Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Upper Course | Sleepy Hollow Country Club",
+        "value": 100
+      },
+      {
+        "courseName": "Black | Bethpage State Park Golf Course",
+        "value": 25
+      },
+      {
+        "courseName": "Canyon Crest/Ridgeline | Moorpark Country Club",
+        "value": 0
+      },
+      {
+        "courseName": "Ocean North | Pelican Hill Golf Club",
+        "value": 75
+      },
+      {
+        "courseName": "Black Gold Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Nicklaus Course | Hualalai Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Nicklaus Course | Hualalai Golf Club",
+        "value": 75
+      },
+      {
+        "courseName": "Mid South Club",
+        "value": 50
+      },
+      {
+        "courseName": "Forest Park Golf Course",
+        "value": 40
+      },
+      {
+        "courseName": "The Creek Club Locust Valley",
+        "value": 100
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "value": 50
+      },
+      {
+        "courseName": "Canyon/Lake | Cinnabar Hills Golf Club",
+        "value": 75
+      },
+      {
+        "courseName": "Upper Course | Sleepy Hollow Country Club",
+        "value": 50
+      },
+      {
+        "courseName": "North | TPC Toronto at Osprey Valley",
+        "value": 75
+      },
+      {
+        "courseName": "Hoot | TPC Toronto at Osprey Valley",
+        "value": 50
+      },
+      {
+        "courseName": "Marlton | The Links Golf Club",
+        "value": 100
+      },
+      {
+        "courseName": "Oakcreek Country Club",
+        "value": 100
+      },
+      {
+        "courseName": "Nicklaus Course | Hualalai Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "value": 0
+      },
+      {
+        "courseName": "18 Holes | Kukio Makai Beach Golf Club",
+        "value": 75
+      },
+      {
+        "courseName": "Scottsdale Silverado Golf Club",
+        "value": 83.3
+      },
+      {
+        "courseName": "Raptor | Grayhawk Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Champions | Tpc Of Scottsdale",
+        "value": 80
+      },
+      {
+        "courseName": "Eagle Vines Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Tilden Park Golf Course",
+        "value": 50
+      },
+      {
+        "courseName": "Ussher's Creek | Legends On The Niagara Golf Club",
+        "value": 50
+      },
+      {
+        "courseName": "Battlefield | Legends On The Niagara Golf Club",
+        "value": 25
+      },
+      {
+        "courseName": "Bennett Valley Golf Course",
+        "value": 75
+      },
+      {
+        "courseName": "Brambles Golf",
+        "value": 0
+      },
+      {
+        "courseName": "TPC Harding Park Golf Course",
+        "value": 25
+      },
+      {
+        "courseName": "Presidio Golf Course",
+        "value": 25
+      }
+    ],
+    "puttDist": [
+      {
+        "courseName": "Marlton | The Links Golf Club",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 26,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Wedgwood Country Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 24,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Kresson Golf Course",
+        "putts0": 0,
+        "putts1": 6,
+        "putts2": 22,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Marlton | The Links Golf Club",
+        "putts0": 0,
+        "putts1": 6,
+        "putts2": 22,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Westchester Golf Course",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 30,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 32,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "putts0": 0,
+        "putts1": 7,
+        "putts2": 20,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 26,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 26,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Redhawk Golf Course",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 30,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Cross Creek Golf Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 34,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "putts0": 1,
+        "putts1": 4,
+        "putts2": 22,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "E.O. Nay - Course 2 | Brookside Golf Club",
+        "putts0": 0,
+        "putts1": 7,
+        "putts2": 16,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 22,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 24,
+        "putts3": 15,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Ron Jaworskis Valleybrook Golf Course",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 24,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Wedgwood Country Club",
+        "putts0": 0,
+        "putts1": 5,
+        "putts2": 18,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Wedgwood Country Club",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 28,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Lakeside/Hillside | Cantigny Golf & Tennis Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 30,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Jackson Park Golf Course",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 32,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 24,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Cherry Downs Golf & Count",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 34,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "South | The Club At Bond Head",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 28,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 14,
+        "putts3": 18,
+        "putts4Plus": 4
+      },
+      {
+        "courseName": "Angeles National Golf Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 32,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 18,
+        "putts3": 15,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Heritage Palms Golf Club",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 22,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "putts0": 0,
+        "putts1": 5,
+        "putts2": 26,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "putts0": 1,
+        "putts1": 1,
+        "putts2": 32,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 28,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Balboa | Sepulveda Golf Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 30,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 22,
+        "putts3": 18,
+        "putts4Plus": 4
+      },
+      {
+        "courseName": "Combined Score",
+        "putts0": 9,
+        "putts1": 2,
+        "putts2": 10,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 34,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Harding | Griffith Park Golf Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 20,
+        "putts3": 18,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 26,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Combined Score",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 24,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 22,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "putts0": 1,
+        "putts1": 3,
+        "putts2": 18,
+        "putts3": 15,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Barbados Golf Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 28,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Royal Westmoreland Golf",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 34,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "The Country Club | Sandy Lane Golf Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 20,
+        "putts3": 21,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 28,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Wilson | Griffith Park Golf Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 26,
+        "putts3": 6,
+        "putts4Plus": 4
+      },
+      {
+        "courseName": "C.W. Koiner - Course 1 | Brookside Golf Club",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 26,
+        "putts3": 15,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Montebello Golf Course",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 28,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Encino | Sepulveda Golf Complex",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 26,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 22,
+        "putts3": 21,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Acworth | Cobblestone Golf Course",
+        "putts0": 0,
+        "putts1": 5,
+        "putts2": 22,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Lanier Islands Golf Course",
+        "putts0": 0,
+        "putts1": 5,
+        "putts2": 16,
+        "putts3": 12,
+        "putts4Plus": 4
+      },
+      {
+        "courseName": "Cherokee Run Golf Club",
+        "putts0": 1,
+        "putts1": 1,
+        "putts2": 22,
+        "putts3": 15,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Indian Spring Country Club",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 18,
+        "putts3": 18,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "University Of Michigan Golf Course",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 20,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Leslie Park Golf Course",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 26,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Lake Forest Golf Club",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 18,
+        "putts3": 15,
+        "putts4Plus": 4
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "putts0": 0,
+        "putts1": 6,
+        "putts2": 22,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "putts0": 0,
+        "putts1": 6,
+        "putts2": 24,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 22,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Sandpiper Golf Course",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 26,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Ojai Valley Inn and Spa",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 24,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Eastmoreland Golf Course",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 22,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Great Blue | Heron Lakes Golf Course",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 22,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Greenback | Heron Lakes Golf Course",
+        "putts0": 0,
+        "putts1": 8,
+        "putts2": 14,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Marlton | The Links Golf Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 32,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 28,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Los Robles Greens Golf Course",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 24,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Hidden Valley Lake Golf & Country Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 28,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 22,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Encino | Sepulveda Golf Complex",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 24,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "putts0": 0,
+        "putts1": 5,
+        "putts2": 26,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 20,
+        "putts3": 15,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Encino | Sepulveda Golf Complex",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 24,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Balboa | Sepulveda Golf Club",
+        "putts0": 0,
+        "putts1": 7,
+        "putts2": 22,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Rustic Canyon Golf Course",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 22,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Babe Zaharias | Industry Hills Golf Club At Pacific Palms Resort",
+        "putts0": 2,
+        "putts1": 4,
+        "putts2": 18,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Knollwood Golf Club",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 22,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Los Robles Greens Golf Course",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 26,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Tahoe Donner Golf Course",
+        "putts0": 1,
+        "putts1": 1,
+        "putts2": 26,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Coyote Moon Golf Course",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 26,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Edgewood Tahoe Resort Golf",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 26,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Valley Course | Coyote Creek Golf Club",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 26,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Van Cortlandt Park Golf Course",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 28,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Forest Park Golf Course",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 26,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "New Sunningdale | Sunningdale Golf & Country Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 20,
+        "putts3": 18,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Shawneeki Golf Club",
+        "putts0": 1,
+        "putts1": 4,
+        "putts2": 18,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Commemorative Course | Oak Quarry Golf Club",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 28,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Ojai Valley Inn and Spa",
+        "putts0": 1,
+        "putts1": 4,
+        "putts2": 18,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Commemorative Course | Oak Quarry Golf Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 32,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 28,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Black Gold Golf Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 32,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 22,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 30,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 26,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 24,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 32,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Tierra Rejada Golf Club",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 26,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Snow Mountain | Las Vegas Paiute Golf Resort",
+        "putts0": 1,
+        "putts1": 1,
+        "putts2": 30,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Wolf | Las Vegas Paiute Golf Resort",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 32,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Serket Golf Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 28,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Dwight Eisenhower | Industry Hills Golf Club At Pacific Palms Resort",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 28,
+        "putts3": 6,
+        "putts4Plus": 5
+      },
+      {
+        "courseName": "Wilson | Griffith Park Golf Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 26,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Commemorative Course | Oak Quarry Golf Club",
+        "putts0": 0,
+        "putts1": 6,
+        "putts2": 22,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Dwight Eisenhower | Industry Hills Golf Club At Pacific Palms Resort",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 30,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Los Robles Greens Golf Course",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 24,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Angeles National Golf Club",
+        "putts0": 0,
+        "putts1": 5,
+        "putts2": 18,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Alhambra Golf Course",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 28,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Black Gold Golf Club",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 22,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "River/Pine | Whittier Narrows Golf Course",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 22,
+        "putts3": 18,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Commemorative Course | Oak Quarry Golf Club",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 28,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Redhawk Golf Course",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 30,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Creek/StoneHouse | Temecula Creek Golf Club",
+        "putts0": 0,
+        "putts1": 6,
+        "putts2": 20,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Stadium Course | PGA West Stadium Clubhouse",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 28,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Celebrity | Indian Wells Golf Resort",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 32,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Black Gold Golf Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 34,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Rancho Park Golf Club",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 24,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Upper Course | Sleepy Hollow Country Club",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 32,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Black | Bethpage State Park Golf Course",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 24,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Canyon Crest/Ridgeline | Moorpark Country Club",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 26,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Ocean North | Pelican Hill Golf Club",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 28,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Black Gold Golf Club",
+        "putts0": 0,
+        "putts1": 4,
+        "putts2": 26,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Nicklaus Course | Hualalai Golf Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 28,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "putts0": 0,
+        "putts1": 6,
+        "putts2": 24,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Nicklaus Course | Hualalai Golf Club",
+        "putts0": 0,
+        "putts1": 7,
+        "putts2": 20,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Mid South Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 26,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Forest Park Golf Course",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 26,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "The Creek Club Locust Valley",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 28,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 32,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Canyon/Lake | Cinnabar Hills Golf Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 30,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Upper Course | Sleepy Hollow Country Club",
+        "putts0": 0,
+        "putts1": 0,
+        "putts2": 28,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "North | TPC Toronto at Osprey Valley",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 28,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Hoot | TPC Toronto at Osprey Valley",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 34,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Marlton | The Links Golf Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 26,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Oakcreek Country Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 26,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Nicklaus Course | Hualalai Golf Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 32,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 30,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Ke'olu | Hualalai Golf Club",
+        "putts0": 0,
+        "putts1": 6,
+        "putts2": 22,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "18 Holes | Kukio Makai Beach Golf Club",
+        "putts0": 0,
+        "putts1": 5,
+        "putts2": 20,
+        "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Scottsdale Silverado Golf Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 34,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Raptor | Grayhawk Golf Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 30,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Champions | Tpc Of Scottsdale",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 34,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Eagle Vines Golf Club",
+        "putts0": 0,
+        "putts1": 5,
+        "putts2": 24,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Tilden Park Golf Course",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 26,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Ussher's Creek | Legends On The Niagara Golf Club",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 30,
+        "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Battlefield | Legends On The Niagara Golf Club",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 30,
+        "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Bennett Valley Golf Course",
+        "putts0": 0,
+        "putts1": 2,
+        "putts2": 24,
+        "putts3": 12,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Brambles Golf",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 26,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "TPC Harding Park Golf Course",
+        "putts0": 0,
+        "putts1": 5,
+        "putts2": 22,
+        "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Presidio Golf Course",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 30,
+        "putts3": 6,
+        "putts4Plus": 0
+      }
     ]
   }
 }

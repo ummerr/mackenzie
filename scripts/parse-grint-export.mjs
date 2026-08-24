@@ -169,16 +169,21 @@ export function parseTotalOnlyScorecard(html, meta, url) {
 
 /**
  * The /trend handicap chart's three series, in chart (chronological) order.
- * Points look like {y:23.9,name:'Wedgwood Country Club'} with optional
- * , color: '#A7CF3F' — names may contain \' escapes.
+ * Points look like {y:23.9,name:'Wedgwood Country Club'} with optional extra
+ * properties after the name — color: '#A7CF3F' on the handicap chart,
+ * countHoles: 0 on the putt-distribution chart — and names may contain \'
+ * escapes. Anything brace-free after the name is tolerated, never read.
  */
-const POINT_RE = /\{y:([\d.]+),name:'((?:[^'\\]|\\.)*)'(?:,\s*color:\s*'[^']*')?\}/g;
+const POINT_RE = /\{y:([\d.]+),name:'((?:[^'\\]|\\.)*)'(?:,[^{}]*)?\}/g;
 
 /** The named series' data points out of a view's inline chart scripts. */
 export function parseSeries(scripts, name) {
   const blob = scripts.join("\n");
+  // Series names are literals, not patterns — "4 +Putts" carries a regex
+  // metacharacter and must not quantify anything.
+  const literal = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   // The data: [...] array that follows the `name: '<name>'` declaring it.
-  const re = new RegExp(`name:\\s*'${name}'[\\s\\S]{0,200}?data:\\s*\\[([\\s\\S]*?)\\]`, "");
+  const re = new RegExp(`name:\\s*'${literal}'[\\s\\S]{0,200}?data:\\s*\\[([\\s\\S]*?)\\]`, "");
   const m = blob.match(re);
   if (!m) return null;
   const pts = [];
@@ -186,6 +191,29 @@ export function parseSeries(scripts, name) {
     pts.push({ y: Number(p[1]), name: decodeEntities(p[2].replace(/\\'/g, "'")) });
   }
   return pts;
+}
+
+/**
+ * The putt view's five per-round count series — how many holes took 0, 1, 2,
+ * 3, or 4+ putts, one point per charted round — zipped positionally. Five
+ * lines of ONE chart sharing one x-axis, so the index join is the chart's
+ * own, not an invented one. Returns [] when any line is missing or the
+ * lengths disagree: a refusal, not a guess.
+ */
+export function parsePuttDist(scripts) {
+  const names = ["0 Putts", "1 Putts", "2 Putts", "3 Putts", "4 +Putts"];
+  const lines = names.map((n) => parseSeries(scripts, n));
+  if (lines.some((l) => l === null)) return [];
+  const len = lines[0].length;
+  if (lines.some((l) => l.length !== len)) return [];
+  return lines[0].map((p, i) => ({
+    courseName: p.name || null,
+    putts0: lines[0][i].y,
+    putts1: lines[1][i].y,
+    putts2: lines[2][i].y,
+    putts3: lines[3][i].y,
+    putts4Plus: lines[4][i].y,
+  }));
 }
 
 export function parseDifferentials(scripts) {
@@ -318,6 +346,12 @@ function main() {
   const series = {
     girPerRound: toSeries(parseSeries(viewScripts("gir"), "GIR per round")),
     parSavesPct: toSeries(parseSeries(viewScripts("scrambling_par_saves"), "Par Saves %")),
+    // The tee game as the scorecards chart it: % of fairways hit per round,
+    // and % of par-3 greens hit per round — the card side's only look at the
+    // approach game by hole length.
+    fairwayHitPct: toSeries(parseSeries(viewScripts("fwy_round"), "% Fairways Hit")),
+    par3HitPct: toSeries(parseSeries(viewScripts("tee_round"), "% Par 3 Hit")),
+    puttDist: parsePuttDist(viewScripts("putt")),
   };
 
   const out = {
@@ -344,7 +378,11 @@ function main() {
   console.log(`with a date   ${dated}`);
   console.log(`with putts    ${withPutts}`);
   console.log(`differentials ${points.length}  handicap index ${handicapIndex ?? "?"}`);
-  console.log(`series        gir ${series.girPerRound.length}, par saves ${series.parSavesPct.length}`);
+  console.log(
+    `series        gir ${series.girPerRound.length}, par saves ${series.parSavesPct.length}, ` +
+      `fairway% ${series.fairwayHitPct.length}, par-3% ${series.par3HitPct.length}, ` +
+      `putt dist ${series.puttDist.length}`,
+  );
   if (flagged.length > 0) {
     const byFlag = {};
     for (const r of flagged) for (const f of r.flags) byFlag[f] = (byFlag[f] || 0) + 1;
