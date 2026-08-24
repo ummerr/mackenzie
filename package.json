@@ -13,6 +13,7 @@
     "ingest": "tsx scripts/ingest.ts",
     "compare": "tsx scripts/compare.ts",
     "profile": "tsx scripts/profile.ts",
+    "goals:propose": "tsx scripts/propose-goals.ts",
     "flight": "tsx scripts/ball-flight.ts",
     "data:parse": "node scripts/parse-grint.mjs",
     "data:spine": "node scripts/rounds-to-spine.mjs",

@@ -85,6 +85,7 @@ export default function Profile() {
     garminShots: d.garminShots,
     bag: d.bag,
     wedgeMatrix: d.wedgeMatrix,
+    goals: d.goals,
   });
 
   const topFindings = profile.findings.slice(0, TOP_FINDINGS);

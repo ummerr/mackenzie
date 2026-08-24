@@ -188,6 +188,32 @@ a verbatim `grint-export-*.json` bundle into `data/raw/`, and
 `data/rounds.json` (dates, per-hole strokes/putts/fairway codes, and the
 handicap-differential series in chart order), never a change to these two.
 
+### Asserted intent: data/goals.json
+
+The one file that records what the golfer *means to do* — a week or two of
+goals — because no ledger can know intent. Everything about how a week is
+going is derived (`lib/goals.ts` metric registry), measured in **record
+time**: a week is open until the newest capture outruns it, then achieved or
+missed by what the record says. The engine proposes (`pnpm goals:propose`,
+from the top leak and the top open task); pasting into this file is the
+human's commit — the `round-links.json` pattern applied to intent.
+
+```json
+{ "weeks": [ { "weekOf": "2026-08-24", "goals": [ {
+  "id": "2026-08-24-1",          // any unique string
+  "metricId": "gir-last-20",     // a key of METRICS in lib/goals.ts
+  "target": 9,                    // the number to reach (direction is the metric's)
+  "club": "Driver",              // only for club-scoped metrics (usable-shots)
+  "leakId": "gir-ceiling",       // optional join to the leak it answers
+  "taskId": "three-putts",       // optional join to the task it executes
+  "note": "why this week"        // optional, printed verbatim
+} ] } ] }
+```
+
+Weeks sort by `weekOf` and the newest is "this week" everywhere — position,
+not the wall clock. Unknown metric ids, bad targets, or joins that no longer
+resolve render as their own state (`invalid` / orphaned), never a crash.
+
 ### Courses the paste hasn't met
 
 `rounds-to-spine.mjs` (`data:spine`) closes the gap between the two adapters:

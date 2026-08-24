@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { buildCourseHistory, type CourseHistory, type SourceCourses } from "@/lib/course-history";
 import { buildGarminShots, type GarminShots, type SourceGarminRounds } from "@/lib/garmin-shots";
+import { parseGoalsFile, type GoalsFile } from "@/lib/goals";
 import {
   buildRoundHistory,
   type PlayedRound,
@@ -34,6 +35,17 @@ export function loadRounds(): RoundHistory | null {
 export function loadGarmin(): GarminShots | null {
   try {
     return buildGarminShots(loadJson<SourceGarminRounds>("garmin-rounds.json"));
+  } catch {
+    return null;
+  }
+}
+
+/** The one asserted-intent file — the week's goals, hand-committed after the
+ *  engine proposes them (`pnpm goals:propose`). Absent or unreadable is a
+ *  state the pages render, not a crash. */
+export function loadGoals(): GoalsFile | null {
+  try {
+    return parseGoalsFile(loadJson<unknown>("goals.json"));
   } catch {
     return null;
   }

@@ -49,6 +49,7 @@ import {
 } from "./garmin-shots";
 import { meanScore, scorable, totalRounds } from "./course-history";
 import { approachBands } from "./approach";
+import type { GoalsProgress } from "./goals";
 import { buildLeaks, type Leak } from "./leaks";
 import type { LedgerSession, LedgerShot } from "./ledger";
 import { buildSources, type SourceRef } from "./sources";
@@ -203,6 +204,10 @@ export interface GolferProfile {
   sources: SourceRef[];
   /** True when only the range half was available. */
   rangeOnly: boolean;
+  /** The committed weekly goals measured against the record (lib/goals.ts) —
+   *  computed by the caller so pages and PROFILE.md render one answer; null
+   *  when the caller has no goals to pass. */
+  goals: GoalsProgress | null;
 }
 
 export interface ProfileInput {
@@ -223,6 +228,8 @@ export interface ProfileInput {
   bag?: BagSpec | null;
   /** From `buildWedgeMatrix`. Null before data/wedge-blocks.json exists. */
   wedgeMatrix?: WedgeMatrix | null;
+  /** From `buildGoalProgress`. Null when the caller carries no goals. */
+  goals?: GoalsProgress | null;
 }
 
 const CONFIDENCE_WEIGHT: Record<Confidence, number> = {
@@ -300,6 +307,7 @@ export function buildProfile({
   garminShots = null,
   bag = null,
   wedgeMatrix = null,
+  goals = null,
 }: ProfileInput): GolferProfile {
   const findings: Finding[] = [];
   const trusted = shots.filter((s) => !s.isExcluded);
@@ -1181,6 +1189,7 @@ export function buildProfile({
     onCourse,
     sources: buildSources({ shots, sessions, history, roundHistory, garminShots }),
     rangeOnly: history === null,
+    goals,
   };
 }
 

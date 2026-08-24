@@ -18,9 +18,10 @@ import { readBag, readWedgeBlocks } from "./bag-file";
 import type { BagSpec } from "./clubs";
 import type { GarminShots } from "./garmin-shots";
 import { approachBands } from "./approach";
+import { buildGoalProgress, type GoalsProgress } from "./goals";
 import { buildLeaks, type Leak } from "./leaks";
 import type { LedgerSession, LedgerShot } from "./ledger";
-import { loadGarmin, loadJson, loadRounds } from "./load";
+import { loadGarmin, loadGoals, loadJson, loadRounds } from "./load";
 import { PROFILE_THRESHOLDS } from "./profile";
 import type { RoundHistory } from "./round-history";
 import { applyHeuristics, buildBag, detectGaps, type ClubProfile, type Gap } from "./stats";
@@ -45,6 +46,9 @@ export interface SiteData {
   wedgeMatrix: WedgeMatrix;
   tasks: Task[];
   leaks: Leak[];
+  /** The committed weekly goals, measured against the record — null-safe all
+   *  the way down; a checkout without data/goals.json gets empty weeks. */
+  goals: GoalsProgress;
 }
 
 export function buildSiteData(): SiteData {
@@ -75,6 +79,15 @@ export function buildSiteData(): SiteData {
     recentMonths: PROFILE_THRESHOLDS.recentMonths,
     approach: approachBands(garminShots),
   });
+  const goals = buildGoalProgress(loadGoals(), {
+    roundHistory,
+    garminShots,
+    profiles,
+    wedgeMatrix,
+    leaks,
+    tasks,
+    recentMonths: PROFILE_THRESHOLDS.recentMonths,
+  });
   return {
     blocks,
     shots,
@@ -87,5 +100,6 @@ export function buildSiteData(): SiteData {
     wedgeMatrix,
     tasks,
     leaks,
+    goals,
   };
 }

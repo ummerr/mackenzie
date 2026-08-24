@@ -66,6 +66,47 @@ function render(p: GolferProfile): string {
     out.push("");
   }
 
+  /* The committed week, measured in record time — the goals file asserts
+   * intent, the record answers. Rendered before the leaks because it is the
+   * week's answer to them. Absent goals are simply absent: intent is
+   * optional, and an empty section would imply it isn't. */
+  if (p.goals && p.goals.latest) {
+    const wk = p.goals.latest;
+    const fmt = (v: number | null, unit: string) =>
+      v === null ? "—" : `${Number.isInteger(v) ? v : v.toFixed(1)}${unit === "%" ? "%" : ` ${unit}`}`;
+    out.push("## This week");
+    out.push("");
+    out.push(
+      `The week of ${wk.weekOf}, measured against the newest capture` +
+        `${p.goals.asOf ? ` (${p.goals.asOf})` : ""} — record time, not wall time:`,
+      "a goal is open until the record outruns its week, then achieved or missed",
+      "by what the record says. The engine proposes (`pnpm goals:propose`);",
+      "data/goals.json is the human's commit.",
+    );
+    out.push("");
+    for (const g of wk.goals) {
+      const arrow = g.direction === "up" ? "→" : "→ under";
+      out.push(
+        `- **${g.status}** — ${g.label}: ${fmt(g.value, g.unit)} ${arrow} ${fmt(g.goal.target, g.unit)}` +
+          (g.sample ? ` (${g.sample.n} ${g.sample.unit})` : "") +
+          (g.goal.note ? ` — ${g.goal.note}` : "") +
+          (g.orphaned ? ` — ⚠ ${g.orphaned}` : ""),
+      );
+    }
+    const past = p.goals.weeks.slice(0, -1);
+    if (past.length > 0) {
+      out.push("");
+      out.push("Past weeks: " +
+        past
+          .map((w) => {
+            const done = w.goals.filter((g) => g.status === "achieved").length;
+            return `${w.weekOf} (${done}/${w.goals.length} achieved)`;
+          })
+          .join(" · "));
+    }
+    out.push("");
+  }
+
   if (p.leaks.length > 0) {
     out.push("## The leaks");
     out.push("");
@@ -275,6 +316,7 @@ function main(): number {
     garminShots: d.garminShots,
     bag: d.bag,
     wedgeMatrix: d.wedgeMatrix,
+    goals: d.goals,
   });
   const next = render(profile);
 
