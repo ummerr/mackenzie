@@ -1,15 +1,11 @@
-import { join } from "node:path";
 import { Bag, type BasisView, type CourseMedians } from "../bag";
 import type { ShotDot } from "../bag-chart";
-import { readBag, readWedgeBlocks } from "@/lib/bag-file";
 import { buildWedgeMatrix } from "@/lib/wedge-matrix";
-import { courseClubDistances, shotRounds } from "@/lib/garmin-shots";
-import type { LedgerSession, LedgerShot } from "@/lib/ledger";
-import { loadGarmin, loadJson } from "@/lib/load";
+import { courseClubDistances, shotRounds, type GarminShots } from "@/lib/garmin-shots";
+import { buildSiteData } from "@/lib/site-data";
 import { buildSources } from "@/lib/sources";
 import { Provenance } from "../provenance";
 import {
-  applyHeuristics,
   bagCoverage,
   buildBag,
   coverageGaps,
@@ -34,8 +30,7 @@ import {
  * swings from the AutoShot record. Absent (null) on a checkout that has not
  * run `pnpm data:garmin` — an absence, not a crash, same as every other
  * artifact this app reads. */
-function loadCourse(): CourseMedians | null {
-  const g = loadGarmin();
+function courseMedians(g: GarminShots | null): CourseMedians | null {
   if (g === null) return null;
   const bearing = shotRounds(g);
   if (bearing.length === 0) return null;
@@ -50,16 +45,7 @@ export const metadata = {
 const BASES: DistanceBasis[] = ["carry", "total"];
 
 export default function Home() {
-  /* The labeled partial blocks, read before the classifier runs: a labeled
-   * shot leaves the full-swing pipeline entirely, so the blocks are an input
-   * to classification, not an afterthought. */
-  const blocks = readWedgeBlocks(join(process.cwd(), "data"))?.blocks ?? [];
-  const shots = applyHeuristics(loadJson<LedgerShot[]>("shots.json"), undefined, blocks);
-  const sessions = loadJson<LedgerSession[]>("sessions.json");
-  /* The clubs owned, which is not the same set as the clubs measured — the
-   * whole reason it is asserted by hand. Null when the file is absent, and
-   * every consumer below falls back to what the ledger alone can say. */
-  const bagSpec = readBag(join(process.cwd(), "data"));
+  const { blocks, shots, sessions, bag: bagSpec, garminShots } = buildSiteData();
 
   const views = Object.fromEntries(
     BASES.map((basis) => {
@@ -94,7 +80,7 @@ export default function Home() {
        * question about where the ball stopped. Built on carry, the basis every
        * shot has. */
       bagCoverage={bagCoverage(views.carry.bag, bagSpec)}
-      course={loadCourse()}
+      course={courseMedians(garminShots)}
       /* Carry basis, always: a partial is measured where it lands, and the
        * R50 never modelled the roll of a half wedge. */
       wedgeMatrix={buildWedgeMatrix(shots, blocks, views.carry.bag)}
@@ -102,7 +88,7 @@ export default function Home() {
     {/* Same container geometry as Bag's own root, so the block lines up. */}
     <div className="mx-auto max-w-7xl px-4 pb-8 sm:px-5">
       <Provenance
-        sources={buildSources({ shots, sessions, garminShots: loadGarmin() }).filter(
+        sources={buildSources({ shots, sessions, garminShots }).filter(
           (s) => s.id === "range" || s.id === "watch",
         )}
       />

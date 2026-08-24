@@ -1,17 +1,13 @@
-import { join } from "node:path";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { readBag, readWedgeBlocks } from "@/lib/bag-file";
 import { shotRounds, type GarminShots } from "@/lib/garmin-shots";
-import { buildLeaks, type Leak } from "@/lib/leaks";
-import type { LedgerSession, LedgerShot } from "@/lib/ledger";
-import { loadGarmin, loadJson, loadLinkedGrint, loadRounds } from "@/lib/load";
-import type { PlayedRound, RecentForm, RoundHistory, StatPair } from "@/lib/round-history";
+import type { Leak } from "@/lib/leaks";
+import { loadLinkedGrint } from "@/lib/load";
+import type { RecentForm, RoundHistory, StatPair } from "@/lib/round-history";
+import { buildSiteData } from "@/lib/site-data";
 import { buildSources } from "@/lib/sources";
 import { Provenance } from "../provenance";
-import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
-import { buildTasks } from "@/lib/tasks";
-import { buildWedgeMatrix } from "@/lib/wedge-matrix";
+import { StatTiles, type StatTile } from "../stat-tiles";
 import {
   asOf,
   differentialTrend,
@@ -256,7 +252,8 @@ function LeakEntry({ n, leak }: { n: string; leak: Leak }) {
 }
 
 export default function Scratch() {
-  const h = loadRounds();
+  const data = buildSiteData();
+  const h = data.roundHistory;
   if (!h) {
     return (
       <div className="mx-auto max-w-4xl px-4 py-6 sm:px-5 sm:py-8">
@@ -318,30 +315,8 @@ export default function Scratch() {
 
   /* The leak engine reads the whole record: the scorecards price the leaks,
    * the range and the watch say which are located, and the practice list
-   * supplies each move — computed here so no sentence goes stale. */
-  const blocks = readWedgeBlocks(join(process.cwd(), "data"))?.blocks ?? [];
-  const shots = applyHeuristics(loadJson<LedgerShot[]>("shots.json"), undefined, blocks);
-  const sessions = loadJson<LedgerSession[]>("sessions.json");
-  const profiles = buildBag(shots);
-  const bag = readBag(join(process.cwd(), "data"));
-  const garminShots = loadGarmin();
-  const tasks = buildTasks({
-    profiles,
-    gaps: detectGaps(profiles, undefined, bag),
-    shots,
-    sessions,
-    bag,
-    roundHistory: h,
-    garminShots,
-    wedgeMatrix: buildWedgeMatrix(shots, blocks, profiles),
-  });
-  const leaks = buildLeaks({
-    roundHistory: h,
-    garminShots,
-    profiles,
-    tasks,
-    recentMonths: PROFILE_THRESHOLDS.recentMonths,
-  });
+   * supplies each move — computed on render so no sentence goes stale. */
+  const { garminShots, leaks } = data;
 
   /* The recent window beside the whole record — the same gate the profile
    * uses, rendered here because the scorecards' trends live on this page. */
@@ -357,11 +332,11 @@ export default function Scratch() {
     ? shotRounds(garminShots).reduce((a, r) => a + r.shotCount, 0)
     : 0;
 
-  const spec: { v: string; k: string; accent?: boolean }[] = [
-    { v: h.handicapIndex === null ? "—" : f1(h.handicapIndex), k: "handicap index, from 23.9", accent: true },
-    { v: String(best.differential), k: "best differential in 5 yrs" },
-    { v: pp === null ? "—" : f1(pp), k: "putts per 18-hole round" },
-    { v: girMean === null ? "—" : `${f1(girMean)}/18`, k: "greens in regulation" },
+  const spec: StatTile[] = [
+    { value: h.handicapIndex === null ? "—" : f1(h.handicapIndex), label: "handicap index, from 23.9", accent: true },
+    { value: String(best.differential), label: "best differential in 5 yrs" },
+    { value: pp === null ? "—" : f1(pp), label: "putts per 18-hole round" },
+    { value: girMean === null ? "—" : `${f1(girMean)}/18`, label: "greens in regulation" },
   ];
 
   return (
@@ -379,16 +354,10 @@ export default function Scratch() {
         ranked by what they cost.
       </p>
 
-      <div className="mt-6 grid grid-cols-2 gap-px border bg-paper-2 rule sm:grid-cols-4">
-        {spec.map((s) => (
-          <div key={s.k} className="bg-paper-1 px-4 py-3">
-            <div className={`font-mono text-[24px] leading-tight tabular-nums ${s.accent ? "text-accent-ink" : "text-ink-0"}`}>
-              {s.v}
-            </div>
-            <div className="stamp mt-1 text-ink-3">{s.k}</div>
-          </div>
-        ))}
-      </div>
+      <StatTiles
+        tiles={spec}
+        className="mt-6 grid grid-cols-2 gap-px border bg-paper-2 rule sm:grid-cols-4"
+      />
 
       {/* ── the arc ── */}
       <section className="mt-10">

@@ -1,10 +1,6 @@
-import { join } from "node:path";
 import Link from "next/link";
-import { readBag, readWedgeBlocks } from "@/lib/bag-file";
-import { buildWedgeMatrix } from "@/lib/wedge-matrix";
 import type { Leak } from "@/lib/leaks";
-import type { LedgerSession, LedgerShot } from "@/lib/ledger";
-import { loadGarmin, loadHistory, loadJson, loadRounds } from "@/lib/load";
+import { loadHistory } from "@/lib/load";
 import {
   buildProfile,
   type Finding,
@@ -12,9 +8,9 @@ import {
   type SpecGroup,
   type Unknown,
 } from "@/lib/profile";
-import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
-import { buildTasks } from "@/lib/tasks";
+import { buildSiteData } from "@/lib/site-data";
 import { Provenance } from "./provenance";
+import { StatTiles } from "./stat-tiles";
 
 export const metadata = {
   title: "Profile — Mackenzie",
@@ -77,36 +73,18 @@ const LENS_HOME: Record<Lens, { href: string; label: string } | null> = {
 const findingHome = (f: Finding) => FINDING_HOME[f.id] ?? LENS_HOME[f.lens];
 
 export default function Profile() {
-  const blocks = readWedgeBlocks(join(process.cwd(), "data"))?.blocks ?? [];
-  const shots = applyHeuristics(loadJson<LedgerShot[]>("shots.json"), undefined, blocks);
-  const sessions = loadJson<LedgerSession[]>("sessions.json");
-  const profiles = buildBag(shots);
-  const bag = readBag(join(process.cwd(), "data"));
-  const gaps = detectGaps(profiles, undefined, bag);
-  const roundHistory = loadRounds();
-  const garminShots = loadGarmin();
-  const wedgeMatrix = buildWedgeMatrix(shots, blocks, profiles);
-  const tasks = buildTasks({
-    profiles,
-    gaps,
-    shots,
-    sessions,
-    bag,
-    roundHistory,
-    garminShots,
-    wedgeMatrix,
-  });
+  const d = buildSiteData();
   const profile = buildProfile({
-    shots,
-    sessions,
-    profiles,
-    gaps,
-    tasks,
+    shots: d.shots,
+    sessions: d.sessions,
+    profiles: d.profiles,
+    gaps: d.gaps,
+    tasks: d.tasks,
     history: loadHistory(),
-    roundHistory,
-    garminShots,
-    bag,
-    wedgeMatrix,
+    roundHistory: d.roundHistory,
+    garminShots: d.garminShots,
+    bag: d.bag,
+    wedgeMatrix: d.wedgeMatrix,
   });
 
   const topFindings = profile.findings.slice(0, TOP_FINDINGS);
@@ -261,19 +239,10 @@ function SpecGroupBlock({ group }: { group: SpecGroup }) {
           {home.label} →
         </Link>
       </div>
-      <dl className="mt-2 grid grid-cols-1 border-t sm:grid-cols-3 rule">
-        {group.lines.map((s) => (
-          <div key={s.label} className="border-r border-b bg-paper-1 px-4 py-3 rule">
-            <dt className="stamp text-ink-3">{s.label}</dt>
-            <dd className="mt-1.5 font-sans text-[24px] font-medium leading-none text-ink-0">
-              {s.value}
-            </dd>
-            {s.note && (
-              <p className="mt-1.5 font-mono text-[10px] leading-4 text-ink-3">{s.note}</p>
-            )}
-          </div>
-        ))}
-      </dl>
+      <StatTiles
+        className="mt-2 grid grid-cols-1 gap-px border-t bg-paper-2 rule sm:grid-cols-3"
+        tiles={group.lines.map((s) => ({ label: s.label, value: s.value, note: s.note ?? undefined }))}
+      />
       {group.missing && (
         <p className="mt-1.5 font-mono text-[10px] leading-4 text-ink-3">
           No artifact on this checkout — run{" "}

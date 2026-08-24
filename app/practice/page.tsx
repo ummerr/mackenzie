@@ -1,12 +1,7 @@
-import { join } from "node:path";
-import { readBag, readWedgeBlocks } from "@/lib/bag-file";
-import { buildWedgeMatrix } from "@/lib/wedge-matrix";
-import type { LedgerSession, LedgerShot } from "@/lib/ledger";
-import { loadGarmin, loadJson, loadRounds } from "@/lib/load";
+import { buildSiteData } from "@/lib/site-data";
 import { buildSources } from "@/lib/sources";
-import { applyHeuristics, buildBag, detectGaps } from "@/lib/stats";
 import { Provenance } from "../provenance";
-import { buildTasks, type Task, type TaskCategory } from "@/lib/tasks";
+import type { Task, TaskCategory } from "@/lib/tasks";
 
 export const metadata = {
   title: "Practice — Mackenzie",
@@ -29,23 +24,7 @@ const CATEGORY_NOTE: Record<TaskCategory, string> = {
 };
 
 export default function Practice() {
-  const blocks = readWedgeBlocks(join(process.cwd(), "data"))?.blocks ?? [];
-  const shots = applyHeuristics(loadJson<LedgerShot[]>("shots.json"), undefined, blocks);
-  const sessions = loadJson<LedgerSession[]>("sessions.json");
-  const profiles = buildBag(shots);
-  const bag = readBag(join(process.cwd(), "data"));
-  const roundHistory = loadRounds();
-  const garminShots = loadGarmin();
-  const tasks = buildTasks({
-    profiles,
-    gaps: detectGaps(profiles, undefined, bag),
-    shots,
-    sessions,
-    bag,
-    roundHistory,
-    garminShots,
-    wedgeMatrix: buildWedgeMatrix(shots, blocks, profiles),
-  });
+  const { shots, sessions, roundHistory, garminShots, tasks } = buildSiteData();
 
   const categories = [...new Set(tasks.map((t) => t.category))];
 

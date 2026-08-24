@@ -10,6 +10,7 @@ import {
   type ShotDot,
 } from "./bag-chart";
 import { VERDICT } from "./palette";
+import { StatTiles } from "./stat-tiles";
 import { short, type BagClub } from "@/lib/clubs";
 import {
   DEFAULT_GAPS,
@@ -162,34 +163,39 @@ export function Bag({
       </div>
 
       {/* ── scoreboard ───────────────────────────────────────────────────── */}
-      <dl className="mt-px grid grid-cols-2 border-t sm:grid-cols-3 lg:grid-cols-6 rule">
-        {/* First, because it is the denominator for everything after it. The
-            four tiles that follow all count swings; this one counts clubs, and
-            without it "8 clubs drawn" reads as a complete bag. */}
-        {bagCoverage && (
-          <Stat
-            label="In the bag"
-            value={bagCoverage.owned}
-            note={
-              bagCoverage.neverRecorded.length > 0
-                ? `${bagCoverage.neverRecorded.length} never measured`
-                : "all measured"
-            }
-          />
-        )}
-        <Stat label="Sessions" value={sessionCount} />
-        <Stat label="Shots logged" value={shotCount} />
-        {/* Trusted is a property of the shot, not of the basis, so the count
-            does not move — but on total, some of those trusted shots have no
-            distance to contribute, and the tile says which. */}
-        <Stat
-          label="Trusted"
-          value={shotCount - excludedCount}
-          note={unusable > 0 ? `${unusable} with no total` : undefined}
-        />
-        <Stat label="Clubs drawn" value={shown.length} />
-        <Stat label="Held back" value={hidden.length} note={`under ${MIN_SHOTS_TO_DISPLAY}`} />
-      </dl>
+      <StatTiles
+        className="mt-px grid grid-cols-2 gap-px border-t bg-paper-2 rule sm:grid-cols-3 lg:grid-cols-6"
+        tiles={[
+          /* "In the bag" first, because it is the denominator for everything
+             after it. The four tiles that follow all count swings; this one
+             counts clubs, and without it "8 clubs drawn" reads as a complete
+             bag. */
+          ...(bagCoverage
+            ? [
+                {
+                  label: "In the bag",
+                  value: bagCoverage.owned,
+                  note:
+                    bagCoverage.neverRecorded.length > 0
+                      ? `${bagCoverage.neverRecorded.length} never measured`
+                      : "all measured",
+                },
+              ]
+            : []),
+          { label: "Sessions", value: sessionCount },
+          { label: "Shots logged", value: shotCount },
+          /* Trusted is a property of the shot, not of the basis, so the count
+             does not move — but on total, some of those trusted shots have no
+             distance to contribute, and the note says which. */
+          {
+            label: "Trusted",
+            value: shotCount - excludedCount,
+            note: unusable > 0 ? `${unusable} with no total` : undefined,
+          },
+          { label: "Clubs drawn", value: shown.length },
+          { label: "Held back", value: hidden.length, note: `under ${MIN_SHOTS_TO_DISPLAY}` },
+        ]}
+      />
 
       {/* ── the hole, and the scorecard beside it ────────────────────────── */}
       <div className="mt-6 grid gap-6 sm:mt-8 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
@@ -506,30 +512,6 @@ function UnmodelledNote({
         </>
       )}
     </p>
-  );
-}
-
-function Stat({
-  label,
-  value,
-  note,
-}: {
-  label: string;
-  value: number;
-  note?: string;
-}) {
-  return (
-    <div className="border-r border-b bg-paper-1 px-4 py-3 rule">
-      <dt className="stamp text-ink-3">{label}</dt>
-      <dd className="mt-1.5 font-sans text-[28px] font-medium leading-none text-ink-0">
-        {value}
-        {note && (
-          <span className="ml-2 font-mono text-[10px] font-normal tracking-[0.08em] text-ink-3">
-            {note}
-          </span>
-        )}
-      </dd>
-    </div>
   );
 }
 

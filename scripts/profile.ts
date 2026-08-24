@@ -17,38 +17,16 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { readBag, readWedgeBlocks } from "../lib/bag-file";
-import { buildWedgeMatrix } from "../lib/wedge-matrix";
-import {
-  buildCourseHistory,
-  type CourseHistory,
-  type SourceCourses,
-} from "../lib/course-history";
-import {
-  buildGarminShots,
-  GARMIN_THRESHOLDS,
-  type GarminShots,
-  type SourceGarminRounds,
-} from "../lib/garmin-shots";
-import type { LedgerSession, LedgerShot } from "../lib/ledger";
-import {
-  buildRoundHistory,
-  type RoundHistory,
-  type SourceRounds,
-} from "../lib/round-history";
+import { GARMIN_THRESHOLDS } from "../lib/garmin-shots";
+import { loadHistory } from "../lib/load";
 import { buildProfile, PROFILE_THRESHOLDS, type GolferProfile } from "../lib/profile";
-import { applyHeuristics, buildBag, detectGaps } from "../lib/stats";
-import { buildTasks } from "../lib/tasks";
+import { buildSiteData } from "../lib/site-data";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "PROFILE.md");
 
 const dryRun = process.argv.includes("--dry-run");
 const check = process.argv.includes("--check");
-
-function load<T>(name: string): T {
-  return JSON.parse(readFileSync(join(ROOT, "data", name), "utf8")) as T;
-}
 
 function render(p: GolferProfile): string {
   const out: string[] = [];
@@ -261,66 +239,42 @@ function render(p: GolferProfile): string {
 }
 
 function main(): number {
-  const blocks = readWedgeBlocks(join(ROOT, "data"))?.blocks ?? [];
-  const shots = applyHeuristics(load<LedgerShot[]>("shots.json"), undefined, blocks);
-  const sessions = load<LedgerSession[]>("sessions.json");
-  const profiles = buildBag(shots);
-  const bag = readBag(join(ROOT, "data"));
-  const gaps = detectGaps(profiles, undefined, bag);
-  const wedgeMatrix = buildWedgeMatrix(shots, blocks, profiles);
+  /* The same composition every page reads — scripts and pages must not build
+   * the golfer two different ways. `pnpm profile` runs with cwd at the repo
+   * root (pnpm guarantees it), which is what the shared readers resolve from. */
+  const d = buildSiteData();
+  const history = loadHistory();
 
-  let history: CourseHistory | null = null;
-  try {
-    const raw = readFileSync(join(ROOT, "public", "data", "courses.json"), "utf8");
-    history = buildCourseHistory(JSON.parse(raw) as SourceCourses);
-  } catch {
+  if (history === null) {
     console.warn(
       "no public/data/courses.json — writing the range half only. " +
         "Run `pnpm data:build` for the rest.",
     );
   }
-
-  let roundHistory: RoundHistory | null = null;
-  try {
-    roundHistory = buildRoundHistory(load<SourceRounds>("rounds.json"));
-  } catch {
+  if (d.roundHistory === null) {
     console.warn(
       "no data/rounds.json — no round-by-round half. " +
         "Run `pnpm data:rounds` for it (needs a grint-export bundle in data/raw/).",
     );
   }
-
-  let garminShots: GarminShots | null = null;
-  try {
-    garminShots = buildGarminShots(load<SourceGarminRounds>("garmin-rounds.json"));
-  } catch {
+  if (d.garminShots === null) {
     console.warn(
       "no data/garmin-rounds.json — no on-course shot half. " +
         "Run `pnpm data:garmin` for it (needs a garmin-export bundle in data/raw/).",
     );
   }
 
-  const tasks = buildTasks({
-    profiles,
-    gaps,
-    shots,
-    sessions,
-    bag,
-    roundHistory,
-    garminShots,
-    wedgeMatrix,
-  });
   const profile = buildProfile({
-    shots,
-    sessions,
-    profiles,
-    gaps,
-    tasks,
+    shots: d.shots,
+    sessions: d.sessions,
+    profiles: d.profiles,
+    gaps: d.gaps,
+    tasks: d.tasks,
     history,
-    roundHistory,
-    garminShots,
-    bag,
-    wedgeMatrix,
+    roundHistory: d.roundHistory,
+    garminShots: d.garminShots,
+    bag: d.bag,
+    wedgeMatrix: d.wedgeMatrix,
   });
   const next = render(profile);
 
