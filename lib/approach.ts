@@ -101,7 +101,7 @@ function record(rows: ApproachDetail[]): ApproachRecord {
 /** The approach record by distance band, split course/sim. Null when the
  *  artifact predates the stats block or carries no approach detail. */
 export function approachBands(g: GarminShots | null): ApproachBands | null {
-  if (g === null || g.stats === null || g.stats.approach.length === 0) return null;
+  if (g === null || !g.stats || g.stats.approach.length === 0) return null;
   const simIds = new Set(
     g.rounds.filter((r) => r.flags.includes("simulation")).map((r) => r.scorecardId),
   );

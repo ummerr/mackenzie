@@ -3,7 +3,7 @@ import { GARMIN_THRESHOLDS, type GarminRound, type GarminShots } from "../lib/ga
 import { buildLeaks, type LeakInputs } from "../lib/leaks";
 import type { PlayedRound, RoundHistory } from "../lib/round-history";
 import type { ClubProfile } from "../lib/stats";
-import type { Task } from "../lib/tasks";
+import { TASK_IDS, type Task } from "../lib/tasks";
 
 /* ── fixtures ─────────────────────────────────────────────────────────────── */
 
@@ -256,6 +256,38 @@ describe("buildLeaks", () => {
       expect(leak?.fact).toContain("the watch heard");
       expect(leak?.source).toBe("scorecards + watch");
     });
+  });
+
+  it("lets the watch's inside-150 record join the approach leak, course first", () => {
+    const band = { attempts: 0, greensHit: 0, greenHitPct: null, medianProximityYd: null };
+    const empty = { rounds: 0, attempts: 0, bands: [], inside150: { attempts: 0, greensHit: 0, greenHitPct: null } };
+    const leak = buildLeaks(
+      inputs({
+        approach: {
+          course: {
+            rounds: 2,
+            attempts: 20,
+            bands: [{ ...band, label: "100–150", minYd: 100, maxYd: 150 }],
+            inside150: { attempts: 18, greensHit: 5, greenHitPct: 27.8 },
+          },
+          sim: empty,
+          gated: true,
+        },
+      }),
+    ).find((l) => l.id === "gir-ceiling");
+    expect(leak?.fact).toContain("18 approaches from inside 150 yd on the course");
+    expect(leak?.fact).toContain("5 found the green");
+    expect(leak?.fact).toContain("not yet a claim");
+    expect(leak?.source).toBe("scorecards + watch");
+  });
+
+  it("joins moves only on task ids the registry knows", () => {
+    // buildLeaks matches tasks by literal id (three-putts, recent-putting,
+    // screen-tee-miss). The registry in lib/tasks.ts is the contract; a
+    // rename that skips it strands these joins silently.
+    for (const id of ["three-putts", "recent-putting", "screen-tee-miss"]) {
+      expect(TASK_IDS.static).toContain(id);
+    }
   });
 
   it("every leak carries its receipts: a fact, a cost, a move, and a retire condition", () => {

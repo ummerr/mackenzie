@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import type { LedgerSession, LedgerShot } from "../lib/ledger";
 import { buildRoundHistory, type SourceRound } from "../lib/round-history";
 import { applyHeuristics, buildBag, detectGaps } from "../lib/stats";
-import { buildTasks, rawShotsNeeded, type Task } from "../lib/tasks";
+import { buildTasks, isKnownTaskId, rawShotsNeeded, type Task } from "../lib/tasks";
 
 const DATA = join(__dirname, "..", "data");
 const load = <T,>(f: string): T => JSON.parse(readFileSync(join(DATA, f), "utf8")) as T;
@@ -245,8 +245,25 @@ describe("buildTasks — retires its own tasks", () => {
     expect(real.some((t) => t.id === "coverage-Sand Wedge")).toBe(false);
   });
 
-  it("returns nothing at all when there are no sessions", () => {
+  it("emits no range tasks when there are no sessions", () => {
     expect(buildTasks({ profiles: [], gaps: [], shots: [], sessions: [] })).toEqual([]);
+  });
+
+  it("emits only ids the registry knows", () => {
+    // TASK_IDS is what leaks.ts joins on and what data/goals.json references;
+    // an id born outside the registry is a join nobody can make.
+    for (const t of realTasks(22)) expect(isKnownTaskId(t.id)).toBe(true);
+  });
+
+  it("keeps the course-side scoring tasks when there are no sessions", () => {
+    // A checkout with scorecards and no range CSVs still has course-side work
+    // to rank — the range guard must not hold the whole surface hostage.
+    const roundHistory = buildRoundHistory(
+      load<Parameters<typeof buildRoundHistory>[0]>("rounds.json"),
+    );
+    const tasks = buildTasks({ profiles: [], gaps: [], shots: [], sessions: [], roundHistory });
+    expect(tasks.length).toBeGreaterThan(0);
+    expect(tasks.every((t) => t.category === "scoring")).toBe(true);
   });
 });
 

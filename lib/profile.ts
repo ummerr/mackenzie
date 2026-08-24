@@ -48,6 +48,7 @@ import {
   type OnCourseRecord,
 } from "./garmin-shots";
 import { meanScore, scorable, totalRounds } from "./course-history";
+import { approachBands } from "./approach";
 import { buildLeaks, type Leak } from "./leaks";
 import type { LedgerSession, LedgerShot } from "./ledger";
 import { buildSources, type SourceRef } from "./sources";
@@ -1172,6 +1173,7 @@ export function buildProfile({
       profiles,
       tasks,
       recentMonths: PROFILE_THRESHOLDS.recentMonths,
+      approach: approachBands(garminShots),
     }),
     unknowns: buildUnknowns(history, roundHistory, garminShots, bag, wedgeMatrix),
     recentForm:

@@ -17,6 +17,7 @@ import { join } from "node:path";
 import { readBag, readWedgeBlocks } from "./bag-file";
 import type { BagSpec } from "./clubs";
 import type { GarminShots } from "./garmin-shots";
+import { approachBands } from "./approach";
 import { buildLeaks, type Leak } from "./leaks";
 import type { LedgerSession, LedgerShot } from "./ledger";
 import { loadGarmin, loadJson, loadRounds } from "./load";
@@ -72,6 +73,7 @@ export function buildSiteData(): SiteData {
     profiles,
     tasks,
     recentMonths: PROFILE_THRESHOLDS.recentMonths,
+    approach: approachBands(garminShots),
   });
   return {
     blocks,

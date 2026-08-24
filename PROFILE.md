@@ -53,11 +53,11 @@ Each move is the open practice task that addresses it, joined on render.
 
 ### 01. The approach game caps everything: 5.1 greens a round
 
-- **fact** — 5.1 GIR per round career, 5.5 over the last 20; ~13 missed greens per round
+- **fact** — 5.1 GIR per round career, 5.5 over the last 20; ~13 missed greens per round; the watch has heard 18 approaches from inside 150 yd on the course over 2 rounds — 5 found the green (the record so far, not yet a claim)
 - **cost** — the structural ceiling — at a 14.6% save rate, ~11 of those misses are bogey-or-worse before the putter or driver say anything
 - **move** — the approach clubs are the practice list's whole top end — first up: The 3 Hybrid has never been measured
 - **retired when** — a capture averaging 9+ GIR over 20 rounds
-- *scorecards*
+- *scorecards + watch*
 
 ### 02. The green gives back 2.6 strokes a round
 

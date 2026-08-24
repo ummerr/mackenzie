@@ -71,6 +71,41 @@ export type TaskCategory =
   | "scoring"
   | "wedge matrix";
 
+/* Every id buildTasks can emit — the static ids as literals, the per-club and
+ * per-gap families as prefixes. These ids are joined on elsewhere (leaks.ts
+ * picks its `move` by id; data/goals.json references a task by id), and a
+ * rename here that skips this list is a silently broken join. The registry
+ * plus tests/tasks.test.ts's membership check turn that into a red test. */
+export const TASK_IDS = {
+  static: [
+    "blind-spot-long",
+    "data-club-delivery",
+    "wedge-matrix-empty",
+    "three-putts",
+    "recent-putting",
+    "recent-scoring",
+    "screen-par-threes",
+    "screen-tee-miss",
+  ],
+  prefixes: [
+    "unrecorded-",
+    "coverage-",
+    "pooled-",
+    "bias-",
+    "hole-",
+    "overlap-",
+    "inverted-",
+    "wedge-cell-",
+  ],
+} as const;
+
+export function isKnownTaskId(id: string): boolean {
+  return (
+    (TASK_IDS.static as readonly string[]).includes(id) ||
+    TASK_IDS.prefixes.some((p) => id.startsWith(p))
+  );
+}
+
 export interface Task {
   id: string;
   category: TaskCategory;
@@ -725,7 +760,12 @@ export function buildTasks({
     }
   }
 
-  if (sessions.length === 0) return [];
+  /* Without a range ledger there is no range record to derive range work
+   * from — but the scorecards and the screen still speak. The old blanket
+   * `return []` here discarded the already-generated scoring tasks too,
+   * holding the whole practice surface hostage to the R50; on a checkout
+   * with rounds and no range CSVs, course-side work must survive. */
+  const usable = sessions.length === 0 ? tasks.filter((t) => t.category === "scoring") : tasks;
 
-  return tasks.sort((a, b) => b.priority - a.priority || a.title.localeCompare(b.title));
+  return usable.sort((a, b) => b.priority - a.priority || a.title.localeCompare(b.title));
 }

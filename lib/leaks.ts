@@ -15,6 +15,7 @@
  * Finding.weight: how much of the record agrees, never how bad it sounds.
  */
 
+import type { ApproachBands } from "./approach";
 import {
   GARMIN_THRESHOLDS,
   shotRounds,
@@ -73,6 +74,9 @@ export interface LeakInputs {
    *  PROFILE_THRESHOLDS.recentMonths, because importing profile.ts here
    *  would cycle (profile.ts calls buildLeaks). */
   recentMonths: number;
+  /** The watch's approach record by distance band (lib/approach.ts) — null
+   *  or absent leaves every sentence exactly as it read without it. */
+  approach?: ApproachBands | null;
 }
 
 const f1 = (n: number) => n.toFixed(1);
@@ -100,6 +104,7 @@ export function buildLeaks({
   profiles,
   tasks,
   recentMonths,
+  approach = null,
 }: LeakInputs): Leak[] {
   /* No scorecards, no leaks: every cost here is priced against the round
    * record, and a leak without a record behind it is just a worry. */
@@ -122,13 +127,25 @@ export function buildLeaks({
       tasks,
       (t) => t.category === "gapping" || t.category === "blind spot" || t.category === "coverage",
     );
+    /* The watch's own look at the same leak, where the detail exists — the
+     * course record first, always (the course beats the sim); below the
+     * findings gate it prints as record, not claim, sample sizes attached. */
+    const inside = approach?.course.inside150;
+    const bandNote =
+      inside && inside.attempts > 0
+        ? `; the watch has heard ${inside.attempts} approaches from inside 150 yd on the ` +
+          `course over ${approach.course.rounds} round${approach.course.rounds === 1 ? "" : "s"} — ` +
+          `${inside.greensHit} found the green` +
+          (approach.gated ? " (the record so far, not yet a claim)" : "")
+        : "";
     leaks.push({
       id: "gir-ceiling",
       title: `The approach game caps everything: ${f1(girMean)} greens a round`,
       fact:
         `${f1(girMean)} GIR per round career` +
         (girLast20 === null ? "" : `, ${f1(girLast20)} over the last 20`) +
-        `; ~${Math.round(missed)} missed greens per round`,
+        `; ~${Math.round(missed)} missed greens per round` +
+        bandNote,
       cost:
         cost === null
           ? "the structural ceiling — every missed green is a save the short game has to make before the putter or driver say anything"
@@ -137,7 +154,7 @@ export function buildLeaks({
         ? `the approach clubs are the practice list's whole top end — first up: ${fix.title}`
         : "nothing open on the practice list — play, and let the capture say where the misses come from",
       retiredWhen: `a capture averaging ${LEAK_TARGETS.girPerRound}+ GIR over ${LEAK_TARGETS.sustainRounds} rounds`,
-      source: "scorecards",
+      source: bandNote ? "scorecards + watch" : "scorecards",
       costStrokes: cost,
       coverage: h.rounds.length ? Math.min(1, gir.length / h.rounds.length) : 0,
       weight: 0,
