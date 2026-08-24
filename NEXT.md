@@ -51,18 +51,27 @@ HTML, licence gray area, hard name-matching problem).
 
 ## Then
 
-- **Re-capture Grint monthly-ish.** The loop is one click end to end now:
-  extension → `data/raw/grint-export-*.json` → `pnpm data:inventory` →
-  `pnpm data:rounds` → `pnpm data:spine` (new courses reach the map; follow
-  with geocode/osm/holes/build if it appended) → `pnpm run profile`, commit
-  what changed. Each capture retires or sharpens profile findings.
-- **Re-capture Garmin after on-course rounds.** Same loop, sibling pipeline:
-  garmin-extension → `data/raw/garmin-export-*.json` →
-  `pnpm data:garmin:inventory` → `pnpm data:garmin` → `pnpm data:links`
-  (confirm the proposals by editing `data/round-links.json`) →
-  `pnpm run profile`. At 5 shot-bearing rounds (2 as of 2026-08-23) the
-  short-game and lies unknowns retire and three new findings switch on —
-  see `GARMIN_THRESHOLDS` in `lib/garmin-shots.ts`.
+- **Re-capture Grint monthly-ish, Garmin after every on-course round.** The
+  downstream is one command since 2026-08-24: extension → drop the bundle in
+  `data/raw/` → **`pnpm refresh`** (it works out which pipelines the new
+  files call for, re-proposes links, validates, rewrites PROFILE.md and the
+  flight page) → confirm any proposed links in `data/round-links.json` →
+  commit. Each capture retires or sharpens findings; at 5 shot-bearing
+  rounds (2 as of 2026-08-23) the short-game and lies unknowns retire and
+  three new findings switch on — see `GARMIN_THRESHOLDS`.
+- **Path to true auto-pull** (when the manual capture grates): both captures
+  are deliberately browser extensions riding the user's own authenticated
+  session — headless authenticated fetch would fight the capture-verbatim
+  grain and both sites' terms. The honest next step is **extension-side
+  scheduling**: `chrome.alarms` firing the existing capture on a cadence and
+  auto-downloading into `data/raw/` (the verbatim-bundle contract is
+  untouched; `pnpm refresh` is already the whole downstream half). Garmin
+  also has an official API programme (consumer OAuth) that could replace the
+  extension for the watch if access is ever granted; Grint has no API.
+- **Commit a first week of goals.** `pnpm goals:propose` prints the engine's
+  draft (top leak + top open task as paste-ready JSON); paste into
+  `data/goals.json`, edit to taste, `pnpm run profile`, commit. The front
+  page and PROFILE.md then track the week in record time.
 - **Hit the first labeled wedge blocks.** The wedge matrix on `/bag` is 0 of 6
   partial cells measured, and the 21.8 yd PW→GW hole names where to start: a
   three-quarter Pitching Wedge block for the middle of that window. One length,

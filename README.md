@@ -68,11 +68,20 @@ a cache entry — or an individual `holes/<slug>.geojson` — to refetch it.
 To add recent rounds, run the extension **incrementally**: feed its popup the
 previous bundle and it fetches only what's new, downloading a small delta
 bundle (`grint-export-YYYY-MM-DD-HHMM.json`) instead of re-scraping all ~168
-scorecards. Drop it in `data/raw/` beside the full bundle; `pnpm data:rounds`
-merges the newest full bundle with every delta captured after it, then
-`pnpm run profile` regenerates what derives from the rounds. A delta cannot
+scorecards. Drop it in `data/raw/` beside the full bundle. A delta cannot
 record a deletion — run a full **Scrape all** occasionally to re-baseline.
-See `grint-extension/README.md`.
+See `grint-extension/README.md` (and `garmin-extension/README.md` for the
+watch's sibling loop).
+
+**The whole loop is: capture → `pnpm refresh` → confirm links → commit.**
+`pnpm refresh` reads `data/raw/`, works out which pipelines the new files
+call for (range CSVs → `ingest`; a Grint bundle → `data:rounds` and, if the
+spine appends a course, the map chain; a Garmin bundle → `data:garmin`),
+then always re-proposes round links, validates, and rewrites `PROFILE.md`
+and the ball-flight page. `pnpm refresh --dry-run` prints the plan. The one
+thing it never does is confirm a round link — that edit in
+`data/round-links.json` is yours, and the report names it when it's
+pending.
 
 ## Public vs private data
 
