@@ -28,8 +28,8 @@ const TOP_LEAKS = 3;
  * page — lib/ speaks in facts, not URLs. */
 const GROUP_HOME: Record<SpecGroup["id"], { href: string; label: string }> = {
   range: { href: "/bag", label: "the bag" },
-  watch: { href: "/diary", label: "the diary" },
-  scorecards: { href: "/scratch", label: "the road to scratch" },
+  watch: { href: "/rounds#watch", label: "the rounds" },
+  scorecards: { href: "/rounds", label: "the rounds" },
   map: { href: "/courses", label: "the courses" },
 };
 
@@ -128,10 +128,10 @@ export default function Profile() {
             Where the strokes go, ranked by what each leak costs — priced in
             strokes where the record can price it, named as unknown where it
             cannot. The top {topLeaks.length} of {profile.leaks.length}; the{" "}
-            <Link href="/scratch#leaks" className="text-ink-1 underline decoration-1 underline-offset-2">
+            <Link href="/rounds#leaks" className="text-ink-1 underline decoration-1 underline-offset-2">
               full accounting
             </Link>{" "}
-            runs on the road to scratch.
+            runs on the rounds page.
           </p>
           <ol className="mt-5 space-y-px">
             {topLeaks.map((l, i) => (

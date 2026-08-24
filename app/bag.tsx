@@ -938,7 +938,7 @@ function CourseBesideRange({
         other. Course yards are point-to-point — where the ball came to rest —
         so they read closest to <em>total</em>; on carry, some of the gap is
         just roll. The rounds behind the course numbers are traced shot by shot
-        on <a className="text-ink-1 underline decoration-1 underline-offset-2" href="/diary">the diary</a>.
+        on <a className="text-ink-1 underline decoration-1 underline-offset-2" href="/rounds#watch">the rounds page</a>.
       </p>
       <ul className="mt-3 space-y-px">
         {course.clubs.map((c) => {
@@ -1279,6 +1279,16 @@ function Caveats({
           className="text-ink-1 underline decoration-1 underline-offset-2"
         >
           the flight, not just the landing →
+        </a>
+      </p>
+      <p className="mt-1.5 font-mono text-[11px] leading-5 text-ink-3">
+        Which shots the heuristics excluded, and why, is auditable shot by shot
+        in{" "}
+        <a
+          href="/sessions"
+          className="text-ink-1 underline decoration-1 underline-offset-2"
+        >
+          the sessions tool →
         </a>
       </p>
     </section>

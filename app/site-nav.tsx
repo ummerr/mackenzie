@@ -15,18 +15,18 @@ import { usePathname } from "next/navigation";
  * data.
  */
 
-/* Ordered as the site is read: the digest, then the three shot records in a
- * row — range, course, scorecards — then the work they prescribe, the map,
- * and the tool. Exported so tests/nav-parity.test.ts can hold the courses
- * page's hand-replicated header to the same list. */
+/* Ordered as the site is worked: the command center, then the two canonical
+ * records — the rounds played, the bag measured — then the work they
+ * prescribe, then the map. /sessions (a data-hygiene tool) and /ball-flight
+ * left the strip; both are reachable from the bag page's footer. Exported so
+ * tests/nav-parity.test.ts can hold the courses page's hand-replicated
+ * header to the same list. */
 export const SECTIONS = [
-  { href: "/", label: "Profile" },
+  { href: "/", label: "Now" },
+  { href: "/rounds", label: "Rounds" },
   { href: "/bag", label: "Bag" },
-  { href: "/diary", label: "Diary" },
-  { href: "/scratch", label: "Scratch" },
   { href: "/practice", label: "Practice" },
   { href: "/courses", label: "Courses" },
-  { href: "/sessions", label: "Sessions" },
 ] as const;
 
 export function InlineNav() {
