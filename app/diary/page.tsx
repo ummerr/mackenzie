@@ -8,15 +8,8 @@ import {
   type GarminShot,
   type OnCourseRecord,
 } from "@/lib/garmin-shots";
-import {
-  garminCourseSlug,
-  paintHole,
-  type CourseGeo,
-  type CourseKind,
-  type HolePaint,
-  type XY,
-} from "@/lib/hole-geometry";
-import { loadCourseGeo, loadGarmin, loadLinkedGrint, loadRounds } from "@/lib/load";
+import { paintHole, type HolePaint, type XY } from "@/lib/hole-geometry";
+import { loadGarmin, loadLinkedGrint, loadRounds } from "@/lib/load";
 import type { PlayedRound } from "@/lib/round-history";
 import { buildSources } from "@/lib/sources";
 import { Provenance } from "../provenance";
@@ -47,13 +40,6 @@ export default function Diary() {
   }
 
   const heard = shotRounds(garmin).sort((a, b) => b.date.localeCompare(a.date));
-  // One read per distinct course across the heard rounds.
-  const courseBySlug = new Map<string, CourseGeo | null>();
-  for (const r of heard) {
-    if (r.courseName === null) continue;
-    const slug = garminCourseSlug(r.courseName);
-    if (!courseBySlug.has(slug)) courseBySlug.set(slug, loadCourseGeo(slug));
-  }
   const sims = garmin.rounds
     .filter((r) => r.flags.includes("simulation"))
     .sort((a, b) => b.date.localeCompare(a.date));
@@ -72,8 +58,12 @@ export default function Diary() {
       <p className="mt-5 max-w-2xl border-t pt-5 text-[15px] leading-6 text-ink-1 rule">
         Every AutoShot the watch recorded, round by round, hole by hole. Each
         hole is traced over the hole itself — the shots from the coordinates
-        the capture carries, the course from the same OSM geometry the map
-        draws. All of it drawn here, not copied from anywhere.
+        the capture carries, laid on the same satellite imagery the course map
+        stands on. The marks are drawn here; nothing is copied from Garmin.
+      </p>
+      <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+        Imagery &copy; Esri, Maxar, Earthstar Geographics — World Imagery
+        tiles, loaded by your browser from Esri&rsquo;s public service.
       </p>
       <p className="mt-3 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
         Each record hears what the other cannot: the watch the swings, the card
@@ -91,11 +81,6 @@ export default function Diary() {
           key={r.scorecardId}
           round={r}
           grint={linked.get(r.scorecardId) ?? null}
-          course={
-            r.courseName === null
-              ? null
-              : (courseBySlug.get(garminCourseSlug(r.courseName)) ?? null)
-          }
         />
       ))}
 
@@ -203,11 +188,9 @@ function TheRecord({ oc }: { oc: OnCourseRecord }) {
 function RoundEntry({
   round,
   grint,
-  course,
 }: {
   round: GarminRound;
   grint: PlayedRound | null;
-  course: CourseGeo | null;
 }) {
   const heardStrokes = round.strokes;
   return (
@@ -235,7 +218,6 @@ function RoundEntry({
           <HoleEntry
             key={h.number}
             hole={h}
-            course={course}
             grintPutts={grint?.holePutts?.[h.number - 1] ?? null}
           />
         ))}
@@ -248,15 +230,13 @@ function RoundEntry({
 
 function HoleEntry({
   hole,
-  course,
   grintPutts,
 }: {
   hole: GarminHole;
-  course: CourseGeo | null;
   grintPutts: number | null;
 }) {
   const shots = [...hole.shots].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-  const paint = paintHole(course, shots, hole.pin);
+  const paint = paintHole(shots, hole.pin);
   // What the scorecard says happened minus what was heard (shots) and linked
   // (putts): the strokes nothing recorded. Zero is silence, not a row.
   const unheard =
@@ -319,34 +299,52 @@ function shotLabel(s: GarminShot): string {
 
 /* ── the trace ────────────────────────────────────────────────────────── */
 
-/* Two frames, one record. When the map has drawn this course (lib/
- * hole-geometry projects the shots' own degrees over the OSM geometry from
- * public/data/holes), the trace rides over the hole itself — tee at the
- * bottom, the day's pin at the top. When it has not, the trace falls back to
- * Garmin's per-hole map frame (tee low, green high — y already grows
- * downward, like SVG), bare numbers on a turf-coloured card. Either way the
- * drawing is ours; Garmin's raster imagery is never fetched. Solid segments
- * are shots; a dotted segment is the gap between where one shot ended and
- * the next began — a walk, a drop, or the cartography disagreeing with
- * itself. */
+/* Two frames, one record. When the shots carry degrees (lib/hole-geometry),
+ * the trace rides over the hole's own satellite photograph — Esri World
+ * Imagery, the same tiles the /courses map draws — tee at the bottom, the
+ * day's pin at the top. When they do not, the trace falls back to Garmin's
+ * per-hole map frame (tee low, green high — y already grows downward, like
+ * SVG), bare numbers on a turf-coloured card. Either way the marks are ours;
+ * Garmin's raster imagery is never fetched. Solid segments are shots; a
+ * dotted segment is the gap between where one shot ended and the next began
+ * — a walk, a drop, or the cartography disagreeing with itself. */
 function HoleTrace({ shots, paint }: { shots: GarminShot[]; paint: HolePaint | null }) {
-  if (paint !== null) return <CourseTrace paint={paint} />;
+  if (paint !== null) return <ImageryTrace paint={paint} />;
   return <BareTrace shots={shots} />;
 }
 
 /* The marks both frames share. All colors ride style={} — a var() in an SVG
- * presentation attribute fails silently (app/palette.ts). */
+ * presentation attribute fails silently (app/palette.ts). Over the imagery a
+ * `halo` rides under every solid stroke, so the line survives a white bunker
+ * as well as a dark treeline. */
 function TraceMarks({
   segs,
   r,
   line,
   walk,
+  accent,
+  halo,
 }: {
   segs: { a: XY; b: XY }[];
   r: number;
   line: string;
   walk: string;
+  accent: string;
+  halo?: string;
 }) {
+  const haloStroke = (x1: number, y1: number, x2: number, y2: number) =>
+    halo ? (
+      <line
+        x1={x1}
+        y1={y1}
+        x2={x2}
+        y2={y2}
+        strokeWidth={3.5}
+        strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
+        style={{ stroke: halo }}
+      />
+    ) : null;
   return (
     <>
       {segs.map((s, i) => {
@@ -366,6 +364,7 @@ function TraceMarks({
                 style={{ stroke: walk }}
               />
             )}
+            {haloStroke(s.a.x, s.a.y, s.b.x, s.b.y)}
             <line
               x1={s.a.x}
               y1={s.a.y}
@@ -375,7 +374,12 @@ function TraceMarks({
               vectorEffect="non-scaling-stroke"
               style={{ stroke: line }}
             />
-            <circle cx={s.b.x} cy={s.b.y} r={r} style={{ fill: line }} />
+            <circle
+              cx={s.b.x}
+              cy={s.b.y}
+              r={r}
+              style={{ fill: line, ...(halo ? { stroke: halo, strokeWidth: r * 0.5 } : {}) }}
+            />
           </g>
         );
       })}
@@ -387,38 +391,32 @@ function TraceMarks({
         fill="none"
         strokeWidth={1.5}
         vectorEffect="non-scaling-stroke"
-        style={{ stroke: "var(--accent-ink)" }}
+        style={{ stroke: accent }}
       />
       {/* Where the last heard shot finished. */}
       <circle
         cx={segs[segs.length - 1].b.x}
         cy={segs[segs.length - 1].b.y}
         r={r}
-        style={{ fill: "var(--accent-ink)" }}
+        style={{ fill: accent, ...(halo ? { stroke: halo, strokeWidth: r * 0.5 } : {}) }}
       />
     </>
   );
 }
 
-/* Scenery, never an encoding — the course palette from globals.css, painted
- * bottom-to-top in lib/hole-geometry's order. Only the surfaces whose edge
- * matters get a hairline: the green, the sand, the water. */
-const COURSE_FILL: Record<CourseKind, string> = {
-  rough: "var(--course-rough)",
-  fairway: "var(--course-fairway)",
-  tee: "var(--course-tee)",
-  water: "var(--course-water)",
-  penalty: "var(--course-penalty)",
-  bunker: "var(--course-sand)",
-  green: "var(--course-green)",
-};
-const COURSE_EDGE: Partial<Record<CourseKind, string>> = {
-  green: "var(--course-green-edge)",
-  bunker: "var(--course-sand-edge)",
-  water: "var(--course-water-edge)",
-};
+/* The photograph is the photograph in both themes, so every mark over it is
+ * a fixed color, not a theme var: white ink with a dark halo, and an amber
+ * accent that reads on turf, sand, and shade alike. The background only
+ * shows while tiles are still arriving. */
+const IMAGERY = {
+  loading: "#15251b",
+  line: "#ffffff",
+  halo: "rgba(0, 0, 0, 0.45)",
+  walk: "rgba(255, 255, 255, 0.75)",
+  accent: "#ffb03a",
+} as const;
 
-function CourseTrace({ paint }: { paint: HolePaint }) {
+function ImageryTrace({ paint }: { paint: HolePaint }) {
   const vb = paint.viewBox;
   // Marker size in viewBox units (metres), so dots stay proportionate.
   const r = Math.max(vb.w, vb.h) * 0.018;
@@ -428,23 +426,22 @@ function CourseTrace({ paint }: { paint: HolePaint }) {
     <svg
       viewBox={`${vb.x} ${vb.y} ${vb.w} ${vb.h}`}
       preserveAspectRatio="xMidYMid meet"
-      className="mt-2 h-52 w-full rounded-sm"
-      style={{ background: "var(--course-wash)" }}
+      className="mt-2 aspect-[3/4] w-full rounded-sm"
+      style={{ background: IMAGERY.loading }}
       role="img"
       aria-label={`Shot trace over the hole, ${paint.segs.length} shot${paint.segs.length === 1 ? "" : "s"}`}
     >
-      {paint.polys.map((p, i) => {
-        const edge = COURSE_EDGE[p.kind];
-        return (
-          <path
-            key={i}
-            d={p.d}
-            strokeWidth={edge ? 1 : undefined}
-            vectorEffect={edge ? "non-scaling-stroke" : undefined}
-            style={{ fill: COURSE_FILL[p.kind], ...(edge ? { stroke: edge } : {}) }}
-          />
-        );
-      })}
+      {/* The hole itself — Esri World Imagery, each 256-px tile carried into
+       * the rotated frame by its own matrix (lib/hole-geometry). */}
+      {paint.tiles.map((t) => (
+        <image
+          key={t.href}
+          href={t.href}
+          width={256}
+          height={256}
+          transform={t.transform}
+        />
+      ))}
       {/* The day's pin, from the capture's own pinPosition. */}
       {paint.pin && (
         <g>
@@ -453,17 +450,33 @@ function CourseTrace({ paint }: { paint: HolePaint }) {
             y1={paint.pin.y}
             x2={paint.pin.x}
             y2={paint.pin.y - u}
+            strokeWidth={3}
+            vectorEffect="non-scaling-stroke"
+            style={{ stroke: IMAGERY.halo }}
+          />
+          <line
+            x1={paint.pin.x}
+            y1={paint.pin.y}
+            x2={paint.pin.x}
+            y2={paint.pin.y - u}
             strokeWidth={1.5}
             vectorEffect="non-scaling-stroke"
-            style={{ stroke: "var(--accent-ink)" }}
+            style={{ stroke: IMAGERY.line }}
           />
           <path
             d={`M${paint.pin.x} ${paint.pin.y - u}L${paint.pin.x + u * 0.55} ${paint.pin.y - u * 0.78}L${paint.pin.x} ${paint.pin.y - u * 0.56}Z`}
-            style={{ fill: "var(--accent-ink)" }}
+            style={{ fill: IMAGERY.accent }}
           />
         </g>
       )}
-      <TraceMarks segs={paint.segs} r={r} line="var(--ink-0)" walk="var(--ink-2)" />
+      <TraceMarks
+        segs={paint.segs}
+        r={r}
+        line={IMAGERY.line}
+        walk={IMAGERY.walk}
+        accent={IMAGERY.accent}
+        halo={IMAGERY.halo}
+      />
     </svg>
   );
 }
@@ -503,7 +516,13 @@ function BareTrace({ shots }: { shots: GarminShot[] }) {
       role="img"
       aria-label={`Shot trace, ${segs.length} shot${segs.length === 1 ? "" : "s"}`}
     >
-      <TraceMarks segs={segs} r={r} line="var(--turf-tick)" walk="var(--turf-target)" />
+      <TraceMarks
+        segs={segs}
+        r={r}
+        line="var(--turf-tick)"
+        walk="var(--turf-target)"
+        accent="var(--accent-ink)"
+      />
     </svg>
   );
 }

@@ -2,7 +2,6 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { buildCourseHistory, type CourseHistory, type SourceCourses } from "@/lib/course-history";
 import { buildGarminShots, type GarminShots, type SourceGarminRounds } from "@/lib/garmin-shots";
-import type { CourseGeo } from "@/lib/hole-geometry";
 import {
   buildRoundHistory,
   type PlayedRound,
@@ -47,22 +46,6 @@ export function loadHistory(): CourseHistory | null {
       "utf8",
     );
     return buildCourseHistory(JSON.parse(raw) as SourceCourses);
-  } catch {
-    return null;
-  }
-}
-
-/* The course drawings under the diary's traces — the map's own OSM-drawn
- * geometry (pnpm data:holes). A course the map has not drawn is simply absent,
- * and its holes fall back to the bare trace. */
-export function loadCourseGeo(slug: string): CourseGeo | null {
-  try {
-    return JSON.parse(
-      readFileSync(
-        join(process.cwd(), "public", "data", "holes", `${slug}.geojson`),
-        "utf8",
-      ),
-    ) as CourseGeo;
   } catch {
     return null;
   }

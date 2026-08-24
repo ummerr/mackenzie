@@ -6,6 +6,46 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-08-23 — The hole under the trace is the photograph, not the drawing
+
+**Decided:** the diary's hole cards lay the shot trace over Esri World
+Imagery — the same public tile service the `/courses` map stands on —
+instead of the OSM-polygon drawing. `paintHole` now reads nothing but the
+capture's own numbers (the shots and the day's pin; every recorded hole
+carries one), rotates pin-over-tee as before, stretches the frame to the
+card's 3:4 aspect so the photograph reaches every edge, and emits
+deterministic tile URLs with a per-tile affine that carries each 256-px tile
+into the rotated frame (a one-pixel overscan hides the antialiased seam
+hairlines rotation exposes). The rasters are loaded by the reader's browser
+straight from Esri's service — never fetched or stored at build — and the
+page prints the attribution ("Imagery © Esri, Maxar, Earthstar
+Geographics"). Marks over the photograph are fixed colors, not theme vars —
+white ink with a dark halo, amber accent — because the imagery is the same
+picture in both themes.
+
+**The question that forced it:** the user's verdict on the drawn cards —
+fairways and greens wrong, often looking like the wrong hole. Both
+complaints were structural, not tunable. OSM never mapped most fairways on
+the courses actually played (Presidio carries ~11 fairway polygons for 18
+holes; Harding 19 across 27), so unmapped fairways rendered as rough; and
+the proximity-matched green could rotate the whole card toward a
+neighbouring hole on a compact muni. No heuristic paints polygons that were
+never drawn, so the OSM dependency left the diary rather than being tuned:
+`garminCourseSlug`, `CourseGeo`, `loadCourseGeo`, and the `--course-*`
+tokens went with it (the `/courses` map still draws its own OSM geometry —
+that page is about the courses, not about a hole's truth). The bare
+`startMap` trace remains the fallback for shots without degrees, and a
+frame over 700 m still reads as a mis-assigned shot, not a hole.
+
+**Rejected (again):** Garmin's `holeImageUrl` raster — still expiring,
+still theirs (2026-08-22); screenshots from the Garmin app (same copyright,
+plus manual per-hole work every round); tuning the green-match instead
+(fixes the rotation, cannot invent unmapped fairways); fetching or
+stitching tiles at build (that is rehosting Esri's raster, where
+browser-loaded tiles are the same map-view usage `/courses` already makes).
+
+---
+
 ## 2026-08-23 — The wedge matrix is asserted in blocks, because a partial's length is intent
 
 **Decided:** a second asserted ledger file, `data/wedge-blocks.json`, records

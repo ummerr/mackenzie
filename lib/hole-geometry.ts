@@ -1,20 +1,22 @@
-/* The hole drawn under the trace — the diary's own yardage-book frame.
+/* The hole under the trace — Esri World Imagery, the same tiles the /courses
+ * map stands on.
  *
  * `paintHole` projects a hole's shots (WGS84 degrees, surfaced by the Garmin
- * adapter) and the course geometry the map already owns
- * (public/data/holes/<slug>.geojson, drawn from OSM by scripts/fetch-holes.mjs)
- * into one local-metre frame, rotated so the target sits due north of the
- * tee — tee at the bottom of the card, green at the top. Everything here is
- * our own drawing of the record's own numbers; Garmin's raster imagery stays
- * never-fetched (DECISIONS.md).
+ * adapter) into one local-metre frame, rotated so the day's pin sits due
+ * north of the tee — tee at the bottom of the card, green at the top — and
+ * lays the photograph under it: for every Web Mercator tile touching the
+ * frame, an affine transform that carries the 256-px tile image into the
+ * rotated frame. The tile URLs are deterministic; the rasters are loaded by
+ * the reader's browser straight from Esri's public service (attributed on
+ * the page), never fetched or stored at build. The trace and marks remain
+ * our own drawing of the record's own numbers, and Garmin's raster imagery
+ * stays never-fetched (DECISIONS.md).
  *
- * Feature selection is by proximity, never by the geojson's hole refs or
- * centerlines: Harding's file shares refs 1–9 with the adjacent Fleming 9 and
- * is missing the hole-18 centerline, so the frame is built from the shots,
- * the pin, and the matched green, and every polygon that touches it is
- * painted — the SVG edge clips the neighbours, which reads as context, like
- * a yardage book.
- */
+ * The OSM course polygons that used to be painted here were wrong in both
+ * directions — fairways OSM never mapped rendered as rough, and a green
+ * matched by proximity could rotate the whole card toward a neighbouring
+ * hole — so the drawing now depends on nothing but the capture itself:
+ * the shots and the pin. */
 
 import type { GarminShot } from "./garmin-shots";
 
@@ -28,66 +30,15 @@ export interface XY {
   y: number;
 }
 
-/** The polygon kinds the card paints, in paint order (first = bottom). */
-export type CourseKind =
-  | "rough"
-  | "fairway"
-  | "tee"
-  | "water"
-  | "penalty"
-  | "bunker"
-  | "green";
-
-const PAINT_ORDER: CourseKind[] = [
-  "rough",
-  "fairway",
-  "tee",
-  "water",
-  "penalty",
-  "bunker",
-  "green",
-];
-const KIND_SET = new Set<string>(PAINT_ORDER);
-
-/** The geojson narrowed to what is read here — structural, like the seams. */
-export interface CourseGeo {
-  features: {
-    properties: { k: string; ref?: string };
-    geometry: { type: string; coordinates: unknown };
-  }[];
-}
-
 export interface HolePaint {
-  /** Local metres, y down, target up. */
+  /** Local metres, y down, pin-side up. Aspect fixed to the card's. */
   viewBox: { x: number; y: number; w: number; h: number };
-  /** Painted bottom-to-top in this order; coords rounded to 0.1 m. */
-  polys: { kind: CourseKind; d: string }[];
+  /** The imagery under the trace — each tile's 256-px image carried into the
+   *  frame by its own matrix (the rotation lives inside it). */
+  tiles: { href: string; transform: string }[];
   pin: XY | null;
   /** The shot segments in the same frame. */
   segs: { a: XY; b: XY }[];
-}
-
-/* ── slug ─────────────────────────────────────────────────────────────── */
-
-/* Mirror of scripts/link-rounds.mjs garminFacilitySlug (which the app cannot
- * import — the pipeline's untyped .mjs side of the seam). A parity test in
- * tests/hole-geometry.test.ts holds the two together. */
-const GARMIN_FACILITY_ALIASES: Record<string, string> = {
-  "harding-park-golf-course": "tpc-harding-park-golf-course",
-};
-
-/** "Harding Park Golf Course ~ Harding" → "tpc-harding-park-golf-course" —
- *  Garmin writes "Facility ~ Layout"; the geojson files are named by
- *  facility slug. */
-export function garminCourseSlug(courseName: string): string {
-  const facility = courseName.split("~")[0].trim();
-  const slug = facility
-    .toLowerCase()
-    .replace(/['‘’]/g, "")
-    .replace(/&/g, " and ")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-  return GARMIN_FACILITY_ALIASES[slug] ?? slug;
 }
 
 /* ── the frame ────────────────────────────────────────────────────────── */
@@ -100,74 +51,53 @@ const mPerDegLon = (latRad: number) => 111_320 * Math.cos(latRad);
 /** A hole whose frame spans more than this is a mis-assigned shot, not a
  *  hole — fall back to the bare trace rather than print a wild drawing. */
 const MAX_FRAME_M = 700;
-/** A green farther than this from the hole's last point is another hole's. */
-const GREEN_MATCH_M = 120;
-/** Tee polygons within this of the first shot's start belong to the frame. */
-const TEE_MATCH_M = 40;
 /** Below this tee→target distance the bearing is noise — skip rotation. */
 const MIN_BEARING_M = 10;
-
-const dist = (a: XY, b: XY) => Math.hypot(a.x - b.x, a.y - b.y);
-
-const centroid = (pts: XY[]): XY => {
-  let x = 0;
-  let y = 0;
-  for (const p of pts) {
-    x += p.x;
-    y += p.y;
-  }
-  return { x: x / pts.length, y: y / pts.length };
-};
-
-const bboxOf = (pts: XY[]) => {
-  let minX = Infinity;
-  let minY = Infinity;
-  let maxX = -Infinity;
-  let maxY = -Infinity;
-  for (const p of pts) {
-    if (p.x < minX) minX = p.x;
-    if (p.y < minY) minY = p.y;
-    if (p.x > maxX) maxX = p.x;
-    if (p.y > maxY) maxY = p.y;
-  }
-  return { minX, minY, maxX, maxY };
-};
-
-type Bbox = ReturnType<typeof bboxOf>;
-const intersects = (a: Bbox, b: Bbox) =>
-  a.minX <= b.maxX && a.maxX >= b.minX && a.minY <= b.maxY && a.maxY >= b.minY;
-
-/** Ray casting, the scripts/fetch-holes.mjs idiom. */
-const pointInRing = (pt: XY, ring: XY[]): boolean => {
-  let inside = false;
-  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
-    const a = ring[i];
-    const b = ring[j];
-    if (
-      a.y > pt.y !== b.y > pt.y &&
-      pt.x < ((b.x - a.x) * (pt.y - a.y)) / (b.y - a.y) + a.x
-    ) {
-      inside = !inside;
-    }
-  }
-  return inside;
-};
+/** Width over height of the card the frame fills (aspect-[3/4] on the
+ *  page) — the frame is widened or lengthened to it so the photograph
+ *  reaches every edge instead of letterboxing. */
+const FRAME_ASPECT = 3 / 4;
+/** Frame padding around the marks, as a share of the larger span. */
+const PAD_SHARE = 0.12;
+/** The padding floor in metres, so a one-chip hole still gets air. */
+const MIN_PAD_SPAN_M = 60;
 
 const round1 = (v: number) => Math.round(v * 10) / 10;
-const pathOf = (ring: XY[]) =>
-  `M${ring.map((p) => `${round1(p.x)} ${round1(p.y)}`).join("L")}Z`;
+
+/* ── the imagery ──────────────────────────────────────────────────────── */
+
+/** The /courses map's tile service, verbatim (public/courses/src/map.js). */
+const TILE_URL = (z: number, y: number, x: number) =>
+  `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`;
+const TILE_PX = 256;
+/** Each tile is scaled up by one source pixel about its NW corner, so
+ *  neighbours overlap instead of showing an antialiased hairline seam when
+ *  the frame is rotated. Costs at most one ground-pixel of drift at a
+ *  tile's far edge — invisible at these zooms. */
+const TILE_OVERSCAN = (TILE_PX + 1) / TILE_PX;
+/** Zoom is the deepest level that covers the frame within the budget —
+ *  a hole card is ~300 CSS px, so ~0.5–1 m/px is already past the screen. */
+const MAX_TILE_ZOOM = 19;
+const MIN_TILE_ZOOM = 13;
+const MAX_TILES = 16;
+
+/** Web Mercator, normalized to [0,1) — ×2^z gives the tile grid. */
+const mercX = (lon: number) => (lon + 180) / 360;
+const mercY = (lat: number) => {
+  const r = (lat * Math.PI) / 180;
+  return (1 - Math.asinh(Math.tan(r)) / Math.PI) / 2;
+};
+const tileLon = (x: number, n: number) => (x / n) * 360 - 180;
+const tileLat = (y: number, n: number) =>
+  (Math.atan(Math.sinh(Math.PI * (1 - (2 * y) / n))) * 180) / Math.PI;
 
 /**
- * Project this hole's shots and its patch of the course into one SVG-ready
- * frame, or null when there is nothing to draw it from — no course file, or
- * no shot carrying degrees. The caller falls back to the bare trace.
+ * Project this hole's shots into one SVG-ready frame over the imagery, or
+ * null when there is nothing to draw it from — no shot carrying degrees, or
+ * a frame so wide it must be a mis-assigned shot. The caller falls back to
+ * the bare trace.
  */
-export function paintHole(
-  course: CourseGeo | null,
-  shots: GarminShot[],
-  pin: LatLon | null,
-): HolePaint | null {
-  if (!course?.features) return null;
+export function paintHole(shots: GarminShot[], pin: LatLon | null): HolePaint | null {
   const geoShots = shots.filter((s) => s.startGeo !== null && s.endGeo !== null);
   if (geoShots.length === 0) return null;
 
@@ -178,6 +108,10 @@ export function paintHole(
     x: (p.lon - anchor.lon) * kx,
     y: (p.lat - anchor.lat) * M_PER_DEG_LAT,
   });
+  const unproject = (p: XY): LatLon => ({
+    lat: anchor.lat + p.y / M_PER_DEG_LAT,
+    lon: anchor.lon + p.x / kx,
+  });
 
   const rawSegs = geoShots.map((s) => ({
     a: project(s.startGeo as LatLon),
@@ -187,49 +121,13 @@ export function paintHole(
   const lastEnd = rawSegs[rawSegs.length - 1].b;
   const pinPt = pin ? project(pin) : null;
 
-  // The course's paintable polygons, projected. Outer rings only; anything
-  // that is not a Polygon of a known kind is skipped, not guessed at. The
-  // driving range's furniture — target greens, mats — is tagged green/tee in
-  // OSM too, so anything centred inside a `range` polygon is scenery of the
-  // range, not of a hole, and stays out (Harding 1 runs beside the range).
-  const outerRingOf = (f: CourseGeo["features"][number]): XY[] | null => {
-    if (f.geometry?.type !== "Polygon") return null;
-    const outer = (f.geometry.coordinates as [number, number][][])?.[0];
-    if (!Array.isArray(outer) || outer.length < 3) return null;
-    return outer.map(([lon, lat]) => project({ lat, lon }));
-  };
-  const rangeRings = course.features
-    .filter((f) => f.properties?.k === "range")
-    .map(outerRingOf)
-    .filter((r): r is XY[] => r !== null);
-  const polys: { kind: CourseKind; ring: XY[]; center: XY; bbox: Bbox }[] = [];
-  for (const f of course.features) {
-    const kind = f.properties?.k;
-    if (!KIND_SET.has(kind)) continue;
-    const ring = outerRingOf(f);
-    if (!ring) continue;
-    const center = centroid(ring);
-    if (rangeRings.some((rr) => pointInRing(center, rr))) continue;
-    polys.push({ kind: kind as CourseKind, ring, center, bbox: bboxOf(ring) });
-  }
-
-  // Orientation target: the day's pin, else the green this hole ends on,
-  // else where the last heard shot finished.
-  const greens = polys.filter((p) => p.kind === "green");
-  const near = pinPt ?? lastEnd;
-  let matchedGreen: (typeof polys)[number] | null = null;
-  for (const g of greens) {
-    if (dist(g.center, near) > GREEN_MATCH_M) continue;
-    if (!matchedGreen || dist(g.center, near) < dist(matchedGreen.center, near)) {
-      matchedGreen = g;
-    }
-  }
-  const target = pinPt ?? matchedGreen?.center ?? lastEnd;
-
-  // Rotate about the anchor so the target sits due north of the tee, then
-  // flip north into SVG's y-down.
-  const bearing =
-    dist(tee, target) < MIN_BEARING_M ? 0 : Math.atan2(target.x - tee.x, target.y - tee.y);
+  // Orientation target: the day's pin, else where the last heard shot
+  // finished. Rotate about the anchor so it sits due north of the tee, then
+  // flip north into SVG's y-down. The map is a reflection (det −1), so it
+  // is its own inverse — `toSvg` runs both ways.
+  const target = pinPt ?? lastEnd;
+  const dTee = Math.hypot(target.x - tee.x, target.y - tee.y);
+  const bearing = dTee < MIN_BEARING_M ? 0 : Math.atan2(target.x - tee.x, target.y - tee.y);
   const cos = Math.cos(bearing);
   const sin = Math.sin(bearing);
   const toSvg = (p: XY): XY => ({
@@ -240,47 +138,104 @@ export function paintHole(
   const segs = rawSegs.map((s) => ({ a: toSvg(s.a), b: toSvg(s.b) }));
   const svgPin = pinPt ? toSvg(pinPt) : null;
 
-  // The frame: shots ∪ pin ∪ the matched green ∪ the tee boxes the round
-  // left from — padded a tenth of its larger span.
+  // The frame: shots ∪ pin, padded, then stretched to the card's aspect so
+  // the imagery reaches every edge.
   const framePts: XY[] = segs.flatMap((s) => [s.a, s.b]);
   if (svgPin) framePts.push(svgPin);
-  if (matchedGreen) framePts.push(...matchedGreen.ring.map(toSvg));
-  const teeStart = segs[0].a;
-  for (const p of polys) {
-    if (p.kind === "tee" && dist(toSvg(p.center), teeStart) <= TEE_MATCH_M) {
-      framePts.push(...p.ring.map(toSvg));
-    }
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  for (const p of framePts) {
+    if (p.x < minX) minX = p.x;
+    if (p.y < minY) minY = p.y;
+    if (p.x > maxX) maxX = p.x;
+    if (p.y > maxY) maxY = p.y;
   }
-  const box = bboxOf(framePts);
-  const span = Math.max(box.maxX - box.minX, box.maxY - box.minY);
+  const span = Math.max(maxX - minX, maxY - minY);
   if (span > MAX_FRAME_M) return null; // a mis-assigned shot, not a hole
-  const pad = Math.max(span, TEE_MATCH_M) * 0.1;
-  const frame: Bbox = {
-    minX: box.minX - pad,
-    minY: box.minY - pad,
-    maxX: box.maxX + pad,
-    maxY: box.maxY + pad,
-  };
-
-  // Paint everything that touches the frame; the SVG edge clips the rest.
-  const painted = polys
-    .map((p) => ({ kind: p.kind, ring: p.ring.map(toSvg) }))
-    .filter((p) => intersects(bboxOf(p.ring), frame))
-    .sort((a, b) => PAINT_ORDER.indexOf(a.kind) - PAINT_ORDER.indexOf(b.kind))
-    .map((p) => ({ kind: p.kind, d: pathOf(p.ring) }));
+  const pad = Math.max(span, MIN_PAD_SPAN_M) * PAD_SHARE;
+  let w = maxX - minX + pad * 2;
+  let h = maxY - minY + pad * 2;
+  let x0 = minX - pad;
+  let y0 = minY - pad;
+  if (w < h * FRAME_ASPECT) {
+    const grow = h * FRAME_ASPECT - w;
+    x0 -= grow / 2;
+    w += grow;
+  } else if (h < w / FRAME_ASPECT) {
+    const grow = w / FRAME_ASPECT - h;
+    y0 -= grow / 2;
+    h += grow;
+  }
 
   return {
-    viewBox: {
-      x: round1(frame.minX),
-      y: round1(frame.minY),
-      w: round1(frame.maxX - frame.minX),
-      h: round1(frame.maxY - frame.minY),
-    },
-    polys: painted,
+    viewBox: { x: round1(x0), y: round1(y0), w: round1(w), h: round1(h) },
+    tiles: tilesFor({ x0, y0, w, h }, toSvg, project, unproject),
     pin: svgPin ? { x: round1(svgPin.x), y: round1(svgPin.y) } : null,
     segs: segs.map((s) => ({
       a: { x: round1(s.a.x), y: round1(s.a.y) },
       b: { x: round1(s.b.x), y: round1(s.b.y) },
     })),
   };
+}
+
+/** The tiles covering the frame, each with the affine that lays its 256-px
+ *  image into the rotated local-metre frame. Over a hole-sized extent the
+ *  Mercator curvature is far below a pixel, so three projected corners per
+ *  tile pin the whole matrix. */
+function tilesFor(
+  frame: { x0: number; y0: number; w: number; h: number },
+  toSvg: (p: XY) => XY,
+  project: (p: LatLon) => XY,
+  unproject: (p: XY) => LatLon,
+): { href: string; transform: string }[] {
+  // The frame's corners, carried back to degrees (toSvg is self-inverse),
+  // bound the tile walk — the rotated quad's bbox in Mercator space.
+  const corners = [
+    { x: frame.x0, y: frame.y0 },
+    { x: frame.x0 + frame.w, y: frame.y0 },
+    { x: frame.x0, y: frame.y0 + frame.h },
+    { x: frame.x0 + frame.w, y: frame.y0 + frame.h },
+  ].map((p) => unproject(toSvg(p)));
+  const mxs = corners.map((c) => mercX(c.lon));
+  const mys = corners.map((c) => mercY(c.lat));
+  const minMx = Math.min(...mxs);
+  const maxMx = Math.max(...mxs);
+  const minMy = Math.min(...mys);
+  const maxMy = Math.max(...mys);
+
+  // The deepest zoom whose cover fits the budget.
+  let z = MAX_TILE_ZOOM;
+  let n = 2 ** z;
+  for (; z > MIN_TILE_ZOOM; z--, n = 2 ** z) {
+    const count =
+      (Math.floor(maxMx * n) - Math.floor(minMx * n) + 1) *
+      (Math.floor(maxMy * n) - Math.floor(minMy * n) + 1);
+    if (count <= MAX_TILES) break;
+  }
+
+  const r5 = (v: number) => Math.round(v * 1e5) / 1e5;
+  const r2 = (v: number) => Math.round(v * 100) / 100;
+  // Tile grid → degrees → local metres → the rotated frame.
+  const cornerOf = (tx: number, ty: number): XY =>
+    toSvg(project({ lat: tileLat(ty, n), lon: tileLon(tx, n) }));
+
+  const tiles: { href: string; transform: string }[] = [];
+  for (let ty = Math.floor(minMy * n); ty <= Math.floor(maxMy * n); ty++) {
+    for (let tx = Math.floor(minMx * n); tx <= Math.floor(maxMx * n); tx++) {
+      const nw = cornerOf(tx, ty);
+      const ne = cornerOf(tx + 1, ty);
+      const sw = cornerOf(tx, ty + 1);
+      const a = ((ne.x - nw.x) / TILE_PX) * TILE_OVERSCAN;
+      const b = ((ne.y - nw.y) / TILE_PX) * TILE_OVERSCAN;
+      const c = ((sw.x - nw.x) / TILE_PX) * TILE_OVERSCAN;
+      const d = ((sw.y - nw.y) / TILE_PX) * TILE_OVERSCAN;
+      tiles.push({
+        href: TILE_URL(z, ty, tx),
+        transform: `matrix(${r5(a)} ${r5(b)} ${r5(c)} ${r5(d)} ${r2(nw.x)} ${r2(nw.y)})`,
+      });
+    }
+  }
+  return tiles;
 }
