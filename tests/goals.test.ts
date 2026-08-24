@@ -5,12 +5,12 @@ import {
   daysAfter,
   METRICS,
   parseGoalsFile,
+  proposalForLeak,
   type GoalEntry,
   type GoalInputs,
 } from "../lib/goals";
 import { LEAK_TARGETS, type Leak } from "../lib/leaks";
 import type { PlayedRound, RoundHistory } from "../lib/round-history";
-import { proposalForLeak } from "../scripts/propose-goals";
 
 /* Goals run on record time: statuses derive from the newest capture, never
  * the wall clock, so a test (and `pnpm profile --check`) reads the same on

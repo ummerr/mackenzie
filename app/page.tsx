@@ -1,260 +1,279 @@
 import Link from "next/link";
+import { buildDataStatus, type SourceStatus } from "@/lib/data-status";
+import { METRICS, proposalForLeak, type GoalProgress } from "@/lib/goals";
+import type { GoalInputs } from "@/lib/goals";
 import type { Leak } from "@/lib/leaks";
-import { loadHistory } from "@/lib/load";
-import {
-  buildProfile,
-  type Finding,
-  type Lens,
-  type SpecGroup,
-  type Unknown,
-} from "@/lib/profile";
+import { loadLinkedGrint } from "@/lib/load";
+import { PROFILE_THRESHOLDS } from "@/lib/profile";
+import { lastNDistinct } from "@/lib/round-history";
 import { buildSiteData } from "@/lib/site-data";
-import { Provenance } from "./provenance";
-import { StatTiles } from "./stat-tiles";
 
 export const metadata = {
-  title: "Profile — Mackenzie",
+  title: "Now — Mackenzie",
   description:
-    "What every record this repo keeps — range, watch, scorecards, map — says about the golfer.",
+    "The command center: this week's goals, the last rounds, the leaks that cost the most strokes, and the state of the pipeline.",
 };
 
-const LENS_WORD = { range: "range", course: "courses", both: "both" } as const;
+/* The command center. One question per section, in the order they get asked:
+ * what am I working on this week, what happened in the last rounds, where do
+ * the strokes go, and is the record current. Everything else — the full
+ * spec, the findings, the roast, the unknowns — lives in PROFILE.md, the
+ * archive twin; the drill-downs live on their canonical pages. This page
+ * synthesises, it does not restate. */
 
-/* The digest shows the top of the object; PROFILE.md holds all of it. */
-const TOP_FINDINGS = 5;
-const TOP_LEAKS = 3;
-
-/* Where each spec group's full record lives. Route knowledge stays on the
- * page — lib/ speaks in facts, not URLs. */
-const GROUP_HOME: Record<SpecGroup["id"], { href: string; label: string }> = {
-  range: { href: "/bag", label: "the bag" },
-  watch: { href: "/rounds#watch", label: "the rounds" },
-  scorecards: { href: "/rounds", label: "the rounds" },
-  map: { href: "/courses", label: "the courses" },
-};
-
-/* Each finding's canonical evidence has exactly one home page; the finding
- * here is the claim, and the link is its receipts. Ids born later fall back
- * to their lens. */
-const BAG = GROUP_HOME.range;
-const DIARY = GROUP_HOME.watch;
-const SCRATCH = GROUP_HOME.scorecards;
-const COURSES = GROUP_HOME.map;
-const FINDING_HOME: Record<string, { href: string; label: string }> = {
-  "no-tee-game": BAG,
-  "unmeasured-bag": BAG,
-  "same-loft-twice": BAG,
-  "two-way-miss": BAG,
-  "one-way-miss": BAG,
-  "wider-than-the-fairway": BAG,
-  gapping: BAG,
-  "day-to-day-drift": BAG,
-  "smash-inversion": BAG,
-  "discard-rate": BAG,
-  "course-vs-range": BAG,
-  scoring: COURSES,
-  collector: COURSES,
-  taste: COURSES,
-  "favourites-punish": COURSES,
-  trajectory: SCRATCH,
-  "recent-form": SCRATCH,
-  "putt-share": SCRATCH,
-  "tee-two-way": SCRATCH,
-  "short-game-share": DIARY,
-  "lie-mix": DIARY,
-  "measured-half": DIARY,
-  "open-questions": { href: "/practice", label: "the practice list" },
-};
-const LENS_HOME: Record<Lens, { href: string; label: string } | null> = {
-  range: BAG,
-  course: COURSES,
-  both: null,
-};
-const findingHome = (f: Finding) => FINDING_HOME[f.id] ?? LENS_HOME[f.lens];
-
-export default function Profile() {
+export default function Now() {
   const d = buildSiteData();
-  const profile = buildProfile({
-    shots: d.shots,
-    sessions: d.sessions,
-    profiles: d.profiles,
-    gaps: d.gaps,
-    tasks: d.tasks,
-    history: loadHistory(),
+  const linked = loadLinkedGrint();
+  const status = buildDataStatus({
     roundHistory: d.roundHistory,
     garminShots: d.garminShots,
-    bag: d.bag,
-    wedgeMatrix: d.wedgeMatrix,
-    goals: d.goals,
+    sessions: d.sessions,
   });
 
-  const topFindings = profile.findings.slice(0, TOP_FINDINGS);
-  const topLeaks = profile.leaks.slice(0, TOP_LEAKS);
-  const roasts = topFindings.filter((f) => f.roast !== null);
-  const allRoasts = profile.findings.filter((f) => f.roast !== null);
+  const goalInputs: GoalInputs = {
+    roundHistory: d.roundHistory,
+    garminShots: d.garminShots,
+    profiles: d.profiles,
+    wedgeMatrix: d.wedgeMatrix,
+    leaks: d.leaks,
+    tasks: d.tasks,
+    recentMonths: PROFILE_THRESHOLDS.recentMonths,
+  };
+
+  const week = d.goals.latest;
+  const lastRounds = d.roundHistory
+    ? lastNDistinct(d.roundHistory.rounds, PROFILE_THRESHOLDS.recentRoundCount).reverse()
+    : [];
+  const scorecardByRound = new Map<string, string>();
+  for (const [scorecardId, r] of linked) scorecardByRound.set(r.roundId, scorecardId);
+  const shotCountByCard = new Map(
+    (d.garminShots?.rounds ?? []).map((r) => [r.scorecardId, r.shotCount]),
+  );
+  const topLeaks = d.leaks.slice(0, 3);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:px-5 sm:py-8">
       <h1 className="font-serif text-[42px] leading-[0.9] tracking-[-0.01em] sm:text-[56px] lg:text-[72px]">
-        THE PLAYER
+        NOW
       </h1>
       <p className="stamp mt-3 text-ink-3">
-        {profile.findings.length} findings · {allRoasts.length} of them unkind ·
-        {" "}
-        {profile.unknowns.length} things the record cannot say
+        as of {d.goals.asOf ?? "—"} — the record&rsquo;s clock, not today&rsquo;s
       </p>
-
       <p className="mt-5 max-w-2xl border-t pt-5 text-[15px] leading-6 text-ink-1 rule">
-        Derived from every record this repo keeps — a launch-monitor ledger, a
-        watch that hears the course, five seasons of scorecards, and a map of
-        everywhere they happened — and rewritten every time any of them changes.
-        Nothing below is a personality: every line carries the numbers that put
-        it there and the condition that takes it off, so hitting the shots
-        retires the sentence.
+        What to work on, measured by every record this repo keeps. The week&rsquo;s
+        goals, the last rounds, the leaks priced in strokes, and whether the
+        record itself is current — each with its receipts one link away.
       </p>
 
-      {/* ── the spec sheet, one corner per source ─────────────────────────── */}
-      <div className="mt-8 space-y-6">
-        {profile.spec.map((g) => (
-          <SpecGroupBlock key={g.id} group={g} />
-        ))}
-      </div>
+      {/* ── this week ─────────────────────────────────────────────────────── */}
+      <section className="mt-10">
+        <h2 className="font-serif text-[26px] leading-tight">This week</h2>
+        {week === null ? (
+          <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+            No goals committed. <code className="text-ink-2">pnpm goals:propose</code>{" "}
+            drafts a week from the top leak and the top open practice task; pasting
+            it into <code className="text-ink-2">data/goals.json</code> is the
+            commit. The engine proposes; the signature is yours.
+          </p>
+        ) : (
+          <>
+            <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+              The week of {week.weekOf}, measured against the newest capture — a
+              goal stays open until the record outruns its week, then the record
+              says achieved or missed.
+            </p>
+            <ul className="mt-4 space-y-px">
+              {week.goals.map((g) => (
+                <GoalRow key={g.goal.id} g={g} />
+              ))}
+            </ul>
+            {d.goals.weeks.length > 1 && (
+              <p className="mt-3 font-mono text-[10px] leading-4 text-ink-3">
+                Past weeks:{" "}
+                {d.goals.weeks
+                  .slice(0, -1)
+                  .map(
+                    (w) =>
+                      `${w.weekOf} (${w.goals.filter((g) => g.status === "achieved").length}/${w.goals.length} achieved)`,
+                  )
+                  .join(" · ")}{" "}
+                — history on{" "}
+                <Link href="/practice" className="text-ink-2 underline decoration-1 underline-offset-2">
+                  the practice page
+                </Link>
+                .
+              </p>
+            )}
+          </>
+        )}
+      </section>
+
+      {/* ── the last rounds ───────────────────────────────────────────────── */}
+      {lastRounds.length > 0 && (
+        <section className="mt-10">
+          <h2 className="font-serif text-[26px] leading-tight">The last rounds</h2>
+          <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+            The newest {lastRounds.length} on file — every round, the arc, and the
+            hole-by-hole traces live on{" "}
+            <Link href="/rounds" className="text-ink-1 underline decoration-1 underline-offset-2">
+              the rounds page
+            </Link>
+            .
+          </p>
+          <ul className="mt-4 space-y-px">
+            {lastRounds.map((r) => {
+              const scorecardId = scorecardByRound.get(r.roundId) ?? null;
+              const heard =
+                scorecardId !== null ? (shotCountByCard.get(scorecardId) ?? null) : null;
+              return (
+                <li
+                  key={r.roundId}
+                  className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l-2 bg-paper-1 px-3 py-2.5 sm:px-4"
+                  style={{ borderColor: "var(--line)" }}
+                >
+                  <span className="font-mono text-[11px] tabular-nums text-ink-3">{r.date}</span>
+                  <span className="text-[15px] leading-snug text-ink-0">
+                    {r.courseName ?? "—"}
+                  </span>
+                  <span className="ml-auto shrink-0 font-mono text-[11px] tabular-nums text-ink-1">
+                    {r.strokes ?? "—"} strokes
+                    {r.putts !== null ? ` · ${r.putts} putts` : ""}
+                    {scorecardId !== null && heard !== null && (
+                      <>
+                        {" · "}
+                        <Link
+                          href={`/rounds#${scorecardId}`}
+                          className="text-ink-1 underline decoration-1 underline-offset-2"
+                        >
+                          the watch heard {heard} →
+                        </Link>
+                      </>
+                    )}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       {/* ── the leaks ─────────────────────────────────────────────────────── */}
       {topLeaks.length > 0 && (
         <section className="mt-10">
-          <h2 className="stamp text-ink-2">The leaks</h2>
+          <h2 className="font-serif text-[26px] leading-tight">The leaks</h2>
           <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
             Where the strokes go, ranked by what each leak costs — priced in
-            strokes where the record can price it, named as unknown where it
-            cannot. The top {topLeaks.length} of {profile.leaks.length}; the{" "}
+            strokes where the record can price it. The top {topLeaks.length} of{" "}
+            {d.leaks.length}; the{" "}
             <Link href="/rounds#leaks" className="text-ink-1 underline decoration-1 underline-offset-2">
               full accounting
             </Link>{" "}
             runs on the rounds page.
           </p>
-          <ol className="mt-5 space-y-px">
+          <ol className="mt-4 space-y-px">
             {topLeaks.map((l, i) => (
-              <LeakRow key={l.id} leak={l} rank={i + 1} first={i === 0} />
+              <LeakRow key={l.id} leak={l} rank={i + 1} first={i === 0} inputs={goalInputs} />
             ))}
           </ol>
         </section>
       )}
 
-      {/* ── the read, abridged ────────────────────────────────────────────── */}
+      {/* ── data status ───────────────────────────────────────────────────── */}
       <section className="mt-10">
-        <h2 className="stamp text-ink-2">The read</h2>
+        <h2 className="font-serif text-[26px] leading-tight">The record itself</h2>
         <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
-          Ranked by how much of the record is behind each line, never by how bad
-          it sounds. Nothing here is compared to a golfer who is not you — no tour
-          averages, no handicap model, because a benchmark without a source is
-          exactly the kind of claim this repo refuses to print. The top{" "}
-          {topFindings.length}; each line links to the page that holds its
-          evidence.
+          Every number above is only as current as the last capture. Per source:
+          the newest record it carries, when it was captured, and anything
+          waiting — new raw bundles, or a join that needs a human. Capture, then{" "}
+          <code className="text-ink-2">pnpm refresh</code> runs the rest.
         </p>
-        <ol className="mt-5 space-y-px">
-          {topFindings.map((f, i) => (
-            <FindingRow key={f.id} finding={f} rank={i + 1} first={i === 0} />
-          ))}
-        </ol>
-        <p className="mt-3 max-w-2xl font-mono text-[10px] leading-4 text-ink-3">
-          All {profile.findings.length} findings, ranked and roasted in full, are
-          committed as <code className="text-ink-2">PROFILE.md</code> — this page
-          shows the top of the same object.
-        </p>
-      </section>
-
-      {/* ── the roast ─────────────────────────────────────────────────────── */}
-      {roasts.length > 0 && (
-        <section className="mt-10">
-          <h2 className="stamp text-ink-2">The roast</h2>
-          <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
-            The same top findings, unsoftened. Every one of them restates its own
-            evidence and nothing more — a roast that needs a fact you do not have
-            is just an insult.
-          </p>
-          <ul className="mt-5 space-y-4">
-            {roasts.map((f) => (
-              <li key={f.id} className="border-l-2 pl-4" style={{ borderColor: "var(--accent-ink)" }}>
-                <p className="text-[15px] leading-6 text-ink-0">{f.roast}</p>
-                <p className="mt-1.5 font-mono text-[11px] leading-5 text-ink-3">
-                  {f.evidence}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {/* ── the unknowns ──────────────────────────────────────────────────── */}
-      <section className="mt-10">
-        <h2 className="stamp text-ink-2">What the record cannot say</h2>
-        <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
-          The half most profiles leave out. These are not gaps in the analysis,
-          they are gaps in the data — listed so that silence is never mistaken for
-          a finding.
-        </p>
-        <ul className="mt-5 space-y-px">
-          {profile.unknowns.map((u) => (
-            <UnknownRow key={u.id} unknown={u} />
+        <ul className="mt-4 space-y-px">
+          {status.map((s) => (
+            <StatusRow key={s.id} s={s} />
           ))}
         </ul>
       </section>
 
-      {/* ── provenance ────────────────────────────────────────────────────── */}
-      <Provenance
-        sources={profile.sources}
-        note={
-          <>
-            The same profile is written to{" "}
-            <code className="text-ink-2">PROFILE.md</code> by{" "}
-            <code className="text-ink-2">pnpm profile</code>, so every change to
-            the golfer is a commit rather than a page that quietly reads
-            differently than it did last month.
-          </>
-        }
-      />
+      <p className="mt-10 border-t pt-4 font-mono text-[10px] leading-4 text-ink-3 rule">
+        The full spec — every finding, the roast, what the record cannot say — is
+        committed as <code className="text-ink-2">PROFILE.md</code>, regenerated by{" "}
+        <code className="text-ink-2">pnpm profile</code> so a change in the golfer
+        is a diff, not a page that quietly reads differently. The map of every
+        course played is{" "}
+        <Link href="/courses" className="text-ink-2 underline decoration-1 underline-offset-2">
+          the courses page
+        </Link>
+        .
+      </p>
     </div>
   );
 }
 
-/* One source's corner of the spec sheet: a header that links to the page
- * holding the full record, then three tiles. An absent source keeps its
- * corner — tiles dashed, command named — because absence is a state every
- * source can be in, not a demotion. */
-function SpecGroupBlock({ group }: { group: SpecGroup }) {
-  const home = GROUP_HOME[group.id];
+/* ── one goal ─────────────────────────────────────────────────────────────── */
+
+const STATUS_WORD: Record<GoalProgress["status"], string> = {
+  achieved: "achieved",
+  open: "open",
+  missed: "missed",
+  invalid: "invalid",
+};
+
+function fmtVal(v: number | null, unit: string): string {
+  if (v === null) return "—";
+  const n = Number.isInteger(v) ? String(v) : v.toFixed(1);
+  return unit === "%" ? `${n}%` : `${n} ${unit}`;
+}
+
+function GoalRow({ g }: { g: GoalProgress }) {
+  const accent = g.status === "achieved";
   return (
-    <section>
-      <div className="flex flex-wrap items-baseline gap-x-3 border-t pt-2 rule">
-        <h2 className="stamp text-ink-1">
-          <Link href={home.href} className="underline decoration-1 underline-offset-2">
-            {group.label}
-          </Link>
-        </h2>
-        <span className="stamp text-ink-3">{group.device}</span>
-        <Link
-          href={home.href}
-          className="stamp ml-auto shrink-0 text-ink-3 underline decoration-1 underline-offset-2"
-        >
-          {home.label} →
-        </Link>
+    <li
+      className="border-l-2 bg-paper-1 px-3 py-3 sm:px-4"
+      style={{ borderColor: accent ? "var(--accent-ink)" : "var(--line)" }}
+    >
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span className={`stamp ${accent ? "text-accent-ink" : "text-ink-3"}`}>
+          {STATUS_WORD[g.status]}
+        </span>
+        <span className="text-[15px] leading-snug text-ink-0">{g.label}</span>
       </div>
-      <StatTiles
-        className="mt-2 grid grid-cols-1 gap-px border-t bg-paper-2 rule sm:grid-cols-3"
-        tiles={group.lines.map((s) => ({ label: s.label, value: s.value, note: s.note ?? undefined }))}
-      />
-      {group.missing && (
-        <p className="mt-1.5 font-mono text-[10px] leading-4 text-ink-3">
-          No artifact on this checkout — run{" "}
-          <code className="text-ink-2">{group.missing}</code>.
+      {g.status !== "invalid" && (
+        <p className="mt-1.5 font-mono text-[11px] leading-5 text-ink-2 sm:pl-8">
+          now {fmtVal(g.value, g.unit)} · target{" "}
+          {g.direction === "down" ? "under " : ""}
+          {fmtVal(g.goal.target, g.unit)}
+          {g.sample ? ` · over ${g.sample.n} ${g.sample.unit}` : ""}
         </p>
       )}
-    </section>
+      {g.goal.note && (
+        <p className="mt-1 font-mono text-[10px] leading-4 text-ink-3 sm:pl-8">{g.goal.note}</p>
+      )}
+      {g.orphaned && (
+        <p className="mt-1 font-mono text-[10px] leading-4 text-ink-3 sm:pl-8">⚠ {g.orphaned}</p>
+      )}
+    </li>
   );
 }
 
-function LeakRow({ leak, rank, first }: { leak: Leak; rank: number; first: boolean }) {
+/* ── one leak, with its live number where the registry can price one ──────── */
+
+function LeakRow({
+  leak,
+  rank,
+  first,
+  inputs,
+}: {
+  leak: Leak;
+  rank: number;
+  first: boolean;
+  inputs: GoalInputs;
+}) {
+  /* The same translation `pnpm goals:propose` uses: the leak's retire line
+   * as a metric + target, so the row can print where the number stands
+   * today without anyone committing a goal first. */
+  const proposal = proposalForLeak(leak);
+  const metric = proposal ? METRICS[proposal.metricId] : undefined;
+  const now = metric ? metric.compute(inputs, proposal?.club ?? null) : null;
   return (
     <li
       className="border-l-2 bg-paper-1 px-3 py-3.5 sm:px-4 sm:py-4"
@@ -278,6 +297,16 @@ function LeakRow({ leak, rank, first }: { leak: Leak; rank: number; first: boole
           <dt className="w-14 shrink-0 text-ink-3">cost</dt>
           <dd className="text-ink-2">{leak.cost}</dd>
         </div>
+        {proposal && metric && now && (
+          <div className="flex gap-3">
+            <dt className="w-14 shrink-0 text-ink-3">stands at</dt>
+            <dd className="text-ink-1">
+              {fmtVal(now.value, metric.unit)} · retires at{" "}
+              {metric.direction === "down" ? "under " : ""}
+              {fmtVal(proposal.target, metric.unit)}
+            </dd>
+          </div>
+        )}
         <div className="flex gap-3">
           <dt className="w-14 shrink-0 text-ink-3">move</dt>
           <dd className="text-ink-1">
@@ -293,78 +322,31 @@ function LeakRow({ leak, rank, first }: { leak: Leak; rank: number; first: boole
   );
 }
 
-function FindingRow({
-  finding,
-  rank,
-  first,
-}: {
-  finding: Finding;
-  rank: number;
-  first: boolean;
-}) {
-  const home = findingHome(finding);
+/* ── one source's pipeline state ──────────────────────────────────────────── */
+
+function StatusRow({ s }: { s: SourceStatus }) {
+  const waiting = s.unprocessed.length > 0 || s.pending !== null;
   return (
     <li
-      className="border-l-2 bg-paper-1 px-3 py-3.5 sm:px-4 sm:py-4"
-      style={{ borderColor: first ? "var(--accent-ink)" : "var(--line)" }}
+      className="border-l-2 bg-paper-1 px-3 py-2.5 sm:px-4"
+      style={{ borderColor: waiting ? "var(--accent-ink)" : "var(--line)" }}
     >
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span
-          className={`font-mono text-[11px] tabular-nums ${
-            first ? "text-accent-ink" : "text-ink-3"
-          }`}
-        >
-          {String(rank).padStart(2, "0")}
-        </span>
-        <h3 className={`text-[15px] leading-snug ${first ? "text-accent-ink" : "text-ink-0"}`}>
-          {finding.claim}
-        </h3>
-        <span className="stamp ml-auto shrink-0 text-ink-3">
-          {LENS_WORD[finding.lens]} · {finding.confidence}
+        <span className="w-24 shrink-0 stamp text-ink-1">{s.label}</span>
+        <span className="font-mono text-[11px] leading-5 text-ink-2">
+          {s.asOf !== null ? `newest record ${s.asOf}` : "no artifact on this checkout"}
+          {s.capturedAt !== null ? ` · captured ${s.capturedAt}` : ""}
         </span>
       </div>
-
-      <dl className="mt-2 space-y-1.5 font-mono text-[11px] leading-5 sm:pl-8">
-        <div className="flex gap-3">
-          <dt className="w-14 shrink-0 text-ink-3">why</dt>
-          <dd className="text-ink-2">{finding.evidence}</dd>
-        </div>
-        <div className="flex gap-3">
-          <dt className="w-14 shrink-0 text-ink-3">gone when</dt>
-          <dd className="text-ink-1">{finding.falsifiedBy}</dd>
-        </div>
-        {home && (
-          <div className="flex gap-3">
-            <dt className="w-14 shrink-0 text-ink-3">where</dt>
-            <dd>
-              <Link
-                href={home.href}
-                className="text-ink-1 underline decoration-1 underline-offset-2"
-              >
-                {home.label} →
-              </Link>
-            </dd>
-          </div>
-        )}
-      </dl>
-    </li>
-  );
-}
-
-function UnknownRow({ unknown }: { unknown: Unknown }) {
-  return (
-    <li className="border-l-2 bg-paper-1 px-3 py-3.5 sm:px-4 sm:py-4 rule">
-      <h3 className="text-[15px] leading-snug text-ink-0">{unknown.question}</h3>
-      <dl className="mt-2 space-y-1.5 font-mono text-[11px] leading-5 sm:pl-4">
-        <div className="flex gap-3">
-          <dt className="w-14 shrink-0 text-ink-3">why not</dt>
-          <dd className="text-ink-2">{unknown.why}</dd>
-        </div>
-        <div className="flex gap-3">
-          <dt className="w-14 shrink-0 text-ink-3">needs</dt>
-          <dd className="text-ink-1">{unknown.needs}</dd>
-        </div>
-      </dl>
+      {s.unprocessed.length > 0 && (
+        <p className="mt-1 font-mono text-[11px] leading-5 text-ink-1 sm:pl-8">
+          {s.unprocessed.length} raw file{s.unprocessed.length === 1 ? "" : "s"} newer than
+          the artifact — run <code className="text-ink-0">{s.command}</code>
+        </p>
+      )}
+      {s.pending && (
+        <p className="mt-1 font-mono text-[11px] leading-5 text-ink-1 sm:pl-8">{s.pending}</p>
+      )}
     </li>
   );
 }

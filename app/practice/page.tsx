@@ -24,9 +24,10 @@ const CATEGORY_NOTE: Record<TaskCategory, string> = {
 };
 
 export default function Practice() {
-  const { shots, sessions, roundHistory, garminShots, tasks } = buildSiteData();
+  const { shots, sessions, roundHistory, garminShots, tasks, goals } = buildSiteData();
 
   const categories = [...new Set(tasks.map((t) => t.category))];
+  const pastWeeks = [...goals.weeks].reverse();
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:px-5 sm:py-8">
@@ -60,6 +61,29 @@ export default function Practice() {
           Nothing outstanding. Every club is measured, every metric recorded, and
           no gap is flagged.
         </p>
+      )}
+
+      {pastWeeks.length > 0 && (
+        <section className="mt-10">
+          <h2 className="stamp text-ink-2">The weeks</h2>
+          <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+            Every committed week of goals (data/goals.json), measured in record
+            time — did the number move. The current week renders on the front
+            page; this is the history.
+          </p>
+          <ul className="mt-3 space-y-1 font-mono text-[11px] leading-5">
+            {pastWeeks.map((w) => (
+              <li key={w.weekOf} className="flex flex-wrap gap-x-3">
+                <span className="w-24 shrink-0 text-ink-1">{w.weekOf}</span>
+                <span className="text-ink-2">
+                  {w.goals
+                    .map((g) => `${g.status}: ${g.goal.note ?? g.label}`)
+                    .join(" · ")}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
 
       <section className="mt-10">

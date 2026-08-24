@@ -17,103 +17,17 @@
  * any other in the file.
  */
 
-import { GARMIN_THRESHOLDS } from "../lib/garmin-shots";
-import { LEAK_TARGETS, type Leak } from "../lib/leaks";
-import type { GoalEntry } from "../lib/goals";
+import { proposalForLeak, proposalForTask, type GoalProposal } from "../lib/goals";
 import { buildSiteData } from "../lib/site-data";
-import { MIN_SHOTS_TO_DISPLAY } from "../lib/stats";
-import type { Task } from "../lib/tasks";
 import { WEDGE_MATRIX_THRESHOLDS } from "../lib/wedge-matrix";
-
-type Proposal = Omit<GoalEntry, "id"> & { why: string };
-
-/** The top leak, translated to the metric + target its own retire line names. */
-export function proposalForLeak(leak: Leak): Proposal | null {
-  switch (leak.id) {
-    case "gir-ceiling":
-      return {
-        metricId: "gir-last-20",
-        target: LEAK_TARGETS.girPerRound,
-        leakId: leak.id,
-        why: leak.title,
-      };
-    case "putting-giveback":
-      return {
-        metricId: "three-putt-share-last-20",
-        target: 100 / LEAK_TARGETS.threePuttHoles,
-        leakId: leak.id,
-        why: leak.title,
-      };
-    case "thin-sample":
-      return {
-        metricId: "rounds-in-window",
-        target: LEAK_TARGETS.sustainRounds,
-        leakId: leak.id,
-        why: leak.title,
-      };
-    case "short-game":
-      return {
-        metricId: "shot-bearing-rounds",
-        target: GARMIN_THRESHOLDS.minShotRounds,
-        leakId: leak.id,
-        why: leak.title,
-      };
-    case "tee-unmeasured":
-      return {
-        metricId: "usable-shots",
-        club: "Driver",
-        target: MIN_SHOTS_TO_DISPLAY,
-        leakId: leak.id,
-        why: leak.title,
-      };
-    default:
-      return null;
-  }
-}
-
-/** The top open task, translated the same way. Range-measurement tasks map to
- *  usable-shots on their club; wedge blocks to measured cells; putting tasks
- *  to the three-putt share. A task with no metric yet returns null rather
- *  than a guessed number. */
-export function proposalForTask(task: Task, measuredWedgeCells: number): Proposal | null {
-  const club = (prefix: string) =>
-    task.id.startsWith(prefix) ? task.id.slice(prefix.length) : null;
-  const unrecorded = club("unrecorded-") ?? club("coverage-");
-  if (unrecorded !== null) {
-    return {
-      metricId: "usable-shots",
-      club: unrecorded,
-      target: MIN_SHOTS_TO_DISPLAY,
-      taskId: task.id,
-      why: task.title,
-    };
-  }
-  if (task.id === "wedge-matrix-empty" || task.id.startsWith("wedge-cell-")) {
-    return {
-      metricId: "measured-wedge-cells",
-      target: measuredWedgeCells + 1,
-      taskId: task.id,
-      why: task.title,
-    };
-  }
-  if (task.id === "three-putts" || task.id === "recent-putting") {
-    return {
-      metricId: "three-putt-share-last-20",
-      target: 100 / LEAK_TARGETS.threePuttHoles,
-      taskId: task.id,
-      why: task.title,
-    };
-  }
-  return null;
-}
 
 function main(): number {
   const d = buildSiteData();
   const today = new Date().toISOString().slice(0, 10);
 
-  const proposals: Proposal[] = [];
+  const proposals: GoalProposal[] = [];
   const seen = new Set<string>();
-  const push = (p: Proposal | null) => {
+  const push = (p: GoalProposal | null) => {
     if (p === null) return;
     const key = `${p.metricId}:${p.club ?? ""}`;
     if (seen.has(key)) return;

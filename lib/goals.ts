@@ -21,7 +21,7 @@
 
 import { approachBands } from "./approach";
 import { asOfGarmin, GARMIN_THRESHOLDS, shotRounds, type GarminShots } from "./garmin-shots";
-import type { Leak } from "./leaks";
+import { LEAK_TARGETS, type Leak } from "./leaks";
 import {
   asOf,
   eighteenHole,
@@ -30,7 +30,7 @@ import {
   since,
   type RoundHistory,
 } from "./round-history";
-import type { ClubProfile } from "./stats";
+import { MIN_SHOTS_TO_DISPLAY, type ClubProfile } from "./stats";
 import { isKnownTaskId, type Task } from "./tasks";
 import { WEDGE_MATRIX_THRESHOLDS, type WedgeMatrix } from "./wedge-matrix";
 
@@ -214,6 +214,99 @@ export const METRICS: Record<string, MetricDef> = {
     },
   },
 };
+
+/* ── proposals: a leak or task, translated to its own retire line ─────────── */
+
+export interface GoalProposal {
+  metricId: string;
+  target: number;
+  club?: string;
+  leakId?: string;
+  taskId?: string;
+  why: string;
+}
+
+/** The metric + target a leak's own retire line names. The command center
+ *  uses this to print "now → target" beside a leak; `pnpm goals:propose`
+ *  uses it to draft the week. Null for a leak no metric measures yet. */
+export function proposalForLeak(leak: Leak): GoalProposal | null {
+  switch (leak.id) {
+    case "gir-ceiling":
+      return {
+        metricId: "gir-last-20",
+        target: LEAK_TARGETS.girPerRound,
+        leakId: leak.id,
+        why: leak.title,
+      };
+    case "putting-giveback":
+      return {
+        metricId: "three-putt-share-last-20",
+        target: 100 / LEAK_TARGETS.threePuttHoles,
+        leakId: leak.id,
+        why: leak.title,
+      };
+    case "thin-sample":
+      return {
+        metricId: "rounds-in-window",
+        target: LEAK_TARGETS.sustainRounds,
+        leakId: leak.id,
+        why: leak.title,
+      };
+    case "short-game":
+      return {
+        metricId: "shot-bearing-rounds",
+        target: GARMIN_THRESHOLDS.minShotRounds,
+        leakId: leak.id,
+        why: leak.title,
+      };
+    case "tee-unmeasured":
+      return {
+        metricId: "usable-shots",
+        club: "Driver",
+        target: MIN_SHOTS_TO_DISPLAY,
+        leakId: leak.id,
+        why: leak.title,
+      };
+    default:
+      return null;
+  }
+}
+
+/** The top open task, translated the same way. Range-measurement tasks map
+ *  to usable-shots on their club; wedge blocks to measured cells; putting
+ *  tasks to the three-putt share. A task with no metric yet returns null
+ *  rather than a guessed number. */
+export function proposalForTask(task: Task, measuredWedgeCells: number): GoalProposal | null {
+  const club = (prefix: string) =>
+    task.id.startsWith(prefix) ? task.id.slice(prefix.length) : null;
+  const unrecorded = club("unrecorded-") ?? club("coverage-");
+  if (unrecorded !== null) {
+    return {
+      metricId: "usable-shots",
+      club: unrecorded,
+      target: MIN_SHOTS_TO_DISPLAY,
+      taskId: task.id,
+      why: task.title,
+    };
+  }
+  if (task.id === "wedge-matrix-empty" || task.id.startsWith("wedge-cell-")) {
+    return {
+      metricId: "measured-wedge-cells",
+      target: measuredWedgeCells + 1,
+      taskId: task.id,
+      why: task.title,
+    };
+  }
+  if (task.id === "three-putts" || task.id === "recent-putting") {
+    return {
+      metricId: "three-putt-share-last-20",
+      target: 100 / LEAK_TARGETS.threePuttHoles,
+      taskId: task.id,
+      why: task.title,
+    };
+  }
+  return null;
+}
 
 /* ── progress, in record time ─────────────────────────────────────────────── */
 
