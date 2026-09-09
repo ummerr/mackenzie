@@ -1617,6 +1617,26 @@
         "rounds_only"
       ],
       "origin": "rounds"
+    },
+    {
+      "slug": "waikoloa-beach-and-kings-golf-course--beach-kings-old-layout",
+      "facilitySlug": "waikoloa-beach-and-kings-golf-course",
+      "grintLayoutName": "Beach/Kings (Old Layout)",
+      "grintFacilityName": "Waikoloa Beach & Kings’ Golf Course",
+      "grintCourseId": "2007",
+      "personalRank": null,
+      "timesPlayed": 1,
+      "avgScore": null,
+      "ratings": {
+        "overall": null,
+        "fun": null,
+        "condition": null
+      },
+      "played": true,
+      "flags": [
+        "rounds_only"
+      ],
+      "origin": "rounds"
     }
   ]
 }

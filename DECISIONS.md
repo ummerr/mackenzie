@@ -6,6 +6,130 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-09-09 — Grint re-platformed its charts; the reader accepts both eras
+
+**Decided:** `parse-grint-export.mjs` reads the trend charts in both the
+Highcharts shape (`data: [{y:..,name:'..'}]`, index printed in the chart title
+as "Handicap Index®:13.5") and the ECharts shape Grint served from the
+2026-09-09 capture on (`data: toPoints([{y:..}])` or `[{value:..,name:'..'}]`,
+series names sometimes bound through a `var`, per-point styling as a nested
+`itemStyle`). The Handicap Index now comes from the `/handicap` page's inline
+user JSON (`official_hcp_index`) when the chart no longer prints it. Tests pin
+each spelling; the 2026-08-23 bundle still parses to the committed counts
+(154 differentials, 13.5).
+
+**Why:** the first `pnpm refresh` over the new bundle silently produced a
+rounds.json with **zero differentials, a null index, and three of five
+series empty** — and validate passed, because an empty series is not an
+invariant. That is exactly the failure the verbatim-capture grain was meant
+to expose: the raw bundle was fine, the *reader* had gone stale. A parser
+that returns [] for a chart it does not recognise must be treated as a
+failed read, not a quiet one.
+
+**Also:** the 2026-09-09 Grint export restates `courseHandicap` on every
+scorecard as the *current* course handicap (13.0, was 12.0 in the August
+bundle). Verbatim, so it lands as-is; the field is what Grint says today, not
+what the card said that day. Nothing downstream reads it yet — if something
+ever does, it needs the differential series, not this column.
+
+**Rejected:** a validate rule "differentials non-empty" (it would only catch
+this one chart); instead the refresh report should make series counts
+visible next time — noted in NEXT.md. **Rejected:** parsing the ECharts
+config with a JS evaluator — the inline scripts reach into page globals
+(`getColor`, `toPoints`, `barLabel`); a regex over the literals stays the
+honest, dependency-free read.
+
+---
+
+## 2026-09-09 — Practice time follows the record, and the research says how to spend it
+
+**Decided:** the first committed week of goals (`data/goals.json`,
+2026-09-09) and a standing practice shape, both derived from the record and
+sized by what the motor-learning literature actually supports. This is the
+one place the repo writes down *how* to practise; the *what* stays derived
+(`lib/tasks.ts`, `lib/leaks.ts`).
+
+**What the record says (3 shot-bearing rounds, 155 shots, 2026-09-08 tail):**
+
+- Approach is the ceiling — 5.2 GIR over the last 20 charted rounds — and
+  the watch locates it: inside 150 yd, 10 of 29 approaches found the green;
+  10 of the 18 from 100–149 were played *from the rough*, 4 found the green.
+  The approach leak is half a tee leak: 55 rough lies to 21 fairway lies on
+  non-tee shots, driver 10 left / 10 right / 6 hit over 26 swings.
+- The short game leaves it long: 32 chips, 20 reached the green, median
+  leave **11 yd (~34 ft)**. Nine bunker shots, two left in the bunker.
+- Putting: 35.7 putts a round, a three-putt every 7 holes career, one in 11
+  over the last 20 putted rounds. A chip that leaves 34 ft hands the putter
+  a 25%+ three-putt (Shot Scope: 25% at 30 ft, 40%+ beyond 40 ft).
+- Par 5s are the worst holes on the watch (+1.42 a hole, 5 doubles in 12).
+- The 3 Hybrid started 7 of 18 holes at Presidio and 18 tee shots across
+  the three rounds (221 yd median) — the most-used club with no number.
+
+**What the research says, and how it is applied here:**
+
+- *Where strokes go* (Broadie, Every Shot Counts; Shot Scope by handicap):
+  approach is the largest gap between a 15 and a scratch; putting the
+  smallest (1–2 strokes); a 15 hits 19% of greens from 150–175 against a
+  5's 34%. → Approach inside 150 from real lies stays leak 01; the tee
+  ball's job is a fairway lie for that shot, not distance.
+- *Three-putts are a speed problem* (Shot Scope): 80% of amateur three-putts
+  begin with a first putt finishing >5 ft short or long; 55% of a
+  15-handicap's putts finish short. → The putting goal is a lag-speed
+  ladder, not a make-percentage drill.
+- *Distributed beats massed* (Frontiers 2024 systematic review; novice
+  golfers 60 trials × 4 days out-learned 240 × 1 at 28-day retention):
+  → three short sessions a week, 48–72 h apart, none over ~60 min.
+- *Random / variable order transfers better than blocked* — with the
+  caveat that the 2023 meta-analysis found the effect in only 21% of pooled
+  outcomes; the golf-specific review still found 4 of 5 studies favouring
+  random on transfer. → **Blocked only for the measurement the ledger
+  needs** (15 usable swings of one club lights it up; a labeled wedge block
+  needs one length), **random for everything else**: change club and
+  target every swing in the scoring band, never the same putt twice.
+- *External focus of attention* (12 studies, mean d = 0.54): → every drill
+  is cued on the landing spot or the hole-side circle, never on the body.
+
+**The shape of a week (habits, not a checklist — the tasks page ranks the
+clubs):**
+
+1. **Range, ~50 min, R50 on.** First 15 minutes blocked on the top task
+   (this week the 3 Hybrid; then the 3/4 Iron, Lob Wedge, Driver in task
+   order — blind spots first, per lib/tasks.ts). Remaining time random-order
+   approaches 80–150 yd, one club then a different club, a new target every
+   ball, eyes on the landing spot. Log the session; `pnpm ingest`.
+2. **Green, ~20 min, twice.** Lag ladder 20/30/40 ft, one ball each, random
+   order, score = first putt inside 3 ft. Finish with ten 4-footers.
+3. **Short game, ~25 min.** Chips and pitches 15–35 yd *from rough*, one
+   landing spot per ball, measure the leave; the record's median is 34 ft.
+4. **On the course:** watch on every round (2 more rounds and the
+   short-game and lie findings switch on), post to Grint the same day, then
+   `pnpm refresh`, confirm the link, commit. Ten minutes on the hole traces
+   before the next range session — the trace, not the score, sets the next
+   block.
+5. **One or two goals a week,** committed to goals.json in record time. A
+   week's goal must be movable by a week: a 20-round rolling average is a
+   season's goal; usable shots on one club or one round's three-putts is a
+   week's.
+
+**Rejected:** a hand-written practice plan on `/practice` (the page is
+derived, and a static plan goes on claiming things the data has disproved —
+the rule from lib/tasks.ts). **Rejected:** "GIR last 20 → 9" as a week's
+goal (the engine's proposal): it cannot move in a week, and a goal that
+cannot be missed teaches nothing. **Rejected:** driver-distance work — the
+record's driver problem is a two-way miss, and aiming off cannot fix that;
+the measurement comes first.
+
+**Sources:** Broadie, *Every Shot Counts* (approach as the great separator);
+Shot Scope three-putt data (mygolfspy.com/labs/study-the-anatomy-of-a-3-putt
+and shotscope.com/blog … how-often-do-golfers-three-putt); Shot Scope
+approach by handicap via golflink.com/instruction/improve-150-200-yard-play;
+"Motor learning in golf — a systematic review", *Frontiers in Sports and
+Active Living* 2024 (doi 10.3389/fspor.2024.1324615); "The myth of
+contextual interference learning benefit in sports practice", *Educational
+Research Review* 2023.
+
+---
+
 ## 2026-08-24 — The measurements come in, the model stays out
 
 **Decided:** the Garmin adapter now reads the shot-stats endpoints

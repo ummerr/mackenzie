@@ -3,11 +3,13 @@
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
 next.
 
-**State as of 2026-08-17:** the two sites are one Next.js app — profile at `/`,
-map at `/courses` — deploying as the single `mackenzie` Vercel project. The
-pipeline runs end to end, `pnpm data:validate` exits clean. The map draws the
-courses themselves from z13 — see `DECISIONS.md § Draw the course, don't just
-point at it`.
+**State as of 2026-09-09:** the two sites are one Next.js app — command
+center at `/`, map at `/courses` — deploying as the single `mackenzie` Vercel
+project. Newest capture 2026-09-09: 171 Grint rounds (handicap index 13.9),
+3 shot-bearing watch rounds of the 5 the findings need, 3 confirmed links,
+first week of goals committed (`data/goals.json`, 2026-09-09). `pnpm
+data:validate` exits clean. Grint moved its charts to ECharts this month and
+the parser now reads both eras — see `DECISIONS.md` 2026-09-09.
 
 ---
 
@@ -57,8 +59,12 @@ HTML, licence gray area, hard name-matching problem).
   files call for, re-proposes links, validates, rewrites PROFILE.md and the
   flight page) → confirm any proposed links in `data/round-links.json` →
   commit. Each capture retires or sharpens findings; at 5 shot-bearing
-  rounds (2 as of 2026-08-23) the short-game and lies unknowns retire and
-  three new findings switch on — see `GARMIN_THRESHOLDS`.
+  rounds (3 as of 2026-09-09) the short-game and lies unknowns retire and
+  three new findings switch on — see `GARMIN_THRESHOLDS`. **After every
+  refresh, read the `pnpm data:rounds` line** — `differentials N handicap
+  index X` and the five series counts. On 2026-09-09 a chart re-platform
+  made all of them zero and validate did not notice; a zero there is a
+  stale reader, not an empty record.
 - **Path to true auto-pull** (when the manual capture grates): both captures
   are deliberately browser extensions riding the user's own authenticated
   session — headless authenticated fetch would fight the capture-verbatim
@@ -68,10 +74,13 @@ HTML, licence gray area, hard name-matching problem).
   untouched; `pnpm refresh` is already the whole downstream half). Garmin
   also has an official API programme (consumer OAuth) that could replace the
   extension for the watch if access is ever granted; Grint has no API.
-- **Commit a first week of goals.** `pnpm goals:propose` prints the engine's
-  draft (top leak + top open task as paste-ready JSON); paste into
-  `data/goals.json`, edit to taste, `pnpm run profile`, commit. The front
-  page and PROFILE.md then track the week in record time.
+- **Keep the week.** The first week of goals is committed (2026-09-09: 15
+  usable 3 Hybrid swings; three-putt share under 8% over the last 20 putted
+  rounds). When the record outruns it, `pnpm goals:propose` drafts the next;
+  edit to one or two goals a week can actually move, paste, `pnpm run
+  profile`, commit. The standing practice shape — three short sessions,
+  blocked only for measurement, random for the rest, lag speed on the green,
+  chips from rough measured by the leave — is in `DECISIONS.md` 2026-09-09.
 - **Hit the first labeled wedge blocks.** The wedge matrix on `/bag` is 0 of 6
   partial cells measured, and the 21.8 yd PW→GW hole names where to start: a
   three-quarter Pitching Wedge block for the middle of that window. One length,
@@ -80,10 +89,6 @@ HTML, licence gray area, hard name-matching problem).
   `pnpm ingest`-adjacent surfaces pick it up on the next render. The hole task
   retires itself once measured cells split the window under 15 yd — see
   `WEDGE_MATRIX_THRESHOLDS` in `lib/wedge-matrix.ts`.
-- **Confirm the two proposed round links** in `data/round-links.json` —
-  Harding Park 91 → 62185587 and Presidio 98 → 62319577, both matched on
-  facility, date and strokes; flip `status` to `confirmed` and commit.
-  `pnpm data:validate` reminds until then.
 - **Deploy.** One Vercel project now (`mackenzie`), `vercel deploy --prod`
   from the repo root. Still pending: the `courses.ummerr.com` DNS record, and a
   new `P-NN` row in `ummerr.github.io/index.html` next to the existing P-07
@@ -164,3 +169,4 @@ HTML, licence gray area, hard name-matching problem).
 - **2026-08-21** — session ended: 4 file(s) dirty, 0 commit(s) unpushed. Last touched: `DECISIONS.md`. <!-- campfire:2026-08-21 -->
 - **2026-08-22** — session ended: 5 file(s) dirty, 0 commit(s) unpushed. Last touched: `DECISIONS.md`. <!-- campfire:2026-08-22 -->
 - **2026-08-23** — session ended: 7 file(s) dirty, 0 commit(s) unpushed. Last touched: `data/garmin-rounds.json`. <!-- campfire:2026-08-23 -->
+- **2026-08-24** — session ended: 0 file(s) dirty, 9 commit(s) unpushed. Last touched: `(committed, unpushed)`. <!-- campfire:2026-08-24 -->

@@ -3,9 +3,9 @@
   "capturedAt": "2026-08-01",
   "stats": {
     "facilities": 87,
-    "layouts": 98,
+    "layouts": 99,
     "ranked": 94,
-    "played": 97,
+    "played": 98,
     "meanScore": 89.8,
     "countries": [
       "US",
@@ -4685,8 +4685,8 @@
       "areaAcres": 37.3,
       "hasPolygon": true,
       "bestRank": 45,
-      "totalPlays": 1,
-      "layoutCount": 1,
+      "totalPlays": 2,
+      "layoutCount": 2,
       "played": true,
       "osmTags": {
         "holes": null,
@@ -4754,6 +4754,67 @@
             "architecture": {
               "score": 0.836,
               "coverage": 0.33
+            }
+          }
+        },
+        {
+          "slug": "waikoloa-beach-and-kings-golf-course--beach-kings-old-layout",
+          "facilitySlug": "waikoloa-beach-and-kings-golf-course",
+          "grintLayoutName": "Beach/Kings (Old Layout)",
+          "grintFacilityName": "Waikoloa Beach & Kings’ Golf Course",
+          "grintCourseId": "2007",
+          "personalRank": null,
+          "timesPlayed": 1,
+          "avgScore": null,
+          "ratings": {
+            "overall": null,
+            "fun": null,
+            "condition": null
+          },
+          "played": true,
+          "flags": [
+            "rounds_only"
+          ],
+          "origin": "rounds",
+          "vectors": {
+            "personalRank": null,
+            "rating": null,
+            "fun": null,
+            "condition": null,
+            "replayRate": 0.31622776601683794,
+            "funMinusCondition": null,
+            "scoringDelta": null,
+            "externalRanking": null,
+            "hasArchitect": null
+          },
+          "scores": {
+            "grint": {
+              "score": null,
+              "coverage": 0
+            },
+            "scoring": {
+              "score": null,
+              "coverage": 0
+            },
+            "enjoyment": {
+              "score": 0.3162,
+              "coverage": 0.5
+            },
+            "revealed": {
+              "score": 0.3162,
+              "coverage": 0.5
+            },
+            "conditioning": {
+              "score": null,
+              "coverage": 0
+            },
+            "underrated": {
+              "score": null,
+              "coverage": 0
+            },
+            "architecture": {
+              "score": null,
+              "coverage": 0
             }
           }
         }

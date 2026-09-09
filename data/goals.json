@@ -1,3 +1,26 @@
 {
-  "weeks": []
+  "weeks": [
+    {
+      "weekOf": "2026-09-09",
+      "goals": [
+        {
+          "id": "2026-09-09-1",
+          "metricId": "usable-shots",
+          "club": "3 Hybrid",
+          "target": 15,
+          "taskId": "unrecorded-3 Hybrid",
+          "leakId": "tee-unmeasured",
+          "note": "One R50 block, 15+ usable 3 Hybrid swings. It started 7 of 18 holes at Presidio on 09-08 (221 yd median on the course) and has no monitor number — the most-used unmeasured club in the bag."
+        },
+        {
+          "id": "2026-09-09-2",
+          "metricId": "three-putt-share-last-20",
+          "target": 8,
+          "leakId": "putting-giveback",
+          "taskId": "three-putts",
+          "note": "Two 20-minute lag-speed sessions (20/30/40 ft ladder, every first putt inside 3 ft) and one round with at most one three-putt. Speed, not line: 80% of amateur three-putts start with a first putt more than 5 ft short or long."
+        }
+      ]
+    }
+  ]
 }

@@ -105,6 +105,23 @@
         }
       ],
       "note": null
+    },
+    {
+      "scorecardId": "382720938",
+      "garminDate": "2026-09-08",
+      "garminCourseName": "Presidio Golf Course",
+      "roundId": "63089845",
+      "status": "confirmed",
+      "basis": "same facility, same date, same strokes",
+      "candidates": [
+        {
+          "roundId": "63089845",
+          "date": "2026-09-08",
+          "courseName": "Presidio Golf Course",
+          "strokes": 93
+        }
+      ],
+      "note": null
     }
   ]
 }
