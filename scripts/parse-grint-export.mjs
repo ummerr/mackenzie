@@ -26,10 +26,19 @@
  * carried as-is and left for a downstream reader to classify or ignore.
  * Nothing here corrects, joins or interprets; flags[] marks what looks odd.
  *
- * The differentials come from the /trend Highcharts config in chart order.
+ * The differentials come from the /trend chart config in chart order.
  * They are NOT joined to rounds — the chart has its own row count (combined
  * scores appear once, short rounds not at all) and a guessed join would be
  * invented data. Two arrays, two provenances, one file.
+ *
+ * Grint re-platformed its charts between the 2026-08-23 and 2026-09-09
+ * captures: Highcharts (`{y:..,name:'..'}` inside `data: [...]`, the index
+ * printed as "Handicap Index®:13.5" in the chart title) became ECharts
+ * (`{value:..,name:'..'}` or `{y:..}` wrapped in `data: toPoints([...])`,
+ * series names sometimes bound through a `var` first, per-point styling as a
+ * nested `itemStyle: {...}`, and no index text anywhere on the page — it now
+ * lives only in the /handicap page's inline user JSON). The readers below
+ * accept both shapes; the older bundles stay parseable unchanged.
  */
 
 import { readFileSync, writeFileSync, readdirSync } from "node:fs";
@@ -169,21 +178,35 @@ export function parseTotalOnlyScorecard(html, meta, url) {
 
 /**
  * The /trend handicap chart's three series, in chart (chronological) order.
- * Points look like {y:23.9,name:'Wedgwood Country Club'} with optional extra
- * properties after the name — color: '#A7CF3F' on the handicap chart,
- * countHoles: 0 on the putt-distribution chart — and names may contain \'
- * escapes. Anything brace-free after the name is tolerated, never read.
+ * Points look like {y:23.9,name:'Wedgwood Country Club'} (Highcharts) or
+ * {value:23.9,name:'Wedgwood Country Club'} (ECharts) with optional extra
+ * properties after the name — color: '#A7CF3F' or a nested
+ * itemStyle: {color: '#A7CF3F'} on the handicap chart, countHoles: 0 on the
+ * putt-distribution chart — and names may contain \' escapes. Anything after
+ * the name (one level of braces deep) is tolerated, never read. A point whose
+ * value is null (ECharts writes value:null where Highcharts left a gap) is
+ * not a point and is skipped, as it always was.
  */
-const POINT_RE = /\{y:([\d.]+),name:'((?:[^'\\]|\\.)*)'(?:,[^{}]*)?\}/g;
+const POINT_RE =
+  /\{(?:y|value):([\d.]+),name:'((?:[^'\\]|\\.)*)'(?:,(?:[^{}]|\{[^{}]*\})*)?\}/g;
+
+/** Regex-escape a literal series name — "4 +Putts" must not quantify. */
+const escapeLiteral = (name) => name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 /** The named series' data points out of a view's inline chart scripts. */
 export function parseSeries(scripts, name) {
   const blob = scripts.join("\n");
-  // Series names are literals, not patterns — "4 +Putts" carries a regex
-  // metacharacter and must not quantify anything.
-  const literal = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  // The data: [...] array that follows the `name: '<name>'` declaring it.
-  const re = new RegExp(`name:\\s*'${literal}'[\\s\\S]{0,200}?data:\\s*\\[([\\s\\S]*?)\\]`, "");
+  const literal = escapeLiteral(name);
+  // ECharts binds some names through a variable first
+  // (`var nameHcpDiff = 'Hdcp Differential'; … name: nameHcpDiff,`).
+  const alias = blob.match(new RegExp(`var\\s+(\\w+)\\s*=\\s*'${literal}'`));
+  const nameExpr = alias ? `(?:'${literal}'|${alias[1]}\\b)` : `'${literal}'`;
+  // The data: [...] (or data: toPoints([...])) array that follows the
+  // name declaring it; the styling keys between them stay short.
+  const re = new RegExp(
+    `name:\\s*${nameExpr}[\\s\\S]{0,400}?data:\\s*(?:toPoints\\()?\\[([\\s\\S]*?)\\]`,
+    "",
+  );
   const m = blob.match(re);
   if (!m) return null;
   const pts = [];
@@ -191,6 +214,19 @@ export function parseSeries(scripts, name) {
     pts.push({ y: Number(p[1]), name: decodeEntities(p[2].replace(/\\'/g, "'")) });
   }
   return pts;
+}
+
+/**
+ * The current Handicap Index. Two homes, tried in order: the trend chart's
+ * title text ("Handicap Index®:13.5", Highcharts era) and the /handicap
+ * page's inline user JSON (`"official_hcp_index":"13.9"`, the only place the
+ * ECharts-era pages print it). Null when neither says.
+ */
+export function parseHandicapIndex(trendScripts, handicapHtml) {
+  const fromTrend = trendScripts.join("\n").match(/Handicap Index®?:\s*([\d.]+)/);
+  if (fromTrend) return Number(fromTrend[1]);
+  const fromPage = (handicapHtml ?? "").match(/official_hcp_index\\?":\\?"([\d.]+)/);
+  return fromPage ? Number(fromPage[1]) : null;
 }
 
 /**
@@ -216,18 +252,17 @@ export function parsePuttDist(scripts) {
   }));
 }
 
-export function parseDifferentials(scripts) {
-  const blob = scripts.join("\n");
+export function parseDifferentials(scripts, handicapHtml = null) {
   const seriesData = (name) => parseSeries(scripts, name);
 
   const differential = seriesData("Hdcp Differential");
   const counts = seriesData("Counts towards Hdcp");
   const trending = seriesData("Trending Hdcp");
-  if (!differential) return { handicapIndex: null, points: [] };
+  const handicapIndex = parseHandicapIndex(scripts, handicapHtml);
+  if (!differential) return { handicapIndex, points: [] };
 
-  const idx = blob.match(/Handicap Index®?:\s*([\d.]+)/);
   return {
-    handicapIndex: idx ? Number(idx[1]) : null,
+    handicapIndex,
     points: differential.map((p, i) => ({
       seq: i + 1,
       courseName: p.name,
@@ -333,7 +368,11 @@ function main() {
   const trend = merged.newestResource(
     (r) => r.kind === "trend" && r.meta.view === "handicap_index",
   );
-  const { handicapIndex, points } = parseDifferentials(trend?.payload.scripts ?? []);
+  const handicapPage = merged.newestResource((r) => r.kind === "handicap");
+  const { handicapIndex, points } = parseDifferentials(
+    trend?.payload.scripts ?? [],
+    handicapPage?.payload.html ?? null,
+  );
 
   // Two per-round series the scorecards don't carry (GIR needs par, saves need
   // green-missed context) but Grint's own charts do — kept in chart order,

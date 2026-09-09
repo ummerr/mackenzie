@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 // @ts-expect-error — plain .mjs script module, no type declarations
-import { mergeBundles, parsePuttDist, parseSeries } from "../scripts/parse-grint-export.mjs";
+import { mergeBundles, parseDifferentials, parseHandicapIndex, parsePuttDist, parseSeries } from "../scripts/parse-grint-export.mjs";
 
 /* The merge rule for incremental captures: the newest FULL bundle is the base
  * (the only capture that can reflect a round deleted on Grint), incrementals
@@ -164,6 +164,65 @@ describe("parseSeries", () => {
       { y: 2, name: "A" },
       { y: 1, name: "B" },
     ]);
+  });
+});
+
+/* Grint moved from Highcharts to ECharts between the 2026-08-23 and
+ * 2026-09-09 captures. Same series, four new spellings. */
+describe("parseSeries — ECharts era", () => {
+  it("reads value:-keyed points inside a plain data array", () => {
+    const scripts = ["type: 'bar',\nname: 'Par Saves %',\ndata: [{value:22,name:'A'},{value:null,name:'B'},{value:50.0,name:'C'}]"];
+    expect(parseSeries(scripts, "Par Saves %")).toEqual([
+      { y: 22, name: "A" },
+      { y: 50, name: "C" },
+    ]);
+  });
+
+  it("reads y:-keyed points wrapped in toPoints([...])", () => {
+    const scripts = [
+      "name: 'Trending Hdcp',\nitemStyle: { color: getColor['color-sky-blue'] },\nyAxisIndex: 0,\ndata: toPoints([{y:23.9,name:'A'},{y:18.2,name:'B'},])",
+    ];
+    expect(parseSeries(scripts, "Trending Hdcp")).toEqual([
+      { y: 23.9, name: "A" },
+      { y: 18.2, name: "B" },
+    ]);
+  });
+
+  it("follows a series name bound through a var", () => {
+    const scripts = [
+      "var nameHcpDiff = 'Hdcp Differential';\nvar mySeries = [{\ntype: 'bar',\nname: nameHcpDiff,\nlabel: barLabel,\ndata: toPoints([{y:17.6,name:'A'}])\n}]",
+    ];
+    expect(parseSeries(scripts, "Hdcp Differential")).toEqual([{ y: 17.6, name: "A" }]);
+  });
+
+  it("tolerates a nested itemStyle after the name", () => {
+    const scripts = [line("Score per round ", "{value:90,name:'A', itemStyle: {color: '#A7CF3F'}},{value:91,name:'B'}")];
+    expect(parseSeries(scripts, "Score per round ")).toEqual([
+      { y: 90, name: "A" },
+      { y: 91, name: "B" },
+    ]);
+  });
+});
+
+describe("parseHandicapIndex", () => {
+  it("reads the Highcharts-era chart title first", () => {
+    expect(parseHandicapIndex(["<div>Handicap Index®:13.5</div>"], null)).toBe(13.5);
+  });
+
+  it("falls back to the /handicap page's inline user JSON", () => {
+    const html = '{"data_user_handicap":"{\\"handicap_18\\": 13.9}","official_hcp_index":"13.9","handicap_n":"7.0"}';
+    expect(parseHandicapIndex(["yAxisIndex: 0"], html)).toBe(13.9);
+  });
+
+  it("is null when neither page says", () => {
+    expect(parseHandicapIndex([], "")).toBeNull();
+  });
+
+  it("keeps the index even when the differential series is missing", () => {
+    expect(parseDifferentials([], '"official_hcp_index":"13.9"')).toEqual({
+      handicapIndex: 13.9,
+      points: [],
+    });
   });
 });
 
