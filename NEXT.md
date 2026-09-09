@@ -1,5 +1,10 @@
 # NEXT
 
+<!-- state:start -->
+**State** (auto) · branch `main` · 2 unpushed · live https://courses.ummerr.com · updated 2026-09-09
+Last commit 2026-09-09 — Capture 2026-09-09: Presidio 93 heard by the watch, index 13.9, first week of goals
+<!-- state:end -->
+
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
 next.
 
@@ -89,10 +94,15 @@ HTML, licence gray area, hard name-matching problem).
   `pnpm ingest`-adjacent surfaces pick it up on the next render. The hole task
   retires itself once measured cells split the window under 15 yd — see
   `WEDGE_MATRIX_THRESHOLDS` in `lib/wedge-matrix.ts`.
-- **Deploy.** One Vercel project now (`mackenzie`), `vercel deploy --prod`
-  from the repo root. Still pending: the `courses.ummerr.com` DNS record, and a
-  new `P-NN` row in `ummerr.github.io/index.html` next to the existing P-07
-  Golf card at line 109.
+- **Deploys are automatic since 2026-09-09.** The Vercel project is
+  Git-connected to `github.com/ummerr/mackenzie`, so every push to `main` is
+  a production build, and a local `.git/hooks/post-commit` (unversioned —
+  re-create it on a fresh clone) pushes `main` after each commit. Commit on
+  main = live at `https://courses.ummerr.com` a minute later; branch for
+  anything half-done. `vercel deploy --prod` still works out of band.
+  `courses.ummerr.com` resolves and is aliased to production. Still pending:
+  a new `P-NN` row in `ummerr.github.io/index.html` next to the existing
+  P-07 Golf card at line 109.
 - **Physical vectors — now mostly a counting exercise.** `data/holes/` has the
   geometry: bunker count and area, water count and area, total yardage from the
   hole centrelines, green sizes. `areaAcres` is still the only one `build.mjs`
@@ -170,3 +180,4 @@ HTML, licence gray area, hard name-matching problem).
 - **2026-08-22** — session ended: 5 file(s) dirty, 0 commit(s) unpushed. Last touched: `DECISIONS.md`. <!-- campfire:2026-08-22 -->
 - **2026-08-23** — session ended: 7 file(s) dirty, 0 commit(s) unpushed. Last touched: `data/garmin-rounds.json`. <!-- campfire:2026-08-23 -->
 - **2026-08-24** — session ended: 0 file(s) dirty, 9 commit(s) unpushed. Last touched: `(committed, unpushed)`. <!-- campfire:2026-08-24 -->
+- **2026-09-09** — session ended: 2 file(s) dirty, 2 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-09 -->
