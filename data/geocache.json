@@ -784,5 +784,19 @@
     },
     "source": "nominatim",
     "query": "Presidio Golf Course"
+  },
+  "the-olympic-club": {
+    "lat": 37.7882546,
+    "lon": -122.4109978,
+    "precision": "named_place",
+    "display": "The Olympic Club, 524, Post Street, Union Square, Tenderloin, San Francisco, California, 94108, United States",
+    "osmId": "way/48995282",
+    "address": {
+      "locality": "San Francisco",
+      "region": "CA",
+      "country": "US"
+    },
+    "source": "nominatim",
+    "query": "The Olympic Club"
   }
 }

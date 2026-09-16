@@ -1,8 +1,8 @@
 {
   "source": "thegrint",
   "adapter": "parse-grint-export.mjs",
-  "capturedAt": "2026-09-09T16:36:52.638Z",
-  "rawFile": "raw/grint-export-2026-08-19.json + raw/grint-export-2026-08-23-0235.json + raw/grint-export-2026-09-09-1640.json",
+  "capturedAt": "2026-09-16T16:10:12.251Z",
+  "rawFile": "raw/grint-export-2026-08-19.json + raw/grint-export-2026-08-23-0235.json + raw/grint-export-2026-09-09-1640.json + raw/grint-export-2026-09-16-1610.json",
   "userId": "1221374",
   "handicapIndex": 13.9,
   "rounds": [
@@ -16466,7 +16466,7 @@
       "courseGrintId": "568",
       "courseName": "TPC Harding Park Golf Course",
       "teeName": "White",
-      "courseHandicap": "12.0",
+      "courseHandicap": "13.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -16564,7 +16564,7 @@
       "courseGrintId": "741",
       "courseName": "Presidio Golf Course",
       "teeName": "White",
-      "courseHandicap": "12.0",
+      "courseHandicap": "13.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 98,
@@ -16748,6 +16748,104 @@
           "",
           "",
           "S"
+        ]
+      },
+      "flags": []
+    },
+    {
+      "roundId": "63337410",
+      "entry": "full",
+      "url": "https://thegrint.com/score/edit_score/63337410?handicap_company_id=3",
+      "date": "2026-09-15",
+      "courseGrintId": "877",
+      "courseName": "Lake | The Olympic Club",
+      "teeName": "Blue",
+      "courseHandicap": "13.0",
+      "holesRecorded": 18,
+      "totals": {
+        "strokes": 99,
+        "putts": 38
+      },
+      "perHole": {
+        "strokes": [
+          "6",
+          "6",
+          "4",
+          "5",
+          "6",
+          "7",
+          "6",
+          "5",
+          "5",
+          "6",
+          "5",
+          "6",
+          "4",
+          "6",
+          "4",
+          "6",
+          "6",
+          "6"
+        ],
+        "putts": [
+          "2",
+          "2",
+          "1",
+          "2",
+          "3",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "3",
+          "3",
+          "2"
+        ],
+        "fairways": [
+          "3",
+          "8",
+          "8",
+          "3",
+          "2",
+          "5",
+          "8",
+          "5",
+          "1",
+          "8",
+          "3",
+          "3",
+          "4",
+          "4",
+          "4",
+          "3",
+          "2",
+          "8"
+        ],
+        "shotCodes": [
+          "",
+          "S",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "S",
+          "",
+          "",
+          ""
         ]
       },
       "flags": []
@@ -17845,6 +17943,13 @@
       "differential": 18.7,
       "countsTowardHdcp": false,
       "trendingHdcp": 13.9
+    },
+    {
+      "seq": 157,
+      "courseName": "Lake | The Olympic Club",
+      "differential": 21.8,
+      "countsTowardHdcp": false,
+      "trendingHdcp": 13.9
     }
   ],
   "series": {
@@ -18444,6 +18549,10 @@
       {
         "courseName": "Presidio Golf Course",
         "value": 4
+      },
+      {
+        "courseName": "Lake | The Olympic Club",
+        "value": 2
       }
     ],
     "parSavesPct": [
@@ -19046,6 +19155,10 @@
       {
         "courseName": "Presidio Golf Course",
         "value": 14
+      },
+      {
+        "courseName": "Lake | The Olympic Club",
+        "value": 0
       }
     ],
     "fairwayHitPct": [
@@ -19483,6 +19596,10 @@
       },
       {
         "courseName": "Presidio Golf Course",
+        "value": 35.7
+      },
+      {
+        "courseName": "Lake | The Olympic Club",
         "value": 35.7
       }
     ],
@@ -20081,6 +20198,10 @@
       },
       {
         "courseName": "Presidio Golf Course",
+        "value": 0
+      },
+      {
+        "courseName": "Lake | The Olympic Club",
         "value": 0
       }
     ],
@@ -21275,6 +21396,14 @@
         "putts1": 2,
         "putts2": 28,
         "putts3": 6,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Lake | The Olympic Club",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 28,
+        "putts3": 9,
         "putts4Plus": 0
       }
     ]

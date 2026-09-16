@@ -122,6 +122,23 @@
         }
       ],
       "note": null
+    },
+    {
+      "scorecardId": "383800251",
+      "garminDate": "2026-09-15",
+      "garminCourseName": "The Olympic Club ~ Lake",
+      "roundId": "63337410",
+      "status": "confirmed",
+      "basis": "same facility, same date, same strokes",
+      "candidates": [
+        {
+          "roundId": "63337410",
+          "date": "2026-09-15",
+          "courseName": "Lake | The Olympic Club",
+          "strokes": 99
+        }
+      ],
+      "note": null
     }
   ]
 }

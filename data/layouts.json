@@ -1637,6 +1637,26 @@
         "rounds_only"
       ],
       "origin": "rounds"
+    },
+    {
+      "slug": "the-olympic-club--lake",
+      "facilitySlug": "the-olympic-club",
+      "grintLayoutName": "Lake",
+      "grintFacilityName": "The Olympic Club",
+      "grintCourseId": "877",
+      "personalRank": null,
+      "timesPlayed": 1,
+      "avgScore": null,
+      "ratings": {
+        "overall": null,
+        "fun": null,
+        "condition": null
+      },
+      "played": true,
+      "flags": [
+        "rounds_only"
+      ],
+      "origin": "rounds"
     }
   ]
 }

@@ -21,6 +21,27 @@
           "note": "Two 20-minute lag-speed sessions (20/30/40 ft ladder, every first putt inside 3 ft) and one round with at most one three-putt. Speed, not line: 80% of amateur three-putts start with a first putt more than 5 ft short or long."
         }
       ]
+    },
+    {
+      "weekOf": "2026-09-16",
+      "goals": [
+        {
+          "id": "2026-09-16-1",
+          "metricId": "shot-bearing-rounds",
+          "target": 5,
+          "leakId": "short-game",
+          "note": "One more round with the watch on. At 5 the short-game and lie findings switch on and the number that matters most gets printed: 0 up-and-downs in 33 chances over the 4 rounds heard so far (Harding 08-20, Presidio 08-22 and 09-08, Olympic Lake 09-15)."
+        },
+        {
+          "id": "2026-09-16-2",
+          "metricId": "usable-shots",
+          "club": "3 Hybrid",
+          "target": 15,
+          "taskId": "unrecorded-3 Hybrid",
+          "leakId": "tee-unmeasured",
+          "note": "Carried from 09-09, still 0 swings on file. It started 15 holes over the 4 watch rounds and 3 of those tee shots went under 65 yd. The block is a contact block first and a yardage block second: 15 usable swings, low point in front of the ball, the R50 keeps score."
+        }
+      ]
     }
   ]
 }

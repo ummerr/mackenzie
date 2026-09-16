@@ -976,6 +976,18 @@
       ],
       "aliases": [],
       "origin": "rounds"
+    },
+    {
+      "slug": "the-olympic-club",
+      "grintName": "The Olympic Club",
+      "locality": null,
+      "region": null,
+      "country": null,
+      "layoutSlugs": [
+        "the-olympic-club--lake"
+      ],
+      "aliases": [],
+      "origin": "rounds"
     }
   ]
 }

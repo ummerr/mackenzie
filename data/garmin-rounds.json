@@ -1,8 +1,8 @@
 {
   "source": "garmin-connect",
   "adapter": "parse-garmin-export.mjs",
-  "capturedAt": "2026-09-09T16:36:30.027Z",
-  "rawFile": "raw/garmin-export-2026-09-09.json",
+  "capturedAt": "2026-09-16T16:10:29.552Z",
+  "rawFile": "raw/garmin-export-2026-09-09.json + raw/garmin-export-2026-09-16-1610.json",
   "userId": 134747949,
   "clubs": [
     {
@@ -11189,22 +11189,3310 @@
         }
       ],
       "flags": []
+    },
+    {
+      "scorecardId": "383800251",
+      "date": "2026-09-15",
+      "startTimeRaw": "2026-09-15T09:03:57-07:00",
+      "roundType": "ALL",
+      "courseName": "The Olympic Club ~ Lake",
+      "teeBox": "Blue",
+      "teeBoxRating": 73.2,
+      "teeBoxSlope": 134,
+      "holePars": "543444434444343554",
+      "holesRecorded": 18,
+      "totals": {
+        "strokes": 99,
+        "putts": null,
+        "shots": 53
+      },
+      "holes": [
+        {
+          "number": 1,
+          "strokes": 6,
+          "putts": null,
+          "fairwayShotOutcome": "LEFT",
+          "par": 5,
+          "pin": {
+            "lat": 37.713392,
+            "lon": -122.497634
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "Driver",
+              "clubId": 950232105,
+              "shotType": "TEE",
+              "meters": 238.404,
+              "yards": 260.7,
+              "startLie": "TeeBox",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 395,
+                "y": 654
+              },
+              "endMap": {
+                "x": 324,
+                "y": 371
+              },
+              "startGeo": {
+                "lat": 37.709555,
+                "lon": -122.495581
+              },
+              "endGeo": {
+                "lat": 37.711255,
+                "lon": -122.497228
+              },
+              "raw": {
+                "id": 10744330488,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789488603000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232105,
+                "holeNumber": 1,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449892520,
+                  "lon": -1461429205,
+                  "x": 395,
+                  "y": 654,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449912795,
+                  "lon": -1461448859,
+                  "x": 324,
+                  "y": 371,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 238.404,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "7 Iron",
+              "clubId": 950232114,
+              "shotType": "RECOVERY",
+              "meters": 181.218,
+              "yards": 198.2,
+              "startLie": "Rough",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 324,
+                "y": 371
+              },
+              "endMap": {
+                "x": 409,
+                "y": 166
+              },
+              "startGeo": {
+                "lat": 37.711255,
+                "lon": -122.497228
+              },
+              "endGeo": {
+                "lat": 37.712883,
+                "lon": -122.497263
+              },
+              "raw": {
+                "id": 10744330495,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789488803000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232114,
+                "holeNumber": 1,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449912795,
+                  "lon": -1461448859,
+                  "x": 324,
+                  "y": 371,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449932214,
+                  "lon": -1461449268,
+                  "x": 409,
+                  "y": 166,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 181.218,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "RECOVERY",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 3,
+              "club": null,
+              "clubId": 0,
+              "shotType": "RECOVERY",
+              "meters": 75.9047,
+              "yards": 83,
+              "startLie": "Rough",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 409,
+                "y": 166
+              },
+              "endMap": {
+                "x": 388,
+                "y": 75
+              },
+              "startGeo": {
+                "lat": 37.712883,
+                "lon": -122.497263
+              },
+              "endGeo": {
+                "lat": 37.713427,
+                "lon": -122.497782
+              },
+              "raw": {
+                "id": 10744330482,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789488912000,
+                "shotOrder": 3,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 0,
+                "holeNumber": 1,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449932214,
+                  "lon": -1461449268,
+                  "x": 409,
+                  "y": 166,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449938706,
+                  "lon": -1461455465,
+                  "x": 388,
+                  "y": 75,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 75.9047,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "RECOVERY",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "strokes": 6,
+          "putts": null,
+          "fairwayShotOutcome": "RIGHT",
+          "par": 4,
+          "pin": {
+            "lat": 37.710713,
+            "lon": -122.49596
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "Driver",
+              "clubId": 950232105,
+              "shotType": "TEE",
+              "meters": 206.107,
+              "yards": 225.4,
+              "startLie": "TeeBox",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 374,
+                "y": 613
+              },
+              "endMap": {
+                "x": 411,
+                "y": 320
+              },
+              "startGeo": {
+                "lat": 37.713801,
+                "lon": -122.497252
+              },
+              "endGeo": {
+                "lat": 37.711991,
+                "lon": -122.496763
+              },
+              "raw": {
+                "id": 10744330499,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789489629000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232105,
+                "holeNumber": 2,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449943174,
+                  "lon": -1461449139,
+                  "x": 374,
+                  "y": 613,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449921572,
+                  "lon": -1461443307,
+                  "x": 411,
+                  "y": 320,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 206.107,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "8 Iron",
+              "clubId": 950232115,
+              "shotType": "APPROACH",
+              "meters": 115.975,
+              "yards": 126.8,
+              "startLie": "Rough",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 411,
+                "y": 320
+              },
+              "endMap": {
+                "x": 410,
+                "y": 154
+              },
+              "startGeo": {
+                "lat": 37.711991,
+                "lon": -122.496763
+              },
+              "endGeo": {
+                "lat": 37.711008,
+                "lon": -122.496325
+              },
+              "raw": {
+                "id": 10744330493,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789489798000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232115,
+                "holeNumber": 2,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449921572,
+                  "lon": -1461443307,
+                  "x": 411,
+                  "y": 320,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449909850,
+                  "lon": -1461438082,
+                  "x": 410,
+                  "y": 154,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 115.975,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 3,
+              "club": "Lob Wedge",
+              "clubId": 950232120,
+              "shotType": "CHIP",
+              "meters": 53.2471,
+              "yards": 58.2,
+              "startLie": "Rough",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 410,
+                "y": 154
+              },
+              "endMap": {
+                "x": 352,
+                "y": 104
+              },
+              "startGeo": {
+                "lat": 37.711008,
+                "lon": -122.496325
+              },
+              "endGeo": {
+                "lat": 37.710828,
+                "lon": -122.495765
+              },
+              "raw": {
+                "id": 10744330502,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789489926000,
+                "shotOrder": 3,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232120,
+                "holeNumber": 2,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449909850,
+                  "lon": -1461438082,
+                  "x": 410,
+                  "y": 154,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449907703,
+                  "lon": -1461431398,
+                  "x": 352,
+                  "y": 104,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 53.2471,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "CHIP",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 4,
+              "club": "Sand Wedge",
+              "clubId": 950232119,
+              "shotType": "UNKNOWN",
+              "meters": 21.4116,
+              "yards": 23.4,
+              "startLie": "Rough",
+              "endLie": "Green",
+              "startMap": {
+                "x": 352,
+                "y": 104
+              },
+              "endMap": {
+                "x": 381,
+                "y": 95
+              },
+              "startGeo": {
+                "lat": 37.710828,
+                "lon": -122.495765
+              },
+              "endGeo": {
+                "lat": 37.710713,
+                "lon": -122.49596
+              },
+              "raw": {
+                "id": 10744330474,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789490057000,
+                "shotOrder": 4,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232119,
+                "holeNumber": 2,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449907703,
+                  "lon": -1461431398,
+                  "x": 352,
+                  "y": 104,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449906336,
+                  "lon": -1461433728,
+                  "x": 381,
+                  "y": 95,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 21.4116,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "UNKNOWN",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "strokes": 4,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 3,
+          "pin": {
+            "lat": 37.712156,
+            "lon": -122.495405
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": null,
+              "clubId": 0,
+              "shotType": "TEE",
+              "meters": 185.7,
+              "yards": 203.1,
+              "startLie": "TeeBox",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 358,
+                "y": 538
+              },
+              "endMap": {
+                "x": 409,
+                "y": 155
+              },
+              "startGeo": {
+                "lat": 37.710444,
+                "lon": -122.49544
+              },
+              "endGeo": {
+                "lat": 37.71209,
+                "lon": -122.495101
+              },
+              "raw": {
+                "id": 10744330476,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789490634000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 0,
+                "holeNumber": 3,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449903120,
+                  "lon": -1461427528,
+                  "x": 358,
+                  "y": 538,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449922762,
+                  "lon": -1461423474,
+                  "x": 409,
+                  "y": 155,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 185.7,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "Lob Wedge",
+              "clubId": 950232120,
+              "shotType": "UNKNOWN",
+              "meters": 27.7871,
+              "yards": 30.4,
+              "startLie": "Rough",
+              "endLie": "Green",
+              "startMap": {
+                "x": 409,
+                "y": 155
+              },
+              "endMap": {
+                "x": 353,
+                "y": 141
+              },
+              "startGeo": {
+                "lat": 37.71209,
+                "lon": -122.495101
+              },
+              "endGeo": {
+                "lat": 37.712156,
+                "lon": -122.495405
+              },
+              "raw": {
+                "id": 10744330481,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789490780000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232120,
+                "holeNumber": 3,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449922762,
+                  "lon": -1461423474,
+                  "x": 409,
+                  "y": 155,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449923552,
+                  "lon": -1461427104,
+                  "x": 353,
+                  "y": 141,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 27.7871,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "UNKNOWN",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "strokes": 5,
+          "putts": null,
+          "fairwayShotOutcome": "RIGHT",
+          "par": 4,
+          "pin": {
+            "lat": 37.71462,
+            "lon": -122.496546
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "3 Hybrid",
+              "clubId": 955153681,
+              "shotType": "TEE",
+              "meters": 235.456,
+              "yards": 257.5,
+              "startLie": "TeeBox",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 333,
+                "y": 630
+              },
+              "endMap": {
+                "x": 430,
+                "y": 288
+              },
+              "startGeo": {
+                "lat": 37.711827,
+                "lon": -122.494778
+              },
+              "endGeo": {
+                "lat": 37.713909,
+                "lon": -122.495249
+              },
+              "raw": {
+                "id": 10744330475,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789491172000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 955153681,
+                "holeNumber": 4,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449919616,
+                  "lon": -1461419625,
+                  "x": 333,
+                  "y": 630,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449944456,
+                  "lon": -1461425244,
+                  "x": 430,
+                  "y": 288,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 235.456,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "9 Iron",
+              "clubId": 950232116,
+              "shotType": "APPROACH",
+              "meters": 136.28,
+              "yards": 149,
+              "startLie": "Rough",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 430,
+                "y": 288
+              },
+              "endMap": {
+                "x": 348,
+                "y": 100
+              },
+              "startGeo": {
+                "lat": 37.713909,
+                "lon": -122.495249
+              },
+              "endGeo": {
+                "lat": 37.714701,
+                "lon": -122.496429
+              },
+              "raw": {
+                "id": 10744330510,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789491326000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232116,
+                "holeNumber": 4,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449944456,
+                  "lon": -1461425244,
+                  "x": 430,
+                  "y": 288,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449953904,
+                  "lon": -1461439324,
+                  "x": 348,
+                  "y": 100,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 136.28,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "strokes": 6,
+          "putts": null,
+          "fairwayShotOutcome": "RIGHT",
+          "par": 4,
+          "pin": {
+            "lat": 37.712886,
+            "lon": -122.4934
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "Driver",
+              "clubId": 950232105,
+              "shotType": "TEE",
+              "meters": 217.332,
+              "yards": 237.7,
+              "startLie": "TeeBox",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 391,
+                "y": 583
+              },
+              "endMap": {
+                "x": 383,
+                "y": 305
+              },
+              "startGeo": {
+                "lat": 37.715044,
+                "lon": -122.496848
+              },
+              "endGeo": {
+                "lat": 37.713938,
+                "lon": -122.494814
+              },
+              "raw": {
+                "id": 10744330506,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789491867000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232105,
+                "holeNumber": 5,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449957996,
+                  "lon": -1461444322,
+                  "x": 391,
+                  "y": 583,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449944801,
+                  "lon": -1461420058,
+                  "x": 383,
+                  "y": 305,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 217.332,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "8 Iron",
+              "clubId": 950232115,
+              "shotType": "APPROACH",
+              "meters": 129.142,
+              "yards": 141.2,
+              "startLie": "Rough",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 383,
+                "y": 305
+              },
+              "endMap": {
+                "x": 368,
+                "y": 140
+              },
+              "startGeo": {
+                "lat": 37.713938,
+                "lon": -122.494814
+              },
+              "endGeo": {
+                "lat": 37.713348,
+                "lon": -122.493551
+              },
+              "raw": {
+                "id": 10744330480,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789492050000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232115,
+                "holeNumber": 5,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449944801,
+                  "lon": -1461420058,
+                  "x": 383,
+                  "y": 305,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449937773,
+                  "lon": -1461404985,
+                  "x": 368,
+                  "y": 140,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 129.142,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 3,
+              "club": null,
+              "clubId": 0,
+              "shotType": "RECOVERY",
+              "meters": 64.592,
+              "yards": 70.6,
+              "startLie": "Rough",
+              "endLie": "Green",
+              "startMap": {
+                "x": 368,
+                "y": 140
+              },
+              "endMap": {
+                "x": 417,
+                "y": 74
+              },
+              "startGeo": {
+                "lat": 37.713348,
+                "lon": -122.493551
+              },
+              "endGeo": {
+                "lat": 37.712795,
+                "lon": -122.49333
+              },
+              "raw": {
+                "id": 10744330465,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789492214000,
+                "shotOrder": 3,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 0,
+                "holeNumber": 5,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449937773,
+                  "lon": -1461404985,
+                  "x": 368,
+                  "y": 140,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449931171,
+                  "lon": -1461402353,
+                  "x": 417,
+                  "y": 74,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 64.592,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "RECOVERY",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "strokes": 7,
+          "putts": null,
+          "fairwayShotOutcome": "LEFT",
+          "par": 4,
+          "pin": {
+            "lat": 37.710158,
+            "lon": -122.49097
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "Driver",
+              "clubId": 950232105,
+              "shotType": "TEE",
+              "meters": 82.9514,
+              "yards": 90.7,
+              "startLie": "TeeBox",
+              "endLie": "TeeBox",
+              "startMap": {
+                "x": 359,
+                "y": 608
+              },
+              "endMap": {
+                "x": 382,
+                "y": 501
+              },
+              "startGeo": {
+                "lat": 37.712584,
+                "lon": -122.494347
+              },
+              "endGeo": {
+                "lat": 37.711977,
+                "lon": -122.493802
+              },
+              "raw": {
+                "id": 10744646737,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789488238000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232105,
+                "holeNumber": 6,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449928650,
+                  "lon": -1461414490,
+                  "x": 359,
+                  "y": 608,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449921405,
+                  "lon": -1461407977,
+                  "x": 382,
+                  "y": 501,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 82.9514,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "3 Hybrid",
+              "clubId": 955153681,
+              "shotType": "UNKNOWN",
+              "meters": 38.0211,
+              "yards": 41.6,
+              "startLie": "TeeBox",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 382,
+                "y": 501
+              },
+              "endMap": {
+                "x": 372,
+                "y": 451
+              },
+              "startGeo": {
+                "lat": 37.711977,
+                "lon": -122.493802
+              },
+              "endGeo": {
+                "lat": 37.711795,
+                "lon": -122.493435
+              },
+              "raw": {
+                "id": 10744646738,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789488239000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 955153681,
+                "holeNumber": 6,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449921405,
+                  "lon": -1461407977,
+                  "x": 382,
+                  "y": 501,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449919245,
+                  "lon": -1461403609,
+                  "x": 372,
+                  "y": 451,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 38.0211,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "UNKNOWN",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 3,
+              "club": "3 Hybrid",
+              "clubId": 955153681,
+              "shotType": "LAYUP",
+              "meters": 138.368,
+              "yards": 151.3,
+              "startLie": "Rough",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 372,
+                "y": 451
+              },
+              "endMap": {
+                "x": 447,
+                "y": 285
+              },
+              "startGeo": {
+                "lat": 37.711795,
+                "lon": -122.493435
+              },
+              "endGeo": {
+                "lat": 37.710655,
+                "lon": -122.492811
+              },
+              "raw": {
+                "id": 10744646739,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789488240000,
+                "shotOrder": 3,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 955153681,
+                "holeNumber": 6,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449919245,
+                  "lon": -1461403609,
+                  "x": 372,
+                  "y": 451,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449905637,
+                  "lon": -1461396159,
+                  "x": 447,
+                  "y": 285,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 138.368,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "LAYUP",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 4,
+              "club": "7 Iron",
+              "clubId": 950232114,
+              "shotType": "APPROACH",
+              "meters": 171.316,
+              "yards": 187.4,
+              "startLie": "Rough",
+              "endLie": "Green",
+              "startMap": {
+                "x": 447,
+                "y": 285
+              },
+              "endMap": {
+                "x": 356,
+                "y": 78
+              },
+              "startGeo": {
+                "lat": 37.710655,
+                "lon": -122.492811
+              },
+              "endGeo": {
+                "lat": 37.710158,
+                "lon": -122.49097
+              },
+              "raw": {
+                "id": 10744646740,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789488241000,
+                "shotOrder": 4,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232114,
+                "holeNumber": 6,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449905637,
+                  "lon": -1461396159,
+                  "x": 447,
+                  "y": 285,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449899712,
+                  "lon": -1461374192,
+                  "x": 356,
+                  "y": 78,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 171.316,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 7,
+          "strokes": 6,
+          "putts": null,
+          "fairwayShotOutcome": "RIGHT",
+          "par": 4,
+          "pin": {
+            "lat": 37.710994,
+            "lon": -122.493606
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "Driver",
+              "clubId": 950232105,
+              "shotType": "TEE",
+              "meters": 188.591,
+              "yards": 206.2,
+              "startLie": "TeeBox",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 405,
+                "y": 638
+              },
+              "endMap": {
+                "x": 481,
+                "y": 298
+              },
+              "startGeo": {
+                "lat": 37.709556,
+                "lon": -122.490969
+              },
+              "endGeo": {
+                "lat": 37.710816,
+                "lon": -122.492401
+              },
+              "raw": {
+                "id": 10744330486,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789493669000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232105,
+                "holeNumber": 7,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449892529,
+                  "lon": -1461374182,
+                  "x": 405,
+                  "y": 638,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449907556,
+                  "lon": -1461391268,
+                  "x": 481,
+                  "y": 298,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 188.591,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "Pitching Wedge",
+              "clubId": 950232117,
+              "shotType": "APPROACH",
+              "meters": 66.6184,
+              "yards": 72.9,
+              "startLie": "Rough",
+              "endLie": "Fairway",
+              "startMap": {
+                "x": 481,
+                "y": 298
+              },
+              "endMap": {
+                "x": 392,
+                "y": 213
+              },
+              "startGeo": {
+                "lat": 37.710816,
+                "lon": -122.492401
+              },
+              "endGeo": {
+                "lat": 37.710703,
+                "lon": -122.493144
+              },
+              "raw": {
+                "id": 10746953095,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789493689000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232117,
+                "holeNumber": 7,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449907556,
+                  "lon": -1461391268,
+                  "x": 481,
+                  "y": 298,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449906208,
+                  "lon": -1461400131,
+                  "x": 392,
+                  "y": 213,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 66.6184,
+                "shotSource": "CLIENT",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 3,
+              "club": "Gap Wedge",
+              "clubId": 950232118,
+              "shotType": "APPROACH",
+              "meters": 13.0892,
+              "yards": 14.3,
+              "startLie": "Fairway",
+              "endLie": "Fairway",
+              "startMap": {
+                "x": 392,
+                "y": 213
+              },
+              "endMap": {
+                "x": 395,
+                "y": 189
+              },
+              "startGeo": {
+                "lat": 37.710703,
+                "lon": -122.493144
+              },
+              "endGeo": {
+                "lat": 37.710782,
+                "lon": -122.493253
+              },
+              "raw": {
+                "id": 10744330505,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789493709000,
+                "shotOrder": 3,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232118,
+                "holeNumber": 7,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449906208,
+                  "lon": -1461400131,
+                  "x": 392,
+                  "y": 213,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449907157,
+                  "lon": -1461401437,
+                  "x": 395,
+                  "y": 189,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 13.0892,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 4,
+              "club": "Lob Wedge",
+              "clubId": 950232120,
+              "shotType": "CHIP",
+              "meters": 38.9852,
+              "yards": 42.6,
+              "startLie": "Fairway",
+              "endLie": "Green",
+              "startMap": {
+                "x": 395,
+                "y": 189
+              },
+              "endMap": {
+                "x": 397,
+                "y": 117
+              },
+              "startGeo": {
+                "lat": 37.710782,
+                "lon": -122.493253
+              },
+              "endGeo": {
+                "lat": 37.710993,
+                "lon": -122.493607
+              },
+              "raw": {
+                "id": 10744330470,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789493793000,
+                "shotOrder": 4,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232120,
+                "holeNumber": 7,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449907157,
+                  "lon": -1461401437,
+                  "x": 395,
+                  "y": 189,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449909672,
+                  "lon": -1461405655,
+                  "x": 397,
+                  "y": 117,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 38.9852,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "CHIP",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 8,
+          "strokes": 5,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 3,
+          "pin": {
+            "lat": 37.710213,
+            "lon": -122.49432
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "6 Iron",
+              "clubId": 950232113,
+              "shotType": "APPROACH",
+              "meters": 60.2331,
+              "yards": 65.9,
+              "startLie": "TeeBox",
+              "endLie": "TeeBox",
+              "startMap": {
+                "x": 352,
+                "y": 554
+              },
+              "endMap": {
+                "x": 345,
+                "y": 405
+              },
+              "startGeo": {
+                "lat": 37.711638,
+                "lon": -122.494216
+              },
+              "endGeo": {
+                "lat": 37.711097,
+                "lon": -122.494223
+              },
+              "raw": {
+                "id": 10744330471,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789494316000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232113,
+                "holeNumber": 8,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449917364,
+                  "lon": -1461412920,
+                  "x": 352,
+                  "y": 554,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449910909,
+                  "lon": -1461413008,
+                  "x": 345,
+                  "y": 405,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 60.2331,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "Pitching Wedge",
+              "clubId": 950232117,
+              "shotType": "APPROACH",
+              "meters": 64.451,
+              "yards": 70.5,
+              "startLie": "TeeBox",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 345,
+                "y": 405
+              },
+              "endMap": {
+                "x": 356,
+                "y": 245
+              },
+              "startGeo": {
+                "lat": 37.711097,
+                "lon": -122.494223
+              },
+              "endGeo": {
+                "lat": 37.710522,
+                "lon": -122.494312
+              },
+              "raw": {
+                "id": 10744330513,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789494397000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232117,
+                "holeNumber": 8,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449910909,
+                  "lon": -1461413008,
+                  "x": 345,
+                  "y": 405,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449904052,
+                  "lon": -1461414061,
+                  "x": 356,
+                  "y": 245,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 64.451,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 3,
+              "club": "Lob Wedge",
+              "clubId": 950232120,
+              "shotType": "UNKNOWN",
+              "meters": 34.382,
+              "yards": 37.6,
+              "startLie": "Rough",
+              "endLie": "Green",
+              "startMap": {
+                "x": 356,
+                "y": 245
+              },
+              "endMap": {
+                "x": 353,
+                "y": 160
+              },
+              "startGeo": {
+                "lat": 37.710522,
+                "lon": -122.494312
+              },
+              "endGeo": {
+                "lat": 37.710213,
+                "lon": -122.49432
+              },
+              "raw": {
+                "id": 10744330479,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789494588000,
+                "shotOrder": 3,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232120,
+                "holeNumber": 8,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449904052,
+                  "lon": -1461414061,
+                  "x": 356,
+                  "y": 245,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449900368,
+                  "lon": -1461414160,
+                  "x": 353,
+                  "y": 160,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 34.382,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "UNKNOWN",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 9,
+          "strokes": 5,
+          "putts": null,
+          "fairwayShotOutcome": "LEFT",
+          "par": 4,
+          "pin": {
+            "lat": 37.707723,
+            "lon": -122.490457
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "Driver",
+              "clubId": 950232105,
+              "shotType": "TEE",
+              "meters": 248.137,
+              "yards": 271.4,
+              "startLie": "TeeBox",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 400,
+                "y": 631
+              },
+              "endMap": {
+                "x": 314,
+                "y": 285
+              },
+              "startGeo": {
+                "lat": 37.71005,
+                "lon": -122.493689
+              },
+              "endGeo": {
+                "lat": 37.709008,
+                "lon": -122.491197
+              },
+              "raw": {
+                "id": 10744330467,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789495089000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232105,
+                "holeNumber": 9,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449898420,
+                  "lon": -1461406628,
+                  "x": 400,
+                  "y": 631,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449885993,
+                  "lon": -1461376908,
+                  "x": 314,
+                  "y": 285,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 248.137,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "7 Iron",
+              "clubId": 950232114,
+              "shotType": "APPROACH",
+              "meters": 162.241,
+              "yards": 177.4,
+              "startLie": "Rough",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 314,
+                "y": 285
+              },
+              "endMap": {
+                "x": 429,
+                "y": 82
+              },
+              "startGeo": {
+                "lat": 37.709008,
+                "lon": -122.491197
+              },
+              "endGeo": {
+                "lat": 37.707627,
+                "lon": -122.490609
+              },
+              "raw": {
+                "id": 10744330511,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789495275000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232114,
+                "holeNumber": 9,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449885993,
+                  "lon": -1461376908,
+                  "x": 314,
+                  "y": 285,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449869515,
+                  "lon": -1461369891,
+                  "x": 429,
+                  "y": 82,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 162.241,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 3,
+              "club": "Lob Wedge",
+              "clubId": 950232120,
+              "shotType": "UNKNOWN",
+              "meters": 17.0871,
+              "yards": 18.7,
+              "startLie": "Rough",
+              "endLie": "Green",
+              "startMap": {
+                "x": 429,
+                "y": 82
+              },
+              "endMap": {
+                "x": 405,
+                "y": 78
+              },
+              "startGeo": {
+                "lat": 37.707627,
+                "lon": -122.490609
+              },
+              "endGeo": {
+                "lat": 37.707723,
+                "lon": -122.490457
+              },
+              "raw": {
+                "id": 10744330469,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789495462000,
+                "shotOrder": 3,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232120,
+                "holeNumber": 9,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449869515,
+                  "lon": -1461369891,
+                  "x": 429,
+                  "y": 82,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449870656,
+                  "lon": -1461368080,
+                  "x": 405,
+                  "y": 78,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 17.0871,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "UNKNOWN",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 10,
+          "strokes": 6,
+          "putts": null,
+          "fairwayShotOutcome": "RIGHT",
+          "par": 4,
+          "pin": {
+            "lat": 37.710467,
+            "lon": -122.48985
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "Driver",
+              "clubId": 950232105,
+              "shotType": "TEE",
+              "meters": 212.816,
+              "yards": 232.7,
+              "startLie": "TeeBox",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 401,
+                "y": 604
+              },
+              "endMap": {
+                "x": 422,
+                "y": 293
+              },
+              "startGeo": {
+                "lat": 37.707437,
+                "lon": -122.489814
+              },
+              "endGeo": {
+                "lat": 37.709349,
+                "lon": -122.489774
+              },
+              "raw": {
+                "id": 10744330464,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789495930000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232105,
+                "holeNumber": 10,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449867248,
+                  "lon": -1461360408,
+                  "x": 401,
+                  "y": 604,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449890053,
+                  "lon": -1461359924,
+                  "x": 422,
+                  "y": 293,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 212.816,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": null,
+              "clubId": 0,
+              "shotType": "RECOVERY",
+              "meters": 37.6383,
+              "yards": 41.2,
+              "startLie": "Rough",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 422,
+                "y": 293
+              },
+              "endMap": {
+                "x": 414,
+                "y": 239
+              },
+              "startGeo": {
+                "lat": 37.709349,
+                "lon": -122.489774
+              },
+              "endGeo": {
+                "lat": 37.70968,
+                "lon": -122.48986
+              },
+              "raw": {
+                "id": 10744330504,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789496018000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 0,
+                "holeNumber": 10,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449890053,
+                  "lon": -1461359924,
+                  "x": 422,
+                  "y": 293,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449894003,
+                  "lon": -1461360958,
+                  "x": 414,
+                  "y": 239,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 37.6383,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "RECOVERY",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 3,
+              "club": "9 Iron",
+              "clubId": 950232116,
+              "shotType": "RECOVERY",
+              "meters": 16.8481,
+              "yards": 18.4,
+              "startLie": "Rough",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 414,
+                "y": 239
+              },
+              "endMap": {
+                "x": 402,
+                "y": 217
+              },
+              "startGeo": {
+                "lat": 37.70968,
+                "lon": -122.48986
+              },
+              "endGeo": {
+                "lat": 37.709811,
+                "lon": -122.489956
+              },
+              "raw": {
+                "id": 10744330501,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789496072000,
+                "shotOrder": 3,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232116,
+                "holeNumber": 10,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449894003,
+                  "lon": -1461360958,
+                  "x": 414,
+                  "y": 239,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449895566,
+                  "lon": -1461362101,
+                  "x": 402,
+                  "y": 217,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 16.8481,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "RECOVERY",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 4,
+              "club": null,
+              "clubId": 0,
+              "shotType": "RECOVERY",
+              "meters": 71.8938,
+              "yards": 78.6,
+              "startLie": "Rough",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 402,
+                "y": 217
+              },
+              "endMap": {
+                "x": 405,
+                "y": 112
+              },
+              "startGeo": {
+                "lat": 37.709811,
+                "lon": -122.489956
+              },
+              "endGeo": {
+                "lat": 37.710456,
+                "lon": -122.489979
+              },
+              "raw": {
+                "id": 10744330496,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789496125000,
+                "shotOrder": 4,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 0,
+                "holeNumber": 10,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449895566,
+                  "lon": -1461362101,
+                  "x": 402,
+                  "y": 217,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449903268,
+                  "lon": -1461362377,
+                  "x": 405,
+                  "y": 112,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 71.8938,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "RECOVERY",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 11,
+          "strokes": 5,
+          "putts": null,
+          "fairwayShotOutcome": "HIT",
+          "par": 4,
+          "pin": {
+            "lat": 37.712504,
+            "lon": -122.493635
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "Driver",
+              "clubId": 950232105,
+              "shotType": "TEE",
+              "meters": 225.675,
+              "yards": 246.8,
+              "startLie": "TeeBox",
+              "endLie": "Fairway",
+              "startMap": {
+                "x": 390,
+                "y": 632
+              },
+              "endMap": {
+                "x": 385,
+                "y": 309
+              },
+              "startGeo": {
+                "lat": 37.710836,
+                "lon": -122.489829
+              },
+              "endGeo": {
+                "lat": 37.711784,
+                "lon": -122.492095
+              },
+              "raw": {
+                "id": 10744330498,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789496770000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232105,
+                "holeNumber": 11,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449907798,
+                  "lon": -1461360584,
+                  "x": 390,
+                  "y": 632,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449919104,
+                  "lon": -1461387611,
+                  "x": 385,
+                  "y": 309,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 225.675,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "6 Iron",
+              "clubId": 950232113,
+              "shotType": "APPROACH",
+              "meters": 147.607,
+              "yards": 161.4,
+              "startLie": "Fairway",
+              "endLie": "Green",
+              "startMap": {
+                "x": 385,
+                "y": 309
+              },
+              "endMap": {
+                "x": 396,
+                "y": 97
+              },
+              "startGeo": {
+                "lat": 37.711784,
+                "lon": -122.492095
+              },
+              "endGeo": {
+                "lat": 37.712483,
+                "lon": -122.493518
+              },
+              "raw": {
+                "id": 10744330500,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789497031000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232113,
+                "holeNumber": 11,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449919104,
+                  "lon": -1461387611,
+                  "x": 385,
+                  "y": 309,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449927451,
+                  "lon": -1461404598,
+                  "x": 396,
+                  "y": 97,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 147.607,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 12,
+          "strokes": 6,
+          "putts": null,
+          "fairwayShotOutcome": "RIGHT",
+          "par": 4,
+          "pin": {
+            "lat": 37.715244,
+            "lon": -122.494428
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "Driver",
+              "clubId": 950232105,
+              "shotType": "TEE",
+              "meters": 178.589,
+              "yards": 195.3,
+              "startLie": "TeeBox",
+              "endLie": "Unknown",
+              "startMap": {
+                "x": 382,
+                "y": 605
+              },
+              "endMap": {
+                "x": 441,
+                "y": 363
+              },
+              "startGeo": {
+                "lat": 37.712342,
+                "lon": -122.492293
+              },
+              "endGeo": {
+                "lat": 37.71388,
+                "lon": -122.492872
+              },
+              "raw": {
+                "id": 10744330491,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789497634000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232105,
+                "holeNumber": 12,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449925766,
+                  "lon": -1461389977,
+                  "x": 382,
+                  "y": 605,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449944110,
+                  "lon": -1461396882,
+                  "x": 441,
+                  "y": 363,
+                  "lie": "Unknown",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 178.589,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "8 Iron",
+              "clubId": 950232115,
+              "shotType": "UNKNOWN",
+              "meters": 78.3326,
+              "yards": 85.7,
+              "startLie": "Unknown",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 441,
+                "y": 363
+              },
+              "endMap": {
+                "x": 350,
+                "y": 303
+              },
+              "startGeo": {
+                "lat": 37.71388,
+                "lon": -122.492872
+              },
+              "endGeo": {
+                "lat": 37.713917,
+                "lon": -122.49376
+              },
+              "raw": {
+                "id": 10744330468,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789497735000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232115,
+                "holeNumber": 12,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449944110,
+                  "lon": -1461396882,
+                  "x": 441,
+                  "y": 363,
+                  "lie": "Unknown",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449944554,
+                  "lon": -1461407480,
+                  "x": 350,
+                  "y": 303,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 78.3326,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "UNKNOWN",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 3,
+              "club": "7 Iron",
+              "clubId": 950232114,
+              "shotType": "APPROACH",
+              "meters": 159.004,
+              "yards": 173.9,
+              "startLie": "Rough",
+              "endLie": "Green",
+              "startMap": {
+                "x": 350,
+                "y": 303
+              },
+              "endMap": {
+                "x": 383,
+                "y": 84
+              },
+              "startGeo": {
+                "lat": 37.713917,
+                "lon": -122.49376
+              },
+              "endGeo": {
+                "lat": 37.715244,
+                "lon": -122.494428
+              },
+              "raw": {
+                "id": 10744330503,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789498049000,
+                "shotOrder": 3,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232114,
+                "holeNumber": 12,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449944554,
+                  "lon": -1461407480,
+                  "x": 350,
+                  "y": 303,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449960384,
+                  "lon": -1461415456,
+                  "x": 383,
+                  "y": 84,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 159.004,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 13,
+          "strokes": 4,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 3,
+          "pin": {
+            "lat": 37.714235,
+            "lon": -122.492735
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "7 Iron",
+              "clubId": 950232114,
+              "shotType": "APPROACH",
+              "meters": 148.065,
+              "yards": 161.9,
+              "startLie": "TeeBox",
+              "endLie": "Green",
+              "startMap": {
+                "x": 368,
+                "y": 581
+              },
+              "endMap": {
+                "x": 372,
+                "y": 181
+              },
+              "startGeo": {
+                "lat": 37.715292,
+                "lon": -122.494035
+              },
+              "endGeo": {
+                "lat": 37.714323,
+                "lon": -122.492884
+              },
+              "raw": {
+                "id": 10744330483,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789498570000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232114,
+                "holeNumber": 13,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449960964,
+                  "lon": -1461410759,
+                  "x": 368,
+                  "y": 581,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449949396,
+                  "lon": -1461397027,
+                  "x": 372,
+                  "y": 181,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 148.065,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 14,
+          "strokes": 6,
+          "putts": null,
+          "fairwayShotOutcome": "RIGHT",
+          "par": 4,
+          "pin": {
+            "lat": 37.711297,
+            "lon": -122.489866
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "Driver",
+              "clubId": 950232105,
+              "shotType": "TEE",
+              "meters": 151.78,
+              "yards": 166,
+              "startLie": "TeeBox",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 338,
+                "y": 644
+              },
+              "endMap": {
+                "x": 409,
+                "y": 424
+              },
+              "startGeo": {
+                "lat": 37.713899,
+                "lon": -122.49238
+              },
+              "endGeo": {
+                "lat": 37.71261,
+                "lon": -122.491818
+              },
+              "raw": {
+                "id": 10744330477,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789499008000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232105,
+                "holeNumber": 14,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449944340,
+                  "lon": -1461391012,
+                  "x": 338,
+                  "y": 644,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449928962,
+                  "lon": -1461384308,
+                  "x": 409,
+                  "y": 424,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 151.78,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "9 Iron",
+              "clubId": 950232116,
+              "shotType": "RECOVERY",
+              "meters": 149.863,
+              "yards": 163.9,
+              "startLie": "Rough",
+              "endLie": "Fairway",
+              "startMap": {
+                "x": 409,
+                "y": 424
+              },
+              "endMap": {
+                "x": 372,
+                "y": 198
+              },
+              "startGeo": {
+                "lat": 37.71261,
+                "lon": -122.491818
+              },
+              "endGeo": {
+                "lat": 37.711677,
+                "lon": -122.49059
+              },
+              "raw": {
+                "id": 10744330489,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789499248000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232116,
+                "holeNumber": 14,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449928962,
+                  "lon": -1461384308,
+                  "x": 409,
+                  "y": 424,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449917836,
+                  "lon": -1461369665,
+                  "x": 372,
+                  "y": 198,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 149.863,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "RECOVERY",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 3,
+              "club": "Gap Wedge",
+              "clubId": 950232118,
+              "shotType": "APPROACH",
+              "meters": 27.0647,
+              "yards": 29.6,
+              "startLie": "Fairway",
+              "endLie": "Fairway",
+              "startMap": {
+                "x": 372,
+                "y": 198
+              },
+              "endMap": {
+                "x": 365,
+                "y": 157
+              },
+              "startGeo": {
+                "lat": 37.711677,
+                "lon": -122.49059
+              },
+              "endGeo": {
+                "lat": 37.711508,
+                "lon": -122.490369
+              },
+              "raw": {
+                "id": 10744330473,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789499309000,
+                "shotOrder": 3,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232118,
+                "holeNumber": 14,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449917836,
+                  "lon": -1461369665,
+                  "x": 372,
+                  "y": 198,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449915821,
+                  "lon": -1461367027,
+                  "x": 365,
+                  "y": 157,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 27.0647,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 4,
+              "club": "Lob Wedge",
+              "clubId": 950232120,
+              "shotType": "APPROACH",
+              "meters": 50.1812,
+              "yards": 54.9,
+              "startLie": "Fairway",
+              "endLie": "Green",
+              "startMap": {
+                "x": 365,
+                "y": 157
+              },
+              "endMap": {
+                "x": 332,
+                "y": 88
+              },
+              "startGeo": {
+                "lat": 37.711508,
+                "lon": -122.490369
+              },
+              "endGeo": {
+                "lat": 37.711297,
+                "lon": -122.489866
+              },
+              "raw": {
+                "id": 10744330494,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789499565000,
+                "shotOrder": 4,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232120,
+                "holeNumber": 14,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449915821,
+                  "lon": -1461367027,
+                  "x": 365,
+                  "y": 157,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449913296,
+                  "lon": -1461361024,
+                  "x": 332,
+                  "y": 88,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 50.1812,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 15,
+          "strokes": 4,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 3,
+          "pin": {
+            "lat": 37.710307,
+            "lon": -122.489175
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "9 Iron",
+              "clubId": 950232116,
+              "shotType": "APPROACH",
+              "meters": 108.943,
+              "yards": 119.1,
+              "startLie": "TeeBox",
+              "endLie": "Bunker",
+              "startMap": {
+                "x": 356,
+                "y": 577
+              },
+              "endMap": {
+                "x": 373,
+                "y": 246
+              },
+              "startGeo": {
+                "lat": 37.711494,
+                "lon": -122.489435
+              },
+              "endGeo": {
+                "lat": 37.710527,
+                "lon": -122.489242
+              },
+              "raw": {
+                "id": 10744330509,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789499894000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232116,
+                "holeNumber": 15,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449915648,
+                  "lon": -1461355885,
+                  "x": 356,
+                  "y": 577,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449904116,
+                  "lon": -1461353576,
+                  "x": 373,
+                  "y": 246,
+                  "lie": "Bunker",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 108.943,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "Sand Wedge",
+              "clubId": 950232119,
+              "shotType": "UNKNOWN",
+              "meters": 25.2077,
+              "yards": 27.6,
+              "startLie": "Bunker",
+              "endLie": "Green",
+              "startMap": {
+                "x": 373,
+                "y": 246
+              },
+              "endMap": {
+                "x": 371,
+                "y": 169
+              },
+              "startGeo": {
+                "lat": 37.710527,
+                "lon": -122.489242
+              },
+              "endGeo": {
+                "lat": 37.710307,
+                "lon": -122.489175
+              },
+              "raw": {
+                "id": 10744330484,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789500061000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232119,
+                "holeNumber": 15,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449904116,
+                  "lon": -1461353576,
+                  "x": 373,
+                  "y": 246,
+                  "lie": "Bunker",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449901488,
+                  "lon": -1461352784,
+                  "x": 371,
+                  "y": 169,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 25.2077,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "UNKNOWN",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 16,
+          "strokes": 6,
+          "putts": null,
+          "fairwayShotOutcome": "HIT",
+          "par": 5,
+          "pin": {
+            "lat": 37.706008,
+            "lon": -122.487018
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "Driver",
+              "clubId": 950232105,
+              "shotType": "TEE",
+              "meters": 229.755,
+              "yards": 251.3,
+              "startLie": "TeeBox",
+              "endLie": "Fairway",
+              "startMap": {
+                "x": 326,
+                "y": 636
+              },
+              "endMap": {
+                "x": 431,
+                "y": 396
+              },
+              "startGeo": {
+                "lat": 37.709936,
+                "lon": -122.489553
+              },
+              "endGeo": {
+                "lat": 37.707873,
+                "lon": -122.48947
+              },
+              "raw": {
+                "id": 10744330515,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789500577000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232105,
+                "holeNumber": 16,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449897057,
+                  "lon": -1461357288,
+                  "x": 326,
+                  "y": 636,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449872446,
+                  "lon": -1461356294,
+                  "x": 431,
+                  "y": 396,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 229.755,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "3 Hybrid",
+              "clubId": 955153681,
+              "shotType": "LAYUP",
+              "meters": 212.095,
+              "yards": 231.9,
+              "startLie": "Fairway",
+              "endLie": "Fairway",
+              "startMap": {
+                "x": 431,
+                "y": 396
+              },
+              "endMap": {
+                "x": 366,
+                "y": 163
+              },
+              "startGeo": {
+                "lat": 37.707873,
+                "lon": -122.48947
+              },
+              "endGeo": {
+                "lat": 37.70644,
+                "lon": -122.487883
+              },
+              "raw": {
+                "id": 10744330508,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789500857000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 955153681,
+                "holeNumber": 16,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449872446,
+                  "lon": -1461356294,
+                  "x": 431,
+                  "y": 396,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449855348,
+                  "lon": -1461337361,
+                  "x": 366,
+                  "y": 163,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 212.095,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "LAYUP",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 3,
+              "club": "Gap Wedge",
+              "clubId": 950232118,
+              "shotType": "APPROACH",
+              "meters": 91.5406,
+              "yards": 100.1,
+              "startLie": "Fairway",
+              "endLie": "Green",
+              "startMap": {
+                "x": 366,
+                "y": 163
+              },
+              "endMap": {
+                "x": 315,
+                "y": 72
+              },
+              "startGeo": {
+                "lat": 37.70644,
+                "lon": -122.487883
+              },
+              "endGeo": {
+                "lat": 37.705966,
+                "lon": -122.487033
+              },
+              "raw": {
+                "id": 10744330478,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789501024000,
+                "shotOrder": 3,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232118,
+                "holeNumber": 16,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449855348,
+                  "lon": -1461337361,
+                  "x": 366,
+                  "y": 163,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449849691,
+                  "lon": -1461327229,
+                  "x": 315,
+                  "y": 72,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 91.5406,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 17,
+          "strokes": 6,
+          "putts": null,
+          "fairwayShotOutcome": "RIGHT",
+          "par": 5,
+          "pin": {
+            "lat": 37.707573,
+            "lon": -122.491788
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "Driver",
+              "clubId": 950232105,
+              "shotType": "TEE",
+              "meters": 235.061,
+              "yards": 257.1,
+              "startLie": "TeeBox",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 375,
+                "y": 612
+              },
+              "endMap": {
+                "x": 412,
+                "y": 327
+              },
+              "startGeo": {
+                "lat": 37.705727,
+                "lon": -122.487487
+              },
+              "endGeo": {
+                "lat": 37.70698,
+                "lon": -122.489635
+              },
+              "raw": {
+                "id": 10744330514,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789501899000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232105,
+                "holeNumber": 17,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449846847,
+                  "lon": -1461332636,
+                  "x": 375,
+                  "y": 612,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449861791,
+                  "lon": -1461358271,
+                  "x": 412,
+                  "y": 327,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 235.061,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "3 Hybrid",
+              "clubId": 955153681,
+              "shotType": "APPROACH",
+              "meters": 186.3,
+              "yards": 203.7,
+              "startLie": "Rough",
+              "endLie": "Fairway",
+              "startMap": {
+                "x": 412,
+                "y": 327
+              },
+              "endMap": {
+                "x": 369,
+                "y": 104
+              },
+              "startGeo": {
+                "lat": 37.70698,
+                "lon": -122.489635
+              },
+              "endGeo": {
+                "lat": 37.707503,
+                "lon": -122.491644
+              },
+              "raw": {
+                "id": 10744330497,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789502112000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 955153681,
+                "holeNumber": 17,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449861791,
+                  "lon": -1461358271,
+                  "x": 412,
+                  "y": 327,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449868037,
+                  "lon": -1461382242,
+                  "x": 369,
+                  "y": 104,
+                  "lie": "Fairway",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 186.3,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        },
+        {
+          "number": 18,
+          "strokes": 6,
+          "putts": null,
+          "fairwayShotOutcome": "RIGHT",
+          "par": 4,
+          "pin": {
+            "lat": 37.709451,
+            "lon": -122.493683
+          },
+          "shots": [
+            {
+              "order": 1,
+              "club": "3 Hybrid",
+              "clubId": 955153681,
+              "shotType": "TEE",
+              "meters": 184.356,
+              "yards": 201.6,
+              "startLie": "TeeBox",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 373,
+                "y": 635
+              },
+              "endMap": {
+                "x": 455,
+                "y": 322
+              },
+              "startGeo": {
+                "lat": 37.707674,
+                "lon": -122.491041
+              },
+              "endGeo": {
+                "lat": 37.709028,
+                "lon": -122.492246
+              },
+              "raw": {
+                "id": 10744330466,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789502678000,
+                "shotOrder": 1,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 955153681,
+                "holeNumber": 18,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449870074,
+                  "lon": -1461375040,
+                  "x": 373,
+                  "y": 635,
+                  "lie": "TeeBox",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449886227,
+                  "lon": -1461389422,
+                  "x": 455,
+                  "y": 322,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 184.356,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "TEE",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 2,
+              "club": "Pitching Wedge",
+              "clubId": 950232117,
+              "shotType": "UNKNOWN",
+              "meters": 32.5783,
+              "yards": 35.6,
+              "startLie": "Rough",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 455,
+                "y": 322
+              },
+              "endMap": {
+                "x": 414,
+                "y": 282
+              },
+              "startGeo": {
+                "lat": 37.709028,
+                "lon": -122.492246
+              },
+              "endGeo": {
+                "lat": 37.708995,
+                "lon": -122.492614
+              },
+              "raw": {
+                "id": 10744330507,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789502794000,
+                "shotOrder": 2,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232117,
+                "holeNumber": 18,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449886227,
+                  "lon": -1461389422,
+                  "x": 455,
+                  "y": 322,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449885835,
+                  "lon": -1461393808,
+                  "x": 414,
+                  "y": 282,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 32.5783,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "UNKNOWN",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 3,
+              "club": "Pitching Wedge",
+              "clubId": 950232117,
+              "shotType": "APPROACH",
+              "meters": 51.4226,
+              "yards": 56.2,
+              "startLie": "Rough",
+              "endLie": "Rough",
+              "startMap": {
+                "x": 414,
+                "y": 282
+              },
+              "endMap": {
+                "x": 396,
+                "y": 194
+              },
+              "startGeo": {
+                "lat": 37.708995,
+                "lon": -122.492614
+              },
+              "endGeo": {
+                "lat": 37.709218,
+                "lon": -122.493125
+              },
+              "raw": {
+                "id": 10744330487,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789502878000,
+                "shotOrder": 3,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232117,
+                "holeNumber": 18,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449885835,
+                  "lon": -1461393808,
+                  "x": 414,
+                  "y": 282,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449888494,
+                  "lon": -1461399910,
+                  "x": 396,
+                  "y": 194,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 51.4226,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            },
+            {
+              "order": 4,
+              "club": "Lob Wedge",
+              "clubId": 950232120,
+              "shotType": "APPROACH",
+              "meters": 53.7131,
+              "yards": 58.7,
+              "startLie": "Rough",
+              "endLie": "Green",
+              "startMap": {
+                "x": 396,
+                "y": 194
+              },
+              "endMap": {
+                "x": 377,
+                "y": 101
+              },
+              "startGeo": {
+                "lat": 37.709218,
+                "lon": -122.493125
+              },
+              "endGeo": {
+                "lat": 37.709445,
+                "lon": -122.493663
+              },
+              "raw": {
+                "id": 10744330492,
+                "scorecardId": 383800251,
+                "playerProfileId": 134747949,
+                "shotTime": 1789502964000,
+                "shotOrder": 4,
+                "shotTimeZoneOffset": -25200000,
+                "clubId": 950232120,
+                "holeNumber": 18,
+                "autoShotType": "USED",
+                "startLoc": {
+                  "lat": 449888494,
+                  "lon": -1461399910,
+                  "x": 396,
+                  "y": 194,
+                  "lie": "Rough",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "endLoc": {
+                  "lat": 449891207,
+                  "lon": -1461406328,
+                  "x": 377,
+                  "y": 101,
+                  "lie": "Green",
+                  "lieSource": "CARTOGRAPHY"
+                },
+                "meters": 53.7131,
+                "shotSource": "DEVICE_AUTO",
+                "shotType": "APPROACH",
+                "excludeFromStats": false
+              }
+            }
+          ]
+        }
+      ],
+      "flags": []
     }
   ],
   "stats": {
     "approach": [
       {
-        "shotId": "10625613670",
-        "scorecardId": "379296644",
-        "holeNumber": 3,
-        "clubId": 950232115,
-        "startingDistanceToHoleM": 150.68,
-        "startingDistanceToHoleYd": 164.8,
-        "remainingDistanceM": 33.54,
-        "remainingDistanceYd": 36.7,
-        "offsetAngleDeg": 257,
+        "shotId": "10711375914",
+        "scorecardId": "382720938",
+        "holeNumber": 4,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 112.31,
+        "startingDistanceToHoleYd": 122.8,
+        "remainingDistanceM": 10.57,
+        "remainingDistanceYd": 11.6,
+        "offsetAngleDeg": 236,
         "startingLie": "TeeBox",
-        "endingLie": "Unknown"
+        "endingLie": "Green"
+      },
+      {
+        "shotId": "10711381542",
+        "scorecardId": "382720938",
+        "holeNumber": 13,
+        "clubId": 950232113,
+        "startingDistanceToHoleM": 159.78,
+        "startingDistanceToHoleYd": 174.7,
+        "remainingDistanceM": 20.61,
+        "remainingDistanceYd": 22.5,
+        "offsetAngleDeg": 106,
+        "startingLie": "TeeBox",
+        "endingLie": "Bunker"
       },
       {
         "shotId": "10625067166",
@@ -11216,6 +14504,32 @@
         "remainingDistanceM": 9.63,
         "remainingDistanceYd": 10.5,
         "offsetAngleDeg": 55,
+        "startingLie": "TeeBox",
+        "endingLie": "Green"
+      },
+      {
+        "shotId": "10744330471",
+        "scorecardId": "383800251",
+        "holeNumber": 8,
+        "clubId": 950232113,
+        "startingDistanceToHoleM": 158.85,
+        "startingDistanceToHoleYd": 173.7,
+        "remainingDistanceM": 98.72,
+        "remainingDistanceYd": 108,
+        "offsetAngleDeg": 181,
+        "startingLie": "TeeBox",
+        "endingLie": "TeeBox"
+      },
+      {
+        "shotId": "10744330483",
+        "scorecardId": "383800251",
+        "holeNumber": 13,
+        "clubId": 950232114,
+        "startingDistanceToHoleM": 164.18,
+        "startingDistanceToHoleYd": 179.5,
+        "remainingDistanceM": 16.35,
+        "remainingDistanceYd": 17.9,
+        "offsetAngleDeg": 170,
         "startingLie": "TeeBox",
         "endingLie": "Green"
       },
@@ -11233,32 +14547,6 @@
         "endingLie": "Bunker"
       },
       {
-        "shotId": "10711375901",
-        "scorecardId": "382720938",
-        "holeNumber": 15,
-        "clubId": 950232115,
-        "startingDistanceToHoleM": 159.51,
-        "startingDistanceToHoleYd": 174.4,
-        "remainingDistanceM": 14.65,
-        "remainingDistanceYd": 16,
-        "offsetAngleDeg": 44,
-        "startingLie": "TeeBox",
-        "endingLie": "Rough"
-      },
-      {
-        "shotId": "10711375914",
-        "scorecardId": "382720938",
-        "holeNumber": 4,
-        "clubId": 950232118,
-        "startingDistanceToHoleM": 112.31,
-        "startingDistanceToHoleYd": 122.8,
-        "remainingDistanceM": 10.57,
-        "remainingDistanceYd": 11.6,
-        "offsetAngleDeg": 236,
-        "startingLie": "TeeBox",
-        "endingLie": "Green"
-      },
-      {
         "shotId": "10711375933",
         "scorecardId": "382720938",
         "holeNumber": 7,
@@ -11270,6 +14558,19 @@
         "offsetAngleDeg": 148,
         "startingLie": "TeeBox",
         "endingLie": "Fairway"
+      },
+      {
+        "shotId": "10744330509",
+        "scorecardId": "383800251",
+        "holeNumber": 15,
+        "clubId": 950232116,
+        "startingDistanceToHoleM": 134.09,
+        "startingDistanceToHoleYd": 146.6,
+        "remainingDistanceM": 25.21,
+        "remainingDistanceYd": 27.6,
+        "offsetAngleDeg": 176,
+        "startingLie": "TeeBox",
+        "endingLie": "Bunker"
       },
       {
         "shotId": "10612587703",
@@ -11285,17 +14586,30 @@
         "endingLie": "Rough"
       },
       {
-        "shotId": "10711381542",
-        "scorecardId": "382720938",
-        "holeNumber": 13,
-        "clubId": 950232113,
-        "startingDistanceToHoleM": 159.78,
-        "startingDistanceToHoleYd": 174.7,
-        "remainingDistanceM": 20.61,
-        "remainingDistanceYd": 22.5,
-        "offsetAngleDeg": 106,
+        "shotId": "10625613670",
+        "scorecardId": "379296644",
+        "holeNumber": 3,
+        "clubId": 950232115,
+        "startingDistanceToHoleM": 150.68,
+        "startingDistanceToHoleYd": 164.8,
+        "remainingDistanceM": 33.54,
+        "remainingDistanceYd": 36.7,
+        "offsetAngleDeg": 257,
         "startingLie": "TeeBox",
-        "endingLie": "Bunker"
+        "endingLie": "Unknown"
+      },
+      {
+        "shotId": "10711375901",
+        "scorecardId": "382720938",
+        "holeNumber": 15,
+        "clubId": 950232115,
+        "startingDistanceToHoleM": 159.51,
+        "startingDistanceToHoleYd": 174.4,
+        "remainingDistanceM": 14.65,
+        "remainingDistanceYd": 16,
+        "offsetAngleDeg": 44,
+        "startingLie": "TeeBox",
+        "endingLie": "Rough"
       },
       {
         "shotId": "10612578407",
@@ -11324,56 +14638,17 @@
         "endingLie": "Rough"
       },
       {
-        "shotId": "10711379651",
-        "scorecardId": "382720938",
-        "holeNumber": 8,
-        "clubId": 950232117,
-        "startingDistanceToHoleM": 116.33,
-        "startingDistanceToHoleYd": 127.2,
-        "remainingDistanceM": 15.11,
-        "remainingDistanceYd": 16.5,
-        "offsetAngleDeg": 352,
-        "startingLie": "Unknown",
-        "endingLie": "Rough"
-      },
-      {
-        "shotId": "10711375939",
-        "scorecardId": "382720938",
-        "holeNumber": 17,
-        "clubId": 950232117,
-        "startingDistanceToHoleM": 93.3,
-        "startingDistanceToHoleYd": 102,
-        "remainingDistanceM": 6.22,
-        "remainingDistanceYd": 6.8,
-        "offsetAngleDeg": 270,
-        "startingLie": "Rough",
-        "endingLie": "Green"
-      },
-      {
-        "shotId": "10711375938",
-        "scorecardId": "382720938",
+        "shotId": "10625654058",
+        "scorecardId": "379752055",
         "holeNumber": 16,
         "clubId": 950232118,
-        "startingDistanceToHoleM": 103.96,
-        "startingDistanceToHoleYd": 113.7,
-        "remainingDistanceM": 12.03,
-        "remainingDistanceYd": 13.2,
-        "offsetAngleDeg": 67,
-        "startingLie": "Fairway",
-        "endingLie": "Green"
-      },
-      {
-        "shotId": "10612568687",
-        "scorecardId": "379296644",
-        "holeNumber": 7,
-        "clubId": 950232118,
-        "startingDistanceToHoleM": 69.79,
-        "startingDistanceToHoleYd": 76.3,
-        "remainingDistanceM": 15.25,
-        "remainingDistanceYd": 16.7,
-        "offsetAngleDeg": 225,
+        "startingDistanceToHoleM": 94.6,
+        "startingDistanceToHoleYd": 103.5,
+        "remainingDistanceM": 56.09,
+        "remainingDistanceYd": 61.3,
+        "offsetAngleDeg": 183,
         "startingLie": "Rough",
-        "endingLie": "Rough"
+        "endingLie": "Unknown"
       },
       {
         "shotId": "10711375932",
@@ -11389,17 +14664,43 @@
         "endingLie": "Rough"
       },
       {
-        "shotId": "10711382702",
-        "scorecardId": "382720938",
-        "holeNumber": 14,
-        "clubId": 950232118,
-        "startingDistanceToHoleM": 77.27,
-        "startingDistanceToHoleYd": 84.5,
-        "remainingDistanceM": 17.27,
-        "remainingDistanceYd": 18.9,
-        "offsetAngleDeg": 283,
+        "shotId": "10612566696",
+        "scorecardId": "379296644",
+        "holeNumber": 5,
+        "clubId": 950232117,
+        "startingDistanceToHoleM": 117.52,
+        "startingDistanceToHoleYd": 128.5,
+        "remainingDistanceM": 27.86,
+        "remainingDistanceYd": 30.5,
+        "offsetAngleDeg": 65,
         "startingLie": "Rough",
         "endingLie": "Rough"
+      },
+      {
+        "shotId": "10711375938",
+        "scorecardId": "382720938",
+        "holeNumber": 16,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 103.96,
+        "startingDistanceToHoleYd": 113.7,
+        "remainingDistanceM": 12.03,
+        "remainingDistanceYd": 13.2,
+        "offsetAngleDeg": 67,
+        "startingLie": "Fairway",
+        "endingLie": "Green"
+      },
+      {
+        "shotId": "10711375939",
+        "scorecardId": "382720938",
+        "holeNumber": 17,
+        "clubId": 950232117,
+        "startingDistanceToHoleM": 93.3,
+        "startingDistanceToHoleYd": 102,
+        "remainingDistanceM": 6.22,
+        "remainingDistanceYd": 6.8,
+        "offsetAngleDeg": 270,
+        "startingLie": "Rough",
+        "endingLie": "Green"
       },
       {
         "shotId": "10711375912",
@@ -11415,54 +14716,28 @@
         "endingLie": "Rough"
       },
       {
-        "shotId": "10625654058",
-        "scorecardId": "379752055",
-        "holeNumber": 16,
-        "clubId": 950232118,
-        "startingDistanceToHoleM": 94.6,
-        "startingDistanceToHoleYd": 103.5,
-        "remainingDistanceM": 56.09,
-        "remainingDistanceYd": 61.3,
-        "offsetAngleDeg": 183,
-        "startingLie": "Rough",
-        "endingLie": "Unknown"
+        "shotId": "10711379651",
+        "scorecardId": "382720938",
+        "holeNumber": 8,
+        "clubId": 950232117,
+        "startingDistanceToHoleM": 116.33,
+        "startingDistanceToHoleYd": 127.2,
+        "remainingDistanceM": 15.11,
+        "remainingDistanceYd": 16.5,
+        "offsetAngleDeg": 352,
+        "startingLie": "Unknown",
+        "endingLie": "Rough"
       },
       {
-        "shotId": "10625649398",
-        "scorecardId": "379752055",
+        "shotId": "10711382702",
+        "scorecardId": "382720938",
         "holeNumber": 14,
-        "clubId": 955153681,
-        "startingDistanceToHoleM": 187.53,
-        "startingDistanceToHoleYd": 205.1,
-        "remainingDistanceM": 149.34,
-        "remainingDistanceYd": 163.3,
-        "offsetAngleDeg": 179,
-        "startingLie": "Rough",
-        "endingLie": "Rough"
-      },
-      {
-        "shotId": "10625607695",
-        "scorecardId": "379752055",
-        "holeNumber": 3,
-        "clubId": 950232117,
-        "startingDistanceToHoleM": 97.06,
-        "startingDistanceToHoleYd": 106.1,
-        "remainingDistanceM": 19.57,
-        "remainingDistanceYd": 21.4,
-        "offsetAngleDeg": 332,
-        "startingLie": "Fairway",
-        "endingLie": "Rough"
-      },
-      {
-        "shotId": "10625071621",
-        "scorecardId": "379752055",
-        "holeNumber": 17,
-        "clubId": 950232117,
-        "startingDistanceToHoleM": 108.9,
-        "startingDistanceToHoleYd": 119.1,
-        "remainingDistanceM": 47.78,
-        "remainingDistanceYd": 52.3,
-        "offsetAngleDeg": 157,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 77.27,
+        "startingDistanceToHoleYd": 84.5,
+        "remainingDistanceM": 17.27,
+        "remainingDistanceYd": 18.9,
+        "offsetAngleDeg": 283,
         "startingLie": "Rough",
         "endingLie": "Rough"
       },
@@ -11480,6 +14755,188 @@
         "endingLie": "Bunker"
       },
       {
+        "shotId": "10744330480",
+        "scorecardId": "383800251",
+        "holeNumber": 5,
+        "clubId": 950232115,
+        "startingDistanceToHoleM": 170.92,
+        "startingDistanceToHoleYd": 186.9,
+        "remainingDistanceM": 53.17,
+        "remainingDistanceYd": 58.1,
+        "offsetAngleDeg": 212,
+        "startingLie": "Rough",
+        "endingLie": "Rough"
+      },
+      {
+        "shotId": "10744330493",
+        "scorecardId": "383800251",
+        "holeNumber": 2,
+        "clubId": 950232115,
+        "startingDistanceToHoleM": 158.77,
+        "startingDistanceToHoleYd": 173.6,
+        "remainingDistanceM": 45.91,
+        "remainingDistanceYd": 50.2,
+        "offsetAngleDeg": 161,
+        "startingLie": "Rough",
+        "endingLie": "Rough"
+      },
+      {
+        "shotId": "10744330497",
+        "scorecardId": "383800251",
+        "holeNumber": 17,
+        "clubId": 955153681,
+        "startingDistanceToHoleM": 200.73,
+        "startingDistanceToHoleYd": 219.5,
+        "remainingDistanceM": 14.79,
+        "remainingDistanceYd": 16.2,
+        "offsetAngleDeg": 192,
+        "startingLie": "Rough",
+        "endingLie": "Fairway"
+      },
+      {
+        "shotId": "10744330500",
+        "scorecardId": "383800251",
+        "holeNumber": 11,
+        "clubId": 950232113,
+        "startingDistanceToHoleM": 157.54,
+        "startingDistanceToHoleYd": 172.3,
+        "remainingDistanceM": 10.48,
+        "remainingDistanceYd": 11.5,
+        "offsetAngleDeg": 162,
+        "startingLie": "Fairway",
+        "endingLie": "Green"
+      },
+      {
+        "shotId": "10744330510",
+        "scorecardId": "383800251",
+        "holeNumber": 4,
+        "clubId": 950232116,
+        "startingDistanceToHoleM": 139,
+        "startingDistanceToHoleYd": 152,
+        "remainingDistanceM": 13.65,
+        "remainingDistanceYd": 14.9,
+        "offsetAngleDeg": 104,
+        "startingLie": "Rough",
+        "endingLie": "Rough"
+      },
+      {
+        "shotId": "10744330511",
+        "scorecardId": "383800251",
+        "holeNumber": 9,
+        "clubId": 950232114,
+        "startingDistanceToHoleM": 157.24,
+        "startingDistanceToHoleYd": 172,
+        "remainingDistanceM": 17.09,
+        "remainingDistanceYd": 18.7,
+        "offsetAngleDeg": 76,
+        "startingLie": "Rough",
+        "endingLie": "Rough"
+      },
+      {
+        "shotId": "10744330513",
+        "scorecardId": "383800251",
+        "holeNumber": 8,
+        "clubId": 950232117,
+        "startingDistanceToHoleM": 98.72,
+        "startingDistanceToHoleYd": 108,
+        "remainingDistanceM": 34.38,
+        "remainingDistanceYd": 37.6,
+        "offsetAngleDeg": 176,
+        "startingLie": "TeeBox",
+        "endingLie": "Rough"
+      },
+      {
+        "shotId": "10746953095",
+        "scorecardId": "383800251",
+        "holeNumber": 7,
+        "clubId": 950232117,
+        "startingDistanceToHoleM": 107.98,
+        "startingDistanceToHoleYd": 118.1,
+        "remainingDistanceM": 52.04,
+        "remainingDistanceYd": 56.9,
+        "offsetAngleDeg": 207,
+        "startingLie": "Rough",
+        "endingLie": "Fairway"
+      },
+      {
+        "shotId": "10612588884",
+        "scorecardId": "379296644",
+        "holeNumber": 18,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 98.23,
+        "startingDistanceToHoleYd": 107.4,
+        "remainingDistanceM": 19.04,
+        "remainingDistanceYd": 20.8,
+        "offsetAngleDeg": 99,
+        "startingLie": "Fairway",
+        "endingLie": "Rough"
+      },
+      {
+        "shotId": "10625067139",
+        "scorecardId": "379752055",
+        "holeNumber": 6,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 89.99,
+        "startingDistanceToHoleYd": 98.4,
+        "remainingDistanceM": 9.43,
+        "remainingDistanceYd": 10.3,
+        "offsetAngleDeg": 50,
+        "startingLie": "Rough",
+        "endingLie": "Green"
+      },
+      {
+        "shotId": "10625067126",
+        "scorecardId": "379752055",
+        "holeNumber": 1,
+        "clubId": 950232116,
+        "startingDistanceToHoleM": 123.75,
+        "startingDistanceToHoleYd": 135.3,
+        "remainingDistanceM": 25.96,
+        "remainingDistanceYd": 28.4,
+        "offsetAngleDeg": 158,
+        "startingLie": "Fairway",
+        "endingLie": "Fairway"
+      },
+      {
+        "shotId": "10625067125",
+        "scorecardId": "379752055",
+        "holeNumber": 5,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 79.14,
+        "startingDistanceToHoleYd": 86.5,
+        "remainingDistanceM": 2.54,
+        "remainingDistanceYd": 2.8,
+        "offsetAngleDeg": 95,
+        "startingLie": "Fairway",
+        "endingLie": "Green"
+      },
+      {
+        "shotId": "10625067150",
+        "scorecardId": "379752055",
+        "holeNumber": 18,
+        "clubId": 950232114,
+        "startingDistanceToHoleM": 162.17,
+        "startingDistanceToHoleYd": 177.4,
+        "remainingDistanceM": 66.17,
+        "remainingDistanceYd": 72.4,
+        "offsetAngleDeg": 183,
+        "startingLie": "Rough",
+        "endingLie": "Fairway"
+      },
+      {
+        "shotId": "10625067160",
+        "scorecardId": "379752055",
+        "holeNumber": 8,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 80.36,
+        "startingDistanceToHoleYd": 87.9,
+        "remainingDistanceM": 21.44,
+        "remainingDistanceYd": 23.4,
+        "offsetAngleDeg": 33,
+        "startingLie": "Rough",
+        "endingLie": "Bunker"
+      },
+      {
         "shotId": "10625067122",
         "scorecardId": "379752055",
         "holeNumber": 11,
@@ -11493,28 +14950,15 @@
         "endingLie": "Bunker"
       },
       {
-        "shotId": "10612566696",
-        "scorecardId": "379296644",
-        "holeNumber": 5,
+        "shotId": "10625071621",
+        "scorecardId": "379752055",
+        "holeNumber": 17,
         "clubId": 950232117,
-        "startingDistanceToHoleM": 117.52,
-        "startingDistanceToHoleYd": 128.5,
-        "remainingDistanceM": 27.86,
-        "remainingDistanceYd": 30.5,
-        "offsetAngleDeg": 65,
-        "startingLie": "Rough",
-        "endingLie": "Rough"
-      },
-      {
-        "shotId": "10612583903",
-        "scorecardId": "379296644",
-        "holeNumber": 14,
-        "clubId": 950232116,
-        "startingDistanceToHoleM": 131.49,
-        "startingDistanceToHoleYd": 143.8,
-        "remainingDistanceM": 16.31,
-        "remainingDistanceYd": 17.8,
-        "offsetAngleDeg": 289,
+        "startingDistanceToHoleM": 108.9,
+        "startingDistanceToHoleYd": 119.1,
+        "remainingDistanceM": 47.78,
+        "remainingDistanceYd": 52.3,
+        "offsetAngleDeg": 157,
         "startingLie": "Rough",
         "endingLie": "Rough"
       },
@@ -11532,15 +14976,28 @@
         "endingLie": "Green"
       },
       {
-        "shotId": "10612588884",
+        "shotId": "10612583903",
         "scorecardId": "379296644",
-        "holeNumber": 18,
-        "clubId": 950232118,
-        "startingDistanceToHoleM": 98.23,
-        "startingDistanceToHoleYd": 107.4,
-        "remainingDistanceM": 19.04,
-        "remainingDistanceYd": 20.8,
-        "offsetAngleDeg": 99,
+        "holeNumber": 14,
+        "clubId": 950232116,
+        "startingDistanceToHoleM": 131.49,
+        "startingDistanceToHoleYd": 143.8,
+        "remainingDistanceM": 16.31,
+        "remainingDistanceYd": 17.8,
+        "offsetAngleDeg": 289,
+        "startingLie": "Rough",
+        "endingLie": "Rough"
+      },
+      {
+        "shotId": "10625607695",
+        "scorecardId": "379752055",
+        "holeNumber": 3,
+        "clubId": 950232117,
+        "startingDistanceToHoleM": 97.06,
+        "startingDistanceToHoleYd": 106.1,
+        "remainingDistanceM": 19.57,
+        "remainingDistanceYd": 21.4,
+        "offsetAngleDeg": 332,
         "startingLie": "Fairway",
         "endingLie": "Rough"
       },
@@ -11584,119 +15041,93 @@
         "endingLie": "Rough"
       },
       {
-        "shotId": "10625067125",
+        "shotId": "10625649398",
         "scorecardId": "379752055",
-        "holeNumber": 5,
-        "clubId": 950232118,
-        "startingDistanceToHoleM": 79.14,
-        "startingDistanceToHoleYd": 86.5,
-        "remainingDistanceM": 2.54,
-        "remainingDistanceYd": 2.8,
-        "offsetAngleDeg": 95,
-        "startingLie": "Fairway",
-        "endingLie": "Green"
-      },
-      {
-        "shotId": "10625067126",
-        "scorecardId": "379752055",
-        "holeNumber": 1,
-        "clubId": 950232116,
-        "startingDistanceToHoleM": 123.75,
-        "startingDistanceToHoleYd": 135.3,
-        "remainingDistanceM": 25.96,
-        "remainingDistanceYd": 28.4,
-        "offsetAngleDeg": 158,
-        "startingLie": "Fairway",
-        "endingLie": "Fairway"
-      },
-      {
-        "shotId": "10625067139",
-        "scorecardId": "379752055",
-        "holeNumber": 6,
-        "clubId": 950232118,
-        "startingDistanceToHoleM": 89.99,
-        "startingDistanceToHoleYd": 98.4,
-        "remainingDistanceM": 9.43,
-        "remainingDistanceYd": 10.3,
-        "offsetAngleDeg": 50,
-        "startingLie": "Rough",
-        "endingLie": "Green"
-      },
-      {
-        "shotId": "10625067150",
-        "scorecardId": "379752055",
-        "holeNumber": 18,
-        "clubId": 950232114,
-        "startingDistanceToHoleM": 162.17,
-        "startingDistanceToHoleYd": 177.4,
-        "remainingDistanceM": 66.17,
-        "remainingDistanceYd": 72.4,
-        "offsetAngleDeg": 183,
-        "startingLie": "Rough",
-        "endingLie": "Fairway"
-      },
-      {
-        "shotId": "10625067160",
-        "scorecardId": "379752055",
-        "holeNumber": 8,
-        "clubId": 950232118,
-        "startingDistanceToHoleM": 80.36,
-        "startingDistanceToHoleYd": 87.9,
-        "remainingDistanceM": 21.44,
-        "remainingDistanceYd": 23.4,
-        "offsetAngleDeg": 33,
-        "startingLie": "Rough",
-        "endingLie": "Bunker"
-      },
-      {
-        "shotId": "10625654059",
-        "scorecardId": "379752055",
-        "holeNumber": 16,
-        "clubId": 950232119,
-        "startingDistanceToHoleM": 55.58,
-        "startingDistanceToHoleYd": 60.8,
-        "remainingDistanceM": 22.37,
-        "remainingDistanceYd": 24.5,
-        "offsetAngleDeg": 284,
-        "startingLie": "Unknown",
-        "endingLie": "Bunker"
-      },
-      {
-        "shotId": "10625067161",
-        "scorecardId": "379752055",
-        "holeNumber": 10,
-        "clubId": 950232115,
-        "startingDistanceToHoleM": 136.44,
-        "startingDistanceToHoleYd": 149.2,
-        "remainingDistanceM": 78.81,
-        "remainingDistanceYd": 86.2,
-        "offsetAngleDeg": 170,
-        "startingLie": "Rough",
-        "endingLie": "Fairway"
-      },
-      {
-        "shotId": "10711375918",
-        "scorecardId": "382720938",
-        "holeNumber": 1,
-        "clubId": 950232118,
-        "startingDistanceToHoleM": 91.71,
-        "startingDistanceToHoleYd": 100.3,
-        "remainingDistanceM": 21.37,
-        "remainingDistanceYd": 23.4,
-        "offsetAngleDeg": 43,
+        "holeNumber": 14,
+        "clubId": 955153681,
+        "startingDistanceToHoleM": 187.53,
+        "startingDistanceToHoleYd": 205.1,
+        "remainingDistanceM": 149.34,
+        "remainingDistanceYd": 163.3,
+        "offsetAngleDeg": 179,
         "startingLie": "Rough",
         "endingLie": "Rough"
       },
       {
-        "shotId": "10625649399",
-        "scorecardId": "379752055",
+        "shotId": "10612568687",
+        "scorecardId": "379296644",
+        "holeNumber": 7,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 69.79,
+        "startingDistanceToHoleYd": 76.3,
+        "remainingDistanceM": 15.25,
+        "remainingDistanceYd": 16.7,
+        "offsetAngleDeg": 225,
+        "startingLie": "Rough",
+        "endingLie": "Rough"
+      },
+      {
+        "shotId": "10744330473",
+        "scorecardId": "383800251",
         "holeNumber": 14,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 76.57,
+        "startingDistanceToHoleYd": 83.7,
+        "remainingDistanceM": 50.18,
+        "remainingDistanceYd": 54.9,
+        "offsetAngleDeg": 174,
+        "startingLie": "Fairway",
+        "endingLie": "Fairway"
+      },
+      {
+        "shotId": "10744330505",
+        "scorecardId": "383800251",
+        "holeNumber": 7,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 52.04,
+        "startingDistanceToHoleYd": 56.9,
+        "remainingDistanceM": 38.99,
+        "remainingDistanceYd": 42.6,
+        "offsetAngleDeg": 178,
+        "startingLie": "Fairway",
+        "endingLie": "Fairway"
+      },
+      {
+        "shotId": "10744330503",
+        "scorecardId": "383800251",
+        "holeNumber": 12,
         "clubId": 950232114,
-        "startingDistanceToHoleM": 149.34,
-        "startingDistanceToHoleYd": 163.3,
-        "remainingDistanceM": 28.63,
-        "remainingDistanceYd": 31.3,
-        "offsetAngleDeg": 51,
+        "startingDistanceToHoleM": 159,
+        "startingDistanceToHoleYd": 173.9,
+        "remainingDistanceM": 0,
+        "remainingDistanceYd": 0,
+        "offsetAngleDeg": 180,
+        "startingLie": "Rough",
+        "endingLie": "Green"
+      },
+      {
+        "shotId": "10612579492",
+        "scorecardId": "379296644",
+        "holeNumber": 12,
+        "clubId": 0,
+        "startingDistanceToHoleM": 161.81,
+        "startingDistanceToHoleYd": 177,
+        "remainingDistanceM": 13.65,
+        "remainingDistanceYd": 14.9,
+        "offsetAngleDeg": 223,
+        "startingLie": "Unknown",
+        "endingLie": "Bunker"
+      },
+      {
+        "shotId": "10744330487",
+        "scorecardId": "383800251",
+        "holeNumber": 18,
+        "clubId": 950232117,
+        "startingDistanceToHoleM": 106.97,
+        "startingDistanceToHoleYd": 117,
+        "remainingDistanceM": 55.54,
+        "remainingDistanceYd": 60.7,
+        "offsetAngleDeg": 180,
         "startingLie": "Rough",
         "endingLie": "Rough"
       },
@@ -11714,29 +15145,68 @@
         "endingLie": "Fairway"
       },
       {
-        "shotId": "10711375935",
-        "scorecardId": "382720938",
-        "holeNumber": 10,
-        "clubId": 0,
-        "startingDistanceToHoleM": 69.48,
-        "startingDistanceToHoleYd": 76,
-        "remainingDistanceM": 15.59,
-        "remainingDistanceYd": 17,
-        "offsetAngleDeg": 155,
+        "shotId": "10744330478",
+        "scorecardId": "383800251",
+        "holeNumber": 16,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 90.11,
+        "startingDistanceToHoleYd": 98.5,
+        "remainingDistanceM": 4.88,
+        "remainingDistanceYd": 5.3,
+        "offsetAngleDeg": 74,
         "startingLie": "Fairway",
         "endingLie": "Green"
       },
       {
-        "shotId": "10711375936",
-        "scorecardId": "382720938",
-        "holeNumber": 3,
-        "clubId": 950232118,
-        "startingDistanceToHoleM": 87.58,
-        "startingDistanceToHoleYd": 95.8,
-        "remainingDistanceM": 9,
-        "remainingDistanceYd": 9.8,
-        "offsetAngleDeg": 167,
+        "shotId": "10625649399",
+        "scorecardId": "379752055",
+        "holeNumber": 14,
+        "clubId": 950232114,
+        "startingDistanceToHoleM": 149.34,
+        "startingDistanceToHoleYd": 163.3,
+        "remainingDistanceM": 28.63,
+        "remainingDistanceYd": 31.3,
+        "offsetAngleDeg": 51,
         "startingLie": "Rough",
+        "endingLie": "Rough"
+      },
+      {
+        "shotId": "10625067161",
+        "scorecardId": "379752055",
+        "holeNumber": 10,
+        "clubId": 950232115,
+        "startingDistanceToHoleM": 136.44,
+        "startingDistanceToHoleYd": 149.2,
+        "remainingDistanceM": 78.81,
+        "remainingDistanceYd": 86.2,
+        "offsetAngleDeg": 170,
+        "startingLie": "Rough",
+        "endingLie": "Fairway"
+      },
+      {
+        "shotId": "10711380083",
+        "scorecardId": "382720938",
+        "holeNumber": 9,
+        "clubId": 950232121,
+        "startingDistanceToHoleM": 64.01,
+        "startingDistanceToHoleYd": 70,
+        "remainingDistanceM": 12.39,
+        "remainingDistanceYd": 13.5,
+        "offsetAngleDeg": 325,
+        "startingLie": "Fairway",
+        "endingLie": "Fairway"
+      },
+      {
+        "shotId": "10625067162",
+        "scorecardId": "379752055",
+        "holeNumber": 18,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 66.17,
+        "startingDistanceToHoleYd": 72.4,
+        "remainingDistanceM": 0,
+        "remainingDistanceYd": 0,
+        "offsetAngleDeg": 180,
+        "startingLie": "Fairway",
         "endingLie": "Green"
       },
       {
@@ -11753,38 +15223,77 @@
         "endingLie": "Rough"
       },
       {
-        "shotId": "10711380083",
+        "shotId": "10711375936",
         "scorecardId": "382720938",
-        "holeNumber": 9,
-        "clubId": 950232121,
-        "startingDistanceToHoleM": 64.01,
-        "startingDistanceToHoleYd": 70,
-        "remainingDistanceM": 12.39,
-        "remainingDistanceYd": 13.5,
-        "offsetAngleDeg": 325,
-        "startingLie": "Fairway",
-        "endingLie": "Fairway"
+        "holeNumber": 3,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 87.58,
+        "startingDistanceToHoleYd": 95.8,
+        "remainingDistanceM": 9,
+        "remainingDistanceYd": 9.8,
+        "offsetAngleDeg": 167,
+        "startingLie": "Rough",
+        "endingLie": "Green"
       },
       {
-        "shotId": "10612579492",
-        "scorecardId": "379296644",
-        "holeNumber": 12,
+        "shotId": "10711375935",
+        "scorecardId": "382720938",
+        "holeNumber": 10,
         "clubId": 0,
-        "startingDistanceToHoleM": 161.81,
-        "startingDistanceToHoleYd": 177,
-        "remainingDistanceM": 13.65,
-        "remainingDistanceYd": 14.9,
-        "offsetAngleDeg": 223,
+        "startingDistanceToHoleM": 69.48,
+        "startingDistanceToHoleYd": 76,
+        "remainingDistanceM": 15.59,
+        "remainingDistanceYd": 17,
+        "offsetAngleDeg": 155,
+        "startingLie": "Fairway",
+        "endingLie": "Green"
+      },
+      {
+        "shotId": "10711375918",
+        "scorecardId": "382720938",
+        "holeNumber": 1,
+        "clubId": 950232118,
+        "startingDistanceToHoleM": 91.71,
+        "startingDistanceToHoleYd": 100.3,
+        "remainingDistanceM": 21.37,
+        "remainingDistanceYd": 23.4,
+        "offsetAngleDeg": 43,
+        "startingLie": "Rough",
+        "endingLie": "Rough"
+      },
+      {
+        "shotId": "10625654059",
+        "scorecardId": "379752055",
+        "holeNumber": 16,
+        "clubId": 950232119,
+        "startingDistanceToHoleM": 55.58,
+        "startingDistanceToHoleYd": 60.8,
+        "remainingDistanceM": 22.37,
+        "remainingDistanceYd": 24.5,
+        "offsetAngleDeg": 284,
         "startingLie": "Unknown",
         "endingLie": "Bunker"
       },
       {
-        "shotId": "10625067162",
-        "scorecardId": "379752055",
+        "shotId": "10744330492",
+        "scorecardId": "383800251",
         "holeNumber": 18,
-        "clubId": 950232118,
-        "startingDistanceToHoleM": 66.17,
-        "startingDistanceToHoleYd": 72.4,
+        "clubId": 950232120,
+        "startingDistanceToHoleM": 55.54,
+        "startingDistanceToHoleYd": 60.7,
+        "remainingDistanceM": 1.84,
+        "remainingDistanceYd": 2,
+        "offsetAngleDeg": 173,
+        "startingLie": "Rough",
+        "endingLie": "Green"
+      },
+      {
+        "shotId": "10744330494",
+        "scorecardId": "383800251",
+        "holeNumber": 14,
+        "clubId": 950232120,
+        "startingDistanceToHoleM": 50.18,
+        "startingDistanceToHoleYd": 54.9,
         "remainingDistanceM": 0,
         "remainingDistanceYd": 0,
         "offsetAngleDeg": 180,
@@ -11802,6 +15311,19 @@
         "remainingDistanceYd": 0,
         "offsetAngleDeg": 180,
         "startingLie": "Fairway",
+        "endingLie": "Green"
+      },
+      {
+        "shotId": "10744646740",
+        "scorecardId": "383800251",
+        "holeNumber": 6,
+        "clubId": 950232114,
+        "startingDistanceToHoleM": 171.32,
+        "startingDistanceToHoleYd": 187.4,
+        "remainingDistanceM": 0,
+        "remainingDistanceYd": 0,
+        "offsetAngleDeg": 180,
+        "startingLie": "Rough",
         "endingLie": "Green"
       }
     ],
@@ -11863,17 +15385,31 @@
         "onePuttAfter": false
       },
       {
-        "shotId": "10612568688",
-        "scorecardId": "379296644",
-        "holeNumber": 7,
-        "clubId": 0,
-        "startingDistanceToHoleM": 15.25,
-        "startingDistanceToHoleYd": 16.7,
-        "remainingDistanceM": 0.07,
-        "remainingDistanceYd": 0.1,
-        "offsetAngleDeg": 294,
+        "shotId": "10625071622",
+        "scorecardId": "379752055",
+        "holeNumber": 17,
+        "clubId": 950232119,
+        "startingDistanceToHoleM": 47.78,
+        "startingDistanceToHoleYd": 52.3,
+        "remainingDistanceM": 10.58,
+        "remainingDistanceYd": 11.6,
+        "offsetAngleDeg": 182,
         "startingLie": "Rough",
         "endingLie": "Green",
+        "onePuttAfter": false
+      },
+      {
+        "shotId": "10744330502",
+        "scorecardId": "383800251",
+        "holeNumber": 2,
+        "clubId": 950232120,
+        "startingDistanceToHoleM": 45.91,
+        "startingDistanceToHoleYd": 50.2,
+        "remainingDistanceM": 21.41,
+        "remainingDistanceYd": 23.4,
+        "offsetAngleDeg": 278,
+        "startingLie": "Rough",
+        "endingLie": "Rough",
         "onePuttAfter": false
       },
       {
@@ -11947,17 +15483,17 @@
         "onePuttAfter": false
       },
       {
-        "shotId": "10625071622",
-        "scorecardId": "379752055",
-        "holeNumber": 17,
-        "clubId": 950232119,
-        "startingDistanceToHoleM": 47.78,
-        "startingDistanceToHoleYd": 52.3,
-        "remainingDistanceM": 10.58,
-        "remainingDistanceYd": 11.6,
-        "offsetAngleDeg": 182,
+        "shotId": "10612566697",
+        "scorecardId": "379296644",
+        "holeNumber": 5,
+        "clubId": 0,
+        "startingDistanceToHoleM": 23,
+        "startingDistanceToHoleYd": 25.2,
+        "remainingDistanceM": 11.22,
+        "remainingDistanceYd": 12.3,
+        "offsetAngleDeg": 66,
         "startingLie": "Rough",
-        "endingLie": "Green",
+        "endingLie": "Rough",
         "onePuttAfter": false
       },
       {
@@ -11975,45 +15511,31 @@
         "onePuttAfter": false
       },
       {
-        "shotId": "10625067140",
+        "shotId": "10625067135",
         "scorecardId": "379752055",
-        "holeNumber": 8,
+        "holeNumber": 11,
         "clubId": 950232119,
-        "startingDistanceToHoleM": 21.44,
-        "startingDistanceToHoleYd": 23.4,
-        "remainingDistanceM": 15.93,
-        "remainingDistanceYd": 17.4,
-        "offsetAngleDeg": 168,
+        "startingDistanceToHoleM": 13.91,
+        "startingDistanceToHoleYd": 15.2,
+        "remainingDistanceM": 16.49,
+        "remainingDistanceYd": 18,
+        "offsetAngleDeg": 261,
         "startingLie": "Bunker",
         "endingLie": "Rough",
         "onePuttAfter": false
       },
       {
-        "shotId": "10625611026",
+        "shotId": "10612568688",
         "scorecardId": "379296644",
-        "holeNumber": 2,
-        "clubId": 950232120,
-        "startingDistanceToHoleM": 17.83,
-        "startingDistanceToHoleYd": 19.5,
-        "remainingDistanceM": 10.37,
-        "remainingDistanceYd": 11.3,
-        "offsetAngleDeg": 303,
+        "holeNumber": 7,
+        "clubId": 0,
+        "startingDistanceToHoleM": 15.25,
+        "startingDistanceToHoleYd": 16.7,
+        "remainingDistanceM": 0.07,
+        "remainingDistanceYd": 0.1,
+        "offsetAngleDeg": 294,
         "startingLie": "Rough",
         "endingLie": "Green",
-        "onePuttAfter": false
-      },
-      {
-        "shotId": "10612566697",
-        "scorecardId": "379296644",
-        "holeNumber": 5,
-        "clubId": 0,
-        "startingDistanceToHoleM": 23,
-        "startingDistanceToHoleYd": 25.2,
-        "remainingDistanceM": 11.22,
-        "remainingDistanceYd": 12.3,
-        "offsetAngleDeg": 66,
-        "startingLie": "Rough",
-        "endingLie": "Rough",
         "onePuttAfter": false
       },
       {
@@ -12073,31 +15595,31 @@
         "onePuttAfter": false
       },
       {
-        "shotId": "10625067135",
-        "scorecardId": "379752055",
-        "holeNumber": 11,
-        "clubId": 950232119,
-        "startingDistanceToHoleM": 13.91,
-        "startingDistanceToHoleYd": 15.2,
-        "remainingDistanceM": 16.49,
-        "remainingDistanceYd": 18,
-        "offsetAngleDeg": 261,
-        "startingLie": "Bunker",
-        "endingLie": "Rough",
+        "shotId": "10625611026",
+        "scorecardId": "379296644",
+        "holeNumber": 2,
+        "clubId": 950232120,
+        "startingDistanceToHoleM": 17.83,
+        "startingDistanceToHoleYd": 19.5,
+        "remainingDistanceM": 10.37,
+        "remainingDistanceYd": 11.3,
+        "offsetAngleDeg": 303,
+        "startingLie": "Rough",
+        "endingLie": "Green",
         "onePuttAfter": false
       },
       {
-        "shotId": "10625417614",
-        "scorecardId": "379296644",
-        "holeNumber": 18,
-        "clubId": 950232120,
-        "startingDistanceToHoleM": 12.31,
-        "startingDistanceToHoleYd": 13.5,
-        "remainingDistanceM": 0.3,
-        "remainingDistanceYd": 0.3,
-        "offsetAngleDeg": 160,
-        "startingLie": "Rough",
-        "endingLie": "Green",
+        "shotId": "10625067140",
+        "scorecardId": "379752055",
+        "holeNumber": 8,
+        "clubId": 950232119,
+        "startingDistanceToHoleM": 21.44,
+        "startingDistanceToHoleYd": 23.4,
+        "remainingDistanceM": 15.93,
+        "remainingDistanceYd": 17.4,
+        "offsetAngleDeg": 168,
+        "startingLie": "Bunker",
+        "endingLie": "Rough",
         "onePuttAfter": false
       },
       {
@@ -12126,6 +15648,20 @@
         "offsetAngleDeg": 32,
         "startingLie": "Rough",
         "endingLie": "Bunker",
+        "onePuttAfter": false
+      },
+      {
+        "shotId": "10625417614",
+        "scorecardId": "379296644",
+        "holeNumber": 18,
+        "clubId": 950232120,
+        "startingDistanceToHoleM": 12.31,
+        "startingDistanceToHoleYd": 13.5,
+        "remainingDistanceM": 0.3,
+        "remainingDistanceYd": 0.3,
+        "offsetAngleDeg": 160,
+        "startingLie": "Rough",
+        "endingLie": "Green",
         "onePuttAfter": false
       },
       {
@@ -12227,6 +15763,20 @@
         "onePuttAfter": false
       },
       {
+        "shotId": "10744330470",
+        "scorecardId": "383800251",
+        "holeNumber": 7,
+        "clubId": 950232120,
+        "startingDistanceToHoleM": 38.99,
+        "startingDistanceToHoleYd": 42.6,
+        "remainingDistanceM": 0.09,
+        "remainingDistanceYd": 0.1,
+        "offsetAngleDeg": 267,
+        "startingLie": "Fairway",
+        "endingLie": "Green",
+        "onePuttAfter": false
+      },
+      {
         "shotId": "10625602220",
         "scorecardId": "379752055",
         "holeNumber": 2,
@@ -12257,99 +15807,15 @@
     ],
     "drive": [
       {
-        "shotId": "10711375911",
-        "scorecardId": "382720938",
-        "holeNumber": 1,
-        "clubId": 0,
-        "shotTime": "2026-09-08T19:32:03.000Z",
-        "shotDistanceM": 50.9292,
-        "shotDistanceYd": 55.7,
-        "dispersionDistanceM": -0.42,
-        "dispersionDistanceYd": -0.5,
-        "fairwayShotOutcome": "LEFT"
-      },
-      {
-        "shotId": "10625067164",
-        "scorecardId": "379752055",
+        "shotId": "10744330464",
+        "scorecardId": "383800251",
         "holeNumber": 10,
         "clubId": 950232105,
-        "shotTime": "2026-08-22T22:51:50.000Z",
-        "shotDistanceM": 213.466,
-        "shotDistanceYd": 233.4,
-        "dispersionDistanceM": -34.47,
-        "dispersionDistanceYd": -37.7,
-        "fairwayShotOutcome": "LEFT"
-      },
-      {
-        "shotId": "10625067165",
-        "scorecardId": "379752055",
-        "holeNumber": 6,
-        "clubId": 955153681,
-        "shotTime": "2026-08-22T21:51:01.000Z",
-        "shotDistanceM": 242.916,
-        "shotDistanceYd": 265.7,
-        "dispersionDistanceM": -13.99,
-        "dispersionDistanceYd": -15.3,
-        "fairwayShotOutcome": "LEFT"
-      },
-      {
-        "shotId": "10625071620",
-        "scorecardId": "379752055",
-        "holeNumber": 17,
-        "clubId": 955153681,
-        "shotTime": "2026-08-22T20:11:02.000Z",
-        "shotDistanceM": 222.213,
-        "shotDistanceYd": 243,
-        "dispersionDistanceM": -22.98,
-        "dispersionDistanceYd": -25.1,
-        "fairwayShotOutcome": "LEFT"
-      },
-      {
-        "shotId": "10625602216",
-        "scorecardId": "379752055",
-        "holeNumber": 2,
-        "clubId": 950232105,
-        "shotTime": "2026-08-22T20:11:02.000Z",
-        "shotDistanceM": 208.331,
-        "shotDistanceYd": 227.8,
-        "dispersionDistanceM": -30.59,
-        "dispersionDistanceYd": -33.5,
-        "fairwayShotOutcome": "LEFT"
-      },
-      {
-        "shotId": "10625607694",
-        "scorecardId": "379752055",
-        "holeNumber": 3,
-        "clubId": 955153681,
-        "shotTime": "2026-08-22T20:11:02.000Z",
-        "shotDistanceM": 228.764,
-        "shotDistanceYd": 250.2,
-        "dispersionDistanceM": 5.73,
-        "dispersionDistanceYd": 6.3,
-        "fairwayShotOutcome": "HIT"
-      },
-      {
-        "shotId": "10625649397",
-        "scorecardId": "379752055",
-        "holeNumber": 14,
-        "clubId": 950232105,
-        "shotTime": "2026-08-22T20:11:02.000Z",
-        "shotDistanceM": 116.056,
-        "shotDistanceYd": 126.9,
-        "dispersionDistanceM": -26.91,
-        "dispersionDistanceYd": -29.4,
-        "fairwayShotOutcome": "LEFT"
-      },
-      {
-        "shotId": "10625654057",
-        "scorecardId": "379752055",
-        "holeNumber": 16,
-        "clubId": 950232105,
-        "shotTime": "2026-08-22T20:11:02.000Z",
-        "shotDistanceM": 245.8,
-        "shotDistanceYd": 268.8,
-        "dispersionDistanceM": 64.85,
-        "dispersionDistanceYd": 70.9,
+        "shotTime": "2026-09-15T18:12:10.000Z",
+        "shotDistanceM": 212.816,
+        "shotDistanceYd": 232.7,
+        "dispersionDistanceM": 54.01,
+        "dispersionDistanceYd": 59.1,
         "fairwayShotOutcome": "RIGHT"
       },
       {
@@ -12387,6 +15853,18 @@
         "dispersionDistanceM": 19.51,
         "dispersionDistanceYd": 21.3,
         "fairwayShotOutcome": "RIGHT"
+      },
+      {
+        "shotId": "10711375911",
+        "scorecardId": "382720938",
+        "holeNumber": 1,
+        "clubId": 0,
+        "shotTime": "2026-09-08T19:32:03.000Z",
+        "shotDistanceM": 50.9292,
+        "shotDistanceYd": 55.7,
+        "dispersionDistanceM": -0.42,
+        "dispersionDistanceYd": -0.5,
+        "fairwayShotOutcome": "LEFT"
       },
       {
         "shotId": "10711375913",
@@ -12509,16 +15987,172 @@
         "fairwayShotOutcome": "RIGHT"
       },
       {
-        "shotId": "10625609725",
-        "scorecardId": "379296644",
+        "shotId": "10625654057",
+        "scorecardId": "379752055",
+        "holeNumber": 16,
+        "clubId": 950232105,
+        "shotTime": "2026-08-22T20:11:02.000Z",
+        "shotDistanceM": 245.8,
+        "shotDistanceYd": 268.8,
+        "dispersionDistanceM": 64.85,
+        "dispersionDistanceYd": 70.9,
+        "fairwayShotOutcome": "RIGHT"
+      },
+      {
+        "shotId": "10744330466",
+        "scorecardId": "383800251",
+        "holeNumber": 18,
+        "clubId": 955153681,
+        "shotTime": "2026-09-15T20:04:38.000Z",
+        "shotDistanceM": 184.356,
+        "shotDistanceYd": 201.6,
+        "dispersionDistanceM": 45.57,
+        "dispersionDistanceYd": 49.8,
+        "fairwayShotOutcome": "RIGHT"
+      },
+      {
+        "shotId": "10744330467",
+        "scorecardId": "383800251",
+        "holeNumber": 9,
+        "clubId": 950232105,
+        "shotTime": "2026-09-15T17:58:09.000Z",
+        "shotDistanceM": 248.137,
+        "shotDistanceYd": 271.4,
+        "dispersionDistanceM": -32.24,
+        "dispersionDistanceYd": -35.3,
+        "fairwayShotOutcome": "LEFT"
+      },
+      {
+        "shotId": "10744330475",
+        "scorecardId": "383800251",
+        "holeNumber": 4,
+        "clubId": 955153681,
+        "shotTime": "2026-09-15T16:52:52.000Z",
+        "shotDistanceM": 235.456,
+        "shotDistanceYd": 257.5,
+        "dispersionDistanceM": 22.9,
+        "dispersionDistanceYd": 25,
+        "fairwayShotOutcome": "RIGHT"
+      },
+      {
+        "shotId": "10744330477",
+        "scorecardId": "383800251",
+        "holeNumber": 14,
+        "clubId": 950232105,
+        "shotTime": "2026-09-15T19:03:28.000Z",
+        "shotDistanceM": 151.78,
+        "shotDistanceYd": 166,
+        "dispersionDistanceM": 17.86,
+        "dispersionDistanceYd": 19.5,
+        "fairwayShotOutcome": "RIGHT"
+      },
+      {
+        "shotId": "10744330486",
+        "scorecardId": "383800251",
+        "holeNumber": 7,
+        "clubId": 950232105,
+        "shotTime": "2026-09-15T17:34:29.000Z",
+        "shotDistanceM": 188.591,
+        "shotDistanceYd": 206.2,
+        "dispersionDistanceM": 59.97,
+        "dispersionDistanceYd": 65.6,
+        "fairwayShotOutcome": "RIGHT"
+      },
+      {
+        "shotId": "10744330488",
+        "scorecardId": "383800251",
         "holeNumber": 1,
         "clubId": 950232105,
-        "shotTime": "2026-08-20T14:53:06.000Z",
-        "shotDistanceM": 272.319,
-        "shotDistanceYd": 297.8,
-        "dispersionDistanceM": -53.21,
-        "dispersionDistanceYd": -58.2,
+        "shotTime": "2026-09-15T16:10:03.000Z",
+        "shotDistanceM": 238.404,
+        "shotDistanceYd": 260.7,
+        "dispersionDistanceM": -18.46,
+        "dispersionDistanceYd": -20.2,
         "fairwayShotOutcome": "LEFT"
+      },
+      {
+        "shotId": "10744330491",
+        "scorecardId": "383800251",
+        "holeNumber": 12,
+        "clubId": 950232105,
+        "shotTime": "2026-09-15T18:40:34.000Z",
+        "shotDistanceM": 178.589,
+        "shotDistanceYd": 195.3,
+        "dispersionDistanceM": 45.6,
+        "dispersionDistanceYd": 49.9,
+        "fairwayShotOutcome": "RIGHT"
+      },
+      {
+        "shotId": "10744330498",
+        "scorecardId": "383800251",
+        "holeNumber": 11,
+        "clubId": 950232105,
+        "shotTime": "2026-09-15T18:26:10.000Z",
+        "shotDistanceM": 225.675,
+        "shotDistanceYd": 246.8,
+        "dispersionDistanceM": 16.69,
+        "dispersionDistanceYd": 18.3,
+        "fairwayShotOutcome": "HIT"
+      },
+      {
+        "shotId": "10744330499",
+        "scorecardId": "383800251",
+        "holeNumber": 2,
+        "clubId": 950232105,
+        "shotTime": "2026-09-15T16:27:09.000Z",
+        "shotDistanceM": 206.107,
+        "shotDistanceYd": 225.4,
+        "dispersionDistanceM": 29.83,
+        "dispersionDistanceYd": 32.6,
+        "fairwayShotOutcome": "RIGHT"
+      },
+      {
+        "shotId": "10744330506",
+        "scorecardId": "383800251",
+        "holeNumber": 5,
+        "clubId": 950232105,
+        "shotTime": "2026-09-15T17:04:27.000Z",
+        "shotDistanceM": 217.332,
+        "shotDistanceYd": 237.7,
+        "dispersionDistanceM": 25.7,
+        "dispersionDistanceYd": 28.1,
+        "fairwayShotOutcome": "RIGHT"
+      },
+      {
+        "shotId": "10744330514",
+        "scorecardId": "383800251",
+        "holeNumber": 17,
+        "clubId": 950232105,
+        "shotTime": "2026-09-15T19:51:39.000Z",
+        "shotDistanceM": 235.061,
+        "shotDistanceYd": 257.1,
+        "dispersionDistanceM": 22.78,
+        "dispersionDistanceYd": 24.9,
+        "fairwayShotOutcome": "RIGHT"
+      },
+      {
+        "shotId": "10744330515",
+        "scorecardId": "383800251",
+        "holeNumber": 16,
+        "clubId": 950232105,
+        "shotTime": "2026-09-15T19:29:37.000Z",
+        "shotDistanceM": 229.755,
+        "shotDistanceYd": 251.3,
+        "dispersionDistanceM": 14.71,
+        "dispersionDistanceYd": 16.1,
+        "fairwayShotOutcome": "HIT"
+      },
+      {
+        "shotId": "10744646737",
+        "scorecardId": "383800251",
+        "holeNumber": 6,
+        "clubId": 950232105,
+        "shotTime": "2026-09-15T16:03:58.000Z",
+        "shotDistanceM": 82.9514,
+        "shotDistanceYd": 90.7,
+        "dispersionDistanceM": 8.56,
+        "dispersionDistanceYd": 9.4,
+        "fairwayShotOutcome": "RIGHT"
       },
       {
         "shotId": "10612566695",
@@ -12641,42 +16275,6 @@
         "fairwayShotOutcome": "HIT"
       },
       {
-        "shotId": "10612564956",
-        "scorecardId": "379296644",
-        "holeNumber": 4,
-        "clubId": 950232105,
-        "shotTime": "2026-08-20T14:53:06.000Z",
-        "shotDistanceM": 99.8442,
-        "shotDistanceYd": 109.2,
-        "dispersionDistanceM": -28.42,
-        "dispersionDistanceYd": -31.1,
-        "fairwayShotOutcome": "LEFT"
-      },
-      {
-        "shotId": "10625611024",
-        "scorecardId": "379296644",
-        "holeNumber": 2,
-        "clubId": 955153681,
-        "shotTime": "2026-08-20T14:53:06.000Z",
-        "shotDistanceM": 136.077,
-        "shotDistanceYd": 148.8,
-        "dispersionDistanceM": 9.96,
-        "dispersionDistanceYd": 10.9,
-        "fairwayShotOutcome": "RIGHT"
-      },
-      {
-        "shotId": "10625620106",
-        "scorecardId": "379296644",
-        "holeNumber": 6,
-        "clubId": 950232105,
-        "shotTime": "2026-08-20T14:53:06.000Z",
-        "shotDistanceM": 235.759,
-        "shotDistanceYd": 257.8,
-        "dispersionDistanceM": 18.29,
-        "dispersionDistanceYd": 20,
-        "fairwayShotOutcome": "RIGHT"
-      },
-      {
         "shotId": "10625067130",
         "scorecardId": "379752055",
         "holeNumber": 1,
@@ -12725,6 +16323,18 @@
         "fairwayShotOutcome": "LEFT"
       },
       {
+        "shotId": "10612564956",
+        "scorecardId": "379296644",
+        "holeNumber": 4,
+        "clubId": 950232105,
+        "shotTime": "2026-08-20T14:53:06.000Z",
+        "shotDistanceM": 99.8442,
+        "shotDistanceYd": 109.2,
+        "dispersionDistanceM": -28.42,
+        "dispersionDistanceYd": -31.1,
+        "fairwayShotOutcome": "LEFT"
+      },
+      {
         "shotId": "10625067152",
         "scorecardId": "379752055",
         "holeNumber": 11,
@@ -12758,6 +16368,114 @@
         "shotDistanceYd": 262,
         "dispersionDistanceM": -39.64,
         "dispersionDistanceYd": -43.4,
+        "fairwayShotOutcome": "LEFT"
+      },
+      {
+        "shotId": "10625067164",
+        "scorecardId": "379752055",
+        "holeNumber": 10,
+        "clubId": 950232105,
+        "shotTime": "2026-08-22T22:51:50.000Z",
+        "shotDistanceM": 213.466,
+        "shotDistanceYd": 233.4,
+        "dispersionDistanceM": -34.47,
+        "dispersionDistanceYd": -37.7,
+        "fairwayShotOutcome": "LEFT"
+      },
+      {
+        "shotId": "10625067165",
+        "scorecardId": "379752055",
+        "holeNumber": 6,
+        "clubId": 955153681,
+        "shotTime": "2026-08-22T21:51:01.000Z",
+        "shotDistanceM": 242.916,
+        "shotDistanceYd": 265.7,
+        "dispersionDistanceM": -13.99,
+        "dispersionDistanceYd": -15.3,
+        "fairwayShotOutcome": "LEFT"
+      },
+      {
+        "shotId": "10625071620",
+        "scorecardId": "379752055",
+        "holeNumber": 17,
+        "clubId": 955153681,
+        "shotTime": "2026-08-22T20:11:02.000Z",
+        "shotDistanceM": 222.213,
+        "shotDistanceYd": 243,
+        "dispersionDistanceM": -22.98,
+        "dispersionDistanceYd": -25.1,
+        "fairwayShotOutcome": "LEFT"
+      },
+      {
+        "shotId": "10625602216",
+        "scorecardId": "379752055",
+        "holeNumber": 2,
+        "clubId": 950232105,
+        "shotTime": "2026-08-22T20:11:02.000Z",
+        "shotDistanceM": 208.331,
+        "shotDistanceYd": 227.8,
+        "dispersionDistanceM": -30.59,
+        "dispersionDistanceYd": -33.5,
+        "fairwayShotOutcome": "LEFT"
+      },
+      {
+        "shotId": "10625607694",
+        "scorecardId": "379752055",
+        "holeNumber": 3,
+        "clubId": 955153681,
+        "shotTime": "2026-08-22T20:11:02.000Z",
+        "shotDistanceM": 228.764,
+        "shotDistanceYd": 250.2,
+        "dispersionDistanceM": 5.73,
+        "dispersionDistanceYd": 6.3,
+        "fairwayShotOutcome": "HIT"
+      },
+      {
+        "shotId": "10625609725",
+        "scorecardId": "379296644",
+        "holeNumber": 1,
+        "clubId": 950232105,
+        "shotTime": "2026-08-20T14:53:06.000Z",
+        "shotDistanceM": 272.319,
+        "shotDistanceYd": 297.8,
+        "dispersionDistanceM": -53.21,
+        "dispersionDistanceYd": -58.2,
+        "fairwayShotOutcome": "LEFT"
+      },
+      {
+        "shotId": "10625611024",
+        "scorecardId": "379296644",
+        "holeNumber": 2,
+        "clubId": 955153681,
+        "shotTime": "2026-08-20T14:53:06.000Z",
+        "shotDistanceM": 136.077,
+        "shotDistanceYd": 148.8,
+        "dispersionDistanceM": 9.96,
+        "dispersionDistanceYd": 10.9,
+        "fairwayShotOutcome": "RIGHT"
+      },
+      {
+        "shotId": "10625620106",
+        "scorecardId": "379296644",
+        "holeNumber": 6,
+        "clubId": 950232105,
+        "shotTime": "2026-08-20T14:53:06.000Z",
+        "shotDistanceM": 235.759,
+        "shotDistanceYd": 257.8,
+        "dispersionDistanceM": 18.29,
+        "dispersionDistanceYd": 20,
+        "fairwayShotOutcome": "RIGHT"
+      },
+      {
+        "shotId": "10625649397",
+        "scorecardId": "379752055",
+        "holeNumber": 14,
+        "clubId": 950232105,
+        "shotTime": "2026-08-22T20:11:02.000Z",
+        "shotDistanceM": 116.056,
+        "shotDistanceYd": 126.9,
+        "dispersionDistanceM": -26.91,
+        "dispersionDistanceYd": -29.4,
         "fairwayShotOutcome": "LEFT"
       }
     ]

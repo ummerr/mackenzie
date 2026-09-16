@@ -6,6 +6,88 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-09-16 — Four watch rounds: the score is contact and the up-and-down, not the putter
+
+**Decided:** the week of 2026-09-16 (`data/goals.json`) is one more watch
+round and the 3 Hybrid block, and the practice shape from 2026-09-09 gets a
+new first item: **contact**. The derived pages cannot print any of this yet
+(the short-game and lie findings gate at 5 shot-bearing rounds; 4 exist), so
+the numbers live here until the fifth round switches them on.
+
+**The capture:** Olympic Club Lake, Blue tees (73.2/134), 2026-09-15 — 99
+strokes, 38 putts, 0 pars, 9 doubles or worse, 2 greens hit. The watch
+heard 53 shots; the link to Grint round 63337410 confirmed on facility,
+date and strokes. Index stays 13.9 (157 differentials). Fourth confirmed
+link; 208 shots on course.
+
+**What 72 watch holes say (Harding 08-20, Presidio 08-22 and 09-08, Olympic
+09-15; pin and shot geometry from the S70, putts from the linked cards):**
+
+- **Doubles are the score.** 9 pars, 34 bogeys, 29 doubles-or-worse. The
+  doubles carry 61 of the 94 strokes over par. Bogey golf here is a 90;
+  the doubles are the ten strokes above it.
+- **A fat or topped full swing every three holes.** 8 of 56 tee shots on
+  par 4s and 5s travelled under 170 yd (Driver 91, 102, 109, 127, 166 yd;
+  3 Hybrid 61, 149; one unheard club 56). Holes with one: +1.88 a hole
+  against +1.27 when the tee ball flew. A further 15 full shots from 60 yd
+  or more advanced less than half the way to the hole (8 Iron 86 yd from
+  223, Pitching Wedge 36 from 148, 6 Iron 66 from 174 on a par 3, Gap
+  Wedge 30 from 84). 12 of those 15 sat on a double-or-worse hole; 8 of
+  them were at Olympic. When the driver is struck it goes 252 yd median
+  over 38 swings — distance is not the problem, the bottom of the swing is.
+- **Zero up-and-downs in 33 chances.** 43 shots from inside 50 yd, 29
+  reached the green (67%), median leave 7 yd — about 21 ft — and the putter
+  never finished one. A 15-handicap's up-and-down rate is roughly a quarter
+  to a third; a third of 33 is 11 strokes over the four rounds, nearly 3 a
+  round. Ten holes touched a bunker, two needed a second bunker shot.
+- **Approach from 125–200 yd found 5 greens in 40** (0 of 9 from 125–150,
+  3 of 19 from 150–175, 2 of 12 from 175–200); from inside 100, 15 of 28.
+  Greens hit cost +0.43 a hole; greens missed +1.52. 34 of 56 tee shots
+  finished in the rough by Garmin's own cartography, 12 in the fairway.
+- **Three-putts: 9 in 72 holes (12.5%)**, worse than the 20-round window
+  (9.2%). Three at Olympic. Putts 33 / 37 / 36 / 38 a round.
+- **Par 4s are the worst holes** now, +1.37 a hole over 41; par 3s +1.13;
+  par 5s +1.33 (were +1.42 over 12 on 2026-09-09).
+
+**Where to focus, in order — sized by strokes the four rounds put there:**
+
+1. **Contact on full swings** — the double-bogey machine. Not a distance
+   or dispersion problem: a mishit every three holes, each worth about
+   two-thirds of a stroke over a normal miss. Practice: the first blocked
+   15 minutes of every range session is low-point work (a line or towel an
+   inch behind the ball, strike the ground in front of it, R50 recording
+   so the 3 Hybrid block doubles as the measurement). Then the random-order
+   approaches. Half swings before full; no driver until the irons brush
+   the ground in front of the line ten times running.
+2. **Turn a chip into a par: the leave, then the 4–8 footer.** The chip
+   reaches the green two times in three and leaves 21 ft; nothing goes in
+   from there. The short-game session (25 min, from rough) is scored by
+   leaves inside 6 ft, not by greens reached, and ends with twenty putts
+   from 4–8 ft. The 2026-09-09 lag ladder stays for the three-putts.
+3. **Play the 150–200 yd shot for the front edge and away from sand.** 5
+   greens in 40 is what a 14 index hits from there; the stroke is lost when
+   the miss is short-sided or in a bunker. Club for the front, aim at the
+   fat side, accept a 30-yd chip over a bunker shot.
+4. **Putting stays third**, as the 2026-09-09 research said: the speed
+   ladder, unchanged. It is on the list because the last four rounds' 12.5%
+   three-putt share is going the wrong way, not because it is the biggest
+   line.
+
+**Rejected:** the engine's "GIR last 20 → 9" again — it is the leak's
+retire line, not a week's goal. **Rejected:** lowering `GARMIN_THRESHOLDS`
+so the findings switch on at 4 rounds — the threshold is a claim about
+sample size and one more round is a week away. **Rejected:** a hand-kept
+up-and-down metric in `lib/goals.ts` this week; when the fifth round lands
+the profile's short-game split prints it from the watch, which is the
+sourced version. **Rejected:** driver-length or shaping work — the driver
+already goes far enough when it is struck.
+
+**Also:** the two 2026-09-09 goals close as missed in record time (0 3
+Hybrid swings on file; three-putt share still 9.2% against under 8%). The
+3 Hybrid goal is carried, the putting goal folds into item 2 above.
+
+---
+
 ## 2026-09-09 — Grint re-platformed its charts; the reader accepts both eras
 
 **Decided:** `parse-grint-export.mjs` reads the trend charts in both the
