@@ -2,10 +2,10 @@
   "generatedFrom": "layouts.json + geocache.json + course-polygons.geojson + facts.json",
   "capturedAt": "2026-08-01",
   "stats": {
-    "facilities": 88,
-    "layouts": 100,
+    "facilities": 89,
+    "layouts": 101,
     "ranked": 94,
-    "played": 99,
+    "played": 100,
     "meanScore": 89.8,
     "countries": [
       "US",
@@ -9968,6 +9968,108 @@
           "grintLayoutName": "Lake",
           "grintFacilityName": "The Olympic Club",
           "grintCourseId": "877",
+          "personalRank": null,
+          "timesPlayed": 1,
+          "avgScore": null,
+          "ratings": {
+            "overall": null,
+            "fun": null,
+            "condition": null
+          },
+          "played": true,
+          "flags": [
+            "rounds_only"
+          ],
+          "origin": "rounds",
+          "vectors": {
+            "personalRank": null,
+            "rating": null,
+            "fun": null,
+            "condition": null,
+            "replayRate": 0.31622776601683794,
+            "funMinusCondition": null,
+            "scoringDelta": null,
+            "externalRanking": null,
+            "hasArchitect": null
+          },
+          "scores": {
+            "grint": {
+              "score": null,
+              "coverage": 0
+            },
+            "scoring": {
+              "score": null,
+              "coverage": 0
+            },
+            "enjoyment": {
+              "score": 0.3162,
+              "coverage": 0.5
+            },
+            "revealed": {
+              "score": 0.3162,
+              "coverage": 0.5
+            },
+            "conditioning": {
+              "score": null,
+              "coverage": 0
+            },
+            "underrated": {
+              "score": null,
+              "coverage": 0
+            },
+            "architecture": {
+              "score": null,
+              "coverage": 0
+            }
+          }
+        }
+      ],
+      "scores": {
+        "grint": null,
+        "scoring": null,
+        "enjoyment": 0.3162,
+        "revealed": 0.3162,
+        "conditioning": null,
+        "underrated": null,
+        "architecture": null
+      }
+    },
+    {
+      "slug": "lincoln-park-golf-course",
+      "name": "Lincoln Park Golf Course",
+      "grintName": "Lincoln Park Golf Course",
+      "locality": "San Francisco",
+      "region": "CA",
+      "country": "US",
+      "placeFrom": "nominatim",
+      "origin": "rounds",
+      "aliases": [],
+      "lat": 37.7839312,
+      "lon": -122.4962621,
+      "precision": "course_feature",
+      "osmId": "relation/2142043",
+      "areaAcres": 16,
+      "hasPolygon": true,
+      "bestRank": null,
+      "totalPlays": 1,
+      "layoutCount": 1,
+      "played": true,
+      "osmTags": {
+        "holes": null,
+        "par": null,
+        "access": null,
+        "website": null,
+        "operator": null,
+        "architect": null
+      },
+      "facts": null,
+      "layouts": [
+        {
+          "slug": "lincoln-park-golf-course",
+          "facilitySlug": "lincoln-park-golf-course",
+          "grintLayoutName": null,
+          "grintFacilityName": "Lincoln Park Golf Course",
+          "grintCourseId": "626",
           "personalRank": null,
           "timesPlayed": 1,
           "avgScore": null,

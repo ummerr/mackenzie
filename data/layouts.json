@@ -1657,6 +1657,26 @@
         "rounds_only"
       ],
       "origin": "rounds"
+    },
+    {
+      "slug": "lincoln-park-golf-course",
+      "facilitySlug": "lincoln-park-golf-course",
+      "grintLayoutName": null,
+      "grintFacilityName": "Lincoln Park Golf Course",
+      "grintCourseId": "626",
+      "personalRank": null,
+      "timesPlayed": 1,
+      "avgScore": null,
+      "ratings": {
+        "overall": null,
+        "fun": null,
+        "condition": null
+      },
+      "played": true,
+      "flags": [
+        "rounds_only"
+      ],
+      "origin": "rounds"
     }
   ]
 }

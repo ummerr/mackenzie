@@ -798,5 +798,19 @@
     },
     "source": "nominatim",
     "query": "The Olympic Club"
+  },
+  "lincoln-park-golf-course": {
+    "lat": 37.7839312,
+    "lon": -122.4962621,
+    "precision": "course_feature",
+    "display": "Lincoln Park Golf Course, 300, Legion of Honor Drive, San Francisco, California, 94121, United States",
+    "osmId": "relation/2142043",
+    "address": {
+      "locality": "San Francisco",
+      "region": "CA",
+      "country": "US"
+    },
+    "source": "nominatim",
+    "query": "Lincoln Park Golf Course"
   }
 }

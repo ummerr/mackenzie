@@ -144,11 +144,18 @@
       "scorecardId": "385587137",
       "garminDate": "2026-09-26",
       "garminCourseName": "Lincoln Park Golf Course",
-      "roundId": null,
-      "status": "proposed",
-      "basis": null,
-      "candidates": [],
-      "note": "no Grint round matches — a Garmin-only round is legitimate"
+      "roundId": "63717115",
+      "status": "confirmed",
+      "basis": "same facility, same date, same strokes",
+      "candidates": [
+        {
+          "roundId": "63717115",
+          "date": "2026-09-26",
+          "courseName": "Lincoln Park Golf Course",
+          "strokes": 77
+        }
+      ],
+      "note": null
     }
   ]
 }

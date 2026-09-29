@@ -1,10 +1,10 @@
 {
   "source": "thegrint",
   "adapter": "parse-grint-export.mjs",
-  "capturedAt": "2026-09-16T16:10:12.251Z",
-  "rawFile": "raw/grint-export-2026-08-19.json + raw/grint-export-2026-08-23-0235.json + raw/grint-export-2026-09-09-1640.json + raw/grint-export-2026-09-16-1610.json",
+  "capturedAt": "2026-09-29T15:17:49.964Z",
+  "rawFile": "raw/grint-export-2026-08-19.json + raw/grint-export-2026-08-23-0235.json + raw/grint-export-2026-09-09-1640.json + raw/grint-export-2026-09-16-1610.json + raw/grint-export-2026-09-29-1522.json",
   "userId": "1221374",
-  "handicapIndex": 13.9,
+  "handicapIndex": 13.1,
   "rounds": [
     {
       "roundId": "13764594",
@@ -16849,6 +16849,104 @@
         ]
       },
       "flags": []
+    },
+    {
+      "roundId": "63717115",
+      "entry": "full",
+      "url": "https://thegrint.com/score/edit_score/63717115?handicap_company_id=3",
+      "date": "2026-09-26",
+      "courseGrintId": "626",
+      "courseName": "Lincoln Park Golf Course",
+      "teeName": "Blue",
+      "courseHandicap": "13.0",
+      "holesRecorded": 18,
+      "totals": {
+        "strokes": 77,
+        "putts": 29
+      },
+      "perHole": {
+        "strokes": [
+          "3",
+          "3",
+          "3",
+          "4",
+          "5",
+          "5",
+          "5",
+          "3",
+          "5",
+          "4",
+          "5",
+          "3",
+          "5",
+          "5",
+          "3",
+          "4",
+          "5",
+          "7"
+        ],
+        "putts": [
+          "1",
+          "0",
+          "2",
+          "1",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "1",
+          "2",
+          "2",
+          "1",
+          "1",
+          "2",
+          "2"
+        ],
+        "fairways": [
+          "2",
+          "3",
+          "3",
+          "3",
+          "3",
+          "1",
+          "5",
+          "3",
+          "8",
+          "2",
+          "3",
+          "3",
+          "3",
+          "2",
+          "3",
+          "8",
+          "8",
+          "8"
+        ],
+        "shotCodes": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "D"
+        ]
+      },
+      "flags": []
     }
   ],
   "differentials": [
@@ -17836,7 +17934,7 @@
       "seq": 141,
       "courseName": "Ke'olu | Hualalai Golf Club",
       "differential": 17.1,
-      "countsTowardHdcp": true,
+      "countsTowardHdcp": false,
       "trendingHdcp": 10.1
     },
     {
@@ -17950,6 +18048,13 @@
       "differential": 21.8,
       "countsTowardHdcp": false,
       "trendingHdcp": 13.9
+    },
+    {
+      "seq": 158,
+      "courseName": "Lincoln Park Golf Course",
+      "differential": 11.1,
+      "countsTowardHdcp": true,
+      "trendingHdcp": 13.1
     }
   ],
   "series": {
@@ -18553,6 +18658,10 @@
       {
         "courseName": "Lake | The Olympic Club",
         "value": 2
+      },
+      {
+        "courseName": "Lincoln Park Golf Course",
+        "value": 6
       }
     ],
     "parSavesPct": [
@@ -19159,6 +19268,10 @@
       {
         "courseName": "Lake | The Olympic Club",
         "value": 0
+      },
+      {
+        "courseName": "Lincoln Park Golf Course",
+        "value": 22
       }
     ],
     "fairwayHitPct": [
@@ -19601,6 +19714,10 @@
       {
         "courseName": "Lake | The Olympic Club",
         "value": 35.7
+      },
+      {
+        "courseName": "Lincoln Park Golf Course",
+        "value": 46.2
       }
     ],
     "par3HitPct": [
@@ -20203,6 +20320,10 @@
       {
         "courseName": "Lake | The Olympic Club",
         "value": 0
+      },
+      {
+        "courseName": "Lincoln Park Golf Course",
+        "value": 60
       }
     ],
     "puttDist": [
@@ -21404,6 +21525,14 @@
         "putts1": 1,
         "putts2": 28,
         "putts3": 9,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Lincoln Park Golf Course",
+        "putts0": 1,
+        "putts1": 5,
+        "putts2": 24,
+        "putts3": 0,
         "putts4Plus": 0
       }
     ]

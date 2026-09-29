@@ -709,5 +709,14 @@
     "water": 0,
     "plan": true,
     "bytes": 86549
+  },
+  "lincoln-park-golf-course": {
+    "features": 85,
+    "greens": 18,
+    "holes": 18,
+    "bunkers": 11,
+    "water": 0,
+    "plan": true,
+    "bytes": 33713
   }
 }

@@ -988,6 +988,18 @@
       ],
       "aliases": [],
       "origin": "rounds"
+    },
+    {
+      "slug": "lincoln-park-golf-course",
+      "grintName": "Lincoln Park Golf Course",
+      "locality": null,
+      "region": null,
+      "country": null,
+      "layoutSlugs": [
+        "lincoln-park-golf-course"
+      ],
+      "aliases": [],
+      "origin": "rounds"
     }
   ]
 }

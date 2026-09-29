@@ -2,7 +2,7 @@
 
 <!-- state:start -->
 **State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-09-29
-Last commit 2026-09-16 — Capture 2026-09-16: Olympic Lake 99 heard by the watch, fourth link, the week is contact
+Last commit 2026-09-29 — Capture 2026-09-29: Lincoln Park 77 heard by the watch, fifth round, the findings switch on
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
@@ -10,14 +10,13 @@ next.
 
 **State as of 2026-09-29:** the two sites are one Next.js app — command
 center at `/`, map at `/courses` — deploying as the single `mackenzie` Vercel
-project. Newest capture 2026-09-29 (Garmin only): 5 shot-bearing watch
-rounds, so the short-game and lie findings are switched on and print on
-the pages; 4 confirmed links plus Lincoln Park 2026-09-26 (77, best
-differential of the last eight) **unlinked because no Grint export was
-captured with it** — the next Grint capture proposes the link and brings
-its putts. 172 Grint rounds, index 13.9, 157 differentials, third week of
-goals committed (`data/goals.json`, 2026-09-29). `pnpm data:validate`
-exits clean. What the five rounds say — a mishit every three holes, 5
+project. Newest capture 2026-09-29 (Garmin, then Grint): 5 shot-bearing
+watch rounds, so the short-game and lie findings are switched on and print
+on the pages; 5 confirmed links, the newest Lincoln Park 2026-09-26 (77,
+differential 11.1, index **13.9 → 13.1**). Lincoln Park joined the spine
+and the map. 173 Grint rounds, 158 differentials, third week of goals
+committed (`data/goals.json`, 2026-09-29). `pnpm data:validate` exits
+clean. What the five rounds say — a mishit every three holes, 5
 up-and-downs in 33 and one for par, 6 greens in 44 from 125–200 — is in
 `DECISIONS.md` 2026-09-29, with a pin-snap caveat for any future leave metric.
 
@@ -76,8 +75,7 @@ HTML, licence gray area, hard name-matching problem).
   2026-09-29 — if one of them becomes a `lib/` finding, filter shots whose
   end equals the hole's pin first (28 of 90 holes; the watch has no putts,
   so the pin is often just where the last shot stopped). **Capture Grint
-  with every Garmin capture** — Lincoln 09-26 is unlinked and putt-less
-  because 09-29 was Garmin-only. **After every
+  with every Garmin capture** — the watch has no putts. **After every
   refresh, read the `pnpm data:rounds` line** — `differentials N handicap
   index X` and the five series counts. On 2026-09-09 a chart re-platform
   made all of them zero and validate did not notice; a zero there is a
@@ -197,3 +195,4 @@ HTML, licence gray area, hard name-matching problem).
 - **2026-08-24** — session ended: 0 file(s) dirty, 9 commit(s) unpushed. Last touched: `(committed, unpushed)`. <!-- campfire:2026-08-24 -->
 - **2026-09-09** — session ended: 2 file(s) dirty, 2 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-09 -->
 - **2026-09-16** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-16 -->
+- **2026-09-29** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-29 -->

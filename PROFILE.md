@@ -32,15 +32,15 @@ takes it off. Hit the shots and the sentence retires itself.
 
 | | |
 |---|---|
-| Handicap index | **13.9** — WHS, from 23.9 at the record's start |
-| Rounds | **172** — 2021-07-08 → 2026-09-15 |
-| Recent scoring | **94.2** — last 5 rounds; career 90.5 over 143 |
+| Handicap index | **13.1** — WHS, from 23.9 at the record's start |
+| Rounds | **173** — 2021-07-08 → 2026-09-26 |
+| Recent scoring | **91.6** — last 5 rounds; career 90.4 over 144 |
 
 ### From the map — every course played
 
 | | |
 |---|---|
-| Courses played | **88** — 172 rounds · 11 US states, 3 countries |
+| Courses played | **89** — 173 rounds · 11 US states, 3 countries |
 | Mean score | **88.4** — 79 layouts, 18 holes |
 | Favourite | **Bethpage State Park (Black)** — own ranking, no. 1 |
 
@@ -51,7 +51,7 @@ a goal is open until the record outruns its week, then achieved or missed
 by what the record says. The engine proposes (`pnpm goals:propose`);
 data/goals.json is the human's commit.
 
-- **open** — rounds the watch has heard (findings switch on at 5): 5 rounds → 6 rounds (5 rounds) — A sixth watch round, captured with its Grint card this time. Lincoln 09-26 (77, three birdies) is Garmin-only until the next Grint export lands — no putts, no three-putt count, link still proposed. The round is scored two ways: mishit full swings (one every five holes at Lincoln, one every three before it) and chips that end inside 6 ft (7 of 17 measurable so far).
+- **open** — rounds the watch has heard (findings switch on at 5): 5 rounds → 6 rounds (5 rounds) — A sixth watch round, captured with its Grint card in the same sitting. Lincoln 09-26 (77, three birdies, 29 putts, no three-putts) is the fifth linked round. The round is scored two ways: mishit full swings (one every five holes at Lincoln, one every three before it) and chips that end inside 6 ft (7 of 17 measurable so far).
 - **open** — usable shots on file with the club — 3 Hybrid: 0 shots → 15 shots (0 shots) — Third week, still 0 swings on the R50. It started 9 of 11 driving holes at Lincoln and 8 flew 175 yd or more — 35 course swings, median 204 yd, no monitor number. The block is the contact item with a number attached: 15 usable swings, low point in front of the ball. If it does not happen this week the goal goes, not the club.
 
 Past weeks: 2026-09-09 (0/2 achieved) · 2026-09-16 (1/2 achieved)
@@ -65,43 +65,43 @@ Each move is the open practice task that addresses it, joined on render.
 
 ### 01. The approach game caps everything: 5.1 greens a round
 
-- **fact** — 5.1 GIR per round career, 5.0 over the last 20; ~13 missed greens per round; the watch has heard 43 approaches from inside 150 yd on the course over 5 rounds — 17 found the green
-- **cost** — the structural ceiling — at a 14.5% save rate, ~11 of those misses are bogey-or-worse before the putter or driver say anything
+- **fact** — 5.1 GIR per round career, 5.1 over the last 20; ~13 missed greens per round; the watch has heard 43 approaches from inside 150 yd on the course over 5 rounds — 17 found the green
+- **cost** — the structural ceiling — at a 14.6% save rate, ~11 of those misses are bogey-or-worse before the putter or driver say anything
 - **move** — the approach clubs are the practice list's whole top end — first up: The 3 Hybrid has never been measured
 - **retired when** — a capture averaging 9+ GIR over 20 rounds
 - *scorecards + watch*
 
 ### 02. The green gives back 2.6 strokes a round
 
-- **fact** — 35.7 putts per round; 369 three-putts over 2717 recorded holes; own best round used 29
-- **cost** — ~2.6 strokes/round in three-putts alone; the gap between mean and own-best putting is 6.7 strokes
+- **fact** — 35.6 putts per round; 369 three-putts over 2734 recorded holes; own best round used 29
+- **cost** — ~2.6 strokes/round in three-putts alone; the gap between mean and own-best putting is 6.6 strokes
 - **move** — already on the practice list: A three-putt every 7 holes
 - **retired when** — three-putts under one hole in 10, sustained over a season
 - *scorecards*
 
 ### 03. The tee ball is unmeasured and misses both ways
 
-- **fact** — 39% of fairways missed, split 17/17 left/right; the driver has one launch-monitor swing on file
+- **fact** — 38% of fairways missed, split 17/17 left/right; the driver has one launch-monitor swing on file
 - **cost** — unknown by construction — a two-way miss can't be aimed off, and an unmeasured club can't be diagnosed
 - **move** — on the practice list: Measure the Driver
 - **retired when** — the driver drawn on the bag page, and one side owning two-thirds of the misses
 - *scorecards + range*
 
-### 04. The short game, located
+### 04. 11 rounds in the last 18 months
 
-- **fact** — par saved on 14.5% of missed greens; the watch heard 64 short-game shots — 26% of 248 recorded shots — across 5 rounds
-- **cost** — every unsaved miss is a stroke; the save rate prices the approach leak above, and the watch now says where the saves die
-- **move** — keep wearing the watch — the split now retires or confirms itself round by round
-- **retired when** — par saved on a third of missed greens, sustained over a season
-- *scorecards + watch*
-
-### 05. 10 rounds in the last 18 months
-
-- **fact** — 58 rounds in 2022 → 10 in the last 18 months
+- **fact** — 58 rounds in 2022 → 11 in the last 18 months
 - **cost** — not strokes — proof. Every encouraging recent number rests on a sample one trip could overturn
 - **move** — the cheapest fix on this list: play. 20 rounds makes every other line here trustworthy
 - **retired when** — a season with 20+ posted rounds
 - *scorecards*
+
+### 05. The short game, located
+
+- **fact** — par saved on 14.6% of missed greens; the watch heard 64 short-game shots — 26% of 248 recorded shots — across 5 rounds
+- **cost** — every unsaved miss is a stroke; the save rate prices the approach leak above, and the watch now says where the saves die
+- **move** — keep wearing the watch — the split now retires or confirms itself round by round
+- **retired when** — par saved on a third of missed greens, sustained over a season
+- *scorecards + watch*
 
 ## The read
 
@@ -112,31 +112,31 @@ of claim this repo refuses to print.
 
 ### 01. The range ledger and the scorecards still share no shots. The watch is the only seam between them, and it is 248 shots wide so far.
 
-- **why** — 8 clubs measured over 217 trusted shots, every one hit off a mat in front of a monitor. 172 rounds played across 88 facilities, none with a shot in that ledger. The only measurements made on grass are the 248 AutoShot shots over 5 rounds on the diary.
+- **why** — 8 clubs measured over 217 trusted shots, every one hit off a mat in front of a monitor. 173 rounds played across 89 facilities, none with a shot in that ledger. The only measurements made on grass are the 248 AutoShot shots over 5 rounds on the diary.
 - **gone when** — A shot in both ledgers — an R50 round-mode import, or enough watch rounds to read every drawn club's course number against its range number.
 - *both · high confidence*
 
 ### 02. There is no measured tee game. Every club with numbers is a club you reach for after the shot that decided where you were standing.
 
-- **why** — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 172 rounds played.
+- **why** — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 173 rounds played.
 - **gone when** — Any tee club drawn on the bag page — 15+ usable shots with it.
 - *both · high confidence*
 
 ### 03. Over 18 holes the record averages 88.4, weighted by how often each course was played.
 
-- **why** — 79 layouts with comparable 18-hole averages across 172 rounds. Best average 76.7 at Rancho Park Golf Club, worst 102.0 at Las Vegas Paiute Golf Resort. 20 layouts held out as short or unscored rounds.
+- **why** — 79 layouts with comparable 18-hole averages across 173 rounds. Best average 76.7 at Rancho Park Golf Club, worst 102.0 at Las Vegas Paiute Golf Resort. 21 layouts held out as short or unscored rounds.
 - **gone when** — A new snapshot of the map's course history with a different mean.
 - *course · high confidence*
 
-### 04. The golf got better over the whole record and worse over the recent stretch: the career arc and the last dozen differentials point opposite ways.
+### 04. The golf is getting better, and the raw scores hide it: the handicap fell while the scorecards stood still, which is what improvement looks like when the courses get harder too.
 
-- **why** — Trending handicap 23.9 at the record's start, 13.9 now, across 157 differentials (mean of the first 20: 18.9; the last 20: 17.6). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 91.7 (2026, 10). Over the last 12 chart points the trending handicap moved from 11.4 to 13.9 (mean differential 18.3).
-- **gone when** — A capture whose last 12 differentials leave the trending handicap no higher than they found it.
+- **why** — Trending handicap 23.9 at the record's start, 13.1 now, across 158 differentials (mean of the first 20: 18.9; the last 20: 17.1). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 90.4 (2026, 11). Over the last 12 chart points the trending handicap moved from 11.4 to 13.1 (mean differential 17.8).
+- **gone when** — A capture whose trending handicap ends no lower than it starts.
 - *course · high confidence*
 
 ### 05. Putting is the biggest single line item in the score: 39% of all strokes happen on the green.
 
-- **why** — 140 eighteen-hole rounds carry putts: 35.7 per round against a 90.5 mean score. 369 holes took three or more putts, of 2717 recorded — one in 7.
+- **why** — 141 eighteen-hole rounds carry putts: 35.6 per round against a 90.4 mean score. 369 holes took three or more putts, of 2734 recorded — one in 7.
 - **gone when** — A capture with putts under 35% of strokes, or three-putts under one hole in 10.
 - *course · high confidence*
 
@@ -148,13 +148,13 @@ of claim this repo refuses to print.
 
 ### 07. The tee ball misses both ways in nearly equal measure — the course-side echo of the range's two-way miss, and the one pattern aiming off cannot fix.
 
-- **why** — 1587 driven holes carry a fairway result: 61% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 424 holes carry codes outside Grint's own legend and are excluded.
+- **why** — 1600 driven holes carry a fairway result: 62% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 429 holes carry codes outside Grint's own legend and are excluded.
 - **gone when** — A capture where one side owns two-thirds of the misses, or the hit rate moves by five points.
 - *course · high confidence*
 
 ### 08. This is a collector's record, not a member's: most courses were played once and never again.
 
-- **why** — 74 of 99 layouts played exactly once (75%). Most played: Rancho Park Golf Club at 10 rounds.
+- **why** — 75 of 100 layouts played exactly once (75%). Most played: Rancho Park Golf Club at 10 rounds.
 - **gone when** — A course history where under half the layouts are one-and-done.
 - *course · high confidence*
 
@@ -206,25 +206,19 @@ of claim this repo refuses to print.
 - **gone when** — Both clubs measured, or one of them re-lofted. 3 Hybrid and 3 Iron carrying more than 8 yd apart settles it.
 - *range · medium confidence*
 
-### 17. The recent scorecards look like the career record; the recent differentials do not.
-
-- **why** — Last 18 months (since 2025-03-15, 10 distinct 18-hole rounds): 91.7 mean strokes against 90.5 over the career's 143; 35.2 putts a round against 35.7. The last 12 differentials average 18.3 and moved the trending handicap from 11.4 to 13.9.
-- **gone when** — A capture where the recent window and the career agree — the trending-handicap tail within 2 strokes flat, and the recent means within 2 strokes and 1.5 putts of career.
-- *course · medium confidence*
-
-### 18. 5 clubs have enough on-course shots to face their range numbers, and on grass they run 3.6 yd shorter than off the mat.
+### 17. 5 clubs have enough on-course shots to face their range numbers, and on grass they run 3.6 yd shorter than off the mat.
 
 - **why** — 7 Iron 176 yd on course (12 shots) vs 159 yd range · 8 Iron 143 yd on course (14 shots) vs 157 yd range · 9 Iron 131 yd on course (11 shots) vs 138 yd range · Pitching Wedge 105 yd on course (10 shots) vs 122 yd range · Gap Wedge 101 yd on course (18 shots) vs 98 yd range
 - **gone when** — A capture where the mean course-vs-range gap crosses zero or shrinks under 3 yd.
 - *both · medium confidence*
 
-### 19. The ledger knows its lies now: 52% of the recorded non-tee shots start from the rough.
+### 18. The ledger knows its lies now: 52% of the recorded non-tee shots start from the rough.
 
 - **why** — 176 non-tee shots with a start lie, Garmin's own strings: Rough 91, Fairway 37, TeeBox 23, Bunker 12, Unknown 12, Green 1.
 - **gone when** — A capture where the leading lie changes or its share moves by ten points.
 - *course · medium confidence*
 
-### 20. The record finally has on-course shots, and 26% of the recorded ones are short game — inside 50 yd or chips.
+### 19. The record finally has on-course shots, and 26% of the recorded ones are short game — inside 50 yd or chips.
 
 - **why** — 248 AutoShot shots over 5 rounds: 72 tee, 94 approach/layup/recovery, 64 short game, 1 putts, 17 unclassified. The scorecards count 458 strokes, so the watch heard 54% of them — without a putter sensor, putts and some chips never become shots.
 - **gone when** — A capture moving the short-game share by ten points, or putter-sensor data closing the coverage gap.
@@ -232,24 +226,24 @@ of claim this repo refuses to print.
 
 ## Recent form
 
-The last 18 months (since 2025-03-15), measured from the newest
-card (2026-09-15) — never from today, so this file reads the same until the
+The last 18 months (since 2025-03-26), measured from the newest
+card (2026-09-26) — never from today, so this file reads the same until the
 record changes. Quick-entry echoes of a card already on file are not counted twice.
 
 | Date | Course | Strokes | Putts |
 |---|---|---|---|
-| 2026-08-16 | Brambles Golf | 90 | 35 |
 | 2026-08-20 | TPC Harding Park Golf Course | 91 | 33 |
 | 2026-08-22 | Presidio Golf Course | 98 | 37 |
 | 2026-09-08 | Presidio Golf Course | 93 | 36 |
 | 2026-09-15 | Lake \| The Olympic Club | 99 | 38 |
+| 2026-09-26 | Lincoln Park Golf Course | 77 | 29 |
 
 | | Recent | Career |
 |---|---|---|
-| Scoring | **91.7** (10 rounds) | 90.5 (143 rounds) |
-| Putts / round | **35.2** (10 rounds) | 35.7 (140 rounds) |
-| Three-putt share | **11%** (180 holes) | 14% (2717 holes) |
-| Fairways hit | **60%** (122 holes) | 61% (1587 holes) |
+| Scoring | **90.4** (11 rounds) | 90.4 (144 rounds) |
+| Putts / round | **34.6** (11 rounds) | 35.6 (141 rounds) |
+| Three-putt share | **10%** (197 holes) | 13% (2734 holes) |
+| Fairways hit | **61%** (135 holes) | 62% (1600 holes) |
 
 ## On the course
 
@@ -289,33 +283,33 @@ came to rest, so nearer a range total than a carry:
 The same findings, unsoftened. Each one restates its own evidence and nothing
 more — a roast that needs a fact you do not have is just an insult.
 
-> 172 rounds and 217 measured shots that have still never met — the watch is carrying the entire introduction.
+> 173 rounds and 217 measured shots that have still never met — the watch is carrying the entire introduction.
 >
-> — 8 clubs measured over 217 trusted shots, every one hit off a mat in front of a monitor. 172 rounds played across 88 facilities, none with a shot in that ledger. The only measurements made on grass are the 248 AutoShot shots over 5 rounds on the diary.
+> — 8 clubs measured over 217 trusted shots, every one hit off a mat in front of a monitor. 173 rounds played across 89 facilities, none with a shot in that ledger. The only measurements made on grass are the 248 AutoShot shots over 5 rounds on the diary.
 
-> 172 rounds played, 1 measured swing with anything that starts a hole. This is a very thorough study of the second shot.
+> 173 rounds played, 1 measured swing with anything that starts a hole. This is a very thorough study of the second shot.
 >
-> — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 172 rounds played.
+> — 217 trusted shots across 8 sessions, and only 1 with a driver, wood, hybrid or long iron (Driver) — under the 15 a club needs to be drawn. The longest club measured is the 5 Iron, 195 yd, against 173 rounds played.
 
-> The career took 10 strokes off the handicap; the last 12 differentials gave 2.5 back.
+> Five years took 11 strokes off the handicap and 1.3 off the scorecard. You did not learn to score, you learned to lose by the same amount at harder courses.
 >
-> — Trending handicap 23.9 at the record's start, 13.9 now, across 157 differentials (mean of the first 20: 18.9; the last 20: 17.6). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 91.7 (2026, 10). Over the last 12 chart points the trending handicap moved from 11.4 to 13.9 (mean differential 18.3).
+> — Trending handicap 23.9 at the record's start, 13.1 now, across 158 differentials (mean of the first 20: 18.9; the last 20: 17.1). Meanwhile the raw 18-hole mean moved from 91.7 (2021, 26 rounds) to 90.4 (2026, 11). Over the last 12 chart points the trending handicap moved from 11.4 to 13.1 (mean differential 17.8).
 
-> 35.7 putts a round, and a three-putt every 7 holes. The greens are charging a second green fee.
+> 35.6 putts a round, and a three-putt every 7 holes. The greens are charging a second green fee.
 >
-> — 140 eighteen-hole rounds carry putts: 35.7 per round against a 90.5 mean score. 369 holes took three or more putts, of 2717 recorded — one in 7.
+> — 141 eighteen-hole rounds carry putts: 35.6 per round against a 90.4 mean score. 369 holes took three or more putts, of 2734 recorded — one in 7.
 
 > 3 pairs of clubs land within 8 yd of each other — 5 clubs doing the work of 3 — and none of them covers the 31 yd hole between the 5 Iron and the 6 Iron.
 >
 > — Worst gap 31.1 yd between 5 Iron and 6 Iron · 3 overlapping pairs under 8 yd apart.
 
-> 265 fairways missed left, 267 missed right. At least the misses are fair.
+> 266 fairways missed left, 270 missed right. At least the misses are fair.
 >
-> — 1587 driven holes carry a fairway result: 61% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 424 holes carry codes outside Grint's own legend and are excluded.
+> — 1600 driven holes carry a fairway result: 62% hit, 17% missed left, 17% missed right, 5% marked missed without a side. 429 holes carry codes outside Grint's own legend and are excluded.
 
 > 75% of the courses in this record got exactly one chance to make an impression, which is also how many chances they got to be learned.
 >
-> — 74 of 99 layouts played exactly once (75%). Most played: Rancho Park Golf Club at 10 rounds.
+> — 75 of 100 layouts played exactly once (75%). Most played: Rancho Park Golf Club at 10 rounds.
 
 > The 5 Iron goes right and the Pitching Wedge goes left, so aiming off fixes exactly half your bag and breaks the other half.
 >
@@ -332,10 +326,6 @@ more — a roast that needs a fact you do not have is just an insult.
 > Your Pitching Wedge has a 17 yd opinion about what day of the week it is. A yardage book cannot help with that.
 >
 > — 4 drawn clubs drift more than 10 yd between sessions. Worst: Pitching Wedge, 16.8 yd between its session medians over 3 sessions.
-
-> Same scores, worse handicap: the recent courses were easier, and the scorecards didn't notice.
->
-> — Last 18 months (since 2025-03-15, 10 distinct 18-hole rounds): 91.7 mean strokes against 90.5 over the career's 143; 35.2 putts a round against 35.7. The last 12 differentials average 18.3 and moved the trending handicap from 11.4 to 13.9.
 
 ## What the record cannot say
 
@@ -368,8 +358,8 @@ The rounds carry a course, a tee name and a differential, but still no par or ya
 
 ## Read from
 
-- **Scorecards** — 172 dated scorecards, 2021-07-08 to 2026-09-15, from the Grint export bundle, captured 2026-09-16
-- **Courses** — 172 rounds over 99 layouts, from The Grint, captured 2026-08-01
+- **Scorecards** — 173 dated scorecards, 2021-07-08 to 2026-09-26, from the Grint export bundle, captured 2026-09-29
+- **Courses** — 173 rounds over 100 layouts, from The Grint, captured 2026-08-01
 - **Range** — 301 shots over 8 Garmin R50 sessions, 2026-07-02 to 2026-08-14
 - **Shots on course** — 248 AutoShot shots over 5 of 12 rounds (the rest are R50 simulator rounds, which carry no shots), from the Garmin export bundle, captured 2026-09-29
 

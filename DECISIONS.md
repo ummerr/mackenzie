@@ -18,12 +18,12 @@ here the numbers below are the check on the page, not the substitute for it.
 
 **The capture:** Lincoln Park, Blue tees (65.5/107, par 68), 2026-09-26 —
 77 strokes, 40 shots heard. Three birdies (1, 2, 15), six pars, seven
-bogeys, two doubles-or-worse. Differential 12.1 by the tee rating, the
-lowest of the record's last eight and under the 13.9 index. **No Grint
-card in this capture** — the round is Garmin-only until the next Grint
-export lands, so there are no putts and no three-putt count for it, and the
-link in `data/round-links.json` stays proposed. Fifth shot-bearing round;
-248 shots on course; index unchanged at 13.9.
+bogeys, two doubles-or-worse. Differential 11.1 on Grint's card, the
+lowest of the record's last eight, and the index moves **13.9 → 13.1**.
+The card came in a second capture the same day (see the next entry): 29
+putts, no three-putts, five one-putts and a chip-in on the 2nd. Link
+confirmed on facility, date and strokes — the fifth. Fifth shot-bearing
+round; 248 shots on course.
 
 **What 18 holes at Lincoln say, against the 72 before them:**
 
@@ -59,11 +59,14 @@ link in `data/round-links.json` stays proposed. Fifth shot-bearing round;
   the Grint card on the four linked rounds, inferred from strokes minus
   heard shots at Lincoln). **1 of 33 for par or better** — the Lincoln
   birdie. The 2026-09-16 "0 in 33" counted chances more loosely; on
-  this definition the same four rounds are 0 of 28 for par. Chip reaches the green
+  this definition the same four rounds are 0 of 28 for par. With Lincoln's
+  putts on file the round also shows an unheard chip-and-one-putt for par
+  on the 12th and the holed chip on the 2nd — the watch misses chips it
+  does not hear, so the count above is a floor. Chip reaches the green
   34 of 51 (67%, unchanged).
 - Approach from 125–200 yd: **6 greens in 44** (0/9, 4/22, 2/13); from
   100–124, 10 of 23. Non-tee lies: Rough 91, Fairway 37, Bunker 12.
-- Three-putts 9 in 72 putted holes (12.5%); Lincoln unputted.
+- Three-putts 9 in 90 putted holes (10%); Lincoln had none in 29 putts.
 - 3 Hybrid on course: 35 full swings, median 204 yd, still **0 on the
   R50** after three goal weeks.
 
@@ -88,20 +91,21 @@ ever does, it filters end-equals-pin first.
    scored by leaves inside 6 ft (7 of 17 measurable), then twenty putts
    from 4–8 ft. That is the stroke-a-round that is closest.
 3. **Club for the front from 150–200.** 6 of 44. Unchanged.
-4. **Lag speed** for the three-putts, unchanged, and unmeasured this
-   week because the Grint card is missing.
+4. **Lag speed** for the three-putts, unchanged — Lincoln's 29 putts with
+   none over two is one round, not a trend.
 
 **Rejected:** treating Lincoln as a breakthrough — 5,100 yards at slope
 107 is where a 3 Hybrid tee ball and a 100-yd approach are the whole
-course; the 12.1 says the swing was better than usual, the 8-of-9 hybrids
+course; the 11.1 says the swing was better than usual, the 8-of-9 hybrids
 say the *club* was right for the course. **Rejected:** a "tee with the
 hybrid" rule for every course — at Olympic and Presidio the hybrid
 started 15 holes and 3 of them went under 65 yd; it mishits like the
 driver does. **Rejected:** dropping the 3 Hybrid goal after two misses —
 it is the only goal that measures the actual first item; if the block
 does not happen this week the goal is what goes, not the club. **Rejected:**
-a putts-inferred three-putt count for Lincoln (strokes minus heard shots
-counts unheard chips as putts).
+a putts-inferred three-putt count for Lincoln while the card was missing
+(strokes minus heard shots counts unheard chips as putts) — the card
+arrived the same day and the inference was wrong on two holes.
 
 **Also:** the 2026-09-16 goals close 1 of 2 in record time — the fifth
 watch round achieved, the 3 Hybrid block missed. The `app/rounds/watch.tsx`
