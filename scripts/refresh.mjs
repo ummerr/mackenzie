@@ -19,6 +19,7 @@
 
 import { execSync } from "node:child_process";
 import { readdirSync, readFileSync } from "node:fs";
+import { bundleFileKey } from "./parse-grint-export.mjs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
@@ -38,24 +39,30 @@ const RAW = resolve(ROOT, "data", "raw");
  *
  * Bundle filenames embed their capture date, so "newer than the artifact" is
  * a string comparison against the newest file the artifact's chain names —
- * older full bundles are legitimately absent and must not re-trigger.
+ * older full bundles are legitimately absent and must not re-trigger. Grint
+ * names go through `bundleFileKey` first so a same-day HHMM capture counts
+ * as newer than the plain-dated full bundle it follows.
  */
 export function planRefresh({ rawFiles, roundsRawFile, garminRawFile, sessionCount }) {
-  const newerThan = (files, chain) => {
+  const newerThan = (files, chain, key = (f) => f) => {
     if (chain === null) return files;
     const named = chain
       .split("+")
       .map((s) => s.trim().replace(/^raw\//, ""))
       .filter(Boolean)
+      .map(key)
       .sort();
     const newest = named[named.length - 1] ?? "";
-    return files.filter((f) => f > newest);
+    return files.filter((f) => key(f) > newest);
   };
 
   const csvs = rawFiles.filter((f) => /^DrivingRange-.*\.csv$/i.test(f)).sort();
   const grintNew = newerThan(
-    rawFiles.filter((f) => /^grint-export-.*\.json$/.test(f)).sort(),
+    rawFiles
+      .filter((f) => /^grint-export-\d{4}-\d{2}-\d{2}(-\d{4})?\.json$/.test(f))
+      .sort((a, b) => bundleFileKey(a).localeCompare(bundleFileKey(b))),
     roundsRawFile,
+    bundleFileKey,
   );
   const garminNew = newerThan(
     rawFiles.filter((f) => /^garmin-export-.*\.json$/.test(f)).sort(),

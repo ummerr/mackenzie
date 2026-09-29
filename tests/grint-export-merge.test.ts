@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 // @ts-expect-error — plain .mjs script module, no type declarations
-import { mergeBundles, parseDifferentials, parseHandicapIndex, parsePuttDist, parseSeries } from "../scripts/parse-grint-export.mjs";
+import { bundleFileKey, isFullBundle, mergeBundles, parseDifferentials, parseHandicapIndex, parsePuttDist, parseSeries } from "../scripts/parse-grint-export.mjs";
 
 /* The merge rule for incremental captures: the newest FULL bundle is the base
  * (the only capture that can reflect a round deleted on Grint), incrementals
@@ -129,6 +129,66 @@ describe("mergeBundles", () => {
       },
     ]);
     expect(merged).toBeNull();
+  });
+
+  it("layers a recent-scope bundle over the newest full bundle and never re-baselines", () => {
+    // "Scrape last N rounds" has no baseline — treating it as full would
+    // shrink the record to N rounds. Older rounds must survive.
+    const merged = mergeBundles([
+      {
+        file: "grint-export-2026-08-19.json",
+        bundle: bundle({
+          capturedAt: "2026-08-19T15:39:00.000Z",
+          resources: [scorecard("100", "old-100"), scorecard("101", "old-101"), trend("", "old-trend")],
+        }),
+      },
+      {
+        file: "grint-export-2026-09-29-1200.json",
+        bundle: bundle({
+          capturedAt: "2026-09-29T12:00:00.000Z",
+          scope: { mode: "recent", rounds: 10 },
+          resources: [scorecard("101", "re-101"), scorecard("102", "new-102"), trend("", "new-trend")],
+        }),
+      },
+    ]);
+    expect(merged!.files).toEqual(["grint-export-2026-08-19.json", "grint-export-2026-09-29-1200.json"]);
+    const byId = new Map(merged!.scorecards.map((r: any) => [r.meta.roundId, r.payload.html]));
+    expect(byId.get("100")).toBe("old-100");
+    expect(byId.get("101")).toBe("re-101");
+    expect(byId.get("102")).toBe("new-102");
+    expect(merged!.newestResource((r: any) => r.kind === "trend")!.payload.scripts[0]).toBe("new-trend");
+  });
+
+  it("refuses a record whose only bundles are recent-scope", () => {
+    const merged = mergeBundles([
+      {
+        file: "grint-export-2026-09-29-1200.json",
+        bundle: bundle({ scope: { mode: "recent", rounds: 10 }, resources: [scorecard("100", "a")] }),
+      },
+    ]);
+    expect(merged).toBeNull();
+  });
+});
+
+/* Two small rules the merge and the planner share: what counts as a full
+ * bundle, and how bundle filenames order — `-` sorts before `.`, so a raw
+ * string compare puts a same-day HHMM capture before the plain-dated full. */
+
+describe("isFullBundle", () => {
+  it("is full only with neither a baseline nor a recent scope", () => {
+    expect(isFullBundle(bundle())).toBe(true);
+    expect(isFullBundle(bundle({ baseline: { rawFile: "x" } }))).toBe(false);
+    expect(isFullBundle(bundle({ scope: { mode: "recent", rounds: 10 } }))).toBe(false);
+    expect(isFullBundle(bundle({ scope: { mode: "baseline" } }))).toBe(true);
+  });
+});
+
+describe("bundleFileKey", () => {
+  it("orders a same-day HHMM bundle after the plain-dated one", () => {
+    expect(bundleFileKey("grint-export-2026-09-29.json") < bundleFileKey("grint-export-2026-09-29-1200.json")).toBe(true);
+    expect(bundleFileKey("grint-export-2026-09-29-1200.json") < bundleFileKey("grint-export-2026-09-29-1522.json")).toBe(true);
+    expect(bundleFileKey("grint-export-2026-09-29-1522.json") < bundleFileKey("grint-export-2026-09-30-0800.json")).toBe(true);
+    expect(bundleFileKey("grint-export-2026-08-19.json")).toBe("2026-08-19-0000");
   });
 });
 

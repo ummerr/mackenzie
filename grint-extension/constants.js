@@ -9,7 +9,13 @@ window.__GRINT = window.__GRINT || {};
 window.__GRINT.constants = {
   BASE: "https://thegrint.com",
   FORMAT: "grint-export/1",
-  VERSION: "0.2.0",
+  VERSION: "0.3.0",
+
+  // "Scrape last N rounds": the newest N from the /score listing, no
+  // baseline needed. The first listing page holds 20 rounds; each
+  // listMoreScores wave adds 20, so 40 is one wave at most.
+  RECENT_DEFAULT: 10,
+  RECENT_MAX: 40,
 
   // The 13 stats views enumerated in the /trend sidebar. "" is the default
   // view (Handicap Index).

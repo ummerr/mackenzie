@@ -6,6 +6,42 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-09-29 — Grint capture: "Scrape last N rounds" replaces the baseline file
+
+**Decided:** the Grint extension's default run (0.3.0) fetches the trend
+views, the handicap record, the first page of the `/score` listing and the
+newest N scorecards (N = 10, max 40), with no previous bundle to pick. The
+bundle carries `scope: {mode:"recent", rounds:N}`; `mergeBundles` treats a
+bundle as **full** only when it has neither a `baseline` nor a recent
+`scope` (`isFullBundle`), so a recent bundle layers over the newest full
+bundle and can never become the base of the record. Every bundle now
+carries the capture time in its name (`-HHMM`, UTC), and the refresh
+planner and the inventory order names through `bundleFileKey`
+(`YYYY-MM-DD-HHMM`, plain-dated = 0000). The exact-delta file input stays
+but refuses a delta bundle; a checkbox runs the full history.
+
+**Why:** the 27 MB, minutes-long capture on 2026-09-29 was not a full
+scrape — the popup had been fed the 09-16 *delta* (3 scorecards) as its
+baseline, knew 3 rounds, and refetched the other 170. The 09-09 capture had
+done the same against the 08-23 delta. The incremental design was right and
+its UX invited the wrong file every time; a mode that needs no file is the
+fix, and refusing deltas as baselines closes the trap on the path that
+remains. Two latent readers had to move with it: a no-baseline bundle was
+*full* to the merge (a 10-round bundle would have silently shrunk
+`rounds.json` to 10 rounds), and `-` sorts before `.`, so a same-day
+`-HHMM` name was "older" than the plain-dated full bundle in the refresh
+planner.
+
+**Rejected:** warning-but-arming on a delta baseline (the misclick recurs).
+Remembering the last baseline in `chrome.storage` (the extension's grain is
+no storage permission, nothing kept between clicks). Scoring "recent" by
+date instead of count (the listing is newest-first and paged by 20; a count
+is one fetch, a date is a parse). Reading the previous bundle's round ids
+from `data/rounds.json` into the popup (it would couple the capture to the
+artifact; the capture stays verbatim and one-directional).
+
+---
+
 ## 2026-09-29 — Fifth watch round: the findings switch on, and a short course says the same thing louder
 
 **Decided:** the week of 2026-09-29 (`data/goals.json`) is a sixth watch

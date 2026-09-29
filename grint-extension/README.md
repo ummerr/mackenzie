@@ -19,36 +19,41 @@ so a parser fix can be replayed over history.
 
 1. Log in at [thegrint.com](https://thegrint.com) (the classic client, not
    webapp.thegrint.com) and stay on any thegrint.com page.
-2. Click the extension icon → **Scrape all**.
-3. Wait. Fetches are sequential with a ~500–750 ms gap; a history of ~150
-   rounds takes 2–4 minutes. Progress shows per phase. Closing the popup does
-   **not** stop the run — the bundle downloads when it finishes.
-4. Move the downloaded `grint-export-YYYY-MM-DD.json` to `../data/raw/`.
-5. From the repo root: `pnpm data:inventory` to validate and summarize it.
+2. Click the extension icon → **Scrape last 10 rounds** (change the number
+   if you have played more since the last capture; 40 max).
+3. Wait — well under a minute. Fetches are sequential with a ~500–750 ms
+   gap. Closing the popup does **not** stop the run — the bundle downloads
+   when it finishes.
+4. Move the downloaded `grint-export-YYYY-MM-DD-HHMM.json` to `../data/raw/`
+   and run `pnpm refresh` from the repo root.
 
-## Incremental runs
+That is the weekly path. The run fetches the 13 trend views and the handicap
+record (aggregates change with every round), the first page of the `/score`
+listing, and the newest N scorecards with their course/tee metadata. It never
+pages deeper than it needs: N ≤ 20 is one listing page and no scroll waves.
+The bundle is the same format plus a `scope: {mode:"recent", rounds:N}`
+field; `pnpm data:rounds` layers it over the newest full bundle, newest
+scorecard winning per round, and never treats it as the base of the record.
 
-A full scrape refetches every scorecard to capture the two that are new.
-Instead, feed the popup the **previous bundle** (the file input under the
-button): the button becomes **Scrape new rounds**, and the run
+## The other two modes
 
-- stops round discovery at the first listing wave with nothing new (the
-  listing is newest-first, so everything deeper is older than the baseline),
-- skips every scorecard and course/tee fetch the previous bundle already
-  holds,
-- still refetches all trend views and the handicap record — aggregates change
-  with every round.
+**Full history** (the checkbox): every round, 2–4 minutes for ~170. The only
+run that can record a round *deleted* on Grint — a new full bundle
+re-baselines the merge. Run one after deleting a round, or occasionally.
 
-A weekly update drops from minutes to well under one. The download is a small
-*delta* bundle: same format plus a `baseline` field, filename suffixed with
-the capture time (`grint-export-YYYY-MM-DD-HHMM.json`) so it never collides
-with a same-day full bundle. Drop it in `../data/raw/` next to the full one —
-`pnpm data:rounds` merges the newest full bundle with every delta captured
-after it.
+**Exact delta** (the file input): feed the popup the previous **full** bundle
+and the button becomes **Scrape new rounds**: discovery stops at the first
+listing wave with nothing new, and every scorecard and course/tee fetch the
+full bundle already holds is skipped. The popup refuses a delta bundle here —
+a delta knows only the handful of rounds it fetched, and used as a baseline it
+makes the "incremental" run refetch everything else (the 2026-09-09 and
+2026-09-29 captures both did exactly that, 27 MB each). Since 0.3.0 the
+recent mode covers the weekly case without a file, so this path is for
+"I know exactly which bundle I last folded".
 
-A delta can never record a round *deleted* on Grint. Run a plain **Scrape
-all** occasionally (or after deleting a round); a new full bundle re-baselines
-the merge.
+Every bundle since 0.3.0 carries the capture time in its name
+(`grint-export-YYYY-MM-DD-HHMM.json`, UTC), so same-day captures never
+collide and the names sort in capture order.
 
 ## What it captures
 
@@ -56,7 +61,7 @@ the merge.
 |---|---|---|
 | trend views | `POST /trend/<view>` × 13, `range=ALL` | inline Highcharts `<script>` blocks + content column HTML |
 | handicap | `GET /handicap` | record tables + inline scripts |
-| round discovery | `GET /score`, then `POST /score/listMoreScores` (the page's own infinite-scroll endpoint) until it returns empty | listing HTML + link inventory |
+| round discovery | `GET /score`, then `POST /score/listMoreScores` (the page's own infinite-scroll endpoint) — until it returns empty (full), until a wave is all known (delta), or until N rounds are seen (recent) | listing HTML + link inventory |
 | scorecards | `GET` each round's page | scorecard tables + inline scripts + content column |
 | course metadata | `GET /ajax/get_course_data/<courseId>/<teeId>` | raw JSON body |
 

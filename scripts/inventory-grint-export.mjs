@@ -17,6 +17,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
+import { bundleFileKey } from "./parse-grint-export.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const RAW = resolve(__dirname, "../data/raw");
@@ -31,7 +32,7 @@ const notes = [];
 
 const candidates = readdirSync(RAW)
   .filter((f) => /^grint-export-\d{4}-\d{2}-\d{2}(-\d{4})?\.json$/.test(f))
-  .sort();
+  .sort((a, b) => bundleFileKey(a).localeCompare(bundleFileKey(b)));
 
 if (candidates.length === 0) {
   console.error(`No grint-export-*.json in ${RAW}.`);
@@ -107,9 +108,12 @@ const noData = resources
   .map((r) => r.meta.view);
 if (noData.length) notes.push(`trend views with no chart data (PRO gate?): ${noData.join(", ")}`);
 if (!byKind.get("handicap")) notes.push("no handicap resource captured");
-// An incremental bundle deliberately skips scorecards its baseline already
-// holds; only the remainder is expected to be present.
+// A partial bundle deliberately holds fewer scorecards than the rounds it
+// discovered: an incremental one skips what its baseline already holds, a
+// recent one fetches only the newest N. Only the remainder is expected.
 const skippedScorecards = bundle.baseline?.skippedScorecards ?? 0;
+const recent = bundle.scope?.mode === "recent" ? bundle.scope : null;
+const expectedScorecards = recent ? Math.min(recent.rounds, rounds) : rounds - skippedScorecards;
 if (bundle.baseline) {
   notes.push(
     `incremental capture against ${bundle.baseline.rawFile}: ` +
@@ -117,12 +121,17 @@ if (bundle.baseline) {
       `pnpm data:rounds merges it over the newest full bundle`,
   );
 }
-if (recomputed.scorecardsOk < rounds - skippedScorecards) {
-  notes.push(`${rounds - skippedScorecards - recomputed.scorecardsOk} of ${rounds - skippedScorecards} expected rounds have no scorecard resource`);
+if (recent) {
+  notes.push(
+    `recent capture: last ${recent.rounds} rounds — pnpm data:rounds merges it over the newest full bundle`,
+  );
+}
+if (recomputed.scorecardsOk < expectedScorecards) {
+  notes.push(`${expectedScorecards - recomputed.scorecardsOk} of ${expectedScorecards} expected rounds have no scorecard resource`);
 }
 if (bundle.discovery?.paginationPattern) {
   notes.push(`pagination pattern adopted: ${bundle.discovery.paginationPattern}`);
-} else if ((bundle.discovery?.scorePagesFetched ?? 0) <= 1) {
+} else if ((bundle.discovery?.scorePagesFetched ?? 0) <= 1 && !bundle.discovery?.stoppedEarly) {
   notes.push("no pagination discovered — round list may be truncated to the first listing page");
 }
 const guessedTees = resources.filter((r) => r.kind === "courseData" && r.meta?.teeGuessed).length;

@@ -4,16 +4,50 @@ const fillEl = document.getElementById("fill");
 const noteEl = document.getElementById("note");
 const errorsEl = document.getElementById("errors");
 const prevEl = document.getElementById("prev-bundle");
+const recentEl = document.getElementById("recent");
+const fullEl = document.getElementById("full");
+
+// Mirrors constants.js (the popup cannot see it — it is injected into the
+// page, not loaded here). The scraper clamps again on its side.
+const RECENT_DEFAULT = 10;
+const RECENT_MIN = 1;
+const RECENT_MAX = 40;
 
 let tabId = null;
 
-// Distilled from the previous bundle the user picked: just enough for the
-// scraper to skip what's already captured. Null means a full scrape.
+// Distilled from the previous FULL bundle the user picked: just enough for
+// the scraper to skip what's already captured. Null means no baseline.
 let baseline = null;
+
+function recentCount() {
+  const n = parseInt(recentEl.value, 10);
+  return Number.isFinite(n) ? Math.min(RECENT_MAX, Math.max(RECENT_MIN, n)) : RECENT_DEFAULT;
+}
+
+// The three modes, in precedence order: an armed baseline is an exact delta,
+// the checkbox is the full history, otherwise the newest N rounds.
+function mode() {
+  if (baseline) return { mode: "baseline" };
+  if (fullEl.checked) return { mode: "full" };
+  return { mode: "recent", rounds: recentCount() };
+}
+
+function setIdleLabel() {
+  const m = mode();
+  btn.textContent =
+    m.mode === "baseline"
+      ? "Scrape new rounds"
+      : m.mode === "full"
+        ? "Scrape all"
+        : `Scrape last ${m.rounds} rounds`;
+}
+
+recentEl.addEventListener("input", setIdleLabel);
+fullEl.addEventListener("change", setIdleLabel);
 
 prevEl.addEventListener("change", () => {
   baseline = null;
-  btn.textContent = "Scrape all";
+  setIdleLabel();
   const file = prevEl.files && prevEl.files[0];
   if (!file) return;
   const reader = new FileReader();
@@ -22,6 +56,15 @@ prevEl.addEventListener("change", () => {
       const bundle = JSON.parse(reader.result);
       if (bundle.format !== "grint-export/1") {
         throw new Error(`not a grint-export/1 bundle (format: ${bundle.format})`);
+      }
+      // A delta knows only the handful of rounds it fetched; used as a
+      // baseline it makes the "incremental" run refetch everything else
+      // (2026-09-09 and 2026-09-29 both did exactly that). Refuse it.
+      if (bundle.baseline || bundle.scope) {
+        const n = (bundle.resources || []).filter((r) => r.kind === "scorecard").length;
+        throw new Error(
+          `that bundle is a delta with ${n} round${n === 1 ? "" : "s"} — pick the full bundle, or just scrape the last N rounds`,
+        );
       }
       const roundIds = [];
       const courseTees = [];
@@ -37,7 +80,7 @@ prevEl.addEventListener("change", () => {
         throw new Error("bundle has no scorecards — run a full scrape instead");
       }
       baseline = { rawFile: file.name, roundIds, courseTees };
-      btn.textContent = "Scrape new rounds";
+      setIdleLabel();
       noteEl.classList.remove("ok");
       noteEl.textContent = `Incremental: ${roundIds.length} rounds already captured will be skipped.`;
     } catch (e) {
@@ -68,14 +111,16 @@ btn.addEventListener("click", async () => {
   btn.disabled = true;
   phaseEl.textContent = "starting…";
   try {
-    // Always set the baseline slot — explicitly null for a full scrape — so a
-    // re-run in the same tab never inherits a stale one.
+    // Always set both slots — explicitly null / the chosen scope — so a
+    // re-run in the same tab never inherits a stale mode.
+    const scope = mode();
     await chrome.scripting.executeScript({
       target: { tabId },
-      func: (b) => {
+      func: (b, s) => {
         window.__GRINT_BASELINE = b;
+        window.__GRINT_SCOPE = s;
       },
-      args: [baseline],
+      args: [baseline, scope],
     });
     await chrome.scripting.executeScript({
       target: { tabId },
@@ -108,8 +153,12 @@ chrome.runtime.onMessage.addListener((msg) => {
     fillEl.style.width = "100%";
     noteEl.classList.add("ok");
     btn.disabled = false;
+    setIdleLabel();
   }
   if (msg.phase === "error") {
     btn.disabled = false;
+    setIdleLabel();
   }
 });
+
+setIdleLabel();

@@ -64,6 +64,22 @@ describe("planRefresh", () => {
     expect(behind).toContain("pnpm data:spine");
   });
 
+  it("treats a same-day HHMM bundle as newer than the plain-dated full bundle", () => {
+    const files = ["grint-export-2026-09-29.json", "grint-export-2026-09-29-1200.json"];
+    const behind = cmds({ ...base, rawFiles: files, roundsRawFile: "raw/grint-export-2026-09-29.json" });
+    expect(behind).toContain("pnpm data:rounds");
+    const settled = cmds({
+      ...base,
+      rawFiles: files,
+      roundsRawFile: "raw/grint-export-2026-09-29.json + raw/grint-export-2026-09-29-1200.json",
+    });
+    expect(settled).not.toContain("pnpm data:rounds");
+  });
+
+  it("ignores grint files that do not match the bundle name shape", () => {
+    expect(cmds({ ...base, rawFiles: ["grint-export-notes.json"] })).not.toContain("pnpm data:rounds");
+  });
+
   it("treats a missing artifact as everything-is-new", () => {
     const plan = cmds({ ...base, rawFiles: ["garmin-export-2026-08-23-0358.json"] });
     expect(plan).toContain("pnpm data:garmin:inventory");

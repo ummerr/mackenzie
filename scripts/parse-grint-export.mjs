@@ -278,13 +278,37 @@ export function parseDifferentials(scripts, handicapHtml = null) {
 // ---------------------------------------------------------------------------
 
 /**
- * Merge a full bundle with the incremental bundles captured after it.
+ * A bundle is FULL only when the extension walked the whole listing: no
+ * baseline (incremental mode) and no recent scope ("Scrape last N rounds").
+ * Both partial modes are additive and must never become the base of the
+ * record — a recent bundle treated as full would shrink rounds.json to N
+ * rounds without a single error.
+ */
+export function isFullBundle(bundle) {
+  return !bundle.baseline && bundle.scope?.mode !== "recent";
+}
+
+/**
+ * Filename sort key: `YYYY-MM-DD-HHMM`. Plain-dated bundles (full runs before
+ * extension 0.3.0) count as 0000, so a same-day HHMM capture sorts after the
+ * full bundle it follows — `-` sorts before `.` in a raw string compare,
+ * which put `…-09-29-1200.json` *before* `…-09-29.json`.
+ */
+export function bundleFileKey(file) {
+  const m = /^grint-export-(\d{4}-\d{2}-\d{2})(?:-(\d{4}))?\.json$/.exec(file);
+  return m ? `${m[1]}-${m[2] ?? "0000"}` : file;
+}
+
+/**
+ * Merge a full bundle with the partial bundles captured after it.
  *
  * The extension's incremental mode (bundle.baseline set) captures only the
- * rounds missing from a previous bundle, plus fresh trend/handicap
- * aggregates. The record is therefore: the newest FULL bundle — the only
- * capture that can reflect a round deleted on Grint — plus every incremental
- * captured after it, the newest scorecard winning per roundId.
+ * rounds missing from a previous bundle; its recent mode (bundle.scope
+ * {mode:"recent", rounds:N}) captures the newest N regardless. Both refetch
+ * the trend/handicap aggregates. The record is therefore: the newest FULL
+ * bundle — the only capture that can reflect a round deleted on Grint —
+ * plus every partial captured after it, the newest scorecard winning per
+ * roundId.
  *
  * Takes [{file, bundle}] in any order; returns null when no full bundle
  * exists. Chain order follows capturedAt, not filenames.
@@ -293,7 +317,7 @@ export function mergeBundles(bundles) {
   const sorted = [...bundles].sort((a, b) =>
     (a.bundle.capturedAt ?? "").localeCompare(b.bundle.capturedAt ?? ""),
   );
-  const lastFull = sorted.findLastIndex((b) => !b.bundle.baseline);
+  const lastFull = sorted.findLastIndex((b) => isFullBundle(b.bundle));
   if (lastFull === -1) return null;
   const chain = sorted.slice(lastFull);
 
@@ -303,7 +327,7 @@ export function mergeBundles(bundles) {
       if (r.kind === "scorecard") cardById.set(r.meta.roundId, r);
     }
   }
-  // Aggregates come from the newest bundle that has them — incrementals
+  // Aggregates come from the newest bundle that has them — partial captures
   // always refetch trend and handicap, so in practice the newest capture.
   const newestResource = (pred) => {
     for (let i = chain.length - 1; i >= 0; i--) {
@@ -346,7 +370,7 @@ function main() {
   const merged = mergeBundles(bundles);
   if (!merged) {
     console.error(
-      "Only incremental bundles found — the merge needs a full scrape as its base.",
+      "Only incremental/recent bundles found — the merge needs a full scrape as its base.",
     );
     return 1;
   }

@@ -62,9 +62,11 @@ HTML, licence gray area, hard name-matching problem).
 
 ## Then
 
-- **Re-capture Grint monthly-ish, Garmin after every on-course round.** The
-  downstream is one command since 2026-08-24: extension → drop the bundle in
-  `data/raw/` → **`pnpm refresh`** (it works out which pipelines the new
+- **Re-capture both after every on-course round** — Garmin, then Grint's
+  **Scrape last 10 rounds** (since 2026-09-29 the default: no baseline file,
+  under a minute; the file input is the exact delta and refuses deltas, the
+  checkbox is the full history). The downstream is one command since
+  2026-08-24: extension → drop the bundle in `data/raw/` → **`pnpm refresh`** (it works out which pipelines the new
   files call for, re-proposes links, validates, rewrites PROFILE.md and the
   flight page) → confirm any proposed links in `data/round-links.json` →
   commit. Each capture retires or sharpens findings; the 5-round gate in

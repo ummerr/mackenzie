@@ -88,6 +88,11 @@
       font-size: 11px;
       color: #d4d4d8;
     }
+    .prev input[type="checkbox"] {
+      display: inline;
+      width: auto;
+      margin: 0 4px 0 0;
+    }
 
     .hint {
       margin-top: 12px;
@@ -105,12 +110,23 @@
     <span>Grint Export</span>
   </div>
 
-  <button class="scrape-btn" id="scrape-btn">Scrape all</button>
+  <button class="scrape-btn" id="scrape-btn">Scrape last 10 rounds</button>
+
+  <label class="prev" for="recent">
+    Rounds to fetch, newest first (1–40). Trends and the handicap record are
+    always refetched.
+    <input type="number" id="recent" value="10" min="1" max="40" />
+  </label>
 
   <label class="prev" for="prev-bundle">
-    Previous bundle (optional) — makes the run incremental: only rounds not
-    already in it are fetched.
+    Previous <b>full</b> bundle (optional) — exact delta: only rounds not
+    already in it are fetched. A delta bundle is refused.
     <input type="file" id="prev-bundle" accept=".json,application/json" />
+  </label>
+
+  <label class="prev">
+    <input type="checkbox" id="full" /> Full history — every round, a few
+    minutes. Needed after deleting a round on Grint.
   </label>
 
   <div class="phase" id="phase"></div>
@@ -119,9 +135,10 @@
   <div class="note errors" id="errors"></div>
 
   <p class="hint">
-    Log in at thegrint.com, then run. Sequential and polite —
-    expect a few minutes. The run keeps going if you close this popup;
-    the bundle downloads when it finishes.
+    Log in at thegrint.com, then run. Sequential and polite — recent
+    rounds take well under a minute, the full history a few minutes. The
+    run keeps going if you close this popup; the bundle downloads when it
+    finishes.
   </p>
 
   <script src="popup.js"></script>

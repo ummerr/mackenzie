@@ -65,11 +65,11 @@ The network stages are cached in git (`geocache.json`, `osm-cache.json`,
 a cache entry — or an individual `holes/<slug>.geojson` — to refetch it.
 `pnpm data:holes --force` refetches everything.
 
-To add recent rounds, run the extension **incrementally**: feed its popup the
-previous bundle and it fetches only what's new, downloading a small delta
-bundle (`grint-export-YYYY-MM-DD-HHMM.json`) instead of re-scraping all ~168
-scorecards. Drop it in `data/raw/` beside the full bundle. A delta cannot
-record a deletion — run a full **Scrape all** occasionally to re-baseline.
+To add recent rounds, click the extension's **Scrape last 10 rounds**: it
+refetches the aggregates and the newest ten scorecards — under a minute, a
+small bundle (`grint-export-YYYY-MM-DD-HHMM.json`) that `pnpm data:rounds`
+layers over the newest full bundle. Drop it in `data/raw/`. A partial bundle
+cannot record a deletion — tick **Full history** occasionally to re-baseline.
 See `grint-extension/README.md` (and `garmin-extension/README.md` for the
 watch's sibling loop).
 

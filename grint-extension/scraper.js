@@ -22,15 +22,27 @@
   const C = window.__GRINT.constants;
   const X = window.__GRINT.extract;
 
-  // Incremental mode: the popup distilled a previous bundle into round ids and
-  // course/tee pairs already captured. Known scorecards and course data are
-  // skipped, and round discovery stops at the first listing wave that yields
-  // nothing new — the listing is newest-first, so everything past that wave is
-  // already in the baseline. Trend views and the handicap record are always
-  // refetched: they are aggregates that change with every round.
+  // Three modes, decided by the popup:
+  //  - recent (the default): fetch the newest N rounds from the /score
+  //    listing and stop — no baseline file needed. N ≤ 20 is one listing
+  //    page and zero scroll waves.
+  //  - incremental: the popup distilled a previous FULL bundle into round ids
+  //    and course/tee pairs already captured. Known scorecards and course
+  //    data are skipped, and round discovery stops at the first listing wave
+  //    that yields nothing new — the listing is newest-first, so everything
+  //    past that wave is already in the baseline.
+  //  - full: walk the whole listing. The only run that can record a round
+  //    deleted on Grint; the parser re-baselines on it.
+  // Trend views and the handicap record are always refetched: they are
+  // aggregates that change with every round.
   const baseline = window.__GRINT_BASELINE || null;
   const knownRounds = new Set(baseline ? baseline.roundIds : []);
   const knownCourseTees = new Set(baseline ? baseline.courseTees : []);
+  const scope = window.__GRINT_SCOPE || null;
+  const recentN =
+    !baseline && scope && scope.mode === "recent"
+      ? Math.min(C.RECENT_MAX, Math.max(1, Number(scope.rounds) || C.RECENT_DEFAULT))
+      : null;
 
   const bundle = {
     format: C.FORMAT,
@@ -52,6 +64,7 @@
       skippedCourseTees: 0,
     };
   }
+  if (recentN) bundle.scope = { mode: "recent", rounds: recentN };
 
   let consecutiveAuthFailures = 0;
 
@@ -163,13 +176,11 @@
   }
 
   function download() {
-    // Incremental bundles carry an HHMM suffix so a same-day full bundle and
-    // its follow-ups never collide; the parser orders bundles by capturedAt,
-    // not by filename.
+    // Every bundle carries an HHMM suffix (UTC) so same-day captures never
+    // collide and filenames sort in capture order; the parser still orders
+    // bundles by capturedAt, and treats a plain-dated name as 0000.
     const stamp = new Date().toISOString();
-    const name = baseline
-      ? `grint-export-${stamp.slice(0, 10)}-${stamp.slice(11, 13)}${stamp.slice(14, 16)}.json`
-      : `grint-export-${stamp.slice(0, 10)}.json`;
+    const name = `grint-export-${stamp.slice(0, 10)}-${stamp.slice(11, 13)}${stamp.slice(14, 16)}.json`;
     const blob = new Blob([JSON.stringify(bundle, null, 2)], {
       type: "application/json",
     });
@@ -332,7 +343,10 @@
     // baseline, until a wave brings only rounds the baseline already has.
     const firstPageAllKnown =
       baseline && [...roundById.keys()].every((id) => knownRounds.has(id));
-    if (scoreDoc && firstPageAllKnown) {
+    if (scoreDoc && recentN && roundById.size >= recentN) {
+      // Recent mode: the first listing page already holds the newest N.
+      bundle.discovery.stoppedEarly = `recent: first ${recentN} of page 1`;
+    } else if (scoreDoc && firstPageAllKnown) {
       // Every round on the first listing page is already captured; anything
       // deeper in the scroll is older still. Nothing new to page through.
       bundle.discovery.stoppedEarly = "first page all known";
@@ -406,6 +420,10 @@
           bundle.discovery.stoppedEarly = `wave ${wave - 1} all known`;
           break;
         }
+        if (recentN && roundById.size >= recentN) {
+          bundle.discovery.stoppedEarly = `recent: first ${recentN} after wave ${wave - 1}`;
+          break;
+        }
       }
       bundle.discovery.wavesFetched = wave - 1;
     }
@@ -417,8 +435,14 @@
       ).length;
     }
 
+    if (recentN) bundle.discovery.selectedRounds = Math.min(recentN, roundById.size);
+
     // ---- Phase 4: scorecards ------------------------------------------------
-    const toFetch = [...roundById].filter(([id]) => !knownRounds.has(id));
+    // roundById is insertion-ordered from a newest-first listing, so the
+    // first N entries are the newest N rounds.
+    const toFetch = recentN
+      ? [...roundById].slice(0, recentN)
+      : [...roundById].filter(([id]) => !knownRounds.has(id));
     if (baseline) bundle.baseline.skippedScorecards = roundById.size - toFetch.length;
     const courseTeePairs = new Map(); // "courseId/teeId" -> {courseId, teeId, guessed}
     let done = 0;
