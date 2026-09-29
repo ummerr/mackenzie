@@ -24,9 +24,9 @@ takes it off. Hit the shots and the sentence retires itself.
 
 | | |
 |---|---|
-| Rounds heard | **4** — of 11 — the rest are R50 simulator rounds with nothing to hear |
-| Shots heard | **208** — 55% of the 381 strokes on the cards |
-| Clubs with a course number | **5** — 10+ clear full swings each |
+| Rounds heard | **5** — of 12 — the rest are R50 simulator rounds with nothing to hear |
+| Shots heard | **248** — 54% of the 458 strokes on the cards |
+| Clubs with a course number | **7** — 10+ clear full swings each |
 
 ### From the scorecards — TheGrint
 
@@ -46,15 +46,15 @@ takes it off. Hit the shots and the sentence retires itself.
 
 ## This week
 
-The week of 2026-09-16, measured against the newest capture (2026-09-15) — record time, not wall time:
+The week of 2026-09-29, measured against the newest capture (2026-09-26) — record time, not wall time:
 a goal is open until the record outruns its week, then achieved or missed
 by what the record says. The engine proposes (`pnpm goals:propose`);
 data/goals.json is the human's commit.
 
-- **open** — rounds the watch has heard (findings switch on at 5): 4 rounds → 5 rounds (4 rounds) — One more round with the watch on. At 5 the short-game and lie findings switch on and the number that matters most gets printed: 0 up-and-downs in 33 chances over the 4 rounds heard so far (Harding 08-20, Presidio 08-22 and 09-08, Olympic Lake 09-15).
-- **open** — usable shots on file with the club — 3 Hybrid: 0 shots → 15 shots (0 shots) — Carried from 09-09, still 0 swings on file. It started 15 holes over the 4 watch rounds and 3 of those tee shots went under 65 yd. The block is a contact block first and a yardage block second: 15 usable swings, low point in front of the ball, the R50 keeps score.
+- **open** — rounds the watch has heard (findings switch on at 5): 5 rounds → 6 rounds (5 rounds) — A sixth watch round, captured with its Grint card this time. Lincoln 09-26 (77, three birdies) is Garmin-only until the next Grint export lands — no putts, no three-putt count, link still proposed. The round is scored two ways: mishit full swings (one every five holes at Lincoln, one every three before it) and chips that end inside 6 ft (7 of 17 measurable so far).
+- **open** — usable shots on file with the club — 3 Hybrid: 0 shots → 15 shots (0 shots) — Third week, still 0 swings on the R50. It started 9 of 11 driving holes at Lincoln and 8 flew 175 yd or more — 35 course swings, median 204 yd, no monitor number. The block is the contact item with a number attached: 15 usable swings, low point in front of the ball. If it does not happen this week the goal goes, not the club.
 
-Past weeks: 2026-09-09 (0/2 achieved)
+Past weeks: 2026-09-09 (0/2 achieved) · 2026-09-16 (1/2 achieved)
 
 ## The leaks
 
@@ -65,7 +65,7 @@ Each move is the open practice task that addresses it, joined on render.
 
 ### 01. The approach game caps everything: 5.1 greens a round
 
-- **fact** — 5.1 GIR per round career, 5.0 over the last 20; ~13 missed greens per round; the watch has heard 38 approaches from inside 150 yd on the course over 4 rounds — 13 found the green (the record so far, not yet a claim)
+- **fact** — 5.1 GIR per round career, 5.0 over the last 20; ~13 missed greens per round; the watch has heard 43 approaches from inside 150 yd on the course over 5 rounds — 17 found the green
 - **cost** — the structural ceiling — at a 14.5% save rate, ~11 of those misses are bogey-or-worse before the putter or driver say anything
 - **move** — the approach clubs are the practice list's whole top end — first up: The 3 Hybrid has never been measured
 - **retired when** — a capture averaging 9+ GIR over 20 rounds
@@ -79,21 +79,21 @@ Each move is the open practice task that addresses it, joined on render.
 - **retired when** — three-putts under one hole in 10, sustained over a season
 - *scorecards*
 
-### 03. The invisible 60 yards
-
-- **fact** — par saved on 14.5% of missed greens; 4 rounds of AutoShot shot data exist, 1 short of a claim
-- **cost** — unknown — which is the finding. The scramble rate says the leak exists; nothing on file locates it
-- **move** — keep wearing the watch: 1 more shot-bearing round and the short-game split becomes a finding instead of a guess
-- **retired when** — 5 shot-bearing rounds on the watch, or any hand-kept short-game card
-- *scorecards + watch*
-
-### 04. The tee ball is unmeasured and misses both ways
+### 03. The tee ball is unmeasured and misses both ways
 
 - **fact** — 39% of fairways missed, split 17/17 left/right; the driver has one launch-monitor swing on file
 - **cost** — unknown by construction — a two-way miss can't be aimed off, and an unmeasured club can't be diagnosed
 - **move** — on the practice list: Measure the Driver
 - **retired when** — the driver drawn on the bag page, and one side owning two-thirds of the misses
 - *scorecards + range*
+
+### 04. The short game, located
+
+- **fact** — par saved on 14.5% of missed greens; the watch heard 64 short-game shots — 26% of 248 recorded shots — across 5 rounds
+- **cost** — every unsaved miss is a stroke; the save rate prices the approach leak above, and the watch now says where the saves die
+- **move** — keep wearing the watch — the split now retires or confirms itself round by round
+- **retired when** — par saved on a third of missed greens, sustained over a season
+- *scorecards + watch*
 
 ### 05. 10 rounds in the last 18 months
 
@@ -110,9 +110,9 @@ sounds. Every comparison is internal — this club against that club, these
 courses against those — because a benchmark without a source is the one kind
 of claim this repo refuses to print.
 
-### 01. The range ledger and the scorecards still share no shots. The watch is the only seam between them, and it is 208 shots wide so far.
+### 01. The range ledger and the scorecards still share no shots. The watch is the only seam between them, and it is 248 shots wide so far.
 
-- **why** — 8 clubs measured over 217 trusted shots, every one hit off a mat in front of a monitor. 172 rounds played across 88 facilities, none with a shot in that ledger. The only measurements made on grass are the 208 AutoShot shots over 4 rounds on the diary.
+- **why** — 8 clubs measured over 217 trusted shots, every one hit off a mat in front of a monitor. 172 rounds played across 88 facilities, none with a shot in that ledger. The only measurements made on grass are the 248 AutoShot shots over 5 rounds on the diary.
 - **gone when** — A shot in both ledgers — an R50 round-mode import, or enough watch rounds to read every drawn club's course number against its range number.
 - *both · high confidence*
 
@@ -166,7 +166,7 @@ of claim this repo refuses to print.
 
 ### 10. 24 practice tasks are open, and the top one is aimed at the biggest blind spot above.
 
-- **why** — First on the list: The 3 Hybrid has never been measured — Callaway UW is in the bag at 19° and has not one shot on file across 8 sessions. Both gaps beside it are guesses about a club nobody has hit at a monitor. AutoShot has meanwhile heard 23 full swings with it on the course — median 220 yd point-to-point — a number to check the monitor against, not a substitute for it.
+- **why** — First on the list: The 3 Hybrid has never been measured — Callaway UW is in the bag at 19° and has not one shot on file across 8 sessions. Both gaps beside it are guesses about a club nobody has hit at a monitor. AutoShot has meanwhile heard 33 full swings with it on the course — median 215 yd point-to-point — a number to check the monitor against, not a substitute for it.
 - **gone when** — An empty practice list.
 - *range · high confidence*
 
@@ -212,6 +212,24 @@ of claim this repo refuses to print.
 - **gone when** — A capture where the recent window and the career agree — the trending-handicap tail within 2 strokes flat, and the recent means within 2 strokes and 1.5 putts of career.
 - *course · medium confidence*
 
+### 18. 5 clubs have enough on-course shots to face their range numbers, and on grass they run 3.6 yd shorter than off the mat.
+
+- **why** — 7 Iron 176 yd on course (12 shots) vs 159 yd range · 8 Iron 143 yd on course (14 shots) vs 157 yd range · 9 Iron 131 yd on course (11 shots) vs 138 yd range · Pitching Wedge 105 yd on course (10 shots) vs 122 yd range · Gap Wedge 101 yd on course (18 shots) vs 98 yd range
+- **gone when** — A capture where the mean course-vs-range gap crosses zero or shrinks under 3 yd.
+- *both · medium confidence*
+
+### 19. The ledger knows its lies now: 52% of the recorded non-tee shots start from the rough.
+
+- **why** — 176 non-tee shots with a start lie, Garmin's own strings: Rough 91, Fairway 37, TeeBox 23, Bunker 12, Unknown 12, Green 1.
+- **gone when** — A capture where the leading lie changes or its share moves by ten points.
+- *course · medium confidence*
+
+### 20. The record finally has on-course shots, and 26% of the recorded ones are short game — inside 50 yd or chips.
+
+- **why** — 248 AutoShot shots over 5 rounds: 72 tee, 94 approach/layup/recovery, 64 short game, 1 putts, 17 unclassified. The scorecards count 458 strokes, so the watch heard 54% of them — without a putter sensor, putts and some chips never become shots.
+- **gone when** — A capture moving the short-game share by ten points, or putter-sensor data closing the coverage gap.
+- *course · medium confidence*
+
 ## Recent form
 
 The last 18 months (since 2025-03-15), measured from the newest
@@ -235,22 +253,22 @@ record changes. Quick-entry echoes of a card already on file are not counted twi
 
 ## On the course
 
-What AutoShot heard over 4 rounds (as of 2026-09-15;
+What AutoShot heard over 5 rounds (as of 2026-09-26;
 the record's other 7 rounds are simulator rounds with nothing to hear).
 Findings from this data switch on at 5 shot-bearing rounds —
-until then this is the record, not a claim. The watch caught 208 of the
-381 strokes the scorecards count (55%); putts and some
+until then this is the record, not a claim. The watch caught 248 of the
+458 strokes the scorecards count (54%); putts and some
 chips never become shots, so every share below is a share of recorded shots.
 
 | | Shots | Of recorded |
 |---|---|---|
-| Tee | 59 | 28% |
-| Approach | 80 | 38% |
-| Short game | 54 | 26% |
+| Tee | 72 | 29% |
+| Approach | 94 | 38% |
+| Short game | 64 | 26% |
 | Putts | 1 | 0% |
-| Unclassified | 14 | 7% |
+| Unclassified | 17 | 7% |
 
-Lies (non-tee, Garmin's own strings): Rough 79 · Fairway 28 · TeeBox 18 · Bunker 12 · Unknown 11 · Green 1.
+Lies (non-tee, Garmin's own strings): Rough 91 · Fairway 37 · TeeBox 23 · Bunker 12 · Unknown 12 · Green 1.
 
 Clubs the course has measured — clear full swings only (no chips, no punch-outs)
 at 10+ shots; course yards are point-to-point, where the ball
@@ -258,11 +276,13 @@ came to rest, so nearer a range total than a carry:
 
 | Club | On course | On the range |
 |---|---|---|
-| Driver | **252 yd** (38 swings) | unmeasured — this is the club's first number |
-| 3 Hybrid | **220 yd** (23 swings) | unmeasured — this is the club's first number |
+| Driver | **251 yd** (42 swings) | unmeasured — this is the club's first number |
+| 3 Hybrid | **215 yd** (33 swings) | unmeasured — this is the club's first number |
 | 7 Iron | **176 yd** (12 swings) | 159 yd |
-| 9 Iron | **138 yd** (10 swings) | 138 yd |
-| Gap Wedge | **103 yd** (16 swings) | 98 yd |
+| 8 Iron | **143 yd** (14 swings) | 157 yd |
+| 9 Iron | **131 yd** (11 swings) | 138 yd |
+| Pitching Wedge | **105 yd** (10 swings) | 122 yd |
+| Gap Wedge | **101 yd** (18 swings) | 98 yd |
 
 ## The roast
 
@@ -271,7 +291,7 @@ more — a roast that needs a fact you do not have is just an insult.
 
 > 172 rounds and 217 measured shots that have still never met — the watch is carrying the entire introduction.
 >
-> — 8 clubs measured over 217 trusted shots, every one hit off a mat in front of a monitor. 172 rounds played across 88 facilities, none with a shot in that ledger. The only measurements made on grass are the 208 AutoShot shots over 4 rounds on the diary.
+> — 8 clubs measured over 217 trusted shots, every one hit off a mat in front of a monitor. 172 rounds played across 88 facilities, none with a shot in that ledger. The only measurements made on grass are the 248 AutoShot shots over 5 rounds on the diary.
 
 > 172 rounds played, 1 measured swing with anything that starts a hole. This is a very thorough study of the second shot.
 >
@@ -322,18 +342,6 @@ more — a roast that needs a fact you do not have is just an insult.
 Gaps in the data, not gaps in the analysis. Listed so that silence is never
 mistaken for a finding.
 
-### How much of the score is the chipping and the sand?
-
-4 round(s) of AutoShot shot data exist, below the 5 the profile needs before the split is a finding — and AutoShot hears full swings only, so putts and some chips stay invisible without a putter sensor.
-
-**Needs:** More captured on-course rounds — the extension, then `pnpm data:garmin`.
-
-### What happens from a real lie?
-
-4 round(s) of AutoShot shot data exist, below the 5 the profile needs before the lie mix is a finding. Until then, every measured number still comes off a mat.
-
-**Needs:** More captured on-course rounds — the extension, then `pnpm data:garmin`.
-
 ### What do the wedges carry at less than a full swing?
 
 0 of 6 partial-wedge cells are measured. Between a full wedge and a chip lives most of the scoring window, and the ledger cannot see a partial's length — the classifier can prove a shorter swing happened, never which one was meant.
@@ -363,7 +371,7 @@ The rounds carry a course, a tee name and a differential, but still no par or ya
 - **Scorecards** — 172 dated scorecards, 2021-07-08 to 2026-09-15, from the Grint export bundle, captured 2026-09-16
 - **Courses** — 172 rounds over 99 layouts, from The Grint, captured 2026-08-01
 - **Range** — 301 shots over 8 Garmin R50 sessions, 2026-07-02 to 2026-08-14
-- **Shots on course** — 208 AutoShot shots over 4 of 11 rounds (the rest are R50 simulator rounds, which carry no shots), from the Garmin export bundle, captured 2026-09-16
+- **Shots on course** — 248 AutoShot shots over 5 of 12 rounds (the rest are R50 simulator rounds, which carry no shots), from the Garmin export bundle, captured 2026-09-29
 
 Regenerate with `pnpm profile`. The course half comes from
 `public/data/courses.json`, the map pipeline's artifact — `pnpm data:build`.

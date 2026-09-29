@@ -42,6 +42,27 @@
           "note": "Carried from 09-09, still 0 swings on file. It started 15 holes over the 4 watch rounds and 3 of those tee shots went under 65 yd. The block is a contact block first and a yardage block second: 15 usable swings, low point in front of the ball, the R50 keeps score."
         }
       ]
+    },
+    {
+      "weekOf": "2026-09-29",
+      "goals": [
+        {
+          "id": "2026-09-29-1",
+          "metricId": "shot-bearing-rounds",
+          "target": 6,
+          "leakId": "short-game",
+          "note": "A sixth watch round, captured with its Grint card this time. Lincoln 09-26 (77, three birdies) is Garmin-only until the next Grint export lands — no putts, no three-putt count, link still proposed. The round is scored two ways: mishit full swings (one every five holes at Lincoln, one every three before it) and chips that end inside 6 ft (7 of 17 measurable so far)."
+        },
+        {
+          "id": "2026-09-29-2",
+          "metricId": "usable-shots",
+          "club": "3 Hybrid",
+          "target": 15,
+          "taskId": "unrecorded-3 Hybrid",
+          "leakId": "tee-unmeasured",
+          "note": "Third week, still 0 swings on the R50. It started 9 of 11 driving holes at Lincoln and 8 flew 175 yd or more — 35 course swings, median 204 yd, no monitor number. The block is the contact item with a number attached: 15 usable swings, low point in front of the ball. If it does not happen this week the goal goes, not the club."
+        }
+      ]
     }
   ]
 }

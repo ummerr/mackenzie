@@ -6,6 +6,110 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-09-29 — Fifth watch round: the findings switch on, and a short course says the same thing louder
+
+**Decided:** the week of 2026-09-29 (`data/goals.json`) is a sixth watch
+round captured *with its Grint card* and the 3 Hybrid block, carried a third
+time. The practice order from 2026-09-16 — contact, then the chip-and-one-putt,
+then the front-edge club, then lag speed — stands; the fifth round moved no
+item, it re-priced two of them. The derived pages now print the short-game
+and lie splits (5 shot-bearing rounds, `GARMIN_THRESHOLDS` met), so from
+here the numbers below are the check on the page, not the substitute for it.
+
+**The capture:** Lincoln Park, Blue tees (65.5/107, par 68), 2026-09-26 —
+77 strokes, 40 shots heard. Three birdies (1, 2, 15), six pars, seven
+bogeys, two doubles-or-worse. Differential 12.1 by the tee rating, the
+lowest of the record's last eight and under the 13.9 index. **No Grint
+card in this capture** — the round is Garmin-only until the next Grint
+export lands, so there are no putts and no three-putt count for it, and the
+link in `data/round-links.json` stays proposed. Fifth shot-bearing round;
+248 shots on course; index unchanged at 13.9.
+
+**What 18 holes at Lincoln say, against the 72 before them:**
+
+- **Short course, short club, best score.** The 3 Hybrid started 9 of the
+  11 par-4-and-5 holes; 8 of those 9 flew 175–239 yd. The driver came out
+  four times (260, 239, 250, 147). Doubles: 2 in 18 against 29 in 72 —
+  and the doubles still carried 5 of the 9 strokes over par. Greens hit
+  played at −0.14 a hole, greens missed at +0.91.
+- **Contact, still, on a good day.** Three mishit full swings (3 Hybrid
+  120 yd off the 7th tee, Driver 147 off the 18th, Sand Wedge 39 from 85)
+  plus a 109-yd 4 Iron from 218 in the rough that may have been a
+  punch-out — one every five or six holes against one every three. The
+  18th's 147-yd driver became the round's only triple. The 8 Iron 159 yd
+  off the 6th tee was a layup and is not counted.
+- **The chip went in the hole for the first time.** Two up-and-downs in
+  five chances (a Lob Wedge from 22 yd to 10 yd and one putt for the
+  birdie on 15; a Gap Wedge from 20 yd and one putt to save bogey on 16).
+  The 2nd was holed from off the green after a 23-yd Lob Wedge stopped on
+  the fringe. Five of seven Lob Wedge shots from 20–50 yd reached the green.
+- **Fairway lies, for once:** 9 fairway / 12 rough among non-tee shots,
+  against 37 / 91 over the five rounds.
+
+**Five rounds, 90 holes (Harding 08-20, Presidio 08-22 and 09-08, Olympic
+09-15, Lincoln 09-26):**
+
+- 18 pars-or-better / 41 bogeys / 31 doubles-or-worse; the doubles carry
+  66 of 103 strokes over par. Par 3s +1.00 a hole, par 4s +1.17, par 5s +1.25.
+- 11 of 67 par-4/5 tee shots under 170 yd (one a layup); 21 further full
+  shots that advanced under half the way. A mishit-carrying hole plays at
+  +1.82.
+- **Up-and-downs: 5 of 33 chances** by one definition — the last heard
+  shot inside 50 yd reached the green and one putt followed (putts from
+  the Grint card on the four linked rounds, inferred from strokes minus
+  heard shots at Lincoln). **1 of 33 for par or better** — the Lincoln
+  birdie. The 2026-09-16 "0 in 33" counted chances more loosely; on
+  this definition the same four rounds are 0 of 28 for par. Chip reaches the green
+  34 of 51 (67%, unchanged).
+- Approach from 125–200 yd: **6 greens in 44** (0/9, 4/22, 2/13); from
+  100–124, 10 of 23. Non-tee lies: Rough 91, Fairway 37, Bunker 12.
+- Three-putts 9 in 72 putted holes (12.5%); Lincoln unputted.
+- 3 Hybrid on course: 35 full swings, median 204 yd, still **0 on the
+  R50** after three goal weeks.
+
+**A data caveat for anyone who builds a leave metric:** on 28 of 90 holes
+the last heard shot ends *exactly* on Garmin's pin coordinates (17 of the
+34 chips that reached the green). The watch has no putt data, so the
+"pin" on those holes is where the last shot stopped, and a leave computed
+from it is 0 by construction. The 7-yd median leave (21 ft) is over the
+17 chips with a pin the watch actually placed; 7 of those 17 finished
+inside 6 ft. Nothing in `lib/` reads the pin for a distance yet; if it
+ever does, it filters end-equals-pin first.
+
+**Where to focus — same order, re-priced:**
+
+1. **Contact on full swings.** Lincoln says a good day is one mishit every
+   five holes, not zero, and the one driver mishit still cost three. The
+   first blocked 15 minutes of every range session stays low-point work;
+   the 3 Hybrid block is that work with a number attached — which is why
+   it is carried, not dropped.
+2. **Chip on, one putt.** The first par saved from a chip in 90 holes
+   came on the 15th at Lincoln from 22 yd. The short-game session is still
+   scored by leaves inside 6 ft (7 of 17 measurable), then twenty putts
+   from 4–8 ft. That is the stroke-a-round that is closest.
+3. **Club for the front from 150–200.** 6 of 44. Unchanged.
+4. **Lag speed** for the three-putts, unchanged, and unmeasured this
+   week because the Grint card is missing.
+
+**Rejected:** treating Lincoln as a breakthrough — 5,100 yards at slope
+107 is where a 3 Hybrid tee ball and a 100-yd approach are the whole
+course; the 12.1 says the swing was better than usual, the 8-of-9 hybrids
+say the *club* was right for the course. **Rejected:** a "tee with the
+hybrid" rule for every course — at Olympic and Presidio the hybrid
+started 15 holes and 3 of them went under 65 yd; it mishits like the
+driver does. **Rejected:** dropping the 3 Hybrid goal after two misses —
+it is the only goal that measures the actual first item; if the block
+does not happen this week the goal is what goes, not the club. **Rejected:**
+a putts-inferred three-putt count for Lincoln (strokes minus heard shots
+counts unheard chips as putts).
+
+**Also:** the 2026-09-16 goals close 1 of 2 in record time — the fifth
+watch round achieved, the 3 Hybrid block missed. The `app/rounds/watch.tsx`
+simulator list came out of the page in the 09-16 session and is still
+uncommitted; it is not part of this capture.
+
+---
+
 ## 2026-09-16 — Four watch rounds: the score is contact and the up-and-down, not the putter
 
 **Decided:** the week of 2026-09-16 (`data/goals.json`) is one more watch

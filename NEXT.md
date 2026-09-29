@@ -1,22 +1,25 @@
 # NEXT
 
 <!-- state:start -->
-**State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-09-16
+**State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-09-29
 Last commit 2026-09-16 — Capture 2026-09-16: Olympic Lake 99 heard by the watch, fourth link, the week is contact
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
 next.
 
-**State as of 2026-09-16:** the two sites are one Next.js app — command
+**State as of 2026-09-29:** the two sites are one Next.js app — command
 center at `/`, map at `/courses` — deploying as the single `mackenzie` Vercel
-project. Newest capture 2026-09-16: 172 Grint rounds (handicap index 13.9,
-157 differentials), 4 shot-bearing watch rounds of the 5 the findings need,
-4 confirmed links, second week of goals committed (`data/goals.json`,
-2026-09-16). `pnpm data:validate` exits clean. The Olympic Club (Lake)
-joined the spine and the map. What the four watch rounds say — a mishit
-full swing every three holes, 0 up-and-downs in 33 — is written up in
-`DECISIONS.md` 2026-09-16 because the pages cannot print it until round 5.
+project. Newest capture 2026-09-29 (Garmin only): 5 shot-bearing watch
+rounds, so the short-game and lie findings are switched on and print on
+the pages; 4 confirmed links plus Lincoln Park 2026-09-26 (77, best
+differential of the last eight) **unlinked because no Grint export was
+captured with it** — the next Grint capture proposes the link and brings
+its putts. 172 Grint rounds, index 13.9, 157 differentials, third week of
+goals committed (`data/goals.json`, 2026-09-29). `pnpm data:validate`
+exits clean. What the five rounds say — a mishit every three holes, 5
+up-and-downs in 33 and one for par, 6 greens in 44 from 125–200 — is in
+`DECISIONS.md` 2026-09-29, with a pin-snap caveat for any future leave metric.
 
 ---
 
@@ -65,12 +68,16 @@ HTML, licence gray area, hard name-matching problem).
   `data/raw/` → **`pnpm refresh`** (it works out which pipelines the new
   files call for, re-proposes links, validates, rewrites PROFILE.md and the
   flight page) → confirm any proposed links in `data/round-links.json` →
-  commit. Each capture retires or sharpens findings; at 5 shot-bearing
-  rounds (4 as of 2026-09-16 — **the next watch round is the one**) the
-  short-game and lies unknowns retire and three new findings switch on —
-  see `GARMIN_THRESHOLDS`. When it lands, check the printed short-game
-  split against the hand count in `DECISIONS.md` 2026-09-16 (0 up-and-downs
-  in 33, median leave 7 yd) and let the page take over from that entry. **After every
+  commit. Each capture retires or sharpens findings; the 5-round gate in
+  `GARMIN_THRESHOLDS` was met 2026-09-26, so the short-game and lies
+  unknowns are retired and the three watch findings print. The page prints
+  the *split* (26% short game, 52% rough); the up-and-down count, the
+  mishit count and the chip leave are still hand analysis in `DECISIONS.md`
+  2026-09-29 — if one of them becomes a `lib/` finding, filter shots whose
+  end equals the hole's pin first (28 of 90 holes; the watch has no putts,
+  so the pin is often just where the last shot stopped). **Capture Grint
+  with every Garmin capture** — Lincoln 09-26 is unlinked and putt-less
+  because 09-29 was Garmin-only. **After every
   refresh, read the `pnpm data:rounds` line** — `differentials N handicap
   index X` and the five series counts. On 2026-09-09 a chart re-platform
   made all of them zero and validate did not notice; a zero there is a
@@ -84,10 +91,12 @@ HTML, licence gray area, hard name-matching problem).
   untouched; `pnpm refresh` is already the whole downstream half). Garmin
   also has an official API programme (consumer OAuth) that could replace the
   extension for the watch if access is ever granted; Grint has no API.
-- **Keep the week.** Week two is committed (2026-09-16: a fifth watch
-  round; 15 usable 3 Hybrid swings, carried — week one closed 0 of 2). The
-  practice order for now is contact, then the chip-and-one-putt, then
-  putting speed — `DECISIONS.md` 2026-09-16 has the numbers behind it. When the record outruns it, `pnpm goals:propose` drafts the next;
+- **Keep the week.** Week three is committed (2026-09-29: a sixth watch
+  round with its Grint card; 15 usable 3 Hybrid swings, carried a third
+  time — week two closed 1 of 2, the block has had 0 swings in three
+  weeks and goes if it misses again). The practice order is contact, then
+  the chip-and-one-putt, then the front-edge club from 150–200, then lag
+  speed — `DECISIONS.md` 2026-09-16 set it and 2026-09-29 re-priced it. When the record outruns it, `pnpm goals:propose` drafts the next;
   edit to one or two goals a week can actually move, paste, `pnpm run
   profile`, commit. The standing practice shape — three short sessions,
   blocked only for measurement, random for the rest, lag speed on the green,
@@ -187,3 +196,4 @@ HTML, licence gray area, hard name-matching problem).
 - **2026-08-23** — session ended: 7 file(s) dirty, 0 commit(s) unpushed. Last touched: `data/garmin-rounds.json`. <!-- campfire:2026-08-23 -->
 - **2026-08-24** — session ended: 0 file(s) dirty, 9 commit(s) unpushed. Last touched: `(committed, unpushed)`. <!-- campfire:2026-08-24 -->
 - **2026-09-09** — session ended: 2 file(s) dirty, 2 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-09 -->
+- **2026-09-16** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-16 -->
