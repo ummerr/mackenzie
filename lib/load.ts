@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { parseBenchmarks, type BenchmarkFile } from "@/lib/benchmarks";
 import { buildCourseHistory, type CourseHistory, type SourceCourses } from "@/lib/course-history";
 import { buildGarminShots, type GarminShots, type SourceGarminRounds } from "@/lib/garmin-shots";
 import { parseGoalsFile, type GoalsFile } from "@/lib/goals";
@@ -71,6 +72,27 @@ interface RoundLink {
   scorecardId: string;
   roundId: string | null;
   status: string;
+}
+
+/** The confirmed links themselves — the join, before either side is read. */
+export function loadLinks(): { scorecardId: string; roundId: string }[] {
+  try {
+    return loadJson<{ links: RoundLink[] }>("round-links.json")
+      .links.filter((l) => l.status === "confirmed" && l.roundId !== null)
+      .map((l) => ({ scorecardId: l.scorecardId, roundId: l.roundId as string }));
+  } catch {
+    return [];
+  }
+}
+
+/** The sourced external benchmarks — hand-curated, validated, and absent
+ *  on a checkout that never had them: the plan then prices nothing. */
+export function loadBenchmarks(): BenchmarkFile | null {
+  try {
+    return parseBenchmarks(loadJson<unknown>("benchmarks.json"));
+  } catch {
+    return null;
+  }
 }
 
 export function loadLinkedGrint(): Map<string, PlayedRound> {

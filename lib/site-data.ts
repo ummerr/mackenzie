@@ -18,12 +18,15 @@ import { readBag, readWedgeBlocks } from "./bag-file";
 import type { BagSpec } from "./clubs";
 import type { GarminShots } from "./garmin-shots";
 import { approachBands } from "./approach";
+import type { BenchmarkFile } from "./benchmarks";
+import { buildBreak80, type Break80 } from "./break80";
 import { buildGoalProgress, type GoalsProgress } from "./goals";
 import { buildLeaks, type Leak } from "./leaks";
 import type { LedgerSession, LedgerShot } from "./ledger";
-import { loadGarmin, loadGoals, loadJson, loadRounds } from "./load";
+import { loadBenchmarks, loadGarmin, loadGoals, loadJson, loadLinkedGrint, loadLinks, loadRounds } from "./load";
+import { buildParIndex, type ParIndex } from "./pars";
 import { PROFILE_THRESHOLDS } from "./profile";
-import type { RoundHistory } from "./round-history";
+import type { PlayedRound, RoundHistory } from "./round-history";
 import { applyHeuristics, buildBag, detectGaps, type ClubProfile, type Gap } from "./stats";
 import { buildTasks, type Task } from "./tasks";
 import { buildWedgeMatrix, type WedgeBlock, type WedgeMatrix } from "./wedge-matrix";
@@ -43,9 +46,16 @@ export interface SiteData {
   gaps: Gap[];
   roundHistory: RoundHistory | null;
   garminShots: GarminShots | null;
+  /** The one human-made join, read once: Garmin scorecardId → Grint card. */
+  linked: Map<string, PlayedRound>;
+  /** Par per Grint round, known only through the links. */
+  pars: ParIndex;
+  benchmarks: BenchmarkFile | null;
   wedgeMatrix: WedgeMatrix;
   tasks: Task[];
   leaks: Leak[];
+  /** The plan: the record against the break-80 benchmarks, priced. */
+  plan: Break80;
   /** The committed weekly goals, measured against the record — null-safe all
    *  the way down; a checkout without data/goals.json gets empty weeks. */
   goals: GoalsProgress;
@@ -60,6 +70,9 @@ export function buildSiteData(): SiteData {
   const gaps = detectGaps(profiles, undefined, bag);
   const roundHistory = loadRounds();
   const garminShots = loadGarmin();
+  const linked = loadLinkedGrint();
+  const pars = buildParIndex(garminShots, loadLinks());
+  const benchmarks = loadBenchmarks();
   const wedgeMatrix = buildWedgeMatrix(shots, blocks, profiles);
   const tasks = buildTasks({
     profiles,
@@ -79,6 +92,7 @@ export function buildSiteData(): SiteData {
     recentMonths: PROFILE_THRESHOLDS.recentMonths,
     approach: approachBands(garminShots),
   });
+  const plan = buildBreak80({ roundHistory, garminShots, linked, benchmarks });
   const goals = buildGoalProgress(loadGoals(), {
     roundHistory,
     garminShots,
@@ -97,9 +111,13 @@ export function buildSiteData(): SiteData {
     gaps,
     roundHistory,
     garminShots,
+    linked,
+    pars,
+    benchmarks,
     wedgeMatrix,
     tasks,
     leaks,
+    plan,
     goals,
   };
 }

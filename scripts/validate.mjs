@@ -29,6 +29,31 @@ const warnings = [];
 const err = (m) => errors.push(m);
 const warn = (m) => warnings.push(m);
 
+// --- benchmarks contract -----------------------------------------------------
+// The only file allowed to hold a number about other golfers. Every entry
+// carries a source URL, the population it was measured on, and the
+// provider's definition of the metric (DECISIONS.md 2026-09-29). Checked
+// before the courses artifact so a fresh checkout still gets the verdict.
+
+const BENCH_KEYS = ["id", "metric", "band", "value", "unit", "definition", "population", "source", "sourceTitle", "checked", "verified", "confidence"];
+const benchFile = readJson("benchmarks.json", { benchmarks: [] });
+const benchIds = new Set();
+let benchUnverified = 0;
+for (const b of benchFile.benchmarks ?? []) {
+  const tag = `benchmarks[${b?.id ?? "?"}]`;
+  if (typeof b !== "object" || b === null) { err(`${tag} is not an object`); continue; }
+  for (const k of BENCH_KEYS) if (!(k in b)) err(`${tag} is missing "${k}"`);
+  if (benchIds.has(b.id)) err(`${tag} duplicate id`);
+  benchIds.add(b.id);
+  if (typeof b.source !== "string" || !/^https?:\/\//.test(b.source)) err(`${tag} source is not a URL`);
+  if (!b.population) err(`${tag} has no population`);
+  if (!b.definition) err(`${tag} has no definition`);
+  if (!Number.isFinite(b.value)) err(`${tag} value is not a number`);
+  if (!["high", "medium", "low"].includes(b.confidence)) err(`${tag} confidence "${b.confidence}" is not high|medium|low`);
+  if (!b.verified) benchUnverified++;
+}
+console.log(`\n  benchmarks ${benchIds.size} · unverified ${benchUnverified}`);
+
 const builtPath = resolve(PUB, "courses.json");
 const built = existsSync(builtPath) ? JSON.parse(readFileSync(builtPath, "utf8")) : null;
 if (!built) {
