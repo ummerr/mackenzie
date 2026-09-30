@@ -101,6 +101,9 @@ export function buildSiteData(): SiteData {
     leaks,
     tasks,
     recentMonths: PROFILE_THRESHOLDS.recentMonths,
+    pars,
+    linked,
+    plan,
   });
   return {
     blocks,

@@ -24,7 +24,7 @@ export function GoalRow({ g }: { g: GoalProgress }) {
       {g.status !== "invalid" && (
         <p className="mt-1.5 font-mono text-[11px] leading-5 text-ink-2 sm:pl-8">
           now {fmtVal(g.value, g.unit)} · target{" "}
-          {g.direction === "down" ? "under " : ""}
+          {g.direction === "down" ? "at most " : ""}
           {fmtVal(g.goal.target, g.unit)}
           {g.sample ? ` · over ${g.sample.n} ${g.sample.unit}` : ""}
         </p>

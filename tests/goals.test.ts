@@ -6,9 +6,11 @@ import {
   METRICS,
   parseGoalsFile,
   proposalForLeak,
+  proposalForPlan,
   type GoalEntry,
   type GoalInputs,
 } from "../lib/goals";
+import type { Break80, Opportunity } from "../lib/break80";
 import { LEAK_TARGETS, type Leak } from "../lib/leaks";
 import type { PlayedRound, RoundHistory } from "../lib/round-history";
 
@@ -53,9 +55,14 @@ function inputs(over: Partial<GoalInputs> = {}): GoalInputs {
     leaks: [],
     tasks: [],
     recentMonths: 18,
+    pars: new Map(),
+    linked: new Map(),
+    plan: null,
     ...over,
   };
 }
+
+const CTX = { weekOf: "2026-08-17", weekEnd: "2026-08-24" };
 
 const goal = (over: Partial<GoalEntry> = {}): GoalEntry => ({
   id: "g1",
@@ -254,7 +261,7 @@ describe("METRICS — the watch metrics", () => {
   };
 
   it("counts shot-bearing rounds, not sim scorecards", () => {
-    expect(METRICS["shot-bearing-rounds"].compute(inputs({ garminShots: g }), null).value).toBe(2);
+    expect(METRICS["shot-bearing-rounds"].compute(inputs({ garminShots: g }), null, CTX).value).toBe(2);
   });
 
   it("uses the watch asOf when it is newer than the cards'", () => {
@@ -263,5 +270,110 @@ describe("METRICS — the watch metrics", () => {
       inputs({ roundHistory: history(), garminShots: g }),
     );
     expect(p.asOf).toBe("2026-08-22");
+  });
+});
+
+/* The next-round metrics read the FIRST full card dated inside the goal's
+ * week, need par through a link, and leave a week that ends without a
+ * round "unplayed" — neither achieved nor missed. Proposals come from the
+ * plan and are never range-data goals. */
+
+describe("METRICS — the next round", () => {
+  const pars = "444344534443544344".split("").map(Number);
+  const card = (roundId: string, date: string, strokes: number[], putts: number[]): PlayedRound =>
+    played({ roundId, date, holeStrokes: strokes, holePutts: putts, strokes: strokes.reduce((a, b) => a + b, 0) });
+  // 4 doubles (holes 1–4 at +2), 3 three-putts, arithmetic GIR on holes 5–7.
+  const strokes = pars.map((p, i) => (i < 4 ? p + 2 : i < 7 ? p : p + 1));
+  const putts = pars.map((_, i) => (i < 3 ? 3 : 2));
+  const week = { weekOf: "2026-09-21", weekEnd: "2026-09-28" };
+  const withPar = (rounds: PlayedRound[]) =>
+    inputs({
+      roundHistory: history({ rounds }),
+      pars: new Map(rounds.map((r) => [r.roundId, { pars, scorecardId: "s" }])),
+    });
+
+  it("is null until a round lands in the week", () => {
+    const inp = withPar([card("r0", "2026-09-15", strokes, putts)]);
+    expect(METRICS["next-round-doubles"].compute(inp, null, week).value).toBeNull();
+  });
+
+  it("reads the first round in the week, not the newest", () => {
+    const inp = withPar([
+      card("r1", "2026-09-22", strokes, putts),
+      card("r2", "2026-09-26", pars.map((p) => p), putts),
+    ]);
+    expect(METRICS["next-round-doubles"].compute(inp, null, week).value).toBe(4);
+    expect(METRICS["next-round-gir"].compute(inp, null, week).value).toBe(3);
+    expect(METRICS["next-round-three-putts"].compute(inp, null, week).value).toBe(3);
+  });
+
+  it("skips a round without par for the par metrics but not for putts", () => {
+    const rounds = [card("r1", "2026-09-22", strokes, putts)];
+    const inp = inputs({ roundHistory: history({ rounds }) });
+    expect(METRICS["next-round-doubles"].compute(inp, null, week).value).toBeNull();
+    expect(METRICS["next-round-three-putts"].compute(inp, null, week).value).toBe(3);
+  });
+
+  it("marks a week that ended with no eligible round unplayed, not missed", () => {
+    const inp = withPar([card("r9", "2026-10-05", strokes, putts)]);
+    const p = buildGoalProgress(
+      file("2026-09-21", [goal({ metricId: "next-round-doubles", target: 2 })]),
+      inp,
+    );
+    expect(p.latest!.over).toBe(true);
+    expect(p.latest!.goals[0].status).toBe("unplayed");
+  });
+
+  it("achieves and misses on the round's own number", () => {
+    const inp = withPar([card("r1", "2026-09-22", strokes, putts), card("r9", "2026-10-05", strokes, putts)]);
+    const p = buildGoalProgress(
+      file("2026-09-21", [
+        goal({ id: "a", metricId: "next-round-doubles", target: 4 }),
+        goal({ id: "b", metricId: "next-round-gir", target: 6 }),
+      ]),
+      inp,
+    );
+    expect(p.latest!.goals.map((g) => g.status)).toEqual(["achieved", "missed"]);
+  });
+});
+
+describe("proposalForPlan", () => {
+  const opp = (id: Opportunity["id"], strokes: number | null, over: Partial<Opportunity> = {}): Opportunity => ({
+    id,
+    label: id,
+    direction: "up",
+    yours: { value: 15, n: 33, unit: "%", source: "t", definition: "d" },
+    bench13: { id: "b13", metric: "m", band: "15", value: 35, unit: "%", definition: "d", population: "p", source: "https://x", sourceTitle: "t", checked: "2026-09-29", verified: true, confidence: "medium" },
+    bench5: { id: "b5", metric: "m", band: "5", value: 47, unit: "%", definition: "d", population: "p", source: "https://x", sourceTitle: "t", checked: "2026-09-29", verified: true, confidence: "medium" },
+    strokes,
+    formula: "f",
+    confidence: "medium",
+    move: { course: "c", practice: "p" },
+    retiredWhen: "r",
+    ...over,
+  });
+  const plan: Break80 = {
+    target: { score: 79, indexApprox: 6.5, differentialAt: [], breakShare: null },
+    yours: { index: 13.1, girLast20: 5.1, parSavesLast20: 14, threePuttPct: 9.2, threePuttsPerRound: 1.65, watchRounds: 5, linkedRounds: 5 },
+    ledger: [opp("short-game", 4.1), opp("approach", 2.1, { bench13: { ...opp("approach", 0).bench13!, value: 5.3 } }), opp("putting", 0.6), opp("tee", 0.5), opp("doubles", null)],
+    ledgerTotal: 7.3,
+    indexGap: 6.6,
+    rules: [],
+    trend: { gir: [], parSaves: [], threePutt: [] },
+    coverage: { holes: 90, pinSnapped: 28 },
+  };
+
+  it("proposes the two biggest priced areas as next-round targets, then doubles", () => {
+    const p = proposalForPlan(plan);
+    expect(p.map((x) => x.metricId)).toEqual(["next-round-up-and-downs", "next-round-gir", "next-round-doubles"]);
+    // 33 chances over 5 rounds × 35% → 3 up-and-downs; 13-band GIR 5.3 → 5 greens; doubles ≤ 2.
+    expect(p.map((x) => x.target)).toEqual([3, 5, 2]);
+  });
+
+  it("never proposes a range-data goal, and every metric exists", () => {
+    for (const x of proposalForPlan(plan)) {
+      expect(METRICS[x.metricId]).toBeDefined();
+      expect(["usable-shots", "measured-wedge-cells"]).not.toContain(x.metricId);
+    }
   });
 });

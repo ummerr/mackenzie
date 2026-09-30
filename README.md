@@ -227,10 +227,13 @@ owning one deletes itself, because it was a measurement and not a personality.
 
 Two rules it does not bend:
 
-- **No benchmark without a source.** There are no tour averages here and no
-  handicap model. Every comparison is internal — this club against the one next
-  to it, these courses against those — for the same reason `facts.json` makes
-  every claim carry a URL.
+- **No benchmark without a source.** There is no handicap model here, and the
+  only numbers about other golfers are the entries in `data/benchmarks.json`,
+  each with a source URL, the population it was measured on, and the
+  provider's own definition — validated, and printed beside the record's own
+  definition on `/plan`. Every other comparison is internal — this club
+  against the one next to it, these courses against those — for the same
+  reason `facts.json` makes every claim carry a URL.
 - **A roast may be sharp, never unsupported.** Each one restates its own
   evidence and nothing more.
 
@@ -358,7 +361,11 @@ app/
   palette.ts          turf, the ordinal club ramp, the gap verdict tokens
   globals.css         the tokens themselves, both themes, one line each
   theme-toggle.tsx    day / dusk / auto
-  practice/           what to hit next, generated from the ledger
+  plan/               how this golfer breaks 80: the record priced against
+                      sourced benchmarks, the moves, the week; the range
+                      task list rides at its foot (/practice redirects here)
+  charts.tsx          the site's SVG charts: the arc, small multiples, the
+                      gap bar, the bullet
   scratch/            the road from 12.9 to scratch, on the record's arithmetic
   sessions/           exclusion hygiene, deliberately unstyled
   site-nav.tsx        the sections, inline above `sm` and a tab strip below
@@ -372,6 +379,10 @@ lib/
   ledger.ts           many sessions -> one deduplicated ledger. Pure
   stats.ts            medians, bands, gap flags, the carry/total basis. Pure
   tasks.ts            practice tasks derived from all of the above. Pure
+  break80.ts          the plan: the record's numbers by area, the benchmarks
+                      beside them, the gap priced with its arithmetic. Pure
+  benchmarks.ts       data/benchmarks.json, read and looked up. Pure
+  pars.ts             par for a Grint round, known only through a link. Pure
   ball-flight.ts      start line vs curvature, and what corroborates. Pure
   course-history.ts   reshapes public/data/courses.json, and the arithmetic over it
   round-history.ts    reshapes data/rounds.json — the round-by-round record
@@ -516,7 +527,7 @@ column is the median of `total − carry` on each shot that has both. Subtractin
 the two published medians would difference two different shot sets — total drops
 the copies and carry does not — and call the answer roll.
 
-**`/practice` stays on carry, deliberately.** Every task there is about a swing
+**The range list stays on carry, deliberately.** Every task there is about a swing
 you have or have not measured, and a swing is measured at the point of landing.
 Rollout is the turf's contribution; ranking practice by it would sort the list
 by something no amount of range work changes.
@@ -654,12 +665,23 @@ The gap rulers in the scorecard put the thresholds on the page instead of making
 you do the arithmetic on every row: the shaded band is the 8–15 yd window where
 a gap is fine, and a bar drawn left of the zero mark is an inversion.
 
-## Practice tasks
+## The plan, and the range tasks under it
 
-`/practice` is generated from the ledger, never hand-written — a static checklist
-is wrong the moment you hit balls, and goes on claiming things the data has
-already disproved. Each task carries the numbers that put it on the list and the
-condition that retires it, so hitting the shots removes it on the next ingest.
+`/plan` is the guidance: how this golfer breaks 80, from the record against
+sourced benchmarks (`lib/break80.ts`, `data/benchmarks.json`). Each area — the
+chip-and-one-putt, greens from 100–175, lag speed, contact off the tee, and the
+doubles they produce — carries the record's own number with its definition, the
+13-band and 5-band numbers with theirs, the gap priced in strokes a round with
+the arithmetic printed, one move on the course and one on the range, and the
+number that retires it. The week's goals are proposed from that ledger as
+next-round targets (`pnpm goals:propose`), never as range-data goals.
+
+The range task list rides at the foot of `/plan`, generated from the ledger,
+never hand-written — a static checklist is wrong the moment you hit balls, and
+goes on claiming things the data has already disproved. Each task carries the
+numbers that put it on the list and the condition that retires it, so hitting
+the shots removes it on the next ingest. It fills in the bag page; it does not
+set the week.
 
 Ranked by **information gain, not effort**. The obvious ordering is "top up
 whatever is closest to the threshold", and it is wrong: a club with four shots is

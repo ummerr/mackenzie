@@ -2,7 +2,7 @@
 
 <!-- state:start -->
 **State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-09-29
-Last commit 2026-09-29 — Capture 2026-09-29: Lincoln Park 77 heard by the watch, fifth round, the findings switch on
+Last commit 2026-09-29 — Grint capture: scrape the last N rounds, no baseline file
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
@@ -16,9 +16,13 @@ on the pages; 5 confirmed links, the newest Lincoln Park 2026-09-26 (77,
 differential 11.1, index **13.9 → 13.1**). Lincoln Park joined the spine
 and the map. 173 Grint rounds, 158 differentials, third week of goals
 committed (`data/goals.json`, 2026-09-29). `pnpm data:validate` exits
-clean. What the five rounds say — a mishit every three holes, 5
-up-and-downs in 33 and one for par, 6 greens in 44 from 125–200 — is in
-`DECISIONS.md` 2026-09-29, with a pin-snap caveat for any future leave metric.
+clean. **The guidance is now `/plan`** (2026-09-29): the record priced
+against sourced break-80 benchmarks (`data/benchmarks.json`, 42 entries,
+all verified) — short game 4.1 strokes a round, approach 2.1, putting 0.6,
+tee 0.5, against an index gap of 6.6. `/practice` redirects into its foot.
+The week's goals are next-round targets from the plan (`pnpm
+goals:propose`), never range-data goals. The hand analysis behind it is in
+`DECISIONS.md` 2026-09-29 (two entries).
 
 ---
 
@@ -91,14 +95,27 @@ HTML, licence gray area, hard name-matching problem).
   untouched; `pnpm refresh` is already the whole downstream half). Garmin
   also has an official API programme (consumer OAuth) that could replace the
   extension for the watch if access is ever granted; Grint has no API.
-- **Keep the week.** Week three is committed (2026-09-29: a sixth watch
-  round with its Grint card; 15 usable 3 Hybrid swings, carried a third
-  time — week two closed 1 of 2, the block has had 0 swings in three
-  weeks and goes if it misses again). The practice order is contact, then
-  the chip-and-one-putt, then the front-edge club from 150–200, then lag
-  speed — `DECISIONS.md` 2026-09-16 set it and 2026-09-29 re-priced it. When the record outruns it, `pnpm goals:propose` drafts the next;
-  edit to one or two goals a week can actually move, paste, `pnpm run
-  profile`, commit. The standing practice shape — three short sessions,
+- **Keep the week.** Week three is committed (2026-09-29, rewritten from
+  the plan): in the next round on the watch with its Grint card — 3
+  up-and-downs, 5 greens, 2 doubles or fewer. The 3 Hybrid block goal is
+  dropped. The practice order is the plan's ledger: chip on and one putt,
+  then greens from 100–175, then contact, then lag speed — `/plan` prints
+  it and `DECISIONS.md` 2026-09-29 has the why. When the record outruns
+  the week, `pnpm goals:propose` drafts the next from the ledger; paste,
+  `pnpm run profile`, commit. A week that ends with no eligible round is
+  `unplayed`, not missed. **Every next-round metric needs the round on
+  the watch AND its Grint card** — doubles and greens need par, which the
+  card only knows through the link.
+- **Unlock doubles over the whole record.** `lib/pars.ts` knows par only
+  through the five links. The step that changes that: par per course and
+  tee from a source — the watch's `holePars` for any course played on the
+  watch (borrowing was designed and cut at 0 of 173 today), or Grint's
+  `get_course_data` tee ids (the "Deliberately not doing yet" item below).
+  With par on the LA courses the doubles line, the next-round GIR and the
+  scramble rate stop being five-round numbers.
+- **Verify the benchmarks stay true.** `data/benchmarks.json` was read on
+  2026-09-29; providers restate their tables. Re-check yearly, and when a
+  page moves, fix `source` rather than the number. The standing practice shape — three short sessions,
   blocked only for measurement, random for the rest, lag speed on the green,
   chips from rough measured by the leave — is in `DECISIONS.md` 2026-09-09.
 - **Hit the first labeled wedge blocks.** The wedge matrix on `/bag` is 0 of 6

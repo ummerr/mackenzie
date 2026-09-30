@@ -195,14 +195,24 @@ goals — because no ledger can know intent. Everything about how a week is
 going is derived (`lib/goals.ts` metric registry), measured in **record
 time**: a week is open until the newest capture outruns it, then achieved or
 missed by what the record says. The engine proposes (`pnpm goals:propose`,
-from the top leak and the top open task); pasting into this file is the
-human's commit — the `round-links.json` pattern applied to intent.
+from the plan's ledger since 2026-09-29: the two biggest priced areas as
+next-round targets, then the doubles line; `--legacy` keeps the old top-leak
++ top-task proposal); pasting into this file is the human's commit — the
+`round-links.json` pattern applied to intent.
+
+The `next-round-*` metrics (`doubles`, `gir`, `three-putts`, `up-and-downs`,
+`troublesome-tees`) read the FIRST full 18-hole card dated inside the week —
+the first, so a second round cannot rescue the first — and each needs what it
+needs: par (through a confirmed link to the watch), putts (a full card), or
+the watch itself. A week that ends with no eligible round is `unplayed`,
+neither achieved nor missed. Every metric's `compute` receives the week as
+`{ weekOf, weekEnd }`; the older metrics ignore it.
 
 ```json
 { "weeks": [ { "weekOf": "2026-08-24", "goals": [ {
   "id": "2026-08-24-1",          // any unique string
-  "metricId": "gir-last-20",     // a key of METRICS in lib/goals.ts
-  "target": 9,                    // the number to reach (direction is the metric's)
+  "metricId": "next-round-doubles", // a key of METRICS in lib/goals.ts
+  "target": 2,                    // the number to reach (direction is the metric's)
   "club": "Driver",              // only for club-scoped metrics (usable-shots)
   "leakId": "gir-ceiling",       // optional join to the leak it answers
   "taskId": "three-putts",       // optional join to the task it executes
@@ -213,6 +223,19 @@ human's commit — the `round-links.json` pattern applied to intent.
 Weeks sort by `weekOf` and the newest is "this week" everywhere — position,
 not the wall clock. Unknown metric ids, bad targets, or joins that no longer
 resolve render as their own state (`invalid` / orphaned), never a crash.
+
+### Benchmarks: data/benchmarks.json
+
+The one file allowed to hold a number about other golfers. Every entry:
+`{ id, metric, band, value, unit, definition, population, source (URL),
+sourceTitle, quote?, checked, verified, confidence }`. `definition` is the
+provider's own — the plan prints it beside the record's definition, because a
+Shot Scope "up-and-down" (any score) is not a Grint "par save" (par or
+better). `band` is the provider's grouping (a handicap band, or a scoring band
+like `70s`), never mixed. `pnpm data:validate` refuses an entry without a
+URL, a population or a definition, and prints the unverified count.
+`lib/benchmarks.ts` `bench(file, metric, band)` is the only lookup and never
+falls back to another band.
 
 ### Courses the paste hasn't met
 

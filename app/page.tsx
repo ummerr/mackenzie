@@ -127,7 +127,7 @@ export default function Now() {
                   {g.label}
                   {g.status !== "invalid" && (
                     <span className="text-ink-2">
-                      {" "}— now {fmtVal(g.value, g.unit)}, target {g.direction === "down" ? "under " : ""}
+                      {" "}— now {fmtVal(g.value, g.unit)}, target {g.direction === "down" ? "at most " : ""}
                       {fmtVal(g.goal.target, g.unit)}
                     </span>
                   )}

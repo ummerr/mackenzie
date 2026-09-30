@@ -1,14 +1,15 @@
-/* the leaks + the open tasks  ->  a proposed week of goals, on stdout
+/* the plan  ->  a proposed week of goals, on stdout
  *
- *   pnpm goals:propose        print a paste-ready week for data/goals.json
+ *   pnpm goals:propose           print a paste-ready week for data/goals.json
+ *   pnpm goals:propose --legacy  the pre-2026-09-29 proposal: top leak + top task
  *
  * The engine proposes; the human commits — the same pattern as
  * data/round-links.json. Nothing here writes anything: the output is a JSON
- * week to paste (and edit) into data/goals.json's `weeks` array. Each
- * proposal is the top leak and the top open practice task, translated into
- * the metric that measures them and the target their own retire line names
- * (LEAK_TARGETS / the task's doneWhen), so a committed goal retires on the
- * same condition the leak does.
+ * week to paste (and edit) into data/goals.json's `weeks` array. Since
+ * 2026-09-29 the proposal comes from the plan (lib/break80.ts): the two
+ * biggest priced areas as next-round targets, then the doubles line. A goal
+ * is about the next round played, never about filling in range data — a
+ * club measured at a monitor is a number on the bag page, not a stroke.
  *
  * The proposed weekOf is today's date — the one wall-clock read in this
  * repo's scripts, and a deliberate one: a proposal is ephemeral stdout for a
@@ -17,7 +18,7 @@
  * any other in the file.
  */
 
-import { proposalForLeak, proposalForTask, type GoalProposal } from "../lib/goals";
+import { proposalForLeak, proposalForPlan, proposalForTask, type GoalProposal } from "../lib/goals";
 import { buildSiteData } from "../lib/site-data";
 import { WEDGE_MATRIX_THRESHOLDS } from "../lib/wedge-matrix";
 
@@ -35,14 +36,18 @@ function main(): number {
     proposals.push(p);
   };
 
-  const measuredCells = d.wedgeMatrix.cells.filter(
-    (c) => c.source === "blocks" && c.active >= WEDGE_MATRIX_THRESHOLDS.minShotsPerCell,
-  ).length;
-  const topLeak = d.leaks[0] ?? null;
-  if (topLeak) push(proposalForLeak(topLeak));
-  for (const t of d.tasks) {
-    if (proposals.length >= 2) break;
-    push(proposalForTask(t, measuredCells));
+  if (process.argv.includes("--legacy")) {
+    const measuredCells = d.wedgeMatrix.cells.filter(
+      (c) => c.source === "blocks" && c.active >= WEDGE_MATRIX_THRESHOLDS.minShotsPerCell,
+    ).length;
+    const topLeak = d.leaks[0] ?? null;
+    if (topLeak) push(proposalForLeak(topLeak));
+    for (const t of d.tasks) {
+      if (proposals.length >= 2) break;
+      push(proposalForTask(t, measuredCells));
+    }
+  } else {
+    for (const p of proposalForPlan(d.plan)) push(p);
   }
 
   if (proposals.length === 0) {
@@ -63,9 +68,9 @@ function main(): number {
   console.log(JSON.stringify(week, null, 2));
   console.log("");
   console.log(
-    "The proposal is the engine's read of the top leak and the top open task;",
+    "The proposal is the plan's read of the next round: the two biggest priced areas, then the doubles line;",
   );
-  console.log("committing it is yours. Progress renders on the front page and in PROFILE.md.");
+  console.log("committing it is yours. Progress renders on /plan, the front page and PROFILE.md.");
   return 0;
 }
 

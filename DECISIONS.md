@@ -6,6 +6,121 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-09-29 — Break 80: the plan replaces the practice list, and benchmarks are admitted under contract
+
+**Decided:** the site's guidance is now one page, `/plan`, built from
+`lib/break80.ts` against `data/benchmarks.json`: the record's own numbers
+by area, the sourced 13-band and 5-band numbers beside each, the gap to
+the 5 band priced in strokes a round with the arithmetic printed, one
+course move and one practice move per area, six on-course rules with the
+record's figure beside each source, and the last-20 trend against the
+5-band line. `/practice` is redirected into the foot of `/plan` as "the
+range list" — it fills in the bag page, it no longer sets the week. The
+week's goals are proposed from the plan's ledger (`proposalForPlan`) as
+**next-round** targets — doubles, greens, up-and-downs, three-putts,
+troublesome tee balls in the first round dated inside the week — and
+never a range-data goal. The 2026-09-29 week is rewritten to three of
+them; the 3 Hybrid block goal is dropped, not carried.
+
+**Why:** the user's verdict on the leaks / tasks / goals stack was blunt
+and right — hard to parse, not graphic, and aimed at filling in simulator
+data ("15 usable 3 Hybrid swings") rather than scoring. The research on
+what separates a 13 from a golfer who breaks 80 was done properly (three
+lanes, ~60 pages read, every number with a URL) and it says:
+
+- **Greens hit is the headline separator.** 7.6 GIR a round at 5–7 vs 5.3
+  at 11–13 (Stagner/Arccos). Fairways hit is not one: 51% at 5, 47% at
+  15, 50% at scratch (Shot Scope). Driving distance is a 10% difference.
+- **The long game owns about 62% of the gap** between Am1 (70–83) and Am2
+  (84–97) in Broadie's 2008 Golfmetrics table (7.1 of 11.5 strokes);
+  short game 23%, putting 13%, sand 3%. Arccos' 5→scratch cohort puts the
+  long game at 73%. Nobody credible puts it under 60%.
+- **It arrives as doubles.** A 5 index makes ~1.4 doubles-or-worse a
+  round, a 15 makes ~4.7; a 5 posts a double-free round 23% of the time,
+  a 15 1.3% (Shot Scope via Golf Insider; Stagner). A troublesome tee
+  ball becomes a double 58% of the time.
+- **Putting skill lives inside 6 ft and in lag speed**, not mid-range
+  make rate: 90% vs 84% from 0–6 ft, but 41% vs 40% from 6–12 ft; the
+  three-putt that costs starts beyond 25 ft and the miss is short.
+- **A 5 index breaks 80 in only 41% of rounds** (Stagner #97). "Breaks 80
+  regularly" is two rounds in five.
+- Practice: distributed over massed; external-focus cues (52 golf RCTs,
+  effect size 0.54); the contextual-interference (random practice) effect
+  is 0.23 and not significant in applied settings — do not oversell
+  random order; "practice like you play" is credible and unquantified.
+
+Applied to this record the shape is not the typical one. The short game is
+a 25-handicap's (5 up-and-downs in 33, 15%, against 35% for a 15 and 47%
+for a 5), the greens are a 13's (5.1), the tee is already a 5's for
+distance (251 median) and fairways (58%). Priced against the 5 band:
+short game 4.1 strokes a round, approach 2.1, putting 0.6, tee contact 0.5
+— 7.3 against an index gap of 6.6 (13.1 → ~6.5), not additive, right
+order. So the 2026-09-16 order (contact first) is re-priced: **chip on and
+one putt first, greens from 100–175 second, contact third, lag speed
+fourth** — and every on-course rule costs no practice at all.
+
+**The benchmark contract, reversing 2026-08's "Rejected: benchmarks":**
+an external number is printable only as an entry in `data/benchmarks.json`
+carrying a source URL, the population it was measured on, and the
+provider's own definition of the metric, with `verified: true` only when
+the page was read. `pnpm data:validate` refuses an entry without them. The
+page prints the provider's definition beside the record's own, because
+they differ: Shot Scope's "up-and-down" is any score, Grint's "par saves"
+is par or better, and the two must never share a scale. The price is the
+gap to the 5 band, the arithmetic is printed, a missing benchmark makes a
+price null rather than a guess. 42 entries seeded, all verified on the
+day.
+
+**What the engine measures (lib/break80.ts), with its definitions:**
+doubles-or-worse from the card's strokes against the watch's par (linked
+rounds only); up-and-downs as the last heard shot inside 50 yd reaching
+the green and the card showing ≤1 putt; troublesome tee balls as a
+driver/wood/hybrid under 170 yd, a bunker finish, or a forced recovery (an
+iron off the tee is a lay-up, not a mishit); approach misses short if the
+shot travelled under 90% of the way and stopped over 10 yd away; chips and
+their leaves only against a pin the watch placed (28 of 90 holes end their
+last shot on the pin itself and are excluded from every leave call).
+Tee-ball pricing uses the record's own over-par on troublesome holes
+against the rest (+1.6 vs +1.12), with the sourced 58% printed as
+corroboration, not as the multiplier.
+
+**Rejected:** borrowing par for other Grint rounds from Garmin cards at
+the same course and tee — designed, then cut, because it covers 0 of 173
+rounds today (the watch courses are SF one-offs; the record is LA-heavy)
+and lending the R50 simulator cards' pars to real rounds at "the same"
+course is invented data. NEXT.md carries it as the step that unlocks
+doubles over the whole record. **Rejected:** arithmetic GIR (strokes −
+putts ≤ par − 2) for the up-and-down count — it turns a holed chip into a
+green; it is used only for the next-round GIR metric and says so.
+**Rejected:** hand-written plan text on the page — every sentence on
+`/plan` is a template over the record's numbers, so a number that moves
+rewrites the sentence. **Rejected:** keeping `/practice` as a peer of
+`/plan` — two pages that both say "what to do" is the confusion the user
+named. **Rejected:** the 0.58 double-conversion share as a stroke
+multiplier (it is a probability, not a cost).
+
+**Sources:** Shot Scope Law of Averages 5/10/15
+(https://shotscope.com/blog/stats/reduce-your-handicap-5hcp-averages/,
+…/reduce-your-handicap-10hcp-averages/, …/reduce-your-handicap-15hcp/);
+Shot Scope Six (https://shotscope.com/blog/practice-green/reduce-your-handicap/shot-scope-6-benchmarks-for-success/);
+Broadie, Assessing Golfer Performance Using Golfmetrics, Science and Golf V
+(http://www.columbia.edu/~mnb2/broadie/Assets/broadie_wscg_v_200804.pdf);
+Stagner/Arccos GIR by handicap
+(https://golf.com/instruction/greens-in-regulation-by-handicap-play-smart/);
+Stagner newsletters #34, #97
+(https://newsletter.loustagnergolf.com/p/birdies-and-doubles-per-round,
+https://newsletter.loustagnergolf.com/p/what-do-golfers-actually-shoot);
+Arccos 3-putts (https://www.arccosgolf.com/blogs/community/pros-vs-joes-analyzing-3-putts);
+Arccos 5→scratch (https://eu.arccosgolf.com/blogs/community/the-race-to-scratch-what-it-takes-for-a-5-handicap-to-reach-scratch);
+Golf Insider UK doubles by handicap (https://golfinsideruk.com/birdies-bogey-doubles-by-handicap/);
+Barzyk & Gruber 2024 golf motor-learning review
+(https://www.frontiersin.org/journals/sports-and-active-living/articles/10.3389/fspor.2024.1324615/full);
+Czyż et al. 2024 contextual-interference meta-analysis
+(https://pmc.ncbi.nlm.nih.gov/articles/PMC11237090/). The full list is
+`data/benchmarks.json`.
+
+---
+
 ## 2026-09-29 — Grint capture: "Scrape last N rounds" replaces the baseline file
 
 **Decided:** the Grint extension's default run (0.3.0) fetches the trend

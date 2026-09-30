@@ -6,8 +6,9 @@
  * week I am working on X toward Y"), which no ledger can know, and everything
  * about how the week is going is derived from the record through the metric
  * registry below. The engine proposes (scripts/propose-goals.ts, from the
- * leaks and the open tasks); the human commits — the round-links pattern
- * applied to intent.
+ * plan's ledger — the next round's doubles, greens, up-and-downs; never a
+ * range-data goal, since 2026-09-29); the human commits — the round-links
+ * pattern applied to intent.
  *
  * Time is record time, never wall time. A goal week is measured against the
  * newest capture (`asOf`), so `pnpm profile --check` reads the same on any
@@ -20,14 +21,17 @@
  */
 
 import { approachBands } from "./approach";
+import { doublesPerRound, holeViews, troublesomeTees, upAndDowns, type Break80 } from "./break80";
 import { asOfGarmin, GARMIN_THRESHOLDS, shotRounds, type GarminShots } from "./garmin-shots";
 import { LEAK_TARGETS, type Leak } from "./leaks";
+import { parsFor, type ParIndex } from "./pars";
 import {
   asOf,
   eighteenHole,
   lastNDistinct,
   mean,
   since,
+  type PlayedRound,
   type RoundHistory,
 } from "./round-history";
 import { MIN_SHOTS_TO_DISPLAY, type ClubProfile } from "./stats";
@@ -95,6 +99,20 @@ export interface GoalInputs {
   /** The recent window every claim on the site uses — passed in, because
    *  importing profile.ts here would cycle (profile.ts carries goals). */
   recentMonths: number;
+  /** Par per Grint round, known only through the confirmed links. */
+  pars: ParIndex;
+  /** Garmin scorecardId → the Grint card, confirmed links only. */
+  linked: Map<string, PlayedRound>;
+  /** The plan the week is drawn from; null when the caller has none. */
+  plan: Break80 | null;
+}
+
+/** The week a goal belongs to — the next-round metrics read the first
+ *  eligible round dated inside it. */
+export interface MetricContext {
+  weekOf: string;
+  /** First day the week no longer contains. */
+  weekEnd: string;
 }
 
 export interface MetricValue {
@@ -111,10 +129,51 @@ interface MetricDef {
   direction: "up" | "down";
   /** True when the metric needs a `club` on the goal entry. */
   needsClub?: boolean;
-  compute: (inp: GoalInputs, club: string | null) => MetricValue;
+  /** True for a metric read off the first round played in the goal's week:
+   *  null until a round lands, and a week that ends without one is
+   *  "unplayed", not "missed". */
+  nextRound?: boolean;
+  compute: (inp: GoalInputs, club: string | null, ctx: MetricContext) => MetricValue;
 }
 
 const LAST_N = 20;
+
+/* ── the next round ───────────────────────────────────────────────────────
+ *
+ * The first full 18-hole card dated inside the week — the first, not the
+ * newest, so a second round cannot rescue the first. Each metric says what
+ * else it needs: par (through a link), putts (a full card), or the watch
+ * (a linked shot-bearing round). A round that lacks it is not eligible. */
+
+interface NextRound {
+  card: PlayedRound;
+  pars: number[] | null;
+  /** The watch's hole views for this card, when it is linked and heard. */
+  views: ReturnType<typeof holeViews>;
+}
+
+function nextRound(inp: GoalInputs, ctx: MetricContext, need: "par" | "putts" | "watch"): NextRound | null {
+  if (!inp.roundHistory) return null;
+  const inWeek = inp.roundHistory.rounds
+    .filter((r) => r.date >= ctx.weekOf && r.date < ctx.weekEnd && r.entry === "full" && r.holes === 18)
+    .sort((a, b) => a.date.localeCompare(b.date));
+  for (const card of inWeek) {
+    const pars = parsFor(inp.pars, card);
+    let views: ReturnType<typeof holeViews> = [];
+    if (inp.garminShots) {
+      const scorecardId = [...inp.linked].find(([, r]) => r.roundId === card.roundId)?.[0] ?? null;
+      const gr = scorecardId ? inp.garminShots.rounds.find((r) => r.scorecardId === scorecardId) : null;
+      if (gr && gr.shotCount > 0) {
+        views = holeViews({ ...inp.garminShots, rounds: [gr] }, inp.linked);
+      }
+    }
+    if (need === "par" && (pars === null || card.holeStrokes === null)) continue;
+    if (need === "putts" && card.holePutts === null) continue;
+    if (need === "watch" && views.length === 0) continue;
+    return { card, pars, views };
+  }
+  return null;
+}
 
 export const METRICS: Record<string, MetricDef> = {
   "gir-last-20": {
@@ -198,6 +257,89 @@ export const METRICS: Record<string, MetricDef> = {
       if (club === null) return { value: null, n: 0, unit: "shots" };
       const p = profiles.find((x) => x.club === club);
       return { value: p?.n ?? 0, n: p?.n ?? 0, unit: "shots" };
+    },
+  },
+  "next-round-doubles": {
+    label: "doubles or worse in the week's first round",
+    unit: "holes",
+    direction: "down",
+    nextRound: true,
+    compute: (inp, _club, ctx) => {
+      const r = nextRound(inp, ctx, "par");
+      if (!r) return { value: null, n: 0, unit: "holes" };
+      const pars = r.pars as number[];
+      let doubles = 0;
+      let holes = 0;
+      (r.card.holeStrokes as (number | null)[]).forEach((s, i) => {
+        if (s === null) return;
+        holes++;
+        if (s - pars[i] >= 2) doubles++;
+      });
+      return { value: doubles, n: holes, unit: "holes" };
+    },
+  },
+  "next-round-gir": {
+    label: "greens in regulation in the week's first round",
+    unit: "greens",
+    direction: "up",
+    nextRound: true,
+    compute: (inp, _club, ctx) => {
+      // Arithmetic GIR: strokes − putts ≤ par − 2. A holed chip counts as a
+      // green; the definition is printed with the number.
+      const r = nextRound(inp, ctx, "par");
+      if (!r || r.card.holePutts === null) return { value: null, n: 0, unit: "holes" };
+      const pars = r.pars as number[];
+      let gir = 0;
+      let holes = 0;
+      (r.card.holeStrokes as (number | null)[]).forEach((s, i) => {
+        const p = (r.card.holePutts as (number | null)[])[i];
+        if (s === null || p === null) return;
+        holes++;
+        if (s - p <= pars[i] - 2) gir++;
+      });
+      return { value: gir, n: holes, unit: "holes" };
+    },
+  },
+  "next-round-three-putts": {
+    label: "three-putts in the week's first round",
+    unit: "holes",
+    direction: "down",
+    nextRound: true,
+    compute: (inp, _club, ctx) => {
+      const r = nextRound(inp, ctx, "putts");
+      if (!r) return { value: null, n: 0, unit: "holes" };
+      let three = 0;
+      let holes = 0;
+      for (const p of r.card.holePutts as (number | null)[]) {
+        if (p === null) continue;
+        holes++;
+        if (p >= 3) three++;
+      }
+      return { value: three, n: holes, unit: "holes" };
+    },
+  },
+  "next-round-up-and-downs": {
+    label: "up-and-downs in the week's first watch round",
+    unit: "holes",
+    direction: "up",
+    nextRound: true,
+    compute: (inp, _club, ctx) => {
+      const r = nextRound(inp, ctx, "watch");
+      if (!r) return { value: null, n: 0, unit: "chances" };
+      const ud = upAndDowns(r.views);
+      return { value: ud.made, n: ud.chances, unit: "chances" };
+    },
+  },
+  "next-round-troublesome-tees": {
+    label: "troublesome tee balls in the week's first watch round",
+    unit: "tee shots",
+    direction: "down",
+    nextRound: true,
+    compute: (inp, _club, ctx) => {
+      const r = nextRound(inp, ctx, "watch");
+      if (!r) return { value: null, n: 0, unit: "tee shots" };
+      const t = troublesomeTees(r.views);
+      return { value: t.troublesome, n: t.teeShots, unit: "tee shots" };
     },
   },
   "measured-wedge-cells": {
@@ -308,9 +450,66 @@ export function proposalForTask(task: Task, measuredWedgeCells: number): GoalPro
   return null;
 }
 
+/* ── proposals from the plan ──────────────────────────────────────────────── */
+
+/** The week the plan proposes: the two biggest priced areas as next-round
+ *  targets, then the doubles line. Never a range-data goal — a club
+ *  measured at a monitor is a number on the bag page, not a stroke. */
+export function proposalForPlan(plan: Break80): GoalProposal[] {
+  const out: GoalProposal[] = [];
+  const priced = plan.ledger.filter((o) => o.id !== "doubles" && o.strokes !== null).slice(0, 2);
+  for (const o of priced) {
+    switch (o.id) {
+      case "short-game": {
+        const chances = plan.ledger.find((x) => x.id === "short-game")?.yours.n ?? 0;
+        const perRound = plan.yours.linkedRounds ? chances / plan.yours.linkedRounds : 6;
+        const rate = (o.bench13?.value ?? 35) / 100;
+        out.push({
+          metricId: "next-round-up-and-downs",
+          target: Math.max(1, Math.ceil(perRound * rate)),
+          why: `${o.label}: you get up and down ${o.yours.value ?? "—"}% of the time, a 13 index ${o.bench13?.value ?? "—"}%. ${o.move.course}`,
+        });
+        break;
+      }
+      case "approach":
+        out.push({
+          metricId: "next-round-gir",
+          target: Math.round(o.bench13?.value ?? 5),
+          why: `${o.label}: ${o.yours.value ?? "—"} greens a round, a 13 index ${o.bench13?.value ?? "—"}. ${o.move.course}`,
+        });
+        break;
+      case "putting":
+        out.push({
+          metricId: "next-round-three-putts",
+          target: 1,
+          why: `${o.label}: ${o.yours.value ?? "—"}% of holes three-putted, a 5 index ${o.bench5?.value ?? "—"}%. ${o.move.course}`,
+        });
+        break;
+      case "tee":
+        out.push({
+          metricId: "next-round-troublesome-tees",
+          target: Math.round(o.bench5?.value ?? 2),
+          why: `${o.label}: ${o.yours.value ?? "—"} a round, a 70s scorer ${o.bench5?.value ?? "—"}. ${o.move.course}`,
+        });
+        break;
+      default:
+        break;
+    }
+  }
+  const dbl = plan.ledger.find((o) => o.id === "doubles");
+  out.push({
+    metricId: "next-round-doubles",
+    target: 2,
+    why: `${dbl?.label ?? "Doubles or worse"}: ${dbl?.yours.value ?? "—"} a round, a 5 index ${dbl?.bench5?.value ?? "—"}. Bogey is fine; the second dropped stroke is the one to refuse.`,
+  });
+  return out;
+}
+
 /* ── progress, in record time ─────────────────────────────────────────────── */
 
-export type GoalStatus = "achieved" | "open" | "missed" | "invalid";
+/** `unplayed`: a next-round goal whose week ended with no eligible round —
+ *  neither achieved nor missed, and left out of the n/m tally. */
+export type GoalStatus = "achieved" | "open" | "missed" | "unplayed" | "invalid";
 
 export interface GoalProgress {
   goal: GoalEntry;
@@ -351,7 +550,7 @@ export function daysAfter(date: string, n: number): string {
   return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10);
 }
 
-function progressOf(goal: GoalEntry, inp: GoalInputs, over: boolean): GoalProgress {
+function progressOf(goal: GoalEntry, inp: GoalInputs, over: boolean, ctx: MetricContext): GoalProgress {
   const metric = typeof goal.metricId === "string" ? METRICS[goal.metricId] : undefined;
   if (!metric || typeof goal.target !== "number" || (metric.needsClub && !goal.club)) {
     return {
@@ -369,9 +568,16 @@ function progressOf(goal: GoalEntry, inp: GoalInputs, over: boolean): GoalProgre
       orphaned: null,
     };
   }
-  const { value, n, unit } = metric.compute(inp, goal.club ?? null);
+  const { value, n, unit } = metric.compute(inp, goal.club ?? null, ctx);
   const met =
     value !== null && (metric.direction === "up" ? value >= goal.target : value <= goal.target);
+  const status: GoalStatus = met
+    ? "achieved"
+    : !over
+      ? "open"
+      : metric.nextRound && value === null
+        ? "unplayed"
+        : "missed";
   const orphaned =
     goal.leakId && !inp.leaks.some((l) => l.id === goal.leakId)
       ? `leak "${goal.leakId}" is no longer on the list — retired, or renamed`
@@ -380,7 +586,7 @@ function progressOf(goal: GoalEntry, inp: GoalInputs, over: boolean): GoalProgre
         : null;
   return {
     goal,
-    status: met ? "achieved" : over ? "missed" : "open",
+    status,
     label: metric.label + (goal.club ? ` — ${goal.club}` : ""),
     unit: metric.unit,
     direction: metric.direction,
@@ -406,7 +612,7 @@ export function buildGoalProgress(file: GoalsFile | null, inp: GoalInputs): Goal
       weekOf: w.weekOf,
       weekEnd,
       over,
-      goals: w.goals.map((g) => progressOf(g, inp, over)),
+      goals: w.goals.map((g) => progressOf(g, inp, over, { weekOf: w.weekOf, weekEnd })),
     };
   });
 

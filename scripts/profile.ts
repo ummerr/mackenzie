@@ -85,7 +85,7 @@ function render(p: GolferProfile): string {
     );
     out.push("");
     for (const g of wk.goals) {
-      const arrow = g.direction === "up" ? "→" : "→ under";
+      const arrow = g.direction === "up" ? "→" : "→ at most";
       out.push(
         `- **${g.status}** — ${g.label}: ${fmt(g.value, g.unit)} ${arrow} ${fmt(g.goal.target, g.unit)}` +
           (g.sample ? ` (${g.sample.n} ${g.sample.unit})` : "") +
