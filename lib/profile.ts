@@ -49,6 +49,7 @@ import {
 } from "./garmin-shots";
 import { meanScore, scorable, totalRounds } from "./course-history";
 import { approachBands } from "./approach";
+import type { Break80 } from "./break80";
 import type { GoalsProgress } from "./goals";
 import { buildLeaks, type Leak } from "./leaks";
 import type { LedgerSession, LedgerShot } from "./ledger";
@@ -208,6 +209,9 @@ export interface GolferProfile {
    *  computed by the caller so pages and PROFILE.md render one answer; null
    *  when the caller has no goals to pass. */
   goals: GoalsProgress | null;
+  /** The plan (lib/break80.ts) — the record priced against sourced
+   *  benchmarks. Computed by the caller, same as goals; null when absent. */
+  plan: Break80 | null;
 }
 
 export interface ProfileInput {
@@ -230,6 +234,8 @@ export interface ProfileInput {
   wedgeMatrix?: WedgeMatrix | null;
   /** From `buildGoalProgress`. Null when the caller carries no goals. */
   goals?: GoalsProgress | null;
+  /** From `buildBreak80`. Null when the caller carries no plan. */
+  plan?: Break80 | null;
 }
 
 const CONFIDENCE_WEIGHT: Record<Confidence, number> = {
@@ -308,6 +314,7 @@ export function buildProfile({
   bag = null,
   wedgeMatrix = null,
   goals = null,
+  plan = null,
 }: ProfileInput): GolferProfile {
   const findings: Finding[] = [];
   const trusted = shots.filter((s) => !s.isExcluded);
@@ -1190,6 +1197,7 @@ export function buildProfile({
     sources: buildSources({ shots, sessions, history, roundHistory, garminShots }),
     rangeOnly: history === null,
     goals,
+    plan,
   };
 }
 

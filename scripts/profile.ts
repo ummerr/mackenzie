@@ -107,6 +107,54 @@ function render(p: GolferProfile): string {
     out.push("");
   }
 
+  /* The plan: the record priced against sourced benchmarks (lib/break80.ts).
+   * Rendered before the leaks because it is what the week is drawn from. */
+  if (p.plan) {
+    const pl = p.plan;
+    const n = (v: number | null, unit = "") =>
+      v === null ? "—" : `${Number.isInteger(v) ? v : v.toFixed(1)}${unit === "%" ? "%" : unit ? ` ${unit}` : ""}`;
+    out.push("## The plan");
+    out.push("");
+    out.push(
+      `Break 80. A 79 is a differential of ${pl.target.differentialAt
+        .filter((t) => t.rating >= 70)
+        .map((t) => n(t.differential))
+        .join(" / ")} at the rated tees the watch has heard; the 5–7 index the`,
+      `benchmarks describe is ~${pl.target.indexApprox}, and the record's index is ${n(pl.yours.index)} —`,
+      `${n(pl.indexGap)} strokes a round by the index, ${n(pl.ledgerTotal)} priced in the ledger below`,
+      "(the areas overlap; the two are printed together, not summed).",
+      pl.target.breakShare ? `A 5 index breaks 80 in ${n(pl.target.breakShare.value)}% of rounds.` : "",
+    );
+    out.push("");
+    out.push("| Area | You | 13 band | 5 band | Strokes | Price |");
+    out.push("|---|---|---|---|---|---|");
+    for (const o of pl.ledger) {
+      out.push(
+        `| ${o.label} | ${n(o.yours.value, o.yours.unit)} (n ${o.yours.n}) | ${o.bench13 ? n(o.bench13.value, o.bench13.unit) : "—"} | ${o.bench5 ? n(o.bench5.value, o.bench5.unit) : "—"} | ${o.strokes === null ? "—" : n(o.strokes)} | ${o.formula} |`,
+      );
+    }
+    out.push("");
+    for (const o of pl.ledger) {
+      out.push(`- **${o.label}** — on course: ${o.move.course} Practice: ${o.move.practice} Retired when ${o.retiredWhen}.`);
+    }
+    out.push("");
+    out.push("On the course, for nothing:");
+    out.push("");
+    for (const r of pl.rules) {
+      out.push(
+        `- ${r.text}` +
+          (r.yours ? ` You: ${n(r.yours.value, r.yours.unit)} (n ${r.yours.n}).` : "") +
+          (r.benchmark ? ` Source: ${r.benchmark.sourceTitle}.` : ""),
+      );
+    }
+    out.push("");
+    out.push(
+      `${pl.coverage.pinSnapped} of ${pl.coverage.holes} watch holes end their last heard shot on the pin itself` +
+        " (no putts on the watch); those shots are excluded from every leave and short-of-the-hole call.",
+    );
+    out.push("");
+  }
+
   if (p.leaks.length > 0) {
     out.push("## The leaks");
     out.push("");
@@ -317,6 +365,7 @@ function main(): number {
     bag: d.bag,
     wedgeMatrix: d.wedgeMatrix,
     goals: d.goals,
+    plan: d.plan,
   });
   const next = render(profile);
 

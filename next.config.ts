@@ -18,6 +18,9 @@ const nextConfig: NextConfig = {
       // the same anchors in their new home.
       { source: "/scratch", destination: "/rounds", permanent: true },
       { source: "/diary", destination: "/rounds", permanent: true },
+      // /practice became the foot of /plan (2026-09-29): the plan sets the
+      // week, the range list fills in the bag page.
+      { source: "/practice", destination: "/plan", permanent: true },
     ];
   },
   async headers() {

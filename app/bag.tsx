@@ -1168,8 +1168,8 @@ function ScoringBag({ matrix, basis }: { matrix: WedgeMatrix; basis: DistanceBas
           <> &mdash; the basis toggle does not move this table, because the
           monitor never modelled the roll of a partial wedge</>
         )}
-        . <span className="text-ink-2">/practice</span> says which cell to hit
-        next.
+        . The range list at the foot of <span className="text-ink-2">/plan</span>{" "}
+        says which cell to hit next.
       </p>
     </section>
   );

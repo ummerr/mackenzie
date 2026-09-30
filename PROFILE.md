@@ -56,6 +56,39 @@ data/goals.json is the human's commit.
 
 Past weeks: 2026-09-09 (0/2 achieved) · 2026-09-16 (1/2 achieved)
 
+## The plan
+
+Break 80. A 79 is a differential of 6.9 / 5.4 / 6.8 / 4.9 at the rated tees the watch has heard; the 5–7 index the
+benchmarks describe is ~6.5, and the record's index is 13.1 —
+6.6 strokes a round by the index, 7.3 priced in the ledger below
+(the areas overlap; the two are printed together, not summed).
+A 5 index breaks 80 in 40.7% of rounds.
+
+| Area | You | 13 band | 5 band | Strokes | Price |
+|---|---|---|---|---|---|
+| Chip on, one putt | 15.2% (n 33) | 35% | 47% | 4.1 | 12.9 missed greens a round × (47% − 15.2%) = 4.1 |
+| Greens from 100–175 | 5.1 greens/round (n 20) | 5.3 greens/round | 7.6 greens/round | 2.1 | (7.6 − 5.1 greens) × (1 − 15.2% saved) = 2.1 |
+| Lag speed | 9.2 % of holes (n 359) | 10% | 6% | 0.6 | (9.2% − 6%) × 18 holes = 0.6 |
+| Contact off the tee | 3 per round (n 67) | 3.3 per round | 2 per round | 0.5 | (3 − 2 a round) × (+1.6 on those holes − +1.12 on the rest) = 0.5 |
+| Doubles or worse | 6.2 per round (n 90) | 4.7 per round | 1.4 per round | — | the doubles carry 66 of 107 strokes over par on 90 holes — an outcome of the four areas above, not a fifth |
+
+- **Chip on, one putt** — on course: Putt from the fringe. From rough, pick the club that lands on the green and runs — the lob wedge reaches the green 67% of the time from inside 50 yd. Then the 4–8 footer gets a full routine. Practice: Two 25-minute sessions a week from rough, 15–35 yd, scored by leaves inside 6 ft (7 of 17 measurable so far), each ending with twenty putts from 4–8 ft. External cue: the landing spot, not the hands. Retired when up-and-downs at 35% over 20 linked rounds.
+- **Greens from 100–175** — on course: One more club. 45% of your classified misses from 50–200 yd stopped short of the hole; outside 140 yd the target is the middle of the green, never the pin. Practice: Random-order approaches 100–175 yd, one ball per target, club changes every swing, scored by "on the green" not by proximity. From 125–200 the record is 6 of 44. Retired when 6+ greens a round over 20 rounds.
+- **Lag speed** — on course: Outside 20 ft every putt is a speed putt: pick the 3-ft circle past the hole, never the line. The miss that three-putts is short. Practice: The 20/30/40 ft ladder, every first putt inside 3 ft, ten minutes at the end of each session — not a session of its own. Retired when three-putts under 6% of holes over 20 cards.
+- **Contact off the tee** — on course: Driver only where there is 60 yd of playable width; otherwise the 3 Hybrid, which flew 175+ on 8 of 9 tee balls at Lincoln. Distance is not the problem — the driver goes 251 when struck. Practice: The first blocked 15 minutes of every range session is low-point work: a line an inch behind the ball, strike the ground in front of it, half swings before full. No driver until the irons brush the line ten times running. Retired when 2 troublesome tee balls a round or fewer over 10 watch rounds.
+- **Doubles or worse** — on course: A double is a mishit tee ball, a short-sided miss, or a chunked chip, then a three-putt. Bogey is fine; the second dropped stroke is the one to refuse — take the medicine shot sideways, chip to the fat of the green, two-putt. Practice: None. This line moves when the four above move. Retired when 1.44 doubles a round or fewer over 10 linked rounds.
+
+On the course, for nothing:
+
+- Take one more club into the green. The amateur miss is short, and a long miss costs less than a bunker. You: 45.5 % of misses (n 66). Source: Shot Scope — 5 stats to track to improve your game.
+- Driver only with 60 yd of playable width from rough to rough. Otherwise the 3 Hybrid — it starts a hole as well as the driver does and mishits less. You: 3 per round (n 67). Source: Shot Scope — The Shot Scope Six: benchmarks for success.
+- Outside 140 yd the target is the middle of the green. Nobody hits many greens from 175; the miss that costs is the short-sided one. You: 13.6 % greens (n 44). Source: Wicked Smart Golf — DECADE golf review.
+- Miss on the fat side, away from sand. A bunker approach costs half a stroke more than a fairway lie. You: 8 % of approaches (n 100). Source: Shot Scope — Is there such a thing as a good miss?.
+- Putt from the fringe. The lob wedge is the wrong default from inside 25 yd. You: 66.7 % reached the green (n 51). Source: Arccos — Putting from off the green.
+- On par 5s advance the ball. Laying up to a number costs 0.6 a hole; the threshold that matters is getting the third shot inside 175. You: 1.3 over par per hole (n 16). Source: Shot Scope — Par 5s: go for it in two vs a lay-up.
+
+28 of 90 watch holes end their last heard shot on the pin itself (no putts on the watch); those shots are excluded from every leave and short-of-the-hole call.
+
 ## The leaks
 
 Where the strokes go, ranked by what each leak costs: leaks the record can

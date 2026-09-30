@@ -6,6 +6,7 @@ import { loadLinkedGrint } from "@/lib/load";
 import type { RecentForm, RoundHistory, StatPair } from "@/lib/round-history";
 import { buildSiteData } from "@/lib/site-data";
 import { buildSources } from "@/lib/sources";
+import { ArcChart, Mini } from "../charts";
 import { Provenance } from "../provenance";
 import { StatTiles, type StatTile } from "../stat-tiles";
 import { WatchSection } from "./watch";
@@ -39,108 +40,6 @@ export const metadata = {
 
 const f1 = (n: number) => n.toFixed(1);
 const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
-
-/* ── the hero: every differential, the trending line, and scratch at zero ── */
-
-function ArcChart({ h }: { h: RoundHistory }) {
-  const W = 720,
-    H = 320,
-    PL = 34,
-    PR = 14,
-    PT = 16,
-    PB = 30;
-  const iw = W - PL - PR,
-    ih = H - PT - PB;
-  const pts = h.differentials;
-  const n = pts.length;
-  const yMax = 34;
-  const x = (i: number) => PL + (i / (n - 1)) * iw;
-  const y = (v: number) => PT + (1 - v / yMax) * ih;
-  const line = pts
-    .map((p, i) => `${i === 0 ? "M" : "L"}${x(i).toFixed(1)} ${y(p.trendingHdcp ?? p.differential).toFixed(1)}`)
-    .join(" ");
-  const best = pts.reduce((a, b) => (b.differential < a.differential ? b : a));
-  const bestI = pts.indexOf(best);
-  const last = pts[n - 1];
-  return (
-    <svg viewBox={`0 0 ${W} ${H}`} role="img" className="block h-auto w-full"
-      aria-label={`Handicap differentials and trending handicap across ${n} rounds, scratch marked at zero`}>
-      {[0, 10, 20, 30].map((v) => (
-        <g key={v}>
-          <line x1={PL} x2={W - PR} y1={y(v)} y2={y(v)}
-            stroke={v === 0 ? "var(--accent-ink)" : "var(--line)"}
-            strokeDasharray={v === 0 ? "5 4" : undefined} strokeWidth={v === 0 ? 1.2 : 1} />
-          <text x={PL - 6} y={y(v) + 3.5} textAnchor="end" fontSize={10}
-            fill="var(--ink-3)" className="font-mono">{v}</text>
-        </g>
-      ))}
-      <text x={W - PR} y={y(0) - 5} textAnchor="end" fontSize={10}
-        fill="var(--accent-ink)" className="font-mono">scratch</text>
-      {pts.map((p, i) => (
-        <circle key={p.seq} cx={x(i)} cy={y(p.differential)} r={2.4}
-          fill="var(--chart-2)" opacity={0.42}>
-          <title>{`round ${i + 1} · ${p.courseName ?? "—"} · differential ${f1(p.differential)}`}</title>
-        </circle>
-      ))}
-      <path d={line} fill="none" stroke="var(--accent-ink)" strokeWidth={2}
-        strokeLinejoin="round" strokeLinecap="round" />
-      <circle cx={x(bestI)} cy={y(best.differential)} r={4}
-        fill="var(--chart-2)" stroke="var(--paper-1)" strokeWidth={2} />
-      <text x={x(bestI)} y={y(best.differential) + 16} textAnchor="middle" fontSize={10}
-        fill="var(--ink-3)" className="font-mono">best: {best.differential}</text>
-      {last.trendingHdcp !== null && (
-        <text x={x(n - 1) - 6} y={y(last.trendingHdcp) - 8} textAnchor="end" fontSize={13}
-          fontWeight={700} fill="var(--accent-ink)" className="font-mono">{f1(last.trendingHdcp)}</text>
-      )}
-      <text x={PL} y={H - 8} fontSize={10} fill="var(--ink-3)" className="font-mono">
-        first posted round · 2021</text>
-      <text x={W - PR} y={H - 8} textAnchor="end" fontSize={10} fill="var(--ink-3)" className="font-mono">
-        latest · 2026</text>
-    </svg>
-  );
-}
-
-/* ── small multiple: one measure by year ── */
-
-function Mini({ title, pts, min, max, unit = "" }: {
-  title: string;
-  pts: { y: string; v: number; n: number }[];
-  min: number;
-  max: number;
-  unit?: string;
-}) {
-  const W = 226, H = 150, PL = 30, PR = 10, PT = 14, PB = 22;
-  const iw = W - PL - PR, ih = H - PT - PB;
-  const x = (i: number) => PL + (pts.length === 1 ? iw / 2 : (i / (pts.length - 1)) * iw);
-  const y = (v: number) => PT + (1 - (v - min) / (max - min)) * ih;
-  const line = pts.map((p, i) => `${i === 0 ? "M" : "L"}${x(i).toFixed(1)} ${y(p.v).toFixed(1)}`).join(" ");
-  return (
-    <figure className="m-0 border bg-paper-1 p-4 rule">
-      <figcaption className="stamp mb-2 text-ink-3">{title}</figcaption>
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" className="block h-auto w-full" aria-label={`${title} by year`}>
-        <line x1={PL} x2={W - PR} y1={y(min)} y2={y(min)} stroke="var(--line)" />
-        <path d={line} fill="none" stroke="var(--accent-ink)" strokeWidth={2}
-          strokeLinejoin="round" strokeLinecap="round" />
-        {pts.map((p, i) => (
-          <circle key={p.y} cx={x(i)} cy={y(p.v)} r={3.4} fill="var(--accent-ink)"
-            stroke="var(--paper-1)" strokeWidth={2}>
-            <title>{`${p.y} — ${p.v}${unit} (${p.n} rounds)`}</title>
-          </circle>
-        ))}
-        {pts.map((p, i) =>
-          i === 0 || i === pts.length - 1 ? (
-            <g key={`l${p.y}`}>
-              <text x={x(i)} y={y(p.v) - 8} textAnchor={i === 0 ? "start" : "end"} fontSize={10}
-                fill="var(--ink-2)" className="font-mono">{p.v}{unit}</text>
-              <text x={x(i)} y={H - 6} textAnchor={i === 0 ? "start" : "end"} fontSize={10}
-                fill="var(--ink-3)" className="font-mono">’{p.y.slice(2)}</text>
-            </g>
-          ) : null,
-        )}
-      </svg>
-    </figure>
-  );
-}
 
 /* Both numbers, always: the recent figure answers "what does the golf do now",
  * the career figure answers "what has it ever done", and printing only one
@@ -378,7 +277,7 @@ export default function Rounds() {
           <figcaption className="stamp mb-2 text-ink-3">
             handicap differentials &amp; trending index · {h.differentials.length} chart points
           </figcaption>
-          <ArcChart h={h} />
+          <ArcChart pts={h.differentials} handicapIndex={h.handicapIndex} />
           <div className="mt-2 flex flex-wrap gap-4 font-mono text-[11px] text-ink-2">
             <span className="inline-flex items-center gap-1.5">
               <i className="inline-block h-[3px] w-3.5" style={{ background: "var(--accent-ink)" }} />
