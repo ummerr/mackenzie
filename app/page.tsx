@@ -223,6 +223,10 @@ export default function Now() {
         <Link href="/courses" className="text-ink-2 underline decoration-1 underline-offset-2">
           the courses page
         </Link>
+        ; the hundred still to play in California are on{" "}
+        <Link href="/california" className="text-ink-2 underline decoration-1 underline-offset-2">
+          the CA 100
+        </Link>
         .
       </p>
     </div>

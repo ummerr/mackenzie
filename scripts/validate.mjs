@@ -63,7 +63,8 @@ console.log(`\n  benchmarks ${benchIds.size} · unverified ${benchUnverified}`);
 // against the spine files directly so a fresh checkout gets the verdict
 // before `data:build` has run.
 
-const CA_ENTRY_KEYS = ["rank", "slug", "name", "locality", "area", "architect", "tee", "fee", "access", "status", "rankings", "value", "valueNote", "tags", "facilitySlug", "layoutSlug", "joinNote", "provenance"];
+const CA_ENTRY_KEYS = ["rank", "slug", "name", "locality", "region", "area", "architect", "tee", "fee", "access", "status", "rankings", "value", "valueNote", "tags", "housing", "drive", "amar", "facilitySlug", "layoutSlug", "joinNote", "provenance"];
+const CA_AMAR = ["architecture", "scenery", "conditioning", "walkability", "value", "difficulty", "access", "prestige", "worthDrive"];
 const CA_RANKING_KEYS = ["golfweekCA", "golfweekUS", "golfDigestScore", "golfDigestCA", "golfDigestPublic", "golfYCP"];
 const CA_CHECKS = ["rankings", "tee", "fee", "architect"];
 const CA_VALUE = /^[A-D](\+\+|\+|-)?$/;
@@ -82,7 +83,21 @@ if (caFile) {
   const accessCodes = new Set(Object.keys(caFile._access ?? {}));
   const areaCodes = new Set(Object.keys(caFile._areas ?? {}));
   const tagCodes = new Set(Object.keys(caFile._tags ?? {}));
+  const housingCodes = new Set(Object.keys(caFile._housing ?? {}));
   const entries = Array.isArray(caFile.entries) ? caFile.entries : [];
+
+  /* The index's arithmetic, re-done: the score must be the weighted mean of
+     its components times ten (to the rounding the paste carries), and the
+     Amar rank must be the competition rank the scores imply. */
+  const amarW = caFile._amar?.weights ?? null;
+  if (!amarW) err("california-100 has no _amar.weights");
+  else {
+    for (const k of CA_AMAR) if (!Number.isFinite(amarW[k])) err(`california-100._amar.weights is missing ${k}`);
+    const wsum = CA_AMAR.reduce((a, k) => a + (amarW[k] ?? 0), 0);
+    if (Math.abs(wsum - 1) > 0.001) err(`california-100._amar.weights sum to ${wsum}, not 1`);
+  }
+  const amarScores = entries.map((e) => e?.amar?.score).filter(Number.isFinite);
+  const tiers = new Set(caFile._amar?.tiers ?? []);
 
   for (const [key, src] of Object.entries(sources)) {
     const tag = `california-100._sources[${key}]`;
@@ -140,6 +155,7 @@ if (caFile) {
     if (!e.name) err(`${tag} has no name`);
     if (!e.locality) err(`${tag} has no locality`);
     if (!areaCodes.has(e.area)) err(`${tag} area "${e.area}" is not in _areas`);
+    if (typeof e.region !== "string" || !e.region) err(`${tag} has no region`);
     if (!strOrNull(e.architect)) err(`${tag} architect is not a string or null`);
     const t = e.tee ?? {};
     for (const k of ["yards", "slope", "rating"]) if (!numOrNull(t[k])) err(`${tag} tee.${k} is not a number or null`);
@@ -151,10 +167,29 @@ if (caFile) {
     for (const a of e.access ?? []) if (!accessCodes.has(a)) err(`${tag} access "${a}" is not in _access`);
     if (!["open", "closed"].includes(e.status)) err(`${tag} status "${e.status}" is not open|closed`);
     for (const k of CA_RANKING_KEYS) if (!numOrNull(e.rankings?.[k])) err(`${tag} rankings.${k} is not a number or null`);
-    if (e.value === null) {
-      if (e.status !== "closed") err(`${tag} has no value grade and is not closed`);
-    } else if (!CA_VALUE.test(e.value)) err(`${tag} value "${e.value}" is not a grade`);
+    if (e.value !== null && !CA_VALUE.test(e.value)) err(`${tag} value "${e.value}" is not a grade`);
     for (const tg of e.tags ?? []) if (!tagCodes.has(tg)) err(`${tag} tag "${tg}" is not in _tags`);
+    if (!housingCodes.has(e.housing)) err(`${tag} housing "${e.housing}" is not in _housing`);
+    if (typeof e.drive?.label !== "string" || !Number.isInteger(e.drive?.minutes) || e.drive.minutes < 0) err(`${tag} drive is not {label, minutes}`);
+
+    // the index's own scoring
+    const a = e.amar;
+    if (!a || typeof a !== "object") err(`${tag} has no amar block`);
+    else {
+      if (!Number.isInteger(a.rank) || a.rank < 1 || a.rank > 100) err(`${tag} amar.rank is not 1..100`);
+      if (!tiers.has(a.tier)) err(`${tag} amar.tier "${a.tier}" is not in _amar.tiers`);
+      if (!Number.isFinite(a.score) || a.score < 0 || a.score > 100) err(`${tag} amar.score is not 0..100`);
+      for (const k of CA_AMAR) {
+        const v = a.components?.[k];
+        if (!Number.isFinite(v) || v < 0 || v > 10) err(`${tag} amar.components.${k} is not 0..10`);
+      }
+      if (amarW && Number.isFinite(a.score)) {
+        const calc = 10 * CA_AMAR.reduce((acc, k) => acc + (a.components?.[k] ?? 0) * amarW[k], 0);
+        if (Math.abs(calc - a.score) > 0.35) err(`${tag} amar.score ${a.score} is not its components weighted (${calc.toFixed(1)})`);
+        const implied = 1 + amarScores.filter((x) => x > a.score).length;
+        if (implied !== a.rank) err(`${tag} amar.rank ${a.rank} but the scores imply ${implied}`);
+      }
+    }
 
     // the join
     if (e.facilitySlug !== null) {

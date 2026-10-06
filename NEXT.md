@@ -2,7 +2,7 @@
 
 <!-- state:start -->
 **State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-10-06
-Last commit 2026-10-06 — Capture 2026-10-06: Meadow Club 88 heard by the watch, sixth link, index 12.7
+Last commit 2026-10-06 — Rounds: read the Grint penalty row hole by hole
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
@@ -33,6 +33,14 @@ bunker shots a card, floors). The leak engine and `/plan` do **not** read it
 yet — see `DECISIONS.md` 2026-10-06 — which is the obvious next move: price
 penalty strokes as a leak and feed bunker visits to the short-game entry.
 
+**2026-10-06 — the California 100 lands.** `/california` (nav: CA 100) is
+the to-play list: 100 public-access courses from a ChatGPT compilation of
+Golfweek / Golf Digest / GOLF rankings plus its own nine-component "Amar"
+index, in `data/california-100.json` under a validated contract, joined to
+the record at layout level — 22 linked, 19 played, 21 facilities now carry
+a published ranking on the map's dossier. **Every row is unverified**; the
+check-by-row pass is item 1b below. Reasoning in `DECISIONS.md` 2026-10-06.
+
 ---
 
 ## Do these first
@@ -51,25 +59,39 @@ Westmoreland's year, Griffith Park's Wilson-course attribution, the Sandpiper
 
 `pnpm data:validate` prints the remaining count each run.
 
-### 2. Capture the bucket list
+### 1b. Check the California 100, row by row
+
+All 100 rows of `data/california-100.json` carry `verified: false`. Each
+row has four checks — `rankings` (open the Golfweek, Golf Digest and GOLF
+lists once and reconcile every row), `tee` (the course's scorecard or the
+NCGA/SCGA course-rating listing), `fee` (the posted rates page; a band with
+its condition, never a quote), `architect` (course site or Wikipedia). A
+verified check names its URL; `provenance.verified` flips when all four do;
+validate prints `verified N/100 · checks N/400`. Fix values as you go — a
+`~` in the paste is already a null. The Amar block is an opinion and has no
+check.
+
+### 2. Capture Grint's bucket list
 
 38 courses, none of them captured — the original paste covered played courses
-only. Paste the bucket-list table and extend `parse-grint.mjs` to emit them with
+only, and the California 100 is a compiled list, not Grint's. Paste the
+bucket-list table and extend `parse-grint.mjs` to emit them with
 `played: false`. The friends-activity feed at the bottom of
 `data/raw/grint-played-2026-08-01.txt` already leaks several: Sand Valley,
 Kiawah Ocean, Bandon Dunes / Pacific Dunes / Bandon Trails, Pebble Beach,
 Spyglass Hill, Bethpage Red.
 
-This is what turns the map from a record into a plan.
+### 3. Draw the California 100 on the map
 
-### 3. Fill in published rankings
-
-Exactly **one** facility has an `externalRanking`, so the `architecture` lens is
-effectively untested. Adding Golf Digest / Golfweek / Top100 positions for the
-top 25 would make cross-source ranking real rather than schematic.
-
-Manual entry for now — the automated scrape was deliberately deferred (brittle
-HTML, licence gray area, hard name-matching problem).
+78 of the hundred are not in the spine and have no coordinate. The work:
+export `nominatim`/`pickResult` from `scripts/geocode.mjs` (guard its main),
+a `data:geocode:ca100` step with its own cache keyed by list slug and a
+California bounding-box check before any hit is accepted (the Brambles
+lesson), `build.mjs` emitting `public/data/california-100.json` with
+coordinates (no `played` — the map reads that from courses.json), a hollow
+TO PLAY layer and rail toggle in `map.js`, and a `/courses#<slug>` hash
+deep-link so the list's played rows open their dossier. Published rankings
+for the top 25 arrived with the list (2026-10-06): 21 facilities carry one.
 
 ---
 

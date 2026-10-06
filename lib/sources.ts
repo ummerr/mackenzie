@@ -9,12 +9,13 @@
  * A missing source keeps its row. Absence is a state every source can be in,
  * not a demotion — the row says what would fill it. */
 
+import type { California100 } from "./california100";
 import { totalRounds, type CourseHistory } from "./course-history";
 import { shotRounds, type GarminShots } from "./garmin-shots";
 import type { LedgerSession, LedgerShot } from "./ledger";
 import type { RoundHistory } from "./round-history";
 
-export type SourceId = "scorecards" | "map" | "range" | "watch";
+export type SourceId = "scorecards" | "map" | "range" | "watch" | "california";
 
 export interface SourceRef {
   id: SourceId;
@@ -33,14 +34,18 @@ export function buildSources({
   history = null,
   roundHistory = null,
   garminShots = null,
+  california,
 }: {
   shots?: LedgerShot[];
   sessions?: LedgerSession[];
   history?: CourseHistory | null;
   roundHistory?: RoundHistory | null;
   garminShots?: GarminShots | null;
+  /** The to-play list. Passed (null or not) only by the page that reads it —
+   *  it is a list, not a record, and the other pages never touch it. */
+  california?: California100 | null;
 }): SourceRef[] {
-  return [
+  const rows: SourceRef[] = [
     roundHistory
       ? {
           id: "scorecards",
@@ -98,4 +103,24 @@ export function buildSources({
           missing: "pnpm data:garmin",
         },
   ];
+  if (california !== undefined) {
+    rows.push(
+      california
+        ? {
+            id: "california",
+            label: "CA 100",
+            detail:
+              `the California Public 100, compiled ${california.compiledAt} — ` +
+              `${california.verified} of 100 rows checked, ${california.linked} on the record`,
+            missing: null,
+          }
+        : {
+            id: "california",
+            label: "CA 100",
+            detail: "no data/california-100.json — the to-play list is a hand-kept file",
+            missing: null,
+          },
+    );
+  }
+  return rows;
 }

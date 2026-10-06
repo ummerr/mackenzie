@@ -17,7 +17,7 @@ import { usePathname } from "next/navigation";
 
 /* Ordered as the site is worked: the command center, the plan it points at,
  * then the two canonical records — the rounds played, the bag measured —
- * then the map. The range task list rides at the foot of the plan. /sessions (a data-hygiene tool) and /ball-flight
+ * then the map, then the to-play list the map will one day draw. The range task list rides at the foot of the plan. /sessions (a data-hygiene tool) and /ball-flight
  * left the strip; both are reachable from the bag page's footer. Exported so
  * tests/nav-parity.test.ts can hold the courses page's hand-replicated
  * header to the same list. */
@@ -27,6 +27,7 @@ export const SECTIONS = [
   { href: "/rounds", label: "Rounds" },
   { href: "/bag", label: "Bag" },
   { href: "/courses", label: "Courses" },
+  { href: "/california", label: "CA 100" },
 ] as const;
 
 export function InlineNav() {

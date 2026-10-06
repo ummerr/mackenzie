@@ -19,8 +19,29 @@ import type { SourceFacility } from "./course-history";
 export type Confidence = "high" | "medium" | "low";
 export type CourseStatus = "open" | "closed";
 export type RecordState = "played" | "facility-played" | "unplayed";
-export type ListLens = "rank" | "value" | "difficulty" | "price";
+export type ListLens = "rank" | "amar" | "value" | "difficulty" | "price" | "drive";
 export type CheckGroup = "rankings" | "tee" | "fee" | "architect";
+export type Housing = "none" | "low" | "med" | "high";
+export type AmarComponent =
+  | "architecture"
+  | "scenery"
+  | "conditioning"
+  | "walkability"
+  | "value"
+  | "difficulty"
+  | "access"
+  | "prestige"
+  | "worthDrive";
+
+/** The index's own taste scoring: nine 0–10 components, the weighted score and
+ *  the rank it implies. An opinion to argue with, not a claim about the world —
+ *  no check applies to it, and validate recomputes the arithmetic. */
+export interface Amar {
+  rank: number;
+  tier: string;
+  score: number;
+  components: Record<AmarComponent, number>;
+}
 
 export interface Check {
   verified: boolean;
@@ -57,6 +78,8 @@ export interface CaliforniaEntry {
   slug: string;
   name: string;
   locality: string;
+  /** The index's own region label ("Monterey Peninsula"); `area` is the coarse filter key. */
+  region: string;
   area: string;
   architect: string | null;
   tee: Tee;
@@ -68,6 +91,10 @@ export interface CaliforniaEntry {
   value: string | null;
   valueNote: string | null;
   tags: string[];
+  housing: Housing;
+  /** Typical no-incident drive from central San Francisco — an estimate. */
+  drive: { label: string; minutes: number };
+  amar: Amar;
   facilitySlug: string | null;
   layoutSlug: string | null;
   joinNote: string | null;
@@ -88,16 +115,38 @@ export interface SourceDef {
   verified: boolean;
 }
 
+export interface AmarSpec {
+  title: string;
+  note: string;
+  weights: Record<AmarComponent, number>;
+  tiers: string[];
+  from: string;
+}
+
 export interface California100File {
   list: { title: string; compiledAt: string; compiledBy: string; from: string };
   sources: Record<string, SourceDef>;
   access: Record<string, string>;
   areas: Record<string, string>;
   tags: Record<string, string>;
+  housing: Record<string, string>;
+  amar: AmarSpec | null;
   entries: CaliforniaEntry[];
 }
 
 export const CHECK_GROUPS: readonly CheckGroup[] = ["rankings", "tee", "fee", "architect"];
+export const AMAR_COMPONENTS: readonly AmarComponent[] = [
+  "architecture",
+  "scenery",
+  "conditioning",
+  "walkability",
+  "value",
+  "difficulty",
+  "access",
+  "prestige",
+  "worthDrive",
+];
+const HOUSING: ReadonlySet<string> = new Set(["none", "low", "med", "high"]);
 export const VALUE_GRADE = /^[A-D](\+\+|\+|-)?$/;
 
 const CONFIDENCE: ReadonlySet<string> = new Set(["high", "medium", "low"]);
@@ -119,12 +168,22 @@ function isCheck(x: unknown): x is Check {
   return isObj(x) && typeof x.verified === "boolean" && strOrNull(x.source) && strOrNull(x.note);
 }
 
+const score10 = (x: unknown) => typeof x === "number" && Number.isFinite(x) && x >= 0 && x <= 10;
+
+function isAmar(x: unknown): x is Amar {
+  if (!isObj(x)) return false;
+  if (!Number.isInteger(x.rank) || typeof x.tier !== "string") return false;
+  if (typeof x.score !== "number" || !Number.isFinite(x.score) || x.score < 0 || x.score > 100) return false;
+  const c = x.components;
+  return isObj(c) && AMAR_COMPONENTS.every((k) => score10(c[k]));
+}
+
 function isEntry(x: unknown): x is CaliforniaEntry {
   if (!isObj(x)) return false;
   const e = x;
   if (!(Number.isInteger(e.rank) && (e.rank as number) >= 1 && (e.rank as number) <= 100)) return false;
   if (typeof e.slug !== "string" || typeof e.name !== "string") return false;
-  if (typeof e.locality !== "string" || typeof e.area !== "string") return false;
+  if (typeof e.locality !== "string" || typeof e.region !== "string" || typeof e.area !== "string") return false;
   if (!strOrNull(e.architect)) return false;
   const tee = e.tee;
   if (!isObj(tee) || !numOrNull(tee.yards) || !numOrNull(tee.slope) || !numOrNull(tee.rating) || !strOrNull(tee.name)) {
@@ -138,6 +197,10 @@ function isEntry(x: unknown): x is CaliforniaEntry {
   if (!isObj(r) || !RANKING_KEYS.every((k) => numOrNull(r[k]))) return false;
   if (!(e.value === null || (typeof e.value === "string" && VALUE_GRADE.test(e.value)))) return false;
   if (!strOrNull(e.valueNote) || !strArr(e.tags)) return false;
+  if (!HOUSING.has(e.housing as string)) return false;
+  const d = e.drive;
+  if (!isObj(d) || typeof d.label !== "string" || !Number.isInteger(d.minutes) || (d.minutes as number) < 0) return false;
+  if (!isAmar(e.amar)) return false;
   if (!strOrNull(e.facilitySlug) || !strOrNull(e.layoutSlug) || !strOrNull(e.joinNote)) return false;
   const p = e.provenance;
   if (!isObj(p) || !CONFIDENCE.has(p.confidence as string)) return false;
@@ -163,6 +226,30 @@ const strMap = (x: unknown): Record<string, string> =>
     ? Object.fromEntries(Object.entries(x).filter((kv): kv is [string, string] => typeof kv[1] === "string"))
     : {};
 
+function parseAmarSpec(x: unknown): AmarSpec | null {
+  if (!isObj(x) || !isObj(x.weights)) return null;
+  const w = x.weights;
+  if (!AMAR_COMPONENTS.every((k) => typeof w[k] === "number")) return null;
+  return {
+    title: typeof x.title === "string" ? x.title : "Amar score",
+    note: typeof x.note === "string" ? x.note : "",
+    weights: w as Record<AmarComponent, number>,
+    tiers: strArr(x.tiers) ? x.tiers : [],
+    from: typeof x.from === "string" ? x.from : "",
+  };
+}
+
+/** The index's arithmetic, re-done: weighted mean of the components, times ten. */
+export function amarScore(components: Record<AmarComponent, number>, weights: Record<AmarComponent, number>): number {
+  let sum = 0;
+  let total = 0;
+  for (const k of AMAR_COMPONENTS) {
+    sum += components[k] * weights[k];
+    total += weights[k];
+  }
+  return total ? (sum / total) * 10 : 0;
+}
+
 /** Read the file's shape. Throws only when the file is not an object at all;
  *  an entry that breaks the contract is dropped (validate reports it as an
  *  error — the page just does not get to print it). */
@@ -184,6 +271,8 @@ export function parseCalifornia100(raw: unknown): California100File {
     access: strMap(raw._access),
     areas: strMap(raw._areas),
     tags: strMap(raw._tags),
+    housing: strMap(raw._housing),
+    amar: parseAmarSpec(raw._amar),
     entries: (Array.isArray(raw.entries) ? raw.entries : []).filter(isEntry),
   };
 }
@@ -225,6 +314,8 @@ export interface California100 {
   played: number;
   top25Played: number;
   top50Played: number;
+  /** Played among the index's own top ten. */
+  amarTenPlayed: number;
   roundsOnList: number;
   cheapestUnplayed: ListRow | null;
   nextUp: ListRow | null;
@@ -234,9 +325,11 @@ export interface California100 {
 
 export const LENSES: { key: ListLens; word: string; gloss: string }[] = [
   { key: "rank", word: "rank", gloss: "as compiled" },
+  { key: "amar", word: "amar", gloss: "the index's own score" },
   { key: "value", word: "value", gloss: "grade, then rank" },
   { key: "difficulty", word: "difficulty", gloss: "slope, then yards" },
   { key: "price", word: "price", gloss: "lowest fee first" },
+  { key: "drive", word: "drive", gloss: "nearest to SF first" },
 ];
 
 /** A++ is 15, A+ 14, A 13, A- 12, B+ 10 … D- 0. Unknown is -1 so it sorts
@@ -336,6 +429,7 @@ export function joinCalifornia100(
 
   const order: Record<ListLens, number[]> = {
     rank: rows.map((_, i) => i),
+    amar: orderBy(rows, (r) => r.entry.amar.score, -1),
     value: orderBy(rows, (r) => (r.entry.value === null ? null : valueOrdinal(r.entry.value)), -1),
     difficulty: rows
       .map((r, i) => ({ i, s: r.entry.tee.slope, y: r.entry.tee.yards, rank: r.entry.rank }))
@@ -347,6 +441,7 @@ export function joinCalifornia100(
       })
       .map((x) => x.i),
     price: orderBy(rows, (r) => r.entry.fee.low, 1),
+    drive: orderBy(rows, (r) => r.entry.drive.minutes, 1),
   };
 
   const cheapest = open
@@ -365,6 +460,7 @@ export function joinCalifornia100(
     played: playedRows.length,
     top25Played: playedRows.filter((r) => r.entry.rank <= 25).length,
     top50Played: playedRows.filter((r) => r.entry.rank <= 50).length,
+    amarTenPlayed: playedRows.filter((r) => r.entry.amar.rank <= 10).length,
     roundsOnList: playedRows.reduce((n, r) => n + r.timesPlayed, 0),
     cheapestUnplayed: cheapest[0] ?? null,
     nextUp: shortlist[0] ?? null,

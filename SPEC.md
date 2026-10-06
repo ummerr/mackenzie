@@ -31,10 +31,16 @@ Three properties are non-negotiable and everything else follows from them:
 Three files at three levels of trust. Keeping them apart is the whole design.
 
 ```
-data/facilities.json   a physical place.       Machine-derived.   85 records
-data/layouts.json      a playable routing.     From Grint.        96 records
-data/facts.json        an external claim.      Hand-curated.      25 facilities
+data/facilities.json      a physical place.       Machine-derived.   85 records
+data/layouts.json         a playable routing.     From Grint.        96 records
+data/facts.json           an external claim.      Hand-curated.      25 facilities
+data/california-100.json  a compiled list.        Hand-kept, checked. 100 entries
 ```
+
+The fourth file is a different kind of thing from the first three: a to-play
+list, compiled from published rankings, that names spine courses where it
+can (`facilitySlug`, `layoutSlug`) and otherwise describes courses the record
+has never met. Its contract is in its own `_README` and in *Lists* below.
 
 Two of the 96 layouts (and one of the 85 facilities) come from the round
 record, not the paste — see *Courses the paste hasn't met* below. They carry
@@ -165,7 +171,7 @@ Grint list and your single most-played course at 10 rounds; `revealed` and
 | Esri Boundaries & Places | label overlay | none | free, attribution required | **in use** |
 | Hand curation | architect, year, championships, rankings, notes | — | time | **in use**, 25/84 |
 | Grint export extension | per-round + hole-level scores, dates, putts, fairway codes, differentials | logged-in browser tab | one popup click | **in use** — `grint-extension/` captures, `parse-grint-export.mjs` emits `rounds.json`; the profile pages read it directly via `lib/round-history.ts` |
-| Golf Digest / Golfweek / Top100 | published rankings | none | brittle scrape, licence gray | *not built* |
+| Golf Digest / Golfweek / GOLF | published rankings, via the California 100 compilation | none | hand-kept, checked row by row | **in use** — 21 facilities carry a published ranking; `build.mjs` derives `publishedRankings` and feeds only US-scale ranks to `externalRanking` |
 | Garmin R50 | shot telemetry | OAuth | unproven | *not built* |
 
 ### Adapter contract
@@ -236,6 +242,27 @@ like `70s`), never mixed. `pnpm data:validate` refuses an entry without a
 URL, a population or a definition, and prints the unverified count.
 `lib/benchmarks.ts` `bench(file, metric, band)` is the only lookup and never
 falls back to another band.
+
+### Lists: data/california-100.json
+
+The California Public 100 — the to-play list (DECISIONS.md 2026-10-06). One
+compilation of published public-access rankings, 100 entries, each with the
+compiled rank, the published ranks it came from (Golfweek 2026 CA/US, Golf
+Digest 2025–26 score / state / national-public, GOLF 2024–25 You Can Play),
+the back tee, an approximate posted fee band, access codes, a value grade,
+the index's own nine-component "Amar" score with a drive estimate from SF and
+a housing call, and a provenance block with one check per claim group
+(`rankings`, `tee`, `fee`, `architect`: `{verified, source, note}`).
+`provenance.verified` is true only when every check is; a verified check
+names a URL or a key in the file's `_sources`. The join to the spine is
+explicit — `facilitySlug` and, at a multi-layout facility, `layoutSlug`; a
+layout the spine lacks reads as *facility played, this course not*; an entry
+whose name sits inside a California facility's slug while naming nothing
+must carry a `joinNote`. The Amar block is an opinion, not a claim: no check
+applies, and validate re-does its arithmetic. `pnpm data:validate` enforces
+all of it and prints `linked · verified · checks`. `lib/california100.ts`
+parses and joins; `/california` renders; `build.mjs` derives the dossier's
+published rankings from it. Unknown values are null, never guessed.
 
 ### Courses the paste hasn't met
 
@@ -324,12 +351,18 @@ it.
 ## 7. Known gaps
 
 - **86 of 88 curated claims are unverified.** Highest-priority debt.
-- **Only 1 facility has an external ranking.** The `architecture` lens is
-  effectively untested.
-- **The bucket list (38 courses) isn't captured.** The paste covered played
-  courses only. The friends-activity feed leaks a handful — Sand Valley, Kiawah
-  Ocean, all four Bandon courses, Pebble, Spyglass, Bethpage Red — but the real
-  list needs one more paste. Same schema, `played: false`.
+- **All 100 rows of the California 100 are unverified** on arrival
+  (2026-10-06): the verification pass is the next job, and the page says so
+  on every row.
+- **21 facilities carry a published ranking, all via the California 100.**
+  The `architecture` lens is real for them and untested for the other 68.
+- **Grint's own bucket list (38 courses) isn't captured.** The California
+  100 is a compiled list, not Grint's; the Grint paste covered played
+  courses only, and the friends-activity feed leaks a handful — Sand Valley,
+  Kiawah Ocean, all four Bandon courses, Pebble, Spyglass, Bethpage Red.
+  Same schema, `played: false`, one more paste.
+- **The California 100 has no coordinates.** 78 of its courses are not in
+  the spine, so the map cannot draw them yet — see NEXT.
 - **No per-round or hole-level data.** The paste has averages only.
 - **No physical vectors.** Water/bunker density and elevation relief are
   derivable from data already fetched, but aren't computed.
@@ -341,9 +374,11 @@ it.
 
 Everything above this line exists. Everything below does not.
 
-**Phase 2 — verification and depth.** Run the fact-verification pass. Add
-published rankings for the top 25. Capture the bucket list. Compute the physical
-vectors from geometry already on disk.
+**Phase 2 — verification and depth.** Run the fact-verification pass, now
+over `facts.json` and the California 100 both. Published rankings arrived
+with the list (2026-10-06). Capture Grint's bucket list. Compute the physical
+vectors from geometry already on disk. Geocode the list's 78 unmet courses
+and draw them hollow on the map.
 
 **Phase 3 — rounds.** Done end to end on the data side: `grint-extension/`
 scrapes the classic client from a logged-in tab into a `grint-export-*.json`

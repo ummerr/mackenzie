@@ -8,6 +8,9 @@ One golfer profile site, built from the two halves of the record:
   gap is half the product.
 - **The course history** — a mapped, sourced, multi-vector history of every
   golf course played, drawn on aerial imagery at `/courses`.
+- **The to-play list** — the California Public 100 at `/california`, a
+  compiled list checked row by row and joined to the record, so the page
+  says which of the hundred have been played and which to book next.
 
 The front page is the golfer the two halves derive together. The site is one
 Next.js app; the map inside it stays a zero-build static page, served from
@@ -282,8 +285,11 @@ vercel deploy --prod
 
 Things that will trip you up:
 
-- **It is a CLI deploy, not a Git integration.** Pushing to `main` does
-  **not** redeploy — run the command above.
+- **Since 2026-09-09 the project is Git-connected**: every push to `main` is
+  a production deploy, and a local, unversioned `.git/hooks/post-commit`
+  pushes `main` after every commit — so commit on `main` = live. Branch for
+  half-finished work. The CLI command above still works for an out-of-band
+  deploy.
 - **`data/*.json` and `public/data/*` must be committed.** Pages read them at
   build time. Run the ingests and commit their output before deploying, or the
   live site shows the previous session's numbers.

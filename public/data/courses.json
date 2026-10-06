@@ -1282,8 +1282,8 @@
           "layoutSlug": "pelican-hill-golf-club--ocean-south",
           "value": "C+",
           "fee": {
-            "low": 425,
-            "high": null,
+            "low": 340,
+            "high": 425,
             "note": "approximate"
           },
           "slope": 134,
@@ -1297,8 +1297,8 @@
           "layoutSlug": "pelican-hill-golf-club--ocean-north",
           "value": "C+",
           "fee": {
-            "low": 425,
-            "high": null,
+            "low": 340,
+            "high": 425,
             "note": "approximate"
           },
           "slope": 135,
@@ -1437,7 +1437,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 6,
+          "rank": 7,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -1487,7 +1487,7 @@
       ],
       "california100": [
         {
-          "rank": 6,
+          "rank": 7,
           "slug": "rustic-canyon",
           "name": "Rustic Canyon",
           "layoutSlug": null,
@@ -1869,7 +1869,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 12,
+          "rank": 13,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -1919,14 +1919,14 @@
       ],
       "california100": [
         {
-          "rank": 12,
+          "rank": 13,
           "slug": "pga-west-stadium",
           "name": "PGA West — Stadium",
           "layoutSlug": "pga-west-stadium-clubhouse--stadium-course",
           "value": "C+",
           "fee": {
             "low": 300,
-            "high": 448,
+            "high": 450,
             "note": "approximate"
           },
           "slope": 148,
@@ -2567,7 +2567,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 40,
+          "rank": 43,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -2577,14 +2577,14 @@
       ],
       "california100": [
         {
-          "rank": 40,
+          "rank": 43,
           "slug": "ojai-valley-inn",
           "name": "Ojai Valley Inn",
           "layoutSlug": null,
           "value": "A-",
           "fee": {
-            "low": 190,
-            "high": null,
+            "low": 170,
+            "high": 225,
             "note": "approximate"
           },
           "slope": 132,
@@ -2880,7 +2880,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 38,
+          "rank": 44,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -2890,7 +2890,7 @@
       ],
       "california100": [
         {
-          "rank": 38,
+          "rank": 44,
           "slug": "coyote-moon",
           "name": "Coyote Moon",
           "layoutSlug": null,
@@ -3166,7 +3166,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 26,
+          "rank": 27,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -3186,14 +3186,14 @@
       ],
       "california100": [
         {
-          "rank": 26,
+          "rank": 27,
           "slug": "oak-quarry",
           "name": "Oak Quarry",
           "layoutSlug": null,
           "value": "A-",
           "fee": {
-            "low": 175,
-            "high": null,
+            "low": 140,
+            "high": 190,
             "note": "approximate"
           },
           "slope": 137,
@@ -3547,7 +3547,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 29,
+          "rank": 33,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -3557,14 +3557,14 @@
       ],
       "california100": [
         {
-          "rank": 29,
+          "rank": 33,
           "slug": "sandpiper",
           "name": "Sandpiper",
           "layoutSlug": null,
           "value": "B+",
           "fee": {
-            "low": 245,
-            "high": null,
+            "low": 175,
+            "high": 245,
             "note": "approximate"
           },
           "slope": 136,
@@ -3896,7 +3896,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 64,
+          "rank": 63,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -3906,17 +3906,17 @@
       ],
       "california100": [
         {
-          "rank": 64,
+          "rank": 63,
           "slug": "cinnabar-hills",
           "name": "Cinnabar Hills",
           "layoutSlug": null,
           "value": "A-",
           "fee": {
-            "low": 130,
-            "high": null,
+            "low": 110,
+            "high": 155,
             "note": "approximate"
           },
-          "slope": null,
+          "slope": 138,
           "tags": [],
           "verified": false
         }
@@ -4023,7 +4023,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 41,
+          "rank": 40,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -4033,7 +4033,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 54,
+          "rank": 53,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -4043,14 +4043,14 @@
       ],
       "california100": [
         {
-          "rank": 41,
+          "rank": 40,
           "slug": "indian-wells-celebrity",
           "name": "Indian Wells — Celebrity",
           "layoutSlug": "indian-wells-golf-resort--celebrity",
           "value": "B+",
           "fee": {
-            "low": 299,
-            "high": null,
+            "low": 180,
+            "high": 300,
             "note": "approximate"
           },
           "slope": 138,
@@ -4058,14 +4058,14 @@
           "verified": false
         },
         {
-          "rank": 54,
+          "rank": 53,
           "slug": "indian-wells-players",
           "name": "Indian Wells — Players",
           "layoutSlug": "indian-wells-golf-resort--players",
           "value": "B",
           "fee": {
-            "low": 299,
-            "high": null,
+            "low": 180,
+            "high": 300,
             "note": "approximate"
           },
           "slope": 139,
@@ -5015,7 +5015,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 83,
+          "rank": 86,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -5025,17 +5025,17 @@
       ],
       "california100": [
         {
-          "rank": 83,
+          "rank": 86,
           "slug": "moorpark-country-club",
           "name": "Moorpark Country Club",
           "layoutSlug": null,
           "value": "B+",
           "fee": {
-            "low": 125,
-            "high": 175,
+            "low": 110,
+            "high": 170,
             "note": "approximate"
           },
-          "slope": null,
+          "slope": 139,
           "tags": [],
           "verified": false
         }
@@ -5605,7 +5605,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 75,
+          "rank": 82,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -5615,14 +5615,14 @@
       ],
       "california100": [
         {
-          "rank": 75,
+          "rank": 82,
           "slug": "black-gold",
           "name": "Black Gold",
           "layoutSlug": null,
           "value": "B+",
           "fee": {
-            "low": 171,
-            "high": null,
+            "low": 140,
+            "high": 190,
             "note": "approximate"
           },
           "slope": 133,
@@ -5989,7 +5989,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 77,
+          "rank": 85,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -5999,14 +5999,14 @@
       ],
       "california100": [
         {
-          "rank": 77,
+          "rank": 85,
           "slug": "industry-hills-ike",
           "name": "Industry Hills — Ike",
           "layoutSlug": "industry-hills-golf-club-at-pacific-palms-resort--dwight-eisenhower",
           "value": "A+",
           "fee": {
-            "low": 99,
-            "high": null,
+            "low": 80,
+            "high": 120,
             "note": "approximate"
           },
           "slope": 141,
@@ -6275,7 +6275,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 86,
+          "rank": 94,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -6285,14 +6285,14 @@
       ],
       "california100": [
         {
-          "rank": 86,
+          "rank": 94,
           "slug": "eagle-vines",
           "name": "Eagle Vines",
           "layoutSlug": null,
           "value": "A+",
           "fee": {
-            "low": 89,
-            "high": null,
+            "low": 75,
+            "high": 105,
             "note": "approximate"
           },
           "slope": 138,
@@ -6395,7 +6395,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 84,
+          "rank": 64,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -6405,14 +6405,14 @@
       ],
       "california100": [
         {
-          "rank": 84,
+          "rank": 64,
           "slug": "tierra-rejada",
           "name": "Tierra Rejada",
           "layoutSlug": null,
           "value": "A",
           "fee": {
-            "low": 120,
-            "high": null,
+            "low": 95,
+            "high": 140,
             "note": "approximate"
           },
           "slope": 132,
@@ -6522,7 +6522,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 63,
+          "rank": 68,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -6532,14 +6532,14 @@
       ],
       "california100": [
         {
-          "rank": 63,
+          "rank": 68,
           "slug": "coyote-creek-tournament",
           "name": "Coyote Creek — Tournament",
           "layoutSlug": "coyote-creek-golf-club--tournament",
           "value": "A",
           "fee": {
-            "low": 125,
-            "high": null,
+            "low": 100,
+            "high": 145,
             "note": "approximate"
           },
           "slope": 144,
@@ -6993,7 +6993,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 98,
+          "rank": 95,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -7003,7 +7003,7 @@
       ],
       "california100": [
         {
-          "rank": 98,
+          "rank": 95,
           "slug": "rancho-park",
           "name": "Rancho Park",
           "layoutSlug": null,
@@ -7135,7 +7135,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 99,
+          "rank": 98,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -7145,14 +7145,14 @@
       ],
       "california100": [
         {
-          "rank": 99,
+          "rank": 98,
           "slug": "griffith-park-wilson",
           "name": "Griffith Park — Wilson",
           "layoutSlug": "griffith-park-golf-club--wilson",
           "value": "A++",
           "fee": {
-            "low": 50,
-            "high": null,
+            "low": 35,
+            "high": 55,
             "note": "approximate"
           },
           "slope": 126,
@@ -8070,8 +8070,35 @@
           "verified": false
         }
       },
-      "publishedRankings": [],
-      "california100": [],
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 97,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 97,
+          "slug": "brookside-koiner",
+          "name": "Brookside — No. 1 (Koiner)",
+          "layoutSlug": "brookside-golf-club--c-w-koiner-course-1",
+          "value": null,
+          "fee": {
+            "low": 50,
+            "high": 80,
+            "note": null
+          },
+          "slope": 130,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "brookside-golf-club--c-w-koiner-course-1",
@@ -10590,7 +10617,7 @@
         {
           "list": "California Public 100 (compiled)",
           "year": 2026,
-          "rank": 28,
+          "rank": 29,
           "source": null,
           "verified": false,
           "scope": "CA",
@@ -10620,14 +10647,14 @@
       ],
       "california100": [
         {
-          "rank": 28,
+          "rank": 29,
           "slug": "harding-park",
           "name": "TPC Harding Park",
           "layoutSlug": null,
           "value": "B+",
           "fee": {
-            "low": 250,
-            "high": null,
+            "low": 170,
+            "high": 250,
             "note": "non-resident, approximate"
           },
           "slope": 132,
@@ -10759,8 +10786,8 @@
           "layoutSlug": null,
           "value": "A-",
           "fee": {
-            "low": 137,
-            "high": null,
+            "low": 105,
+            "high": 150,
             "note": "approximate"
           },
           "slope": 136,

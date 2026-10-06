@@ -54,6 +54,26 @@ played; a checkbox that disagreed with it would be lying (the same reason
 Map pins now — geocoding eighty new courses is its own piece of work and
 belongs after the rows are checked, not before.
 
+**The second paste, same day:** a revised compilation arrived as the "Amar
+Score" index — nine 0–10 components per course (architecture 25%, scenery
+14%, worth-the-drive-from-SF 14%, conditioning, walkability, value,
+difficulty and prestige 8% each, access 7%), a weighted score, the rank it
+implies, a drive estimate from central SF and a housing-exposure call. It
+also revised the canonical hundred: six courses left (Bodega Harbour, Bear
+Mountain, Singing Hills Willow Glen, San Vicente, Hiddenbrooke, Rancho
+Solano) and six arrived (Half Moon Bay Old, Classic Club, Links at Everline,
+Barona Creek, Shadow Ridge, Brookside No. 1 — which the record already holds
+five times). The later compilation is the one the file carries, with the
+first's value grades and Golf Digest state/public ranks kept where the second
+is silent; the dropped six are named here so they can be restored by hand.
+The index block is admitted as an *opinion*, not a claim: no check applies to
+it, `pnpm data:validate` re-does its arithmetic (score = components weighted,
+rank = the competition rank the scores imply) and refuses a row that fails,
+and the page labels it as the index's own view. It is the first personal lens
+on the site that is not derived from the record — kept in the data file
+rather than in `weights.json`, because it scores courses the record has never
+met and `weights.json` lenses weight vectors the pipeline computes.
+
 ---
 
 ## 2026-10-06 — The penalty row is read: Grint's legend was on file all along
