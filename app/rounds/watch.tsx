@@ -10,7 +10,13 @@ import {
   type OnCourseRecord,
 } from "@/lib/garmin-shots";
 import { paintHole, type HolePaint, type XY } from "@/lib/hole-geometry";
-import type { PlayedRound } from "@/lib/round-history";
+import {
+  decodePenaltyCode,
+  describePenalties,
+  roundPenalties,
+  type HolePenalties,
+  type PlayedRound,
+} from "@/lib/round-history";
 
 /* The watch's half of the rounds page — every AutoShot, round by round, hole
  * by hole, traced over the hole's own satellite photograph. Moved verbatim
@@ -38,9 +44,6 @@ export function WatchSection({
   }
 
   const heard = shotRounds(garmin).sort((a, b) => b.date.localeCompare(a.date));
-  const sims = garmin.rounds
-    .filter((r) => r.flags.includes("simulation"))
-    .sort((a, b) => b.date.localeCompare(a.date));
   const totalShots = heard.reduce((n, r) => n + r.shotCount, 0);
   const record = onCourseRecord(garmin);
 
@@ -74,31 +77,6 @@ export function WatchSection({
           grint={linked.get(r.scorecardId) ?? null}
         />
       ))}
-
-      {sims.length > 0 && (
-        <section className="mt-10">
-          <h2 className="stamp text-ink-2">Also on the card</h2>
-          <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
-            Simulator rounds — the R50 hears clubs, not courses, so there are no
-            shots to trace.
-          </p>
-          <ul className="mt-3 space-y-px">
-            {sims.map((r) => (
-              <li
-                key={r.scorecardId}
-                className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l-2 bg-paper-1 px-3 py-2 sm:px-4"
-                style={{ borderColor: "var(--line)" }}
-              >
-                <span className="font-mono text-[11px] tabular-nums text-ink-3">{r.date}</span>
-                <span className="text-[14px] leading-snug text-ink-1">{r.courseName ?? "—"}</span>
-                <span className="ml-auto shrink-0 font-mono text-[11px] tabular-nums text-ink-2">
-                  {r.strokes ?? "—"} strokes
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
     </section>
   );
 }
@@ -177,6 +155,16 @@ function RoundEntry({
   grint: PlayedRound | null;
 }) {
   const heardStrokes = round.strokes;
+  /* The card's penalty row, summed — the one thing the card records between
+   * the fairway and the green. A blank row is Grint's "not counted", so it is
+   * printed as blank, never as zero. */
+  const pen = grint ? roundPenalties(grint) : null;
+  const penaltyLine =
+    pen === null
+      ? ""
+      : pen.holesMarked === 0
+        ? " · penalty row blank on the Grint card"
+        : ` · ${pen.penaltyStrokes} penalty stroke${pen.penaltyStrokes === 1 ? "" : "s"}, ${pen.bunkerShots} bunker shot${pen.bunkerShots === 1 ? "" : "s"} on the Grint card`;
   return (
     /* Anchored by scorecard id so the scorecards' pages can point at the
      * watch's copy of the same round. */
@@ -194,7 +182,8 @@ function RoundEntry({
         {grint?.putts != null ? ` · ${grint.putts} putts on the Grint card` : ""} · the
         watch heard {round.shotCount} of{" "}
         {heardStrokes === null ? "?" : heardStrokes} strokes
-        {grint === null ? " · no confirmed Grint link, so putts are unlinked" : ""}
+        {penaltyLine}
+        {grint === null ? " · no confirmed Grint link, so putts and penalties are unlinked" : ""}
       </p>
 
       <div className="mt-4 grid gap-px sm:grid-cols-2 lg:grid-cols-3">
@@ -203,6 +192,7 @@ function RoundEntry({
             key={h.number}
             hole={h}
             grintPutts={grint?.holePutts?.[h.number - 1] ?? null}
+            grintPenalty={decodePenaltyCode(grint?.penaltyCodes?.[h.number - 1])}
           />
         ))}
       </div>
@@ -215,23 +205,37 @@ function RoundEntry({
 function HoleEntry({
   hole,
   grintPutts,
+  grintPenalty,
 }: {
   hole: GarminHole;
   grintPutts: number | null;
+  /** The card's penalty cell for this hole, decoded; null where blank. */
+  grintPenalty: HolePenalties | null;
 }) {
   const shots = [...hole.shots].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   const paint = paintHole(shots, hole.pin);
-  // What the scorecard says happened minus what was heard (shots) and linked
-  // (putts): the strokes nothing recorded. Zero is silence, not a row.
+  // What the scorecard says happened minus what was heard (shots), linked
+  // (putts), and written in the penalty row (penalty strokes — a drop is a
+  // stroke no watch can hear): the strokes nothing recorded. Zero is
+  // silence, not a row.
+  const penaltyStrokes = grintPenalty?.penaltyStrokes ?? 0;
   const unheard =
     hole.strokes !== null
-      ? hole.strokes - shots.length - (grintPutts ?? 0)
+      ? hole.strokes - shots.length - (grintPutts ?? 0) - penaltyStrokes
       : null;
   return (
     <div className="bg-paper-1 p-3 sm:p-4">
       <div className="flex items-baseline gap-x-2 font-mono text-[11px]">
         <span className="text-ink-0">Hole {hole.number}</span>
         <span className="text-ink-3">par {hole.par ?? "—"}</span>
+        {grintPenalty !== null && (
+          <span
+            className={`font-bold ${grintPenalty.penaltyStrokes > 0 ? "text-accent-ink" : "text-ink-1"}`}
+            title={describePenalties(grintPenalty)}
+          >
+            {grintPenalty.code}
+          </span>
+        )}
         <span className="ml-auto tabular-nums text-ink-1">
           {hole.strokes ?? "—"}
           {grintPutts !== null ? ` · ${grintPutts} putt${grintPutts === 1 ? "" : "s"}` : ""}
@@ -255,6 +259,20 @@ function HoleEntry({
             <span className="w-3 shrink-0" />
             <span>
               {grintPutts} putt{grintPutts === 1 ? "" : "s"} · Grint card
+            </span>
+          </li>
+        )}
+        {grintPenalty !== null && (
+          <li
+            className={`flex gap-x-2 ${grintPenalty.penaltyStrokes > 0 ? "text-accent-ink" : "text-ink-1"}`}
+          >
+            <span className="w-3 shrink-0" />
+            <span>
+              {describePenalties(grintPenalty)}
+              {grintPenalty.penaltyStrokes > 0
+                ? ` · ${grintPenalty.penaltyStrokes} penalty stroke${grintPenalty.penaltyStrokes === 1 ? "" : "s"}`
+                : ""}{" "}
+              · Grint card
             </span>
           </li>
         )}

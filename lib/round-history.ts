@@ -13,6 +13,18 @@
  * 3 = hit, 4 = missed, and codes outside that map (7, 8 appear) are carried
  * but never guessed at — they count as "unclassified", not as misses.
  *
+ * Penalty codes are Grint's own too. The scorecard form's "Penalties" row
+ * (`pH1`…`pH18`, which the pipeline still files as `shotCodes`) carries one
+ * letter per event, concatenated per hole — "SS" is two greenside bunker
+ * shots — and the form's own legend (`.info-penalties`, on every edit_score
+ * page in the raw bundle) declares W = penalty area, D = drop shot, O = out
+ * of bounds, S = greenside bunker, F = fairway bunker. Until that legend was
+ * found on file the codes were deliberately unread (DECISIONS.md 2026-08-24);
+ * `PENALTY_CODE` is that legend, verbatim, and a letter outside it is carried
+ * as "unknown", never guessed at. A blank cell is Grint's "not counted": it
+ * is a clean hole or a hole never entered, and nothing here can tell which,
+ * so every per-round penalty rate is a floor.
+ *
  * The differentials are a separate array on purpose. They come from the
  * handicap chart in chart order, which is not one-to-one with the scorecards
  * (combined scores appear once, short rounds not at all), and joining them to
@@ -36,6 +48,9 @@ export interface PlayedRound {
   holeStrokes: (number | null)[] | null;
   holePutts: (number | null)[] | null;
   fairwayCodes: (number | null)[] | null;
+  /** The penalty row, verbatim per hole ("D", "SS", "SDD"); null where blank.
+   *  Decode with `decodePenaltyCode`. */
+  penaltyCodes: (string | null)[] | null;
 }
 
 export interface DifferentialPoint {
@@ -105,6 +120,9 @@ export interface SourceRound {
     strokes: (string | null)[];
     putts: (string | null)[];
     fairways: (string | null)[];
+    /** The form's "Penalties" row — named for what the pipeline guessed it
+     *  was before the legend was found; absent on snapshots before 2026-08-15. */
+    shotCodes?: (string | null)[];
   } | null;
   flags: string[];
 }
@@ -122,6 +140,16 @@ export interface SourceRounds {
 function holeNumbers(vals: (string | null)[] | undefined): (number | null)[] | null {
   if (!vals) return null;
   return vals.map((v) => (v === null || v === "" || v === "0" ? null : Number(v)));
+}
+
+/** The penalty row's strings: blank becomes null, anything else is kept
+ *  verbatim (trimmed, upper-cased — the form takes free text). */
+function holeCodes(vals: (string | null)[] | undefined): (string | null)[] | null {
+  if (!vals) return null;
+  return vals.map((v) => {
+    const t = (v ?? "").trim().toUpperCase();
+    return t === "" ? null : t;
+  });
 }
 
 /** Reshape the pipeline's rounds.json. Nothing is recomputed. Strings become
@@ -144,6 +172,7 @@ export function buildRoundHistory(src: SourceRounds): RoundHistory {
       holeStrokes: holeNumbers(r.perHole?.strokes),
       holePutts: holeNumbers(r.perHole?.putts),
       fairwayCodes: holeNumbers(r.perHole?.fairways),
+      penaltyCodes: holeCodes(r.perHole?.shotCodes),
     }));
 
   return {
@@ -158,6 +187,130 @@ export function buildRoundHistory(src: SourceRounds): RoundHistory {
 
 /** Grint's fairway codes, as declared by its own form (lval/rval/hval/mval). */
 export const FAIRWAY_CODE = { left: 1, right: 2, hit: 3, missed: 4 } as const;
+
+/* ------------------------------------------------------------------------- *
+ * The penalty row. Grint's legend, then the three readings of it this app
+ * needs: one hole, one round, a window of rounds.
+ * ------------------------------------------------------------------------- */
+
+/** Grint's penalty-row legend, verbatim from the scorecard form's
+ *  `.info-penalties` block. `stroke` says whether the rules attach a penalty
+ *  stroke to the event: a penalty area, a drop and out of bounds each cost
+ *  one; a bunker is a lie, not a penalty. */
+export const PENALTY_CODE = {
+  W: { label: "penalty area", stroke: true },
+  D: { label: "drop shot", stroke: true },
+  O: { label: "out of bounds", stroke: true },
+  S: { label: "greenside bunker", stroke: false },
+  F: { label: "fairway bunker", stroke: false },
+} as const;
+
+export type PenaltyLetter = keyof typeof PENALTY_CODE;
+
+export const PENALTY_LETTERS = Object.keys(PENALTY_CODE) as PenaltyLetter[];
+
+const isPenaltyLetter = (c: string): c is PenaltyLetter => c in PENALTY_CODE;
+
+/** One hole's penalty cell, read. */
+export interface HolePenalties {
+  /** The cell verbatim. */
+  code: string;
+  /** Legend letters, one per event, in the order they were entered. */
+  events: PenaltyLetter[];
+  /** Characters outside the legend — carried and counted, never guessed at. */
+  unknown: string[];
+  /** Events the rules attach a stroke to (W, D, O). */
+  penaltyStrokes: number;
+  /** Bunker shots (S, F). */
+  bunkerShots: number;
+}
+
+/** Null for a blank cell — Grint's "not counted", which is a clean hole or a
+ *  hole never entered; the caller must not read it as zero. */
+export function decodePenaltyCode(code: string | null | undefined): HolePenalties | null {
+  const t = (code ?? "").trim().toUpperCase();
+  if (t === "") return null;
+  const out: HolePenalties = { code: t, events: [], unknown: [], penaltyStrokes: 0, bunkerShots: 0 };
+  for (const c of t) {
+    if (isPenaltyLetter(c)) {
+      out.events.push(c);
+      if (PENALTY_CODE[c].stroke) out.penaltyStrokes += 1;
+      else out.bunkerShots += 1;
+    } else {
+      out.unknown.push(c);
+    }
+  }
+  return out;
+}
+
+/** "drop shot · greenside bunker ×2" — the legend's words, repeats counted,
+ *  unknown letters named as such. */
+export function describePenalties(hp: HolePenalties): string {
+  const counts = new Map<PenaltyLetter, number>();
+  for (const e of hp.events) counts.set(e, (counts.get(e) ?? 0) + 1);
+  const parts = PENALTY_LETTERS.filter((l) => counts.has(l)).map((l) => {
+    const n = counts.get(l) as number;
+    return n === 1 ? PENALTY_CODE[l].label : `${PENALTY_CODE[l].label} ×${n}`;
+  });
+  if (hp.unknown.length) parts.push(`"${hp.unknown.join("")}" (not in Grint's legend)`);
+  return parts.join(" · ");
+}
+
+/** A round's penalty row, summed. Null when the card has no row at all
+ *  (total-only entry, or a snapshot without the field). `holesMarked` is the
+ *  number of non-blank cells; zero means the row was left blank throughout. */
+export function roundPenalties(r: PlayedRound): {
+  penaltyStrokes: number;
+  bunkerShots: number;
+  holesMarked: number;
+  unknown: number;
+} | null {
+  if (r.penaltyCodes === null) return null;
+  const out = { penaltyStrokes: 0, bunkerShots: 0, holesMarked: 0, unknown: 0 };
+  for (const c of r.penaltyCodes) {
+    const hp = decodePenaltyCode(c);
+    if (hp === null) continue;
+    out.holesMarked += 1;
+    out.penaltyStrokes += hp.penaltyStrokes;
+    out.bunkerShots += hp.bunkerShots;
+    out.unknown += hp.unknown.length;
+  }
+  return out;
+}
+
+/** The penalty row over a window of rounds. `cards` counts rounds that have
+ *  a row (full entries); `cardsMarked` the ones with at least one mark. The
+ *  per-round rates divide by `cards`, so a blank row counts as clean — the
+ *  floor, by construction, and the number that is printed says so. */
+export function penaltyTally(rounds: PlayedRound[]): {
+  byCode: Record<PenaltyLetter, number>;
+  unknown: number;
+  penaltyStrokes: number;
+  bunkerShots: number;
+  holesMarked: number;
+  cards: number;
+  cardsMarked: number;
+} {
+  const byCode = Object.fromEntries(PENALTY_LETTERS.map((l) => [l, 0])) as Record<PenaltyLetter, number>;
+  const out = { byCode, unknown: 0, penaltyStrokes: 0, bunkerShots: 0, holesMarked: 0, cards: 0, cardsMarked: 0 };
+  for (const r of rounds) {
+    if (r.penaltyCodes === null) continue;
+    out.cards += 1;
+    let marked = 0;
+    for (const c of r.penaltyCodes) {
+      const hp = decodePenaltyCode(c);
+      if (hp === null) continue;
+      marked += 1;
+      for (const e of hp.events) byCode[e] += 1;
+      out.unknown += hp.unknown.length;
+      out.penaltyStrokes += hp.penaltyStrokes;
+      out.bunkerShots += hp.bunkerShots;
+    }
+    out.holesMarked += marked;
+    if (marked > 0) out.cardsMarked += 1;
+  }
+  return out;
+}
 
 /** The rounds whose totals are comparable to each other. */
 export function eighteenHole(h: RoundHistory): PlayedRound[] {
@@ -328,6 +481,11 @@ export interface RecentForm {
   threePutt: StatPair;
   /** Fairways hit as a share of classified holes; n is classified holes. */
   fairwayHit: StatPair;
+  /** Penalty strokes (W, D, O) per 18-hole card; n is cards with a penalty
+   *  row, blank rows counted as clean — a floor. */
+  penaltyStrokes: StatPair;
+  /** Bunker shots (S, F) per 18-hole card; same n, same floor. */
+  bunkerShots: StatPair;
 }
 
 /** Recent window vs the whole record, side by side. Career means the WHOLE
@@ -356,6 +514,9 @@ export function recentVsCareer(h: RoundHistory, months: number): RecentForm | nu
   const tpCareer = threePuttShare(career);
   const fwRecent = fairwaySplit(recent);
   const fwCareer = fairwaySplit(career);
+  const penRecent = penaltyTally(recent18);
+  const penCareer = penaltyTally(career18);
+  const perCard = (n: number, cards: number) => (cards > 0 ? n / cards : null);
 
   return {
     asOf: anchor,
@@ -385,6 +546,18 @@ export function recentVsCareer(h: RoundHistory, months: number): RecentForm | nu
       fwCareer.classified > 0 ? fwCareer.hit / fwCareer.classified : null,
       fwRecent.classified,
       fwCareer.classified,
+    ),
+    penaltyStrokes: pair(
+      perCard(penRecent.penaltyStrokes, penRecent.cards),
+      perCard(penCareer.penaltyStrokes, penCareer.cards),
+      penRecent.cards,
+      penCareer.cards,
+    ),
+    bunkerShots: pair(
+      perCard(penRecent.bunkerShots, penRecent.cards),
+      perCard(penCareer.bunkerShots, penCareer.cards),
+      penRecent.cards,
+      penCareer.cards,
     ),
   };
 }

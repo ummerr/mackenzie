@@ -1,8 +1,8 @@
 # NEXT
 
 <!-- state:start -->
-**State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-09-29
-Last commit 2026-09-29 — Goals from the plan: next-round targets, never range data
+**State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-10-06
+Last commit 2026-10-06 — Capture 2026-10-06: Meadow Club 88 heard by the watch, sixth link, index 12.7
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
@@ -24,6 +24,14 @@ tee 0.5, against an index gap of 6.6. `/practice` redirects into its foot.
 The week's goals are next-round targets from the plan (`pnpm
 goals:propose`), never range-data goals. The hand analysis behind it is in
 `DECISIONS.md` 2026-09-29 (two entries).
+
+**2026-10-06 — the penalty row is read.** Grint's `Penalties` row (W/D/O/S/F,
+legend found in the raw scorecard HTML) now prints hole by hole on `/rounds`:
+an 18-cell strip under every recent round, a line on every hole the watch
+heard, and a panel in "Where the strokes live" (2.4 penalty strokes + 1.9
+bunker shots a card, floors). The leak engine and `/plan` do **not** read it
+yet — see `DECISIONS.md` 2026-10-06 — which is the obvious next move: price
+penalty strokes as a leak and feed bunker visits to the short-game entry.
 
 ---
 
@@ -217,3 +225,4 @@ HTML, licence gray area, hard name-matching problem).
 - **2026-09-16** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-16 -->
 - **2026-09-29** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-29 -->
 - **2026-09-30** — session ended: 2 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-30 -->
+- **2026-10-06** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-10-06 -->

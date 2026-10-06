@@ -6,6 +6,58 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-10-06 — The penalty row is read: Grint's legend was on file all along
+
+**Decided:** `perHole.shotCodes` — the scorecard form's `pH1`…`pH18` row,
+labelled "Penalties" on the form itself — is now read, hole by hole, on
+`/rounds`. The 2026-08-24 rejection ("no legend on file; a guessed S/D/O/W/F
+semantics is a claim without a source") was right on its premise and wrong
+on its fact: every `edit_score` page in the raw bundle carries the legend in
+its `.info-penalties` block — **W = Penalty area, D = Drop shot, O = Out of
+bounds, S = Greenside Bunker, F = Fairway Bunker** — one letter per event,
+concatenated per hole (`SS` is two greenside bunker shots; `SDD` a bunker
+and two drops). `PENALTY_CODE` in `lib/round-history.ts` is that legend
+verbatim, the same way `FAIRWAY_CODE` is the form's hidden-input legend. The
+artifact keeps the `shotCodes` key (the name the pipeline guessed before the
+legend was found); the lib calls them `penaltyCodes`.
+
+**What it says.** 621 marks on 526 holes across 145 full 18-hole cards: 309
+drops, 205 greenside bunker shots, 71 fairway bunker shots, 29 out of bounds,
+7 penalty areas. 2.4 penalty strokes and 1.9 bunker shots a card over the
+record; 2.8 and 2.5 over the last 18 months. A penalty stroke is a stroke by
+definition, so this is the one leak the card prices without a benchmark.
+
+**The rules applied:**
+- W, D and O each carry a penalty stroke under the rules; S and F are lies,
+  not penalties. The two are summed separately and never added together.
+- A blank cell is Grint's own "not counted" ("Cells left blank will not
+  count toward statistics", on the form). It is a clean hole *or* a hole
+  never entered, and nothing on file can tell which — so every per-card
+  rate divides by all cards with a row, prints "floor", and the panel says
+  how many cards (19 of 145) are blank throughout. A total-only entry has
+  no row at all and prints as such, never as zero.
+- A letter outside the legend is carried as "unknown" and named in the UI,
+  never guessed at — the fairway-code rule.
+- On the watch's hole cards the penalty strokes come off the "strokes
+  nothing recorded" remainder: a drop is a stroke no watch can hear. Where
+  the card says `SS` and the watch heard two shots from the bunker (Meadow
+  Club 15th, 2026-10-05), the two records agree without being joined.
+
+**Rejected:** inventing a "lost ball" category — the legend has none; a lost
+ball is entered as D or O by whoever filled the card, and the page prints
+what the card says. **Rejected:** dividing the rates by marked cards only
+(overstates — a clean round is a real zero). **Rejected:** renaming
+`shotCodes` in the artifact (a 27 MB re-parse for a key name; the lib seam
+does the renaming, as it does for every other field).
+
+**Not done, deliberately:** the leak engine (`lib/leaks.ts`) and the plan
+(`lib/break80.ts`) do not yet read the row. 2.4 penalty strokes a card would
+rank first among priced leaks and the "short game, located" entry still says
+nothing on file locates it; wiring that in changes `/plan`, which is a
+separate decision.
+
+---
+
 ## 2026-10-06 — Sixth watch round: the week's first test of the plan
 
 **The capture:** the first live run of the Grint extension's "Scrape last

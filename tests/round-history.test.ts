@@ -3,11 +3,15 @@ import { buildCourseHistory, type SourceCourses } from "../lib/course-history";
 import {
   asOf,
   buildRoundHistory,
+  decodePenaltyCode,
+  describePenalties,
   differentialTail,
   distinctRounds,
   lastNDistinct,
   monthsBefore,
+  penaltyTally,
   recentVsCareer,
+  roundPenalties,
   since,
   type DifferentialPoint,
   type SourceRound,
@@ -328,5 +332,111 @@ describe("buildCourseHistory", () => {
       "A. Person",
     );
     expect(h.played.find((l) => l.facilitySlug === "nine-elsewhere")?.architect).toBeNull();
+  });
+});
+
+/* The penalty row. The legend is Grint's own (the form's `.info-penalties`
+ * block); these tests guard the two ways reading it could lie — inventing a
+ * meaning for a letter the legend lacks, or reading a blank cell as a clean
+ * hole in a way the numbers do not admit to. */
+
+describe("decodePenaltyCode", () => {
+  it("returns null for a blank cell — Grint's 'not counted', never a zero", () => {
+    expect(decodePenaltyCode("")).toBeNull();
+    expect(decodePenaltyCode(null)).toBeNull();
+    expect(decodePenaltyCode("  ")).toBeNull();
+  });
+
+  it("reads one letter per event, concatenated: SS is two greenside bunker shots", () => {
+    const hp = decodePenaltyCode("SS");
+    expect(hp?.events).toEqual(["S", "S"]);
+    expect(hp?.bunkerShots).toBe(2);
+    expect(hp?.penaltyStrokes).toBe(0);
+  });
+
+  it("attaches a stroke to W, D and O and none to S and F", () => {
+    const hp = decodePenaltyCode("SDOWF");
+    expect(hp?.penaltyStrokes).toBe(3);
+    expect(hp?.bunkerShots).toBe(2);
+  });
+
+  it("carries a letter outside the legend as unknown instead of guessing", () => {
+    const hp = decodePenaltyCode("DX");
+    expect(hp?.events).toEqual(["D"]);
+    expect(hp?.unknown).toEqual(["X"]);
+    expect(hp?.penaltyStrokes).toBe(1);
+  });
+
+  it("is case- and whitespace-insensitive — the cell is free text", () => {
+    expect(decodePenaltyCode(" sd ")?.events).toEqual(["S", "D"]);
+  });
+});
+
+describe("describePenalties", () => {
+  it("uses the legend's words and counts repeats", () => {
+    expect(describePenalties(decodePenaltyCode("SSD")!)).toBe("drop shot · greenside bunker ×2");
+  });
+
+  it("orders by the legend, not the cell, and names an unknown letter as such", () => {
+    expect(describePenalties(decodePenaltyCode("FWX")!)).toBe(
+      "penalty area · fairway bunker · \"X\" (not in Grint's legend)",
+    );
+  });
+});
+
+describe("buildRoundHistory · penaltyCodes", () => {
+  it("carries the form's shotCodes row verbatim as penaltyCodes, blanks as null", () => {
+    const h = buildRoundHistory(
+      sourceRounds([
+        sourceRound({
+          perHole: { strokes: ["4", "5", "3"], putts: ["2", "1", "2"], fairways: ["3", "1", ""], shotCodes: ["", "SS", "d"] },
+        }),
+      ]),
+    );
+    expect(h.rounds[0].penaltyCodes).toEqual([null, "SS", "D"]);
+  });
+
+  it("is null when the snapshot has no row at all — a missing field is not a clean card", () => {
+    const h = buildRoundHistory(sourceRounds([sourceRound(), sourceRound({ perHole: null })]));
+    expect(h.rounds[0].penaltyCodes).toBeNull();
+    expect(h.rounds[1].penaltyCodes).toBeNull();
+    expect(roundPenalties(h.rounds[0])).toBeNull();
+  });
+});
+
+describe("roundPenalties / penaltyTally", () => {
+  const card = (codes: (string | null)[]) =>
+    sourceRound({
+      roundId: `p-${++nextRoundId}`,
+      perHole: { strokes: codes.map(() => "5"), putts: codes.map(() => "2"), fairways: codes.map(() => "3"), shotCodes: codes },
+    });
+
+  it("sums a round's row and counts the holes it marked", () => {
+    const h = buildRoundHistory(sourceRounds([card(["D", "", "SS", "FD"])]));
+    expect(roundPenalties(h.rounds[0])).toEqual({ penaltyStrokes: 2, bunkerShots: 3, holesMarked: 3, unknown: 0 });
+  });
+
+  it("divides by every card with a row, and says how many of them carried a mark", () => {
+    const h = buildRoundHistory(
+      sourceRounds([card(["D", "O", ""]), card(["", "", ""]), sourceRound({ roundId: "t", entry: "total-only", perHole: null })]),
+    );
+    const t = penaltyTally(h.rounds);
+    expect(t.cards).toBe(2);
+    expect(t.cardsMarked).toBe(1);
+    expect(t.penaltyStrokes).toBe(2);
+    expect(t.byCode).toEqual({ W: 0, D: 1, O: 1, S: 0, F: 0 });
+    expect(t.holesMarked).toBe(2);
+  });
+
+  it("reaches recentVsCareer as per-card rates with the card count as n", () => {
+    const h = buildRoundHistory(
+      sourceRounds([
+        { ...card(Array(18).fill("")), date: "2024-01-01" },
+        { ...card(["D", "S", ...Array(16).fill("")]), date: "2026-06-01" },
+      ]),
+    );
+    const form = recentVsCareer(h, 18)!;
+    expect(form.penaltyStrokes).toEqual({ recent: 1, career: 0.5, recentN: 1, careerN: 2 });
+    expect(form.bunkerShots).toEqual({ recent: 1, career: 0.5, recentN: 1, careerN: 2 });
   });
 });

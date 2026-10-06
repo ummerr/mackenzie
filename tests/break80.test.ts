@@ -89,6 +89,7 @@ function card(holeStrokes: (number | null)[], holePutts: (number | null)[], over
     holeStrokes,
     holePutts,
     fairwayCodes: null,
+    penaltyCodes: null,
     ...over,
   };
 }

@@ -31,6 +31,7 @@ function played(over: Partial<PlayedRound>): PlayedRound {
     holeStrokes: null,
     holePutts: null,
     fairwayCodes: null,
+    penaltyCodes: null,
     ...over,
   };
 }

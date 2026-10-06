@@ -20,6 +20,7 @@ function playedRound(over: Partial<PlayedRound> = {}): PlayedRound {
     holeStrokes: Array(18).fill(5),
     holePutts: Array(18).fill(2),
     fairwayCodes: Array(18).fill(3),
+    penaltyCodes: Array(18).fill(null),
     ...over,
   };
 }
