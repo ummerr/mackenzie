@@ -10,14 +10,15 @@ import { loadCalifornia100, loadFacilityIndex, loadHistory } from "@/lib/load";
 import { buildSources } from "@/lib/sources";
 import { Provenance } from "../provenance";
 import { StatTiles, type StatTile } from "../stat-tiles";
-import { ProgressGrid } from "./grid";
 import { CaliforniaList, type TableRow } from "./list";
 
 /* The California Public 100 against the record. Server component: the list
  * is parsed, joined and ordered in lib/california100.ts (tested); the client
  * table below only picks an order and hides rows. The page answers four
- * questions in order — how many, which next, which are hard, and where they
- * all are — and says on every row whether the row has been checked yet. */
+ * questions in order — how many, which next, which the index rates, which
+ * are hard — and says on every row whether the row has been checked yet. A
+ * hundred-square progress grid was tried first and retired the same day:
+ * it repeated what the rows already say and answered nothing on its own. */
 
 export const metadata = {
   title: "CA 100 — Mackenzie",
@@ -170,8 +171,8 @@ function Body({
   return (
     <>
       <p className="stamp mt-3 text-ink-3">
-        compiled {list.compiledAt} · {list.verified} of 100 rows checked · joined to the record captured{" "}
-        {list.capturedAt}
+        compiled {list.compiledAt} · {list.verified} of 100 rows fully checked · {list.checks} of 500 checks · joined
+        to the record captured {list.capturedAt}
       </p>
       <p className="mt-5 max-w-2xl border-t pt-5 text-[15px] leading-6 text-ink-1 rule">
         The hundred best public-access courses in California, as one compilation of the published
@@ -183,14 +184,17 @@ function Body({
 
       <StatTiles tiles={tiles} className="mt-6 grid grid-cols-2 gap-px border bg-paper-2 rule sm:grid-cols-4" />
 
-      {/* ── the hundred ───────────────────────────────────────────────────── */}
+      {/* ── the table ─────────────────────────────────────────────────────── */}
       <section className="mt-10">
         <h2 className="font-serif text-[26px] leading-tight">The hundred</h2>
         <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
-          By rank, left to right. A square is a link to its row.
+          Six orderings of the same hundred — the compiled rank, the index&rsquo;s score, the value
+          grade, the slope, the posted fee, the drive from SF — and filters for where you are going.
+          The square on each row is the record&rsquo;s verdict: filled is played, pressed is a facility
+          the record holds under another course, hollow is still to play. Nothing is saved; the record
+          decides what counts as played.
         </p>
-        <ProgressGrid rows={list.rows} />
-        <ul className="mt-4 flex flex-wrap gap-px" aria-label="By area">
+        <ul className="mt-4 flex flex-wrap gap-px" aria-label="Played by area">
           {list.byArea.map((a) => (
             <li key={a.area} className="border bg-paper-1 px-2.5 py-1.5 font-mono text-[10px] text-ink-2 rule">
               {file.areas[a.area] ?? a.area}{" "}
@@ -200,16 +204,6 @@ function Body({
             </li>
           ))}
         </ul>
-      </section>
-
-      {/* ── the table ─────────────────────────────────────────────────────── */}
-      <section className="mt-10">
-        <h2 className="font-serif text-[26px] leading-tight">The list</h2>
-        <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
-          Six orderings of the same hundred — the compiled rank, the index&rsquo;s score, the value
-          grade, the slope, the posted fee, the drive from SF — and filters for where you are going.
-          Nothing is saved; the record decides what counts as played.
-        </p>
         <CaliforniaList
           rows={tableRows(list)}
           order={list.order}
@@ -290,8 +284,8 @@ function Body({
           <>
             The list is <code className="text-ink-2">data/california-100.json</code>: a ChatGPT compilation
             of Golfweek, Golf Digest and GOLF lists and its own nine-component index, both pasted{" "}
-            {list.compiledAt}, then checked row by row — each row carries a check per claim (rankings, tee,
-            fee, architect) with the page it was read from; the index&rsquo;s scores are an opinion and carry
+            {list.compiledAt}, then checked row by row — each row carries a check per claim (Golfweek and GOLF
+            ranks, Golf Digest, tee, fee, architect) with the page it was read from; the index&rsquo;s scores are an opinion and carry
             none;{" "}
             <code className="text-ink-2">pnpm data:validate</code> refuses a verified check without a source.
             Played / not played comes from the courses artifact, never from this page.

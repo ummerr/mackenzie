@@ -252,7 +252,8 @@ Digest 2025–26 score / state / national-public, GOLF 2024–25 You Can Play),
 the back tee, an approximate posted fee band, access codes, a value grade,
 the index's own nine-component "Amar" score with a drive estimate from SF and
 a housing call, and a provenance block with one check per claim group
-(`rankings`, `tee`, `fee`, `architect`: `{verified, source, note}`).
+(`rankings` for Golfweek and GOLF, `golfDigest`, `tee`, `fee`, `architect`:
+`{verified, source, note}`).
 `provenance.verified` is true only when every check is; a verified check
 names a URL or a key in the file's `_sources`. The join to the spine is
 explicit — `facilitySlug` and, at a multi-layout facility, `layoutSlug`; a

@@ -16,7 +16,10 @@ ranks it was compiled from (Golfweek 2026 CA/US, Golf Digest 2025–26 score,
 state and national-public rank, GOLF 2024–25 You Can Play), the back tee's
 yards and slope, an approximate posted fee, access codes, a value grade and a
 provenance block with one check per claim group (rankings, tee, fee,
-architect): `{verified, source, note}`. Every row landed `verified: false`,
+architect — Golf Digest split out as its own fifth group the same day, once
+its site proved unreachable to automated fetch, so the Golfweek and GOLF
+reconciliation could read as done without pretending the Digest numbers
+were): `{verified, source, note}`. Every row landed `verified: false`,
 `confidence: "low"`, from a ChatGPT compilation pasted 2026-10-06 — a table
 is a claim with a to-do attached, not a source — and the file says which
 published list each ranking column is supposed to come from, so the
@@ -52,7 +55,10 @@ Grint data. A browser-side "played" checkbox — the record says what was
 played; a checkbox that disagreed with it would be lying (the same reason
 `/sessions` emits a paste block). Fuzzy name matching — the Brambles lesson.
 Map pins now — geocoding eighty new courses is its own piece of work and
-belongs after the rows are checked, not before.
+belongs after the rows are checked, not before. A hundred-square progress
+grid above the table (shipped and retired the same afternoon, at Amar's
+word: "pretty useless") — it repeated what the rows say and answered nothing
+on its own; the record's verdict now sits as a square on each row instead.
 
 **The second paste, same day:** a revised compilation arrived as the "Amar
 Score" index — nine 0–10 components per course (architecture 25%, scenery

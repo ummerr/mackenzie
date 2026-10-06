@@ -44,6 +44,12 @@ export interface TableRow {
   record: string;
 }
 
+const STATE_WORD: Record<RecordState, string> = {
+  played: "played",
+  "facility-played": "facility played, not this course",
+  unplayed: "to play",
+};
+
 export interface Lens {
   key: ListLens;
   word: string;
@@ -218,13 +224,28 @@ export function CaliforniaList({
                 id={`r-${r.rank}`}
                 className={`scroll-mt-16 border-t align-top rule ${r.status === "closed" ? "text-ink-3" : "text-ink-1"}`}
               >
-                <td className="py-1.5 pr-3 text-right tabular-nums text-ink-2">{r.rank}</td>
+                <td className="whitespace-nowrap py-1.5 pr-3 text-right tabular-nums text-ink-2">
+                  {/* The record's verdict, carried by the fill AND the label. */}
+                  <span
+                    role="img"
+                    aria-label={STATE_WORD[r.state]}
+                    title={STATE_WORD[r.state]}
+                    className={`mr-2 inline-block h-2.5 w-2.5 align-[-1px] ${
+                      r.state === "played"
+                        ? "bg-accent-ink"
+                        : r.state === "facility-played"
+                          ? "border bg-paper-2 rule"
+                          : "border bg-paper-0 rule"
+                    }`}
+                  />
+                  {r.rank}
+                </td>
                 <td className="py-1.5 pr-3">
                   <div className="text-[13px] leading-snug text-ink-0">
                     {r.name}
                     {r.status === "closed" && <span className="ml-2 stamp text-ink-3">closed</span>}
                     {!r.verified && (
-                      <span className="ml-2 stamp text-ink-3" title="not yet checked against its sources">
+                      <span className="ml-2 stamp text-ink-3" title="at least one of its five checks is still open">
                         unverified
                       </span>
                     )}
