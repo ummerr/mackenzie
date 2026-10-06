@@ -20,7 +20,7 @@ export type Confidence = "high" | "medium" | "low";
 export type CourseStatus = "open" | "closed";
 export type RecordState = "played" | "facility-played" | "unplayed";
 export type ListLens = "rank" | "amar" | "value" | "difficulty" | "price" | "drive";
-export type CheckGroup = "rankings" | "tee" | "fee" | "architect";
+export type CheckGroup = "rankings" | "golfDigest" | "tee" | "fee" | "architect";
 export type Housing = "none" | "low" | "med" | "high";
 export type AmarComponent =
   | "architecture"
@@ -134,7 +134,7 @@ export interface California100File {
   entries: CaliforniaEntry[];
 }
 
-export const CHECK_GROUPS: readonly CheckGroup[] = ["rankings", "tee", "fee", "architect"];
+export const CHECK_GROUPS: readonly CheckGroup[] = ["rankings", "golfDigest", "tee", "fee", "architect"];
 export const AMAR_COMPONENTS: readonly AmarComponent[] = [
   "architecture",
   "scenery",
@@ -305,6 +305,8 @@ export interface California100 {
   /** The capture date of the record it was joined to. */
   capturedAt: string;
   verified: number;
+  /** Verified checks over all rows (five per row). */
+  checks: number;
   linked: number;
   /** In rank order. */
   rows: ListRow[];
@@ -454,6 +456,7 @@ export function joinCalifornia100(
     compiledAt: file.list.compiledAt,
     capturedAt,
     verified: file.entries.filter((e) => e.provenance.verified).length,
+    checks: file.entries.reduce((n, e) => n + CHECK_GROUPS.filter((g) => e.provenance.checks[g].verified).length, 0),
     linked: file.entries.filter((e) => e.facilitySlug !== null).length,
     rows,
     order,

@@ -128,7 +128,7 @@ const entry = (over: Partial<CaliforniaEntry> & { rank: number; slug: string }):
     confidence: "low",
     checked: "2026-10-06",
     verified: false,
-    checks: { rankings: check(), tee: check(), fee: check(), architect: check() },
+    checks: { rankings: check(), golfDigest: check(), tee: check(), fee: check(), architect: check() },
   },
   ...over,
 });

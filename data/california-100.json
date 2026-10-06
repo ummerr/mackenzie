@@ -13,7 +13,7 @@
     "  explicit and never fuzzy; a layoutSlug the spine lacks is allowed and reads as",
     "  'facility played, this course not'; an entry that LOOKS like a spine facility but",
     "  is not must say why in joinNote;",
-    "- provenance.checks holds one check per claim group (rankings, tee, fee, architect):",
+    "- provenance.checks holds one check per claim group (rankings = Golfweek + GOLF, golfDigest, tee, fee, architect):",
     "  {verified, source, note}; a verified check names its source (a URL or a key in _sources);",
     "  provenance.verified is true only when every check is; confidence is high|medium|low;",
     "- amar is the index's own taste scoring — nine 0–10 components, the weighted score and the",
@@ -55,36 +55,36 @@
     },
     "golfweek-2026": {
       "title": "Golfweek's Best 2026: public-access courses, California and the U.S. top 100",
-      "url": null,
-      "note": "URL filled in by the verification pass",
+      "url": "https://uk.sports.yahoo.com/news/golfweek-ranks-best-public-access-110122870.html",
+      "note": "California public-access list (Yahoo syndication of Golfweek's Best 2026, published 2026-06-15); the U.S. top 100 read at https://www.centraloregondaily.com/sports/golfweek-ranks-the-top-100-public-access-golf-courses-in-the-u-s/article_8cca553c-b590-5bef-99fa-4bb2b9e92e33.html (Central Oregon Daily syndication, 2026-06-30), ties kept as the lower number",
       "fields": [
         "rankings.golfweekCA",
         "rankings.golfweekUS"
       ],
-      "checked": null,
-      "verified": false
+      "checked": "2026-10-06",
+      "verified": true
     },
     "golfdigest-2025-26": {
       "title": "Golf Digest Best in State 2025–26: California (public and private), panel score, state rank, America's 100 Greatest Public rank",
       "url": null,
-      "note": "URL filled in by the verification pass",
+      "note": "golfdigest.com returned HTTP 403 to every automated fetch on 2026-10-06 (state guide, 100 Greatest Public, course pages); panel scores and ranks stay unverified until read by hand",
       "fields": [
         "rankings.golfDigestScore",
         "rankings.golfDigestCA",
         "rankings.golfDigestPublic"
       ],
-      "checked": null,
+      "checked": "2026-10-06",
       "verified": false
     },
     "golf-ycp-2024-25": {
       "title": "GOLF Top 100 Courses You Can Play 2024–25",
-      "url": null,
-      "note": "URL filled in by the verification pass",
+      "url": "https://golf.com/travel/top-100-public-golf-courses-state-breakdown/",
+      "note": "GOLF's state-by-state breakdown of the 2024-25 Top 100 You Can Play — California's 11 entries with national ranks",
       "fields": [
         "rankings.golfYCP"
       ],
-      "checked": null,
-      "verified": false
+      "checked": "2026-10-06",
+      "verified": true
     }
   },
   "_access": {
@@ -211,9 +211,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -299,9 +304,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -386,9 +396,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -474,9 +489,14 @@
         "verified": false,
         "checks": {
           "rankings": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "reconciled against Golfweek 2026 CA/US and GOLF 2024-25 lists"
+          },
+          "golfDigest": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "no Golf Digest claim on this row; nothing to check"
           },
           "tee": {
             "verified": false,
@@ -560,9 +580,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -647,9 +672,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -733,9 +763,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -819,9 +854,14 @@
         "verified": false,
         "checks": {
           "rankings": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "reconciled against Golfweek 2026 CA/US and GOLF 2024-25 lists"
+          },
+          "golfDigest": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "no Golf Digest claim on this row; nothing to check"
           },
           "tee": {
             "verified": false,
@@ -906,9 +946,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -992,9 +1037,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -1079,9 +1129,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -1165,9 +1220,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -1252,9 +1312,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -1340,9 +1405,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -1427,9 +1497,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -1515,9 +1590,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -1602,9 +1682,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -1689,9 +1774,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -1776,9 +1866,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -1863,9 +1958,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -1949,9 +2049,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -2035,9 +2140,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -2123,9 +2233,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -2210,9 +2325,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -2296,9 +2416,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -2383,9 +2508,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -2469,9 +2599,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -2555,9 +2690,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -2643,9 +2783,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -2730,9 +2875,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -2819,9 +2969,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -2905,9 +3060,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -2991,9 +3151,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -3079,9 +3244,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -3166,9 +3336,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -3252,9 +3427,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -3339,9 +3519,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -3426,9 +3611,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -3513,9 +3703,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -3600,9 +3795,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -3688,9 +3888,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -3776,9 +3981,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -3863,9 +4073,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -3951,9 +4166,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -4038,9 +4258,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -4126,9 +4351,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -4212,9 +4442,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -4298,9 +4533,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -4386,9 +4626,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -4473,9 +4718,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -4559,9 +4809,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -4646,9 +4901,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -4733,9 +4993,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -4820,9 +5085,14 @@
         "verified": false,
         "checks": {
           "rankings": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "reconciled against Golfweek 2026 CA/US and GOLF 2024-25 lists"
+          },
+          "golfDigest": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "no Golf Digest claim on this row; nothing to check"
           },
           "tee": {
             "verified": false,
@@ -4907,9 +5177,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -4993,9 +5268,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -5079,9 +5359,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -5166,9 +5451,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -5252,9 +5542,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -5338,9 +5633,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -5424,9 +5724,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -5510,9 +5815,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -5596,9 +5906,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -5682,9 +5997,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -5770,9 +6090,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -5856,9 +6181,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -5942,9 +6272,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -6028,9 +6363,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -6114,9 +6454,14 @@
         "verified": false,
         "checks": {
           "rankings": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "reconciled against Golfweek 2026 CA/US and GOLF 2024-25 lists"
+          },
+          "golfDigest": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "no Golf Digest claim on this row; nothing to check"
           },
           "tee": {
             "verified": false,
@@ -6202,9 +6547,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -6290,9 +6640,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -6379,9 +6734,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -6466,9 +6826,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -6552,9 +6917,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -6638,9 +7008,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -6726,9 +7101,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -6812,9 +7192,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -6898,9 +7283,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -6984,9 +7374,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -7070,9 +7465,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -7156,9 +7556,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -7242,9 +7647,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -7328,9 +7738,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -7414,9 +7829,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -7501,9 +7921,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -7587,9 +8012,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -7673,9 +8103,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -7759,9 +8194,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -7845,9 +8285,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -7931,9 +8376,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -8018,9 +8468,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -8105,9 +8560,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -8191,9 +8651,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -8277,9 +8742,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -8363,9 +8833,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -8449,9 +8924,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -8535,9 +9015,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -8621,9 +9106,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -8707,9 +9197,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,
@@ -8793,9 +9288,14 @@
         "verified": false,
         "checks": {
           "rankings": {
+            "verified": true,
+            "source": "golfweek-2026",
+            "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
+          },
+          "golfDigest": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
             "verified": false,

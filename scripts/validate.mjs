@@ -66,7 +66,7 @@ console.log(`\n  benchmarks ${benchIds.size} · unverified ${benchUnverified}`);
 const CA_ENTRY_KEYS = ["rank", "slug", "name", "locality", "region", "area", "architect", "tee", "fee", "access", "status", "rankings", "value", "valueNote", "tags", "housing", "drive", "amar", "facilitySlug", "layoutSlug", "joinNote", "provenance"];
 const CA_AMAR = ["architecture", "scenery", "conditioning", "walkability", "value", "difficulty", "access", "prestige", "worthDrive"];
 const CA_RANKING_KEYS = ["golfweekCA", "golfweekUS", "golfDigestScore", "golfDigestCA", "golfDigestPublic", "golfYCP"];
-const CA_CHECKS = ["rankings", "tee", "fee", "architect"];
+const CA_CHECKS = ["rankings", "golfDigest", "tee", "fee", "architect"];
 const CA_VALUE = /^[A-D](\+\+|\+|-)?$/;
 const CA_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const CA_URL = /^https?:\/\//;
