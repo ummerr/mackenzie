@@ -41,6 +41,8 @@ const OUT = resolve(DATA, "round-links.json");
  */
 export const GARMIN_FACILITY_ALIASES = {
   "harding-park-golf-course": "tpc-harding-park-golf-course",
+  // Garmin "Meadow Club", Grint "Meadow Club Fairfax" (2026-10-06).
+  "meadow-club": "meadow-club-fairfax",
 };
 
 /** "TPC Toronto at Osprey Valley ~ North" → facility slug. Garmin writes

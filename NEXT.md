@@ -2,21 +2,22 @@
 
 <!-- state:start -->
 **State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-09-29
-Last commit 2026-09-29 — Grint capture: scrape the last N rounds, no baseline file
+Last commit 2026-09-29 — Goals from the plan: next-round targets, never range data
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
 next.
 
-**State as of 2026-09-29:** the two sites are one Next.js app — command
+**State as of 2026-10-06:** the two sites are one Next.js app — command
 center at `/`, map at `/courses` — deploying as the single `mackenzie` Vercel
-project. Newest capture 2026-09-29 (Garmin, then Grint): 5 shot-bearing
-watch rounds, so the short-game and lie findings are switched on and print
-on the pages; 5 confirmed links, the newest Lincoln Park 2026-09-26 (77,
-differential 11.1, index **13.9 → 13.1**). Lincoln Park joined the spine
-and the map. 173 Grint rounds, 158 differentials, third week of goals
-committed (`data/goals.json`, 2026-09-29). `pnpm data:validate` exits
-clean. **The guidance is now `/plan`** (2026-09-29): the record priced
+project. Newest capture 2026-10-06 (Garmin + Grint "last 10", the first
+live recent-mode run — 2.5 MB): 6 shot-bearing watch rounds, 6 confirmed
+links, the newest Meadow Club 2026-10-05 (88, differential 13.3, index
+**13.1 → 12.7**; a Garmin↔Grint facility alias was needed). 174 Grint
+rounds, 159 differentials. The week of 2026-09-29 is still open in record
+time (ends 10-06): greens achieved, up-and-downs 0 of 6 and doubles 4
+against the targets — the next capture closes it. `pnpm data:validate`
+exits clean. **The guidance is now `/plan`** (2026-09-29): the record priced
 against sourced break-80 benchmarks (`data/benchmarks.json`, 42 entries,
 all verified) — short game 4.1 strokes a round, approach 2.1, putting 0.6,
 tee 0.5, against an index gap of 6.6. `/practice` redirects into its foot.
@@ -215,3 +216,4 @@ HTML, licence gray area, hard name-matching problem).
 - **2026-09-09** — session ended: 2 file(s) dirty, 2 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-09 -->
 - **2026-09-16** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-16 -->
 - **2026-09-29** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-29 -->
+- **2026-09-30** — session ended: 2 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-30 -->

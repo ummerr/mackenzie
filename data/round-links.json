@@ -156,6 +156,23 @@
         }
       ],
       "note": null
+    },
+    {
+      "scorecardId": "387018406",
+      "garminDate": "2026-10-05",
+      "garminCourseName": "Meadow Club",
+      "roundId": "64052592",
+      "status": "confirmed",
+      "basis": "same facility, same date, same strokes",
+      "candidates": [
+        {
+          "roundId": "64052592",
+          "date": "2026-10-05",
+          "courseName": "Meadow Club Fairfax",
+          "strokes": 88
+        }
+      ],
+      "note": null
     }
   ]
 }

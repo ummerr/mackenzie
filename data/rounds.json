@@ -1,10 +1,10 @@
 {
   "source": "thegrint",
   "adapter": "parse-grint-export.mjs",
-  "capturedAt": "2026-09-29T15:17:49.964Z",
-  "rawFile": "raw/grint-export-2026-08-19.json + raw/grint-export-2026-08-23-0235.json + raw/grint-export-2026-09-09-1640.json + raw/grint-export-2026-09-16-1610.json + raw/grint-export-2026-09-29-1522.json",
+  "capturedAt": "2026-10-06T16:04:00.578Z",
+  "rawFile": "raw/grint-export-2026-08-19.json + raw/grint-export-2026-08-23-0235.json + raw/grint-export-2026-09-09-1640.json + raw/grint-export-2026-09-16-1610.json + raw/grint-export-2026-09-29-1522.json + raw/grint-export-2026-10-06-1604.json",
   "userId": "1221374",
-  "handicapIndex": 13.1,
+  "handicapIndex": 12.7,
   "rounds": [
     {
       "roundId": "13764594",
@@ -16074,7 +16074,7 @@
       "courseGrintId": "12822",
       "courseName": "Ussher's Creek | Legends On The Niagara Golf Club",
       "teeName": "White",
-      "courseHandicap": "13.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -16172,7 +16172,7 @@
       "courseGrintId": "12821",
       "courseName": "Battlefield | Legends On The Niagara Golf Club",
       "teeName": "White",
-      "courseHandicap": "13.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -16270,7 +16270,7 @@
       "courseGrintId": "421",
       "courseName": "Bennett Valley Golf Course",
       "teeName": "White",
-      "courseHandicap": "13.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 89,
@@ -16368,7 +16368,7 @@
       "courseGrintId": "43726",
       "courseName": "Brambles Golf",
       "teeName": "Middle",
-      "courseHandicap": "13.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 90,
@@ -16466,7 +16466,7 @@
       "courseGrintId": "568",
       "courseName": "TPC Harding Park Golf Course",
       "teeName": "White",
-      "courseHandicap": "13.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 91,
@@ -16564,7 +16564,7 @@
       "courseGrintId": "741",
       "courseName": "Presidio Golf Course",
       "teeName": "White",
-      "courseHandicap": "13.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 98,
@@ -16662,7 +16662,7 @@
       "courseGrintId": "741",
       "courseName": "Presidio Golf Course",
       "teeName": "White",
-      "courseHandicap": "13.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 93,
@@ -16760,7 +16760,7 @@
       "courseGrintId": "877",
       "courseName": "Lake | The Olympic Club",
       "teeName": "Blue",
-      "courseHandicap": "13.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 99,
@@ -16858,7 +16858,7 @@
       "courseGrintId": "626",
       "courseName": "Lincoln Park Golf Course",
       "teeName": "Blue",
-      "courseHandicap": "13.0",
+      "courseHandicap": "12.0",
       "holesRecorded": 18,
       "totals": {
         "strokes": 77,
@@ -16944,6 +16944,104 @@
           "",
           "",
           "D"
+        ]
+      },
+      "flags": []
+    },
+    {
+      "roundId": "64052592",
+      "entry": "full",
+      "url": "https://thegrint.com/score/edit_score/64052592?handicap_company_id=3",
+      "date": "2026-10-05",
+      "courseGrintId": "647",
+      "courseName": "Meadow Club Fairfax",
+      "teeName": "Blue",
+      "courseHandicap": "12.0",
+      "holesRecorded": 18,
+      "totals": {
+        "strokes": 88,
+        "putts": 36
+      },
+      "perHole": {
+        "strokes": [
+          "6",
+          "5",
+          "7",
+          "5",
+          "4",
+          "5",
+          "6",
+          "4",
+          "4",
+          "4",
+          "2",
+          "6",
+          "6",
+          "5",
+          "6",
+          "4",
+          "5",
+          "4"
+        ],
+        "putts": [
+          "2",
+          "2",
+          "2",
+          "3",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "1",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "fairways": [
+          "1",
+          "8",
+          "2",
+          "3",
+          "7",
+          "3",
+          "3",
+          "3",
+          "3",
+          "3",
+          "3",
+          "3",
+          "3",
+          "6",
+          "3",
+          "3",
+          "7",
+          "3"
+        ],
+        "shotCodes": [
+          "",
+          "D",
+          "D",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "S",
+          "D",
+          "",
+          "SS",
+          "",
+          "D",
+          ""
         ]
       },
       "flags": []
@@ -17976,7 +18074,7 @@
       "seq": 147,
       "courseName": "Eagle Vines Golf Club",
       "differential": 16.7,
-      "countsTowardHdcp": true,
+      "countsTowardHdcp": false,
       "trendingHdcp": 11.4
     },
     {
@@ -18055,6 +18153,13 @@
       "differential": 11.1,
       "countsTowardHdcp": true,
       "trendingHdcp": 13.1
+    },
+    {
+      "seq": 159,
+      "courseName": "Meadow Club Fairfax",
+      "differential": 13.3,
+      "countsTowardHdcp": true,
+      "trendingHdcp": 12.7
     }
   ],
   "series": {
@@ -18661,6 +18766,10 @@
       },
       {
         "courseName": "Lincoln Park Golf Course",
+        "value": 6
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
         "value": 6
       }
     ],
@@ -19272,6 +19381,10 @@
       {
         "courseName": "Lincoln Park Golf Course",
         "value": 22
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "value": 0
       }
     ],
     "fairwayHitPct": [
@@ -19718,6 +19831,10 @@
       {
         "courseName": "Lincoln Park Golf Course",
         "value": 46.2
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "value": 71.4
       }
     ],
     "par3HitPct": [
@@ -20324,6 +20441,10 @@
       {
         "courseName": "Lincoln Park Golf Course",
         "value": 60
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "value": 50
       }
     ],
     "puttDist": [
@@ -21533,6 +21654,14 @@
         "putts1": 5,
         "putts2": 24,
         "putts3": 0,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Meadow Club Fairfax",
+        "putts0": 0,
+        "putts1": 1,
+        "putts2": 32,
+        "putts3": 3,
         "putts4Plus": 0
       }
     ]

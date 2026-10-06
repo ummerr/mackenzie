@@ -6,6 +6,40 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-10-06 — Sixth watch round: the week's first test of the plan
+
+**The capture:** the first live run of the Grint extension's "Scrape last
+10 rounds" (0.3.0): one listing page, 10 scorecards, 2.5 MB, `scope
+{mode:"recent", rounds:10}`, `stoppedEarly: "recent: first 10 of page
+1"` — against 27 MB the week before. `pnpm refresh` folded both bundles;
+the one human step was the link, and it needed an alias: Garmin says
+"Meadow Club", Grint says "Meadow Club Fairfax" (`GARMIN_FACILITY_ALIASES`
+in `scripts/link-rounds.mjs`). The R50 simulator card at the same
+facility (2026-07-02) has no Grint round on its date, so the alias cannot
+cross the two. Sixth confirmed link; index **13.1 → 12.7**.
+
+**The round:** Meadow Club, Blue (72.2/134), 2026-10-05 — 88, 36 putts,
+differential 13.3. One birdie, four pars, nine bogeys, four doubles. The
+tee ball was a 5 index's: 14 driving holes, zero troublesome — driver
+244–290, 3 Hybrid 228–238, nothing in sand, nothing under 170. Greens 6
+(8 of 15 approaches from 50–200 on; 3 of 9 from 125–200). Up-and-downs
+**0 of 6**: six chips reached the green from inside 50 yd, none was
+followed by one putt. All four doubles were a missed green followed by
+the short game failing — a 4 Iron from the rough then a chip (3rd), a
+chip into a bunker (7th), a chip and two putts (12th), a 234-yd par 3
+(14th). That is the ledger's first line, in one round, at a course rated
+like your home ones.
+
+**The week of 2026-09-29, by its first round:** greens 6 → **achieved**
+(target 5); up-and-downs 0 of 6 against 3; doubles 4 against 2. The week
+is still open in record time (it ends 10-06, the record is at 10-05);
+the next capture closes it 1 of 3. The ledger over six rounds:
+short game 4.4 strokes a round (5 of 39, 12.8%), approach 2.2, putting
+0.4, tee 0.3 (2.5 troublesome a round over 81) — 7.3 against an index
+gap of 6.2. The order has not moved; the first line has grown.
+
+---
+
 ## 2026-09-29 — Break 80: the plan replaces the practice list, and benchmarks are admitted under contract
 
 **Decided:** the site's guidance is now one page, `/plan`, built from
