@@ -147,6 +147,27 @@ export const AMAR_COMPONENTS: readonly AmarComponent[] = [
   "worthDrive",
 ];
 const HOUSING: ReadonlySet<string> = new Set(["none", "low", "med", "high"]);
+/** The nine components and the five check groups, worded once for every page
+ *  that lists them. */
+export const AMAR_COMPONENT_WORD: Record<AmarComponent, string> = {
+  architecture: "architecture",
+  scenery: "scenery",
+  conditioning: "conditioning",
+  walkability: "walkability",
+  value: "value",
+  difficulty: "difficulty",
+  access: "access",
+  prestige: "prestige",
+  worthDrive: "worth the drive",
+};
+export const CHECK_GROUP_WORD: Record<CheckGroup, string> = {
+  rankings: "Golfweek & GOLF ranks",
+  golfDigest: "Golf Digest",
+  tee: "tee",
+  fee: "fee",
+  architect: "architect",
+};
+
 export const VALUE_GRADE = /^[A-D](\+\+|\+|-)?$/;
 
 const CONFIDENCE: ReadonlySet<string> = new Set(["high", "medium", "low"]);
