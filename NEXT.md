@@ -2,7 +2,7 @@
 
 <!-- state:start -->
 **State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-10-06
-Last commit 2026-10-06 — Golfweek and GOLF ranks reconciled for all 100; Golf Digest becomes its own check
+Last commit 2026-10-06 — The California 100, checked: 353 of 500 checks verified, 193 values corrected
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
@@ -38,12 +38,13 @@ the to-play list: 100 public-access courses from a ChatGPT compilation of
 Golfweek / Golf Digest / GOLF rankings plus its own nine-component "Amar"
 index, in `data/california-100.json` under a validated contract, joined to
 the record at layout level — 22 linked, 19 played, 21 facilities now carry
-a published ranking on the map's dossier. The same day's check-by-row pass
-verified **353 of 500 checks** (rankings 100, architect 99, tee 93, fee 57,
-Golf Digest 4) and corrected 193 values — slopes off by 1–4 on about half
-the rows, fee bands skewed high, Poppy Hills and Yocha Dehe on stale
-pre-renovation yardages, Black Horse credited to the wrong general. What is
-still open is item 1b. Reasoning in `DECISIONS.md` 2026-10-06.
+a published ranking on the map's dossier. The same day's check-by-row passes
+verified **498 of 500 checks** (98 rows in full) and corrected some 260
+values — slopes off by 1–4 on about half the rows, fee bands skewed high,
+Poppy Hills and Yocha Dehe on stale pre-renovation yardages, Black Horse
+credited to the wrong general, and 12 Golf Digest scores the paste
+invented for courses Golf Digest never scored (dropped). The two still
+open are item 1b. Reasoning in `DECISIONS.md` 2026-10-06.
 
 ---
 
@@ -63,32 +64,19 @@ Westmoreland's year, Griffith Park's Wilson-course attribution, the Sandpiper
 
 `pnpm data:validate` prints the remaining count each run.
 
-### 1b. Close the California 100's open checks
+### 1b. The California 100's two open checks, and the fees' clock
 
-Each row of `data/california-100.json` has five checks; 353 of 500 are
-verified (2026-10-06). What is open, and why:
-
-- **`golfDigest` on 96 rows** — golfdigest.com returns 403 to every
-  automated fetch (state guide, 100 Greatest Public, course pages). Read
-  the California best-in-state guide and the course pages by hand, fix the
-  panel scores (the paste's scale is unclear — Golf Digest publishes points
-  out of 10 on the state list, stars out of 5 on course pages), set the
-  `_sources["golfdigest-2025-26"].url`.
-- **`fee` on 43 rows** — resort and casino courses (Pebble's sister
-  properties aside) publish no public rate as a number: PGA West, Pelican
-  Hill, La Costa, CordeValle, Silverado, Indian Wells, Desert Willow, Trump
-  National, Harding Park's on-demand pricing, and most Arcis/Troon/EZLinks
-  booking engines. A quote from the booking engine on a given day is the
-  only way to close these; record the day in the note.
-- **`tee` on 7 rows** — La Costa Champions (two sources disagree after the
-  2024 Hanse redesign), Strawberry Farms, Tijeras Creek, Industry Hills Ike,
-  Moorpark, Oak Valley (no scorecard posted), Soboba Springs (being
-  reconfigured to ~6,000 yds par 70 — re-rate when it reopens).
-- **`architect` on 1 row** — Apple Mountain's site names nobody.
-
-A verified check names its URL; `provenance.verified` flips when all five
-do; validate prints `verified N/100 · checks N/500`. The Amar block is an
-opinion and has no check.
+498 of 500 checks verified on 2026-10-06 (98 rows in full). Open: Pelican
+Hill Ocean North's fee — holes 1–3 and 13–18 closed for restoration until
+2026-11-01, the engine sells a 9-hole product only; re-read it in November
+— and Indian Canyons South's fee, behind a login wall (CPS Golf engine;
+call or book once to see it). Everything else closed by reading pages in a
+headless browser: Golf Digest's California guide, 100 Greatest Public list
+and every course page (the site refuses plain fetches), the SCGA course
+directory for the last ratings, and each course's own booking engine for
+the 43 fees no site posts as a number — those fee notes carry the dates
+read, and desert courses were read on their post-overseeding reopening
+dates. Fees move; the note's date is the claim's shelf life.
 
 ### 2. Capture Grint's bucket list
 

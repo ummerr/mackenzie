@@ -66,15 +66,15 @@
     },
     "golfdigest-2025-26": {
       "title": "Golf Digest Best in State 2025–26: California (public and private), panel score, state rank, America's 100 Greatest Public rank",
-      "url": null,
-      "note": "golfdigest.com returned HTTP 403 to every automated fetch on 2026-10-06 (state guide, 100 Greatest Public, course pages); panel scores and ranks stay unverified until read by hand",
+      "url": "https://www.golfdigest.com/courses/guides/california-best-golf-courses-rankings",
+      "note": "Best in State 2025-26 California guide (dated 2025-05-29) and America's 100 Greatest Public 2025-26 (https://www.golfdigest.com/story/americas-100-greatest-public-golf-courses-ranking), read in a headless browser on 2026-10-06 — the site refuses plain fetches; panel scores are the course pages' PANELISTS x/5",
       "fields": [
         "rankings.golfDigestScore",
         "rankings.golfDigestCA",
         "rankings.golfDigestPublic"
       ],
       "checked": "2026-10-06",
-      "verified": false
+      "verified": true
     },
     "golf-ycp-2024-25": {
       "title": "GOLF Top 100 Courses You Can Play 2024–25",
@@ -206,9 +206,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -216,9 +216,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/pebble-beach-golf-links",
+            "note": "page read 2026-10-06; score 4.8/5, #2 Best in State, #1 100 Greatest Public"
           },
           "tee": {
             "verified": true,
@@ -299,9 +299,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -309,9 +309,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/pasatiempo-golf-club",
+            "note": "page read 2026-10-06; score 4.6/5, #14 Best in State, #15 100 Greatest Public"
           },
           "tee": {
             "verified": true,
@@ -391,9 +391,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -401,9 +401,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/spyglass-hill-golf-course",
+            "note": "page read 2026-10-06; score 4.4/5, #10 Best in State, #13 100 Greatest Public"
           },
           "tee": {
             "verified": true,
@@ -495,8 +495,8 @@
           },
           "golfDigest": {
             "verified": true,
-            "source": "golfweek-2026",
-            "note": "no Golf Digest claim on this row; nothing to check"
+            "source": "https://www.golfdigest.com/courses/ca/poppy-ridge-golf-course-zinfandel",
+            "note": "Golf Digest course page shows no panelists score (read 2026-10-06); the pasted score had no source and is dropped"
           },
           "tee": {
             "verified": true,
@@ -575,9 +575,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -585,9 +585,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/torrey-pines-golf-course-south",
+            "note": "page read 2026-10-06; score 3.9/5, #26 Best in State, #40 100 Greatest Public"
           },
           "tee": {
             "verified": true,
@@ -667,9 +667,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -677,9 +677,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/yocha-dehe-golf-club-yocha",
+            "note": "page read 2026-10-06; score 4.1/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -758,9 +758,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -768,9 +768,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/rustic-canyon-golf-course-rustic-canyon",
+            "note": "page read 2026-10-06; score 3.9/5, #55 Best in State"
           },
           "tee": {
             "verified": true,
@@ -816,9 +816,9 @@
       "rankings": {
         "golfweekCA": 8,
         "golfweekUS": 65,
-        "golfDigestScore": null,
-        "golfDigestCA": null,
-        "golfDigestPublic": null,
+        "golfDigestScore": 3.9,
+        "golfDigestCA": 34,
+        "golfDigestPublic": 54,
         "golfYCP": null
       },
       "value": null,
@@ -860,8 +860,8 @@
           },
           "golfDigest": {
             "verified": true,
-            "source": "golfweek-2026",
-            "note": "no Golf Digest claim on this row; nothing to check"
+            "source": "https://www.golfdigest.com/courses/ca/the-links-at-spanish-bay",
+            "note": "page read 2026-10-06; score 3.9/5, #34 Best in State, #54 100 Greatest Public; corrects claim (score null→3.9)"
           },
           "tee": {
             "verified": true,
@@ -890,15 +890,15 @@
       "area": "san-diego",
       "architect": "Dick Wilson & Joe Lee (1965); Gil Hanse/Jim Wagner redesign 2024",
       "tee": {
-        "yards": null,
-        "slope": null,
-        "rating": null,
-        "name": null
+        "yards": 7500,
+        "slope": 146,
+        "rating": 77.8,
+        "name": "I"
       },
       "fee": {
-        "low": 350,
-        "high": 450,
-        "note": "approximate"
+        "low": null,
+        "high": null,
+        "note": "Omni La Costa: courses 'open for play exclusively for resort guests and club members'; tee times by phone only, no public engine"
       },
       "access": [
         "S",
@@ -941,9 +941,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -951,19 +951,19 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/omni-la-costa-resort-and-spa-champions",
+            "note": "page read 2026-10-06; score 4/5, #52 Best in State; GD page titled Champions/North Course"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": "sources disagree: Greenskeeper Tee I 7500/77.8/146 vs torreypines.com Gold 7094/74.9/141 for the 2024 Hanse Champions course; omnihotels.com 403"
+            "verified": true,
+            "source": "https://www.omnihotels.com/-/media/images/hotels/sanrst/golf/pdf/sanrst-north-golf-course-scorecard.pdf",
+            "note": "Omni North (Champions) scorecard PDF dated 10/24: Tee I 7500 yds M 77.8/146; SCGA directory NORTH tab matches. torreypines.com Gold 7094 is the pre-Hanse card."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "omnihotels.com rates page returns 403; search snippet shows resort-guest $389 eff. 1/1/26 but page not fetched; no public rate found."
+            "verified": true,
+            "source": "https://www.omnihotels.com/hotels/san-diego-la-costa/golf",
+            "note": "Golf page FAQ states resort-guest/member-only access; guests book 90 days out by calling (760) 931-7595"
           },
           "architect": {
             "verified": true,
@@ -1032,9 +1032,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -1042,9 +1042,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/rams-hill-golf-club",
+            "note": "page read 2026-10-06; score 4.1/5, #44 Best in State"
           },
           "tee": {
             "verified": true,
@@ -1079,9 +1079,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 500,
-        "high": 800,
-        "note": "resort package only"
+        "low": null,
+        "high": null,
+        "note": "cordevalle.com FAQ: private course; 'Non-members may play the course when staying at the resort'; no public engine or posted fee."
       },
       "access": [
         "S",
@@ -1124,9 +1124,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -1134,9 +1134,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/cordevalle-golf-club",
+            "note": "page read 2026-10-06; score 4.3/5, #32 Best in State, #52 100 Greatest Public"
           },
           "tee": {
             "verified": true,
@@ -1144,9 +1144,9 @@
             "note": "Secondary (GolfPass) for rating/slope; cordevalle.com/golf confirms 7,360 yards par 72. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "No posted green fee: cordevalle.com says only hotel guests/members may play; packages priced in booking engine only."
+            "verified": true,
+            "source": "https://www.cordevalle.com/golf",
+            "note": "Restriction in the page's Travel Tips FAQ; only a SynXis hotel golf-package link (ULTGOLFMW1/2) exists."
           },
           "architect": {
             "verified": true,
@@ -1215,9 +1215,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -1225,9 +1225,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/torrey-pines-golf-course-north",
+            "note": "page read 2026-10-06; score 3.6/5, #49 Best in State"
           },
           "tee": {
             "verified": true,
@@ -1262,9 +1262,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 300,
-        "high": 450,
-        "note": "approximate"
+        "low": 251,
+        "high": 298,
+        "note": "EZLinks, Wed 11/11 $251–294 6:36–11:51am / Sat 11/21 $288–298 7:03–11:51am; cart n/s; not listed thru 11/7 (overseed)"
       },
       "access": [
         "R",
@@ -1307,9 +1307,9 @@
       "layoutSlug": "pga-west-stadium-clubhouse--stadium-course",
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -1317,9 +1317,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/pga-west-stadium-course",
+            "note": "page read 2026-10-06; score 4/5, #36 Best in State, #62 100 Greatest Public"
           },
           "tee": {
             "verified": true,
@@ -1327,9 +1327,9 @@
             "note": "Secondary (GolfPass); pgawest.com course page has no card. Black 7300, 75.8/148. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "pgawest.com shows no rates; pricing only inside the ezlinks booking engine (JS-only, dynamic)."
+            "verified": true,
+            "source": "https://pgawest.ezlinksgolf.com/index.html#/search",
+            "note": "EZLinks /api/search/search; no Stadium times 10/13–11/7; 10/14 & 10/17 target dates had none; Wed 11/11 and Sat 11/21 priced"
           },
           "architect": {
             "verified": true,
@@ -1400,9 +1400,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -1410,9 +1410,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/poppy-hills-golf-course",
+            "note": "page read 2026-10-06; score 3.9/5, #45 Best in State"
           },
           "tee": {
             "verified": true,
@@ -1447,9 +1447,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 250,
-        "high": 325,
-        "note": "approximate"
+        "low": 300,
+        "high": 300,
+        "note": "TeeItUp (Troon): Tue 10/13, Wed 10/14, Sun 10/18 7:30–7:50am $300; Sat 10/17 am sold out (first 12:30pm $250); cart incl."
       },
       "access": [
         "R",
@@ -1492,9 +1492,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -1502,9 +1502,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/quail-lodge-and-golf-club",
+            "note": "page read 2026-10-06; score 3.5/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -1512,9 +1512,9 @@
             "note": "Secondary (GolfPass): Black 6464, 71.3/128; quaillodge.com says '6,500 yards, par 71' with no rating. Claim 6500/129 close."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "quaillodge.com has no rates page (booking engine only); third-party snippets ($140/$175) not fetched."
+            "verified": true,
+            "source": "https://the-quail-golf-club.book.teeitup.com/?course=224&date=2026-10-14",
+            "note": "Read from the TeeItUp tee-time list; rate 'greenFeeCart' $300; afternoon markdowns 15–49% to $128."
           },
           "architect": {
             "verified": true,
@@ -1539,9 +1539,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 175,
-        "high": 225,
-        "note": "approximate"
+        "low": 119,
+        "high": 169,
+        "note": "Troon golfwithaccess.com (EZLinks): Wed 10/14 7–7:50am $119, 8:10 $139, 10–10:50 $125; Sat 10/17 no am slot; Fri 10/16 10:20–11:50 $159–169."
       },
       "access": [
         "DF"
@@ -1585,9 +1585,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -1595,9 +1595,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/bayonet-and-black-horse-bayonet",
+            "note": "page read 2026-10-06; score 3.7/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -1605,9 +1605,9 @@
             "note": "Course page: Black 7,104 yds, 74.8/139, par 72. Claim slope 137 corrected to 139."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "bayonetblackhorse.com/rates lists only junior/YOC rates and says adult rates are dynamic; Greenskeeper gives only a $100-150 band."
+            "verified": true,
+            "source": "https://golfwithaccess.com/course/bayonet-and-black-horse/reserve-tee-time?date=2026-10-14&players=2&startAt=0&endAt=24&view=time&payMode=dollars",
+            "note": "Rate detail labels it 'Public Walking Greens Fee' ($144 on a slot listed $169), so list price may include cart; dynamic pricing."
           },
           "architect": {
             "verified": true,
@@ -1632,9 +1632,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 340,
-        "high": 425,
-        "note": "approximate"
+        "low": 695,
+        "high": 695,
+        "note": "EZLinks, Tue 10/13 & Sat 10/17 $695 every AM slot (7:30–11:40am), 1 player; GPS cart incl. per rates page"
       },
       "access": [
         "R",
@@ -1677,9 +1677,9 @@
       "layoutSlug": "pelican-hill-golf-club--ocean-south",
       "joinNote": "the record has Ocean North only; this layout slug is not in the spine",
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -1687,9 +1687,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/pelican-hill-golf-club-ocean-south",
+            "note": "page read 2026-10-06; score 4.2/5, #60 Best in State"
           },
           "tee": {
             "verified": true,
@@ -1697,9 +1697,9 @@
             "note": "Club scorecard PDF: Black 6580, 72.0/133, par 70. Claim slope 134 corrected to 133."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "pelicanhill.com rates page renders no amounts (JS/booking engine); only forecaddie from $140 and rider $50 shown."
+            "verified": true,
+            "source": "https://pelicanhill.ezlinksgolf.com/search",
+            "note": "Public EZLinks engine (pelicanhill.com/golf/golf-booking → ezlinks); r08 price field matched rendered $695 on both dates."
           },
           "architect": {
             "verified": true,
@@ -1724,9 +1724,9 @@
         "name": null
       },
       "fee": {
-        "low": 275,
-        "high": 375,
-        "note": "approximate"
+        "low": 184,
+        "high": 293,
+        "note": "EZLinks, Wed 11/4 $184–240 6:45–11:42am / Sat 11/14 $291–293 10:30–11:33am; cart n/s; not listed thru 10/31 (overseed)"
       },
       "access": [
         "R",
@@ -1769,9 +1769,9 @@
       "layoutSlug": null,
       "joinNote": "a different course from the Stadium layout the record holds",
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -1779,9 +1779,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/pga-west-nicklaus-tournament",
+            "note": "page read 2026-10-06; score 3.9/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -1789,9 +1789,9 @@
             "note": "PGA WEST page: '7,204 yards ... stroke rating of 75.3 and a slope rating of 143'; tee name not stated. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "pgawest.com shows no rates; pricing only inside the ezlinks booking engine (JS-only, dynamic)."
+            "verified": true,
+            "source": "https://pgawest.ezlinksgolf.com/index.html#/search",
+            "note": "EZLinks /api/search/search; no Nicklaus times 10/13–10/31 incl. 10/14 & 10/17; first listings Wed 11/4; Sat 11/7 PM only"
           },
           "architect": {
             "verified": true,
@@ -1871,9 +1871,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/pelican-hill-golf-club-ocean-north",
+            "note": "page read 2026-10-06; score 4.1/5, #54 Best in State"
           },
           "tee": {
             "verified": true,
@@ -1883,7 +1883,7 @@
           "fee": {
             "verified": false,
             "source": null,
-            "note": "pelicanhill.com rates page renders no amounts (JS/booking engine); only forecaddie from $140 and rider $50 shown."
+            "note": "Restoration through 11/1/2026 per booking page; 18-hole public price not purchasable, so left unverified. 9-hole $195 seen both dates."
           },
           "architect": {
             "verified": true,
@@ -1953,9 +1953,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -1963,9 +1963,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/aviara-golf-club-aviara",
+            "note": "page read 2026-10-06; score 3.9/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -2000,9 +2000,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 250,
-        "high": 325,
-        "note": "approximate"
+        "low": 199,
+        "high": 350,
+        "note": "EZLinks Best Available Rate; Tue 10/13 $199–$229 (7:20–9:20am), Sat 10/17 $311–$350 (7–11:50am); cart $30/player extra at check-in"
       },
       "access": [
         "DF"
@@ -2044,9 +2044,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -2054,9 +2054,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/maderas-golf-club-maderas",
+            "note": "page read 2026-10-06; score 4/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -2064,9 +2064,9 @@
             "note": "third-party scorecard (Greenskeeper); slope 143 vs claim 142; club scorecard page is image-only"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "maderasgolf.com/tee-times posts no dollar rates (booking engine only); cart $30 per player added at check-in"
+            "verified": true,
+            "source": "https://maderasnrbest.ezlinksgolf.com/search",
+            "note": "Non-member engine from maderasgolf.com/tee-times; 10/13 rendered list matched JSON; 10/17 from the page's /api/search/search JSON (2 players)."
           },
           "architect": {
             "verified": true,
@@ -2091,9 +2091,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 350,
-        "high": 500,
-        "note": "dynamic pricing"
+        "low": 550,
+        "high": 1195,
+        "note": "booktrump.com (own engine); Tue 10/13 $550 all AM; Sat 10/17 no AM slots, Sat 10/10 $1195 10:40–11:20am; Wed 10/14 $495–750; cart incl."
       },
       "access": [
         "DF"
@@ -2135,9 +2135,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -2145,9 +2145,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/trump-national-golf-club-los-angeles-trump-national",
+            "note": "page read 2026-10-06; score 3.8/5, #58 Best in State"
           },
           "tee": {
             "verified": true,
@@ -2155,9 +2155,9 @@
             "note": "third-party scorecard (Greenskeeper); slope 144 vs claim 146; club site has no scorecard page"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "trumpnationallosangeles.com/golf/tee-times posts no rates; booking engine only"
+            "verified": true,
+            "source": "https://losangeles.booktrump.com/tee-times?propertyid=45",
+            "note": "Prices from the page's teetimeavailability JSON (CartIncluded=1, 18 holes, 2 golfers). Sat 10/17 within window but only 2:50pm+ remained."
           },
           "architect": {
             "verified": true,
@@ -2228,9 +2228,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -2238,9 +2238,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/whitehawk-ranch-golf-club-whitehawk-ranch",
+            "note": "page read 2026-10-06; score 4.2/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -2320,9 +2320,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -2330,9 +2330,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/fairmont-grand-del-mar-golf-course-grand",
+            "note": "page read 2026-10-06; score 3.7/5, no Best in State badge; GD page: Fairmont Grand Del Mar GC"
           },
           "tee": {
             "verified": true,
@@ -2411,9 +2411,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -2421,9 +2421,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/soule-park-golf-course-soule-park",
+            "note": "page read 2026-10-06; score 3.9/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -2458,9 +2458,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 120,
-        "high": 275,
-        "note": "peak season"
+        "low": 206,
+        "high": 229,
+        "note": "Play18 (Sagacity), Tue 10/13 $223–229 7:00–11:30am, Wed 10/14 11:40am $206, Thu 10/15 $206–229; Sat 10/17 no availability; cart req."
       },
       "access": [
         "M",
@@ -2503,9 +2503,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -2513,9 +2513,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/desert-willow-golf-resort-firecliff",
+            "note": "page read 2026-10-06; score 4/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -2523,9 +2523,9 @@
             "note": "course page: 7,056 / 74.1 / 141 (championship tee); slope 141 vs claim 138; tee name per GolfPass"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "desertwillow.com/bookateetime posts no dollar rates ('dynamic pricing'); /rates 404"
+            "verified": true,
+            "source": "https://desertwillow.play18.com/teetimes/searchmatrix?teedate=20261014",
+            "note": "Dynamic 'Best Rate Available'; Sat 10/17 & 10/10 blocked on closure calendar; Sat 10/24 11:50am $229"
           },
           "architect": {
             "verified": true,
@@ -2550,9 +2550,9 @@
         "name": "Tournament"
       },
       "fee": {
-        "low": 140,
-        "high": 190,
-        "note": "approximate"
+        "low": 96,
+        "high": 191,
+        "note": "quick18; Wed 10/14 $96–$111 (6:32–11:44am), Sat 10/17 $187–$191 (6:32–10:56am), $150 11:12–11:52; cart w/ GPS incl."
       },
       "access": [
         "DF"
@@ -2594,9 +2594,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -2604,9 +2604,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/oak-quarry-golf-club-oak-quarry",
+            "note": "page read 2026-10-06; score 3.9/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -2614,9 +2614,9 @@
             "note": "third-party scorecard (Greenskeeper); matches claim"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "oakquarry.com/golf/rates: 'Green fees vary by season, day and time of day' – no figures; search tee times"
+            "verified": true,
+            "source": "https://oakquarry.quick18.com/teetimes/searchmatrix?teedate=20261017",
+            "note": "Public column of the quick18 matrix; Tue 10/13 listed no times at all (used Wed 10/14). Cart inclusion per oakquarry.com/golf/rates."
           },
           "architect": {
             "verified": true,
@@ -2685,9 +2685,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -2695,9 +2695,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/la-purisima-golf-course-la-purisima",
+            "note": "page read 2026-10-06; score 4.1/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -2732,9 +2732,9 @@
         "name": "Championship"
       },
       "fee": {
-        "low": 170,
-        "high": 250,
-        "note": "non-resident, approximate"
+        "low": 205,
+        "high": 282,
+        "note": "EZLinks 'Public' (non-resident): Wed 10/14 10:10am $236; Sat 10/17 11:40am $282; Tue/Thu 7:30–9:50 $236–257, 11am $205; cart not stated."
       },
       "access": [
         "M"
@@ -2778,9 +2778,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -2788,9 +2788,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/tpc-harding-park",
+            "note": "page read 2026-10-06; score 3.9/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -2798,9 +2798,9 @@
             "note": "third-party (GolfPass); slope 129 vs claim 132; tpc.com scorecard is image-only; Wikipedia says 74.1/129"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "tpc.com/hardingpark/current-rates posts no green fee – 'on-demand flexible greens fee pricing'"
+            "verified": true,
+            "source": "https://hardingpark.ezlinksgolf.com/search",
+            "note": "Cloudflare blocks headless by default; passed with real-Chrome UA hints. Resident $118–142, Bay Area Resident $153–179 on the same slots."
           },
           "architect": {
             "verified": true,
@@ -2870,9 +2870,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -2880,9 +2880,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/eagle-falls-golf-course-eagle-falls",
+            "note": "page read 2026-10-06; score 3.4/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -2917,9 +2917,9 @@
         "name": "Four Trees"
       },
       "fee": {
-        "low": 250,
-        "high": 350,
-        "note": "approximate"
+        "low": 303,
+        "high": 364,
+        "note": "ForeUp Public: no times listed 10/12 onward (season over); Thu 10/8 10:20–10:50am $364, 11–11:50 $303; other days afternoon only $309–394; cart incl."
       },
       "access": [
         "R",
@@ -2964,9 +2964,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -2974,9 +2974,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/tahoe-mountain-club-old-greenwood",
+            "note": "page read 2026-10-06; score 4/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -2984,9 +2984,9 @@
             "note": "third-party scorecard (Greenskeeper); slope 144 vs claim 140; club page confirms 7,518 yds"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "tahoemountainclub.com/old-greenwood posts no dollar rates"
+            "verified": true,
+            "source": "https://foreupsoftware.com/index.php/booking/21140/7070#/teetimes",
+            "note": "Prices seen in the page's api/booking/times JSON (booking_class 11401 Public); outside the 7–12 day window because the course lists nothing then."
           },
           "architect": {
             "verified": true,
@@ -3011,9 +3011,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 160,
-        "high": 260,
-        "note": null
+        "low": 250,
+        "high": 300,
+        "note": "EZLinks (Best Available Rate), Sat 11/21 $250–300 6:50–11:50am / Wed 12/2 $250 7:10am+; cart incl. (2 carts per 4some); none 10/14–11/10"
       },
       "access": [
         "DF"
@@ -3055,9 +3055,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -3065,9 +3065,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/classic-club-classic",
+            "note": "page read 2026-10-06; score 3.9/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -3075,9 +3075,9 @@
             "note": "third-party (GolfPass); 7322/144 vs claim 7305/139; club site confirms 7,322 max yds"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "classicclubgolf.com/book_tt posts no green fees"
+            "verified": true,
+            "source": "https://classicclubbest.ezlinksgolf.com/index.html#/search",
+            "note": "EZLinks /api/search/search: 0 times 10/14–11/10 (10/10 & 11/14 PM only); first AM public prices Sat 11/21, Wed 12/2"
           },
           "architect": {
             "verified": true,
@@ -3146,9 +3146,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -3156,9 +3156,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/sandpiper-golf-club-sandpiper",
+            "note": "page read 2026-10-06; score 3.8/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -3239,9 +3239,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -3249,9 +3249,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/grizzly-ranch-golf-club",
+            "note": "page read 2026-10-06; score 4.1/5, #53 Best in State"
           },
           "tee": {
             "verified": true,
@@ -3286,9 +3286,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 200,
-        "high": 300,
-        "note": "approximate"
+        "low": 198,
+        "high": 234,
+        "note": "EZLinks, Tue 10/13 $198–204 10:39–11:51am, Wed 10/14 $199–234 7:21–11:51am; Sat 10/17 PM only; cart n/s; Sat 11/21 $248–251"
       },
       "access": [
         "R",
@@ -3331,9 +3331,9 @@
       "layoutSlug": null,
       "joinNote": "a different course from the Stadium layout the record holds",
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -3341,9 +3341,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/pga-west-mountain-and-dunes-golf-courses-mountain",
+            "note": "page read 2026-10-06; score 3.7/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -3351,9 +3351,9 @@
             "note": "third-party (GolfPass); matches claim; pgawest.com scorecard is a PDF"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "pgawest.com/golf posts no green fees"
+            "verified": true,
+            "source": "https://pgawest.ezlinksgolf.com/index.html#/search",
+            "note": "EZLinks /api/search/search 10/13, 10/14 (AM); Sat 10/17 had afternoon only; Mountain absent 10/20–11/14 (overseed)"
           },
           "architect": {
             "verified": true,
@@ -3378,9 +3378,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 160,
-        "high": 210,
-        "note": "approximate"
+        "low": 119,
+        "high": 195,
+        "note": "Troon golfwithaccess.com (EZLinks): Wed 10/14 7:40–7:50am $119, 8–8:40 $125; Sat 10/17 7:10am $195 (only am slot); Fri 10/16 10:40–11:30 $169."
       },
       "access": [
         "DF"
@@ -3422,9 +3422,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -3432,9 +3432,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/bayonet-and-black-horse-black-horse",
+            "note": "page read 2026-10-06; score 3.4/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -3442,9 +3442,9 @@
             "note": "third-party scorecard (Greenskeeper); matches claim; club /black-horse page headline 7,024 yds but its table shows Black 7104/74.8/139"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "bayonetblackhorse.com/rates: 'Rates are dynamically priced' – no posted figures"
+            "verified": true,
+            "source": "https://golfwithaccess.com/course/bayonet-and-black-horse/reserve-tee-time?date=2026-10-17&players=2&startAt=0&endAt=24&view=time&payMode=dollars",
+            "note": "Same engine as Bayonet; dynamic pricing; cart inclusion not stated on the list."
           },
           "architect": {
             "verified": true,
@@ -3469,9 +3469,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 180,
-        "high": 260,
-        "note": null
+        "low": 190,
+        "high": 199,
+        "note": "EZLinks 'Public/Resort Guests' rate, Sat 10/31 $190–199 7:36–10:54am / Wed 11/4 $190–199 6:00–9:24am; cart n/s; closed Oct 5–30"
       },
       "access": [
         "R",
@@ -3481,7 +3481,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.8,
+        "golfDigestScore": 3.6,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -3514,9 +3514,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -3524,9 +3524,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/marriotts-shadow-ridge-golf-club-marriott-shadow-ridge",
+            "note": "page read 2026-10-06; score 3.6/5, no Best in State badge; corrects claim (score 3.8→3.6)"
           },
           "tee": {
             "verified": true,
@@ -3534,9 +3534,9 @@
             "note": "club scorecard page; matches claim"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "golfshadowridge.com/rates-faqs lists policies only, no dollar figures"
+            "verified": true,
+            "source": "https://shadowridge.ezlinksgolf.com/index.html#/search",
+            "note": "golfshadowridge.com/rates-faqs: closed for overseeding Oct 5–30; 10/14 returned 0 times; priced first dates after reopening"
           },
           "architect": {
             "verified": true,
@@ -3561,9 +3561,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 200,
-        "high": 300,
-        "note": "approximate"
+        "low": 202,
+        "high": 237,
+        "note": "Chronogolf/Lightspeed: Wed 10/14 7:20–11:50am $202; Sat 10/17 8:10–9:10am $237, 10:10–11:50 $227; Public rate, cart incl."
       },
       "access": [
         "R",
@@ -3606,9 +3606,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -3616,9 +3616,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/half-moon-bay-golf-links-ocean",
+            "note": "page read 2026-10-06; score 3.3/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -3626,9 +3626,9 @@
             "note": "third-party scorecard (Greenskeeper); matches claim; GolfPass agrees"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "halfmoonbaygolf.com publishes member rates only; public pricing via booking engine"
+            "verified": true,
+            "source": "https://www.chronogolf.com/club/half-moon-bay-golf-links?date=2026-10-17",
+            "note": "Read from the page's marketplace/v2/teetimes JSON (default_price.green_fee, affiliation Public, has_cart true)."
           },
           "architect": {
             "verified": true,
@@ -3653,9 +3653,9 @@
         "name": "Silver"
       },
       "fee": {
-        "low": 160,
-        "high": 240,
-        "note": "approximate"
+        "low": 145,
+        "high": 205,
+        "note": "TeeItUp/GolfNow, Thu 10/8 $145, Sat 10/10 $155 9:20–10:20am; Fri 10/30 & Sat 10/31 $205 7:10–11:50am; cart incl.; +$2.49 fee"
       },
       "access": [
         "M",
@@ -3698,9 +3698,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -3708,9 +3708,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/silverrock-resort-silverrock",
+            "note": "page read 2026-10-06; score 3.5/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -3718,9 +3718,9 @@
             "note": "third-party scorecard (Greenskeeper); CORRECTION yards 7239 vs claim 7578; silverrock.org also says 7,239"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "silverrock.org/golf-rates: 'calculated by using Dynamic Pricing' – no figures"
+            "verified": true,
+            "source": "https://silverrock-resort.book.teeitup.com/?course=1913&date=2026-10-31&max=999999",
+            "note": "Closed for overseeding Oct 12–30 (silverrock.org); 10/14 & 10/17 return 0 times, so priced 10/8, 10/10, 10/30, 10/31"
           },
           "architect": {
             "verified": true,
@@ -3745,9 +3745,9 @@
         "name": "Cabernet"
       },
       "fee": {
-        "low": 180,
-        "high": 300,
-        "note": "approximate"
+        "low": 229,
+        "high": 295,
+        "note": "EZLinks Best Available (prepaid), Thu 11/5 $229–239 6:20–10:20am / Sat 10/31 $279 9:20–11:50am, Sat 11/7 6:30am $295; cart n/s"
       },
       "access": [
         "M",
@@ -3790,9 +3790,9 @@
       "layoutSlug": "indian-wells-golf-resort--celebrity",
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -3800,9 +3800,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/indian-wells-golf-resort-celebrity-course",
+            "note": "page read 2026-10-06; score 4/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -3810,9 +3810,9 @@
             "note": "third-party scorecard (Greenskeeper); matches claim (GolfPass lists 7038)"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "indianwellsgolfresort.com posts no green fee table; dynamic via booking engine"
+            "verified": true,
+            "source": "https://indianwellsstdpp.ezlinksgolf.com/index.html#/search",
+            "note": "No Celebrity times 10/14–10/15 (overseed); first listings 10/24 PM; priced Sat 10/31, Thu 11/5, Sat 11/7"
           },
           "architect": {
             "verified": true,
@@ -3883,9 +3883,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -3893,9 +3893,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/the-course-at-wente-vineyards-wente-vineyards",
+            "note": "page read 2026-10-06; score 4/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -3976,9 +3976,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -3986,9 +3986,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/presidio-golf-course-presidio",
+            "note": "page read 2026-10-06; score 3.4/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -4068,9 +4068,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -4078,9 +4078,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/ojai-valley-inn-ojai-valley-inn-and-spa",
+            "note": "page read 2026-10-06; score 3.8/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -4161,9 +4161,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -4171,9 +4171,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/coyote-moon-golf-course-coyote-moon",
+            "note": "page read 2026-10-06; score 3.8/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -4208,9 +4208,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 180,
-        "high": 260,
-        "note": null
+        "low": 202,
+        "high": 237,
+        "note": "Chronogolf/Lightspeed: Wed 10/14 7:20–10:50am $202; Sat 10/17 no am times; Sun 10/18 8:50–9:50am $237, 10:00 $227; Public rate, cart incl."
       },
       "access": [
         "R",
@@ -4220,7 +4220,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.4,
+        "golfDigestScore": 2.7,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -4253,9 +4253,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -4263,9 +4263,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/half-moon-bay-golf-links-old-course",
+            "note": "page read 2026-10-06; score 2.7/5, no Best in State badge; corrects claim (score 3.4→2.7)"
           },
           "tee": {
             "verified": true,
@@ -4273,9 +4273,9 @@
             "note": "Greenskeeper (9/26/2020): Black 7001 / 74.3 / 135. Matches claim. Official site has no scorecard text."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "Public rates not posted; only 2026 Legends Club member rates shown ($129 Mon-Thu, $135 Fri, $154 Sat/Sun Old). Booking engine only; legacy rates URL 403."
+            "verified": true,
+            "source": "https://www.chronogolf.com/club/half-moon-bay-golf-links?date=2026-10-14",
+            "note": "Same JSON as Ocean; Old Course Saturday morning fully booked so Sunday 10/18 used for the weekend price."
           },
           "architect": {
             "verified": true,
@@ -4346,9 +4346,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -4356,9 +4356,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/corica-park-south",
+            "note": "page read 2026-10-06; score 3.6/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -4393,9 +4393,9 @@
         "name": "Blue"
       },
       "fee": {
-        "low": 300,
-        "high": 450,
-        "note": "resort package only"
+        "low": null,
+        "high": null,
+        "note": "Resort page: golf access is 'exclusive to resort guests and members'; no public tee-time engine or posted green fee."
       },
       "access": [
         "S"
@@ -4437,9 +4437,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -4447,9 +4447,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/silverado-resort-north",
+            "note": "page read 2026-10-06; score 3.4/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -4457,9 +4457,9 @@
             "note": "Official: 6,793 yds, 72.6 rating, 133 slope (no tee name; 'Blue' per Greenskeeper, which shows older 73.1/138). Claimed slope 135 corrected to 133."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "No rates posted: official page says courses 'exclusively available to Silverado Resort guests & members'; packages quote % discounts only."
+            "verified": true,
+            "source": "https://www.silveradoresort.com/experience/napa-golf/",
+            "note": "Restriction stated on the page itself; only lodging packages ('up to 30% off lodging and green fees') are bookable."
           },
           "architect": {
             "verified": true,
@@ -4484,9 +4484,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 140,
-        "high": 190,
-        "note": "approximate"
+        "low": 100,
+        "high": 175,
+        "note": "GolfBack: Wed 10/14 7:10–11:50am Public 18 $100 (base $125); Sat 10/17 7:30 $175, 8–8:50 $161, 9:10–11:50 $151; cart, GPS & range incl."
       },
       "access": [
         "DF"
@@ -4495,7 +4495,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 4,
+        "golfDigestScore": 4.5,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -4528,9 +4528,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -4538,9 +4538,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/san-juan-oaks-golf-club-san-juan-oaks",
+            "note": "page read 2026-10-06; score 4.5/5, no Best in State badge; corrects claim (score 4→4.5)"
           },
           "tee": {
             "verified": true,
@@ -4548,9 +4548,9 @@
             "note": "Official post-renovation card: Black 7,071 yds, no rating/slope posted. Claimed 7133/141 unconfirmed; pre-reno Greenskeeper (2020) showed 7000/74.0/139."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "No fetched page states rates; sanjuanoaks.com pages say cart included but defer to GOLFBACK booking. Search snippet cites $125 Mon-Thu / $175 Fri-Sun."
+            "verified": true,
+            "source": "https://golfback.com/#/course/cd854afa-f7b3-4543-a066-e1213eae56d9",
+            "note": "Read from the page's api.golfback.com teetimes JSON; rate 'Public 18', hasCartIncluded true; twilight from 1:30pm."
           },
           "architect": {
             "verified": true,
@@ -4575,9 +4575,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 190,
-        "high": 260,
-        "note": "approximate"
+        "low": 293,
+        "high": 345,
+        "note": "ForeUp Public: Tue 10/13 10:50–11:50 $293, Wed 10/14 10:10 $293, Thu 10/15 11:30 $345; Sat 10/17 & Sun 10/18 no am times (first 2:20pm $224/$242); cart incl."
       },
       "access": [
         "DF"
@@ -4621,9 +4621,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -4631,9 +4631,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/grays-crossing",
+            "note": "page read 2026-10-06; score 3.7/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -4641,9 +4641,9 @@
             "note": "Greenskeeper: Black 7466 / 74.7 / 143 (GolfPass shows 74.3/140; official says 7,488 yds tips). Claimed 7518/144 corrected."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "tahoemountainclub.com rates page shows only 'Public Rate'/'NCGA Rate' buttons into the booking engine; no dollar figures on any fetched page."
+            "verified": true,
+            "source": "https://foreupsoftware.com/index.php/booking/21141/7071#/teetimes",
+            "note": "Prices from the page's api/booking/times JSON (booking_class 11558 Public); morning public slots are 1–3 per weekday."
           },
           "architect": {
             "verified": true,
@@ -4713,9 +4713,9 @@
       "layoutSlug": null,
       "joinNote": "not Temecula Creek, which the record holds — a different facility in the same town",
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -4723,9 +4723,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/journey-at-pechanga-pechanga",
+            "note": "page read 2026-10-06; score 3.8/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -4760,9 +4760,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 150,
-        "high": 250,
-        "note": null
+        "low": null,
+        "high": null,
+        "note": "Members/hotel guests only"
       },
       "access": [
         "S"
@@ -4771,7 +4771,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 4,
+        "golfDigestScore": 4.2,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -4804,9 +4804,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -4814,9 +4814,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/barona-creek-golf-club-barona-creek",
+            "note": "page read 2026-10-06; score 4.2/5, no Best in State badge; score corrected 4→4.2"
           },
           "tee": {
             "verified": true,
@@ -4824,9 +4824,9 @@
             "note": "Official: Black 7,092 / 139 / 74.0. Claimed 7448 is near the 7393-yd Black-Alternate tee (Greenskeeper 75.8/144), not the standard back tee."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "Official page: course 'not available to the general public'; only Diamond/Sapphire/Platinum members, hotel guests, tribal members. No rates posted."
+            "verified": true,
+            "source": "https://www.barona.com/resort/golf/",
+            "note": "Page quote: 'exclusively to Diamond, Sapphire, and Platinum members, hotel guests, and Barona Tribal Members... not available to the general public'."
           },
           "architect": {
             "verified": true,
@@ -4851,9 +4851,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 100,
-        "high": 225,
-        "note": "peak season"
+        "low": 188,
+        "high": 229,
+        "note": "Play18 (Sagacity), Wed 11/4 $188–223 6:35–7:35am / Sat 10/31 $203–229 7:05–11:55am; no MV times 10/13–10/18 (overseed); cart req."
       },
       "access": [
         "M",
@@ -4896,9 +4896,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -4906,9 +4906,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/desert-willow-golf-resort-mountain-view",
+            "note": "page read 2026-10-06; score 4.1/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -4916,9 +4916,9 @@
             "note": "Official course page: Black 73.0 / 132 / 6,913 yds. Claimed slope 130 corrected to 132."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "Dynamic pricing; rates only in booking engine. Official pages show Palm Desert resident $52 and summer $40 but no public/peak figures."
+            "verified": true,
+            "source": "https://desertwillow.play18.com/teetimes/searchmatrix?teedate=20261031",
+            "note": "Mountain View absent from engine 10/13–10/18; first listings 10/24 PM; priced Sat 10/31 and Wed 11/4"
           },
           "architect": {
             "verified": true,
@@ -4943,9 +4943,9 @@
         "name": "Cabernet"
       },
       "fee": {
-        "low": 180,
-        "high": 300,
-        "note": "approximate"
+        "low": 209,
+        "high": 299,
+        "note": "EZLinks Best Available (prepaid), Wed 10/14 $209–229 10:40–11:50am, Thu 10/15 $235; Sat 10/17 PM only; Sat 10/24 $285–299; cart n/s"
       },
       "access": [
         "M",
@@ -4988,9 +4988,9 @@
       "layoutSlug": "indian-wells-golf-resort--players",
       "joinNote": "the record has the Celebrity course only; this layout slug is not in the spine",
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -4998,9 +4998,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/indian-wells-golf-resort-players-course",
+            "note": "page read 2026-10-06; score 3.4/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -5008,9 +5008,9 @@
             "note": "Greenskeeper (8/24/2020, pre-redesign): Cabernet 7376 / 75.4 / 140; claimed slope 139. Course redesigned 2025 to par 71; new ratings not found."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "No rates on indianwellsgolfresort.com; tee times via EZLinks only. Only $99 Nine & Dine package posted."
+            "verified": true,
+            "source": "https://indianwellsstdpp.ezlinksgolf.com/index.html#/search",
+            "note": "EZLinks /api/search/search 10/14, 10/15 AM; Sat 10/17 afternoon only, so Saturday AM from 10/24"
           },
           "architect": {
             "verified": true,
@@ -5035,9 +5035,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 225,
-        "high": 350,
-        "note": "approximate"
+        "low": 142,
+        "high": 192,
+        "note": "EZLinks: no public AM slots any date 10/13–12/5; earliest 12:00–1:57pm $142–192 (Tue 10/13, Wed 10/14), Sat 11/7 1:39pm $190 — engine offers no public times bef"
       },
       "access": [
         "R",
@@ -5047,7 +5047,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": null,
+        "golfDigestScore": 3.6,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -5080,9 +5080,9 @@
       "layoutSlug": null,
       "joinNote": "a different course from the Stadium layout the record holds",
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -5091,8 +5091,8 @@
           },
           "golfDigest": {
             "verified": true,
-            "source": "golfweek-2026",
-            "note": "no Golf Digest claim on this row; nothing to check"
+            "source": "https://www.golfdigest.com/courses/ca/pga-west-greg-norman-course-greg-norman",
+            "note": "page read 2026-10-06; score 3.6/5, no Best in State badge; score corrected null→3.6"
           },
           "tee": {
             "verified": true,
@@ -5100,9 +5100,9 @@
             "note": "PGA WEST scorecard (CID 526 = Norman): Black 7156 / 74.9 / 138; Greenskeeper agrees. Claimed slope 137 corrected to 138 (GolfPass shows 75.1/139)."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "pgawest.com resort-courses page lists no rates; booking via EZLinks only."
+            "verified": true,
+            "source": "https://pgawest.ezlinksgolf.com/index.html#/search",
+            "note": "EZLinks 2026-10-06: no morning public inventory on 16 dates; earliest (noon–2pm) public prices taken as the fee"
           },
           "architect": {
             "verified": true,
@@ -5127,9 +5127,9 @@
         "name": "Championship"
       },
       "fee": {
-        "low": 270,
-        "high": 320,
-        "note": "approximate"
+        "low": 275,
+        "high": 396,
+        "note": "Troon Golf with Access; Tue 10/13 $275–$304 (7:19–11:50am), Sat 10/17 $387–$396 (10:40–11:20am, no early AM); cart incl. per course site"
       },
       "access": [
         "R",
@@ -5139,7 +5139,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.8,
+        "golfDigestScore": 3.2,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -5172,9 +5172,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -5182,9 +5182,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/monarch-beach-golf-links-monarch-beach",
+            "note": "page read 2026-10-06; score 3.2/5, no Best in State badge; score corrected 3.8→3.2"
           },
           "tee": {
             "verified": true,
@@ -5192,9 +5192,9 @@
             "note": "Greenskeeper: Championship 6601 / 72.8 / 138. Official site says 6,645 yds (2015 new tees); claimed slope 135 corrected to 138."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "No rates on monarchbeachgolf.com; dynamic via Troon/EZLinks portals. Page notes cart, GPS, water included."
+            "verified": true,
+            "source": "https://golfwithaccess.com/course/monarch-beach-golf-links/reserve-tee-time?date=2026-10-13&players=2&startAt=0&endAt=24&view=time&payMode=dollars",
+            "note": "General-public link from monarchbeachgolf.com/book-tee-times (troon.com → golfwithaccess.com), 2 players, 18 holes, cash price."
           },
           "architect": {
             "verified": true,
@@ -5221,7 +5221,7 @@
       "fee": {
         "low": 150,
         "high": 175,
-        "note": "approximate"
+        "note": "pebblebeach.com rate table Apr 2026–Mar 2027: Non-Resort Guests Mon–Thu $150, Fri–Sun $175; cart $30/person extra; public booking by phone only."
       },
       "access": [
         "DF"
@@ -5263,9 +5263,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -5273,9 +5273,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/del-monte-golf-course-del-monte",
+            "note": "page read 2026-10-06; score 2/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -5283,9 +5283,9 @@
             "note": "Greenskeeper (9/4/2020): Blue 6357 / 71.6 / 131; GolfPass 6356. Claimed 6365 corrected to 6357; slope matches."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "pebblebeach.com returns 403; third-party guide (golfforkings, Jun 2026) gives indicative $110-145 only."
+            "verified": true,
+            "source": "https://www.pebblebeach.com/golf/del-monte-golf-course/",
+            "note": "'Golf Rates' button loads /ratesajax/rate_table/del_monte_golf_course/ (loads in headless Chrome); availability page says call (800) 877-0597."
           },
           "architect": {
             "verified": true,
@@ -5354,9 +5354,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -5364,9 +5364,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/pacific-grove-golf-links-pacific-grove",
+            "note": "page read 2026-10-06; score 3.3/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -5401,9 +5401,9 @@
         "name": "Blue"
       },
       "fee": {
-        "low": 175,
-        "high": 225,
-        "note": "approximate"
+        "low": 150,
+        "high": 150,
+        "note": "Rates page: non-resort guests may book only after 1pm; afternoon $150 (TeeItUp 10/14 & 10/17 shows 1–3:50pm $150, twilight $98); guest $195; cart incl."
       },
       "access": [
         "R",
@@ -5446,9 +5446,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -5456,9 +5456,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/carmel-valley-ranch",
+            "note": "page read 2026-10-06; score 3.3/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -5466,9 +5466,9 @@
             "note": "GolfPass: Blue 6117 / 70.1 / 131, par 70. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "carmelvalleyranch.com rates page content truncated on fetch; Hyatt FAQ 403. Search snippet cites resort guest 18 holes $195, afternoon $150, twilight $98."
+            "verified": true,
+            "source": "https://carmelvalleyranch.com/golf/carmel-golf-course-rates/",
+            "note": "No public morning price exists; engine carmel-valley-ranch.book.teeitup.com lists no times before 1pm on 10/13–10/18."
           },
           "architect": {
             "verified": true,
@@ -5537,9 +5537,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -5547,9 +5547,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/the-crossings-at-carlsbad-crossings",
+            "note": "page read 2026-10-06; score 3.3/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -5595,7 +5595,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 4,
+        "golfDigestScore": 4.6,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -5628,9 +5628,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -5638,9 +5638,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/hunter-ranch-golf-course-hunter-ranch",
+            "note": "page read 2026-10-06; score 4.6/5, no Best in State badge; score corrected 4→4.6"
           },
           "tee": {
             "verified": true,
@@ -5675,9 +5675,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 80,
-        "high": 100,
-        "note": "approximate"
+        "low": 69.99,
+        "high": 109.99,
+        "note": "TeeItUp: Wed 10/14 7:20–9:50am $79.99, 10:10–11:50 $69.99; Sat 10/17 7:20–9:50am $109.99, 10–11:50 $79.99; cart incl."
       },
       "access": [
         "DF"
@@ -5719,9 +5719,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -5729,9 +5729,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/darkhorse-golf-club-darkhorse",
+            "note": "page read 2026-10-06; score 3.8/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -5739,9 +5739,9 @@
             "note": "Third-party (GolfPass) listing; course site has no scorecard page. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "darkhorsegolf.com posts no rates; tee-times page is a booking engine only. Greenskeeper rate table empty."
+            "verified": true,
+            "source": "https://darkhorse-golf-club.book.teeitup.com/?course=384&date=2026-10-17",
+            "note": "Online Rate tagged CI (cart included); afternoon $39.99–49.99."
           },
           "architect": {
             "verified": true,
@@ -5810,9 +5810,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -5820,9 +5820,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/coronado-golf-course-coronado",
+            "note": "page read 2026-10-06; score 3.9/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -5857,9 +5857,9 @@
         "name": "Hawk (Lake/Mountain)"
       },
       "fee": {
-        "low": 110,
-        "high": 155,
-        "note": "approximate"
+        "low": 100,
+        "high": 160,
+        "note": "EZLinks: Wed 10/14 $100 (early bird $80 before 8:30), Fri 10/16 $135 ($115 EB), Sat 10/17 $160; matches posted rates eff. 9/1/26; shared cart incl."
       },
       "access": [
         "DF"
@@ -5868,7 +5868,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.7,
+        "golfDigestScore": null,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -5901,9 +5901,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -5911,9 +5911,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/cinnabar-hills-golf-club-lakecanyon",
+            "note": "Golf Digest course page shows no panelists score (read 2026-10-06); the pasted score had no source and is dropped"
           },
           "tee": {
             "verified": true,
@@ -5921,9 +5921,9 @@
             "note": "Longest combo Lake/Mountain Hawk 6854 yds 73.7/142. Corrected from 6849/138. Canyon/Lake 6713 73.0/142; Mtn/Canyon 6617 72.7/140."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "Rates page (eff. Sep 1 2026) renders regular-rate table unreadably; only early-bird $80 Mon-Thu/$110 Fri and junior $70/$85 visible."
+            "verified": true,
+            "source": "https://cinnabarhills.ezlinksgolf.com/search",
+            "note": "Posted table at cinnabarhills.com/green-fees-practice-facilities/ renders in a browser: Mon–Thu $100, Fri $135, Sat/Sun $160 regular."
           },
           "architect": {
             "verified": true,
@@ -5948,9 +5948,9 @@
         "name": "Professional"
       },
       "fee": {
-        "low": 95,
-        "high": 140,
-        "note": "approximate"
+        "low": 70,
+        "high": 160,
+        "note": "EZLinks; Tue 10/13 Public Prepaid $80 (7–8:40am) / $70 (10:20–11:50); Sat 10/17 Advanced Prepaid $160 (7–9:30) / $145 (10–11:30); cart not stated"
       },
       "access": [
         "DF"
@@ -5959,7 +5959,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.5,
+        "golfDigestScore": null,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -5992,9 +5992,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -6002,9 +6002,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/tierra-rejada-golf-club-tierra-rejada",
+            "note": "Golf Digest course page shows no panelists score (read 2026-10-06); the pasted score had no source and is dropped"
           },
           "tee": {
             "verified": true,
@@ -6012,9 +6012,9 @@
             "note": "Third-party (GolfPass); Arcis site gives no scorecard. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "Arcis Golf site (tierrarejadagolf.com redirects there) posts no rates; booking engine only."
+            "verified": true,
+            "source": "https://tierrarejadapubpp.ezlinksgolf.com/search",
+            "note": "Public engine from arcisgolf.com Tierra Rejada 'Book Now'; 10/17 rendered list matched JSON; 10/13 from the page's search JSON (18-hole course, 2 players)."
           },
           "architect": {
             "verified": true,
@@ -6085,9 +6085,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -6095,9 +6095,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/callippe-preserve-golf-course-callippe-preserve",
+            "note": "page read 2026-10-06; score 3.1/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -6132,9 +6132,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 90,
-        "high": 125,
-        "note": "approximate"
+        "low": 105,
+        "high": 119,
+        "note": "EZLinks 'Public Walking': Tue 10/13 10:30 $110; Wed 10/14 8:20 $110, 11:40 $105; Fri 10/16 8:50 $119; Sat/Sun 10/17–18 no times listed; walking."
       },
       "access": [
         "M"
@@ -6176,9 +6176,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -6186,9 +6186,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/baylands-golf-links",
+            "note": "page read 2026-10-06; score 3.2/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -6196,9 +6196,9 @@
             "note": "Official scorecard PDF (07/24): Black 72.4/127, 6680 yds. Corrected from 6681/129."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "No rates page in site sitemap; pricing only via booking engine (dynamic). Links Card page gives no dollar figures."
+            "verified": true,
+            "source": "https://baylandsbw.ezlinksgolf.com/search",
+            "note": "Only a handful of slots per day are left online; Bay Area Walking $99–107, Palo Alto resident $90–98 on the same slots."
           },
           "architect": {
             "verified": true,
@@ -6267,9 +6267,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -6277,9 +6277,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/boundary-oak-golf-course-boundary-oak",
+            "note": "page read 2026-10-06; score 3.1/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -6314,9 +6314,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 100,
-        "high": 145,
-        "note": "approximate"
+        "low": 103,
+        "high": 154,
+        "note": "EZLinks 'Prepaid Tee Times' (only online rate): Thu 10/15 10:10–10:50am $103, 11am $113; Fri 10/16 $136; Sat 10/17 9:50am $154; cart not stated."
       },
       "access": [
         "DF"
@@ -6325,7 +6325,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.4,
+        "golfDigestScore": null,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -6358,9 +6358,9 @@
       "layoutSlug": "coyote-creek-golf-club--tournament",
       "joinNote": "the record has the Valley course only; this layout slug is not in the spine",
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -6368,9 +6368,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/coyote-creek-golf-club-tournament",
+            "note": "Golf Digest course page shows no panelists score (read 2026-10-06); the pasted score had no source and is dropped"
           },
           "tee": {
             "verified": true,
@@ -6378,9 +6378,9 @@
             "note": "Official course-details page: Black 74.8/144, 7,027 yds. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "coyotecreekgolf.com posts no rates (booking engine only); FAQ has no dollar figures."
+            "verified": true,
+            "source": "https://coyotecreekpp.ezlinksgolf.com/search",
+            "note": "Tournament Course listed no times on Tue 10/13 or Wed 10/14; weekday rows start 10:10am; dynamic pricing."
           },
           "architect": {
             "verified": true,
@@ -6460,8 +6460,8 @@
           },
           "golfDigest": {
             "verified": true,
-            "source": "golfweek-2026",
-            "note": "no Golf Digest claim on this row; nothing to check"
+            "source": "https://www.golfdigest.com/courses/ca",
+            "note": "no Golf Digest course page exists for the rebuilt North (2026-10-06): only Corica South and Mif Albright are listed; nothing to check"
           },
           "tee": {
             "verified": true,
@@ -6507,7 +6507,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.4,
+        "golfDigestScore": null,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -6542,9 +6542,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -6552,9 +6552,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/graeagle-meadows-golf-course-graeagle-meadows",
+            "note": "Golf Digest course page shows no panelists score (read 2026-10-06); the pasted score had no source and is dropped"
           },
           "tee": {
             "verified": true,
@@ -6600,7 +6600,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.5,
+        "golfDigestScore": null,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -6635,9 +6635,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -6645,9 +6645,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/plumas-pines-golf-resort-plumas-pines",
+            "note": "Golf Digest course page shows no panelists score (read 2026-10-06); the pasted score had no source and is dropped"
           },
           "tee": {
             "verified": true,
@@ -6729,9 +6729,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -6739,9 +6739,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/nakoma-resort-nakoma-golf-resort",
+            "note": "page read 2026-10-06; score 2.5/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -6788,7 +6788,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.5,
+        "golfDigestScore": null,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -6821,9 +6821,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -6831,9 +6831,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/the-links-at-squaw-creek-squaw-creek",
+            "note": "Golf Digest course page shows no panelists score (read 2026-10-06); the pasted score had no source and is dropped"
           },
           "tee": {
             "verified": true,
@@ -6879,7 +6879,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.5,
+        "golfDigestScore": null,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -6912,9 +6912,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -6922,9 +6922,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/the-sea-ranch-golf-links-sea-ranch",
+            "note": "Golf Digest course page shows no panelists score (read 2026-10-06); the pasted score had no source and is dropped"
           },
           "tee": {
             "verified": true,
@@ -6970,7 +6970,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.6,
+        "golfDigestScore": 3,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -7003,9 +7003,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -7013,9 +7013,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/cypress-ridge",
+            "note": "page read 2026-10-06; score 3/5, no Best in State badge; score corrected 3.6→3"
           },
           "tee": {
             "verified": true,
@@ -7096,9 +7096,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -7106,9 +7106,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/sharp-park-golf-course-sharp-park",
+            "note": "page read 2026-10-06; score 3.3/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -7143,9 +7143,9 @@
         "name": "MacKenzie"
       },
       "fee": {
-        "low": 55,
-        "high": 85,
-        "note": "approximate"
+        "low": 52.95,
+        "high": 89.95,
+        "note": "Own engine (mackenzie.hagginoaks.com): Guest Walking Wed 10/14 9:51–10:54 $60.95, 11:03+ $52.95; Sat 10/17 7:18 $89.95, 10:36 $78.95; cart +$20."
       },
       "access": [
         "M"
@@ -7187,9 +7187,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -7197,9 +7197,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/haggin-oaks-golf-complex-alister-mackenzie",
+            "note": "page read 2026-10-06; score 3.5/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -7207,9 +7207,9 @@
             "note": "Third-party (GolfPass); hagginoaks.com scorecard is image-only (site text says 7030 yds). Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "Rates page states rates adjust in real time and posts no green-fee figures; only cart fees listed."
+            "verified": true,
+            "source": "https://mackenzie.hagginoaks.com/?CourseID=AM&PID=4",
+            "note": "'Guest' = non-cardholder; Guest Riding $72.95–109.95 on the same slots; earlier Wed slots not listed (booked)."
           },
           "architect": {
             "verified": true,
@@ -7288,9 +7288,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/indian-canyons-golf-resort-south-course-south-course",
+            "note": "page read 2026-10-06; score 3.6/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -7300,7 +7300,7 @@
           "fee": {
             "verified": false,
             "source": null,
-            "note": "Official site indiancanyonsgolf.com returns HTTP 403; no operator rates page fetched."
+            "note": "Engine redirects to /onlineresweb/auth/verify-email; config forceCustomerLoginBeforeViewTeeTimes=true; API returns 400 anon"
           },
           "architect": {
             "verified": true,
@@ -7325,9 +7325,9 @@
         "name": "Tournament (Blue)"
       },
       "fee": {
-        "low": 150,
-        "high": 255,
-        "note": "peak"
+        "low": 156,
+        "high": 190,
+        "note": "Quick18 'PUBLIC // PREPAID', Wed 11/4 $156–175 6:36–11:59am, Thu 11/5 $162–190; closed for overseed to 10/30; Sat 11/7 outside 30-day window"
       },
       "access": [
         "DF"
@@ -7336,7 +7336,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.6,
+        "golfDigestScore": 3.3,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -7369,9 +7369,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -7379,9 +7379,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/escena-golf-club-escena",
+            "note": "page read 2026-10-06; score 3.3/5, no Best in State badge; score corrected 3.6→3.3"
           },
           "tee": {
             "verified": true,
@@ -7389,9 +7389,9 @@
             "note": "Official golf page: Tournament 7,173 yds, men 74.4/133. Slope corrected 130 -> 133."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "Site: 'Rates are dynamic and are posted with the corresponding tee time on the booking engines'; no figures on page."
+            "verified": true,
+            "source": "https://escena.quick18.com/teetimes/searchmatrix?teedate=20261104",
+            "note": "escenagolf.com: closed until Fri 10/30; 10/14 and Sat 10/31 show no times; two golfers per cart required (cart incl.)"
           },
           "architect": {
             "verified": true,
@@ -7427,7 +7427,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.5,
+        "golfDigestScore": 3.8,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -7460,9 +7460,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -7470,9 +7470,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/balboa-park-golf-course-balboa-park",
+            "note": "page read 2026-10-06; score 3.8/5, no Best in State badge; score corrected 3.5→3.8"
           },
           "tee": {
             "verified": true,
@@ -7507,9 +7507,9 @@
         "name": "Black"
       },
       "fee": {
-        "low": 170,
-        "high": 260,
-        "note": "peak"
+        "low": 154,
+        "high": 214,
+        "note": "quick18 Non-Member; Tue 10/13 7:10am $154 (only AM slot; post-aerification discount), Sat 10/17 11:40am $214 (only pre-noon slot); cart not stated"
       },
       "access": [
         "DF"
@@ -7551,9 +7551,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -7561,9 +7561,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/arroyo-trabuco-golf-club-arroyo-trabuco",
+            "note": "page read 2026-10-06; score 3.9/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -7571,9 +7571,9 @@
             "note": "Course scorecard page: Black 7,011 yds, 73.8/133; matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "Pricing page (arroyotrabuco.com/golf/pricing-and-policies) says rates adjust in real time; no dollar amounts shown."
+            "verified": true,
+            "source": "https://arroyotrabuco.quick18.com/teetimes/searchmatrix?teedate=20261017",
+            "note": "Non-member engine from arroyotrabuco.com/tee-times. Few AM slots left; engine notes discounted rates 10/9–10/15 after aerification."
           },
           "architect": {
             "verified": true,
@@ -7642,9 +7642,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -7652,9 +7652,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/black-gold-golf-club-black-gold",
+            "note": "page read 2026-10-06; score 2.9/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -7683,10 +7683,10 @@
       "area": "orange-county",
       "architect": "Jim Lipe",
       "tee": {
-        "yards": 6700,
-        "slope": 133,
-        "rating": null,
-        "name": null
+        "yards": 6680,
+        "slope": 134,
+        "rating": 73,
+        "name": "Black"
       },
       "fee": {
         "low": 150,
@@ -7700,7 +7700,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.5,
+        "golfDigestScore": 2.9,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -7733,9 +7733,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -7743,14 +7743,14 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/strawberry-farms-golf-club-strawberry-farms",
+            "note": "page read 2026-10-06; score 2.9/5, no Best in State badge; score corrected 3.5→2.9"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": "sf-golf.com/golf states par-71, 6,700 yds but posts no scorecard or ratings; aggregators list 72.7/136 (claim 133)."
+            "verified": true,
+            "source": "https://newfrontier.scga.org/course-directory?club_name=Strawberry%20Farms&hsLang=en",
+            "note": "SCGA course directory (rating body): Black 6680 yds 73.0/134 par 71. Aggregators' 6700/72.7/136 and claim 133 are older cards; course site has none."
           },
           "fee": {
             "verified": true,
@@ -7776,13 +7776,13 @@
       "tee": {
         "yards": 7003,
         "slope": 137,
-        "rating": null,
-        "name": null
+        "rating": 73.7,
+        "name": "Black"
       },
       "fee": {
-        "low": 150,
-        "high": 210,
-        "note": "approximate"
+        "low": 157,
+        "high": 197,
+        "note": "quick18 Public Rate (Prepaid); Tue 10/13 $157 (6:40–7:30am), Sat 10/17 $197 7:20am / $192 11:10–11:40am; cart not stated"
       },
       "access": [
         "DF"
@@ -7824,9 +7824,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -7834,19 +7834,19 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/tijeras-creek-golf-club-tijeras-creek",
+            "note": "page read 2026-10-06; score 3.7/5, no Best in State badge"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": "Arcis Golf site has no scorecard page (404); aggregators list Black 7,003 yds 73.8/136 (claim slope 137)."
+            "verified": true,
+            "source": "https://newfrontier.scga.org/course-directory?club_name=Tijeras%20Creek&hsLang=en",
+            "note": "SCGA course directory: Black 7003 yds 73.7/137 par 72; GolfPass agrees. Greenskeeper 6918/73.2/135 is an old card. Arcis site posts no scorecard."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "Arcis site posts no public rack rates; tee times via quick18 booking engine only."
+            "verified": true,
+            "source": "https://tijerascreek.quick18.com/teetimes/searchmatrix?teedate=20261017",
+            "note": "Public engine from arcisgolf.com Tijeras Creek 'Book Now'; detail page lists 'Greens Fee $157' only, no cart line."
           },
           "architect": {
             "verified": true,
@@ -7865,10 +7865,10 @@
       "area": "la-ventura",
       "architect": "William F. Bell; Casey O'Callaghan (2006 renovation)",
       "tee": {
-        "yards": 7211,
+        "yards": 7168,
         "slope": 141,
-        "rating": null,
-        "name": null
+        "rating": 74.9,
+        "name": "Black"
       },
       "fee": {
         "low": 89,
@@ -7883,7 +7883,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.5,
+        "golfDigestScore": 3.4,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -7916,9 +7916,9 @@
       "layoutSlug": "industry-hills-golf-club-at-pacific-palms-resort--dwight-eisenhower",
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -7926,14 +7926,14 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/industry-hills-at-pacific-palms-conference-resort-dwight-eisenhower",
+            "note": "page read 2026-10-06; score 3.4/5, no Best in State badge; score corrected 3.5→3.4"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": "ihgolfclub.com Ike page: Black 7,211 yds, slopes '130 to 145' not itemized; aggregators 74.8/140 (claim 141)."
+            "verified": true,
+            "source": "https://newfrontier.scga.org/course-directory?club_name=Industry%20Hills&hsLang=en",
+            "note": "SCGA directory, 'The IKE' tab: Black 7168 yds 74.9/141 par 72. ihgolfclub.com says 7211 (older card); Greenskeeper rating matches, GolfPass 74.8/140 does not."
           },
           "fee": {
             "verified": true,
@@ -7957,10 +7957,10 @@
       "area": "la-ventura",
       "architect": "Peter Jacobsen",
       "tee": {
-        "yards": 7011,
-        "slope": 139,
-        "rating": null,
-        "name": null
+        "yards": 6977,
+        "slope": 138,
+        "rating": 73.9,
+        "name": "Black (Ridgeline/Creekside)"
       },
       "fee": {
         "low": 90,
@@ -7974,7 +7974,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.6,
+        "golfDigestScore": null,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -8007,9 +8007,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -8017,14 +8017,14 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/moorpark-country-club-creeksidecanyon-crestridgeline",
+            "note": "Golf Digest course page shows no panelists score (read 2026-10-06); the pasted score had no source and is dropped"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": "moorparkcc.com shows per-hole yardages only, no totals or ratings; aggregators: Ridgeline/Creekside Black 7,012 yds 73.8/142."
+            "verified": true,
+            "source": "https://newfrontier.scga.org/course-directory?club_name=Moorpark&hsLang=en",
+            "note": "SCGA directory, Ridgeline/Creekside tab (longest combo): Black 6977 yds 73.9/138; club site per-hole Black yards also sum to 6977. Greenskeeper 7012/142 stale."
           },
           "fee": {
             "verified": true,
@@ -8098,9 +8098,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -8108,9 +8108,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/olivas-links",
+            "note": "page read 2026-10-06; score 3.3/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -8189,9 +8189,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -8199,9 +8199,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/monarch-dunes-golf-club-old-course",
+            "note": "page read 2026-10-06; score 3.8/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -8247,7 +8247,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.6,
+        "golfDigestScore": 4.5,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -8280,9 +8280,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -8290,9 +8290,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/goose-creek-golf-club-goose-creek",
+            "note": "page read 2026-10-06; score 4.5/5, no Best in State badge; score corrected 3.6→4.5"
           },
           "tee": {
             "verified": true,
@@ -8322,14 +8322,14 @@
       "architect": "Brian Curley, Lee Schmidt",
       "tee": {
         "yards": 7078,
-        "slope": 140,
-        "rating": null,
-        "name": null
+        "slope": 138,
+        "rating": 74,
+        "name": "Purple"
       },
       "fee": {
-        "low": 35,
-        "high": 70,
-        "note": null
+        "low": 70,
+        "high": 85,
+        "note": "Chronogolf; Tue 10/13 $70 Public 18-hole (6:48–10:24am), Sat 10/17 $85 (7:00–10:50am); green fee only, no cart bundled"
       },
       "access": [
         "DF"
@@ -8338,7 +8338,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.5,
+        "golfDigestScore": 3,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -8371,9 +8371,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -8381,19 +8381,19 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/oak-valley-golf-club-oak-valley",
+            "note": "page read 2026-10-06; score 3/5, no Best in State badge; score corrected 3.5→3"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": "oakvalleygolf.com hole-by-hole page says 'details coming soon'; no ratings posted. Aggregators: Purple 7,078 yds 73.7/140."
+            "verified": true,
+            "source": "https://newfrontier.scga.org/course-directory?club_name=Oak%20Valley&hsLang=en",
+            "note": "SCGA course directory: Purple 7078 yds 74.0/138 par 72. Greenskeeper/GolfPass 73.7/140 is the older rating; oakvalleygolf.com posts no card."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": "No rates posted on oakvalleygolf.com/tee-times; booking engine only."
+            "verified": true,
+            "source": "https://www.chronogolf.com/club/oak-valley-golf-club-california?date=2026-10-13",
+            "note": "Chronogolf club 2889 from oakvalleygolf.com/tee-times; per-slot default_price.green_fee from the page's marketplace/v2/teetimes JSON; has_cart=false."
           },
           "architect": {
             "verified": true,
@@ -8430,7 +8430,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.5,
+        "golfDigestScore": 3.3,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -8463,9 +8463,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -8473,9 +8473,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/morongo-golf-club-at-tukwet-canyon-champions-course",
+            "note": "page read 2026-10-06; score 3.3/5, no Best in State badge; score corrected 3.5→3.3"
           },
           "tee": {
             "verified": true,
@@ -8504,10 +8504,10 @@
       "area": "inland-empire",
       "architect": "Cary Bickler (2006 redesign); Desmond Muirhead original per GolfPass",
       "tee": {
-        "yards": 7053,
-        "slope": 132,
-        "rating": null,
-        "name": null
+        "yards": 7339,
+        "slope": 140,
+        "rating": 75.3,
+        "name": "Tour"
       },
       "fee": {
         "low": 100,
@@ -8555,9 +8555,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -8565,14 +8565,14 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/soboba-springs-golf-course-soboba-springs",
+            "note": "page read 2026-10-06; score 3.4/5, no Best in State badge"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": "soboba.com posts no scorecard; tribe's update page says course is being reconfigured to ~6,000 yds par 70. Aggregators: Tour 7,339 75.3/140."
+            "verified": true,
+            "source": "https://newfrontier.scga.org/course-directory?club_name=Soboba&hsLang=en",
+            "note": "SCGA directory: Tour 7339 yds 75.3/140 par 72; tribe page cites 75.3/140. Par-70 ~6000-yd layout was a 2017-18 interim; holes 13-16 reopened Jun 2018."
           },
           "fee": {
             "verified": true,
@@ -8613,7 +8613,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.5,
+        "golfDigestScore": 3,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -8646,9 +8646,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -8656,9 +8656,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/mt-woodson-golf-club-mt-woodson",
+            "note": "page read 2026-10-06; score 3/5, no Best in State badge; score corrected 3.5→3"
           },
           "tee": {
             "verified": true,
@@ -8704,7 +8704,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.5,
+        "golfDigestScore": null,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -8737,9 +8737,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -8747,9 +8747,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/eagle-vines-golf-club-eagle-vines",
+            "note": "Golf Digest course page shows no panelists score (read 2026-10-06); the pasted score had no source and is dropped"
           },
           "tee": {
             "verified": true,
@@ -8795,7 +8795,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.4,
+        "golfDigestScore": 3.5,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -8828,9 +8828,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -8838,9 +8838,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/rancho-park-golf-course",
+            "note": "page read 2026-10-06; score 3.5/5, no Best in State badge; score corrected 3.4→3.5"
           },
           "tee": {
             "verified": true,
@@ -8886,7 +8886,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.5,
+        "golfDigestScore": null,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -8919,9 +8919,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -8929,9 +8929,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/los-verdes-golf-course-los-verdes",
+            "note": "Golf Digest course page shows no panelists score (read 2026-10-06); the pasted score had no source and is dropped"
           },
           "tee": {
             "verified": true,
@@ -8977,7 +8977,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.4,
+        "golfDigestScore": null,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -9010,9 +9010,9 @@
       "layoutSlug": "brookside-golf-club--c-w-koiner-course-1",
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -9020,9 +9020,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/brookside-golf-club-brookside-1",
+            "note": "Golf Digest course page shows no panelists score (read 2026-10-06); the pasted score had no source and is dropped"
           },
           "tee": {
             "verified": true,
@@ -9068,7 +9068,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.4,
+        "golfDigestScore": null,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -9101,9 +9101,9 @@
       "layoutSlug": "griffith-park-golf-club--wilson",
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -9111,9 +9111,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/griffith-park-golf-course-wilson",
+            "note": "Golf Digest course page shows no panelists score (read 2026-10-06); the pasted score had no source and is dropped"
           },
           "tee": {
             "verified": true,
@@ -9192,9 +9192,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -9202,9 +9202,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/san-clemente-municipal-golf-course-san-clemente",
+            "note": "page read 2026-10-06; score 3.5/5, no Best in State badge"
           },
           "tee": {
             "verified": true,
@@ -9231,7 +9231,7 @@
       "locality": "Camino",
       "region": "Sierra Foothills",
       "area": "sierra",
-      "architect": "Algie Pulley",
+      "architect": "Algie M. Pulley Jr.",
       "tee": {
         "yards": 6154,
         "slope": 142,
@@ -9250,7 +9250,7 @@
       "rankings": {
         "golfweekCA": null,
         "golfweekUS": null,
-        "golfDigestScore": 3.6,
+        "golfDigestScore": 2.8,
         "golfDigestCA": null,
         "golfDigestPublic": null,
         "golfYCP": null
@@ -9283,9 +9283,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "medium",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -9293,9 +9293,9 @@
             "note": "Golfweek 2026 and GOLF 2024-25 ranks reconciled against the lists"
           },
           "golfDigest": {
-            "verified": false,
-            "source": null,
-            "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
+            "verified": true,
+            "source": "https://www.golfdigest.com/courses/ca/apple-mountain-golf-resort-apple-mountain",
+            "note": "page read 2026-10-06; score 2.8/5, no Best in State badge; score corrected 3.6→2.8"
           },
           "tee": {
             "verified": true,
@@ -9308,9 +9308,9 @@
             "note": "Claim 65-90 corrected to 61-81."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": "Course site names no architect; aggregators credit Algie M. Pulley Jr. (with Brad Bell), 1997."
+            "verified": true,
+            "source": "https://www.golflink.com/golf-courses/ca/camino/apple-mountain-golf-resort",
+            "note": "Secondary: GolfLink \"Designed by Algie M. Pulley, Jr., ASGCA and opened in 1997\"; GolfPass agrees. Brad Bell co-credit only on minor aggregators."
           }
         }
       }

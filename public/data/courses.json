@@ -1237,8 +1237,8 @@
           "list": "Golf Digest Best in State 2025–26 — California",
           "year": 2025,
           "rank": 60,
-          "source": null,
-          "verified": false,
+          "source": "https://www.golfdigest.com/courses/guides/california-best-golf-courses-rankings",
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": "Pelican Hill — Ocean South"
@@ -1267,8 +1267,8 @@
           "list": "Golf Digest Best in State 2025–26 — California",
           "year": 2025,
           "rank": 54,
-          "source": null,
-          "verified": false,
+          "source": "https://www.golfdigest.com/courses/guides/california-best-golf-courses-rankings",
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": "Pelican Hill — Ocean North"
@@ -1282,13 +1282,13 @@
           "layoutSlug": "pelican-hill-golf-club--ocean-south",
           "value": "C+",
           "fee": {
-            "low": 340,
-            "high": 425,
-            "note": "approximate"
+            "low": 695,
+            "high": 695,
+            "note": "EZLinks, Tue 10/13 & Sat 10/17 $695 every AM slot (7:30–11:40am), 1 player; GPS cart incl. per rates page"
           },
           "slope": 133,
           "tags": [],
-          "verified": false
+          "verified": true
         },
         {
           "rank": 19,
@@ -1468,8 +1468,8 @@
           "list": "Golf Digest Best in State 2025–26 — California",
           "year": 2025,
           "rank": 55,
-          "source": null,
-          "verified": false,
+          "source": "https://www.golfdigest.com/courses/guides/california-best-golf-courses-rankings",
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -1499,7 +1499,7 @@
           },
           "slope": 135,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -1890,8 +1890,8 @@
           "list": "Golf Digest Best in State 2025–26 — California",
           "year": 2025,
           "rank": 36,
-          "source": null,
-          "verified": false,
+          "source": "https://www.golfdigest.com/courses/guides/california-best-golf-courses-rankings",
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -1900,8 +1900,8 @@
           "list": "Golf Digest America's 100 Greatest Public 2025–26",
           "year": 2025,
           "rank": 62,
-          "source": null,
-          "verified": false,
+          "source": "https://www.golfdigest.com/courses/guides/california-best-golf-courses-rankings",
+          "verified": true,
           "scope": "US",
           "via": "california-100",
           "course": null
@@ -1925,13 +1925,13 @@
           "layoutSlug": "pga-west-stadium-clubhouse--stadium-course",
           "value": "C+",
           "fee": {
-            "low": 300,
-            "high": 450,
-            "note": "approximate"
+            "low": 251,
+            "high": 298,
+            "note": "EZLinks, Wed 11/11 $251–294 6:36–11:51am / Sat 11/21 $288–298 7:03–11:51am; cart n/s; not listed thru 11/7 (overseed)"
           },
           "slope": 148,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -2589,7 +2589,7 @@
           },
           "slope": 132,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -2904,7 +2904,7 @@
           "tags": [
             "mountain-trip"
           ],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -3192,13 +3192,13 @@
           "layoutSlug": null,
           "value": "A-",
           "fee": {
-            "low": 140,
-            "high": 190,
-            "note": "approximate"
+            "low": 96,
+            "high": 191,
+            "note": "quick18; Wed 10/14 $96–$111 (6:32–11:44am), Sat 10/17 $187–$191 (6:32–10:56am), $150 11:12–11:52; cart w/ GPS incl."
           },
           "slope": 137,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -3569,7 +3569,7 @@
           },
           "slope": 135,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -3912,13 +3912,13 @@
           "layoutSlug": null,
           "value": "A-",
           "fee": {
-            "low": 110,
-            "high": 155,
-            "note": "approximate"
+            "low": 100,
+            "high": 160,
+            "note": "EZLinks: Wed 10/14 $100 (early bird $80 before 8:30), Fri 10/16 $135 ($115 EB), Sat 10/17 $160; matches posted rates eff. 9/1/26; shared cart incl."
           },
           "slope": 142,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -4049,13 +4049,13 @@
           "layoutSlug": "indian-wells-golf-resort--celebrity",
           "value": "B+",
           "fee": {
-            "low": 180,
-            "high": 300,
-            "note": "approximate"
+            "low": 229,
+            "high": 295,
+            "note": "EZLinks Best Available (prepaid), Thu 11/5 $229–239 6:20–10:20am / Sat 10/31 $279 9:20–11:50am, Sat 11/7 6:30am $295; cart n/s"
           },
           "slope": 138,
           "tags": [],
-          "verified": false
+          "verified": true
         },
         {
           "rank": 53,
@@ -4064,13 +4064,13 @@
           "layoutSlug": "indian-wells-golf-resort--players",
           "value": "B",
           "fee": {
-            "low": 180,
-            "high": 300,
-            "note": "approximate"
+            "low": 209,
+            "high": 299,
+            "note": "EZLinks Best Available (prepaid), Wed 10/14 $209–229 10:40–11:50am, Thu 10/15 $235; Sat 10/17 PM only; Sat 10/24 $285–299; cart n/s"
           },
           "slope": 140,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -5035,9 +5035,9 @@
             "high": 120,
             "note": "rack rate 18 holes incl. $30 mandatory cart + GPS: Mon-Thu $90, Fri-Sun/holidays $120"
           },
-          "slope": 139,
+          "slope": 138,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -5627,7 +5627,7 @@
           },
           "slope": 133,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -6011,7 +6011,7 @@
           },
           "slope": 141,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -6297,7 +6297,7 @@
           },
           "slope": 136,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -6411,13 +6411,13 @@
           "layoutSlug": null,
           "value": "A",
           "fee": {
-            "low": 95,
-            "high": 140,
-            "note": "approximate"
+            "low": 70,
+            "high": 160,
+            "note": "EZLinks; Tue 10/13 Public Prepaid $80 (7–8:40am) / $70 (10:20–11:50); Sat 10/17 Advanced Prepaid $160 (7–9:30) / $145 (10–11:30); cart not stated"
           },
           "slope": 132,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -6538,13 +6538,13 @@
           "layoutSlug": "coyote-creek-golf-club--tournament",
           "value": "A",
           "fee": {
-            "low": 100,
-            "high": 145,
-            "note": "approximate"
+            "low": 103,
+            "high": 154,
+            "note": "EZLinks 'Prepaid Tee Times' (only online rate): Thu 10/15 10:10–10:50am $103, 11am $113; Fri 10/16 $136; Sat 10/17 9:50am $154; cart not stated."
           },
           "slope": 144,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -7015,7 +7015,7 @@
           },
           "slope": 130,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -7157,7 +7157,7 @@
           },
           "slope": 126,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -8096,7 +8096,7 @@
           },
           "slope": 134,
           "tags": [],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -10653,15 +10653,15 @@
           "layoutSlug": null,
           "value": "B+",
           "fee": {
-            "low": 170,
-            "high": 250,
-            "note": "non-resident, approximate"
+            "low": 205,
+            "high": 282,
+            "note": "EZLinks 'Public' (non-resident): Wed 10/14 10:10am $236; Sat 10/17 11:40am $282; Tue/Thu 7:30–9:50 $236–257, 11am $205; cart not stated."
           },
           "slope": 129,
           "tags": [
             "sf-shortlist"
           ],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [
@@ -10794,7 +10794,7 @@
           "tags": [
             "sf-shortlist"
           ],
-          "verified": false
+          "verified": true
         }
       ],
       "layouts": [

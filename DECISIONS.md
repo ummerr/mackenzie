@@ -80,6 +80,27 @@ value is null under a verified check, never the paste's number). Open:
 Golf Digest on 96 rows (403), fees on 43 (no public number published),
 tees on 7, architect on 1 — enumerated in NEXT.md 1b.
 
+**The second verification pass, same evening** (Amar: "why are so many
+still unverified fix it"): the 147 open checks were closed to 2 by reading
+pages a plain fetch cannot — Playwright's headless Chromium (and, where
+Cloudflare's Turnstile blocked even that, an installed Chrome driven
+headful) for Golf Digest's California guide, its 100 Greatest Public list
+and every one of the hundred course pages; the SCGA course directory
+(ncrdb.usga.org was down) for the seven tees; and each course's own
+booking engine for the 43 fees no site posts as a number. Three rules came
+out of it. A fee read from an engine is a claim about a date and carries
+that date in its note; when the requested week was closed (Coachella
+Valley overseeding) the nearest open dates were read and named. A course
+Golf Digest's own page does not score has no Golf Digest score — the paste
+had put 3.4–3.7 on twelve such courses, and those numbers are dropped, not
+kept as unverified. A resort that sells only to guests has a verified fee
+of *none*, not an unverified number. Golf Digest's own list ranks matched
+the paste on every one of the 16 California-ranked public courses and the
+7 on the national public list; its course-page panel scores disagreed with
+the paste 17 times. What stays open is Pelican Hill Ocean North (under
+restoration, 9-hole product only until 2026-11-01) and Indian Canyons
+South (prices behind a login).
+
 **The second paste, same day:** a revised compilation arrived as the "Amar
 Score" index — nine 0–10 components per course (architecture 25%, scenery
 14%, worth-the-drive-from-SF 14%, conditioning, walkability, value,

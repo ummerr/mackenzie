@@ -352,10 +352,11 @@ it.
 ## 7. Known gaps
 
 - **86 of 88 curated claims are unverified.** Highest-priority debt.
-- **The California 100 is 353 of 500 checks verified** (2026-10-06):
-  rankings 100, architect 99, tee 93, fee 57, Golf Digest 4. Only 3 rows
-  are fully verified, because golfdigest.com refuses automated fetches and
-  43 courses post no public rate as a number. The page says so on every row.
+- **The California 100 is 498 of 500 checks verified, 98 rows in full**
+  (2026-10-06). Open: Pelican Hill Ocean North's fee (the course is under
+  restoration and sells nine holes only until 2026-11-01) and Indian
+  Canyons South's fee (prices behind a login). Fees read from booking
+  engines carry the dates they were read in the note; they move.
 - **21 facilities carry a published ranking, all via the California 100.**
   The `architecture` lens is real for them and untested for the other 68.
 - **Grint's own bucket list (38 courses) isn't captured.** The California
