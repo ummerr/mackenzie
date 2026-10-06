@@ -2,7 +2,7 @@
 
 <!-- state:start -->
 **State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-10-06
-Last commit 2026-10-06 — /california: the hundred as a progress grid and a six-lens table, with the index's own score
+Last commit 2026-10-06 — Golfweek and GOLF ranks reconciled for all 100; Golf Digest becomes its own check
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
@@ -38,8 +38,12 @@ the to-play list: 100 public-access courses from a ChatGPT compilation of
 Golfweek / Golf Digest / GOLF rankings plus its own nine-component "Amar"
 index, in `data/california-100.json` under a validated contract, joined to
 the record at layout level — 22 linked, 19 played, 21 facilities now carry
-a published ranking on the map's dossier. **Every row is unverified**; the
-check-by-row pass is item 1b below. Reasoning in `DECISIONS.md` 2026-10-06.
+a published ranking on the map's dossier. The same day's check-by-row pass
+verified **353 of 500 checks** (rankings 100, architect 99, tee 93, fee 57,
+Golf Digest 4) and corrected 193 values — slopes off by 1–4 on about half
+the rows, fee bands skewed high, Poppy Hills and Yocha Dehe on stale
+pre-renovation yardages, Black Horse credited to the wrong general. What is
+still open is item 1b. Reasoning in `DECISIONS.md` 2026-10-06.
 
 ---
 
@@ -59,19 +63,32 @@ Westmoreland's year, Griffith Park's Wilson-course attribution, the Sandpiper
 
 `pnpm data:validate` prints the remaining count each run.
 
-### 1b. Check the California 100, row by row
+### 1b. Close the California 100's open checks
 
-Each row of `data/california-100.json` has five checks — `rankings`
-(Golfweek 2026 CA/US and GOLF 2024-25, reconciled for all 100 on
-2026-10-06: zero corrections), `golfDigest` (the panel score and state /
-national-public ranks — **open**, golfdigest.com returns 403 to automated
-fetch, so read the state guide and course pages by hand), `tee` (scorecard
-or NCGA/SCGA rating listing), `fee` (the posted rates page; a band with its
-condition, never a quote), `architect` (course site or Wikipedia). A
-verified check names its URL; `provenance.verified` flips when all five do;
-validate prints `verified N/100 · checks N/500`. Fix values as you go — a
-`~` in the paste is already a null. The Amar block is an opinion and has no
-check.
+Each row of `data/california-100.json` has five checks; 353 of 500 are
+verified (2026-10-06). What is open, and why:
+
+- **`golfDigest` on 96 rows** — golfdigest.com returns 403 to every
+  automated fetch (state guide, 100 Greatest Public, course pages). Read
+  the California best-in-state guide and the course pages by hand, fix the
+  panel scores (the paste's scale is unclear — Golf Digest publishes points
+  out of 10 on the state list, stars out of 5 on course pages), set the
+  `_sources["golfdigest-2025-26"].url`.
+- **`fee` on 43 rows** — resort and casino courses (Pebble's sister
+  properties aside) publish no public rate as a number: PGA West, Pelican
+  Hill, La Costa, CordeValle, Silverado, Indian Wells, Desert Willow, Trump
+  National, Harding Park's on-demand pricing, and most Arcis/Troon/EZLinks
+  booking engines. A quote from the booking engine on a given day is the
+  only way to close these; record the day in the note.
+- **`tee` on 7 rows** — La Costa Champions (two sources disagree after the
+  2024 Hanse redesign), Strawberry Farms, Tijeras Creek, Industry Hills Ike,
+  Moorpark, Oak Valley (no scorecard posted), Soboba Springs (being
+  reconfigured to ~6,000 yds par 70 — re-rate when it reopens).
+- **`architect` on 1 row** — Apple Mountain's site names nobody.
+
+A verified check names its URL; `provenance.verified` flips when all five
+do; validate prints `verified N/100 · checks N/500`. The Amar block is an
+opinion and has no check.
 
 ### 2. Capture Grint's bucket list
 

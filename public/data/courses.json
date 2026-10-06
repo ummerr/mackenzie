@@ -1218,7 +1218,7 @@
           "year": 2026,
           "rank": 17,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": "Pelican Hill — Ocean South"
@@ -1227,8 +1227,8 @@
           "list": "Golfweek's Best 2026 — California public-access",
           "year": 2026,
           "rank": 17,
-          "source": null,
-          "verified": false,
+          "source": "https://uk.sports.yahoo.com/news/golfweek-ranks-best-public-access-110122870.html",
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": "Pelican Hill — Ocean South"
@@ -1248,7 +1248,7 @@
           "year": 2026,
           "rank": 19,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": "Pelican Hill — Ocean North"
@@ -1257,8 +1257,8 @@
           "list": "Golfweek's Best 2026 — California public-access",
           "year": 2026,
           "rank": 19,
-          "source": null,
-          "verified": false,
+          "source": "https://uk.sports.yahoo.com/news/golfweek-ranks-best-public-access-110122870.html",
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": "Pelican Hill — Ocean North"
@@ -1286,7 +1286,7 @@
             "high": 425,
             "note": "approximate"
           },
-          "slope": 134,
+          "slope": 133,
           "tags": [],
           "verified": false
         },
@@ -1301,7 +1301,7 @@
             "high": 425,
             "note": "approximate"
           },
-          "slope": 135,
+          "slope": 137,
           "tags": [],
           "verified": false
         }
@@ -1439,7 +1439,7 @@
           "year": 2026,
           "rank": 7,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -1448,8 +1448,8 @@
           "list": "Golfweek's Best 2026 — California public-access",
           "year": 2026,
           "rank": 7,
-          "source": null,
-          "verified": false,
+          "source": "https://uk.sports.yahoo.com/news/golfweek-ranks-best-public-access-110122870.html",
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -1458,8 +1458,8 @@
           "list": "Golfweek's Best 2026 — U.S. public-access 100",
           "year": 2026,
           "rank": 60,
-          "source": null,
-          "verified": false,
+          "source": "https://uk.sports.yahoo.com/news/golfweek-ranks-best-public-access-110122870.html",
+          "verified": true,
           "scope": "US",
           "via": "california-100",
           "course": null
@@ -1478,8 +1478,8 @@
           "list": "GOLF Top 100 Courses You Can Play 2024–25",
           "year": 2024,
           "rank": 45,
-          "source": null,
-          "verified": false,
+          "source": "https://golf.com/travel/top-100-public-golf-courses-state-breakdown/",
+          "verified": true,
           "scope": "US",
           "via": "california-100",
           "course": null
@@ -1495,7 +1495,7 @@
           "fee": {
             "low": 65,
             "high": 90,
-            "note": "Mon–Thu / Fri–Sun and holidays"
+            "note": "prime time Mon-Thu $65 / Fri-Sun & hol $90 (1-14 days out); $85/$110 if booked 15-28 days out; cart $20"
           },
           "slope": 135,
           "tags": [],
@@ -1871,7 +1871,7 @@
           "year": 2026,
           "rank": 13,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -1880,8 +1880,8 @@
           "list": "Golfweek's Best 2026 — California public-access",
           "year": 2026,
           "rank": 13,
-          "source": null,
-          "verified": false,
+          "source": "https://uk.sports.yahoo.com/news/golfweek-ranks-best-public-access-110122870.html",
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -1910,8 +1910,8 @@
           "list": "GOLF Top 100 Courses You Can Play 2024–25",
           "year": 2024,
           "rank": 56,
-          "source": null,
-          "verified": false,
+          "source": "https://golf.com/travel/top-100-public-golf-courses-state-breakdown/",
+          "verified": true,
           "scope": "US",
           "via": "california-100",
           "course": null
@@ -2569,7 +2569,7 @@
           "year": 2026,
           "rank": 43,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -2583,9 +2583,9 @@
           "layoutSlug": null,
           "value": "A-",
           "fee": {
-            "low": 170,
-            "high": 225,
-            "note": "approximate"
+            "low": 180,
+            "high": 190,
+            "note": "18 holes 7 days: day guest $190, hotel guest $180, cart included; twilight $109-$119"
           },
           "slope": 132,
           "tags": [],
@@ -2882,7 +2882,7 @@
           "year": 2026,
           "rank": 44,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -2898,9 +2898,9 @@
           "fee": {
             "low": 165,
             "high": 225,
-            "note": "approximate"
+            "note": "peak season: $225 7am-12:50pm, $195 1-2:50pm, $165 3pm-close; early/late season $150/$120; shared cart included; no weekday/weekend split"
           },
-          "slope": 140,
+          "slope": 136,
           "tags": [
             "mountain-trip"
           ],
@@ -3168,7 +3168,7 @@
           "year": 2026,
           "rank": 27,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -3177,8 +3177,8 @@
           "list": "Golfweek's Best 2026 — California public-access",
           "year": 2026,
           "rank": 27,
-          "source": null,
-          "verified": false,
+          "source": "https://uk.sports.yahoo.com/news/golfweek-ranks-best-public-access-110122870.html",
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -3549,7 +3549,7 @@
           "year": 2026,
           "rank": 33,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -3564,10 +3564,10 @@
           "value": "B+",
           "fee": {
             "low": 175,
-            "high": 245,
-            "note": "approximate"
+            "high": 210,
+            "note": "walking daily fee: Mon–Thu $175, Fri–Sun & hol $210; with cart $210/$245; cart $35"
           },
-          "slope": 136,
+          "slope": 135,
           "tags": [],
           "verified": false
         }
@@ -3898,7 +3898,7 @@
           "year": 2026,
           "rank": 63,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -3916,7 +3916,7 @@
             "high": 155,
             "note": "approximate"
           },
-          "slope": 138,
+          "slope": 142,
           "tags": [],
           "verified": false
         }
@@ -4025,7 +4025,7 @@
           "year": 2026,
           "rank": 40,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": "Indian Wells — Celebrity"
@@ -4035,7 +4035,7 @@
           "year": 2026,
           "rank": 53,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": "Indian Wells — Players"
@@ -4068,7 +4068,7 @@
             "high": 300,
             "note": "approximate"
           },
-          "slope": 139,
+          "slope": 140,
           "tags": [],
           "verified": false
         }
@@ -5017,7 +5017,7 @@
           "year": 2026,
           "rank": 86,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -5031,9 +5031,9 @@
           "layoutSlug": null,
           "value": "B+",
           "fee": {
-            "low": 110,
-            "high": 170,
-            "note": "approximate"
+            "low": 90,
+            "high": 120,
+            "note": "rack rate 18 holes incl. $30 mandatory cart + GPS: Mon-Thu $90, Fri-Sun/holidays $120"
           },
           "slope": 139,
           "tags": [],
@@ -5607,7 +5607,7 @@
           "year": 2026,
           "rank": 82,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -5621,9 +5621,9 @@
           "layoutSlug": null,
           "value": "B+",
           "fee": {
-            "low": 140,
-            "high": 190,
-            "note": "approximate"
+            "low": 133,
+            "high": 182,
+            "note": "non-resident 18 holes, cart w/ GPS included: Mon-Thu $133, Fri $158, Sat-Sun $182; Yorba Linda residents $101-133"
           },
           "slope": 133,
           "tags": [],
@@ -5991,7 +5991,7 @@
           "year": 2026,
           "rank": 85,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -6005,9 +6005,9 @@
           "layoutSlug": "industry-hills-golf-club-at-pacific-palms-resort--dwight-eisenhower",
           "value": "A+",
           "fee": {
-            "low": 80,
-            "high": 120,
-            "note": "approximate"
+            "low": 89,
+            "high": 115,
+            "note": "18 holes, cart included, members and non-members: Mon-Thu $89, Fri-Sun/holidays $115; twilight $65"
           },
           "slope": 141,
           "tags": [],
@@ -6277,7 +6277,7 @@
           "year": 2026,
           "rank": 94,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -6292,10 +6292,10 @@
           "value": "A+",
           "fee": {
             "low": 75,
-            "high": 105,
-            "note": "approximate"
+            "high": 95,
+            "note": "non-member 18 holes: Mon-Thu $75, Fri/Sat/Sun/holiday $95; twilight $55/$75; cart inclusion not stated"
           },
-          "slope": 138,
+          "slope": 136,
           "tags": [],
           "verified": false
         }
@@ -6397,7 +6397,7 @@
           "year": 2026,
           "rank": 64,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -6524,7 +6524,7 @@
           "year": 2026,
           "rank": 68,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -6995,7 +6995,7 @@
           "year": 2026,
           "rank": 95,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -7011,7 +7011,7 @@
           "fee": {
             "low": 42,
             "high": 58,
-            "note": "weekday / weekend; $58 before 9am"
+            "note": "18 holes: weekday $42; weekend/holiday $53, $58 before 9am; cart $18/seat extra"
           },
           "slope": 130,
           "tags": [],
@@ -7137,7 +7137,7 @@
           "year": 2026,
           "rank": 98,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -7151,9 +7151,9 @@
           "layoutSlug": "griffith-park-golf-club--wilson",
           "value": "A++",
           "fee": {
-            "low": 35,
-            "high": 55,
-            "note": "approximate"
+            "low": 41,
+            "high": 57,
+            "note": "18 holes: weekday $41; weekend/holiday $52, $57 before 9am; cart $18/seat extra"
           },
           "slope": 126,
           "tags": [],
@@ -8076,7 +8076,7 @@
           "year": 2026,
           "rank": 97,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -8090,11 +8090,11 @@
           "layoutSlug": "brookside-golf-club--c-w-koiner-course-1",
           "value": null,
           "fee": {
-            "low": 50,
-            "high": 80,
-            "note": null
+            "low": 41,
+            "high": 63,
+            "note": "18 holes: Mon-Thu $41, Fri $50, weekend/holiday $63; cart $21/player extra"
           },
-          "slope": 130,
+          "slope": 134,
           "tags": [],
           "verified": false
         }
@@ -10619,7 +10619,7 @@
           "year": 2026,
           "rank": 29,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -10628,8 +10628,8 @@
           "list": "Golfweek's Best 2026 — California public-access",
           "year": 2026,
           "rank": 27,
-          "source": null,
-          "verified": false,
+          "source": "https://uk.sports.yahoo.com/news/golfweek-ranks-best-public-access-110122870.html",
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -10638,8 +10638,8 @@
           "list": "GOLF Top 100 Courses You Can Play 2024–25",
           "year": 2024,
           "rank": 66,
-          "source": null,
-          "verified": false,
+          "source": "https://golf.com/travel/top-100-public-golf-courses-state-breakdown/",
+          "verified": true,
           "scope": "US",
           "via": "california-100",
           "course": null
@@ -10657,7 +10657,7 @@
             "high": 250,
             "note": "non-resident, approximate"
           },
-          "slope": 132,
+          "slope": 129,
           "tags": [
             "sf-shortlist"
           ],
@@ -10772,7 +10772,7 @@
           "year": 2026,
           "rank": 42,
           "source": null,
-          "verified": false,
+          "verified": true,
           "scope": "CA",
           "via": "california-100",
           "course": null
@@ -10786,11 +10786,11 @@
           "layoutSlug": null,
           "value": "A-",
           "fee": {
-            "low": 105,
+            "low": 135,
             "high": 150,
-            "note": "approximate"
+            "note": "non-resident with cart, Mon-Thu $135 / Fri-Sun $150 effective Apr 1 2026; walking $110 Mon-Thu; +3% park fee"
           },
-          "slope": 136,
+          "slope": 135,
           "tags": [
             "sf-shortlist"
           ],

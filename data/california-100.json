@@ -153,17 +153,17 @@
       "locality": "Pebble Beach",
       "region": "Monterey Peninsula",
       "area": "monterey",
-      "architect": "Jack Neville, Douglas Grant; H.C. Egan/Palmer work",
+      "architect": "Jack Neville, Douglas Grant (1919); H. Chandler Egan revision 1928; Arnold Palmer/Thad Layton 2016",
       "tee": {
         "yards": 6802,
         "slope": 144,
-        "rating": null,
-        "name": null
+        "rating": 74.9,
+        "name": "Blue"
       },
       "fee": {
         "low": 695,
-        "high": null,
-        "note": null
+        "high": 695,
+        "note": "flat rate Apr 1 2026-Mar 31 2027 (+$60 cart); $675 before Apr 1 2026; 2-night resort stay to book >1 day out"
       },
       "access": [
         "R",
@@ -206,7 +206,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -221,19 +221,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/courses/15191-pebble-beach-golf-linkstm/scorecard-and-layout",
+            "note": "Secondary (GolfPass scorecard); pebblebeach.com returns 403 to fetchers. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://thegolfnewsnet.com/golfnewsnetteam/2026/02/14/how-much-does-it-cost-to-play-pebble-beach-golf-links-in-2026-140570/",
+            "note": "Secondary (Golf News Net); pebblebeach.com rates pages 403. Confirms $695 from Apr 1 2026."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://en.wikipedia.org/wiki/Pebble_Beach_Golf_Links",
+            "note": "Wikipedia. Also credits Nicklaus with the new 5th (1998)."
           }
         }
       }
@@ -245,17 +245,17 @@
       "locality": "Santa Cruz",
       "region": "Santa Cruz",
       "area": "monterey",
-      "architect": "Alister MacKenzie; Doak/Urbina restoration",
+      "architect": "Alister MacKenzie (1929); Jim Urbina restoration 2023-2024",
       "tee": {
         "yards": 6495,
         "slope": 143,
-        "rating": null,
-        "name": null
+        "rating": 72.7,
+        "name": "Gold"
       },
       "fee": {
         "low": 465,
         "high": 515,
-        "note": "walking"
+        "note": "18-hole green fee: $465 walking, $515 riding"
       },
       "access": [
         "SP"
@@ -299,7 +299,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -314,19 +314,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.pasatiempo.com/index.php/golf/scorecard-and-local-rules",
+            "note": "Club scorecard page: Gold 6495, men's 72.7/143. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.pasatiempo.com/index.php/golf/rates",
+            "note": "Club rates page states '$465 to walk and $515 to ride'. Matches claim."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.pasatiempo.com/index.php/information/restoration",
+            "note": "Club restoration page credits Urbina (Apr 2023-Dec 2024); Doak's earlier work has its own page on the site but not fetched."
           }
         }
       }
@@ -338,17 +338,17 @@
       "locality": "Pebble Beach",
       "region": "Monterey Peninsula",
       "area": "monterey",
-      "architect": "Robert Trent Jones Sr.",
+      "architect": "Robert Trent Jones Sr. (1966)",
       "tee": {
         "yards": 6960,
-        "slope": 144,
-        "rating": null,
-        "name": null
+        "slope": 145,
+        "rating": 75.4,
+        "name": "Blue"
       },
       "fee": {
         "low": 550,
-        "high": 585,
-        "note": null
+        "high": 610,
+        "note": "Apr 1 2026-Mar 31 2027: resort guest $550 + cart; non-resort guest $610 incl. cart"
       },
       "access": [
         "R",
@@ -391,7 +391,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -406,19 +406,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/central_california/monterey_santa_cruz_san_luis_obispo/Spyglass_Hill_Golf_Course/scorecard.cfm",
+            "note": "Secondary (Greenskeeper); pebblebeach.com 403. Slope 145 not 144; Wikipedia agrees 75.4/145."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.top100golfcourses.com/golf-course/spyglass-hill",
+            "note": "Secondary (Top100); pebblebeach.com rate table 403. Claim 550-585 corrected to 550-610."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://en.wikipedia.org/wiki/Spyglass_Hill_Golf_Course",
+            "note": "Wikipedia; Top100 page also credits RTJ Sr., opened 1966."
           }
         }
       }
@@ -430,17 +430,17 @@
       "locality": "Livermore",
       "region": "East Bay",
       "area": "bay-area",
-      "architect": "Jay Blasi (2025 rebuild)",
+      "architect": "Jay Blasi redesign (reopened 2025) of Rees Jones original (1996)",
       "tee": {
         "yards": 7010,
         "slope": 129,
-        "rating": null,
-        "name": null
+        "rating": 72.7,
+        "name": "Orange"
       },
       "fee": {
         "low": 150,
         "high": 175,
-        "note": "NCGA members $70–100"
+        "note": "general public Mon-Thu $150 / Fri-Sun $175 + $25 cart; NCGA members $70/$100"
       },
       "access": [
         "DF"
@@ -484,9 +484,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -499,19 +499,19 @@
             "note": "no Golf Digest claim on this row; nothing to check"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://poppyridgegolf.ncga.org/scorecard",
+            "note": "NCGA scorecard: Orange 7010, 72.7/129, par 72. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://poppyridgegolf.ncga.org/rates",
+            "note": "NCGA rates page. Matches claim incl. member $70-100."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://poppyridgegolf.ncga.org/",
+            "note": "Course site: Blasi modernized the Rees Jones design; GCA.net confirms 13-month Blasi renovation, reopened May 31 2025."
           }
         }
       }
@@ -523,17 +523,17 @@
       "locality": "La Jolla",
       "region": "San Diego",
       "area": "san-diego",
-      "architect": "William F. Bell; Rees Jones",
+      "architect": "William F. Bell (1957); Rees Jones renovations 2001 and 2019",
       "tee": {
         "yards": 7802,
         "slope": 148,
-        "rating": null,
+        "rating": 78.8,
         "name": null
       },
       "fee": {
         "low": 258,
         "high": 322,
-        "note": "non-resident; San Diego residents $73–90"
+        "note": "non-resident 18 holes Mon-Thu $258 / Fri-Sun & hol $322 (+$45 cart); SD residents $73/$90; eff. Jan 1 2026"
       },
       "access": [
         "M"
@@ -575,7 +575,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -590,19 +590,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://en.wikipedia.org/wiki/Torrey_Pines_Golf_Course",
+            "note": "Wikipedia infobox 7,802 / 78.8 / 148; tee name not stated (Black per third-party cards). torreypines.com scorecard is image-only."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.sandiego.gov/sites/default/files/2025-10/torrey-pines-golf-course-rates-cy26.pdf",
+            "note": "City of San Diego CY2026 rate sheet. Matches claim."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.torreypines.com/torrey-pines-south-course/",
+            "note": "Course page: Bell Sr. 1957, Rees Jones 2001 and 2019; Wikipedia agrees on Bell and 2001 Jones."
           }
         }
       }
@@ -614,17 +614,17 @@
       "locality": "Brooks",
       "region": "Sacramento Valley",
       "area": "wine-country",
-      "architect": "Brad Bell",
+      "architect": "Brad Bell (2008)",
       "tee": {
-        "yards": 7337,
-        "slope": 141,
-        "rating": null,
-        "name": null
+        "yards": 7222,
+        "slope": 142,
+        "rating": 75.2,
+        "name": "Black / Siltee"
       },
       "fee": {
-        "low": 275,
-        "high": 325,
-        "note": "approximate"
+        "low": 75,
+        "high": 300,
+        "note": "dynamic pricing, '$75 on a weekday afternoon to $300 on a weekend morning'; cart and range included"
       },
       "access": [
         "R",
@@ -667,7 +667,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -682,19 +682,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.yochadehegolfclub.com/course-tour/",
+            "note": "Club course-tour page: Black/Siltee 7222, 75.2/142. Claim 7337/141 corrected (7337/144 is an older rating on 3rd-party cards)."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.yochadehegolfclub.com/faq/",
+            "note": "Club FAQ gives the dynamic range; no fixed prime-time number. Claim 275-325 'approximate' replaced by $75-$300."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.yochadehegolfclub.com/course-information/",
+            "note": "Club page: 'This Brad Bell designed facility'. Matches claim."
           }
         }
       }
@@ -706,17 +706,17 @@
       "locality": "Moorpark",
       "region": "Ventura/LA North",
       "area": "la-ventura",
-      "architect": "Gil Hanse, Jim Wagner, Geoff Shackelford",
+      "architect": "Gil Hanse (Hanse Golf Design), 2002",
       "tee": {
         "yards": 7044,
         "slope": 135,
-        "rating": null,
-        "name": null
+        "rating": 73.9,
+        "name": "Black"
       },
       "fee": {
         "low": 65,
         "high": 90,
-        "note": "Mon–Thu / Fri–Sun and holidays"
+        "note": "prime time Mon-Thu $65 / Fri-Sun & hol $90 (1-14 days out); $85/$110 if booked 15-28 days out; cart $20"
       },
       "access": [
         "DF"
@@ -758,7 +758,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -773,19 +773,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/southern_california/ventura_and_santa_barbara/Rustic_Canyon_Golf_Course/scorecard.cfm",
+            "note": "Secondary (Greenskeeper); course site scorecard is an image. Black 7044, 73.9/135. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.rusticcanyongolfcourse.com/golf/fees",
+            "note": "Course fees page. Matches claim."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.rusticcanyongolfcourse.com/",
+            "note": "Course site credits Hanse Golf Design only; Jim Wagner and Geoff Shackelford not named on the site."
           }
         }
       }
@@ -797,11 +797,11 @@
       "locality": "Pebble Beach",
       "region": "Monterey Peninsula",
       "area": "monterey",
-      "architect": "RTJ Jr., Tom Watson, Sandy Tatum; Hanse rebuild",
+      "architect": "Robert Trent Jones Jr., Tom Watson, Sandy Tatum (1987); Gil Hanse/Jim Wagner rebuild 2026-27",
       "tee": {
-        "yards": 6739,
-        "slope": 143,
-        "rating": null,
+        "yards": 6821,
+        "slope": 142,
+        "rating": 74.2,
         "name": null
       },
       "fee": {
@@ -849,9 +849,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -864,19 +864,19 @@
             "note": "no Golf Digest claim on this row; nothing to check"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://en.wikipedia.org/wiki/The_Links_at_Spanish_Bay",
+            "note": "Wikipedia, pre-renovation card: 6,821 / 74.2 / 142 (claim 6739/143). Course closed; new rating pending reopening."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://blog.ncga.org/pebble-beach-company-and-gil-hanse-reveal-plans-for-the-links-at-spanish-bay",
+            "note": "NCGA post quoting Pebble Beach Co.: opens to public Apr 17 2027. pebblebeach.com press release 403."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://en.wikipedia.org/wiki/The_Links_at_Spanish_Bay",
+            "note": "Wikipedia for original trio; NCGA blog for Hanse/Wagner/HGCD leading the rebuild."
           }
         }
       }
@@ -888,10 +888,10 @@
       "locality": "Carlsbad",
       "region": "San Diego",
       "area": "san-diego",
-      "architect": "Dick Wilson; Gil Hanse/Jim Wagner (2024)",
+      "architect": "Dick Wilson & Joe Lee (1965); Gil Hanse/Jim Wagner redesign 2024",
       "tee": {
-        "yards": 6996,
-        "slope": 138,
+        "yards": null,
+        "slope": null,
         "rating": null,
         "name": null
       },
@@ -941,7 +941,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -958,17 +958,17 @@
           "tee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "sources disagree: Greenskeeper Tee I 7500/77.8/146 vs torreypines.com Gold 7094/74.9/141 for the 2024 Hanse Champions course; omnihotels.com 403"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "omnihotels.com rates page returns 403; search snippet shows resort-guest $389 eff. 1/1/26 but page not fetched; no public rate found."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/129-omni-la-costa-resort-spa-north-course",
+            "note": "Secondary (GolfPass); also lists Pascuzzo/Pate/Brauer 2011 work. Matches claim."
           }
         }
       }
@@ -980,17 +980,17 @@
       "locality": "Borrego Springs",
       "region": "San Diego Desert",
       "area": "desert",
-      "architect": "Ted Robinson; Tom Fazio/Dennis Wise",
+      "architect": "Ted Robinson Sr. (1983); Tom Fazio & Dennis Wise redesign 2007; Jackson Kahn 2013",
       "tee": {
         "yards": 7232,
         "slope": 141,
-        "rating": null,
-        "name": null
+        "rating": 75.4,
+        "name": "Black"
       },
       "fee": {
-        "low": 200,
-        "high": 280,
-        "note": "fall"
+        "low": 170,
+        "high": 225,
+        "note": "daily-fee starting rates Oct-Nov 2026: Mon-Thu $170 / Fri-Sun $225; Dec $150/$210; dynamic, rises with demand"
       },
       "access": [
         "DF"
@@ -1032,7 +1032,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -1047,19 +1047,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://greenskeeper.org/southern_california/san_diego/the_golf_club_at_montesoro/scorecard.cfm",
+            "note": "Secondary (Greenskeeper; GolfPass agrees). ramshill.com scorecard link not fetched. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://ramshill.com/rates/",
+            "note": "Club rates page. Claim 200-280 'fall' corrected to $170-$225 starting rates (dynamic)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/1828-rams-hill-golf-club",
+            "note": "GolfPass lists all four; ramshill.com credits Fazio (and Tim Jackson) only. Matches claim."
           }
         }
       }
@@ -1071,12 +1071,12 @@
       "locality": "San Martin",
       "region": "South Bay",
       "area": "bay-area",
-      "architect": "Robert Trent Jones Jr.",
+      "architect": "Robert Trent Jones Jr. (1999)",
       "tee": {
         "yards": 7360,
         "slope": 146,
-        "rating": null,
-        "name": null
+        "rating": 76.3,
+        "name": "Black"
       },
       "fee": {
         "low": 500,
@@ -1124,7 +1124,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -1139,19 +1139,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/239-cordevalle-golf-club",
+            "note": "Secondary (GolfPass) for rating/slope; cordevalle.com/golf confirms 7,360 yards par 72. Matches claim."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "No posted green fee: cordevalle.com says only hotel guests/members may play; packages priced in booking engine only."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.cordevalle.com/golf",
+            "note": "Resort page: 'Designed by ... Robert Trent Jones Jr.' Matches claim."
           }
         }
       }
@@ -1163,17 +1163,17 @@
       "locality": "La Jolla",
       "region": "San Diego",
       "area": "san-diego",
-      "architect": "William F. Bell; Tom Weiskopf",
+      "architect": "William F. Bell (1957); Tom Weiskopf renovation 2016",
       "tee": {
-        "yards": 7259,
+        "yards": 7258,
         "slope": 134,
-        "rating": null,
+        "rating": 75.8,
         "name": null
       },
       "fee": {
         "low": 163,
         "high": 204,
-        "note": "non-resident; residents $51–68"
+        "note": "non-resident 18 holes Mon-Thu $163 / Fri-Sun & hol $204 (+$45 cart); SD residents $51/$68; eff. Jan 1 2026"
       },
       "access": [
         "M"
@@ -1215,7 +1215,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -1230,19 +1230,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://en.wikipedia.org/wiki/Torrey_Pines_Golf_Course",
+            "note": "Wikipedia infobox 7,258 / 75.8 / 134 (claim 7259). Tee name not stated."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.sandiego.gov/sites/default/files/2025-10/torrey-pines-golf-course-rates-cy26.pdf",
+            "note": "City of San Diego CY2026 rate sheet. Matches claim."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.torreypines.com/torrey-pines-north-course/",
+            "note": "Course page: 'Renovated in 2016 by Tom Weiskopf'; Bell credit from Wikipedia. Matches claim."
           }
         }
       }
@@ -1254,12 +1254,12 @@
       "locality": "La Quinta",
       "region": "Coachella Valley",
       "area": "desert",
-      "architect": "Pete Dye",
+      "architect": "Pete Dye (1986)",
       "tee": {
         "yards": 7300,
         "slope": 148,
-        "rating": null,
-        "name": null
+        "rating": 75.8,
+        "name": "Black"
       },
       "fee": {
         "low": 300,
@@ -1307,7 +1307,7 @@
       "layoutSlug": "pga-west-stadium-clubhouse--stadium-course",
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -1322,19 +1322,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/14934-the-stadium-course-at-pga-west",
+            "note": "Secondary (GolfPass); pgawest.com course page has no card. Black 7300, 75.8/148. Matches claim."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "pgawest.com shows no rates; pricing only inside the ezlinks booking engine (JS-only, dynamic)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/14934-the-stadium-course-at-pga-west",
+            "note": "GolfPass credits Pete Dye (and Alice Dye); pgawest.com names it the Pete Dye Stadium Course. Matches claim."
           }
         }
       }
@@ -1346,17 +1346,17 @@
       "locality": "Pebble Beach",
       "region": "Monterey Peninsula",
       "area": "monterey",
-      "architect": "Robert Trent Jones Jr.; Bruce Charlton",
+      "architect": "Robert Trent Jones Jr. (1986); RTJ II renovation reopened 2014",
       "tee": {
-        "yards": 7002,
-        "slope": 135,
-        "rating": null,
-        "name": null
+        "yards": 6730,
+        "slope": 139,
+        "rating": 73.2,
+        "name": "Black"
       },
       "fee": {
         "low": 350,
-        "high": 375,
-        "note": "approximate; NCGA discount"
+        "high": 350,
+        "note": "non-member green fee $350 any day (+$30 cart); NCGA members $95 Mon-Thu / $125 Fri-Sun"
       },
       "access": [
         "DF"
@@ -1400,7 +1400,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -1415,19 +1415,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://poppyhillsgolf.ncga.org/scorecard",
+            "note": "NCGA scorecard: Black 6730, par 71, 73.2/139. Claim 7002/135 is the pre-2014 course; corrected."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://poppyhillsgolf.ncga.org/rates",
+            "note": "NCGA rates page. Claim 350-375 corrected to flat $350."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://poppyhillsgolf.ncga.org/about",
+            "note": "NCGA about page credits Jones Jr. for original and 2014 rebuild; Bruce Charlton not named on site."
           }
         }
       }
@@ -1439,12 +1439,12 @@
       "locality": "Carmel Valley",
       "region": "Monterey Peninsula",
       "area": "monterey",
-      "architect": "Robert Muir Graves",
+      "architect": "Robert Muir Graves (1964); Todd Eckenrode refinement 2015",
       "tee": {
-        "yards": 6500,
-        "slope": 129,
-        "rating": null,
-        "name": null
+        "yards": 6464,
+        "slope": 128,
+        "rating": 71.3,
+        "name": "Black"
       },
       "fee": {
         "low": 250,
@@ -1492,7 +1492,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -1507,19 +1507,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/14523-quail-lodge-resort-golf-club",
+            "note": "Secondary (GolfPass): Black 6464, 71.3/128; quaillodge.com says '6,500 yards, par 71' with no rating. Claim 6500/129 close."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "quaillodge.com has no rates page (booking engine only); third-party snippets ($140/$175) not fetched."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.quaillodge.com/golf-club",
+            "note": "Resort page: 'Robert Muir Graves-designed & Todd Eckenrode refined'. Matches claim."
           }
         }
       }
@@ -1531,12 +1531,12 @@
       "locality": "Seaside",
       "region": "Monterey Peninsula",
       "area": "monterey",
-      "architect": "Robert McClure; Gene Bates",
+      "architect": "Gen. Robert B. McClure (1954); Gene Bates renovation",
       "tee": {
         "yards": 7104,
-        "slope": 137,
-        "rating": null,
-        "name": null
+        "slope": 139,
+        "rating": 74.8,
+        "name": "Black"
       },
       "fee": {
         "low": 175,
@@ -1585,7 +1585,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -1600,19 +1600,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.bayonetblackhorse.com/bayonet/",
+            "note": "Course page: Black 7,104 yds, 74.8/139, par 72. Claim slope 137 corrected to 139."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "bayonetblackhorse.com/rates lists only junior/YOC rates and says adult rates are dynamic; Greenskeeper gives only a $100-150 band."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.bayonetblackhorse.com/bayonet/",
+            "note": "Course page credits McClure 1954 and architect Gene Bates for the renovation. Matches claim."
           }
         }
       }
@@ -1624,12 +1624,12 @@
       "locality": "Newport Coast",
       "region": "Orange County",
       "area": "orange-county",
-      "architect": "Tom Fazio",
+      "architect": "Tom Fazio (1991)",
       "tee": {
         "yards": 6580,
-        "slope": 134,
-        "rating": null,
-        "name": null
+        "slope": 133,
+        "rating": 72,
+        "name": "Black"
       },
       "fee": {
         "low": 340,
@@ -1677,7 +1677,7 @@
       "layoutSlug": "pelican-hill-golf-club--ocean-south",
       "joinNote": "the record has Ocean North only; this layout slug is not in the spine",
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -1692,19 +1692,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://pelicanhill.com/images/SCORECARD_SouthCourse_June2022_Online.pdf",
+            "note": "Club scorecard PDF: Black 6580, 72.0/133, par 70. Claim slope 134 corrected to 133."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "pelicanhill.com rates page renders no amounts (JS/booking engine); only forecaddie from $140 and rider $50 shown."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://pelicanhill.com/golf/",
+            "note": "Resort golf page names Fazio designer of both courses; GolfPass adds Dennis Wise 1991. Matches claim."
           }
         }
       }
@@ -1716,11 +1716,11 @@
       "locality": "La Quinta",
       "region": "Coachella Valley",
       "area": "desert",
-      "architect": "Jack Nicklaus",
+      "architect": "Jack Nicklaus (1987)",
       "tee": {
         "yards": 7204,
         "slope": 143,
-        "rating": null,
+        "rating": 75.3,
         "name": null
       },
       "fee": {
@@ -1769,7 +1769,7 @@
       "layoutSlug": null,
       "joinNote": "a different course from the Stadium layout the record holds",
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -1784,19 +1784,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.pgawest.com/golf/jack-nicklaus-tournament-course",
+            "note": "PGA WEST page: '7,204 yards ... stroke rating of 75.3 and a slope rating of 143'; tee name not stated. Matches claim."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "pgawest.com shows no rates; pricing only inside the ezlinks booking engine (JS-only, dynamic)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.pgawest.com/golf/jack-nicklaus-tournament-course",
+            "note": "PGA WEST page: 'Jack Nicklaus-designed course'. Matches claim."
           }
         }
       }
@@ -1808,12 +1808,12 @@
       "locality": "Newport Coast",
       "region": "Orange County",
       "area": "orange-county",
-      "architect": "Tom Fazio",
+      "architect": "Tom Fazio (1993)",
       "tee": {
         "yards": 6945,
-        "slope": 135,
-        "rating": null,
-        "name": null
+        "slope": 137,
+        "rating": 73.5,
+        "name": "Black"
       },
       "fee": {
         "low": 340,
@@ -1861,7 +1861,7 @@
       "layoutSlug": "pelican-hill-golf-club--ocean-north",
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -1876,19 +1876,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://pelicanhill.com/images/SCORECARD_NorthCourse_June2022_Online.pdf",
+            "note": "Club scorecard PDF: Black 6945, 73.5/137, par 71. Claim slope 135 corrected to 137."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "pelicanhill.com rates page renders no amounts (JS/booking engine); only forecaddie from $140 and rider $50 shown."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://pelicanhill.com/golf/",
+            "note": "Resort golf page names Fazio designer of both courses; GolfPass adds Dennis Wise 1993. Matches claim."
           }
         }
       }
@@ -1900,17 +1900,17 @@
       "locality": "Carlsbad",
       "region": "San Diego",
       "area": "san-diego",
-      "architect": "Arnold Palmer, Ed Seay",
+      "architect": "Arnold Palmer / Palmer Course Design Company (1991)",
       "tee": {
         "yards": 7007,
-        "slope": 140,
-        "rating": null,
-        "name": null
+        "slope": 141,
+        "rating": 74.7,
+        "name": "Palmer"
       },
       "fee": {
-        "low": 275,
+        "low": 325,
         "high": 350,
-        "note": "approximate"
+        "note": "public morning rate: $350 Mar 7-Oct 31, $325 Nov 2-Dec 31 (afternoon $275/$250, late $200/$180); Hyatt guests $300; cart+range incl."
       },
       "access": [
         "R",
@@ -1953,7 +1953,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -1968,19 +1968,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://parkhyattaviara.com/documents/656/Aviara_Golf_Club_Fact_Sheet_1.pdf",
+            "note": "Resort rate/fact sheet: Palmer 7007, 74.7/141, par 72. Claim slope 140 corrected to 141."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://parkhyattaviara.com/documents/656/Aviara_Golf_Club_Fact_Sheet_1.pdf",
+            "note": "Resort rate sheet (Mar 7-Oct 31); Nov 2-Dec 31 sheet at /documents/622/. Claim 275-350 narrowed to prime $325-$350."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://parkhyattaviara.com/documents/656/Aviara_Golf_Club_Fact_Sheet_1.pdf",
+            "note": "Fact sheet: 'Designed by Arnold Palmer and The Palmer Course Design Company. Opened July 1991'; Ed Seay not named."
           }
         }
       }
@@ -1995,9 +1995,9 @@
       "architect": "Johnny Miller, Robert Muir Graves",
       "tee": {
         "yards": 7167,
-        "slope": 142,
-        "rating": null,
-        "name": null
+        "slope": 143,
+        "rating": 75.2,
+        "name": "Black"
       },
       "fee": {
         "low": 250,
@@ -2044,7 +2044,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -2059,19 +2059,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/southern_california/san_diego/Maderas_Golf_Club/scorecard.cfm",
+            "note": "third-party scorecard (Greenskeeper); slope 143 vs claim 142; club scorecard page is image-only"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "maderasgolf.com/tee-times posts no dollar rates (booking engine only); cart $30 per player added at check-in"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.maderasgolf.com/",
+            "note": "homepage: 'Brought to life by Johnny Miller and Robert Muir Graves'"
           }
         }
       }
@@ -2083,12 +2083,12 @@
       "locality": "Rancho Palos Verdes",
       "region": "Los Angeles",
       "area": "la-ventura",
-      "architect": "Pete Dye lineage; Tom Fazio work",
+      "architect": "Pete Dye (Ocean Trails); Tom Fazio redesign with Donald Trump",
       "tee": {
         "yards": 7242,
-        "slope": 146,
-        "rating": null,
-        "name": null
+        "slope": 144,
+        "rating": 74.6,
+        "name": "Black"
       },
       "fee": {
         "low": 350,
@@ -2135,7 +2135,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -2150,19 +2150,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/southern_california/los_angeles/trump_national_golf_club/scorecard.cfm",
+            "note": "third-party scorecard (Greenskeeper); slope 144 vs claim 146; club site has no scorecard page"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "trumpnationallosangeles.com/golf/tee-times posts no rates; booking engine only"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://en.wikipedia.org/wiki/Trump_National_Golf_Club,_Los_Angeles",
+            "note": "Wikipedia; club /golf/about also names Pete Dye as architect"
           }
         }
       }
@@ -2177,14 +2177,14 @@
       "architect": "Dick Bailey",
       "tee": {
         "yards": 6955,
-        "slope": 132,
-        "rating": null,
-        "name": null
+        "slope": 136,
+        "rating": 72.6,
+        "name": "Four Hawk"
       },
       "fee": {
-        "low": 140,
-        "high": 175,
-        "note": "approximate"
+        "low": 129,
+        "high": 159,
+        "note": "2026 public: prime season (May 22–Oct 11) $159, off-season $129; cart included"
       },
       "access": [
         "DF"
@@ -2228,7 +2228,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -2243,19 +2243,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/135-whitehawk-ranch-golf-club",
+            "note": "third-party (GolfPass); slope 136 vs claim 132; club site says 6,983 yds, no ratings"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://whitehawkranch.com/rates/",
+            "note": "2026 rate sheet; corrected from 140–175"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://whitehawkranch.com/golf/",
+            "note": "'renowned architect Dick Bailey'"
           }
         }
       }
@@ -2270,14 +2270,14 @@
       "architect": "Tom Fazio",
       "tee": {
         "yards": 7160,
-        "slope": 141,
-        "rating": null,
-        "name": null
+        "slope": 139,
+        "rating": 74.8,
+        "name": "Grand"
       },
       "fee": {
-        "low": 250,
+        "low": 400,
         "high": 400,
-        "note": "approximate"
+        "note": "$400 incl. cart & TP5x sleeve; twilight $210 Mon–Thu/$230 Fri–Sun; resort guests/members priority"
       },
       "access": [
         "R",
@@ -2320,7 +2320,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -2335,19 +2335,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/southern_california/san_diego/the_grand_golf_club_del_mar/scorecard.cfm",
+            "note": "third-party scorecard (Greenskeeper); slope 139 vs claim 141; Fairmont page confirms 7,160 yds"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.fairmont.com/en/hotels/san-diego/fairmont-grand-del-mar/golf.html",
+            "note": "corrected from 250–400 band; single posted rate"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.fairmont.com/en/hotels/san-diego/fairmont-grand-del-mar/golf.html",
+            "note": "'Tom Fazio's multi-award-winning course'"
           }
         }
       }
@@ -2359,17 +2359,17 @@
       "locality": "Ojai",
       "region": "Ventura",
       "area": "la-ventura",
-      "architect": "William F. Bell/Bob Baldock; Hanse/Wagner restoration",
+      "architect": "William F. Bell (1962); Gil Hanse & Jim Wagner renovation (2005)",
       "tee": {
-        "yards": 6806,
-        "slope": 126,
-        "rating": null,
-        "name": null
+        "yards": 6856,
+        "slope": 128,
+        "rating": 73,
+        "name": "Oak"
       },
       "fee": {
-        "low": 60,
-        "high": 80,
-        "note": "approximate"
+        "low": 44,
+        "high": 56,
+        "note": "walking: Mon–Thu $44, Fri $47, Sat–Sun $56; cart $18"
       },
       "access": [
         "DF"
@@ -2411,7 +2411,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -2426,19 +2426,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/3884-soule-park-golf-club",
+            "note": "third-party (GolfPass); 6856/128 vs claim 6806/126; club scorecard page is image-only"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.soulepark.com/golf/rates",
+            "note": "corrected from 60–80"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.soulepark.com/",
+            "note": "club homepage; GolfPass also lists Bob Baldock (1970)"
           }
         }
       }
@@ -2450,12 +2450,12 @@
       "locality": "Palm Desert",
       "region": "Coachella Valley",
       "area": "desert",
-      "architect": "Michael Hurdzan, Dana Fry",
+      "architect": "Michael Hurdzan, Dana Fry (with John Cook)",
       "tee": {
         "yards": 7056,
-        "slope": 138,
-        "rating": null,
-        "name": null
+        "slope": 141,
+        "rating": 74.1,
+        "name": "Black"
       },
       "fee": {
         "low": 120,
@@ -2503,7 +2503,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -2518,19 +2518,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.desertwillow.com/firecliffcourse/",
+            "note": "course page: 7,056 / 74.1 / 141 (championship tee); slope 141 vs claim 138; tee name per GolfPass"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "desertwillow.com/bookateetime posts no dollar rates ('dynamic pricing'); /rates 404"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.desertwillow.com/about/",
+            "note": "resort about page; multi-million renovation reopened Dec 2024"
           }
         }
       }
@@ -2542,12 +2542,12 @@
       "locality": "Riverside",
       "region": "Inland Empire",
       "area": "inland-empire",
-      "architect": "Schmidt-Curley, Gil Morgan",
+      "architect": "Dr. Gil Morgan / Schmidt-Curley Design",
       "tee": {
         "yards": 7002,
         "slope": 137,
-        "rating": null,
-        "name": null
+        "rating": 73.8,
+        "name": "Tournament"
       },
       "fee": {
         "low": 140,
@@ -2594,7 +2594,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -2609,19 +2609,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/southern_california/riverside_county/oak_quarry_golf_club/scorecard.cfm",
+            "note": "third-party scorecard (Greenskeeper); matches claim"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "oakquarry.com/golf/rates: 'Green fees vary by season, day and time of day' – no figures; search tee times"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.oakquarry.com/",
+            "note": "homepage: 'Dr. Gil Morgan/Schmidt – Curley Design'"
           }
         }
       }
@@ -2637,13 +2637,13 @@
       "tee": {
         "yards": 7105,
         "slope": 143,
-        "rating": null,
-        "name": null
+        "rating": 75.6,
+        "name": "Black"
       },
       "fee": {
-        "low": 90,
-        "high": 130,
-        "note": "approximate"
+        "low": 82,
+        "high": 125,
+        "note": "non-member before ~2pm: Mon–Thu $82 walk/$102 ride; Fri–Sun & hol $105 walk/$125 ride"
       },
       "access": [
         "DF"
@@ -2685,7 +2685,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -2700,19 +2700,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/15536-la-purisima-golf-course",
+            "note": "third-party (GolfPass); matches claim; club scorecard is a PDF download"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://lapurisimagolf.com/course-rates/",
+            "note": "claim 90–130 close; page band 82–125"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://lapurisimagolf.com/course-details/",
+            "note": "'Golf Course Architect: Robert Muir Graves' (1986)"
           }
         }
       }
@@ -2724,12 +2724,12 @@
       "locality": "San Francisco",
       "region": "San Francisco",
       "area": "bay-area",
-      "architect": "Willie Watson, Sam Whiting",
+      "architect": "Willie Watson, Sam Whiting (1925); 2002–03 renovation",
       "tee": {
         "yards": 7169,
-        "slope": 132,
-        "rating": null,
-        "name": null
+        "slope": 129,
+        "rating": 74.3,
+        "name": "Championship"
       },
       "fee": {
         "low": 170,
@@ -2778,7 +2778,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -2793,19 +2793,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/231-tpc-harding-park-harding-course",
+            "note": "third-party (GolfPass); slope 129 vs claim 132; tpc.com scorecard is image-only; Wikipedia says 74.1/129"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "tpc.com/hardingpark/current-rates posts no green fee – 'on-demand flexible greens fee pricing'"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://en.wikipedia.org/wiki/TPC_Harding_Park",
+            "note": "Wikipedia; GolfPass credits Chris Gray (2003) for renovation"
           }
         }
       }
@@ -2821,13 +2821,13 @@
       "tee": {
         "yards": 6715,
         "slope": 133,
-        "rating": null,
-        "name": null
+        "rating": 72.8,
+        "name": "Eagle"
       },
       "fee": {
-        "low": 120,
-        "high": 180,
-        "note": "approximate"
+        "low": 135,
+        "high": 155,
+        "note": "Nov 2–Dec 31 2026 $135; Jan 1–Mar 31 2027 $155 daily incl. holidays; cart, range, GPS included; summer $65"
       },
       "access": [
         "R",
@@ -2870,7 +2870,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -2885,19 +2885,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/southern_california/palm_springs/eagle_falls_golf_course/scorecard.cfm",
+            "note": "third-party scorecard (Greenskeeper); matches claim; resort page confirms 6,715 yds"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.fantasyspringsresort.com/eagle-falls-rates/",
+            "note": "corrected from 120–180"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.fantasyspringsresort.com/golf/",
+            "note": "'architect Clive Clark'"
           }
         }
       }
@@ -2909,12 +2909,12 @@
       "locality": "Truckee",
       "region": "Tahoe/Truckee",
       "area": "sierra",
-      "architect": "Jack Nicklaus",
+      "architect": "Jack Nicklaus (Signature)",
       "tee": {
         "yards": 7518,
-        "slope": 140,
-        "rating": null,
-        "name": null
+        "slope": 144,
+        "rating": 75.5,
+        "name": "Four Trees"
       },
       "fee": {
         "low": 250,
@@ -2964,7 +2964,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -2979,19 +2979,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/northern_california/Lake_Tahoe_Reno/old_greenwood_golf_course/scorecard.cfm",
+            "note": "third-party scorecard (Greenskeeper); slope 144 vs claim 140; club page confirms 7,518 yds"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "tahoemountainclub.com/old-greenwood posts no dollar rates"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.tahoemountainclub.com/old-greenwood",
+            "note": "'Jack Nicklaus Signature design'"
           }
         }
       }
@@ -3003,12 +3003,12 @@
       "locality": "Palm Desert",
       "region": "Coachella Valley",
       "area": "desert",
-      "architect": "Arnold Palmer",
+      "architect": "Arnold Palmer (Signature Design)",
       "tee": {
-        "yards": 7305,
-        "slope": 139,
-        "rating": null,
-        "name": null
+        "yards": 7322,
+        "slope": 144,
+        "rating": 75.8,
+        "name": "Black"
       },
       "fee": {
         "low": 160,
@@ -3055,7 +3055,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -3070,19 +3070,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/16392-the-classic-club",
+            "note": "third-party (GolfPass); 7322/144 vs claim 7305/139; club site confirms 7,322 max yds"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "classicclubgolf.com/book_tt posts no green fees"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.classicclubgolf.com/welcome_accolades/",
+            "note": "'Arnold Palmer Signature Design'"
           }
         }
       }
@@ -3094,17 +3094,17 @@
       "locality": "Goleta",
       "region": "Santa Barbara",
       "area": "central-coast",
-      "architect": "William F. Bell",
+      "architect": "William F. Bell (1972)",
       "tee": {
         "yards": 7159,
-        "slope": 136,
-        "rating": null,
-        "name": null
+        "slope": 135,
+        "rating": 75,
+        "name": "Black"
       },
       "fee": {
         "low": 175,
-        "high": 245,
-        "note": "approximate"
+        "high": 210,
+        "note": "walking daily fee: Mon–Thu $175, Fri–Sun & hol $210; with cart $210/$245; cart $35"
       },
       "access": [
         "DF"
@@ -3146,7 +3146,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -3161,19 +3161,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/southern_california/ventura_and_santa_barbara/Sandpiper_Golf_Course/scorecard.cfm",
+            "note": "third-party scorecard (Greenskeeper); slope 135 vs claim 136 (GolfPass lists 75.1/136)"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.sandpipergolf.com/golf-course/course-rates",
+            "note": "claim 175–245 spans walk-weekday to ride-weekend"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/15532-sandpiper-golf-course",
+            "note": "third-party (GolfPass); club site does not name designer; restoration site returned 403"
           }
         }
       }
@@ -3185,17 +3185,17 @@
       "locality": "Portola",
       "region": "Sierra",
       "area": "sierra",
-      "architect": "Bob Cupp",
+      "architect": "Bob Cupp (2005)",
       "tee": {
         "yards": 7411,
-        "slope": 143,
-        "rating": null,
-        "name": null
+        "slope": 144,
+        "rating": 74.8,
+        "name": "Black"
       },
       "fee": {
-        "low": 160,
-        "high": 195,
-        "note": "approximate"
+        "low": 150,
+        "high": 185,
+        "note": "prime season (May 23–Oct 12) regular $185; spring/fall $150; carts included; page labelled 2025 rates"
       },
       "access": [
         "DF"
@@ -3239,7 +3239,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -3254,19 +3254,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/16498-grizzly-ranch-golf-club",
+            "note": "third-party (GolfPass); slope 144 vs claim 143"
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.grizzlyranchliving.com/rates",
+            "note": "page shows 2025 season rates, not 2026; claim 160–195 close"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/16498-grizzly-ranch-golf-club",
+            "note": "third-party (GolfPass); also lists Gage Davis; club rates page names no architect"
           }
         }
       }
@@ -3282,8 +3282,8 @@
       "tee": {
         "yards": 6666,
         "slope": 135,
-        "rating": null,
-        "name": null
+        "rating": 72.9,
+        "name": "Black"
       },
       "fee": {
         "low": 200,
@@ -3331,7 +3331,7 @@
       "layoutSlug": null,
       "joinNote": "a different course from the Stadium layout the record holds",
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -3346,19 +3346,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/15188-pga-west-pete-dye-mountain-course",
+            "note": "third-party (GolfPass); matches claim; pgawest.com scorecard is a PDF"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "pgawest.com/golf posts no green fees"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.pgawest.com/golf",
+            "note": "'Pete Dye Mountain Course' page; GolfPass dates it 1981"
           }
         }
       }
@@ -3370,12 +3370,12 @@
       "locality": "Seaside",
       "region": "Monterey Peninsula",
       "area": "monterey",
-      "architect": "Robert McClure; Gene Bates",
+      "architect": "Gen. Edwin Carnes (1964); Gene Bates redesign",
       "tee": {
-        "yards": 7025,
+        "yards": 7024,
         "slope": 136,
-        "rating": null,
-        "name": null
+        "rating": 73.9,
+        "name": "Black"
       },
       "fee": {
         "low": 160,
@@ -3422,7 +3422,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -3437,19 +3437,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/central_california/monterey_santa_cruz_san_luis_obispo/Bayonet_Black_Horse_Golf_Club/scorecard.cfm",
+            "note": "third-party scorecard (Greenskeeper); matches claim; club /black-horse page headline 7,024 yds but its table shows Black 7104/74.8/139"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "bayonetblackhorse.com/rates: 'Rates are dynamically priced' – no posted figures"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.bayonetblackhorse.com/about_us/",
+            "note": "CORRECTION: McClure designed Bayonet (1954), not Black Horse; Bates credited on /black-horse/ page (GolfPass: 2008)"
           }
         }
       }
@@ -3465,8 +3465,8 @@
       "tee": {
         "yards": 7006,
         "slope": 135,
-        "rating": null,
-        "name": null
+        "rating": 73.7,
+        "name": "Black"
       },
       "fee": {
         "low": 180,
@@ -3514,7 +3514,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -3529,19 +3529,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfshadowridge.com/course-map/",
+            "note": "club scorecard page; matches claim"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "golfshadowridge.com/rates-faqs lists policies only, no dollar figures"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfshadowridge.com/",
+            "note": "club homepage; GolfPass adds Schmidt-Curley (2000)"
           }
         }
       }
@@ -3553,12 +3553,12 @@
       "locality": "Half Moon Bay",
       "region": "Peninsula Coast",
       "area": "bay-area",
-      "architect": "Arthur Hills",
+      "architect": "Arthur Hills (1997)",
       "tee": {
         "yards": 6854,
         "slope": 132,
-        "rating": null,
-        "name": null
+        "rating": 72.5,
+        "name": "Black"
       },
       "fee": {
         "low": 200,
@@ -3606,7 +3606,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -3621,19 +3621,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://greenskeeper.org/northern_california/san_jose_sounth_bay_area/Half_Moon_Bay_Golf_Links_Ocean/scorecard.cfm",
+            "note": "third-party scorecard (Greenskeeper); matches claim; GolfPass agrees"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "halfmoonbaygolf.com publishes member rates only; public pricing via booking engine"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://halfmoonbaygolf.com/the-ocean-course/",
+            "note": "club page; GolfPass adds Spencer Holt"
           }
         }
       }
@@ -3645,12 +3645,12 @@
       "locality": "La Quinta",
       "region": "Coachella Valley",
       "area": "desert",
-      "architect": "Arnold Palmer, Erik Larsen",
+      "architect": "Arnold Palmer (Erik Larsen per GolfPass, 2005)",
       "tee": {
-        "yards": 7578,
+        "yards": 7239,
         "slope": 139,
-        "rating": null,
-        "name": null
+        "rating": 75,
+        "name": "Silver"
       },
       "fee": {
         "low": 160,
@@ -3698,7 +3698,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -3713,19 +3713,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/southern_california/palm_springs/Silver_Rock_Golf_Club_Palm_Springs_La_Quinta/scorecard.cfm",
+            "note": "third-party scorecard (Greenskeeper); CORRECTION yards 7239 vs claim 7578; silverrock.org also says 7,239"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "silverrock.org/golf-rates: 'calculated by using Dynamic Pricing' – no figures"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.silverrock.org/course-overview/",
+            "note": "club page names Palmer only; GolfPass adds Erik Larsen"
           }
         }
       }
@@ -3737,12 +3737,12 @@
       "locality": "Indian Wells",
       "region": "Coachella Valley",
       "area": "desert",
-      "architect": "Clive Clark",
+      "architect": "Clive Clark (2006); original Ted Robinson Sr. (1986)",
       "tee": {
         "yards": 7050,
         "slope": 138,
-        "rating": null,
-        "name": null
+        "rating": 74.3,
+        "name": "Cabernet"
       },
       "fee": {
         "low": 180,
@@ -3790,7 +3790,7 @@
       "layoutSlug": "indian-wells-golf-resort--celebrity",
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -3805,19 +3805,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://greenskeeper.org/southern_california/palm_springs/the_golf_resort_indain_wells_west_course_indian_wells/scorecard.cfm",
+            "note": "third-party scorecard (Greenskeeper); matches claim (GolfPass lists 7038)"
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "indianwellsgolfresort.com posts no green fee table; dynamic via booking engine"
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.indianwellsgolfresort.com/celebrity-course/",
+            "note": "resort page names Clive Clark (Nov 2006); Robinson original per GolfPass"
           }
         }
       }
@@ -3832,14 +3832,14 @@
       "architect": "Greg Norman",
       "tee": {
         "yards": 7181,
-        "slope": 143,
-        "rating": null,
-        "name": null
+        "slope": 144,
+        "rating": 74.7,
+        "name": "Black"
       },
       "fee": {
-        "low": 160,
-        "high": 220,
-        "note": "approximate"
+        "low": 159,
+        "high": 189,
+        "note": "public rate Mon-Thu $159 / Fri-Sun $189, cart and GPS included; twilight $109/$119"
       },
       "access": [
         "DF"
@@ -3883,7 +3883,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -3898,19 +3898,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/northern_california/oakland_east_bay_area/Wente_Vineyards_Golf_Club/scorecard.cfm",
+            "note": "Greenskeeper scorecard (updated 9/26/2020): Black 7181 / 74.7 / 144. Claimed slope 143 -> 144. Official site gives 7,181 yds only."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://wentevineyards.com/club-wente-golf-membership/",
+            "note": "Official membership page lists public rates $159 Mon-Thu, $189 Fri-Sun. Claimed 160-220 corrected to 159-189."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://wentevineyards.com/golf/",
+            "note": "Official golf page: 'Designed by golf great Greg Norman'; opened 1998."
           }
         }
       }
@@ -3922,17 +3922,17 @@
       "locality": "San Francisco",
       "region": "San Francisco",
       "area": "bay-area",
-      "architect": "Robert Johnstone, W.J. Locke",
+      "architect": "Robert Wood Johnstone (1895); Johnstone & William McEwan (1910); Fowler & Simpson redesign (1921)",
       "tee": {
-        "yards": 6422,
-        "slope": 136,
-        "rating": null,
-        "name": null
+        "yards": 6481,
+        "slope": 135,
+        "rating": 72.6,
+        "name": "Black"
       },
       "fee": {
-        "low": 105,
+        "low": 135,
         "high": 150,
-        "note": "approximate"
+        "note": "non-resident with cart, Mon-Thu $135 / Fri-Sun $150 effective Apr 1 2026; walking $110 Mon-Thu; +3% park fee"
       },
       "access": [
         "DF"
@@ -3976,7 +3976,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -3991,19 +3991,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/northern_california/san_francisco_and_north_bay_area/Presidio_Golf_Course/scorecard.cfm",
+            "note": "Greenskeeper scorecard (9/16/2020): Black 6481 / 72.6 / 135. Claimed 6422 / 136 corrected. presidiogolf.com scorecard URL 404."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.presidiogolf.com/rates-reservations/",
+            "note": "Official rates page; non-resident cart rates $135/$150 from 4/1/2026 (was $127/$137). Claimed 105-150 narrowed to 135-150."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/galleries/san-franciscos-other-municipal-treat-presidio-golf-course",
+            "note": "GolfPass history article. 'W.J. Locke' in the claim not found; second nine credited to McEwan, 1921 redesign Fowler & Simpson."
           }
         }
       }
@@ -4017,15 +4017,15 @@
       "area": "la-ventura",
       "architect": "George C. Thomas Jr., Billy Bell",
       "tee": {
-        "yards": 6308,
+        "yards": 6292,
         "slope": 132,
-        "rating": null,
-        "name": null
+        "rating": 71,
+        "name": "Blue"
       },
       "fee": {
-        "low": 170,
-        "high": 225,
-        "note": "approximate"
+        "low": 180,
+        "high": 190,
+        "note": "18 holes 7 days: day guest $190, hotel guest $180, cart included; twilight $109-$119"
       },
       "access": [
         "R",
@@ -4068,7 +4068,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -4083,19 +4083,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/southern_california/ventura_and_santa_barbara/ojai_valley_inn_golf_course/scorecard.cfm",
+            "note": "Greenskeeper: Blue 6292 / 71.0 / 132; official site also says 6,292 yds. Claimed 6308 corrected to 6292."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.ojaivalleyinn.com/ojai-golf-course",
+            "note": "Official page lists $190 day guest / $180 hotel guest. Claimed 170-225 corrected to 180-190."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.ojaivalleyinn.com/ojai-golf-course",
+            "note": "Official: 'designed and originally built in 1923 under the direction of George C. Thomas, Jr. and Billy Bell'."
           }
         }
       }
@@ -4110,14 +4110,14 @@
       "architect": "Brad Bell",
       "tee": {
         "yards": 7177,
-        "slope": 140,
-        "rating": null,
-        "name": null
+        "slope": 136,
+        "rating": 73.7,
+        "name": "Black"
       },
       "fee": {
         "low": 165,
         "high": 225,
-        "note": "approximate"
+        "note": "peak season: $225 7am-12:50pm, $195 1-2:50pm, $165 3pm-close; early/late season $150/$120; shared cart included; no weekday/weekend split"
       },
       "access": [
         "DF"
@@ -4161,7 +4161,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -4176,19 +4176,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/16348-coyote-moon-golf-course",
+            "note": "GolfPass: Black 7177 / 73.7 / 136. Claimed slope 140 corrected to 136. Official course page shows scorecard as image only."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.coyotemoongolf.com/rates/",
+            "note": "Official rates page; peak prime $225, afternoon $195/$165. Claim 165-225 matches."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.coyotemoongolf.com/",
+            "note": "Official site: designed by Brad Bell, former PGA Tour player; opened 2000."
           }
         }
       }
@@ -4204,8 +4204,8 @@
       "tee": {
         "yards": 7001,
         "slope": 135,
-        "rating": null,
-        "name": null
+        "rating": 74.3,
+        "name": "Black"
       },
       "fee": {
         "low": 180,
@@ -4253,7 +4253,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -4268,19 +4268,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://greenskeeper.org/northern_california/san_jose_sounth_bay_area/Half_Moon_Bay_Golf_Links_Old/scorecard.cfm",
+            "note": "Greenskeeper (9/26/2020): Black 7001 / 74.3 / 135. Matches claim. Official site has no scorecard text."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "Public rates not posted; only 2026 Legends Club member rates shown ($129 Mon-Thu, $135 Fri, $154 Sat/Sun Old). Booking engine only; legacy rates URL 403."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://halfmoonbaygolf.com/the-old-course/",
+            "note": "Official: 'Opening in 1973, The Old Course is an American classic designed by Arnold Palmer and Francis Duane.'"
           }
         }
       }
@@ -4292,17 +4292,17 @@
       "locality": "Alameda",
       "region": "East Bay",
       "area": "bay-area",
-      "architect": "Rees Jones",
+      "architect": "Rees Jones (2018 rebuild)",
       "tee": {
         "yards": 6874,
         "slope": 129,
-        "rating": null,
-        "name": null
+        "rating": 73.2,
+        "name": "Black"
       },
       "fee": {
-        "low": 90,
-        "high": 120,
-        "note": "approximate"
+        "low": 70,
+        "high": 89,
+        "note": "public walking rate Mon-Thu $70 / Fri-Sun $89; cart $22 extra; Alameda resident $50/$62"
       },
       "access": [
         "M"
@@ -4346,7 +4346,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -4361,19 +4361,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/38296-corica-park-south-course",
+            "note": "GolfPass: Black 6874 / 73.2 / 129; coricapark.com confirms 6,874 yds from back tees. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.coricapark.com/frequently-asked-questions",
+            "note": "Official FAQ lists South Course public $70/$89 (cart not included). Claimed 90-120 corrected to 70-89."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.coricapark.com/golf",
+            "note": "Official: 'designed by renowned architect Rees Jones'; totally rebuilt, reopened 2018. GolfPass also credits Steve Weisser."
           }
         }
       }
@@ -4385,12 +4385,12 @@
       "locality": "Napa",
       "region": "Napa Valley",
       "area": "wine-country",
-      "architect": "Robert Trent Jones Jr.; Johnny Miller",
+      "architect": "Robert Trent Jones Jr. (1966 redesign); Johnny Miller renovation (2011)",
       "tee": {
         "yards": 6793,
-        "slope": 135,
-        "rating": null,
-        "name": null
+        "slope": 133,
+        "rating": 72.6,
+        "name": "Blue"
       },
       "fee": {
         "low": 300,
@@ -4437,7 +4437,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -4452,19 +4452,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.silveradoresort.com/experience/napa-golf/napa-valley-golf-courses/",
+            "note": "Official: 6,793 yds, 72.6 rating, 133 slope (no tee name; 'Blue' per Greenskeeper, which shows older 73.1/138). Claimed slope 135 corrected to 133."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "No rates posted: official page says courses 'exclusively available to Silverado Resort guests & members'; packages quote % discounts only."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://en.wikipedia.org/wiki/Silverado_Resort_and_Spa",
+            "note": "Wikipedia: RTJ Jr. 1966 redesign of 1955 course; Miller 2011 renovation lengthened 250 yds, rebuilt tees/bunkers. Matches claim."
           }
         }
       }
@@ -4476,12 +4476,12 @@
       "locality": "Hollister",
       "region": "Central Coast",
       "area": "bay-area",
-      "architect": "Fred Couples, Gene Bates",
+      "architect": "Fred Couples, Gene Bates (1996); Gene Bates renovation (reopened 2024)",
       "tee": {
-        "yards": 7133,
-        "slope": 141,
+        "yards": 7071,
+        "slope": null,
         "rating": null,
-        "name": null
+        "name": "Black"
       },
       "fee": {
         "low": 140,
@@ -4528,7 +4528,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -4543,19 +4543,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://sanjuanoaks.com/course-details/",
+            "note": "Official post-renovation card: Black 7,071 yds, no rating/slope posted. Claimed 7133/141 unconfirmed; pre-reno Greenskeeper (2020) showed 7000/74.0/139."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "No fetched page states rates; sanjuanoaks.com pages say cart included but defer to GOLFBACK booking. Search snippet cites $125 Mon-Thu / $175 Fri-Sun."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://sanjuanoaks.com/about/",
+            "note": "Official: 'Originally designed by ... Fred Couples with architect Gene Bates, the course opened in 1996'; Bates-led 2.5-year renovation."
           }
         }
       }
@@ -4569,10 +4569,10 @@
       "area": "sierra",
       "architect": "Peter Jacobsen, Jim Hardy",
       "tee": {
-        "yards": 7518,
-        "slope": 144,
-        "rating": null,
-        "name": null
+        "yards": 7466,
+        "slope": 143,
+        "rating": 74.7,
+        "name": "Black"
       },
       "fee": {
         "low": 190,
@@ -4621,7 +4621,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -4636,19 +4636,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/northern_california/Lake_Tahoe_Reno/the_golf_club_grays_crossing/scorecard.cfm",
+            "note": "Greenskeeper: Black 7466 / 74.7 / 143 (GolfPass shows 74.3/140; official says 7,488 yds tips). Claimed 7518/144 corrected."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "tahoemountainclub.com rates page shows only 'Public Rate'/'NCGA Rate' buttons into the booking engine; no dollar figures on any fetched page."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/20993-the-golf-club-at-grays-crossing",
+            "note": "GolfPass credits Peter Jacobsen, Jim Hardy (2007) and Gage Davis; official tahoemountainclub.com page names Jacobsen only."
           }
         }
       }
@@ -4662,15 +4662,15 @@
       "area": "inland-empire",
       "architect": "Arthur Hills, Steve Forrest",
       "tee": {
-        "yards": 7227,
+        "yards": 7093,
         "slope": 142,
-        "rating": null,
-        "name": null
+        "rating": 74.8,
+        "name": "Copper"
       },
       "fee": {
-        "low": 180,
-        "high": 250,
-        "note": "approximate"
+        "low": 175,
+        "high": 215,
+        "note": "public guest $215, hotel guest $175, military $175; 7 days"
       },
       "access": [
         "R",
@@ -4713,7 +4713,7 @@
       "layoutSlug": null,
       "joinNote": "not Temecula Creek, which the record holds — a different facility in the same town",
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -4728,19 +4728,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/southern_california/riverside_county/journey_at_pechanga_golf_course/scorecard.cfm",
+            "note": "Greenskeeper (8/24/2020): Copper 7093 / 74.8 / 142. Official page says 7,219 yds (no tee detail). Claimed 7227 corrected to 7093; slope matches."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.pechanga.com/indulge/journey",
+            "note": "Official Pechanga golf page lists Hotel Guest $175 / Public Guest $215. Claimed 180-250 corrected to 175-215."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.pechanga.com/indulge/journey",
+            "note": "Official: 'designed by noted architects Arthur Hills and Steve Forrest'. Matches claim."
           }
         }
       }
@@ -4752,12 +4752,12 @@
       "locality": "Lakeside",
       "region": "San Diego",
       "area": "san-diego",
-      "architect": "Todd Eckenrode",
+      "architect": "Gary Roger Baird Design International; Todd Eckenrode (senior architect)",
       "tee": {
-        "yards": 7448,
+        "yards": 7092,
         "slope": 139,
-        "rating": null,
-        "name": null
+        "rating": 74,
+        "name": "Black"
       },
       "fee": {
         "low": 150,
@@ -4804,7 +4804,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -4819,19 +4819,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.barona.com/resort/golf/tour-the-course/",
+            "note": "Official: Black 7,092 / 139 / 74.0. Claimed 7448 is near the 7393-yd Black-Alternate tee (Greenskeeper 75.8/144), not the standard back tee."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "Official page: course 'not available to the general public'; only Diamond/Sapphire/Platinum members, hotel guests, tribal members. No rates posted."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.barona.com/resort/golf/",
+            "note": "Official: 'designed by Gary Roger Baird Design International. Senior Architect Todd Eckenrode.' Claim omits Baird."
           }
         }
       }
@@ -4843,12 +4843,12 @@
       "locality": "Palm Desert",
       "region": "Coachella Valley",
       "area": "desert",
-      "architect": "Michael Hurdzan, Dana Fry",
+      "architect": "Michael Hurdzan, Dana Fry, John Cook",
       "tee": {
         "yards": 6913,
-        "slope": 130,
-        "rating": null,
-        "name": null
+        "slope": 132,
+        "rating": 73,
+        "name": "Black"
       },
       "fee": {
         "low": 100,
@@ -4896,7 +4896,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -4911,19 +4911,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.desertwillow.com/mountainviewcourse/",
+            "note": "Official course page: Black 73.0 / 132 / 6,913 yds. Claimed slope 130 corrected to 132."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "Dynamic pricing; rates only in booking engine. Official pages show Palm Desert resident $52 and summer $40 but no public/peak figures."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.desertwillow.com/",
+            "note": "Official: commissioned 'Dr. Michael Hurdzan, Dana Fry, and PGA Tour pro John Cook'. Claim omits Cook."
           }
         }
       }
@@ -4935,12 +4935,12 @@
       "locality": "Indian Wells",
       "region": "Coachella Valley",
       "area": "desert",
-      "architect": "John Fought",
+      "architect": "John Fought (2007; 2025 redesign)",
       "tee": {
         "yards": 7376,
-        "slope": 139,
-        "rating": null,
-        "name": null
+        "slope": 140,
+        "rating": 75.4,
+        "name": "Cabernet"
       },
       "fee": {
         "low": 180,
@@ -4988,7 +4988,7 @@
       "layoutSlug": "indian-wells-golf-resort--players",
       "joinNote": "the record has the Celebrity course only; this layout slug is not in the spine",
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -5003,19 +5003,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/southern_california/palm_springs/Indian_Wells_Golf_Resort_Players_Course/scorecard.cfm",
+            "note": "Greenskeeper (8/24/2020, pre-redesign): Cabernet 7376 / 75.4 / 140; claimed slope 139. Course redesigned 2025 to par 71; new ratings not found."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "No rates on indianwellsgolfresort.com; tee times via EZLinks only. Only $99 Nine & Dine package posted."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.indianwellsgolfresort.com/updates/",
+            "note": "Official: Fought-designed 2007; Fought led 2025 renovation (par 72 to 71). Matches claim."
           }
         }
       }
@@ -5030,9 +5030,9 @@
       "architect": "Greg Norman",
       "tee": {
         "yards": 7156,
-        "slope": 137,
-        "rating": null,
-        "name": null
+        "slope": 138,
+        "rating": 74.9,
+        "name": "Black"
       },
       "fee": {
         "low": 225,
@@ -5080,7 +5080,7 @@
       "layoutSlug": null,
       "joinNote": "a different course from the Stadium layout the record holds",
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -5095,19 +5095,19 @@
             "note": "no Golf Digest claim on this row; nothing to check"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.pgawest.com/club/scripts/golf/View_Course_Scorecard.asp?CID=526&GRP=9414&NS=PUBLIC",
+            "note": "PGA WEST scorecard (CID 526 = Norman): Black 7156 / 74.9 / 138; Greenskeeper agrees. Claimed slope 137 corrected to 138 (GolfPass shows 75.1/139)."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "pgawest.com resort-courses page lists no rates; booking via EZLinks only."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.pgawest.com/course-restorations/greg-norman-course",
+            "note": "Official: 'the only Greg Norman-designed golf course in the Coachella Valley'; GolfPass adds opened 1999 w/ Dusenberry, Burnett."
           }
         }
       }
@@ -5119,12 +5119,12 @@
       "locality": "Dana Point",
       "region": "Orange County",
       "area": "orange-county",
-      "architect": "Robert Trent Jones Jr.",
+      "architect": "Robert Trent Jones Jr. (1983); 2015 renovation",
       "tee": {
-        "yards": 6645,
-        "slope": 135,
-        "rating": null,
-        "name": null
+        "yards": 6601,
+        "slope": 138,
+        "rating": 72.8,
+        "name": "Championship"
       },
       "fee": {
         "low": 270,
@@ -5172,7 +5172,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -5187,19 +5187,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://greenskeeper.org/southern_california/orange_county/Monarch_Beach_Golf_Links/scorecard.cfm",
+            "note": "Greenskeeper: Championship 6601 / 72.8 / 138. Official site says 6,645 yds (2015 new tees); claimed slope 135 corrected to 138."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "No rates on monarchbeachgolf.com; dynamic via Troon/EZLinks portals. Page notes cart, GPS, water included."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.monarchbeachgolf.com/monarch-turns-40/",
+            "note": "Official: 'The oceanfront Robert Trent Jones, Jr. design opened for play in 1983'; 2015 renovation added tees, bunkers (unattributed)."
           }
         }
       }
@@ -5211,12 +5211,12 @@
       "locality": "Monterey",
       "region": "Monterey Peninsula",
       "area": "monterey",
-      "architect": "Charles Maud",
+      "architect": "Charles Maud (1897); Tom Bendelow (1911)",
       "tee": {
-        "yards": 6365,
+        "yards": 6357,
         "slope": 131,
-        "rating": null,
-        "name": null
+        "rating": 71.6,
+        "name": "Blue"
       },
       "fee": {
         "low": 150,
@@ -5263,7 +5263,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -5278,19 +5278,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/central_california/monterey_santa_cruz_san_luis_obispo/Del_Monte_Golf_Course/scorecard.cfm",
+            "note": "Greenskeeper (9/4/2020): Blue 6357 / 71.6 / 131; GolfPass 6356. Claimed 6365 corrected to 6357; slope matches."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "pebblebeach.com returns 403; third-party guide (golfforkings, Jun 2026) gives indicative $110-145 only."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/16045-del-monte-golf-course",
+            "note": "GolfPass credits Charles Maud and Tom Bendelow (1911); opened 1897. Wikipedia page 404, pebblebeach.com 403."
           }
         }
       }
@@ -5302,17 +5302,17 @@
       "locality": "Pacific Grove",
       "region": "Monterey Peninsula",
       "area": "monterey",
-      "architect": "Chandler Egan, Jack Neville",
+      "architect": "H. Chandler Egan (front nine), Jack Neville (back nine)",
       "tee": {
-        "yards": 5732,
+        "yards": 5727,
         "slope": 113,
-        "rating": null,
-        "name": null
+        "rating": 67.9,
+        "name": "Blue"
       },
       "fee": {
-        "low": 65,
-        "high": 90,
-        "note": "approximate"
+        "low": 66,
+        "high": 89,
+        "note": "18 holes walking Mon-Thu $66 / Fri-Sun+holidays $89; cart $25 extra; no resident/non-resident split"
       },
       "access": [
         "M"
@@ -5354,7 +5354,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -5369,19 +5369,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/central_california/monterey_santa_cruz_san_luis_obispo/pacific_grove_municipal_golf_course/scorecard.cfm",
+            "note": "Greenskeeper (9/4/2020): Blue 5727 / 67.9 / 113; Wikipedia agrees. Claimed 5732 corrected to 5727."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.playpacificgrove.com/course/rates",
+            "note": "Official rates page. Claimed 65-90 refined to 66-89."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://en.wikipedia.org/wiki/Pacific_Grove_Golf_Links",
+            "note": "Wikipedia: Egan front nine, Neville back nine; established 1932. Matches claim."
           }
         }
       }
@@ -5393,12 +5393,12 @@
       "locality": "Carmel Valley",
       "region": "Monterey Peninsula",
       "area": "monterey",
-      "architect": "Pete Dye",
+      "architect": "Pete Dye (1981); Gene Bates renovation (2006)",
       "tee": {
         "yards": 6117,
         "slope": 131,
-        "rating": null,
-        "name": null
+        "rating": 70.1,
+        "name": "Blue"
       },
       "fee": {
         "low": 175,
@@ -5446,7 +5446,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -5461,19 +5461,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/15802-carmel-valley-ranch-resort",
+            "note": "GolfPass: Blue 6117 / 70.1 / 131, par 70. Matches claim."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "carmelvalleyranch.com rates page content truncated on fetch; Hyatt FAQ 403. Search snippet cites resort guest 18 holes $195, afternoon $150, twilight $98."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/15802-carmel-valley-ranch-resort",
+            "note": "GolfPass: Pete Dye (1981), renovation Gene Bates (2006). Official pages truncated on fetch."
           }
         }
       }
@@ -5488,14 +5488,14 @@
       "architect": "Greg Nash",
       "tee": {
         "yards": 6835,
-        "slope": 135,
-        "rating": null,
-        "name": null
+        "slope": 132,
+        "rating": 72.6,
+        "name": "Black"
       },
       "fee": {
-        "low": 120,
-        "high": 160,
-        "note": "approximate"
+        "low": 122,
+        "high": 140,
+        "note": "public rate weekday $122 / Friday $129 / weekend-holiday $140; 'rates subject to change'; SoCal resident $95-$110"
       },
       "access": [
         "M"
@@ -5537,7 +5537,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -5552,19 +5552,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/southern_california/san_diego/the_crossing_at_carlsbad_golf_club/scorecard.cfm",
+            "note": "Greenskeeper: Black 6835 / 72.6 / 132; official site confirms 6,835 yds. Claimed slope 135 corrected to 132."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.thecrossingsatcarlsbad.com/golf",
+            "note": "Official golf page rate table. Claimed 120-160 corrected to 122-140."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.thecrossingsatcarlsbad.com/about-us/our-story",
+            "note": "Official: 'Our Greg Nash-designed 6,835 yard golf course'; debuted August 2007."
           }
         }
       }
@@ -5579,14 +5579,14 @@
       "architect": "Ken Hunter, Mike McGinnis",
       "tee": {
         "yards": 6741,
-        "slope": 138,
-        "rating": null,
-        "name": null
+        "slope": 136,
+        "rating": 72.1,
+        "name": "Blue"
       },
       "fee": {
         "low": 115,
         "high": 135,
-        "note": "approximate"
+        "note": "non-member 18 holes, cart included: Mon-Thu $115 / Fri-Sun+holidays $135; twilight $65/$85"
       },
       "access": [
         "DF"
@@ -5628,7 +5628,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -5643,19 +5643,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.greenskeeper.org/central_california/monterey_santa_cruz_san_luis_obispo/Hunter_Ranch_Golf_Course/scorecard.cfm",
+            "note": "Greenskeeper (9/4/2020): Blue 6741 / 72.1 / 136. Claimed slope 138 corrected to 136."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.hunterranchgolf.com/golf-course/course-rates",
+            "note": "Official rates page. Claim 115-135 matches."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.hunterranchgolf.com/golf-course/information",
+            "note": "Official: 'Co-designers Ken Hunter and Mike McGinnis'; opened c. 1994."
           }
         }
       }
@@ -5671,8 +5671,8 @@
       "tee": {
         "yards": 7005,
         "slope": 139,
-        "rating": null,
-        "name": null
+        "rating": 74.7,
+        "name": "Black"
       },
       "fee": {
         "low": 80,
@@ -5719,7 +5719,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -5734,19 +5734,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/16397-darkhorse-golf-club",
+            "note": "Third-party (GolfPass) listing; course site has no scorecard page. Matches claim."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "darkhorsegolf.com posts no rates; tee-times page is a booking engine only. Greenskeeper rate table empty."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.darkhorsegolf.com/course-details/",
+            "note": "Page: 'designed by Keith Foster'; opened October 2002."
           }
         }
       }
@@ -5758,17 +5758,17 @@
       "locality": "Coronado",
       "region": "San Diego",
       "area": "san-diego",
-      "architect": "Jack Daray Sr.",
+      "architect": "Jack Daray Sr. (1957); Jack Daray Jr. redesigned front nine (1967)",
       "tee": {
         "yards": 6590,
         "slope": 121,
-        "rating": null,
-        "name": null
+        "rating": 71.6,
+        "name": "Blue"
       },
       "fee": {
-        "low": 75,
-        "high": 95,
-        "note": "approximate"
+        "low": 54,
+        "high": 63,
+        "note": "non-resident walking; $54 regular, $63 primetime (Fri-Sun & holidays); $25 advance-reserve fee"
       },
       "access": [
         "M"
@@ -5810,7 +5810,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -5825,19 +5825,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfcoronado.com/images/documents/Coronado_GC_Scorecard_2018.pdf",
+            "note": "Official 2018 scorecard PDF: Blue M 71.6/121. Slope corrected 120 -> 121."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfcoronado.com/course-info/rates",
+            "note": "Corrected from 75-95 to 54-63 (non-resident general play)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.coronadomensgolf.org/wp/course-history/",
+            "note": "Men's club history page (operator site has no history page). Confirms Jack Daray 1957 original."
           }
         }
       }
@@ -5851,10 +5851,10 @@
       "area": "bay-area",
       "architect": "John Harbottle III",
       "tee": {
-        "yards": 6849,
-        "slope": 138,
-        "rating": null,
-        "name": null
+        "yards": 6854,
+        "slope": 142,
+        "rating": 73.7,
+        "name": "Hawk (Lake/Mountain)"
       },
       "fee": {
         "low": 110,
@@ -5901,7 +5901,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -5916,19 +5916,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.cinnabarhills.com/index.php/golf/ratings-and-scorecards",
+            "note": "Longest combo Lake/Mountain Hawk 6854 yds 73.7/142. Corrected from 6849/138. Canyon/Lake 6713 73.0/142; Mtn/Canyon 6617 72.7/140."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "Rates page (eff. Sep 1 2026) renders regular-rate table unreadably; only early-bird $80 Mon-Thu/$110 Fri and junior $70/$85 visible."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.cinnabarhills.com/",
+            "note": "Homepage: 'designed by award-winning architect John Harbottle III'."
           }
         }
       }
@@ -5944,8 +5944,8 @@
       "tee": {
         "yards": 7017,
         "slope": 132,
-        "rating": null,
-        "name": null
+        "rating": 73.4,
+        "name": "Professional"
       },
       "fee": {
         "low": 95,
@@ -5992,7 +5992,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -6007,19 +6007,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/15118-tierra-rejada-golf-club",
+            "note": "Third-party (GolfPass); Arcis site gives no scorecard. Matches claim."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "Arcis Golf site (tierrarejadagolf.com redirects there) posts no rates; booking engine only."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://arcisgolf.com/clubs/tierra_rejada_golf_club/golf_course",
+            "note": "Page: 'designed by Bob Cupp', opened December 1999. GolfPass also credits Steve Timm (1999)."
           }
         }
       }
@@ -6031,17 +6031,17 @@
       "locality": "Pleasanton",
       "region": "East Bay",
       "area": "bay-area",
-      "architect": "Brian Costello",
+      "architect": "Brian Costello (JMP Golf Design Group)",
       "tee": {
         "yards": 6748,
-        "slope": 133,
-        "rating": null,
-        "name": null
+        "slope": 139,
+        "rating": 73.3,
+        "name": "Black"
       },
       "fee": {
-        "low": 75,
-        "high": 100,
-        "note": "approximate"
+        "low": 65,
+        "high": 85,
+        "note": "non-resident walking, weekday/weekend; riding $87/$107; rates effective Jul 1 2026"
       },
       "access": [
         "M"
@@ -6085,7 +6085,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -6100,19 +6100,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.playcallippe.com/golf-course/scorecard",
+            "note": "Scorecard page: Black 73.3/139; yardage 6,748 on /golf-course page. Slope corrected 133 -> 139."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.playcallippe.com/golf-course/course-rates",
+            "note": "Corrected from 75-100 to 65-85 walking (non-resident)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.playcallippe.com/golf-course",
+            "note": "Opened November 11, 2005."
           }
         }
       }
@@ -6124,12 +6124,12 @@
       "locality": "Palo Alto",
       "region": "Peninsula",
       "area": "bay-area",
-      "architect": "Forrest Richardson redesign",
+      "architect": "Forrest Richardson (2018 redesign of William F. Bell 1956 original)",
       "tee": {
-        "yards": 6681,
-        "slope": 129,
-        "rating": null,
-        "name": null
+        "yards": 6680,
+        "slope": 127,
+        "rating": 72.4,
+        "name": "Black"
       },
       "fee": {
         "low": 90,
@@ -6176,7 +6176,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -6191,19 +6191,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.baylandsgolflinks.com/wp-content/uploads/sites/8950/2026/03/2025-11-BYL-SC-1.pdf",
+            "note": "Official scorecard PDF (07/24): Black 72.4/127, 6680 yds. Corrected from 6681/129."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "No rates page in site sitemap; pricing only via booking engine (dynamic). Links Card page gives no dollar figures."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.baylandsgolflinks.com/our-story/",
+            "note": "Page: 'Re-designed by renowned architect Forrest Richardson'; reopened May 26, 2018."
           }
         }
       }
@@ -6218,14 +6218,14 @@
       "architect": "Robert Muir Graves",
       "tee": {
         "yards": 7100,
-        "slope": 132,
-        "rating": null,
-        "name": null
+        "slope": 134,
+        "rating": 73.8,
+        "name": "Black"
       },
       "fee": {
-        "low": 65,
-        "high": 90,
-        "note": "approximate"
+        "low": 47,
+        "high": 62,
+        "note": "non-resident 18 holes walking; $47 Mon-Thu, $62 Fri-Sun; resident $40/$54"
       },
       "access": [
         "M"
@@ -6267,7 +6267,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -6282,19 +6282,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/279-boundary-oak-golf-course",
+            "note": "Third-party (GolfPass); course scorecard page loops redirects. Slope corrected 132 -> 134."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.playboundaryoak.com/golf-course/course-rates",
+            "note": "Corrected from 65-90 to 47-62 (non-resident). No effective date on page."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/279-boundary-oak-golf-course",
+            "note": "GolfPass: 'Robert Muir Graves (1969)'. Course site course page does not name the architect."
           }
         }
       }
@@ -6310,8 +6310,8 @@
       "tee": {
         "yards": 7027,
         "slope": 144,
-        "rating": null,
-        "name": null
+        "rating": 74.8,
+        "name": "Black"
       },
       "fee": {
         "low": 100,
@@ -6358,7 +6358,7 @@
       "layoutSlug": "coyote-creek-golf-club--tournament",
       "joinNote": "the record has the Valley course only; this layout slug is not in the spine",
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -6373,19 +6373,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.coyotecreekgolf.com/course-details",
+            "note": "Official course-details page: Black 74.8/144, 7,027 yds. Matches claim."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "coyotecreekgolf.com posts no rates (booking engine only); FAQ has no dollar figures."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.coyotecreekgolf.com/",
+            "note": "Homepage: 'two pristine Jack Nicklaus designed courses; the Valley and Tournament Course'."
           }
         }
       }
@@ -6397,17 +6397,17 @@
       "locality": "Alameda",
       "region": "East Bay",
       "area": "bay-area",
-      "architect": "William F. Bell lineage; RTJ II team rebuild",
+      "architect": "Robert Trent Jones II (2025 rebuild); William P. Bell (1927) original, Desmond Muirhead (1967)",
       "tee": {
-        "yards": 6400,
-        "slope": 125,
-        "rating": null,
-        "name": null
+        "yards": 6382,
+        "slope": 118,
+        "rating": 70.5,
+        "name": "Black"
       },
       "fee": {
-        "low": 75,
-        "high": 110,
-        "note": "approximate"
+        "low": 80,
+        "high": 99,
+        "note": "public (non-resident) North Course; $80 Mon-Thu, $99 Fri-Sun; resident $64/$78; closed Mondays"
       },
       "access": [
         "M"
@@ -6449,9 +6449,9 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "high",
         "checked": "2026-10-06",
-        "verified": false,
+        "verified": true,
         "checks": {
           "rankings": {
             "verified": true,
@@ -6464,19 +6464,19 @@
             "note": "no Golf Digest claim on this row; nothing to check"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/15799-corica-park-the-earl-fry-north-course",
+            "note": "Third-party (GolfPass), post-2025 rebuild ratings: Black 6,382 70.5/118. Corrected from 6400/125."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.coricapark.com/frequently-asked-questions",
+            "note": "Corrected from 75-110 to 80-99."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.coricapark.com/golf",
+            "note": "Site: 'reimagined by the renowned Robert Trent Jones II Architects'. Bell/Muirhead lineage per GolfPass page."
           }
         }
       }
@@ -6488,17 +6488,17 @@
       "locality": "Graeagle",
       "region": "Sierra",
       "area": "sierra",
-      "architect": "Ellis Van Groder",
+      "architect": "Ellis Van Gorder",
       "tee": {
-        "yards": 6725,
-        "slope": 129,
-        "rating": null,
-        "name": null
+        "yards": 6759,
+        "slope": 127,
+        "rating": 72.3,
+        "name": "Blue"
       },
       "fee": {
-        "low": 90,
-        "high": 115,
-        "note": "approximate"
+        "low": 89,
+        "high": 109,
+        "note": "everyday prime season; $89 walk, $109 cart; twilight after 2pm $70/$90"
       },
       "access": [
         "DF"
@@ -6542,7 +6542,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -6557,19 +6557,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/154-graeagle-meadows-golf-course",
+            "note": "Third-party (GolfPass): Blue 6759 72.3/127; course site says '6,725 yards' but no ratings. Corrected from 6725/129."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://graeaglemeadows.com/rates/",
+            "note": "Corrected from 90-115 to 89-109. No weekday/weekend split."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/154-graeagle-meadows-golf-course",
+            "note": "GolfPass: Ellis Van Gorder, built 1969. Spelling corrected from 'Van Groder'. Course site names no architect."
           }
         }
       }
@@ -6584,14 +6584,14 @@
       "architect": "Homer Flint",
       "tee": {
         "yards": 6421,
-        "slope": 137,
-        "rating": null,
-        "name": null
+        "slope": 139,
+        "rating": 71.4,
+        "name": "Black"
       },
       "fee": {
-        "low": 120,
-        "high": 150,
-        "note": "approximate"
+        "low": 114,
+        "high": 144,
+        "note": "summer (May 23-Sep 30) 18 holes; Mon-Thu $114 walk/$134 cart, Fri-Sun $124 walk/$144 cart; spring/fall $79/$99"
       },
       "access": [
         "DF"
@@ -6635,7 +6635,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -6650,19 +6650,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/153-plumas-pines-golf-resort",
+            "note": "Third-party (GolfPass): Black 6421 71.4/139; slope corrected 137 -> 139. Course homepage cites blue tees 6,504 71.3/132; scorecard is image-only."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.plumaspinesgolf.com/greens-fees-specials/",
+            "note": "Corrected from 120-150 to 114-144."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.plumaspinesgolf.com/",
+            "note": "Homepage: 'A 1980 Homer Flint designed golf course'."
           }
         }
       }
@@ -6674,17 +6674,17 @@
       "locality": "Clio",
       "region": "Sierra",
       "area": "sierra",
-      "architect": "Robin Nelson, Neil Haworth",
+      "architect": "Robin Nelson",
       "tee": {
-        "yards": 7077,
-        "slope": 147,
-        "rating": null,
-        "name": null
+        "yards": 6908,
+        "slope": 139,
+        "rating": 72,
+        "name": "Dragon 5"
       },
       "fee": {
-        "low": 125,
-        "high": 175,
-        "note": "approximate"
+        "low": 99,
+        "high": 159,
+        "note": "cart included; summer (Jun 1-Sep 30) $159, spring/fall $99; resort guests 15% off, NCGA 10% off"
       },
       "access": [
         "R",
@@ -6729,7 +6729,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -6744,19 +6744,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/155-nakoma-golf-resort-dragon-course",
+            "note": "Third-party (GolfPass); resort scorecard is image-only. Corrected from 7077/147 to 6908/139."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.nakomaresort.com/golf/",
+            "note": "Corrected from 125-175 to 99-159 (seasonal, no weekday/weekend split)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.nakomaresort.com/golf/",
+            "note": "Resort credits Robin Nelson only; GolfPass adds Mark Miller (1998). No support for 'Neil Haworth'."
           }
         }
       }
@@ -6772,13 +6772,13 @@
       "tee": {
         "yards": 6931,
         "slope": 140,
-        "rating": null,
-        "name": null
+        "rating": 72.8,
+        "name": "Gold"
       },
       "fee": {
-        "low": 150,
-        "high": 220,
-        "note": null
+        "low": 119,
+        "high": 139,
+        "note": "2026 public, cart included, 9AM-1:59PM; $119 Sun/Mon/Thu, $139 Fri-Sat; $89 after 2PM; Tahoe locals 15% off"
       },
       "access": [
         "R",
@@ -6821,7 +6821,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -6836,19 +6836,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/15541-the-links-at-everline",
+            "note": "Third-party (GolfPass): Gold 6,931 72.8/140, par 71. Resort site has no scorecard. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.everlineresort.com/resort-activities/golf-course/rates-services/",
+            "note": "Corrected from 150-220 to 119-139."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.everlineresort.com/resort-activities/golf-course/",
+            "note": "Resort: 'designed by renowned architect Robert Trent Jones Jr.' GolfPass adds later work by Kyle Phillips and Todd Eckenrode."
           }
         }
       }
@@ -6864,13 +6864,13 @@
       "tee": {
         "yards": 6649,
         "slope": 130,
-        "rating": null,
-        "name": null
+        "rating": 72.5,
+        "name": "Black"
       },
       "fee": {
-        "low": 85,
-        "high": 115,
-        "note": "approximate"
+        "low": 65,
+        "high": 85,
+        "note": "regular 18 holes walking; $65 Mon-Thu, $75 Fri, $85 Sat-Sun/holiday; cart $22 pp"
       },
       "access": [
         "DF"
@@ -6912,7 +6912,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -6927,19 +6927,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/1841-the-sea-ranch-golf-links",
+            "note": "Third-party (GolfPass); course site has no scorecard page. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://searanchgolf.com/rates/",
+            "note": "Corrected from 85-115 to 65-85 walking (87-107 with cart)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://searanchgolf.com/history/",
+            "note": "Front nine 1974, second nine opened 1995, both Graves."
           }
         }
       }
@@ -6951,17 +6951,17 @@
       "locality": "Arroyo Grande",
       "region": "Central Coast",
       "area": "central-coast",
-      "architect": "Peter Jacobsen, Jim Hardy",
+      "architect": "Peter Jacobsen, Jim Hardy (Jacobsen Hardy Golf Design)",
       "tee": {
-        "yards": 6802,
+        "yards": 6803,
         "slope": 133,
-        "rating": null,
-        "name": null
+        "rating": 73,
+        "name": "Black"
       },
       "fee": {
-        "low": 70,
-        "high": 100,
-        "note": null
+        "low": 77,
+        "high": 109,
+        "note": "Mon-Fri $77 walk/$89 ride; Sat-Sun/holiday $88 walk/$109 ride; twilight $49-$65"
       },
       "access": [
         "DF"
@@ -7003,7 +7003,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -7018,19 +7018,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://cypressridge.com/wp-content/uploads/2023/12/Scorecard-CypressRidge.pdf",
+            "note": "Official scorecard PDF: Black 73.0/133, 6803 yds (claim 6802)."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.cypressridge.com/course-rates",
+            "note": "Corrected from 70-100 to 77-109 (walk-weekday to ride-weekend)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.cypressridge.com/course-information",
+            "note": "Scorecard also reads 'A Peter Jacobsen Signature Course by Jacobsen Hardy Design'."
           }
         }
       }
@@ -7042,17 +7042,17 @@
       "locality": "Pacifica",
       "region": "Peninsula Coast",
       "area": "bay-area",
-      "architect": "Alister MacKenzie",
+      "architect": "Alister MacKenzie (1932); Jack Fleming replacement holes 1940s",
       "tee": {
         "yards": 6382,
         "slope": 127,
-        "rating": null,
-        "name": null
+        "rating": 71.9,
+        "name": "Blue"
       },
       "fee": {
-        "low": 65,
-        "high": 90,
-        "note": "approximate"
+        "low": 79,
+        "high": 88,
+        "note": "standard (non-resident card) 18 holes; $79 weekday, $88 Fri-Sun; SF resident card $63/$69; twilight $49/$58"
       },
       "access": [
         "M"
@@ -7096,7 +7096,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -7111,19 +7111,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/3891-sharp-park-golf-course",
+            "note": "Third-party (GolfPass); sfrecpark.org page has no ratings. Matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://sfrecpark.org/facilities/facility/details/Sharp-Park-Golf-Course-42",
+            "note": "Corrected from 65-90 to 79-88 (standard rate)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://sfrecpark.org/facilities/facility/details/Sharp-Park-Golf-Course-42",
+            "note": "Operator page: 'designed by the preeminent architect Alister MacKenzie', opened 1932. Fleming credit per Wikipedia."
           }
         }
       }
@@ -7135,12 +7135,12 @@
       "locality": "Sacramento",
       "region": "Sacramento",
       "area": "sacramento",
-      "architect": "Alister MacKenzie",
+      "architect": "Alister MacKenzie (1932); 2001 city renovation restored 9th/18th greens",
       "tee": {
         "yards": 7035,
         "slope": 127,
-        "rating": null,
-        "name": null
+        "rating": 72.8,
+        "name": "MacKenzie"
       },
       "fee": {
         "low": 55,
@@ -7187,7 +7187,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -7202,19 +7202,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/224-alister-mackenzie-at-haggin-oaks-golf-course",
+            "note": "Third-party (GolfPass); hagginoaks.com scorecard is image-only (site text says 7030 yds). Matches claim."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "Rates page states rates adjust in real time and posts no green-fee figures; only cart fees listed."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.hagginoaks.com/alister-mackenzie/",
+            "note": "Page: designed by Alister MacKenzie, opened 1932; $6.5M renovation 2001."
           }
         }
       }
@@ -7226,12 +7226,12 @@
       "locality": "Palm Springs",
       "region": "Coachella Valley",
       "area": "desert",
-      "architect": "Casey O'Callaghan, Amy Alcott",
+      "architect": "Casey O'Callaghan Golf Course Design (2004 redesign)",
       "tee": {
-        "yards": 6582,
-        "slope": 120,
-        "rating": null,
-        "name": null
+        "yards": 6560,
+        "slope": 124,
+        "rating": 71.4,
+        "name": "Black"
       },
       "fee": {
         "low": 120,
@@ -7278,7 +7278,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -7293,19 +7293,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/16228-indian-canyons-golf-resort-south-course",
+            "note": "Third-party (GolfPass); indiancanyonsgolf.com returns 403. Corrected from 6582/120 to 6560/124."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "Official site indiancanyonsgolf.com returns HTTP 403; no operator rates page fetched."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/16228-indian-canyons-golf-resort-south-course",
+            "note": "GolfPass: 'Casey O'Callaghan Golf Course Design (2004)'. Amy Alcott consultant role reported by unfetched third parties only."
           }
         }
       }
@@ -7320,9 +7320,9 @@
       "architect": "Nicklaus Design",
       "tee": {
         "yards": 7173,
-        "slope": 130,
-        "rating": null,
-        "name": null
+        "slope": 133,
+        "rating": 74.4,
+        "name": "Tournament (Blue)"
       },
       "fee": {
         "low": 150,
@@ -7369,7 +7369,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -7384,19 +7384,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.escenagolf.com/golf/",
+            "note": "Official golf page: Tournament 7,173 yds, men 74.4/133. Slope corrected 130 -> 133."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "Site: 'Rates are dynamic and are posted with the corresponding tee time on the booking engines'; no figures on page."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.escenagolf.com/",
+            "note": "Homepage: 'Our Nicklaus Designed championship golf course'."
           }
         }
       }
@@ -7408,17 +7408,17 @@
       "locality": "San Diego",
       "region": "San Diego",
       "area": "san-diego",
-      "architect": "William Bell-era municipal lineage",
+      "architect": "William P. Bell (1921)",
       "tee": {
         "yards": 6339,
         "slope": 125,
-        "rating": null,
-        "name": null
+        "rating": 71.2,
+        "name": "Blue"
       },
       "fee": {
-        "low": 70,
-        "high": 95,
-        "note": "non-resident, approximate"
+        "low": 56.5,
+        "high": 71,
+        "note": "non-resident 18 holes, 2026 (eff. Jan 1); $56.50 Mon-Fri, $71 Sat-Sun/holiday; resident $39.50/$49"
       },
       "access": [
         "M"
@@ -7460,7 +7460,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -7475,19 +7475,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.sandiego.gov/sites/default/files/legacy/park-and-recreation/golf/pdf/bpscorecard18hole.pdf",
+            "note": "City scorecard PDF (3/2015): Blue 71.2/125, 6339 yds. City web page text says 6,281 yds 71.1/125."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.sandiego.gov/park-and-recreation/golf/bpgolf",
+            "note": "Corrected from 70-95 to 56.50-71 (non-resident)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.golfpass.com/travel-advisor/courses/4007-eighteen-hole-at-balboa-park-municipal-golf-club",
+            "note": "GolfPass: 'William P. Bell (1921)'. Wikipedia's Bell page lists Balboa Park Municipal GC (no year). City page names no architect."
           }
         }
       }
@@ -7499,12 +7499,12 @@
       "locality": "Mission Viejo",
       "region": "Orange County",
       "area": "orange-county",
-      "architect": "Casey O'Callaghan, Tom Lehman",
+      "architect": "Tom Lehman, Casey O'Callaghan",
       "tee": {
         "yards": 7011,
         "slope": 133,
-        "rating": null,
-        "name": null
+        "rating": 73.8,
+        "name": "Black"
       },
       "fee": {
         "low": 170,
@@ -7551,7 +7551,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -7566,19 +7566,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.arroyotrabuco.com/golf/scorecard",
+            "note": "Course scorecard page: Black 7,011 yds, 73.8/133; matches claim."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "Pricing page (arroyotrabuco.com/golf/pricing-and-policies) says rates adjust in real time; no dollar amounts shown."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.arroyotrabuco.com/golf/overview",
+            "note": "'designed by PGA Tour professional Tom Lehman and ... Casey O'Callaghan'; matches claim."
           }
         }
       }
@@ -7594,13 +7594,13 @@
       "tee": {
         "yards": 6756,
         "slope": 133,
-        "rating": null,
-        "name": null
+        "rating": 73.1,
+        "name": "Black"
       },
       "fee": {
-        "low": 140,
-        "high": 190,
-        "note": "approximate"
+        "low": 133,
+        "high": 182,
+        "note": "non-resident 18 holes, cart w/ GPS included: Mon-Thu $133, Fri $158, Sat-Sun $182; Yorba Linda residents $101-133"
       },
       "access": [
         "M"
@@ -7642,7 +7642,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -7657,19 +7657,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.blackgoldgolf.com/golf/scorecard",
+            "note": "Scorecard PDF (dated 04/2007): Black 6,756 yds, 73.1/133; matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://blackgoldgolf.com/orange-county-golf-rates/",
+            "note": "Claim 140-190 corrected to 133-182 (non-resident rack, fixed pricing)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.blackgoldgolf.com/",
+            "note": "Home page: 'designed by Arthur Hills'; scorecard PDF: 'An Arthur Hills Championship Design'."
           }
         }
       }
@@ -7690,8 +7690,8 @@
       },
       "fee": {
         "low": 150,
-        "high": 210,
-        "note": "approximate"
+        "high": 190,
+        "note": "public 18 holes: Mon-Thu $150, Fri-Sun $190; Irvine residents $125/$155; cart inclusion not stated"
       },
       "access": [
         "DF"
@@ -7733,7 +7733,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -7750,17 +7750,17 @@
           "tee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "sf-golf.com/golf states par-71, 6,700 yds but posts no scorecard or ratings; aggregators list 72.7/136 (claim 133)."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.sf-golf.com/golf/",
+            "note": "Matches claim 150-210 at the low end; page top is $190."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.sf-golf.com/golf/",
+            "note": "Page credits 'award-winning golf course architect' Jim Lipe; developer Doug DeCinces; opened 1997."
           }
         }
       }
@@ -7824,7 +7824,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -7841,17 +7841,17 @@
           "tee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "Arcis Golf site has no scorecard page (404); aggregators list Black 7,003 yds 73.8/136 (claim slope 137)."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "Arcis site posts no public rack rates; tee times via quick18 booking engine only."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://arcisgolf.com/clubs/tijeras-creek-golf-club/golf-course",
+            "note": "Course page: 18-hole layout designed by Ted Robinson; matches claim."
           }
         }
       }
@@ -7863,7 +7863,7 @@
       "locality": "City of Industry",
       "region": "Los Angeles",
       "area": "la-ventura",
-      "architect": "William F. Bell",
+      "architect": "William F. Bell; Casey O'Callaghan (2006 renovation)",
       "tee": {
         "yards": 7211,
         "slope": 141,
@@ -7871,9 +7871,9 @@
         "name": null
       },
       "fee": {
-        "low": 80,
-        "high": 120,
-        "note": "approximate"
+        "low": 89,
+        "high": 115,
+        "note": "18 holes, cart included, members and non-members: Mon-Thu $89, Fri-Sun/holidays $115; twilight $65"
       },
       "access": [
         "R",
@@ -7916,7 +7916,7 @@
       "layoutSlug": "industry-hills-golf-club-at-pacific-palms-resort--dwight-eisenhower",
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -7933,17 +7933,17 @@
           "tee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "ihgolfclub.com Ike page: Black 7,211 yds, slopes '130 to 145' not itemized; aggregators 74.8/140 (claim 141)."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://ihgolfclub.com/industry-hill-rates/",
+            "note": "Claim 80-120 corrected to 89-115."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://ihgolfclub.com/los-angeles-golf-courses/ike-los-angeles-golf-course/",
+            "note": "'Designed by both William F. Bell and Casey O'Callaghan'; renovation reopened late 2006. Wikipedia says William P. Bell, 1979."
           }
         }
       }
@@ -7955,7 +7955,7 @@
       "locality": "Moorpark",
       "region": "Ventura/LA North",
       "area": "la-ventura",
-      "architect": "Peter Jacobsen, Jim Hardy",
+      "architect": "Peter Jacobsen",
       "tee": {
         "yards": 7011,
         "slope": 139,
@@ -7963,9 +7963,9 @@
         "name": null
       },
       "fee": {
-        "low": 110,
-        "high": 170,
-        "note": "approximate"
+        "low": 90,
+        "high": 120,
+        "note": "rack rate 18 holes incl. $30 mandatory cart + GPS: Mon-Thu $90, Fri-Sun/holidays $120"
       },
       "access": [
         "DF"
@@ -8007,7 +8007,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -8024,17 +8024,17 @@
           "tee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "moorparkcc.com shows per-hole yardages only, no totals or ratings; aggregators: Ridgeline/Creekside Black 7,012 yds 73.8/142."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://moorparkcc.com/rates/",
+            "note": "Claim 110-170 corrected to 90-120 (fixed pricing)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://moorparkcc.com/",
+            "note": "Home page credits Peter Jacobsen for the 27-hole design; Jim Hardy (claimed) not named on the site."
           }
         }
       }
@@ -8046,17 +8046,17 @@
       "locality": "Ventura",
       "region": "Ventura",
       "area": "la-ventura",
-      "architect": "William F. Bell lineage; Forrest Richardson",
+      "architect": "William F. Bell (original); Forrest Richardson (2007 redesign)",
       "tee": {
         "yards": 6818,
         "slope": 130,
-        "rating": null,
+        "rating": 73,
         "name": null
       },
       "fee": {
-        "low": 65,
-        "high": 90,
-        "note": "approximate"
+        "low": 56,
+        "high": 67,
+        "note": "general (non-resident) 18 holes: weekday $56, weekend/holiday $67; electric cart $18/rider extra"
       },
       "access": [
         "M"
@@ -8098,7 +8098,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -8113,19 +8113,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.kempersports.com/properties/olivas-links/",
+            "note": "Operator (KemperSports) page: 6,818 yds, 73.0/130; matches claim. Course site scorecard is image-only."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://olivaslinks.com/rates/",
+            "note": "Claim 65-90 corrected to 56-67 (fixed pricing)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.kempersports.com/properties/olivas-links/",
+            "note": "'Originally designed by William F. Bell and redesigned by Forrest Richardson'; Richardson's own site dates the rebuild 2006-08."
           }
         }
       }
@@ -8137,17 +8137,17 @@
       "locality": "Nipomo",
       "region": "Central Coast",
       "area": "central-coast",
-      "architect": "Damian Pascuzzo, Steve Pate",
+      "architect": "Damian V. Pascuzzo, Steve Pate",
       "tee": {
-        "yards": 6810,
-        "slope": 137,
-        "rating": null,
-        "name": null
+        "yards": 6830,
+        "slope": 136,
+        "rating": 73.3,
+        "name": "Black"
       },
       "fee": {
-        "low": 110,
+        "low": 125,
         "high": 175,
-        "note": "approximate"
+        "note": "public: weekday walk $125 / ride $150, weekend walk $150 / ride $175; SB/SLO county residents $105-150; effective 3/8/26"
       },
       "access": [
         "DF"
@@ -8189,7 +8189,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -8204,19 +8204,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://monarchdunes.com/-course-layout-and-scorecard",
+            "note": "2024 scorecard image on course site: Black 6,830 yds, 73.3/136 (claim 6,810/137)."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://monarchdunes.com/-green-fee-rates",
+            "note": "Rate-sheet image on rates page; claim 110-175 corrected to 125-175."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://monarchdunes.com/-information",
+            "note": "'handiwork of ... Damian V. Pascuzzo and PGA TOUR Professional Steve Pate of Pascuzzo and Pate Design'; opened Jan 1, 2006."
           }
         }
       }
@@ -8228,17 +8228,17 @@
       "locality": "Jurupa Valley",
       "region": "Inland Empire",
       "area": "inland-empire",
-      "architect": "Schmidt-Curley",
+      "architect": "Schmidt-Curley Design (Lee Schmidt, Brian Curley)",
       "tee": {
-        "yards": 6560,
+        "yards": null,
         "slope": 126,
-        "rating": null,
-        "name": null
+        "rating": 71,
+        "name": "IV"
       },
       "fee": {
-        "low": 90,
-        "high": 125,
-        "note": "approximate"
+        "low": 89,
+        "high": 120,
+        "note": "18 holes incl. $15 cart: Mon-Thu $89, Fri $99, weekend/holiday $120; green fee alone $74/$84/$105; effective 6/09/2025"
       },
       "access": [
         "DF"
@@ -8280,7 +8280,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -8295,19 +8295,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://goosecreekgc.com/ratings-scorecard/",
+            "note": "Men's Tee IV 71.0/126 matches claim slope; page gives no total yardage (holes 1 and 10 missing from hole list)."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://goosecreekgc.com/rates/",
+            "note": "Claim 90-125 corrected to 89-120."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://goosecreekgc.com/course-architect/",
+            "note": "Course Architect page credits Brian Curley / Schmidt-Curley Design, Inc.; matches claim."
           }
         }
       }
@@ -8319,7 +8319,7 @@
       "locality": "Beaumont",
       "region": "Inland Empire",
       "area": "inland-empire",
-      "architect": "Schmidt-Curley",
+      "architect": "Brian Curley, Lee Schmidt",
       "tee": {
         "yards": 7078,
         "slope": 140,
@@ -8371,7 +8371,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -8388,17 +8388,17 @@
           "tee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "oakvalleygolf.com hole-by-hole page says 'details coming soon'; no ratings posted. Aggregators: Purple 7,078 yds 73.7/140."
           },
           "fee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "No rates posted on oakvalleygolf.com/tee-times; booking engine only."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://oakvalleygolf.com/about/",
+            "note": "'Designed by Brian Curley & Lee Schmidt' (Schmidt-Curley); matches claim."
           }
         }
       }
@@ -8410,17 +8410,17 @@
       "locality": "Beaumont",
       "region": "Inland Empire",
       "area": "inland-empire",
-      "architect": "Schmidt-Curley",
+      "architect": "Schmidt-Curley Design",
       "tee": {
         "yards": 7377,
         "slope": 141,
-        "rating": null,
-        "name": null
+        "rating": 76.1,
+        "name": "Gold"
       },
       "fee": {
         "low": 70,
-        "high": 110,
-        "note": "approximate"
+        "high": 85,
+        "note": "Champions prime time (open-1pm): Mon-Thu $70, Fri/Sat/Sun/holidays $85; afternoon $40-45; cart inclusion not stated"
       },
       "access": [
         "R",
@@ -8463,7 +8463,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -8478,19 +8478,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://tukwetcanyon.com/wp-content/uploads/2020/03/Champions-Scorecard.pdf",
+            "note": "Scorecard PDF: Gold 7,377 yds, 76.1/141; matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://tukwetcanyon.com/golf/rates/",
+            "note": "Claim 70-110 corrected to 70-85."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://tukwetcanyon.com/wp-content/uploads/2020/03/Champions-Scorecard.pdf",
+            "note": "Scorecard header: 'Course architect: Schmidt/Curley Design'; matches claim."
           }
         }
       }
@@ -8502,7 +8502,7 @@
       "locality": "San Jacinto",
       "region": "Inland Empire",
       "area": "inland-empire",
-      "architect": "Desmond Muirhead; Cary Bickler",
+      "architect": "Cary Bickler (2006 redesign); Desmond Muirhead original per GolfPass",
       "tee": {
         "yards": 7053,
         "slope": 132,
@@ -8510,9 +8510,9 @@
         "name": null
       },
       "fee": {
-        "low": 80,
-        "high": 120,
-        "note": "approximate"
+        "low": 100,
+        "high": 125,
+        "note": "public 18 holes, cart included: Mon-Thu $100, Fri-Sun/holidays $125; seniors $70/$80; closed Sep 28-Oct 29 2026"
       },
       "access": [
         "R",
@@ -8555,7 +8555,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -8572,17 +8572,17 @@
           "tee": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "soboba.com posts no scorecard; tribe's update page says course is being reconfigured to ~6,000 yds par 70. Aggregators: Tour 7,339 75.3/140."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://soboba.com/soboba-springs/golf-rates",
+            "note": "Claim 80-120 corrected to 100-125."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.soboba-nsn.gov/news-press/golf-course-update",
+            "note": "Tribe page confirms Bickler's 2006 redesign and new redo of holes 13-16; Muirhead 1967 credit only via GolfPass article."
           }
         }
       }
@@ -8594,17 +8594,17 @@
       "locality": "Ramona",
       "region": "San Diego",
       "area": "san-diego",
-      "architect": "Lee Schmidt, Brian Curley",
+      "architect": "Brian Curley, Lee Schmidt",
       "tee": {
         "yards": 5764,
         "slope": 133,
-        "rating": null,
-        "name": null
+        "rating": 69,
+        "name": "Blue"
       },
       "fee": {
-        "low": 80,
-        "high": 120,
-        "note": "approximate"
+        "low": 75,
+        "high": 110,
+        "note": "general 18 holes, shared cart included: Mon-Thu $75, Fri $95, Sat/Sun/holidays $110"
       },
       "access": [
         "DF"
@@ -8646,7 +8646,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -8661,19 +8661,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.mtwoodsongolfclub.com/course-details/",
+            "note": "Scorecard image (8/2017) on course-details page: Blue 5,764 yds, M 69.0/133; matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.mtwoodsongolfclub.com/rates/",
+            "note": "Claim 80-120 corrected to 75-110."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.mtwoodsongolfclub.com/",
+            "note": "Home page: 'designed by world renowned golf course designers Brian Curley and Lee Schmidt'; matches claim."
           }
         }
       }
@@ -8685,17 +8685,17 @@
       "locality": "American Canyon",
       "region": "Napa Valley",
       "area": "wine-country",
-      "architect": "Johnny Miller, Jack Barry",
+      "architect": "Johnny Miller",
       "tee": {
         "yards": 7297,
-        "slope": 138,
-        "rating": null,
-        "name": null
+        "slope": 136,
+        "rating": 75.1,
+        "name": "Black"
       },
       "fee": {
         "low": 75,
-        "high": 105,
-        "note": "approximate"
+        "high": 95,
+        "note": "non-member 18 holes: Mon-Thu $75, Fri/Sat/Sun/holiday $95; twilight $55/$75; cart inclusion not stated"
       },
       "access": [
         "DF"
@@ -8737,7 +8737,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -8752,19 +8752,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.eaglevinesgolfclub.com/course/rating-slope-information/",
+            "note": "Black 7,297 yds, 75.1/136 (claim slope 138)."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.eaglevinesgolfclub.com/course/rates/",
+            "note": "Claim 75-105 corrected to 75-95."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.eaglevinesgolfclub.com/course/",
+            "note": "Site: 'designed by World Golf Hall of Fame Member Johnny Miller' (home page: 'in part'); Jack Barry (claimed) not named."
           }
         }
       }
@@ -8776,17 +8776,17 @@
       "locality": "Los Angeles",
       "region": "Los Angeles",
       "area": "la-ventura",
-      "architect": "William P. Bell, William H. Johnson",
+      "architect": "William P. Bell, William Johnson",
       "tee": {
         "yards": 6839,
         "slope": 130,
-        "rating": null,
-        "name": null
+        "rating": 72.8,
+        "name": "Black"
       },
       "fee": {
         "low": 42,
         "high": 58,
-        "note": "weekday / weekend; $58 before 9am"
+        "note": "18 holes: weekday $42; weekend/holiday $53, $58 before 9am; cart $18/seat extra"
       },
       "access": [
         "M"
@@ -8828,7 +8828,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -8843,19 +8843,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://golf.lacity.gov/course_rancho_park/",
+            "note": "City page: Black 6,839 yds, 72.8/130; matches claim (Wikipedia lists 72.5/129)."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://golf.lacity.gov/rates/",
+            "note": "Matches claim exactly."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://golf.lacity.gov/course_rancho_park/",
+            "note": "City page: 'designed by William Johnson and William P. Bell'; opened with 1949 Publinx (Wikipedia says 1947)."
           }
         }
       }
@@ -8867,17 +8867,17 @@
       "locality": "Rancho Palos Verdes",
       "region": "Los Angeles",
       "area": "la-ventura",
-      "architect": "William F. Bell",
+      "architect": "William Bell",
       "tee": {
-        "yards": 6631,
+        "yards": 6617,
         "slope": 124,
-        "rating": null,
-        "name": null
+        "rating": 72,
+        "name": "Blue"
       },
       "fee": {
-        "low": 27,
-        "high": 55,
-        "note": null
+        "low": 47.25,
+        "high": 52,
+        "note": "18 holes walking: Mon-Thu $47.25, Fri $50.25, Sat-Sun/holiday $52.00; effective July 8, 2026; cart extra (riding $62-67 per home page)"
       },
       "access": [
         "M"
@@ -8919,7 +8919,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -8934,19 +8934,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.losverdesgc.com/wp-content/uploads/sites/24/2020/08/LosVerdes-Scorecard-Inside.jpg",
+            "note": "Scorecard image: Blue 6,617 yds, 72.0/124 (claim 6,631). Site home text says 6,605 yds 72.4/125."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.losverdesgc.com/golf-tee-times/view-course-rates/",
+            "note": "Claim 27-55 corrected to 47.25-52 (walking rack; fixed pricing)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.losverdesgc.com/",
+            "note": "Home page credits 'William Bell' with no middle initial; claim says William F. Bell."
           }
         }
       }
@@ -8961,14 +8961,14 @@
       "architect": "William P. Bell",
       "tee": {
         "yards": 7104,
-        "slope": 130,
-        "rating": null,
-        "name": null
+        "slope": 134,
+        "rating": 74.5,
+        "name": "Gold"
       },
       "fee": {
-        "low": 50,
-        "high": 80,
-        "note": null
+        "low": 41,
+        "high": 63,
+        "note": "18 holes: Mon-Thu $41, Fri $50, weekend/holiday $63; cart $21/player extra"
       },
       "access": [
         "M"
@@ -9010,7 +9010,7 @@
       "layoutSlug": "brookside-golf-club--c-w-koiner-course-1",
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -9025,19 +9025,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.brooksidegc.com/wp-content/uploads/sites/9671/2025/08/c.W.-Koiner-Scorecard.pdf",
+            "note": "2025 scorecard PDF: Gold 7,104 yds, M 74.5/134 (claim slope 130)."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.brooksidegc.com/c-w-koiner-golf-course/",
+            "note": "Claim 50-80 corrected to 41-63."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.brooksidegc.com/",
+            "note": "Home page: Koiner Course No. 1 designed by 'famed golf architect' William P. Bell; matches claim."
           }
         }
       }
@@ -9049,17 +9049,17 @@
       "locality": "Los Angeles",
       "region": "Los Angeles",
       "area": "la-ventura",
-      "architect": "George C. Thomas/Bell-era lineage",
+      "architect": "George C. Thomas Jr. (1927); remodeled by William Johnson and William P. Bell (1930s)",
       "tee": {
         "yards": 7002,
         "slope": 126,
-        "rating": null,
-        "name": null
+        "rating": 73,
+        "name": "Black"
       },
       "fee": {
-        "low": 35,
-        "high": 55,
-        "note": "approximate"
+        "low": 41,
+        "high": 57,
+        "note": "18 holes: weekday $41; weekend/holiday $52, $57 before 9am; cart $18/seat extra"
       },
       "access": [
         "M"
@@ -9101,7 +9101,7 @@
       "layoutSlug": "griffith-park-golf-club--wilson",
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -9116,19 +9116,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://golf.lacity.gov/wilson-golf-course/",
+            "note": "City page tee table: Black 7,002 yds, 73.0/126; matches claim (summary line on same page says slope 125)."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://golf.lacity.gov/rates/",
+            "note": "Claim 35-55 corrected to 41-57."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.foremagazine.com/classic-course/a-centennial-celebration-100-years-of-golf-at-griffith-park/",
+            "note": "FORE Magazine (SCGA) centennial history; city page names no designer. Consistent with claim's Thomas/Bell lineage."
           }
         }
       }
@@ -9140,17 +9140,17 @@
       "locality": "San Clemente",
       "region": "Orange County",
       "area": "orange-county",
-      "architect": "William F. Bell",
+      "architect": "William P. 'Billy' Bell",
       "tee": {
         "yards": 6435,
         "slope": 124,
-        "rating": null,
-        "name": null
+        "rating": 70.9,
+        "name": "Blue"
       },
       "fee": {
-        "low": 50,
+        "low": 64,
         "high": 75,
-        "note": null
+        "note": "standard (non-member) 18 holes: weekday $64, weekend/holiday $75; cart $20 extra; resident $70 card gives $28/$36"
       },
       "access": [
         "M"
@@ -9192,7 +9192,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -9207,19 +9207,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.sanclemente.gov/recreation-community/golf",
+            "note": "City page: Blue 6,435 yds, 70.9/124; matches claim."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.sanclemente.gov/208/Course-Information",
+            "note": "Claim 50-75 corrected to 64-75 (post Dec-2025 non-resident increase)."
           },
           "architect": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://www.sanclemente.gov/208/Course-Information",
+            "note": "City page: 'built by renowned Golf Course Architect William \"Billy\" Bell'; 9 holes 1930, back 9 1955. Claim's William F. Bell is wrong."
           }
         }
       }
@@ -9233,15 +9233,15 @@
       "area": "sierra",
       "architect": "Algie Pulley",
       "tee": {
-        "yards": 6308,
-        "slope": 141,
-        "rating": null,
-        "name": null
+        "yards": 6154,
+        "slope": 142,
+        "rating": 70.6,
+        "name": "Black"
       },
       "fee": {
-        "low": 65,
-        "high": 90,
-        "note": "approximate"
+        "low": 61,
+        "high": 81,
+        "note": "regular 18 holes incl. shared cart: Mon-Thu $61, Fri $71, Sat/Sun/holidays $81"
       },
       "access": [
         "DF"
@@ -9283,7 +9283,7 @@
       "layoutSlug": null,
       "joinNote": null,
       "provenance": {
-        "confidence": "low",
+        "confidence": "medium",
         "checked": "2026-10-06",
         "verified": false,
         "checks": {
@@ -9298,19 +9298,19 @@
             "note": "golfdigest.com returned 403 to automated fetch on 2026-10-06; read the state guide and the course page by hand"
           },
           "tee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://applemountaingolfresort.com/wp-content/uploads/2026/06/Apple-mountain-3.17.pdf-1.png",
+            "note": "Current scorecard image (2026) on golf-course page: Black 6,154 yds, 70.6/142; claim 6,308/141 is the older card."
           },
           "fee": {
-            "verified": false,
-            "source": null,
-            "note": null
+            "verified": true,
+            "source": "https://applemountaingolfresort.com/golf-course/",
+            "note": "Claim 65-90 corrected to 61-81."
           },
           "architect": {
             "verified": false,
             "source": null,
-            "note": null
+            "note": "Course site names no architect; aggregators credit Algie M. Pulley Jr. (with Brad Bell), 1997."
           }
         }
       }

@@ -60,6 +60,26 @@ grid above the table (shipped and retired the same afternoon, at Amar's
 word: "pretty useless") — it repeated what the rows say and answered nothing
 on its own; the record's verdict now sits as a square on each row instead.
 
+**The verification pass, same day:** five agents, twenty rows each, with
+the rule that a check is verified only by a page actually fetched that
+states the value; the three ranking lists were read once by hand (Golfweek
+2026 California and U.S., GOLF 2024-25) and reconciled against all 100 rows
+— zero corrections to any Golfweek or GOLF rank. Result: 353 of 500 checks
+verified, 193 corrections to tee, fee and architect values. The pattern:
+slopes off by one to four on about half the rows; fee bands skewed $10–25
+high at the top and far too low at Los Verdes; stale pre-renovation
+yardages at Poppy Hills (7002 → 6730, par 71 since 2014), Yocha Dehe,
+SilverRock (7578 → 7239), Journey at Pechanga and Barona Creek; Black
+Horse credited to Robert McClure when Gen. Edwin Carnes built it; "W.J.
+Locke" at the Presidio found nowhere. Accepted as sources, with the flag in
+the note: GolfPass and Greenskeeper scorecards where the course's own card
+is an image. Refused: a secondary source that disagrees with another (La
+Costa's two tees — the claim is nulled, not averaged); a verified page that
+omits a value (San Juan Oaks' slope, Goose Creek's yardage — the omitted
+value is null under a verified check, never the paste's number). Open:
+Golf Digest on 96 rows (403), fees on 43 (no public number published),
+tees on 7, architect on 1 — enumerated in NEXT.md 1b.
+
 **The second paste, same day:** a revised compilation arrived as the "Amar
 Score" index — nine 0–10 components per course (architecture 25%, scenery
 14%, worth-the-drive-from-SF 14%, conditioning, walkability, value,

@@ -69,11 +69,14 @@ function publishedRankingsFor(fact, entries) {
   const out = (fact?.rankings ?? []).map((r) => ({ ...r, scope: "US", via: "facts", course: null }));
   for (const e of entries) {
     const course = entries.length > 1 ? e.name : null;
-    const verified = Boolean(e.provenance?.checks?.rankings?.verified);
-    out.push({ list: "California Public 100 (compiled)", year: 2026, rank: e.rank, source: null, verified, scope: "CA", via: "california-100", course });
+    const checks = e.provenance?.checks ?? {};
+    // The compiled rank is the list's own; it is verified when its ranking checks are.
+    out.push({ list: "California Public 100 (compiled)", year: 2026, rank: e.rank, source: null, verified: Boolean(checks.rankings?.verified), scope: "CA", via: "california-100", course });
     for (const [key, srcKey, list, year, scope] of CA100_LISTS) {
       const rank = e.rankings?.[key];
       if (!Number.isFinite(rank)) continue;
+      // Golf Digest claims answer to their own check group; the rest to `rankings`.
+      const verified = Boolean(srcKey.startsWith("golfdigest") ? checks.golfDigest?.verified : checks.rankings?.verified);
       out.push({ list, year, rank, source: ca100._sources?.[srcKey]?.url ?? null, verified, scope, via: "california-100", course });
     }
   }
