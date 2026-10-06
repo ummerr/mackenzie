@@ -1,5 +1,5 @@
 {
-  "generatedFrom": "layouts.json + geocache.json + course-polygons.geojson + facts.json",
+  "generatedFrom": "layouts.json + geocache.json + course-polygons.geojson + facts.json + california-100.json",
   "capturedAt": "2026-08-01",
   "stats": {
     "facilities": 89,
@@ -169,6 +169,19 @@
           }
         ]
       },
+      "publishedRankings": [
+        {
+          "list": "Golf Digest America's 100 Greatest Public Courses",
+          "year": 2025,
+          "rank": 1,
+          "source": "https://www.golfdigest.com/story/americas-100-greatest-public-golf-courses",
+          "verified": false,
+          "scope": "US",
+          "via": "facts",
+          "course": null
+        }
+      ],
+      "california100": [],
       "layouts": [
         {
           "slug": "bethpage-state-park-golf-course--black",
@@ -296,6 +309,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "sleepy-hollow-country-club--upper-course",
@@ -423,6 +438,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "meadow-club-fairfax",
@@ -514,6 +531,8 @@
       "played": true,
       "osmTags": null,
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "kukio-makai-beach-golf-club--18-holes",
@@ -641,6 +660,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "edgewood-tahoe-resort-golf",
@@ -754,6 +775,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "the-creek-club-locust-valley",
@@ -881,6 +904,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "tobacco-road-golf-club",
@@ -1008,6 +1033,8 @@
           "verified": true
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "hualalai-golf-club--keolu",
@@ -1185,6 +1212,100 @@
           "verified": false
         }
       },
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 17,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": "Pelican Hill — Ocean South"
+        },
+        {
+          "list": "Golfweek's Best 2026 — California public-access",
+          "year": 2026,
+          "rank": 17,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": "Pelican Hill — Ocean South"
+        },
+        {
+          "list": "Golf Digest Best in State 2025–26 — California",
+          "year": 2025,
+          "rank": 60,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": "Pelican Hill — Ocean South"
+        },
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 19,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": "Pelican Hill — Ocean North"
+        },
+        {
+          "list": "Golfweek's Best 2026 — California public-access",
+          "year": 2026,
+          "rank": 19,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": "Pelican Hill — Ocean North"
+        },
+        {
+          "list": "Golf Digest Best in State 2025–26 — California",
+          "year": 2025,
+          "rank": 54,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": "Pelican Hill — Ocean North"
+        }
+      ],
+      "california100": [
+        {
+          "rank": 17,
+          "slug": "pelican-hill-ocean-south",
+          "name": "Pelican Hill — Ocean South",
+          "layoutSlug": "pelican-hill-golf-club--ocean-south",
+          "value": "C+",
+          "fee": {
+            "low": 425,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 134,
+          "tags": [],
+          "verified": false
+        },
+        {
+          "rank": 19,
+          "slug": "pelican-hill-ocean-north",
+          "name": "Pelican Hill — Ocean North",
+          "layoutSlug": "pelican-hill-golf-club--ocean-north",
+          "value": "C+",
+          "fee": {
+            "low": 425,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 135,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "pelican-hill-golf-club--ocean-north",
@@ -1312,6 +1433,75 @@
           "verified": false
         }
       },
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 6,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        },
+        {
+          "list": "Golfweek's Best 2026 — California public-access",
+          "year": 2026,
+          "rank": 7,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        },
+        {
+          "list": "Golfweek's Best 2026 — U.S. public-access 100",
+          "year": 2026,
+          "rank": 60,
+          "source": null,
+          "verified": false,
+          "scope": "US",
+          "via": "california-100",
+          "course": null
+        },
+        {
+          "list": "Golf Digest Best in State 2025–26 — California",
+          "year": 2025,
+          "rank": 55,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        },
+        {
+          "list": "GOLF Top 100 Courses You Can Play 2024–25",
+          "year": 2024,
+          "rank": 45,
+          "source": null,
+          "verified": false,
+          "scope": "US",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 6,
+          "slug": "rustic-canyon",
+          "name": "Rustic Canyon",
+          "layoutSlug": null,
+          "value": "A++",
+          "fee": {
+            "low": 65,
+            "high": 90,
+            "note": "Mon–Thu / Fri–Sun and holidays"
+          },
+          "slope": 135,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "rustic-canyon-golf-course",
@@ -1336,7 +1526,7 @@
             "replayRate": 0.7745966692414834,
             "funMinusCondition": 0.6125,
             "scoringDelta": 0.4433744855967082,
-            "externalRanking": null,
+            "externalRanking": 0.56,
             "hasArchitect": 1
           },
           "scores": {
@@ -1365,8 +1555,8 @@
               "coverage": 1
             },
             "architecture": {
-              "score": 0.9435,
-              "coverage": 0.67
+              "score": 0.7134,
+              "coverage": 1
             }
           }
         }
@@ -1378,7 +1568,7 @@
         "revealed": 0.8082,
         "conditioning": 0.864,
         "underrated": 0.7113,
-        "architecture": 0.9435
+        "architecture": 0.7134
       }
     },
     {
@@ -1439,6 +1629,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "royal-westmoreland-golf",
@@ -1537,6 +1729,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "cantigny-golf-and-tennis-club--lakeside-hillside",
@@ -1671,6 +1865,75 @@
           "verified": false
         }
       },
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 12,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        },
+        {
+          "list": "Golfweek's Best 2026 — California public-access",
+          "year": 2026,
+          "rank": 13,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        },
+        {
+          "list": "Golf Digest Best in State 2025–26 — California",
+          "year": 2025,
+          "rank": 36,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        },
+        {
+          "list": "Golf Digest America's 100 Greatest Public 2025–26",
+          "year": 2025,
+          "rank": 62,
+          "source": null,
+          "verified": false,
+          "scope": "US",
+          "via": "california-100",
+          "course": null
+        },
+        {
+          "list": "GOLF Top 100 Courses You Can Play 2024–25",
+          "year": 2024,
+          "rank": 56,
+          "source": null,
+          "verified": false,
+          "scope": "US",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 12,
+          "slug": "pga-west-stadium",
+          "name": "PGA West — Stadium",
+          "layoutSlug": "pga-west-stadium-clubhouse--stadium-course",
+          "value": "C+",
+          "fee": {
+            "low": 300,
+            "high": 448,
+            "note": "approximate"
+          },
+          "slope": 148,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "pga-west-stadium-clubhouse--stadium-course",
@@ -1695,7 +1958,7 @@
             "replayRate": 0.31622776601683794,
             "funMinusCondition": 0.6074999999999999,
             "scoringDelta": 0.3267078189300415,
-            "externalRanking": null,
+            "externalRanking": 0.45,
             "hasArchitect": 1
           },
           "scores": {
@@ -1724,8 +1987,8 @@
               "coverage": 1
             },
             "architecture": {
-              "score": 0.958,
-              "coverage": 0.67
+              "score": 0.6532,
+              "coverage": 1
             }
           }
         }
@@ -1737,7 +2000,7 @@
         "revealed": 0.4714,
         "conditioning": 0.894,
         "underrated": 0.7173,
-        "architecture": 0.958
+        "architecture": 0.6532
       }
     },
     {
@@ -1769,6 +2032,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "cherokee-run-golf-club",
@@ -1882,6 +2147,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "sandy-lane-golf-club--the-country-club",
@@ -1995,6 +2262,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "tpc-toronto-at-osprey-valley--hoot",
@@ -2172,6 +2441,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "university-of-michigan-golf-course",
@@ -2292,6 +2563,35 @@
           "verified": false
         }
       },
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 40,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 40,
+          "slug": "ojai-valley-inn",
+          "name": "Ojai Valley Inn",
+          "layoutSlug": null,
+          "value": "A-",
+          "fee": {
+            "low": 190,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 132,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "ojai-valley-inn-and-spa",
@@ -2383,6 +2683,8 @@
       "played": true,
       "osmTags": null,
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "serket-golf-club",
@@ -2474,6 +2776,8 @@
       "played": true,
       "osmTags": null,
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "lanier-islands-golf-course",
@@ -2572,6 +2876,37 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 38,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 38,
+          "slug": "coyote-moon",
+          "name": "Coyote Moon",
+          "layoutSlug": null,
+          "value": "A-",
+          "fee": {
+            "low": 165,
+            "high": 225,
+            "note": "approximate"
+          },
+          "slope": 140,
+          "tags": [
+            "mountain-trip"
+          ],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "coyote-moon-golf-course",
@@ -2670,6 +3005,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "las-vegas-paiute-golf-resort--wolf",
@@ -2825,6 +3162,45 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 26,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        },
+        {
+          "list": "Golfweek's Best 2026 — California public-access",
+          "year": 2026,
+          "rank": 27,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 26,
+          "slug": "oak-quarry",
+          "name": "Oak Quarry",
+          "layoutSlug": null,
+          "value": "A-",
+          "fee": {
+            "low": 175,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 137,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "oak-quarry-golf-club--commemorative-course",
@@ -2938,6 +3314,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "mid-south-club",
@@ -3036,6 +3414,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "oakcreek-country-club",
@@ -3163,6 +3543,35 @@
           "verified": false
         }
       },
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 29,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 29,
+          "slug": "sandpiper",
+          "name": "Sandpiper",
+          "layoutSlug": null,
+          "value": "B+",
+          "fee": {
+            "low": 245,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 136,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "sandpiper-golf-course",
@@ -3283,6 +3692,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "grayhawk-golf-club--raptor",
@@ -3381,6 +3792,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "sunningdale-golf-and-country-club--new-sunningdale",
@@ -3479,6 +3892,35 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 64,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 64,
+          "slug": "cinnabar-hills",
+          "name": "Cinnabar Hills",
+          "layoutSlug": null,
+          "value": "A-",
+          "fee": {
+            "low": 130,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": null,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "cinnabar-hills-golf-club--canyon-lake",
@@ -3577,6 +4019,60 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 41,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": "Indian Wells — Celebrity"
+        },
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 54,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": "Indian Wells — Players"
+        }
+      ],
+      "california100": [
+        {
+          "rank": 41,
+          "slug": "indian-wells-celebrity",
+          "name": "Indian Wells — Celebrity",
+          "layoutSlug": "indian-wells-golf-resort--celebrity",
+          "value": "B+",
+          "fee": {
+            "low": 299,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 138,
+          "tags": [],
+          "verified": false
+        },
+        {
+          "rank": 54,
+          "slug": "indian-wells-players",
+          "name": "Indian Wells — Players",
+          "layoutSlug": "indian-wells-golf-resort--players",
+          "value": "B",
+          "fee": {
+            "low": 299,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 139,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "indian-wells-golf-resort--celebrity",
@@ -3675,6 +4171,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "tahoe-donner-golf-course",
@@ -3795,6 +4293,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "tpc-of-scottsdale--champions",
@@ -3893,6 +4393,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "legends-on-the-niagara-golf-club--usshers-creek",
@@ -4048,6 +4550,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "temecula-creek-golf-club--oaks-creek",
@@ -4207,6 +4711,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "heritage-palms-golf-club",
@@ -4305,6 +4811,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "scottsdale-silverado-golf-club",
@@ -4403,6 +4911,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "cross-creek-golf-club",
@@ -4501,6 +5011,35 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 83,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 83,
+          "slug": "moorpark-country-club",
+          "name": "Moorpark Country Club",
+          "layoutSlug": null,
+          "value": "B+",
+          "fee": {
+            "low": 125,
+            "high": 175,
+            "note": "approximate"
+          },
+          "slope": null,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "moorpark-country-club--canyon-crest-ridgeline",
@@ -4599,6 +5138,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "leslie-park-golf-course",
@@ -4697,6 +5238,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "waikoloa-beach-and-kings-golf-course--beach-kings",
@@ -4858,6 +5401,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "cobblestone-golf-course--acworth",
@@ -4956,6 +5501,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "shawneeki-golf-club",
@@ -5054,6 +5601,35 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 75,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 75,
+          "slug": "black-gold",
+          "name": "Black Gold",
+          "layoutSlug": null,
+          "value": "B+",
+          "fee": {
+            "low": 171,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 133,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "black-gold-golf-club",
@@ -5152,6 +5728,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "heron-lakes-golf-course--great-blue",
@@ -5307,6 +5885,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "the-club-at-bond-head--south",
@@ -5405,6 +5985,35 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 77,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 77,
+          "slug": "industry-hills-ike",
+          "name": "Industry Hills — Ike",
+          "layoutSlug": "industry-hills-golf-club-at-pacific-palms-resort--dwight-eisenhower",
+          "value": "A+",
+          "fee": {
+            "low": 99,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 141,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "industry-hills-golf-club-at-pacific-palms-resort--dwight-eisenhower",
@@ -5560,6 +6169,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "makani-golf-club",
@@ -5660,6 +6271,35 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 86,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 86,
+          "slug": "eagle-vines",
+          "name": "Eagle Vines",
+          "layoutSlug": null,
+          "value": "A+",
+          "fee": {
+            "low": 89,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 138,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "eagle-vines-golf-club",
@@ -5751,6 +6391,35 @@
       "played": true,
       "osmTags": null,
       "facts": null,
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 84,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 84,
+          "slug": "tierra-rejada",
+          "name": "Tierra Rejada",
+          "layoutSlug": null,
+          "value": "A",
+          "fee": {
+            "low": 120,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 132,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "tierra-rejada-golf-club",
@@ -5849,6 +6518,35 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 63,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 63,
+          "slug": "coyote-creek-tournament",
+          "name": "Coyote Creek — Tournament",
+          "layoutSlug": "coyote-creek-golf-club--tournament",
+          "value": "A",
+          "fee": {
+            "low": 125,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 144,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "coyote-creek-golf-club--valley-course",
@@ -5947,6 +6645,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "angeles-national-golf-club",
@@ -6060,6 +6760,8 @@
           "verified": true
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "cherry-downs-golf-and-count",
@@ -6158,6 +6860,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "lake-forest-golf-club",
@@ -6285,6 +6989,35 @@
           "verified": false
         }
       },
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 98,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 98,
+          "slug": "rancho-park",
+          "name": "Rancho Park",
+          "layoutSlug": null,
+          "value": "A++",
+          "fee": {
+            "low": 42,
+            "high": 58,
+            "note": "weekday / weekend; $58 before 9am"
+          },
+          "slope": 130,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "rancho-park-golf-club",
@@ -6398,6 +7131,35 @@
           "verified": false
         }
       },
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 99,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 99,
+          "slug": "griffith-park-wilson",
+          "name": "Griffith Park — Wilson",
+          "layoutSlug": "griffith-park-golf-club--wilson",
+          "value": "A++",
+          "fee": {
+            "low": 50,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 126,
+          "tags": [],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "griffith-park-golf-club--wilson",
@@ -6555,6 +7317,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "los-robles-greens-golf-course",
@@ -6675,6 +7439,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "tilden-park-golf-course",
@@ -6773,6 +7539,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "indian-spring-country-club",
@@ -6871,6 +7639,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "barbados-golf-club",
@@ -6969,6 +7739,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "knollwood-golf-club",
@@ -7067,6 +7839,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "redhawk-golf-course",
@@ -7165,6 +7939,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "don-valley-golf-course",
@@ -7294,6 +8070,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "brookside-golf-club--c-w-koiner-course-1",
@@ -7444,6 +8222,8 @@
       "played": true,
       "osmTags": null,
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "the-links-golf-club--marlton",
@@ -7542,6 +8322,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "ron-jaworskis-valleybrook-golf-course",
@@ -7640,6 +8422,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "montebello-golf-course",
@@ -7738,6 +8522,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "roosevelt-municipal-golf-course",
@@ -7831,6 +8617,8 @@
       "played": true,
       "osmTags": null,
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "manhattan-country-club--westdrift",
@@ -7931,6 +8719,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "eastmoreland-golf-course",
@@ -8029,6 +8819,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "wedgwood-country-club",
@@ -8127,6 +8919,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "forest-park-golf-course",
@@ -8254,6 +9048,8 @@
           "verified": false
         }
       },
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "van-cortlandt-park-golf-course",
@@ -8352,6 +9148,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "ramblewood-country-club--blue-red",
@@ -8454,6 +9252,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "sepulveda-golf-complex--balboa",
@@ -8609,6 +9409,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "penmar-golf-course",
@@ -8709,6 +9511,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "billy-caldwell-golf-course",
@@ -8809,6 +9613,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "alhambra-golf-course",
@@ -8909,6 +9715,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "hidden-valley-lake-golf-and-country-club",
@@ -9068,6 +9876,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "jackson-park-golf-course",
@@ -9166,6 +9976,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "scholl-canyon-golf-course",
@@ -9266,6 +10078,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "kresson-golf-course",
@@ -9364,6 +10178,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "lakewood-country-club-and-tennis-center",
@@ -9464,6 +10280,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "whittier-narrows-golf-course--river-pine",
@@ -9562,6 +10380,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "westchester-golf-course",
@@ -9662,6 +10482,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "bennett-valley-golf-course",
@@ -9764,6 +10586,57 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 28,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        },
+        {
+          "list": "Golfweek's Best 2026 — California public-access",
+          "year": 2026,
+          "rank": 27,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        },
+        {
+          "list": "GOLF Top 100 Courses You Can Play 2024–25",
+          "year": 2024,
+          "rank": 66,
+          "source": null,
+          "verified": false,
+          "scope": "US",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 28,
+          "slug": "harding-park",
+          "name": "TPC Harding Park",
+          "layoutSlug": null,
+          "value": "B+",
+          "fee": {
+            "low": 250,
+            "high": null,
+            "note": "non-resident, approximate"
+          },
+          "slope": 132,
+          "tags": [
+            "sf-shortlist"
+          ],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "tpc-harding-park-golf-course",
@@ -9792,7 +10665,7 @@
             "replayRate": 0.31622776601683794,
             "funMinusCondition": null,
             "scoringDelta": null,
-            "externalRanking": null,
+            "externalRanking": 0.35,
             "hasArchitect": null
           },
           "scores": {
@@ -9821,8 +10694,8 @@
               "coverage": 0
             },
             "architecture": {
-              "score": null,
-              "coverage": 0
+              "score": 0.35,
+              "coverage": 0.33
             }
           }
         }
@@ -9834,7 +10707,7 @@
         "revealed": 0.3162,
         "conditioning": null,
         "underrated": null,
-        "architecture": null
+        "architecture": 0.35
       }
     },
     {
@@ -9866,6 +10739,37 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [
+        {
+          "list": "California Public 100 (compiled)",
+          "year": 2026,
+          "rank": 42,
+          "source": null,
+          "verified": false,
+          "scope": "CA",
+          "via": "california-100",
+          "course": null
+        }
+      ],
+      "california100": [
+        {
+          "rank": 42,
+          "slug": "presidio",
+          "name": "Presidio",
+          "layoutSlug": null,
+          "value": "A-",
+          "fee": {
+            "low": 137,
+            "high": null,
+            "note": "approximate"
+          },
+          "slope": 136,
+          "tags": [
+            "sf-shortlist"
+          ],
+          "verified": false
+        }
+      ],
       "layouts": [
         {
           "slug": "presidio-golf-course",
@@ -9961,6 +10865,8 @@
       "played": true,
       "osmTags": null,
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "the-olympic-club--lake",
@@ -10063,6 +10969,8 @@
         "architect": null
       },
       "facts": null,
+      "publishedRankings": [],
+      "california100": [],
       "layouts": [
         {
           "slug": "lincoln-park-golf-course",

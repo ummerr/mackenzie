@@ -639,6 +639,15 @@ html, body {
   color: var(--cream-2);
   text-transform: uppercase;
 }
+/* The to-play list's line under the place: rank, grade, fee, slope. */
+.dos-ca100 {
+  margin-top: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--cream-1);
+}
+.dos-ca100 a { color: var(--cream-0); text-decoration: underline; text-underline-offset: 2px; }
 
 .spec-rule {
   display: flex;

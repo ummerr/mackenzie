@@ -105,12 +105,41 @@ function renderDossier(f, stats) {
         }${facts.notes.verified ? "" : " · unverified"}</span></p>`
     : "";
 
-  const rankings = (facts.rankings ?? [])
+  /* Published rankings: facts.json's own plus the ones build.mjs derived from
+     the California 100 list. `scope` says what the rank is a rank of — a CA
+     badge is a state list, and only US-scope ranks feed the pedigree lens. */
+  const rankings = (f.publishedRankings ?? facts.rankings ?? [])
     .map(
       (r) => `<dt>#${r.rank}</dt><dd>${esc(r.list)} <span class="badge">${r.year}</span>${
-        r.verified ? "" : `<span class="badge warn">unverified</span>`
-      }<small>${esc((r.source ?? "").replace(/^https?:\/\/(www\.)?/, "").slice(0, 42))}</small></dd>`,
+        r.scope ? `<span class="badge">${esc(r.scope)}</span>` : ""
+      }${r.verified ? "" : `<span class="badge warn">unverified</span>`}<small>${
+        r.via === "california-100"
+          ? `from the California 100 list${r.course ? ` · ${esc(r.course)}` : ""}${
+              r.source ? ` · ${esc(r.source.replace(/^https?:\/\/(www\.)?/, "").slice(0, 42))}` : ""
+            }`
+          : esc((r.source ?? "").replace(/^https?:\/\/(www\.)?/, "").slice(0, 42))
+      }</small></dd>`,
     )
+    .join("");
+
+  /* The to-play list's line, under the place: rank, grade, fee, slope. */
+  const ca100 = (f.california100 ?? [])
+    .map((c) => {
+      const fee =
+        c.fee && (c.fee.low != null || c.fee.high != null)
+          ? c.fee.low != null && c.fee.high != null && c.fee.high !== c.fee.low
+            ? `$${c.fee.low}–${c.fee.high}`
+            : `$${c.fee.low ?? c.fee.high}`
+          : null;
+      const bits = [
+        `#${c.rank} on the <a href="/california#r-${c.rank}">California 100</a>`,
+        (f.california100.length > 1 ? esc(c.name) : null),
+        c.value ? `${esc(c.value)} value` : null,
+        fee,
+        c.slope != null ? `slope ${c.slope}` : null,
+      ].filter(Boolean);
+      return `<div class="dos-ca100">${bits.join(" · ")}${c.verified ? "" : ` <span class="badge warn">unverified</span>`}</div>`;
+    })
     .join("");
 
   const section = (n, label, body, emptyMsg) => {
@@ -124,6 +153,7 @@ function renderDossier(f, stats) {
     <div class="dos-body">
       <h2 class="dos-name">${esc(f.name)}</h2>
       <div class="dos-place">${esc(place(f))}</div>
+      ${ca100}
 
       ${section("01", "Your record", "", "")}
       ${f.layouts.map((l) => layoutBlock(l, f, rankedTotal)).join("")}

@@ -10,6 +10,8 @@
  *   geocache.json                    machine-derived, carries a `precision`
  *   course-polygons.geojson          OSM, carries a match score
  *   facts.json                       external claims, each carries a source
+ *   california-100.json              the to-play list; published ranks for the
+ *                                    facilities it names (DECISIONS 2026-10-06)
  *   weights.json                     the lenses
  *
  * The output is deliberately denormalized — one array of facilities, each with
@@ -42,6 +44,41 @@ const polygons = existsSync(polygonsPath)
   : { features: [] };
 const facts = readJson("facts.json", {});
 const { lenses } = readJson("weights.json", { lenses: {} });
+const ca100 = readJson("california-100.json", { _sources: {}, entries: [] });
+
+/* The to-play list's entries by the spine facility they name. A facility may
+   carry several (Pelican Hill: Ocean South and Ocean North). */
+const ca100ByFacility = new Map();
+for (const e of ca100.entries ?? []) {
+  if (!e.facilitySlug) continue;
+  if (!ca100ByFacility.has(e.facilitySlug)) ca100ByFacility.set(e.facilitySlug, []);
+  ca100ByFacility.get(e.facilitySlug).push(e);
+}
+
+/* Published rankings, one shape whichever file they came from. `scope` says
+   what the rank is a rank OF — a Golfweek California #1 is not a national #1,
+   and only US-scale ranks are comparable on the externalRanking vector. */
+const CA100_LISTS = [
+  ["golfweekCA", "golfweek-2026", "Golfweek's Best 2026 — California public-access", 2026, "CA"],
+  ["golfweekUS", "golfweek-2026", "Golfweek's Best 2026 — U.S. public-access 100", 2026, "US"],
+  ["golfDigestCA", "golfdigest-2025-26", "Golf Digest Best in State 2025–26 — California", 2025, "CA"],
+  ["golfDigestPublic", "golfdigest-2025-26", "Golf Digest America's 100 Greatest Public 2025–26", 2025, "US"],
+  ["golfYCP", "golf-ycp-2024-25", "GOLF Top 100 Courses You Can Play 2024–25", 2024, "US"],
+];
+function publishedRankingsFor(fact, entries) {
+  const out = (fact?.rankings ?? []).map((r) => ({ ...r, scope: "US", via: "facts", course: null }));
+  for (const e of entries) {
+    const course = entries.length > 1 ? e.name : null;
+    const verified = Boolean(e.provenance?.checks?.rankings?.verified);
+    out.push({ list: "California Public 100 (compiled)", year: 2026, rank: e.rank, source: null, verified, scope: "CA", via: "california-100", course });
+    for (const [key, srcKey, list, year, scope] of CA100_LISTS) {
+      const rank = e.rankings?.[key];
+      if (!Number.isFinite(rank)) continue;
+      out.push({ list, year, rank, source: ca100._sources?.[srcKey]?.url ?? null, verified, scope, via: "california-100", course });
+    }
+  }
+  return out;
+}
 
 const polygonBySlug = new Map(polygons.features.map((f) => [f.properties.facilitySlug, f]));
 const layoutsBySlug = new Map();
@@ -70,12 +107,15 @@ const clamp01 = (x) => Math.max(0, Math.min(1, x));
  * `null` means genuinely unknown and is excluded from any lens that uses it,
  * rather than being treated as zero.
  */
-function vectorsFor(layout, fact) {
+function vectorsFor(layout, fact, published) {
   const r = layout.ratings;
   const nineHole = layout.flags.includes("nine_hole_suspected");
 
-  // External ranking: best (lowest) position across every published list.
-  const ranks = (fact?.rankings ?? []).map((x) => x.rank).filter((x) => Number.isFinite(x));
+  // External ranking: best (lowest) position across every published list
+  // that ranks the whole country. State lists and the compiled CA 100 reach
+  // the dossier but not this vector — (101 - rank)/100 assumes a national
+  // scale, and a California #1 under it would outrank a U.S. #2.
+  const ranks = published.filter((x) => x.scope === "US").map((x) => x.rank).filter((x) => Number.isFinite(x));
   const bestExternal = ranks.length ? Math.min(...ranks) : null;
 
   return {
@@ -140,8 +180,14 @@ for (const f of facilities) {
   if (poly) withPolygon++;
   if (fact) withFacts++;
 
+  const listEntries = ca100ByFacility.get(f.slug) ?? [];
+  const publishedRankings = publishedRankingsFor(fact, listEntries);
+
   const enriched = own.map((l) => {
-    const vectors = vectorsFor(l, fact);
+    /* The list names a layout, or names the facility when it has one layout;
+       a rank for Ocean South says nothing about Ocean North's vector. */
+    const mine = listEntries.filter((e) => e.layoutSlug === l.slug || (e.layoutSlug === null && own.length === 1));
+    const vectors = vectorsFor(l, fact, publishedRankingsFor(fact, mine));
     const scores = {};
     for (const [id, lens] of Object.entries(lenses)) scores[id] = scoreLens(vectors, lens.weights);
     return { ...l, vectors, scores };
@@ -191,6 +237,19 @@ for (const f of facilities) {
       : null,
 
     facts: fact,
+    publishedRankings,
+    // The to-play list's view of this facility, for the dossier's header line.
+    california100: listEntries.map((e) => ({
+      rank: e.rank,
+      slug: e.slug,
+      name: e.name,
+      layoutSlug: e.layoutSlug,
+      value: e.value,
+      fee: e.fee,
+      slope: e.tee?.slope ?? null,
+      tags: e.tags,
+      verified: Boolean(e.provenance?.verified),
+    })),
     layouts: enriched,
   });
 }
@@ -208,7 +267,7 @@ writeFileSync(
   resolve(PUB, "courses.json"),
   JSON.stringify(
     {
-      generatedFrom: "layouts.json + geocache.json + course-polygons.geojson + facts.json",
+      generatedFrom: "layouts.json + geocache.json + course-polygons.geojson + facts.json + california-100.json",
       capturedAt: readJson("layouts.json", {}).capturedAt ?? null,
       stats: {
         facilities: out.length,
@@ -234,5 +293,6 @@ console.log(`  layouts      ${layouts.length}`);
 console.log(`  coords       ${withCoords}/${out.length}`);
 console.log(`  polygons     ${withPolygon}/${out.length}`);
 console.log(`  facts        ${withFacts}/${out.length}`);
+console.log(`  on the CA100 ${out.filter((f) => f.california100.length).length}/${out.length} facilities · ${out.filter((f) => f.publishedRankings.length).length} with a published ranking`);
 console.log(`  mean score   ${meanScore.toFixed(1)} (over ${cleanScores.length} non-9-hole layouts)`);
 console.log(`  lenses       ${Object.keys(lenses).join(", ")}\n`);

@@ -362,7 +362,7 @@ console.log(`  architect (curated)   ${pct(has((f) => f.facts?.architect), n)}`)
 console.log(`  architect (OSM tag)   ${pct(has((f) => f.osmTags?.architect), n)}`);
 console.log(`  year opened           ${pct(has((f) => f.facts?.yearOpened), n)}`);
 console.log(`  access                ${pct(has((f) => f.facts?.access || f.osmTags?.access), n)}`);
-console.log(`  external ranking      ${pct(has((f) => f.facts?.rankings?.length), n)}`);
+console.log(`  external ranking      ${pct(has((f) => f.publishedRankings?.length), n)}`);
 console.log(`  hole count (OSM tag)  ${pct(has((f) => f.osmTags?.holes), n)}`);
 if (caStats) {
   const builtBySlug = new Map(facilities.map((f) => [f.slug, f]));
