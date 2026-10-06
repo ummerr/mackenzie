@@ -67,6 +67,9 @@ export interface SourceFacility {
     access?: { value: string };
   };
   layouts: {
+    /** `facility--layout`; the join key the to-play list names. Optional only
+     *  so older fixtures typecheck — the artifact always carries it. */
+    slug?: string;
     grintLayoutName: string | null;
     timesPlayed: number;
     avgScore: number | null;

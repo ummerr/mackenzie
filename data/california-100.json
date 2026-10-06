@@ -1,0 +1,6562 @@
+{
+  "_README": [
+    "The California Public 100 — the to-play list. One compilation (ChatGPT, 2026-10-06)",
+    "of published public-access rankings, transcribed verbatim and then CHECKED row by row.",
+    "",
+    "CONTRACT (enforced by scripts/validate.mjs):",
+    "- exactly 100 entries, ranks 1..100 unique, slugs unique kebab-case;",
+    "- unknown values are null, never guessed — a '~129' slope is null until a page states it;",
+    "- fee is an approximate 2026 posted rate {low, high, note}, never a quotation;",
+    "- facilitySlug / layoutSlug join the spine (data/facilities.json, data/layouts.json),",
+    "  explicit and never fuzzy; a layoutSlug the spine lacks is allowed and reads as",
+    "  'facility played, this course not'; an entry that LOOKS like a spine facility but",
+    "  is not must say why in joinNote;",
+    "- provenance.checks holds one check per claim group (rankings, tee, fee, architect):",
+    "  {verified, source, note}; a verified check names its source (a URL or a key in _sources);",
+    "  provenance.verified is true only when every check is; confidence is high|medium|low.",
+    "",
+    "Hand-editable. The page /california and the dossier on /courses read it; build.mjs",
+    "derives published rankings for the facilities it links to. Only US-scale ranks",
+    "(golfweekUS, golfDigestPublic, golfYCP) feed the externalRanking vector — a state #1",
+    "is not a national #1."
+  ],
+  "list": {
+    "title": "California Public 100",
+    "compiledAt": "2026-10-06",
+    "compiledBy": "ChatGPT compilation of the lists in _sources, pasted 2026-10-06; see DECISIONS.md 2026-10-06",
+    "from": "San Francisco"
+  },
+  "_sources": {
+    "chatgpt-2026-10": {
+      "title": "ChatGPT compilation, 2026-10-06",
+      "url": null,
+      "note": "the table as pasted — every value a claim until checked against the page it cites",
+      "fields": [
+        "rank",
+        "architect",
+        "tee",
+        "fee",
+        "access",
+        "value",
+        "tags"
+      ],
+      "checked": "2026-10-06",
+      "verified": false
+    },
+    "golfweek-2026": {
+      "title": "Golfweek's Best 2026: public-access courses, California and the U.S. top 100",
+      "url": null,
+      "note": "URL filled in by the verification pass",
+      "fields": [
+        "rankings.golfweekCA",
+        "rankings.golfweekUS"
+      ],
+      "checked": null,
+      "verified": false
+    },
+    "golfdigest-2025-26": {
+      "title": "Golf Digest Best in State 2025–26: California (public and private), panel score, state rank, America's 100 Greatest Public rank",
+      "url": null,
+      "note": "URL filled in by the verification pass",
+      "fields": [
+        "rankings.golfDigestScore",
+        "rankings.golfDigestCA",
+        "rankings.golfDigestPublic"
+      ],
+      "checked": null,
+      "verified": false
+    },
+    "golf-ycp-2024-25": {
+      "title": "GOLF Top 100 Courses You Can Play 2024–25",
+      "url": null,
+      "note": "URL filled in by the verification pass",
+      "fields": [
+        "rankings.golfYCP"
+      ],
+      "checked": null,
+      "verified": false
+    }
+  },
+  "_access": {
+    "DF": "daily fee",
+    "M": "municipal",
+    "R": "resort",
+    "S": "stay or special access",
+    "SP": "semi-public",
+    "X": "restricted"
+  },
+  "_areas": {
+    "bay-area": "Bay Area",
+    "monterey": "Monterey & Santa Cruz",
+    "sierra": "Sierra & Tahoe",
+    "wine-country": "Wine Country & North Coast",
+    "sacramento": "Sacramento",
+    "central-coast": "Central Coast",
+    "la-ventura": "Los Angeles & Ventura",
+    "orange-county": "Orange County",
+    "san-diego": "San Diego",
+    "desert": "Coachella Valley & desert",
+    "inland-empire": "Inland Empire & mountains"
+  },
+  "_tags": {
+    "sf-shortlist": "playable from San Francisco without a night away",
+    "mountain-trip": "the Sierra trip group"
+  },
+  "entries": [
+    {
+      "rank": 1,
+      "slug": "pebble-beach",
+      "name": "Pebble Beach Golf Links",
+      "locality": "Pebble Beach",
+      "area": "monterey",
+      "architect": "Jack Neville, Douglas Grant",
+      "tee": {
+        "yards": 6802,
+        "slope": 144,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 695,
+        "high": null,
+        "note": null
+      },
+      "access": [
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 1,
+        "golfweekUS": 1,
+        "golfDigestScore": 4.8,
+        "golfDigestCA": 2,
+        "golfDigestPublic": 1,
+        "golfYCP": 1
+      },
+      "value": "C+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 2,
+      "slug": "pasatiempo",
+      "name": "Pasatiempo",
+      "locality": "Santa Cruz",
+      "area": "monterey",
+      "architect": "Alister MacKenzie; Tom Doak / Jim Urbina restoration",
+      "tee": {
+        "yards": 6495,
+        "slope": 143,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 465,
+        "high": null,
+        "note": "walking"
+      },
+      "access": [
+        "SP"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 2,
+        "golfweekUS": 11,
+        "golfDigestScore": 4.6,
+        "golfDigestCA": 14,
+        "golfDigestPublic": 15,
+        "golfYCP": 11
+      },
+      "value": "B",
+      "valueNote": null,
+      "tags": [
+        "sf-shortlist"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 3,
+      "slug": "spyglass-hill",
+      "name": "Spyglass Hill",
+      "locality": "Pebble Beach",
+      "area": "monterey",
+      "architect": "Robert Trent Jones Sr.",
+      "tee": {
+        "yards": 6960,
+        "slope": 145,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 550,
+        "high": null,
+        "note": null
+      },
+      "access": [
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 3,
+        "golfweekUS": 12,
+        "golfDigestScore": 4.4,
+        "golfDigestCA": 10,
+        "golfDigestPublic": 13,
+        "golfYCP": 23
+      },
+      "value": "B-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 4,
+      "slug": "poppy-ridge",
+      "name": "Poppy Ridge",
+      "locality": "Livermore",
+      "area": "bay-area",
+      "architect": "Jay Blasi (2025 rebuild)",
+      "tee": {
+        "yards": 7010,
+        "slope": 129,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 150,
+        "high": 175,
+        "note": "NCGA members $70–100"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 4,
+        "golfweekUS": 17,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [
+        "sf-shortlist"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 5,
+      "slug": "torrey-pines-south",
+      "name": "Torrey Pines South",
+      "locality": "La Jolla",
+      "area": "san-diego",
+      "architect": "William F. Bell; Rees Jones",
+      "tee": {
+        "yards": 7802,
+        "slope": 148,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 258,
+        "high": 322,
+        "note": "non-resident; San Diego residents $73–90"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 5,
+        "golfweekUS": 52,
+        "golfDigestScore": 3.9,
+        "golfDigestCA": 26,
+        "golfDigestPublic": 40,
+        "golfYCP": 43
+      },
+      "value": "B+",
+      "valueNote": "A+ for residents",
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 6,
+      "slug": "rustic-canyon",
+      "name": "Rustic Canyon",
+      "locality": "Moorpark",
+      "area": "la-ventura",
+      "architect": "Gil Hanse, Jim Wagner, Geoff Shackelford",
+      "tee": {
+        "yards": 7044,
+        "slope": 135,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 65,
+        "high": 90,
+        "note": "Mon–Thu / Fri–Sun and holidays"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 7,
+        "golfweekUS": 60,
+        "golfDigestScore": 3.9,
+        "golfDigestCA": 55,
+        "golfDigestPublic": null,
+        "golfYCP": 45
+      },
+      "value": "A++",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "rustic-canyon-golf-course",
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 7,
+      "slug": "yocha-dehe",
+      "name": "Yocha Dehe",
+      "locality": "Brooks",
+      "area": "wine-country",
+      "architect": "Brad Bell",
+      "tee": {
+        "yards": 7337,
+        "slope": 141,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 325,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R",
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 6,
+        "golfweekUS": 55,
+        "golfDigestScore": 4.1,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 8,
+      "slug": "la-costa-north",
+      "name": "Omni La Costa — North",
+      "locality": "Carlsbad",
+      "area": "san-diego",
+      "architect": "Dick Wilson; Gil Hanse / Jim Wagner 2023–24",
+      "tee": {
+        "yards": 6996,
+        "slope": 138,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 389,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "S",
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 9,
+        "golfweekUS": 75,
+        "golfDigestScore": 4,
+        "golfDigestCA": 52,
+        "golfDigestPublic": null,
+        "golfYCP": 89
+      },
+      "value": "C+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 9,
+      "slug": "rams-hill",
+      "name": "Rams Hill",
+      "locality": "Borrego Springs",
+      "area": "desert",
+      "architect": "Ted Robinson; Tom Fazio / Dennis Wise",
+      "tee": {
+        "yards": 7232,
+        "slope": 141,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 200,
+        "high": 260,
+        "note": "fall"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 10,
+        "golfweekUS": 82,
+        "golfDigestScore": 4.1,
+        "golfDigestCA": 44,
+        "golfDigestPublic": null,
+        "golfYCP": 93
+      },
+      "value": "B+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 10,
+      "slug": "cordevalle",
+      "name": "CordeValle",
+      "locality": "San Martin",
+      "area": "bay-area",
+      "architect": "Robert Trent Jones Jr.",
+      "tee": {
+        "yards": 7360,
+        "slope": 146,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": null,
+        "high": null,
+        "note": "resort package only"
+      },
+      "access": [
+        "S"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 11,
+        "golfweekUS": null,
+        "golfDigestScore": 4.3,
+        "golfDigestCA": 32,
+        "golfDigestPublic": 52,
+        "golfYCP": 83
+      },
+      "value": "C",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 11,
+      "slug": "torrey-pines-north",
+      "name": "Torrey Pines North",
+      "locality": "La Jolla",
+      "area": "san-diego",
+      "architect": "William F. Bell; Tom Weiskopf 2018",
+      "tee": {
+        "yards": 7259,
+        "slope": 134,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 163,
+        "high": 204,
+        "note": "non-resident; residents $51–68"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 12,
+        "golfweekUS": null,
+        "golfDigestScore": 3.6,
+        "golfDigestCA": 49,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 12,
+      "slug": "pga-west-stadium",
+      "name": "PGA West — Stadium",
+      "locality": "La Quinta",
+      "area": "desert",
+      "architect": "Pete Dye; Tim Liddy restoration",
+      "tee": {
+        "yards": 7300,
+        "slope": 148,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 300,
+        "high": 448,
+        "note": "approximate"
+      },
+      "access": [
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 13,
+        "golfweekUS": null,
+        "golfDigestScore": 4,
+        "golfDigestCA": 36,
+        "golfDigestPublic": 62,
+        "golfYCP": 56
+      },
+      "value": "C+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "pga-west-stadium-clubhouse",
+      "layoutSlug": "pga-west-stadium-clubhouse--stadium-course",
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 13,
+      "slug": "spanish-bay",
+      "name": "Links at Spanish Bay",
+      "locality": "Pebble Beach",
+      "area": "monterey",
+      "architect": "Robert Trent Jones Jr., Tom Watson, Sandy Tatum; Gil Hanse rebuild underway",
+      "tee": {
+        "yards": 6739,
+        "slope": 143,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": null,
+        "high": null,
+        "note": "closed for the Hanse rebuild since 2026-03-18; reopens 2027-04-17"
+      },
+      "access": [
+        "R"
+      ],
+      "status": "closed",
+      "rankings": {
+        "golfweekCA": 8,
+        "golfweekUS": 65,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": null,
+      "valueNote": "not graded while closed",
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 14,
+      "slug": "poppy-hills",
+      "name": "Poppy Hills",
+      "locality": "Pebble Beach",
+      "area": "monterey",
+      "architect": "Robert Trent Jones Jr.; Bruce Charlton 2013",
+      "tee": {
+        "yards": 7002,
+        "slope": 135,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 375,
+        "high": null,
+        "note": "approximate; NCGA discount"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 14,
+        "golfweekUS": null,
+        "golfDigestScore": 3.9,
+        "golfDigestCA": 45,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B-",
+      "valueNote": "A at NCGA rates",
+      "tags": [
+        "sf-shortlist"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 15,
+      "slug": "bayonet",
+      "name": "Bayonet",
+      "locality": "Seaside",
+      "area": "monterey",
+      "architect": "Robert McClure; Gene Bates renovation",
+      "tee": {
+        "yards": 7104,
+        "slope": 137,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 195,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 16,
+        "golfweekUS": null,
+        "golfDigestScore": 3.7,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B+",
+      "valueNote": null,
+      "tags": [
+        "sf-shortlist"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 16,
+      "slug": "quail-lodge",
+      "name": "Quail Lodge",
+      "locality": "Carmel Valley",
+      "area": "monterey",
+      "architect": "Robert Muir Graves",
+      "tee": {
+        "yards": 6500,
+        "slope": 129,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 300,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 15,
+        "golfweekUS": null,
+        "golfDigestScore": 3.5,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "C+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 17,
+      "slug": "pelican-hill-ocean-south",
+      "name": "Pelican Hill — Ocean South",
+      "locality": "Newport Coast",
+      "area": "orange-county",
+      "architect": "Tom Fazio",
+      "tee": {
+        "yards": 6580,
+        "slope": 134,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 425,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 17,
+        "golfweekUS": null,
+        "golfDigestScore": 4.2,
+        "golfDigestCA": 60,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "C+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "pelican-hill-golf-club",
+      "layoutSlug": "pelican-hill-golf-club--ocean-south",
+      "joinNote": "the record has Ocean North only; this layout slug is not in the spine",
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 18,
+      "slug": "pga-west-nicklaus-tournament",
+      "name": "PGA West — Nicklaus Tournament",
+      "locality": "La Quinta",
+      "area": "desert",
+      "architect": "Jack Nicklaus",
+      "tee": {
+        "yards": 7204,
+        "slope": 143,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 323,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 18,
+        "golfweekUS": null,
+        "golfDigestScore": 3.9,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": "a different course from the Stadium layout the record holds",
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 19,
+      "slug": "pelican-hill-ocean-north",
+      "name": "Pelican Hill — Ocean North",
+      "locality": "Newport Coast",
+      "area": "orange-county",
+      "architect": "Tom Fazio",
+      "tee": {
+        "yards": 6945,
+        "slope": 135,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 425,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 19,
+        "golfweekUS": null,
+        "golfDigestScore": 4.1,
+        "golfDigestCA": 54,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "C+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "pelican-hill-golf-club",
+      "layoutSlug": "pelican-hill-golf-club--ocean-north",
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 20,
+      "slug": "aviara",
+      "name": "Aviara",
+      "locality": "Carlsbad",
+      "area": "san-diego",
+      "architect": "Arnold Palmer, Ed Seay",
+      "tee": {
+        "yards": 7007,
+        "slope": 140,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 325,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 20,
+        "golfweekUS": null,
+        "golfDigestScore": 3.9,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 21,
+      "slug": "maderas",
+      "name": "Maderas",
+      "locality": "Poway",
+      "area": "san-diego",
+      "architect": "Johnny Miller, Robert Muir Graves",
+      "tee": {
+        "yards": 7167,
+        "slope": 142,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 299,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 21,
+        "golfweekUS": null,
+        "golfDigestScore": 4,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 22,
+      "slug": "whitehawk-ranch",
+      "name": "Whitehawk Ranch",
+      "locality": "Clio",
+      "area": "sierra",
+      "architect": "Dick Bailey",
+      "tee": {
+        "yards": 6955,
+        "slope": 132,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 149,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 23,
+        "golfweekUS": null,
+        "golfDigestScore": 4.2,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [
+        "mountain-trip"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 23,
+      "slug": "the-grand",
+      "name": "The Grand Golf Club",
+      "locality": "San Diego",
+      "area": "san-diego",
+      "architect": "Tom Fazio",
+      "tee": {
+        "yards": 7160,
+        "slope": 141,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 230,
+        "high": 270,
+        "note": "approximate"
+      },
+      "access": [
+        "R",
+        "S"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 23,
+        "golfweekUS": null,
+        "golfDigestScore": 3.7,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 24,
+      "slug": "soule-park",
+      "name": "Soule Park",
+      "locality": "Ojai",
+      "area": "la-ventura",
+      "architect": "William F. Bell, Bob Baldock; Gil Hanse / Jim Wagner restoration",
+      "tee": {
+        "yards": 6806,
+        "slope": 126,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 71,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 25,
+        "golfweekUS": null,
+        "golfDigestScore": 3.9,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A++",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 25,
+      "slug": "desert-willow-firecliff",
+      "name": "Desert Willow — Firecliff",
+      "locality": "Palm Desert",
+      "area": "desert",
+      "architect": "Michael Hurdzan, Dana Fry",
+      "tee": {
+        "yards": 7056,
+        "slope": 138,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 275,
+        "high": null,
+        "note": "peak season"
+      },
+      "access": [
+        "M",
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 25,
+        "golfweekUS": null,
+        "golfDigestScore": 4,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": "off-season",
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 26,
+      "slug": "oak-quarry",
+      "name": "Oak Quarry",
+      "locality": "Riverside",
+      "area": "inland-empire",
+      "architect": "Schmidt-Curley, Gil Morgan",
+      "tee": {
+        "yards": 7002,
+        "slope": 137,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 175,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 27,
+        "golfweekUS": null,
+        "golfDigestScore": 3.9,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "oak-quarry-golf-club",
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 27,
+      "slug": "la-purisima",
+      "name": "La Purisima",
+      "locality": "Lompoc",
+      "area": "central-coast",
+      "architect": "Robert Muir Graves",
+      "tee": {
+        "yards": 7105,
+        "slope": 143,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 128,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 27,
+        "golfweekUS": null,
+        "golfDigestScore": 4.1,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 28,
+      "slug": "harding-park",
+      "name": "TPC Harding Park",
+      "locality": "San Francisco",
+      "area": "bay-area",
+      "architect": "Willie Watson, Sam Whiting",
+      "tee": {
+        "yards": 7169,
+        "slope": 132,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 250,
+        "high": null,
+        "note": "non-resident, approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 27,
+        "golfweekUS": null,
+        "golfDigestScore": 3.9,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": 66
+      },
+      "value": "B+",
+      "valueNote": null,
+      "tags": [
+        "sf-shortlist"
+      ],
+      "facilitySlug": "tpc-harding-park-golf-course",
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 29,
+      "slug": "sandpiper",
+      "name": "Sandpiper",
+      "locality": "Goleta",
+      "area": "central-coast",
+      "architect": "William F. Bell",
+      "tee": {
+        "yards": 7159,
+        "slope": 136,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 245,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.8,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "sandpiper-golf-course",
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 30,
+      "slug": "grizzly-ranch",
+      "name": "Grizzly Ranch",
+      "locality": "Portola",
+      "area": "sierra",
+      "architect": "Bob Cupp",
+      "tee": {
+        "yards": 7411,
+        "slope": 143,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 185,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 4.1,
+        "golfDigestCA": 53,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [
+        "mountain-trip"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 31,
+      "slug": "eagle-falls",
+      "name": "Eagle Falls",
+      "locality": "Indio",
+      "area": "desert",
+      "architect": "Clive Clark",
+      "tee": {
+        "yards": 6715,
+        "slope": 133,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 145,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF",
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 30,
+        "golfweekUS": null,
+        "golfDigestScore": 3.4,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 32,
+      "slug": "old-greenwood",
+      "name": "Old Greenwood",
+      "locality": "Truckee",
+      "area": "sierra",
+      "architect": "Jack Nicklaus",
+      "tee": {
+        "yards": 7518,
+        "slope": 140,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 350,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R",
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B",
+      "valueNote": null,
+      "tags": [
+        "mountain-trip"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 33,
+      "slug": "pga-west-mountain",
+      "name": "PGA West — Mountain",
+      "locality": "La Quinta",
+      "area": "desert",
+      "architect": "Pete Dye",
+      "tee": {
+        "yards": 6666,
+        "slope": 135,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 265,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.7,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": 78
+      },
+      "value": "B+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": "a different course from the Stadium layout the record holds",
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 34,
+      "slug": "black-horse",
+      "name": "Black Horse",
+      "locality": "Seaside",
+      "area": "monterey",
+      "architect": "Robert McClure; Gene Bates",
+      "tee": {
+        "yards": 7025,
+        "slope": 136,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 195,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.4,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 35,
+      "slug": "trump-national-la",
+      "name": "Trump National Los Angeles",
+      "locality": "Rancho Palos Verdes",
+      "area": "la-ventura",
+      "architect": "Pete Dye lineage; Tom Fazio work",
+      "tee": {
+        "yards": 7242,
+        "slope": 146,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": null,
+        "high": null,
+        "note": "dynamic pricing"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": 22,
+        "golfweekUS": null,
+        "golfDigestScore": 3.8,
+        "golfDigestCA": 58,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "D+",
+      "valueNote": "B for the scenery",
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 36,
+      "slug": "corica-park-south",
+      "name": "Corica Park — South",
+      "locality": "Alameda",
+      "area": "bay-area",
+      "architect": "Rees Jones 2018",
+      "tee": {
+        "yards": 6874,
+        "slope": 129,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 102,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.6,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [
+        "sf-shortlist"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 37,
+      "slug": "wente-vineyards",
+      "name": "Wente Vineyards",
+      "locality": "Livermore",
+      "area": "bay-area",
+      "architect": "Greg Norman",
+      "tee": {
+        "yards": 7181,
+        "slope": 143,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 217,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 4,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [
+        "sf-shortlist"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 38,
+      "slug": "coyote-moon",
+      "name": "Coyote Moon",
+      "locality": "Truckee",
+      "area": "sierra",
+      "architect": "Brad Bell",
+      "tee": {
+        "yards": 7177,
+        "slope": 140,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 165,
+        "high": 225,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.8,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [
+        "mountain-trip"
+      ],
+      "facilitySlug": "coyote-moon-golf-course",
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 39,
+      "slug": "half-moon-bay-ocean",
+      "name": "Half Moon Bay — Ocean",
+      "locality": "Half Moon Bay",
+      "area": "bay-area",
+      "architect": "Arthur Hills",
+      "tee": {
+        "yards": 6854,
+        "slope": 132,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 250,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R",
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.3,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 40,
+      "slug": "ojai-valley-inn",
+      "name": "Ojai Valley Inn",
+      "locality": "Ojai",
+      "area": "la-ventura",
+      "architect": "George C. Thomas, William P. Bell; later work",
+      "tee": {
+        "yards": 6308,
+        "slope": 132,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 190,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.8,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "ojai-valley-inn-and-spa",
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 41,
+      "slug": "indian-wells-celebrity",
+      "name": "Indian Wells — Celebrity",
+      "locality": "Indian Wells",
+      "area": "desert",
+      "architect": "Clive Clark",
+      "tee": {
+        "yards": 7050,
+        "slope": 138,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 299,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R",
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 4,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "indian-wells-golf-resort",
+      "layoutSlug": "indian-wells-golf-resort--celebrity",
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 42,
+      "slug": "presidio",
+      "name": "Presidio",
+      "locality": "San Francisco",
+      "area": "bay-area",
+      "architect": "Robert Johnstone; early military course",
+      "tee": {
+        "yards": 6422,
+        "slope": 136,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 137,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.4,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [
+        "sf-shortlist"
+      ],
+      "facilitySlug": "presidio-golf-course",
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 43,
+      "slug": "silverrock",
+      "name": "SilverRock",
+      "locality": "La Quinta",
+      "area": "desert",
+      "architect": "Arnold Palmer, Erik Larsen",
+      "tee": {
+        "yards": 7578,
+        "slope": 139,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 215,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R",
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.5,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 44,
+      "slug": "grays-crossing",
+      "name": "Gray's Crossing",
+      "locality": "Truckee",
+      "area": "sierra",
+      "architect": "Peter Jacobsen, Jim Hardy",
+      "tee": {
+        "yards": 7518,
+        "slope": 144,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 230,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.7,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B+",
+      "valueNote": null,
+      "tags": [
+        "mountain-trip"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 45,
+      "slug": "journey-at-pechanga",
+      "name": "Journey at Pechanga",
+      "locality": "Temecula",
+      "area": "inland-empire",
+      "architect": "Arthur Hills, Steve Forrest",
+      "tee": {
+        "yards": 7227,
+        "slope": 142,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 215,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R",
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.8,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": "not Temecula Creek, which the record holds — a different facility in the same town",
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 46,
+      "slug": "corica-park-north",
+      "name": "Corica Park — North",
+      "locality": "Alameda",
+      "area": "bay-area",
+      "architect": "William P. Bell lineage; Robert Trent Jones II team completion 2025",
+      "tee": {
+        "yards": null,
+        "slope": null,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 100,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 47,
+      "slug": "san-juan-oaks",
+      "name": "San Juan Oaks",
+      "locality": "Hollister",
+      "area": "bay-area",
+      "architect": "Fred Couples, Gene Bates",
+      "tee": {
+        "yards": 7133,
+        "slope": 141,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 175,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 4.5,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": "Golf Digest score from a thin panel",
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 48,
+      "slug": "silverado-north",
+      "name": "Silverado — North",
+      "locality": "Napa",
+      "area": "wine-country",
+      "architect": "Robert Trent Jones Sr. and Jr.; Johnny Miller",
+      "tee": {
+        "yards": 6793,
+        "slope": 135,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": null,
+        "high": null,
+        "note": "resort package only"
+      },
+      "access": [
+        "S",
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.4,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "C+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 49,
+      "slug": "pacific-grove",
+      "name": "Pacific Grove Golf Links",
+      "locality": "Pacific Grove",
+      "area": "monterey",
+      "architect": "Chandler Egan, Jack Neville",
+      "tee": {
+        "yards": 5732,
+        "slope": 113,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 110,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.3,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 50,
+      "slug": "darkhorse",
+      "name": "DarkHorse",
+      "locality": "Auburn",
+      "area": "sierra",
+      "architect": "Keith Foster",
+      "tee": {
+        "yards": 7005,
+        "slope": 139,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 89,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.8,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 51,
+      "slug": "hunter-ranch",
+      "name": "Hunter Ranch",
+      "locality": "Paso Robles",
+      "area": "central-coast",
+      "architect": "Ken Hunter, Mike McGinnis",
+      "tee": {
+        "yards": 6741,
+        "slope": 138,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 125,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 4.6,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": "Golf Digest score from a thin panel",
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 52,
+      "slug": "coronado",
+      "name": "Coronado",
+      "locality": "Coronado",
+      "area": "san-diego",
+      "architect": "Jack Daray Sr.",
+      "tee": {
+        "yards": 6590,
+        "slope": 121,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 85,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.9,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A++",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 53,
+      "slug": "desert-willow-mountain-view",
+      "name": "Desert Willow — Mountain View",
+      "locality": "Palm Desert",
+      "area": "desert",
+      "architect": "Michael Hurdzan, Dana Fry",
+      "tee": {
+        "yards": 6913,
+        "slope": 130,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 275,
+        "high": null,
+        "note": "peak season"
+      },
+      "access": [
+        "M",
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 4.1,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": "off-season",
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 54,
+      "slug": "indian-wells-players",
+      "name": "Indian Wells — Players",
+      "locality": "Indian Wells",
+      "area": "desert",
+      "architect": "John Fought",
+      "tee": {
+        "yards": 7376,
+        "slope": 139,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 299,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "M",
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.4,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "indian-wells-golf-resort",
+      "layoutSlug": "indian-wells-golf-resort--players",
+      "joinNote": "the record has the Celebrity course only; this layout slug is not in the spine",
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 55,
+      "slug": "pga-west-greg-norman",
+      "name": "PGA West — Greg Norman",
+      "locality": "La Quinta",
+      "area": "desert",
+      "architect": "Greg Norman",
+      "tee": {
+        "yards": 7156,
+        "slope": null,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 350,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": "a different course from the Stadium layout the record holds",
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 56,
+      "slug": "monarch-dunes-old",
+      "name": "Monarch Dunes — Old Course",
+      "locality": "Nipomo",
+      "area": "central-coast",
+      "architect": "Damian Pascuzzo, Steve Pate",
+      "tee": {
+        "yards": 6810,
+        "slope": 137,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 175,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.8,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": "Golf Digest score from a thin panel",
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 57,
+      "slug": "carmel-valley-ranch",
+      "name": "Carmel Valley Ranch",
+      "locality": "Carmel Valley",
+      "area": "monterey",
+      "architect": "Pete Dye",
+      "tee": {
+        "yards": 6117,
+        "slope": 131,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 195,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.3,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 58,
+      "slug": "crossings-at-carlsbad",
+      "name": "The Crossings at Carlsbad",
+      "locality": "Carlsbad",
+      "area": "san-diego",
+      "architect": "Greg Nash",
+      "tee": {
+        "yards": 6835,
+        "slope": 135,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 138,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.3,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 59,
+      "slug": "sea-ranch",
+      "name": "Sea Ranch Golf Links",
+      "locality": "Sea Ranch",
+      "area": "wine-country",
+      "architect": "Robert Muir Graves",
+      "tee": {
+        "yards": 6649,
+        "slope": 130,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 100,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 60,
+      "slug": "del-monte",
+      "name": "Del Monte",
+      "locality": "Monterey",
+      "area": "monterey",
+      "architect": "Charles Maud",
+      "tee": {
+        "yards": 6365,
+        "slope": 131,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 175,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 2,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 61,
+      "slug": "callippe-preserve",
+      "name": "Callippe Preserve",
+      "locality": "Pleasanton",
+      "area": "bay-area",
+      "architect": "Brian Costello",
+      "tee": {
+        "yards": 6748,
+        "slope": 133,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 91,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.1,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [
+        "sf-shortlist"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 62,
+      "slug": "baylands",
+      "name": "Baylands",
+      "locality": "Palo Alto",
+      "area": "bay-area",
+      "architect": "William P. Bell lineage; Forrest Richardson redesign",
+      "tee": {
+        "yards": 6681,
+        "slope": 129,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 110,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.2,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 63,
+      "slug": "coyote-creek-tournament",
+      "name": "Coyote Creek — Tournament",
+      "locality": "Morgan Hill",
+      "area": "bay-area",
+      "architect": "Jack Nicklaus",
+      "tee": {
+        "yards": 7027,
+        "slope": 144,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 125,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "coyote-creek-golf-club",
+      "layoutSlug": "coyote-creek-golf-club--tournament",
+      "joinNote": "the record has the Valley course only; this layout slug is not in the spine",
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 64,
+      "slug": "cinnabar-hills",
+      "name": "Cinnabar Hills",
+      "locality": "San Jose",
+      "area": "bay-area",
+      "architect": "John Harbottle III",
+      "tee": {
+        "yards": null,
+        "slope": null,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 130,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "cinnabar-hills-golf-club",
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 65,
+      "slug": "boundary-oak",
+      "name": "Boundary Oak",
+      "locality": "Walnut Creek",
+      "area": "bay-area",
+      "architect": "Robert Muir Graves",
+      "tee": {
+        "yards": 7100,
+        "slope": 132,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 78,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.1,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 66,
+      "slug": "graeagle-meadows",
+      "name": "Graeagle Meadows",
+      "locality": "Graeagle",
+      "area": "sierra",
+      "architect": "Ellis Van Groder",
+      "tee": {
+        "yards": 6725,
+        "slope": 129,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 99,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [
+        "mountain-trip"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 67,
+      "slug": "plumas-pines",
+      "name": "Plumas Pines",
+      "locality": "Graeagle",
+      "area": "sierra",
+      "architect": "Homer Flint",
+      "tee": {
+        "yards": 6421,
+        "slope": 137,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 139,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [
+        "mountain-trip"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 68,
+      "slug": "dragon-at-nakoma",
+      "name": "The Dragon at Nakoma",
+      "locality": "Clio",
+      "area": "sierra",
+      "architect": "Robin Nelson, Neil Haworth",
+      "tee": {
+        "yards": 7077,
+        "slope": 147,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 149,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R",
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 2.5,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B+",
+      "valueNote": null,
+      "tags": [
+        "mountain-trip"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 69,
+      "slug": "sharp-park",
+      "name": "Sharp Park",
+      "locality": "Pacifica",
+      "area": "bay-area",
+      "architect": "Alister MacKenzie",
+      "tee": {
+        "yards": 6382,
+        "slope": 127,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 79,
+        "high": 88,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [
+        "sf-shortlist"
+      ],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 70,
+      "slug": "bodega-harbour",
+      "name": "Bodega Harbour",
+      "locality": "Bodega Bay",
+      "area": "wine-country",
+      "architect": "Robert Trent Jones Jr.",
+      "tee": {
+        "yards": 6290,
+        "slope": null,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 112,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 71,
+      "slug": "haggin-oaks-mackenzie",
+      "name": "Haggin Oaks — Alister MacKenzie",
+      "locality": "Sacramento",
+      "area": "sacramento",
+      "architect": "Alister MacKenzie",
+      "tee": {
+        "yards": 7035,
+        "slope": 127,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 60,
+        "high": 80,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 72,
+      "slug": "olivas-links",
+      "name": "Olivas Links",
+      "locality": "Ventura",
+      "area": "la-ventura",
+      "architect": "William P. Bell lineage; Forrest Richardson",
+      "tee": {
+        "yards": 6818,
+        "slope": 130,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 79,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.3,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 73,
+      "slug": "arroyo-trabuco",
+      "name": "Arroyo Trabuco",
+      "locality": "Mission Viejo",
+      "area": "orange-county",
+      "architect": "Casey O'Callaghan, Tom Lehman",
+      "tee": {
+        "yards": 7011,
+        "slope": 133,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 260,
+        "high": null,
+        "note": "peak"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.9,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 74,
+      "slug": "tijeras-creek",
+      "name": "Tijeras Creek",
+      "locality": "Rancho Santa Margarita",
+      "area": "orange-county",
+      "architect": "Ted Robinson",
+      "tee": {
+        "yards": 7003,
+        "slope": 137,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 194,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 3.7,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 75,
+      "slug": "black-gold",
+      "name": "Black Gold",
+      "locality": "Yorba Linda",
+      "area": "orange-county",
+      "architect": "Arthur Hills",
+      "tee": {
+        "yards": 6756,
+        "slope": 133,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 171,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": 2.9,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "black-gold-golf-club",
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 76,
+      "slug": "goose-creek",
+      "name": "Goose Creek",
+      "locality": "Jurupa Valley",
+      "area": "inland-empire",
+      "architect": "Schmidt-Curley",
+      "tee": {
+        "yards": 6560,
+        "slope": 126,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 120,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 77,
+      "slug": "industry-hills-ike",
+      "name": "Industry Hills — Ike",
+      "locality": "City of Industry",
+      "area": "la-ventura",
+      "architect": "William F. Bell",
+      "tee": {
+        "yards": 7211,
+        "slope": 141,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 99,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF",
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "industry-hills-golf-club-at-pacific-palms-resort",
+      "layoutSlug": "industry-hills-golf-club-at-pacific-palms-resort--dwight-eisenhower",
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 78,
+      "slug": "balboa-park",
+      "name": "Balboa Park 18",
+      "locality": "San Diego",
+      "area": "san-diego",
+      "architect": "municipal, Bell-era lineage",
+      "tee": {
+        "yards": 6339,
+        "slope": 125,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 91,
+        "high": null,
+        "note": "non-resident, approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 79,
+      "slug": "indian-canyons-south",
+      "name": "Indian Canyons — South",
+      "locality": "Palm Springs",
+      "area": "desert",
+      "architect": "Casey O'Callaghan, Amy Alcott",
+      "tee": {
+        "yards": 6560,
+        "slope": 118,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 160,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 80,
+      "slug": "escena",
+      "name": "Escena",
+      "locality": "Palm Springs",
+      "area": "desert",
+      "architect": "Nicklaus Design",
+      "tee": {
+        "yards": 7173,
+        "slope": 130,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 255,
+        "high": null,
+        "note": "peak"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 81,
+      "slug": "strawberry-farms",
+      "name": "Strawberry Farms",
+      "locality": "Irvine",
+      "area": "orange-county",
+      "architect": "Jim Lipe",
+      "tee": {
+        "yards": 6700,
+        "slope": 133,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 185,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 82,
+      "slug": "monarch-beach",
+      "name": "Monarch Beach",
+      "locality": "Dana Point",
+      "area": "orange-county",
+      "architect": "Robert Trent Jones Jr.",
+      "tee": {
+        "yards": 6645,
+        "slope": 135,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 450,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "C-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 83,
+      "slug": "moorpark-country-club",
+      "name": "Moorpark Country Club",
+      "locality": "Moorpark",
+      "area": "la-ventura",
+      "architect": "Peter Jacobsen, Jim Hardy",
+      "tee": {
+        "yards": null,
+        "slope": null,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 125,
+        "high": 175,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "B+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "moorpark-country-club",
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 84,
+      "slug": "tierra-rejada",
+      "name": "Tierra Rejada",
+      "locality": "Moorpark",
+      "area": "la-ventura",
+      "architect": "Bob Cupp",
+      "tee": {
+        "yards": 7017,
+        "slope": 132,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 120,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "tierra-rejada-golf-club",
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 85,
+      "slug": "bear-mountain",
+      "name": "Bear Mountain",
+      "locality": "Big Bear Lake",
+      "area": "inland-empire",
+      "architect": null,
+      "tee": {
+        "yards": 5582,
+        "slope": 112,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 25,
+        "high": 30,
+        "note": null
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 86,
+      "slug": "eagle-vines",
+      "name": "Eagle Vines",
+      "locality": "Napa",
+      "area": "wine-country",
+      "architect": "Johnny Miller, Jack Barry",
+      "tee": {
+        "yards": 7297,
+        "slope": 138,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 89,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "eagle-vines-golf-club",
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 87,
+      "slug": "mt-woodson",
+      "name": "Mt. Woodson",
+      "locality": "Ramona",
+      "area": "san-diego",
+      "architect": "Brian Curley, Lee Schmidt lineage",
+      "tee": {
+        "yards": 5764,
+        "slope": 133,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 100,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 88,
+      "slug": "singing-hills-willow-glen",
+      "name": "Singing Hills — Willow Glen",
+      "locality": "El Cajon",
+      "area": "san-diego",
+      "architect": "Bell lineage; Ted Robinson redesign",
+      "tee": {
+        "yards": 6651,
+        "slope": 128,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 100,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R",
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 89,
+      "slug": "san-vicente",
+      "name": "San Vicente Golf Resort",
+      "locality": "Ramona",
+      "area": "san-diego",
+      "architect": "Ted Robinson",
+      "tee": {
+        "yards": 6822,
+        "slope": 135,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 110,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R",
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 90,
+      "slug": "cypress-ridge",
+      "name": "Cypress Ridge",
+      "locality": "Arroyo Grande",
+      "area": "central-coast",
+      "architect": "Peter Jacobsen, Jim Hardy",
+      "tee": {
+        "yards": 6802,
+        "slope": 133,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 60,
+        "high": 90,
+        "note": null
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 91,
+      "slug": "apple-mountain",
+      "name": "Apple Mountain",
+      "locality": "Camino",
+      "area": "sierra",
+      "architect": "Algie Pulley",
+      "tee": {
+        "yards": 6308,
+        "slope": 141,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 79,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 92,
+      "slug": "hiddenbrooke",
+      "name": "Hiddenbrooke",
+      "locality": "Vallejo",
+      "area": "bay-area",
+      "architect": "Arnold Palmer, Ed Seay",
+      "tee": {
+        "yards": null,
+        "slope": 142,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 90,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A-",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 93,
+      "slug": "rancho-solano",
+      "name": "Rancho Solano",
+      "locality": "Fairfield",
+      "area": "bay-area",
+      "architect": "Gary Roger Baird",
+      "tee": {
+        "yards": 6632,
+        "slope": 133,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 80,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 94,
+      "slug": "oak-valley",
+      "name": "Oak Valley",
+      "locality": "Beaumont",
+      "area": "inland-empire",
+      "architect": "Schmidt-Curley",
+      "tee": {
+        "yards": 7078,
+        "slope": 140,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 35,
+        "high": 69,
+        "note": null
+      },
+      "access": [
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A++",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 95,
+      "slug": "morongo-champions",
+      "name": "Morongo — Champions",
+      "locality": "Beaumont",
+      "area": "inland-empire",
+      "architect": "Schmidt-Curley",
+      "tee": {
+        "yards": 7377,
+        "slope": 141,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 70,
+        "high": 100,
+        "note": "approximate"
+      },
+      "access": [
+        "R",
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A+",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 96,
+      "slug": "soboba-springs",
+      "name": "Soboba Springs",
+      "locality": "San Jacinto",
+      "area": "inland-empire",
+      "architect": "Desmond Muirhead; Cary Bickler",
+      "tee": {
+        "yards": 7053,
+        "slope": 132,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 100,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "R",
+        "DF"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 97,
+      "slug": "los-verdes",
+      "name": "Los Verdes",
+      "locality": "Rancho Palos Verdes",
+      "area": "la-ventura",
+      "architect": "William F. Bell",
+      "tee": {
+        "yards": 6631,
+        "slope": 124,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 27,
+        "high": 53,
+        "note": null
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A++",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 98,
+      "slug": "rancho-park",
+      "name": "Rancho Park",
+      "locality": "Los Angeles",
+      "area": "la-ventura",
+      "architect": "William P. Bell, William Johnson",
+      "tee": {
+        "yards": 6839,
+        "slope": 130,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 42,
+        "high": 58,
+        "note": "weekday / weekend; $58 before 9am"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A++",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "rancho-park-golf-club",
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 99,
+      "slug": "griffith-park-wilson",
+      "name": "Griffith Park — Wilson",
+      "locality": "Los Angeles",
+      "area": "la-ventura",
+      "architect": "George C. Thomas; Bell-era heritage",
+      "tee": {
+        "yards": 7002,
+        "slope": 126,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 50,
+        "high": null,
+        "note": "approximate"
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A++",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": "griffith-park-golf-club",
+      "layoutSlug": "griffith-park-golf-club--wilson",
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    },
+    {
+      "rank": 100,
+      "slug": "san-clemente",
+      "name": "San Clemente Municipal",
+      "locality": "San Clemente",
+      "area": "orange-county",
+      "architect": "William F. Bell",
+      "tee": {
+        "yards": 6435,
+        "slope": null,
+        "rating": null,
+        "name": null
+      },
+      "fee": {
+        "low": 50,
+        "high": 70,
+        "note": null
+      },
+      "access": [
+        "M"
+      ],
+      "status": "open",
+      "rankings": {
+        "golfweekCA": null,
+        "golfweekUS": null,
+        "golfDigestScore": null,
+        "golfDigestCA": null,
+        "golfDigestPublic": null,
+        "golfYCP": null
+      },
+      "value": "A++",
+      "valueNote": null,
+      "tags": [],
+      "facilitySlug": null,
+      "layoutSlug": null,
+      "joinNote": null,
+      "provenance": {
+        "confidence": "low",
+        "checked": "2026-10-06",
+        "verified": false,
+        "checks": {
+          "rankings": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "tee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "fee": {
+            "verified": false,
+            "source": null,
+            "note": null
+          },
+          "architect": {
+            "verified": false,
+            "source": null,
+            "note": null
+          }
+        }
+      }
+    }
+  ]
+}

@@ -137,6 +137,9 @@ Everything else is generated. These are yours:
 - **`data/facts.json`** — external claims about courses. Every one carries a
   source. See the contract in the file's own `_README`.
 - **`data/weights.json`** — the map's ranking lenses.
+- **`data/california-100.json`** — the California Public 100, the to-play
+  list. One compilation, checked row by row; contract in the file's own
+  `_README`, enforced by `pnpm data:validate`.
 - **`data/geocode-overrides.json`** — hand-entered coordinates; wins over
   everything.
 

@@ -6,6 +6,56 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-10-06 — The to-play list is admitted as a compiled list, joined by hand to the record
+
+**Decided:** `data/california-100.json` — the California Public 100, a
+to-play list of public-access courses — is a hand-editable file under its own
+contract, read by `lib/california100.ts` and refused by `pnpm data:validate`
+when it breaks. One entry per course with the list's own rank, the published
+ranks it was compiled from (Golfweek 2026 CA/US, Golf Digest 2025–26 score,
+state and national-public rank, GOLF 2024–25 You Can Play), the back tee's
+yards and slope, an approximate posted fee, access codes, a value grade and a
+provenance block with one check per claim group (rankings, tee, fee,
+architect): `{verified, source, note}`. Every row landed `verified: false`,
+`confidence: "low"`, from a ChatGPT compilation pasted 2026-10-06 — a table
+is a claim with a to-do attached, not a source — and the file says which
+published list each ranking column is supposed to come from, so the
+verification pass has a page to open for every number.
+
+**The join:** an entry names the spine facility and layout it is
+(`facilitySlug`, `layoutSlug`) or names nothing. Explicit, never fuzzy, the
+same rule as the spine's own alias table. Twenty-one of the hundred are in
+the record; three of those name a layout the spine lacks (Pelican Hill's
+Ocean South, Indian Wells' Players, Coyote Creek's Tournament), which reads
+as the third honest state — *facility played, this course not* — rather than
+as played or as unknown. An entry whose name sits inside a California
+facility's slug while naming nothing must carry a `joinNote` saying why
+(Journey at Pechanga is not Temecula Creek), so the join cannot silently miss
+a course the record already holds.
+
+**Why:** NEXT.md items 2 and 3 in one file — a bucket list, and the first
+real external rankings for the `architecture` lens, which had one data point
+(Bethpage) since the map was built. The record already holds a fifth of the
+list; the question "which of these have I played, and what did it say" was
+answerable from data on disk and nothing asked it.
+
+**Rejected:** per-field claim objects as in `facts.json` — that contract is
+per-field because each fact there is a separate external claim with its own
+URL; here one act of compilation produced one table, and the right precedent
+is the benchmark contract (one provenance block, bare values inside), with
+per-group checks because a row's ranks and its fee come from different pages
+and verify on different days. Writing the list's ranks into `facts.json`
+`rankings[]` — two sources of truth for one number, and a generated edit to a
+hand-kept file. Putting the hundred into `layouts.json` as `played: false`
+rows — the spine is Grint verbatim, and a ChatGPT row in it would be invented
+Grint data. A browser-side "played" checkbox — the record says what was
+played; a checkbox that disagreed with it would be lying (the same reason
+`/sessions` emits a paste block). Fuzzy name matching — the Brambles lesson.
+Map pins now — geocoding eighty new courses is its own piece of work and
+belongs after the rows are checked, not before.
+
+---
+
 ## 2026-10-06 — The penalty row is read: Grint's legend was on file all along
 
 **Decided:** `perHole.shotCodes` — the scorecard form's `pH1`…`pH18` row,

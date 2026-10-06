@@ -1,7 +1,13 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseBenchmarks, type BenchmarkFile } from "@/lib/benchmarks";
-import { buildCourseHistory, type CourseHistory, type SourceCourses } from "@/lib/course-history";
+import { parseCalifornia100, type California100File } from "@/lib/california100";
+import {
+  buildCourseHistory,
+  type CourseHistory,
+  type SourceCourses,
+  type SourceFacility,
+} from "@/lib/course-history";
 import { buildGarminShots, type GarminShots, type SourceGarminRounds } from "@/lib/garmin-shots";
 import { parseGoalsFile, type GoalsFile } from "@/lib/goals";
 import {
@@ -113,4 +119,27 @@ export function loadLinkedGrint(): Map<string, PlayedRound> {
     // the join is then simply empty.
   }
   return out;
+}
+
+/** The California Public 100 — the to-play list, hand-curated and validated.
+ *  Absent on a checkout that never had it: the page then renders the absence. */
+export function loadCalifornia100(): California100File | null {
+  try {
+    return parseCalifornia100(loadJson<unknown>("california-100.json"));
+  } catch {
+    return null;
+  }
+}
+
+/** The pipeline artifact's facilities by slug, unplayed ones included.
+ *  `loadHistory` reshapes the same file for the profile and drops what was
+ *  never played — the one thing a to-play list cannot do without. */
+export function loadFacilityIndex(): { capturedAt: string; bySlug: Map<string, SourceFacility> } | null {
+  try {
+    const raw = readFileSync(join(process.cwd(), "public", "data", "courses.json"), "utf8");
+    const src = JSON.parse(raw) as SourceCourses;
+    return { capturedAt: src.capturedAt, bySlug: new Map(src.facilities.map((f) => [f.slug, f])) };
+  } catch {
+    return null;
+  }
 }
