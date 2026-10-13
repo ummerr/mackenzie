@@ -1,0 +1,110 @@
+# The nightly capture (DECISIONS.md 2026-10-12). Pulls what is new from
+# Garmin and Grint, folds it into the record, gates it, and pushes to main —
+# which the Vercel Git integration deploys. Nothing new → nothing pushed.
+name: Nightly capture
+
+on:
+  schedule:
+    - cron: "0 11 * * *" # 04:00 Pacific (03:00 PST)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: nightly-capture
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      STATE_DIR: ${{ github.workspace }}/.capture-state
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: main
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install garminconnect==0.3.17
+
+      # Playwright's Chromium, cached by the pinned playwright version.
+      - id: pw
+        run: echo "version=$(node -p "require('playwright/package.json').version")" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        id: pw-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
+      - if: steps.pw-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install --with-deps chromium
+      - if: steps.pw-cache.outputs.cache-hit == 'true'
+        run: pnpm exec playwright install-deps chromium
+
+      # Garmin tokens: the newest refreshed file from the cache, else the
+      # bootstrap secret. The cache key is unique per run so each run saves
+      # the tokens it refreshed; restore-keys picks the newest.
+      - uses: actions/cache@v4
+        with:
+          path: ${{ env.STATE_DIR }}/garmin
+          key: garmin-tokens-${{ github.run_id }}
+          restore-keys: garmin-tokens-
+      - name: Seed Garmin tokens from the secret if the cache is empty
+        env:
+          GARMIN_TOKENS: ${{ secrets.GARMIN_TOKENS }}
+        run: |
+          mkdir -p "$STATE_DIR/garmin"
+          if [ ! -s "$STATE_DIR/garmin/garmin_tokens.json" ]; then
+            if [ -z "$GARMIN_TOKENS" ]; then echo "GARMIN_TOKENS secret is not set"; exit 3; fi
+            echo "$GARMIN_TOKENS" | base64 -d > "$STATE_DIR/garmin/garmin_tokens.json"
+            chmod 600 "$STATE_DIR/garmin/garmin_tokens.json"
+          fi
+      - name: Refresh the Garmin token
+        env:
+          GARMIN_EMAIL: ${{ secrets.GARMIN_EMAIL }}
+          GARMIN_PASSWORD: ${{ secrets.GARMIN_PASSWORD }}
+          GARMIN_TOKEN_DIR: ${{ env.STATE_DIR }}/garmin
+          GARMIN_AUTH_OUT: ${{ runner.temp }}/garmin-auth.json
+        run: python3 scripts/capture/garmin-token.py --refresh
+
+      - name: Capture, refresh, gate, commit
+        env:
+          GARMIN_AUTH_FILE: ${{ runner.temp }}/garmin-auth.json
+          GRINT_USERNAME: ${{ secrets.GRINT_USERNAME }}
+          GRINT_PASSWORD: ${{ secrets.GRINT_PASSWORD }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          bash scripts/capture/nightly.sh
+
+      - name: Open or update the failure issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Nightly capture failed"
+          body="The nightly capture failed on $(date -u +%Y-%m-%d). Log: $RUN_URL
+
+          If the Garmin step failed: re-bootstrap the token (NEXT.md, 'Nightly capture').
+          If the Grint step failed: check the password secret, or whether thegrint.com changed its login page.
+          If a gate failed: the record did not validate — run \`pnpm refresh\` locally and read the report."
+          existing=$(gh issue list --label nightly-capture --state open --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh label create nightly-capture --color D93F0B --description "the unattended capture needs a person" 2>/dev/null || true
+            gh issue create --title "$title" --label nightly-capture --body "$body"
+          fi

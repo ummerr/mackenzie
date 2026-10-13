@@ -369,6 +369,44 @@ if (roundLinks) {
   };
 }
 
+// --- the record's readers --------------------------------------------------
+// The stale-reader gate. On 2026-09-09 Grint re-platformed its trend charts
+// and the parser quietly emitted zero differentials and empty series; a
+// person read the `pnpm data:rounds` line and noticed. An unattended run has
+// no such person, so an empty aggregate while the record has rounds is an
+// error here, not a line to read (DECISIONS.md 2026-10-12). Likewise a watch
+// round that heard no shots while the club list is populated — the shots
+// endpoint went dark, not the watch.
+
+const grintRecord = readJson("rounds.json", null);
+if (grintRecord && (grintRecord.rounds?.length ?? 0) > 0) {
+  if ((grintRecord.differentials?.length ?? 0) === 0) {
+    err("rounds.json: zero differentials while the record has rounds — a stale trend reader, not an empty record");
+  }
+  if (grintRecord.handicapIndex == null) {
+    err("rounds.json: handicapIndex is null while the record has rounds — the handicap page reader is stale");
+  }
+  for (const [name, series] of Object.entries(grintRecord.series ?? {})) {
+    if (!Array.isArray(series) || series.length === 0) {
+      err(`rounds.json: series.${name} is empty while the record has rounds — a stale trend reader`);
+    }
+  }
+  if (!grintRecord.series || Object.keys(grintRecord.series).length === 0) {
+    err("rounds.json: no series at all while the record has rounds");
+  }
+}
+
+const garminRecord = readJson("garmin-rounds.json", null);
+if (garminRecord && (garminRecord.clubs?.length ?? 0) > 0) {
+  for (const r of garminRecord.rounds ?? []) {
+    const onCourse = !r.flags?.includes("simulation");
+    const heardNothing = r.flags?.includes("no_shots") || (r.totals?.shots ?? 0) === 0;
+    if (onCourse && (r.holesRecorded ?? 0) > 0 && heardNothing) {
+      err(`garmin-rounds.json: ${r.scorecardId} (${r.date}) recorded ${r.holesRecorded} holes but no shots — the shots endpoint went dark, not the watch`);
+    }
+  }
+}
+
 // --- lenses ------------------------------------------------------------------
 
 const KNOWN_VECTORS = new Set(

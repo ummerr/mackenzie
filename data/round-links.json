@@ -1,6 +1,6 @@
 {
   "source": "link-rounds.mjs over data/garmin-rounds.json + data/rounds.json",
-  "policy": "proposed by machine, confirmed by hand — edit status to confirmed or rejected; reruns preserve those verbatim",
+  "policy": "proposed by machine; confirmed by machine only on one candidate with the same facility, date and strokes, otherwise by hand — edit status to confirmed or rejected; reruns preserve those verbatim",
   "links": [
     {
       "scorecardId": "370331965",

@@ -6,6 +6,101 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-10-12 — The capture goes unattended
+
+**Decided:** a nightly GitHub Actions run (`.github/workflows/nightly-capture.yml`,
+04:00 Pacific) captures what is new from Garmin and Grint, folds it in with
+the unchanged `pnpm refresh`, gates it, and commits to `main` — which the
+Vercel Git integration deploys. Nothing new → nothing written, nothing
+pushed. The site was fully static with every page reading `data/*.json` at
+build, so "fresh" has always meant "pushed"; this closes the only gap, the
+five hand steps between a round and a push.
+
+**How, without breaking the bundle contract.** Both captures produce the
+bundles the extensions produce — same envelope, same resource kinds, every
+payload byte-verbatim — so the inventory gates and the parsers are the judges
+they already were, and a hand capture still drops in beside a nightly one.
+
+- *Grint* (`scripts/capture/grint.mjs`): the extension's three files are
+  injected verbatim into a headless Playwright tab that the script logs in
+  (a plain form post to `/login`, no captcha as of today; `PHPSESSID`), with
+  the "Scrape last N rounds" scope set the way the popup sets it and the
+  Blob download caught. N is the depth of the deepest round not yet in
+  `rounds.json`, read from `/score` first. Nothing of the capture is
+  re-implemented. Grint has no API; this is the extension's own execution
+  model in a tab the runner owns.
+- *Garmin* (`scripts/capture/garmin.mjs` + `garmin-token.py`): the SPA's
+  cookie-plus-CSRF scheme exists only inside a browser, but the same
+  `gcs-golfcommunity/api/v2` endpoints answer at `connectapi.garmin.com` to
+  the bearer the native app uses. `python-garminconnect` 0.3.17 (no garth)
+  obtains that token once with a password and an MFA code and refreshes it
+  unattended; the Python script is only that handshake and emits the request
+  headers to a private file. The capture is a Node port of
+  `garmin-extension/scraper.js`, phase for phase, over the extension's own
+  `constants.js` evaluated verbatim; `tests/garmin-capture.test.ts` proves the
+  output against the fixture, and replaying the 2026-10-06 extension bundle
+  through it gave 12 of 12 resources byte-identical with the same summary
+  and a clean inventory gate. The strategy is recorded as `"connectapi"` —
+  the inventory refuses the word "bearer" anywhere in a bundle, and nothing
+  about the headers is written.
+- *Incremental by construction.* Garmin skips scorecards already in
+  `garmin-rounds.json` and writes the extension's `baseline` block; Grint
+  writes `scope: {mode: "recent"}`. The parsers already layer both over the
+  newest full bundle. `data/raw/` grows by a round's worth per round, not
+  by a capture per night.
+
+**Two stances reversed, on purpose.** `NEXT.md` said headless authenticated
+fetch "would fight the capture-verbatim grain and both sites' terms" and
+pointed at `chrome.alarms` instead; `refresh.mjs` said it would never confirm
+a round link. The grain is intact (above). The terms point stands as stated —
+both sites' terms frown on automated access — and the answer is the same as
+it was for the extensions: one user, their own record, at the extension's own
+politeness (sequential, ~2 req/s, a few dozen requests a night, none on a
+night with no new round). Extension-side scheduling cannot make a site fresh
+from a laptop that sleeps, which is the one thing this is for.
+
+**Links: one rule confirms.** A single candidate agreeing on facility, date
+*and* strokes is confirmed by `link-rounds.mjs` with a note saying so. That
+three-way agreement is the evidence every hand confirmation rested on (Harding
+2026-08-20 was settled on exactly it). Strokes differ, or two candidates, stay
+proposed for a person; zero candidates stays proposed with no roundId and is
+re-asked every run — a Grint card is often posted the day after the watch
+round. `needsHuman` in `link-rounds.mjs` is the one definition of "waiting
+on a person", shared by `refresh.mjs`, `validate.mjs` and `lib/data-status.ts`;
+the seven simulator rounds no longer trip the banner.
+
+**The stale-reader gate.** `pnpm data:validate` now errors — not warns — on
+zero differentials, a null index or an empty series while the record has
+rounds, and on an on-course watch round that recorded holes but no shots
+while the club list is populated. On 2026-09-09 a person read the
+`differentials 0` line; a runner has no person, so the line became a gate.
+
+**Gates before a commit:** `pnpm refresh` (which runs the inventories and
+validate), `pnpm typecheck`, `pnpm test`, `pnpm build`. A failing gate opens
+or updates a GitHub issue labelled `nightly-capture` and pushes nothing.
+
+**Secrets:** `GRINT_USERNAME`, `GRINT_PASSWORD`, `GARMIN_EMAIL`,
+`GARMIN_PASSWORD`, `GARMIN_TOKENS` (base64 of the bootstrap's
+`garmin_tokens.json`). The refreshed Garmin token file is carried between
+runs in the Actions cache, seeded from the secret when the cache is cold;
+the Grint session is not cached — CI logs in fresh each night. The repo is
+public; Actions secrets are not exposed to it.
+
+**Rejected:** `chrome.alarms` scheduling in the extensions (only runs while
+Chrome is open on an awake laptop, and still leaves the move-and-commit
+half); running the Garmin scraper in a Playwright tab on a saved cookie
+session (its life is unknown and an MFA re-login cannot happen unattended;
+the token route refreshes itself); a pull request instead of a commit
+(freshness would again wait on a person); a launchd job on the Mac (sleeps);
+a `pnpm build` skipped as redundant with Vercel's (a broken build on `main`
+is a broken site, so it is a gate here first).
+
+**Open:** the first run from a GitHub runner is the test of whether either
+site challenges datacenter IPs; the fallback is a self-hosted runner. Whether
+Garmin's refresh token rotates is not documented — the cache carries whatever
+the library writes back. Pelican Hill and Indian Canyons (2026-10-06) are
+unaffected; the California 100 is hand-kept.
+
 ## 2026-10-06 — The to-play list is admitted as a compiled list, joined by hand to the record
 
 **Decided:** `data/california-100.json` — the California Public 100, a

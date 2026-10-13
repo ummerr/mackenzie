@@ -2,7 +2,7 @@
 
 <!-- state:start -->
 **State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-10-06
-Last commit 2026-10-06 — The California 100, checked: 353 of 500 checks verified, 193 values corrected
+Last commit 2026-10-06 — The hundred becomes a real table: sort by any heading, pick columns, open a row
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
@@ -24,6 +24,17 @@ tee 0.5, against an index gap of 6.6. `/practice` redirects into its foot.
 The week's goals are next-round targets from the plan (`pnpm
 goals:propose`), never range-data goals. The hand analysis behind it is in
 `DECISIONS.md` 2026-09-29 (two entries).
+
+**2026-10-12 — the capture goes unattended.** A nightly GitHub Actions run
+(`.github/workflows/nightly-capture.yml`, 04:00 Pacific) pulls what is new
+from Garmin (bearer token via `python-garminconnect`, a Node port of the
+extension's scraper) and Grint (the extension's own files in a headless
+Playwright tab), runs `pnpm refresh`, gates on validate / typecheck / test /
+build, and commits to `main` — live a minute later. One link rule confirms
+(one candidate, same facility, date and strokes); the stale-reader line is
+now a validate error. `DECISIONS.md` 2026-10-12 has the reasoning. **Until
+the five secrets are set and the first `workflow_dispatch` run is green, the
+loop is still the manual one below** — see "Nightly capture" under *Then*.
 
 **2026-10-06 — the penalty row is read.** Grint's `Penalties` row (W/D/O/S/F,
 legend found in the raw scorecard HTML) now prints hole by hole on `/rounds`:
@@ -104,7 +115,25 @@ for the top 25 arrived with the list (2026-10-06): 21 facilities carry one.
 
 ## Then
 
-- **Re-capture both after every on-course round** — Garmin, then Grint's
+- **Nightly capture (2026-10-12).** Once live, nothing below this bullet is
+  a chore — it is what the runner does. To make it live, once:
+  `python3 -m pip install garminconnect==0.3.17 && python3
+  scripts/capture/garmin-token.py --bootstrap` (MFA prompt if the account has
+  it), then `gh secret set GARMIN_TOKENS < <(base64 <
+  ~/.garminconnect/garmin_tokens.json)` and `gh secret set` for
+  `GRINT_USERNAME`, `GRINT_PASSWORD`, `GARMIN_EMAIL`, `GARMIN_PASSWORD`
+  (each prompts; never on the command line), then `gh workflow run
+  nightly-capture.yml` and read the run. A failed night opens or updates a
+  GitHub issue labelled `nightly-capture`; a Garmin failure means
+  re-bootstrap the token and re-set the secret, a Grint failure means the
+  password or the login page, a gate failure means run `pnpm refresh`
+  locally and read the report. Locally the same loop is
+  `GARMIN_AUTH_FILE=… GRINT_USERNAME=… GRINT_PASSWORD=… CAPTURE_NO_COMMIT=1
+  pnpm capture:nightly` after `python3 scripts/capture/garmin-token.py
+  --refresh --out .capture-state/garmin-auth.json`. The extensions remain
+  the hand path and drop in beside the nightly bundles.
+- **Re-capture both after every on-course round** (by hand, until the
+  nightly run is green) — Garmin, then Grint's
   **Scrape last 10 rounds** (since 2026-09-29 the default: no baseline file,
   under a minute; the file input is the exact delta and refuses deltas, the
   checkbox is the full history). The downstream is one command since
@@ -124,15 +153,10 @@ for the top 25 arrived with the list (2026-10-06): 21 facilities carry one.
   index X` and the five series counts. On 2026-09-09 a chart re-platform
   made all of them zero and validate did not notice; a zero there is a
   stale reader, not an empty record.
-- **Path to true auto-pull** (when the manual capture grates): both captures
-  are deliberately browser extensions riding the user's own authenticated
-  session — headless authenticated fetch would fight the capture-verbatim
-  grain and both sites' terms. The honest next step is **extension-side
-  scheduling**: `chrome.alarms` firing the existing capture on a cadence and
-  auto-downloading into `data/raw/` (the verbatim-bundle contract is
-  untouched; `pnpm refresh` is already the whole downstream half). Garmin
-  also has an official API programme (consumer OAuth) that could replace the
-  extension for the watch if access is ever granted; Grint has no API.
+- **Auto-pull is built** (2026-10-12, above). What it does not do: capture
+  the range (R50 CSVs are still a hand export), re-baseline Grint (a nightly
+  bundle is always "recent"; tick **Full history** in the extension after
+  deleting a round on Grint), or confirm an ambiguous link.
 - **Keep the week.** Week three is committed (2026-09-29, rewritten from
   the plan): in the next round on the watch with its Grint card — 3
   up-and-downs, 5 greens, 2 doubles or fewer. The 3 Hybrid block goal is
@@ -255,3 +279,4 @@ for the top 25 arrived with the list (2026-10-06): 21 facilities carry one.
 - **2026-09-29** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-29 -->
 - **2026-09-30** — session ended: 2 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-30 -->
 - **2026-10-06** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-10-06 -->
+- **2026-10-12** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `(committed, unpushed)`. <!-- campfire:2026-10-12 -->

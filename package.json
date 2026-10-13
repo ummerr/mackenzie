@@ -15,6 +15,9 @@
     "profile": "tsx scripts/profile.ts",
     "goals:propose": "tsx scripts/propose-goals.ts",
     "refresh": "node scripts/refresh.mjs",
+    "capture:garmin": "node scripts/capture/garmin.mjs",
+    "capture:grint": "node scripts/capture/grint.mjs",
+    "capture:nightly": "bash scripts/capture/nightly.sh",
     "flight": "tsx scripts/ball-flight.ts",
     "data:parse": "node scripts/parse-grint.mjs",
     "data:spine": "node scripts/rounds-to-spine.mjs",
@@ -42,9 +45,11 @@
     "@types/papaparse": "^5.3.16",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
+    "playwright": "^1.64.0",
     "tailwindcss": "^4.1.0",
     "tsx": "^4.23.4",
     "typescript": "^5.7.0",
     "vitest": "^3.2.0"
-  }
+  },
+  "packageManager": "pnpm@10.33.0"
 }

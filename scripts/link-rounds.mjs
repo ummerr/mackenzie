@@ -9,18 +9,25 @@
  *
  * Run: pnpm data:links
  *
- * A guessed cross-source join is invented data (SPEC.md), so this script
- * never links anything itself — it proposes. Candidates are Grint rounds at
- * the same facility on the same date (±1 day only when the Garmin date is
- * flagged date_from_utc — a UTC-formatted evening round can sit on the next
- * calendar day). Strokes equality is a corroborator recorded in `basis`,
- * never the key: two sources can disagree about strokes and still describe
- * one afternoon. Zero candidates is a finding, not a failure — the R50
- * simulator rounds are Garmin-only by nature.
+ * A guessed cross-source join is invented data (SPEC.md). Candidates are
+ * Grint rounds at the same facility on the same date (±1 day only when the
+ * Garmin date is flagged date_from_utc — a UTC-formatted evening round can
+ * sit on the next calendar day). Strokes equality is a corroborator recorded
+ * in `basis`, never the key: two sources can disagree about strokes and
+ * still describe one afternoon. Zero candidates is a finding, not a failure
+ * — the R50 simulator rounds are Garmin-only by nature.
  *
- * Reruns are deterministic and diff-stable: entries a human has moved to
- * "confirmed" or "rejected" are preserved verbatim, "proposed" entries are
- * regenerated, and ordering follows (date, scorecardId).
+ * One case is confirmed by the machine (DECISIONS.md 2026-10-12): exactly
+ * one candidate that agrees on facility, date AND strokes. That three-way
+ * agreement is the evidence every hand confirmation rested on, and the
+ * nightly capture has no hand to wait for. Anything weaker — strokes
+ * differ, two candidates — stays "proposed" for a person. Zero candidates
+ * stays "proposed" too, with no roundId, and is re-evaluated on every run:
+ * a Grint card is often posted a day after the watch round.
+ *
+ * Reruns are deterministic and diff-stable: entries already "confirmed" or
+ * "rejected" (by hand or by this rule) are preserved verbatim, "proposed"
+ * entries are regenerated, and ordering follows (date, scorecardId).
  */
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
@@ -39,6 +46,10 @@ const OUT = resolve(DATA, "round-links.json");
  * is attested by 2026-08-20: Garmin "Harding Park Golf Course ~ Harding",
  * Grint "TPC Harding Park Golf Course", same day, same 91 strokes.
  */
+export const AUTO_CONFIRM_BASIS = "same facility, same date, same strokes";
+export const AUTO_CONFIRM_NOTE =
+  "auto-confirmed: one candidate, same facility, same date, same strokes (DECISIONS.md 2026-10-12)";
+
 export const GARMIN_FACILITY_ALIASES = {
   "harding-park-golf-course": "tpc-harding-park-golf-course",
   // Garmin "Meadow Club", Grint "Meadow Club Fairfax" (2026-10-06).
@@ -105,7 +116,9 @@ export function proposeLink(garminRound, grintRounds) {
     const c = candidates[0];
     entry.roundId = c.roundId;
     if (c.strokes === garminRound.totals.strokes) {
-      entry.basis = "same facility, same date, same strokes";
+      entry.basis = AUTO_CONFIRM_BASIS;
+      entry.status = "confirmed";
+      entry.note = AUTO_CONFIRM_NOTE;
     } else {
       entry.basis = "same facility, same date";
       entry.note = `strokes differ: Garmin ${garminRound.totals.strokes}, Grint ${c.strokes}`;
@@ -118,6 +131,20 @@ export function proposeLink(garminRound, grintRounds) {
       : "no Grint round matches — a Garmin-only round is legitimate";
   }
   return entry;
+}
+
+/**
+ * A proposed link that is waiting on a person: one candidate whose strokes
+ * disagree, or several candidates. Zero candidates is not pending — it is
+ * the open question "has the Grint card been posted yet", asked again
+ * tomorrow. refresh.mjs, validate.mjs and lib/data-status.ts all count by
+ * this one definition.
+ */
+export function needsHuman(link) {
+  return (
+    link.status === "proposed" &&
+    (link.roundId !== null || (link.candidates?.length ?? 0) > 1)
+  );
 }
 
 function main() {
@@ -143,15 +170,17 @@ function main() {
   const out = {
     source: "link-rounds.mjs over data/garmin-rounds.json + data/rounds.json",
     policy:
-      "proposed by machine, confirmed by hand — edit status to confirmed or rejected; reruns preserve those verbatim",
+      "proposed by machine; confirmed by machine only on one candidate with the same facility, date and strokes, otherwise by hand — edit status to confirmed or rejected; reruns preserve those verbatim",
     links,
   };
   writeFileSync(OUT, `${JSON.stringify(out, null, 2)}\n`);
 
   const by = (s) => links.filter((l) => l.status === s).length;
   const linked = links.filter((l) => l.roundId !== null).length;
-  console.log(`links         ${links.length}  (${by("confirmed")} confirmed, ${by("proposed")} proposed, ${by("rejected")} rejected)`);
-  console.log(`with a match  ${linked}  ·  Garmin-only ${links.filter((l) => l.candidates.length === 0).length}`);
+  const auto = links.filter((l) => l.status === "confirmed" && l.note === AUTO_CONFIRM_NOTE).length;
+  const pending = links.filter(needsHuman).length;
+  console.log(`links         ${links.length}  (${by("confirmed")} confirmed — ${auto} by the three-way rule, ${by("proposed")} proposed, ${by("rejected")} rejected)`);
+  console.log(`with a match  ${linked}  ·  no candidate yet ${links.filter((l) => l.candidates.length === 0).length}  ·  needs a human ${pending}`);
   console.log(`wrote data/round-links.json`);
   return 0;
 }

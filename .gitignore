@@ -14,3 +14,6 @@ next-env.d.ts
 data/geocode-unresolved.md
 data/osm-unmatched.md
 .env*
+
+# nightly capture state: Garmin tokens, Grint session, auth headers — never committed
+.capture-state/

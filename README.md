@@ -76,15 +76,27 @@ cannot record a deletion — tick **Full history** occasionally to re-baseline.
 See `grint-extension/README.md` (and `garmin-extension/README.md` for the
 watch's sibling loop).
 
-**The whole loop is: capture → `pnpm refresh` → confirm links → commit.**
+**The whole loop is: capture → `pnpm refresh` → commit — and since
+2026-10-12 a nightly GitHub Actions run does all three.**
 `pnpm refresh` reads `data/raw/`, works out which pipelines the new files
 call for (range CSVs → `ingest`; a Grint bundle → `data:rounds` and, if the
 spine appends a course, the map chain; a Garmin bundle → `data:garmin`),
 then always re-proposes round links, validates, and rewrites `PROFILE.md`
-and the ball-flight page. `pnpm refresh --dry-run` prints the plan. The one
-thing it never does is confirm a round link — that edit in
-`data/round-links.json` is yours, and the report names it when it's
-pending.
+and the ball-flight page. `pnpm refresh --dry-run` prints the plan. Round
+links are confirmed by one rule only — a single candidate with the same
+facility, date and strokes; anything weaker is named in the report as
+yours to settle in `data/round-links.json`.
+
+**Nightly capture.** `.github/workflows/nightly-capture.yml` runs
+`scripts/capture/nightly.sh` at 04:00 Pacific: `capture:garmin` (a bearer
+token from `scripts/capture/garmin-token.py`, the extension's scraper ported
+to Node against `connectapi.garmin.com`) and `capture:grint` (the extension's
+own files in a headless Playwright tab the script logs in), then `refresh`,
+then `typecheck`, `test` and `build` as gates, then a commit to `main` that
+Vercel deploys. Nothing new → nothing written. Both captures write the same
+bundles the extensions do, so a hand capture still drops in beside them.
+Setup and failure handling are in `NEXT.md` ("Nightly capture"); the
+reasoning is `DECISIONS.md` 2026-10-12.
 
 ## Public vs private data
 

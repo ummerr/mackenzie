@@ -170,9 +170,10 @@ Grint list and your single most-played course at 10 rounds; `revealed` and
 | Esri World Imagery | satellite basemap | none | free, attribution required | **in use** |
 | Esri Boundaries & Places | label overlay | none | free, attribution required | **in use** |
 | Hand curation | architect, year, championships, rankings, notes | — | time | **in use**, 25/84 |
-| Grint export extension | per-round + hole-level scores, dates, putts, fairway codes, differentials | logged-in browser tab | one popup click | **in use** — `grint-extension/` captures, `parse-grint-export.mjs` emits `rounds.json`; the profile pages read it directly via `lib/round-history.ts` |
+| Grint export extension | per-round + hole-level scores, dates, putts, fairway codes, differentials | logged-in browser tab | one popup click, or nightly (`scripts/capture/grint.mjs` runs the same files in a headless tab) | **in use** — `grint-extension/` captures, `parse-grint-export.mjs` emits `rounds.json`; the profile pages read it directly via `lib/round-history.ts` |
 | Golf Digest / Golfweek / GOLF | published rankings, via the California 100 compilation | none | hand-kept, checked row by row | **in use** — 21 facilities carry a published ranking; `build.mjs` derives `publishedRankings` and feeds only US-scale ranks to `externalRanking` |
-| Garmin R50 | shot telemetry | OAuth | unproven | *not built* |
+| Garmin Connect golf API | scorecards, AutoShot shots, clubs, player stats | logged-in browser tab (extension) or a bearer token refreshed by `python-garminconnect` (nightly, one MFA bootstrap) | one popup click, or nightly (`scripts/capture/garmin.mjs`) | **in use** — `garmin-extension/` and the nightly port write the same `garmin-export/1` bundle; `parse-garmin-export.mjs` emits `garmin-rounds.json` |
+| Garmin R50 | simulator shot telemetry | — | — | *not built* — R50 sessions arrive as Garmin scorecards without GPS; the range is still a CSV export |
 
 ### Adapter contract
 

@@ -6,20 +6,22 @@
  *   pnpm refresh              run everything the raw directory calls for
  *   pnpm refresh --dry-run    print the plan, run nothing
  *
- * The capture stays manual and browser-side on purpose (the extensions hold
- * the user's own authenticated session — DECISIONS.md 2026-08-14/2026-08-21);
- * this is the whole downstream half. It shells the existing package scripts,
+ * The capture lands in data/raw/ either by hand (the extensions, riding the
+ * user's own browser session — DECISIONS.md 2026-08-14/2026-08-21) or by the
+ * nightly runner (scripts/capture/, DECISIONS.md 2026-10-12); this is the
+ * whole downstream half either way. It shells the existing package scripts,
  * which carry their own gates and diff-stable outputs; it invents no step.
  *
- * Two things it will NEVER do: confirm a round link (data/round-links.json is
- * the one human-made join — this prints the proposed count and stops), and
- * edit a raw file. The report at the end says what ran, what changed, and
- * what still needs a person.
+ * It never edits a raw file. Round links are confirmed only by
+ * link-rounds.mjs's one rule (a single candidate agreeing on facility, date
+ * and strokes); anything weaker is reported here as needing a person. The
+ * report at the end says what ran, what changed, and what still waits.
  */
 
 import { execSync } from "node:child_process";
 import { readdirSync, readFileSync } from "node:fs";
 import { bundleFileKey } from "./parse-grint-export.mjs";
+import { needsHuman } from "./link-rounds.mjs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
@@ -93,7 +95,7 @@ export function planRefresh({ rawFiles, roundsRawFile, garminRawFile, sessionCou
     steps.push({ cmd: "pnpm data:garmin", why: "fold the bundle into garmin-rounds.json" });
   }
   // Always: links re-propose (diff-stable, never confirms), validate, derive.
-  steps.push({ cmd: "pnpm data:links", why: "re-propose round links (a human confirms)" });
+  steps.push({ cmd: "pnpm data:links", why: "re-propose round links (the three-way rule confirms, a human does the rest)" });
   steps.push({ cmd: "pnpm data:validate", why: "the invariants" });
   steps.push({ cmd: "pnpm run profile", why: "rewrite PROFILE.md from the new record" });
   steps.push({ cmd: "pnpm flight", why: "rewrite the ball-flight page" });
@@ -174,7 +176,7 @@ function main() {
   try {
     proposed = JSON.parse(
       readFileSync(resolve(ROOT, "data", "round-links.json"), "utf8"),
-    ).links.filter((l) => l.status === "proposed").length;
+    ).links.filter(needsHuman).length;
   } catch {
     /* absent is fine */
   }

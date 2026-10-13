@@ -17,6 +17,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
+import { SECRET_SHAPED } from "./capture/secret-shaped.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const RAW = resolve(__dirname, "../data/raw");
@@ -51,19 +52,10 @@ const file = resolve(RAW, candidates[candidates.length - 1]);
 const rawText = readFileSync(file, "utf8");
 
 // ---- committability: nothing secret-shaped may be in the file ---------------
-// If Garmin's own JSON someday legitimately trips one of these, narrow the
-// pattern with a comment — never delete it.
+// The patterns live in capture/secret-shaped.mjs so the nightly capture's
+// tests can prove their output passes this same gate.
 
-for (const re of [
-  /set-cookie/i,
-  /\bauthorization\b/i,
-  /\bbearer\b/i,
-  /access[_-]?token/i,
-  /refresh[_-]?token/i,
-  /\bjwt\b/i,
-  /document\.cookie/i,
-  /localStorage/i,
-]) {
+for (const re of SECRET_SHAPED) {
   if (re.test(rawText)) violations.push(`secret-shaped content matches ${re}`);
 }
 

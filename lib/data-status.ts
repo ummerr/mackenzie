@@ -70,10 +70,15 @@ function artifactRawFile(name: string): string | null {
   }
 }
 
+/** Links waiting on a person — the same definition as link-rounds.mjs
+ *  `needsHuman`: proposed with a roundId (strokes differ) or with several
+ *  candidates. A proposal with no candidate is an open question, not a task. */
 export function loadProposedLinkCount(): number {
   try {
-    return loadJson<{ links: { status: string }[] }>("round-links.json").links.filter(
-      (l) => l.status === "proposed",
+    return loadJson<{ links: { status: string; roundId: string | null; candidates?: unknown[] }[] }>(
+      "round-links.json",
+    ).links.filter(
+      (l) => l.status === "proposed" && (l.roundId !== null || (l.candidates?.length ?? 0) > 1),
     ).length;
   } catch {
     return 0;
