@@ -230,8 +230,36 @@ if (caFile) {
     if (p.verified !== allChecked) err(`${tag} provenance.verified disagrees with its checks`);
     if (p.verified) caVerified++;
   }
-  caStats = { entries: entries.length, linked: caLinked, verified: caVerified, checks: caChecks };
-  console.log(`  california-100 ${entries.length} · linked ${caLinked} · verified ${caVerified}/100 · checks ${caChecks}/${entries.length * CA_CHECKS.length}`);
+  /* The weekends. An itinerary is an opinion, so no check applies — but every
+     slug it names must be one of the hundred and open, each trip holds two or
+     three, and the shape is whole, because the page prints it as written. */
+  const trips = Array.isArray(caFile._trips?.trips) ? caFile._trips.trips : [];
+  const tripSlugs = new Set();
+  for (const t of trips) {
+    const tag = `california-100._trips[${t?.slug ?? "?"}]`;
+    if (typeof t !== "object" || t === null) { err(`${tag} is not an object`); continue; }
+    if (typeof t.slug !== "string" || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(t.slug)) err(`${tag} slug is not kebab-case`);
+    if (tripSlugs.has(t.slug)) err(`${tag} duplicate slug`);
+    tripSlugs.add(t.slug);
+    for (const k of ["title", "tagline", "when", "base", "story"]) if (typeof t[k] !== "string" || !t[k]) err(`${tag} has no ${k}`);
+    if (!Number.isInteger(t.nights) || t.nights < 1 || t.nights > 7) err(`${tag} nights is not 1..7`);
+    const a = t.airport ?? {};
+    if (!/^[A-Z]{3}$/.test(a.code ?? "")) err(`${tag} airport.code is not an IATA code`);
+    if (!a.name || typeof a.drive !== "string" || !strOrNull(a.note)) err(`${tag} airport needs name, drive and note (or null)`);
+    if (!Array.isArray(t.courses) || t.courses.length < 2 || t.courses.length > 3) err(`${tag} does not name 2–3 courses`);
+    const seen = new Set();
+    for (const c of t.courses ?? []) {
+      if (seen.has(c)) err(`${tag} names ${c} twice`);
+      seen.add(c);
+      const e = entries.find((x) => x?.slug === c);
+      if (!e) err(`${tag} names "${c}", which is not one of the hundred`);
+      else if (e.status !== "open") err(`${tag} names ${c}, which is closed`);
+    }
+    if (!Array.isArray(t.days) || !t.days.every((d) => typeof d === "string" && d)) err(`${tag} days is not a list of strings`);
+    else if (t.days.length && t.days.length !== t.nights + 1) err(`${tag} has ${t.days.length} days for ${t.nights} nights`);
+  }
+  caStats = { entries: entries.length, linked: caLinked, verified: caVerified, checks: caChecks, trips: trips.length };
+  console.log(`  california-100 ${entries.length} · linked ${caLinked} · verified ${caVerified}/100 · checks ${caChecks}/${entries.length * CA_CHECKS.length} · trips ${trips.length}`);
 }
 
 const builtPath = resolve(PUB, "courses.json");

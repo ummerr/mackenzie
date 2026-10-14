@@ -123,6 +123,29 @@ export interface AmarSpec {
   from: string;
 }
 
+/** A weekend: two or three of the hundred around one bed. An itinerary is an
+ *  opinion like the index — nothing in it is a claim a check could verify, so
+ *  none applies. `courses` are entry slugs, resolved by the join. */
+export interface Trip {
+  slug: string;
+  title: string;
+  tagline: string;
+  /** The months, and the booking rule that bites. */
+  when: string;
+  nights: number;
+  base: string;
+  airport: { code: string; name: string; drive: string; note: string | null };
+  courses: string[];
+  days: string[];
+  story: string;
+}
+
+export interface TripsSpec {
+  title: string;
+  note: string;
+  trips: Trip[];
+}
+
 export interface California100File {
   list: { title: string; compiledAt: string; compiledBy: string; from: string };
   sources: Record<string, SourceDef>;
@@ -131,6 +154,7 @@ export interface California100File {
   tags: Record<string, string>;
   housing: Record<string, string>;
   amar: AmarSpec | null;
+  trips: TripsSpec | null;
   entries: CaliforniaEntry[];
 }
 
@@ -260,6 +284,33 @@ function parseAmarSpec(x: unknown): AmarSpec | null {
   };
 }
 
+const TRIP_SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+const IATA = /^[A-Z]{3}$/;
+
+function isTrip(x: unknown): x is Trip {
+  if (!isObj(x)) return false;
+  if (typeof x.slug !== "string" || !TRIP_SLUG.test(x.slug)) return false;
+  for (const k of ["title", "tagline", "when", "base", "story"]) if (typeof x[k] !== "string" || !x[k]) return false;
+  if (!Number.isInteger(x.nights) || (x.nights as number) < 1) return false;
+  const a = x.airport;
+  if (!isObj(a) || typeof a.code !== "string" || !IATA.test(a.code)) return false;
+  if (typeof a.name !== "string" || typeof a.drive !== "string" || !strOrNull(a.note)) return false;
+  if (!strArr(x.courses) || x.courses.length < 2 || x.courses.length > 3) return false;
+  return strArr(x.days);
+}
+
+/** The weekends. A trip that breaks the shape is dropped, as a bad entry is;
+ *  a trip naming a slug the hundred lacks is kept here and refused by the
+ *  join, which is where the slugs can be looked up. */
+function parseTripsSpec(x: unknown): TripsSpec | null {
+  if (!isObj(x) || !Array.isArray(x.trips)) return null;
+  return {
+    title: typeof x.title === "string" ? x.title : "Trips",
+    note: typeof x.note === "string" ? x.note : "",
+    trips: x.trips.filter(isTrip),
+  };
+}
+
 /** The index's arithmetic, re-done: weighted mean of the components, times ten. */
 export function amarScore(components: Record<AmarComponent, number>, weights: Record<AmarComponent, number>): number {
   let sum = 0;
@@ -294,6 +345,7 @@ export function parseCalifornia100(raw: unknown): California100File {
     tags: strMap(raw._tags),
     housing: strMap(raw._housing),
     amar: parseAmarSpec(raw._amar),
+    trips: parseTripsSpec(raw._trips),
     entries: (Array.isArray(raw.entries) ? raw.entries : []).filter(isEntry),
   };
 }
@@ -320,6 +372,18 @@ export interface AreaCount {
   played: number;
 }
 
+/** A trip with its rows found: what the weekend costs in green fees (the
+ *  rows' bands summed, null when any row has no fee), how far the farthest
+ *  course is from SF, and how much of it the record already holds. */
+export interface TripView {
+  trip: Trip;
+  rows: ListRow[];
+  played: number;
+  fee: { low: number | null; high: number | null };
+  /** The longest drive from SF among its courses — the trip's own distance. */
+  drive: { label: string; minutes: number };
+}
+
 export interface California100 {
   title: string;
   compiledAt: string;
@@ -344,6 +408,8 @@ export interface California100 {
   nextUp: ListRow | null;
   hardest: ListRow[];
   byArea: AreaCount[];
+  /** In the file's order; a trip naming a slug the hundred lacks is left out. */
+  trips: TripView[];
 }
 
 export const LENSES: { key: ListLens; word: string; gloss: string }[] = [
@@ -467,6 +533,25 @@ export function joinCalifornia100(
     drive: orderBy(rows, (r) => r.entry.drive.minutes, 1),
   };
 
+  const bySlug = new Map(rows.map((r) => [r.entry.slug, r]));
+  const trips: TripView[] = [];
+  for (const trip of file.trips?.trips ?? []) {
+    const found = trip.courses.map((s) => bySlug.get(s) ?? null);
+    if (found.some((r) => r === null)) continue;
+    const tripRows = found as ListRow[];
+    const lows = tripRows.map((r) => r.entry.fee.low ?? r.entry.fee.high);
+    const highs = tripRows.map((r) => r.entry.fee.high ?? r.entry.fee.low);
+    const sum = (xs: (number | null)[]) => (xs.every((x) => x !== null) ? (xs as number[]).reduce((a, b) => a + b, 0) : null);
+    const far = tripRows.reduce((a, r) => (r.entry.drive.minutes > a.entry.drive.minutes ? r : a), tripRows[0]);
+    trips.push({
+      trip,
+      rows: tripRows,
+      played: tripRows.filter((r) => r.state === "played").length,
+      fee: { low: sum(lows), high: sum(highs) },
+      drive: far.entry.drive,
+    });
+  }
+
   const cheapest = open
     .filter((r) => r.entry.fee.low !== null)
     .sort((a, b) => (a.entry.fee.low as number) - (b.entry.fee.low as number) || a.entry.rank - b.entry.rank);
@@ -493,7 +578,15 @@ export function joinCalifornia100(
       .filter((r) => r.entry.tee.slope !== null)
       .slice(0, 10),
     byArea: [...areas.values()].sort((a, b) => b.total - a.total || a.area.localeCompare(b.area)),
+    trips,
   };
+}
+
+/** "$650–773 a head" for a weekend, "—" when a row has no posted fee. */
+export function tripFeeLine(fee: TripView["fee"]): string {
+  if (fee.low === null || fee.high === null) return "—";
+  const r = (n: number) => Math.round(n).toLocaleString("en-US");
+  return fee.low === fee.high ? `$${r(fee.low)}` : `$${r(fee.low)}–${r(fee.high)}`;
 }
 
 /** "6,802 / 144" — the one tee line, dashes where the page has not said. */

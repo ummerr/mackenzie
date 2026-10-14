@@ -20,6 +20,9 @@
     "  rank it implies (_amar.weights; validate recomputes both). It is an opinion, not a claim",
     "  about the world, so no check applies to it; drive is an estimate from central SF,",
     "  housing the index's call on how much of the routing is lined with houses.",
+    "- _trips is the weekends: each names 2–3 open entries by slug, an airport (IATA code), a base,",
+    "  nights, a day plan and a story. An itinerary is an opinion like the index — no check applies;",
+    "  validate only insists the slugs resolve and the shape holds.",
     "",
     "Hand-editable. The page /california and the dossier on /courses read it; build.mjs",
     "derives published rankings for the facilities it links to. Only US-scale ranks",
@@ -144,6 +147,237 @@
       "C"
     ],
     "from": "central San Francisco, typical no-incident drive"
+  },
+  "_trips": {
+    "title": "Trips",
+    "note": "Weekends with friends: two or three courses from the hundred that sit within a short drive of one bed, with the airport to land at, where to sleep, and what the weekend is for. An itinerary is an opinion, not a claim — no check applies to it. Drives from the airport are estimates with no traffic; fees are the rows' own bands, summed, before carts, rooms and the 19th hole. Nothing here decides what has been played; the record does.",
+    "trips": [
+      {
+        "slug": "mackenzie-weekend",
+        "title": "The MacKenzie weekend",
+        "tagline": "Santa Cruz to the Monterey Peninsula without the Pebble bill",
+        "when": "any month; summer mornings are fogged in on the coast, which is half the charm. Pasatiempo closes to aerate twice a year — check before you book.",
+        "nights": 2,
+        "base": "Friday night in Santa Cruz, Saturday night in Pacific Grove",
+        "airport": {
+          "code": "SJC",
+          "name": "San José",
+          "drive": "50m",
+          "note": "over Highway 17 to Santa Cruz; the peninsula half is 10 minutes from Monterey Regional (MRY) if anyone flies in late"
+        },
+        "courses": [
+          "pasatiempo",
+          "bayonet",
+          "pacific-grove"
+        ],
+        "days": [
+          "Fri · drive down after work, tacos on Seabright, a walk on West Cliff, early night",
+          "Sat · Pasatiempo in the morning — walk it; the greens are the whole point — then Highway 1 south past Moss Landing to Seaside, dinner on Cannery Row",
+          "Sun · Bayonet early, Pacific Grove's back nine in the late afternoon light, 17-Mile Drive on the way out if the gate is still open"
+        ],
+        "story": "Start where the good doctor lived. Pasatiempo was MacKenzie's home course — his house sat on the sixth fairway — and the 2024 restoration put his greens back the way he drew them, which means three-putts that make you laugh instead of swear. It is the one expensive round of the weekend. Then the drive everyone forgets is beautiful: Highway 1 along the back of Monterey Bay, strawberry fields and the Moss Landing stacks, to Seaside, where Bayonet is the old Fort Ord army course — tight, tree-lined, mean off the tee, the hardest round of the three and a fraction of what the peninsula courses charge. Sunday closes at Pacific Grove, the poor man's Pebble: the front nine is a warm-up through the neighbourhood, and then the back nine walks out into the dunes beside Point Pinos lighthouse with the Pacific on three sides for $66. Three courses, three architects' eras, and the whole thing costs less than one tee time next door."
+      },
+      {
+        "slug": "pebble-once",
+        "title": "Pebble, once",
+        "tagline": "the splurge everyone owes themselves one time",
+        "when": "Pebble sells out months ahead; the resort stay rule means you book rooms first and times second. Spring and fall are the dry, clear months.",
+        "nights": 2,
+        "base": "The Lodge at Pebble Beach or the Inn at Spanish Bay — the two-night resort stay is what unlocks a Pebble time more than a day out",
+        "airport": {
+          "code": "MRY",
+          "name": "Monterey Regional",
+          "drive": "15m",
+          "note": "direct from most western hubs; SJC is 1h 15m, SFO 2h"
+        },
+        "courses": [
+          "pebble-beach",
+          "spyglass-hill",
+          "poppy-hills"
+        ],
+        "days": [
+          "Fri · land, Poppy Hills in the afternoon to shake off the plane, dinner in Carmel-by-the-Sea",
+          "Sat · Spyglass Hill in the morning; the first five holes through the dunes are the best stretch on the peninsula before it turns into a forest. Drinks at the Bench overlooking the 18th at Pebble",
+          "Sun · Pebble Beach. Take the photo on 7, play 8 like it is the best par 4 in the world, because it is, and do not hurry 18"
+        ],
+        "story": "This is not a value trip and it is not trying to be. It is the one weekend where the group agrees in advance that the money is spent and nobody mentions it again. Pebble is Pebble: the cliff holes from 4 to 10 are the reason golf travel exists, and the walk up 18 with Stillwater Cove on your left is a thing you will describe to people for years. Spyglass is the harder course and the locals' favourite — Robert Trent Jones Sr. built the opening through sand and ice plant and then disappeared into the Del Monte Forest, where the greens are small and the par 3s are long. Poppy Hills is the sensible third: the NCGA's home course, rebuilt in 2014 with no rough and wide fairways, so it is the round where someone actually breaks 80. Stay inside the gate; the 17-Mile Drive at dawn with nobody on it is part of what you paid for."
+      },
+      {
+        "slug": "truckee",
+        "title": "Truckee, at altitude",
+        "tagline": "three mountain courses and a lake to jump in",
+        "when": "late May to mid-October; snow closes all three. July and August are the sure months. Book summer times early — the season is short and everyone from the Bay knows it.",
+        "nights": 2,
+        "base": "Truckee — the lodging at Old Greenwood, or a rental off Donner Lake",
+        "airport": {
+          "code": "RNO",
+          "name": "Reno-Tahoe",
+          "drive": "40m",
+          "note": "the one time Reno is the right airport; from SF it is 3h 25m up I-80 and most people drive"
+        },
+        "courses": [
+          "old-greenwood",
+          "coyote-moon",
+          "grays-crossing"
+        ],
+        "days": [
+          "Fri · drive up after lunch to beat the Friday wall at Auburn, dinner on Commercial Row in old Truckee",
+          "Sat · Coyote Moon in the morning — the only one of the three with no houses on it — then Donner Lake for the afternoon",
+          "Sun · Old Greenwood or Gray's Crossing (they are the same club; pick by tee time), Kings Beach on the north shore for lunch, home by dark"
+        ],
+        "story": "At 6,000 feet the ball goes about ten percent farther, so every carry you do not trust at home you trust here, and for one weekend you are the long hitter you remember being. Coyote Moon is the course people come back for: granite outcrops, ponderosa pine, no houses, no road noise, a 250-foot drop on the 13th. Old Greenwood is Nicklaus at his most generous, wide and pretty with the mountains behind every green; Gray's Crossing is its sister across town, Peter Jacobsen and Jim Hardy, a little firmer and a little cheaper. Either is the Sunday round. The rest of the weekend is the lake: Donner is ten minutes from all three courses, cold and clear, and a swim after a round at altitude is the best thing in this list. Truckee's old town does dinner well and does not care how you played."
+      },
+      {
+        "slug": "lost-sierra",
+        "title": "The Lost Sierra",
+        "tagline": "five courses around a one-street town of four hundred people",
+        "when": "late May to mid-October. Prime rates run May 22 to October 11 at Whitehawk; the shoulder weeks either side are $30–60 cheaper per round and the aspens turn in early October.",
+        "nights": 2,
+        "base": "Nakoma Resort in Clio — the clubhouse is Frank Lloyd Wright's, built from his 1923 drawings — or a cabin in Graeagle",
+        "airport": {
+          "code": "RNO",
+          "name": "Reno-Tahoe",
+          "drive": "1h 15m",
+          "note": "up through Portola on 70; from SF it is 4h and the last hour is the point"
+        },
+        "courses": [
+          "whitehawk-ranch",
+          "grizzly-ranch",
+          "dragon-at-nakoma"
+        ],
+        "days": [
+          "Fri · land in Reno, Dragon at Nakoma in the late afternoon — it is on the resort, so dinner is a walk",
+          "Sat · Whitehawk Ranch in the morning, Feather River in the afternoon, the Graeagle Mill Pond and ice cream at the general store",
+          "Sun · Grizzly Ranch, then Frazier Falls on the way out if the legs still work. Graeagle Meadows and Plumas Pines are both ten minutes away for the weekend that grows to four rounds"
+        ],
+        "story": "The list already calls this the mountain trip, and the tag is earned. Graeagle is a lumber town turned golf valley: red cabins, one general store, five courses within fifteen minutes, and almost nobody from outside the state has heard of it. Whitehawk Ranch is the best of them, meadow and pine along a creek, immaculate, with carts included in a fee that would not buy a cart alone on the coast. Grizzly Ranch is Bob Cupp's big mountain course, elevated tees and long views, the one that rates highest and plays hardest. The Dragon is the wild card — Robin Nelson built it along a ridge above the Feather River and it was once called the hardest course in California, then softened; it is still the round with the drama and the resort to sleep beside. The Lakes Basin is twenty minutes up the hill: Sardine Lake, Frazier Falls, a swim in a lake you have the whole of. Nobody here is in a hurry, including the greens."
+      },
+      {
+        "slug": "coachella",
+        "title": "The desert in season",
+        "tagline": "Pete Dye's island green, a muni that is not one, and a pool",
+        "when": "November to April. Overseed shuts the courses for a few weeks in October; summer is 110°F and the rates fall by more than half for the brave. Avoid the two Coachella weekends and Stagecoach in April unless that is the trip.",
+        "nights": 2,
+        "base": "a rental with a pool in La Quinta or Palm Desert — four people, one house — or La Quinta Resort beside the Stadium course",
+        "airport": {
+          "code": "PSP",
+          "name": "Palm Springs",
+          "drive": "30m",
+          "note": "directs from SFO, OAK and SJC in season; nobody drives the 7h 50m"
+        },
+        "courses": [
+          "pga-west-stadium",
+          "desert-willow-firecliff",
+          "silverrock"
+        ],
+        "days": [
+          "Fri · land by noon, SilverRock in the afternoon with the Santa Rosa mountains on top of you, dinner in Old Town La Quinta",
+          "Sat · PGA West Stadium. Alcatraz is the 17th; everyone puts a ball in the water and someone makes par. Pool until dark",
+          "Sun · Desert Willow Firecliff in the morning, then the Palm Springs tram to 8,500 feet for the view and the cold, fly home"
+        ],
+        "story": "Winter golf in the desert is a Californian institution for a reason: it is 72°F, the sky is a lid, and the courses are as green as the mountains are brown. The Stadium course is the headline. Pete Dye built it in 1986 to be the hardest course in the country and the pros complained until the tour left; the island 17th is where Lee Trevino made the ace in the 1987 Skins Game, and the pot bunker on 16 is deeper than you are tall. Firecliff is the city of Palm Desert's own course and the best-conditioned muni in the state, Hurdzan and Fry through dunes and desert wash. SilverRock is the Arnold Palmer course that hosted the Bob Hope, big and wide against the Santa Rosas, the easiest of the three to score on and the one to open with. The rest of the trip is the pool, the mid-century houses, and arguing about who hit it closest on 17."
+      },
+      {
+        "slug": "torrey-both",
+        "title": "Torrey, both",
+        "tagline": "the US Open course, its friendlier sister, and a $54 muni with a skyline",
+        "when": "any month. June gloom is real on the coast and burns off by noon; fall is the clear season. Non-residents book Torrey up to 90 days out through the city's advance system for a per-player fee; otherwise it is the dawn walk-up list.",
+        "nights": 2,
+        "base": "La Jolla, or a rental in Pacific Beach; the Hotel del Coronado if the group wants the story",
+        "airport": {
+          "code": "SAN",
+          "name": "San Diego",
+          "drive": "20m",
+          "note": "to La Jolla; Coronado is 15 minutes the other way. From SF it is 8h 20m — fly"
+        },
+        "courses": [
+          "torrey-pines-south",
+          "torrey-pines-north",
+          "coronado"
+        ],
+        "days": [
+          "Fri · land, Coronado in the afternoon — the skyline sits behind the greens and the fee is a bar tab — dinner in Little Italy",
+          "Sat · Torrey Pines South. The cliffs from 3 to 4, the long walk, the 18th where Tiger holed it in 2008. Tacos in Old Town after",
+          "Sun · Torrey Pines North in the morning: same cliffs, two hundred yards shorter, the better score. La Jolla Cove for the sea lions, fly home"
+        ],
+        "story": "Torrey Pines is a municipal course on a cliff over the Pacific that has held two US Opens, and the city of San Diego still lets anyone play it. The South is the one you fly for: long, brutal in the rough, Rees Jones twice, with the par 3 third hanging over the ocean and the 18th where Tiger Woods made the putt on one leg. The North is the better morning — Tom Weiskopf's 2016 rebuild took it back toward the cliffs, it is cheaper, and the group will have more fun on it. Coronado is the Friday warm-up and the thing nobody expects: a flat, honest muni on the bay with the downtown skyline and the bridge behind every green, $54 to walk, and the Hotel del across the street for a drink after. It is 70°F in February. That is the whole pitch."
+      },
+      {
+        "slug": "ojai",
+        "title": "Ojai, the A++ weekend",
+        "tagline": "two Gil Hanse courses at muni prices and a George Thomas original",
+        "when": "October to May; Ojai is an oven in August. Rustic Canyon's fee jumps if you book more than two weeks out, so hold your nerve and book inside fourteen days.",
+        "nights": 2,
+        "base": "Ojai Valley Inn if the trip is a treat, a rental in the Ojai valley if it is not — both put you ten minutes from Soule Park",
+        "airport": {
+          "code": "BUR",
+          "name": "Burbank",
+          "drive": "1h",
+          "note": "to Ojai; Santa Barbara (SBA) is 45 minutes and prettier. From SF it is 5h 50m down 101, which is a fine Friday"
+        },
+        "courses": [
+          "rustic-canyon",
+          "soule-park",
+          "ojai-valley-inn"
+        ],
+        "days": [
+          "Fri · drive down 101 or land at Burbank, Rustic Canyon in the afternoon on the way in, dinner in downtown Ojai",
+          "Sat · Soule Park in the morning for forty-four dollars, the pink moment on the Topatopa bluffs at sunset, Bart's Books before it closes",
+          "Sun · Ojai Valley Inn, the 1923 George Thomas course, then fish tacos at Ventura Harbor and the drive home"
+        ],
+        "story": "The two cheapest great courses in California are forty minutes apart, and both are Gil Hanse. Rustic Canyon is the one the architecture people make pilgrimages to: a 2002 minimalist course laid into a Moorpark canyon with huge greens, no water, no houses and a green fee under a hundred dollars — the record already holds it six times, and it is the course on this list to show a friend what golf can be. Soule Park is the county muni in Ojai that Hanse and Jim Wagner rebuilt in 2005 for almost nothing, and it is wide, fast, strategic and absurd value at $44 on a weekday. Ojai Valley Inn is the dessert: George Thomas, the man who built Riviera, in the orange groves under the Topatopas, cart included and the spa next door. Ojai itself does the rest — one street, a Sunday farmers' market, the outdoor bookstore, and the bluffs going rose at dusk."
+      },
+      {
+        "slug": "central-coast",
+        "title": "The Central Coast, with wine",
+        "tagline": "an ocean cliff, a windswept beast, and dunes near Pismo",
+        "when": "September to November is the clear, warm window; spring is green and windy at La Purisima, which is the point of La Purisima.",
+        "nights": 2,
+        "base": "Santa Barbara on Friday, Solvang or Pismo Beach on Saturday — the drive north is the itinerary",
+        "airport": {
+          "code": "SBA",
+          "name": "Santa Barbara",
+          "drive": "10m",
+          "note": "to Sandpiper in Goleta; San Luis Obispo (SBP) is 25 minutes from Monarch Dunes for the other end. From SF it is 4–5h on 101"
+        },
+        "courses": [
+          "sandpiper",
+          "la-purisima",
+          "monarch-dunes-old"
+        ],
+        "days": [
+          "Fri · fly into Santa Barbara or drive 101, Sandpiper in the late afternoon on the cliffs, dinner on the Funk Zone",
+          "Sat · La Purisima in the morning before the wind gets up, then tasting rooms in Los Olivos and Danish pastries in Solvang; sleep in Solvang or Pismo",
+          "Sun · Monarch Dunes' Old Course, the 12-hole par-3 Challenge course after lunch if the group wants one more, Pismo pier, home up 101 or Highway 1 through Big Sur if it is open"
+        ],
+        "story": "Sandpiper is the course on this list that looks most like Pebble for a fifth of the price: Bill Bell on the bluffs west of Santa Barbara, with the 11th through 14th running along the cliff edge and the Channel Islands on the horizon. La Purisima, an hour north near Lompoc, is the opposite kind of day — Robert Muir Graves built a long, hilly, honest course in the oaks that the wind owns after noon, nobody is on it, and it is the hardest round of the three by a distance. Between them is the Santa Ynez Valley, the Sideways country, where Saturday afternoon is Los Olivos tasting rooms and a Solvang bakery. Monarch Dunes, further up at Nipomo, plays through real sand dunes a few miles from the beach, Damian Pascuzzo and Steve Pate, with the best par-3 course in the state beside it for the group's last hour. Then Pismo, the pier, and the long drive home."
+      },
+      {
+        "slug": "friends-in-town",
+        "title": "Home game",
+        "tagline": "when the friends fly in: the city's three, no night away",
+        "when": "September and October are the clear months in the city; summer is fog at Half Moon Bay until noon and wind at Harding after it. Non-resident rates are quoted; a city resident card halves Harding and Presidio.",
+        "nights": 2,
+        "base": "your spare room. Everyone lands at SFO and nobody rents a car — Harding and the Presidio are a ride away, Half Moon Bay is the one drive",
+        "airport": {
+          "code": "SFO",
+          "name": "San Francisco",
+          "drive": "20m",
+          "note": "to Harding Park; the Presidio is 25 minutes, Half Moon Bay 35 down Highway 1"
+        },
+        "courses": [
+          "harding-park",
+          "half-moon-bay-ocean",
+          "presidio"
+        ],
+        "days": [
+          "Fri · pick up, Presidio in the afternoon under the eucalyptus with the bridge at the end of the fairways, dinner in the Richmond",
+          "Sat · Harding Park, the muni that held the 2020 PGA — the cypress holes along Lake Merced from 14 in are the test. Giants game or the Marina for the evening",
+          "Sun · Half Moon Bay Ocean course on the bluffs, the 18th along the cliff to the Ritz, fire pits and a drink before the airport"
+        ],
+        "story": "The trip for the weekend the friends come to you. Harding Park is the municipal course that hosted a Presidents Cup and a PGA Championship and still charges muni money to anyone with a city card; the finishing stretch along Lake Merced through the cypress is championship golf fifteen minutes from the house. The Presidio is the 1895 army course inside a national park, hilly and tree-lined with glimpses of the Golden Gate, the right afternoon round for a group that has just got off a plane. Half Moon Bay is the day out: Arthur Hills' Ocean course runs along the bluffs south of the harbour, links-ish and windy, and finishes with the 18th hard along the cliff edge to the Ritz-Carlton, where the fire pits and the bagpiper at sunset are the best 19th hole in the Bay Area. Three rounds, two drives, and everyone sleeps in their own bed — yours."
+      }
+    ]
   },
   "entries": [
     {

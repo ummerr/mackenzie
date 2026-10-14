@@ -6,6 +6,40 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-10-13 — Trips: the hundred grouped into weekends
+
+**Decided:** `/california` gets a Trips section — nine weekends with friends,
+each two or three of the hundred around one bed, with the airport to land
+at, where to sleep, when to go, a day plan and the story of why. They live
+in `data/california-100.json` under `_trips`, beside `_amar`, naming entries
+by slug; `lib/california100.ts` parses them and the join resolves each to
+its rows, sums the fee bands (null if any row has none), takes the farthest
+drive from SF as the trip's distance and counts what the record already
+holds. `scripts/validate.mjs` refuses a trip that names a slug not in the
+hundred, a closed course (Spanish Bay), fewer than two or more than three
+courses, a slug twice, a non-IATA airport code, or a day plan whose length
+is not nights + 1.
+
+**Why in the data file, not the page.** The hundred is one hand-editable
+contract and the trips are a view of it — moving a course between weekends
+or adding a tenth is a JSON edit, and validate catches a typo in a slug the
+way it catches one in a facility. The page prints the story as written.
+
+**Why no check applies.** An itinerary is an opinion, like the index: which
+airport, which bed, which order are choices, not claims about the world.
+Drives from the airport are no-traffic estimates and say so in the file's
+note; the fees on a trip are the rows' own verified bands, summed, so the
+one number that could mislead inherits the rows' provenance rather than
+inventing its own.
+
+**Rejected:** a trip filter on the table (the cards link each course to its
+row, which is the one direction anyone follows); a trips page of its own
+(three screens of cards under the table is the right weight — the question
+is "which weekend", not a catalogue); routing trips through the map (the
+map pins for the hundred are NEXT item 3 and trips can ride on them later).
+
+---
+
 ## 2026-10-12 — The capture goes unattended
 
 **Decided:** a nightly GitHub Actions run (`.github/workflows/nightly-capture.yml`,

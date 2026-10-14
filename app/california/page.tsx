@@ -15,12 +15,14 @@ import { buildSources } from "@/lib/sources";
 import { Provenance } from "../provenance";
 import { StatTiles, type StatTile } from "../stat-tiles";
 import { CaliforniaList, type RowCheck, type TableRow } from "./list";
+import { Trips } from "./trips";
 
 /* The California Public 100 against the record. Server component: the list
  * is parsed, joined and ordered in lib/california100.ts (tested); the client
  * table below only picks an order and hides rows. The page answers four
- * questions in order — how many, which next, which the index rates, which
- * are hard — and says on every row whether the row has been checked yet. A
+ * questions in order — how many, which next, which weekends to book with
+ * friends, which the index rates, which are hard — and says on every row
+ * whether the row has been checked yet. A
  * hundred-square progress grid was tried first and retired the same day:
  * it repeated what the rows already say and answered nothing on its own. */
 
@@ -219,6 +221,9 @@ function Body({
           housing={file.housing}
         />
       </section>
+
+      {/* ── the trips ─────────────────────────────────────────────────────── */}
+      {file.trips && <Trips trips={list.trips} note={file.trips.note} />}
 
       {/* ── the index's ten ───────────────────────────────────────────────── */}
       {file.amar && (

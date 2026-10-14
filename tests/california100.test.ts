@@ -7,6 +7,7 @@ import {
   joinCalifornia100,
   parseCalifornia100,
   teeLine,
+  tripFeeLine,
   valueOrdinal,
   type California100File,
   type CaliforniaEntry,
@@ -76,6 +77,40 @@ describe("data/california-100.json", () => {
     }
   });
 
+  it("every trip names two or three open courses of the hundred, each once, with a day per night plus one", () => {
+    const f = real();
+    expect(f.trips).not.toBeNull();
+    expect(f.trips!.trips.length).toBeGreaterThanOrEqual(1);
+    const bySlug = new Map(f.entries.map((e) => [e.slug, e]));
+    const seen = new Set<string>();
+    for (const t of f.trips!.trips) {
+      expect(seen.has(t.slug), t.slug).toBe(false);
+      seen.add(t.slug);
+      expect(t.courses.length, t.slug).toBeGreaterThanOrEqual(2);
+      expect(t.courses.length, t.slug).toBeLessThanOrEqual(3);
+      expect(new Set(t.courses).size, t.slug).toBe(t.courses.length);
+      for (const c of t.courses) expect(bySlug.get(c)?.status, `${t.slug} → ${c}`).toBe("open");
+      expect(t.airport.code, t.slug).toMatch(/^[A-Z]{3}$/);
+      expect(t.days.length, t.slug).toBe(t.nights + 1);
+    }
+  });
+
+  it("joins the trips: every trip's rows are found, the band is the rows' bands summed, Rustic Canyon's weekend is already one played", () => {
+    const b = built();
+    const list = joinCalifornia100(real(), b.bySlug, b.capturedAt);
+    expect(list.trips.length).toBe(real().trips!.trips.length);
+    for (const t of list.trips) {
+      expect(t.rows.map((r) => r.entry.slug)).toEqual(t.trip.courses);
+      const low = t.rows.reduce((n, r) => n + (r.entry.fee.low ?? r.entry.fee.high ?? NaN), 0);
+      expect(t.fee.low).toBe(Number.isNaN(low) ? null : low);
+      expect(t.drive.minutes).toBe(Math.max(...t.rows.map((r) => r.entry.drive.minutes)));
+    }
+    const ojai = list.trips.find((t) => t.trip.slug === "ojai")!;
+    expect(ojai.played).toBeGreaterThanOrEqual(1);
+    expect(ojai.rows.find((r) => r.entry.slug === "rustic-canyon")!.state).toBe("played");
+    expect(tripFeeLine(ojai.fee)).toMatch(/^\$\d+–\d+$/);
+  });
+
   it("joins Rustic Canyon as played six times, Brookside to its Koiner course, and Pelican Hill's Ocean South as facility-played", () => {
     const b = built();
     const list = joinCalifornia100(real(), b.bySlug, b.capturedAt);
@@ -140,6 +175,7 @@ const file = (entries: CaliforniaEntry[]): California100File => ({
   tags: { "sf-shortlist": "x" },
   housing: { none: "none" },
   amar: null,
+  trips: null,
   entries,
 });
 const layout = (slug: string, over: Partial<SourceFacility["layouts"][number]> = {}): SourceFacility["layouts"][number] => ({

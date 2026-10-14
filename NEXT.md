@@ -1,8 +1,8 @@
 # NEXT
 
 <!-- state:start -->
-**State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-10-06
-Last commit 2026-10-06 — The hundred becomes a real table: sort by any heading, pick columns, open a row
+**State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-10-13
+Last commit 2026-10-13 — The capture goes unattended: a nightly run pulls Garmin and Grint, refreshes, gates, and commits
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
@@ -43,6 +43,15 @@ heard, and a panel in "Where the strokes live" (2.4 penalty strokes + 1.9
 bunker shots a card, floors). The leak engine and `/plan` do **not** read it
 yet — see `DECISIONS.md` 2026-10-06 — which is the obvious next move: price
 penalty strokes as a leak and feed bunker visits to the short-game entry.
+
+**2026-10-13 — trips.** `/california` has a Trips section: nine weekends
+with friends (the MacKenzie weekend, Pebble once, Truckee, the Lost Sierra,
+the desert, Torrey both, Ojai, the Central Coast, the home game), each two
+or three of the hundred with airport, bed, season, day plan and story, in
+`data/california-100.json` under `_trips` and validated (slugs resolve,
+open courses only, 2–3 each, days = nights + 1). An itinerary is an opinion
+like the index; the fees are the rows' bands summed. `DECISIONS.md`
+2026-10-13. Not done: a trip filter on the table, trips on the map.
 
 **2026-10-06 — the California 100 lands.** `/california` (nav: CA 100) is
 the to-play list: 100 public-access courses from a ChatGPT compilation of
@@ -280,3 +289,4 @@ for the top 25 arrived with the list (2026-10-06): 21 facilities carry one.
 - **2026-09-30** — session ended: 2 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-09-30 -->
 - **2026-10-06** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-10-06 -->
 - **2026-10-12** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `(committed, unpushed)`. <!-- campfire:2026-10-12 -->
+- **2026-10-13** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `(committed, unpushed)`. <!-- campfire:2026-10-13 -->
