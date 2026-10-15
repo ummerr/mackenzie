@@ -138,26 +138,52 @@ function RecentRoundsSection({ recent }: { recent: RecentRounds }) {
             ? `; their last ${recent.count} course names do match the cards' in order.`
             : `; their last ${recent.count} course names do not match the cards' in order.`}
       </p>
-      <dl className="mt-3 space-y-1 font-mono text-[11px] leading-5">
-        {STAT_GROUPS.map((group) => {
-          const rows = recent.rows.filter((r) => r.group === group);
-          if (rows.length === 0) return null;
-          return (
-            <div key={group} className="pt-2">
-              <div className="stamp text-ink-3">{group}</div>
-              {rows.map((row) => (
-                <div key={row.label} className="flex flex-wrap gap-x-3">
-                  <dt className="w-52 shrink-0 text-ink-1">{row.label}</dt>
-                  <dd className="text-ink-2">
-                    <b className="text-ink-0">{row.recent}</b> · career {row.career}
-                    {row.note ? <span className="text-ink-3"> — {row.note}</span> : null}
-                  </dd>
-                </div>
-              ))}
-            </div>
-          );
-        })}
-      </dl>
+      <div className="mt-3 border-t pan-x rule">
+        <table className="w-full border-collapse font-mono text-[11px] sm:min-w-[640px]">
+          <thead>
+            <tr className="text-ink-3">
+              <th scope="col" className="py-2 pr-3 text-left font-normal">
+                <span className="stamp">&nbsp;</span>
+              </th>
+              <th scope="col" className="whitespace-nowrap py-2 pr-3 text-left font-normal">
+                <span className="stamp">Last {recent.count}</span>
+              </th>
+              <th scope="col" className="whitespace-nowrap py-2 text-left font-normal">
+                <span className="stamp">Career</span>
+              </th>
+            </tr>
+          </thead>
+          {STAT_GROUPS.map((group) => {
+            const rows = recent.rows.filter((r) => r.group === group);
+            if (rows.length === 0) return null;
+            return (
+              <tbody key={group}>
+                <tr>
+                  <th
+                    scope="rowgroup"
+                    colSpan={3}
+                    className="border-t pt-4 pb-1 text-left font-normal rule"
+                  >
+                    <span className="stamp text-ink-2">{group}</span>
+                  </th>
+                </tr>
+                {rows.map((row) => (
+                  <tr key={row.label} className="align-top">
+                    <th scope="row" className="w-[40%] py-1.5 pr-4 text-left font-normal leading-5 text-ink-1 sm:w-[36%]">
+                      {row.label}
+                      {row.note ? (
+                        <span className="block text-[10px] leading-4 text-ink-3">{row.note}</span>
+                      ) : null}
+                    </th>
+                    <td className="py-1.5 pr-4 font-bold leading-5 text-ink-0 tabular-nums">{row.recent}</td>
+                    <td className="py-1.5 leading-5 text-ink-2 tabular-nums">{row.career}</td>
+                  </tr>
+                ))}
+              </tbody>
+            );
+          })}
+        </table>
+      </div>
     </section>
   );
 }
