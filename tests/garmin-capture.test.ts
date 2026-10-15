@@ -163,3 +163,19 @@ describe("captureGarmin", () => {
     expect(out.bundle.summary.skippedScorecards).toBeUndefined();
   });
 });
+
+// @ts-expect-error — plain .mjs script module, no type declarations
+import { grintSecretViolations } from "../scripts/capture/secret-shaped.mjs";
+
+describe("grintSecretViolations", () => {
+  const helper = 'expires = "; expires=" + date.toUTCString();\n document.cookie = name + "=" + (value || "") + expires + "; path=/";';
+  it("exempts the sponsor banner's cookie-write helper a fresh session is served", () => {
+    expect(grintSecretViolations(`<script>${helper}</script>`)).toEqual([]);
+  });
+  it("still refuses a cookie read, a session id, or a header", () => {
+    expect(grintSecretViolations("var c = document.cookie;").map((v) => String(v.re))).toEqual(["/document\\.cookie/i"]);
+    expect(grintSecretViolations("PHPSESSID=abc").length).toBe(1);
+    expect(grintSecretViolations("Set-Cookie: x").length).toBe(1);
+    expect(grintSecretViolations(`${helper} and later document.cookie.split`).length).toBe(1);
+  });
+});

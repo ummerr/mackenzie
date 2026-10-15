@@ -28,7 +28,7 @@ import { readFileSync, existsSync, mkdirSync, unlinkSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { chromium } from "playwright";
-import { GRINT_SECRET_SHAPED } from "./secret-shaped.mjs";
+import { grintSecretViolations } from "./secret-shaped.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const RAW = resolve(ROOT, "data", "raw");
@@ -192,16 +192,10 @@ async function main() {
     // The inventory gate will refuse secret-shaped text; say where it is
     // before it does, with anything token-shaped masked, so a runner's log
     // is evidence and never a leak.
-    for (const re of GRINT_SECRET_SHAPED) {
-      const m = new RegExp(re.source, re.flags.includes("g") ? re.flags : re.flags + "g");
-      let hit;
-      let shown = 0;
-      while ((hit = m.exec(text)) && shown < 3) {
-        shown++;
-        const ctx = text.slice(Math.max(0, hit.index - 140), hit.index + 160).replace(/[A-Za-z0-9_\-]{24,}/g, "«masked»").replace(/\s+/g, " ");
-        const owner = bundle.resources.find((r) => text.indexOf(JSON.stringify(r.url)) < hit.index && hit.index < text.indexOf(JSON.stringify(r.url)) + JSON.stringify(r).length);
-        console.error(`grint: secret-shaped ${re} in ${owner ? `${owner.kind} ${owner.url}` : "the bundle"}: …${ctx}…`);
-      }
+    for (const { re, index } of grintSecretViolations(text).slice(0, 6)) {
+      const ctx = text.slice(Math.max(0, index - 140), index + 160).replace(/[A-Za-z0-9_\-]{24,}/g, "«masked»").replace(/\s+/g, " ");
+      const owner = bundle.resources.find((r) => text.indexOf(JSON.stringify(r.url)) < index && index < text.indexOf(JSON.stringify(r.url)) + JSON.stringify(r).length);
+      console.error(`grint: secret-shaped ${re} in ${owner ? `${owner.kind} ${owner.url}` : "the bundle"}: …${ctx}…`);
     }
     const ok = bundle.summary?.scorecardsOk ?? 0;
     const loggedOut = (bundle.errors ?? []).some((e) => /logged out/i.test(e.message ?? ""));
