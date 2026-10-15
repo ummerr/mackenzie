@@ -17,6 +17,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
+import { GRINT_SECRET_SHAPED } from "./capture/secret-shaped.mjs";
 import { bundleFileKey } from "./parse-grint-export.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -45,7 +46,10 @@ const rawText = readFileSync(file, "utf8");
 
 // ---- committability: nothing secret-shaped may be in the file ---------------
 
-for (const re of [/set-cookie/i, /phpsessid/i, /\bauthorization\b/i, /document\.cookie/i]) {
+// The patterns live in capture/secret-shaped.mjs; the nightly capture runs
+// the same list over its own output and names the resource before this gate
+// refuses it.
+for (const re of GRINT_SECRET_SHAPED) {
   if (re.test(rawText)) violations.push(`secret-shaped content matches ${re}`);
 }
 
