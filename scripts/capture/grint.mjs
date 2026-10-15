@@ -35,6 +35,10 @@ const EXT = resolve(ROOT, "grint-extension");
 const BASE = "https://thegrint.com";
 const RECENT_MAX = 40; // mirrors grint-extension/constants.js
 const CAPTURE_TIMEOUT_MS = 15 * 60 * 1000;
+const LOGIN_FIELD_TIMEOUT_MS = 60 * 1000;
+// Where a failed login leaves its evidence (title, url, screenshot); the
+// workflow uploads it as an artifact. Never committed.
+const DIAG_DIR = process.env.GRINT_DIAG_DIR || resolve(ROOT, ".capture-state", "grint-diag");
 
 // A plain desktop UA: the headless default advertises itself as headless.
 const USER_AGENT =
@@ -54,15 +58,47 @@ async function loggedIn(page) {
   return (await page.locator("#filterUserId").count()) > 0;
 }
 
+/** What the runner actually saw when the login page did not look like one. */
+async function diagnose(page, why) {
+  mkdirSync(DIAG_DIR, { recursive: true });
+  const title = await page.title().catch(() => "?");
+  const url = page.url();
+  const text = await page.evaluate(() => (document.body?.innerText || "").slice(0, 400)).catch(() => "");
+  const challenge = /just a moment|challenge-platform|cf-chl|verify you are human|attention required/i.test(text + title);
+  await page.screenshot({ path: resolve(DIAG_DIR, "login.png"), fullPage: true }).catch(() => {});
+  console.error(`grint: ${why}`);
+  console.error(`grint:   url    ${url}`);
+  console.error(`grint:   title  ${title}`);
+  console.error(`grint:   cloudflare challenge: ${challenge ? "YES" : "no"}`);
+  console.error(`grint:   body   ${JSON.stringify(text.replace(/\s+/g, " ").slice(0, 300))}`);
+  console.error(`grint:   screenshot in ${DIAG_DIR}/login.png`);
+}
+
 async function login(page, username, password) {
-  await page.goto(`${BASE}/passthru`, { waitUntil: "domcontentloaded" });
+  await page.goto(`${BASE}/passthru`, { waitUntil: "networkidle" }).catch(() => {});
+  // /passthru is a chooser (USGA, Google, Apple) whose "Sign in With Username
+  // or Email" button opens a second modal holding the form; the form is in
+  // the DOM but hidden until then (first runner run, 2026-10-15).
+  const chooser = page.locator("a.login-button-email, a[data-target='#loginEmailModal']").first();
+  if ((await chooser.count()) > 0) await chooser.click().catch(() => {});
+  try {
+    await page.waitForSelector("#usernameLogin", { timeout: LOGIN_FIELD_TIMEOUT_MS, state: "visible" });
+  } catch {
+    await diagnose(page, "the login form never appeared");
+    return false;
+  }
   await page.fill("#usernameLogin", username);
   await page.fill("#pwdLogin", password);
-  const remember = page.locator('#form-login input[name="remember"]');
-  if ((await remember.count()) > 0) await remember.first().check().catch(() => {});
+  // The remember box is a styled control; set it in the DOM rather than
+  // waiting on a click target that may be hidden.
+  await page.evaluate(() => {
+    const el = document.querySelector('#form-login input[name="remember"]');
+    if (el) el.checked = true;
+  });
+  // The submit button carries no type attribute (so [type=submit] misses it).
   await Promise.all([
     page.waitForLoadState("domcontentloaded"),
-    page.locator("#form-login button[type=submit], #form-login input[type=submit]").first().click(),
+    page.locator("#submit-form-login, #form-login button").first().click(),
   ]);
   return loggedIn(page);
 }
@@ -77,7 +113,13 @@ async function main() {
     return 2;
   }
 
-  const browser = await chromium.launch({ headless: true });
+  // Full Chromium's new headless mode, not the headless shell: Cloudflare
+  // tolerates it where it challenges the shell (first runner run, 2026-10-15).
+  const browser = await chromium.launch({
+    headless: true,
+    channel: "chromium",
+    args: ["--disable-blink-features=AutomationControlled"],
+  });
   let code = 1;
   try {
     const context = await browser.newContext({
@@ -91,7 +133,7 @@ async function main() {
     if (!(await loggedIn(page))) {
       console.log("grint: logging in");
       if (!(await login(page, username, password))) {
-        console.error("grint: login failed — the form posted but /trend shows no user id (wrong password, or the login page changed)");
+        await diagnose(page, "login failed — the form posted but /trend shows no user id (wrong password, or the login page changed)");
         return 3;
       }
     }

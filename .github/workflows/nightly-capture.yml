@@ -89,6 +89,15 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           bash scripts/capture/nightly.sh
 
+      - name: Keep the Grint login evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: grint-diag
+          path: .capture-state/grint-diag
+          if-no-files-found: ignore
+          retention-days: 7
+
       - name: Open or update the failure issue
         if: failure()
         env:
