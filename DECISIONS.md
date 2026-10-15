@@ -241,11 +241,29 @@ the token route refreshes itself); a pull request instead of a commit
 a `pnpm build` skipped as redundant with Vercel's (a broken build on `main`
 is a broken site, so it is a gate here first).
 
-**Open:** the first run from a GitHub runner is the test of whether either
-site challenges datacenter IPs; the fallback is a self-hosted runner. Whether
-Garmin's refresh token rotates is not documented — the cache carries whatever
-the library writes back. Pelican Hill and Indian Canyons (2026-10-06) are
-unaffected; the California 100 is hand-kept.
+**Open:** whether Garmin's refresh token rotates is not documented — the
+cache carries whatever the library writes back. Pelican Hill and Indian
+Canyons (2026-10-06) are unaffected; the California 100 is hand-kept.
+
+**Postscript, 2026-10-15 — live after five runs.** Neither site challenged
+the runner's IP. What the runs taught, each now in the code: Grint's
+`/passthru` is a chooser (USGA, Google, Apple) whose "Sign in With Username
+or Email" button opens the form, and the form's submit button carries no
+`type` attribute; a fresh session is served a "WHY SPONSOR" promo whose
+inline cookie-write helper tripped the gate's `document.cookie` pattern
+(exempted for that exact helper shape only — `grintSecretViolations`); a
+night that captures but fails a gate uploads its bundles as the `new-raw`
+artifact so a person can `gh run download` them into `data/raw/` and finish
+with `pnpm refresh`. The first real round (Half Moon Bay Ocean, 2026-10-15)
+was at a course new to the spine, and the California 100 contract stopped
+the run exactly as designed — a list row that looks like a new facility must
+be joined by a person. **That is the one recurring hand step left: when a
+nightly run fails on `california-100[…] looks like …`, download the
+artifact, run `pnpm refresh`, join the rows in `data/california-100.json`,
+update the `linked` count in `tests/california100.test.ts`, commit.** The
+link was confirmed by the three-way rule, the first the machine made.
+Overpass was down from every mirror that morning (runner and laptop alike);
+`fetch-osm` tolerates it and the course gets its polygon on a later run.
 
 ## 2026-10-06 — The to-play list is admitted as a compiled list, joined by hand to the record
 
