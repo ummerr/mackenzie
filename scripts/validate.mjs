@@ -340,8 +340,35 @@ if (caFile) {
       if (p.lat != null && (p.lat < 32 || p.lat > 42.5 || p.lon < -125 || p.lon > -114)) err(`california-100-geo points[${slug}] is outside California`);
     }
   }
-  caStats = { entries: entries.length, linked: caLinked, verified: caVerified, checks: caChecks, trips: trips.length };
-  console.log(`  california-100 ${entries.length} · linked ${caLinked} · verified ${caVerified}/100 · checks ${caChecks}/${entries.length * CA_CHECKS.length} · trips ${trips.length}`);
+  /* The photographs. Every one is a licence obligation: the file must exist,
+     the licence must be one the file lists (all allow reuse with credit),
+     the author must be named, the Commons page linked, the subject must be
+     a trip or a course of the hundred, and each trip has exactly one hero,
+     because the unfurl card is drawn from it. */
+  const photos = readJson("california-100-photos.json", null);
+  let caPhotos = 0;
+  if (photos) {
+    const licenses = photos.licenses ?? {};
+    const heroes = {};
+    for (const ph of photos.photos ?? []) {
+      const tag = `california-100-photos[${ph?.file ?? "?"}]`;
+      if (!ph?.file || !existsSync(resolve(PUB, "..", "california", "photos", ph.file))) { err(`${tag} file is missing from public/california/photos`); continue; }
+      caPhotos++;
+      if (!(ph.source?.license in licenses)) err(`${tag} licence "${ph.source?.license}" is not in the file's licences`);
+      if (!ph.source?.author) err(`${tag} names no author`);
+      if (!CA_URL.test(ph.source?.page ?? "")) err(`${tag} has no Commons page URL`);
+      if (!ph.caption) err(`${tag} has no caption`);
+      if (ph.of?.kind === "course") {
+        if (!entries.some((e) => e?.slug === ph.of.slug)) err(`${tag} is of course "${ph.of?.slug}", not one of the hundred`);
+      } else if (ph.of?.kind === "trip") {
+        if (!trips.some((t) => t?.slug === ph.of.slug)) err(`${tag} is of trip "${ph.of?.slug}", which does not exist`);
+        if (ph.role === "hero") heroes[ph.of.slug] = (heroes[ph.of.slug] ?? 0) + 1;
+      } else err(`${tag} of.kind is not trip|course`);
+    }
+    for (const t of trips) if ((heroes[t.slug] ?? 0) !== 1) err(`california-100._trips[${t.slug}] has ${heroes[t.slug] ?? 0} hero photos, not 1`);
+  } else if (trips.length) warn("california-100 has trips but no california-100-photos.json — the pages go without pictures");
+  caStats = { entries: entries.length, linked: caLinked, verified: caVerified, checks: caChecks, trips: trips.length, photos: caPhotos };
+  console.log(`  california-100 ${entries.length} · linked ${caLinked} · verified ${caVerified}/100 · checks ${caChecks}/${entries.length * CA_CHECKS.length} · trips ${trips.length} · photos ${caPhotos}`);
 }
 
 const builtPath = resolve(PUB, "courses.json");

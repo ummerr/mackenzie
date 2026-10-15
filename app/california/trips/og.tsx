@@ -1,25 +1,23 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
-import type { TripStop, TripView } from "@/lib/california100";
-import { tripFeeLine } from "@/lib/california100";
-import { fitMosaic, spreadPins } from "@/lib/tile-map";
+import type { Photo, TripView } from "@/lib/california100";
+import { photoCredit, tripFeeLine } from "@/lib/california100";
 
 /* The unfurl card: what iMessage, WhatsApp and Slack show beside the link.
- * Built at deploy by next/og from the same data as the page — the title,
- * the three courses, the airport, the fee band, and a small route diagram
- * drawn from the stops' real positions (no tiles: the card must build with
- * no network). The serif is fetched from Google Fonts at build and, if that
+ * Built at deploy by next/og from the same data as the page: the trip's
+ * hero photograph full-bleed, the title set into it, the three courses,
+ * the airport and the fee band, and the photograph's credit in the corner.
+ * The photograph is read from public/ as bytes, so the card builds with no
+ * network; the serif is fetched from Google Fonts at build and, if that
  * fails, the card falls back to the default face rather than failing the
  * build. */
 
 export const OG_SIZE = { width: 1200, height: 630 };
 
 const PAPER = "#f7f4ec";
-const PAPER2 = "#f1ece1";
-const INK = "#161a15";
-const INK2 = "#5a6650";
-const INK3 = "#666d63";
-const ACCENT = "#b8420f";
-const LINE = "#d9d2c2";
+const PAPER_DIM = "#e5dfd0";
+const ACCENT = "#ff6b35";
 
 async function serif(): Promise<ArrayBuffer | null> {
   try {
@@ -34,101 +32,97 @@ async function serif(): Promise<ArrayBuffer | null> {
   }
 }
 
-/** The stops as a small diagram: the real positions, fitted into a box.
- *  Satori draws SVG paths and circles but no <text>, so the labels are
- *  absolutely placed divs over the drawing. */
-function Route({ stops, w, h }: { stops: TripStop[]; w: number; h: number }) {
-  if (stops.length === 0) return null;
-  const m = fitMosaic(
-    stops.map((s) => s.point),
-    w,
-    h,
-    { maxZoom: 14, pad: 0.16 },
-  );
-  const at = stops.map((s) => m.project(s.point));
-  const px = spreadPins(at, 50);
-  const d = at.map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
-  return (
-    <div style={{ display: "flex", position: "relative", width: w, height: h, background: PAPER2 }}>
-      <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{ position: "absolute", top: 0, left: 0 }}>
-        <path d={d} fill="none" stroke={ACCENT} strokeWidth={3} strokeDasharray="8 7" />
-        {stops.map((s, i) => (
-          <circle key={i} cx={px[i].x} cy={px[i].y} r={s.kind === "airport" ? 18 : 22} fill={s.kind === "airport" ? INK : ACCENT} />
-        ))}
-      </svg>
-      {stops.map((s, i) => {
-        const r = s.kind === "airport" ? 18 : 22;
-        return (
-          <div
-            key={`t${i}`}
-            style={{
-              position: "absolute",
-              left: px[i].x - r,
-              top: px[i].y - r,
-              width: r * 2,
-              height: r * 2,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: PAPER,
-              fontSize: s.kind === "airport" ? 14 : 18,
-              fontWeight: 600,
-            }}
-          >
-            {s.kind === "airport" ? s.label : `#${s.label}`}
-          </div>
-        );
-      })}
-    </div>
-  );
+function heroData(ph: Photo | null): string | null {
+  if (!ph) return null;
+  try {
+    const bytes = readFileSync(join(process.cwd(), "public", "california", "photos", ph.file));
+    return `data:image/jpeg;base64,${bytes.toString("base64")}`;
+  } catch {
+    return null;
+  }
 }
 
-export async function tripImage(t: TripView, stops: TripStop[]) {
+export async function tripImage(t: TripView, hero: Photo | null) {
   const font = await serif();
   const fee = tripFeeLine(t.fee);
+  const src = heroData(hero);
+  const serifFace = font ? "Instrument Serif" : "serif";
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          background: PAPER,
-          color: INK,
-          padding: "56px 64px",
-          borderTop: `14px solid ${ACCENT}`,
-          fontFamily: "Geist, sans-serif",
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 20, letterSpacing: "0.16em", color: INK3 }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", position: "relative", background: "#161a15", color: PAPER }}>
+        {src && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={src} alt="" width={1200} height={630} style={{ position: "absolute", top: 0, left: 0, width: 1200, height: 630, objectFit: "cover" }} />
+        )}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: 1200,
+            height: 630,
+            background: "linear-gradient(to top, rgba(10,12,10,0.92) 0%, rgba(10,12,10,0.55) 45%, rgba(10,12,10,0.05) 100%)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: 1200,
+            height: 150,
+            background: "linear-gradient(to bottom, rgba(10,12,10,0.7) 0%, rgba(10,12,10,0) 100%)",
+          }}
+        />
+        <div style={{ position: "absolute", top: 0, left: 0, width: 1200, height: 12, background: ACCENT }} />
+        <div
+          style={{
+            position: "absolute",
+            top: 36,
+            left: 56,
+            right: 56,
+            display: "flex",
+            justifyContent: "space-between",
+            fontSize: 19,
+            letterSpacing: "0.16em",
+            color: PAPER_DIM,
+          }}
+        >
           <span>CALIFORNIA 100 · A TRIP</span>
           <span>
-            {t.trip.nights} NIGHTS · FLY {t.trip.airport.code} · {fee === "—" ? "" : `${fee} A HEAD`}
+            {t.trip.nights} NIGHTS · FLY {t.trip.airport.code}
+            {fee === "—" ? "" : ` · ${fee} A HEAD`}
           </span>
         </div>
-        <div style={{ display: "flex", flex: 1, marginTop: 28, gap: 48 }}>
-          <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "space-between" }}>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ fontFamily: font ? "Instrument Serif" : "serif", fontSize: 88, lineHeight: 0.95, letterSpacing: "-0.01em" }}>
-                {t.trip.title}
-              </div>
-              <div style={{ marginTop: 20, fontSize: 28, color: INK2, lineHeight: 1.25 }}>{t.trip.tagline}</div>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10, borderTop: `1px solid ${LINE}`, paddingTop: 20 }}>
-              {t.rows.map((r) => (
-                <div key={r.entry.slug} style={{ display: "flex", alignItems: "baseline", gap: 18, fontSize: 30 }}>
-                  <span style={{ width: 70, color: r.state === "played" ? ACCENT : INK3, fontSize: 22 }}>#{r.entry.rank}</span>
-                  <span>{r.entry.name}</span>
-                  <span style={{ color: INK3, fontSize: 22 }}>{r.entry.locality}</span>
-                </div>
-              ))}
-            </div>
+        <div style={{ position: "absolute", left: 56, right: 56, bottom: 44, display: "flex", flexDirection: "column" }}>
+          <div
+            style={{
+              fontFamily: serifFace,
+              fontSize: 96,
+              lineHeight: 0.95,
+              letterSpacing: "-0.01em",
+              textShadow: "0 2px 18px rgba(0,0,0,0.75)",
+            }}
+          >
+            {t.trip.title}
           </div>
-          <div style={{ display: "flex", width: 380, border: `1px solid ${LINE}` }}>
-            <Route stops={stops} w={378} h={430} />
+          <div style={{ marginTop: 14, fontSize: 26, color: PAPER_DIM, lineHeight: 1.25, textShadow: "0 1px 10px rgba(0,0,0,0.85)" }}>
+            {t.trip.tagline}
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 28, marginTop: 24, fontSize: 24, textShadow: "0 1px 10px rgba(0,0,0,0.85)" }}>
+            {t.rows.map((r) => (
+              <div key={r.entry.slug} style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+                <span style={{ color: ACCENT, fontSize: 18 }}>#{r.entry.rank}</span>
+                <span>{r.entry.name}</span>
+              </div>
+            ))}
           </div>
         </div>
+        {hero && (
+          <div style={{ position: "absolute", right: 56, bottom: 16, fontSize: 13, color: PAPER_DIM, opacity: 0.85 }}>
+            {photoCredit(hero)}
+          </div>
+        )}
       </div>
     ),
     {

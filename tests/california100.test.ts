@@ -9,7 +9,9 @@ import {
   teeLine,
   tripFeeLine,
   tripStops,
+  tripPhotos,
   parseCalifornia100Geo,
+  parseCalifornia100Photos,
   valueOrdinal,
   type California100File,
   type CaliforniaEntry,
@@ -132,6 +134,25 @@ describe("data/california-100.json", () => {
       }
     }
     expect(tripStops(list.trips[0], null)).toEqual([]);
+  });
+
+  it("every trip has one hero photograph with a credit, and every photo's file is on disk", () => {
+    const b = built();
+    const list = joinCalifornia100(real(), b.bySlug, b.capturedAt);
+    const photos = parseCalifornia100Photos(JSON.parse(readFileSync("data/california-100-photos.json", "utf8")));
+    expect(photos.photos.length).toBeGreaterThan(20);
+    for (const ph of photos.photos) {
+      expect(() => readFileSync(`public/california/photos/${ph.file}`), ph.file).not.toThrow();
+      expect(ph.source.license in photos.licenses, ph.file).toBe(true);
+      expect(ph.source.author.length, ph.file).toBeGreaterThan(0);
+    }
+    for (const t of list.trips) {
+      const tp = tripPhotos(t, photos);
+      expect(tp.hero, t.trip.slug).not.toBeNull();
+      expect(tp.hero!.of).toEqual({ kind: "trip", slug: t.trip.slug });
+      for (const slug of Object.keys(tp.byCourse)) expect(t.trip.courses).toContain(slug);
+    }
+    expect(tripPhotos(list.trips[0], null).hero).toBeNull();
   });
 
   it("joins Rustic Canyon as played six times, Brookside to its Koiner course, and Pelican Hill's Ocean South as facility-played", () => {

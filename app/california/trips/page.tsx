@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { joinCalifornia100, tripStops } from "@/lib/california100";
-import { loadCalifornia100, loadCalifornia100Geo, loadFacilityIndex } from "@/lib/load";
 import { ShareTrip } from "../share";
 import { TripCard } from "../trips";
+import { loadTrips } from "./bits";
 
 /* Every trip on one page: the thing to send to the group chat when the
  * question is "which weekend". The cards are the section's own; the page
@@ -16,10 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default function TripsPage() {
-  const file = loadCalifornia100();
-  const index = loadFacilityIndex();
-  const geo = loadCalifornia100Geo();
-  const list = file && index ? joinCalifornia100(file, index.bySlug, index.capturedAt) : null;
+  const { file, list, bits } = loadTrips();
   if (!list || !file?.trips) {
     return (
       <div className="mx-auto max-w-4xl px-4 py-6 sm:px-5 sm:py-8">
@@ -40,9 +36,9 @@ export default function TripsPage() {
       <div className="mt-4">
         <ShareTrip path="/california/trips" title="California 100 trips" directions={null} />
       </div>
-      <ol className="mt-6 space-y-4">
+      <ol className="mt-6 space-y-5">
         {list.trips.map((t) => (
-          <TripCard key={t.trip.slug} t={t} stops={tripStops(t, geo)} />
+          <TripCard key={t.trip.slug} t={t} {...bits(t)} />
         ))}
       </ol>
     </div>

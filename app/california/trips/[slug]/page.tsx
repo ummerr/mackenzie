@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { joinCalifornia100, tripFeeLine, tripStops } from "@/lib/california100";
-import { loadCalifornia100, loadCalifornia100Geo, loadFacilityIndex } from "@/lib/load";
+import { tripFeeLine } from "@/lib/california100";
 import { TripFull } from "../../trips";
+import { loadTrips } from "../bits";
 
 /* One trip, at its own URL: the page to send. Static — every trip is built
  * at deploy from the data file, and a slug the file lacks is a 404. The
@@ -10,21 +10,14 @@ import { TripFull } from "../../trips";
 
 export const dynamicParams = false;
 
-function load() {
-  const file = loadCalifornia100();
-  const index = loadFacilityIndex();
-  const list = file && index ? joinCalifornia100(file, index.bySlug, index.capturedAt) : null;
-  return { file, list, geo: loadCalifornia100Geo() };
-}
-
 export function generateStaticParams() {
-  const { list } = load();
+  const { list } = loadTrips();
   return (list?.trips ?? []).map((t) => ({ slug: t.trip.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const { list } = load();
+  const { list } = loadTrips();
   const t = list?.trips.find((x) => x.trip.slug === slug);
   if (!t) return { title: "Trip — Mackenzie" };
   const courses = t.rows.map((r) => r.entry.name).join(", ");
@@ -39,12 +32,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function TripPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const { list, geo } = load();
+  const { list, bits } = loadTrips();
   const t = list?.trips.find((x) => x.trip.slug === slug);
   if (!t) notFound();
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:px-5 sm:py-8">
-      <TripFull t={t} stops={tripStops(t, geo)} />
+      <TripFull t={t} {...bits(t)} />
     </div>
   );
 }

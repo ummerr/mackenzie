@@ -395,6 +395,85 @@ export function parseCalifornia100Geo(raw: unknown): California100Geo {
 export const located = (p: GeoPoint | undefined): p is GeoPoint & LonLat =>
   p !== undefined && p.lat !== null && p.lon !== null;
 
+/* ── the photographs ──────────────────────────────────────────────────────── */
+
+export type PhotoRole = "hero" | "course" | "gallery";
+
+/** One picture from Wikimedia Commons, with the credit its licence asks
+ *  for. The caption is ours; the source block is Commons's. */
+export interface Photo {
+  file: string;
+  of: { kind: "trip" | "course"; slug: string };
+  role: PhotoRole;
+  caption: string;
+  width: number;
+  height: number;
+  source: {
+    title: string;
+    page: string;
+    author: string;
+    license: string;
+    licenseUrl: string | null;
+    taken: string | null;
+    fetched: string;
+  };
+}
+
+export interface California100Photos {
+  licenses: Record<string, string | null>;
+  photos: Photo[];
+}
+
+const PHOTO_ROLE: ReadonlySet<string> = new Set(["hero", "course", "gallery"]);
+
+function isPhoto(x: unknown): x is Photo {
+  if (!isObj(x) || typeof x.file !== "string" || typeof x.caption !== "string") return false;
+  const of = x.of;
+  if (!isObj(of) || (of.kind !== "trip" && of.kind !== "course") || typeof of.slug !== "string") return false;
+  if (!PHOTO_ROLE.has(x.role as string)) return false;
+  if (!Number.isInteger(x.width) || !Number.isInteger(x.height)) return false;
+  const src = x.source;
+  if (!isObj(src) || typeof src.title !== "string" || typeof src.page !== "string" || typeof src.author !== "string") return false;
+  return typeof src.license === "string" && strOrNull(src.licenseUrl) && strOrNull(src.taken) && typeof src.fetched === "string";
+}
+
+export function parseCalifornia100Photos(raw: unknown): California100Photos {
+  if (!isObj(raw)) throw new Error("california-100-photos.json is not an object");
+  const licenses: Record<string, string | null> = {};
+  if (isObj(raw.licenses)) for (const [k, v] of Object.entries(raw.licenses)) if (strOrNull(v)) licenses[k] = v as string | null;
+  return { licenses, photos: (Array.isArray(raw.photos) ? raw.photos : []).filter(isPhoto) };
+}
+
+/** A trip's pictures: its hero, a picture per course where one exists, and
+ *  the rest of its place. Empty when the file is absent. */
+export interface TripPhotos {
+  hero: Photo | null;
+  byCourse: Record<string, Photo[]>;
+  gallery: Photo[];
+}
+
+export function tripPhotos(view: TripView, photos: California100Photos | null): TripPhotos {
+  const out: TripPhotos = { hero: null, byCourse: {}, gallery: [] };
+  if (!photos) return out;
+  const slug = view.trip.slug;
+  for (const ph of photos.photos) {
+    if (ph.of.kind === "trip" && ph.of.slug === slug) {
+      if (ph.role === "hero" && out.hero === null) out.hero = ph;
+      else out.gallery.push(ph);
+    }
+  }
+  for (const r of view.rows) {
+    const mine = photos.photos.filter((ph) => ph.of.kind === "course" && ph.of.slug === r.entry.slug);
+    if (mine.length) out.byCourse[r.entry.slug] = mine;
+  }
+  return out;
+}
+
+/** The credit line a licence asks for: "Tinou Bao · CC BY 2.0 · Wikimedia Commons". */
+export function photoCredit(ph: Photo): string {
+  return `${ph.source.author} · ${ph.source.license} · Wikimedia Commons`;
+}
+
 /* ── the join ─────────────────────────────────────────────────────────────── */
 
 export interface ListRow {

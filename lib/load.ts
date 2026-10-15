@@ -1,7 +1,14 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseBenchmarks, type BenchmarkFile } from "@/lib/benchmarks";
-import { parseCalifornia100, parseCalifornia100Geo, type California100File, type California100Geo } from "@/lib/california100";
+import {
+  parseCalifornia100,
+  parseCalifornia100Geo,
+  parseCalifornia100Photos,
+  type California100File,
+  type California100Geo,
+  type California100Photos,
+} from "@/lib/california100";
 import {
   buildCourseHistory,
   type CourseHistory,
@@ -124,6 +131,14 @@ export function loadLinkedGrint(): Map<string, PlayedRound> {
 
 /** The California Public 100 — the to-play list, hand-curated and validated.
  *  Absent on a checkout that never had it: the page then renders the absence. */
+export function loadCalifornia100Photos(): California100Photos | null {
+  try {
+    return parseCalifornia100Photos(loadJson<unknown>("california-100-photos.json"));
+  } catch {
+    return null;
+  }
+}
+
 export function loadCalifornia100Geo(): California100Geo | null {
   try {
     return parseCalifornia100Geo(loadJson<unknown>("california-100-geo.json"));

@@ -1,4 +1,6 @@
 import {
+  tripPhotos,
+  tripStops,
   AMAR_COMPONENTS,
   AMAR_COMPONENT_WORD,
   CHECK_GROUPS,
@@ -10,7 +12,7 @@ import {
   type California100File,
   type ListRow,
 } from "@/lib/california100";
-import { loadCalifornia100, loadCalifornia100Geo, loadFacilityIndex, loadHistory } from "@/lib/load";
+import { loadCalifornia100, loadCalifornia100Geo, loadCalifornia100Photos, loadFacilityIndex, loadHistory } from "@/lib/load";
 import { buildSources } from "@/lib/sources";
 import { Provenance } from "../provenance";
 import { StatTiles, type StatTile } from "../stat-tiles";
@@ -121,6 +123,7 @@ export default function California() {
   const index = loadFacilityIndex();
   const history = loadHistory();
   const geo = loadCalifornia100Geo();
+  const photos = loadCalifornia100Photos();
   const list = file && index ? joinCalifornia100(file, index.bySlug, index.capturedAt) : null;
 
   return (
@@ -134,7 +137,7 @@ export default function California() {
           <code className="text-ink-2">pnpm data:build</code>
         </p>
       ) : (
-        <Body list={list} file={file!} history={history} geo={geo} />
+        <Body list={list} file={file!} history={history} geo={geo} photos={photos} />
       )}
     </div>
   );
@@ -145,11 +148,13 @@ function Body({
   file,
   history,
   geo,
+  photos,
 }: {
   list: California100;
   file: NonNullable<ReturnType<typeof loadCalifornia100>>;
   history: ReturnType<typeof loadHistory>;
   geo: ReturnType<typeof loadCalifornia100Geo>;
+  photos: ReturnType<typeof loadCalifornia100Photos>;
 }) {
   const next = list.nextUp;
   const cheap = list.cheapestUnplayed;
@@ -226,7 +231,14 @@ function Body({
       </section>
 
       {/* ── the trips ─────────────────────────────────────────────────────── */}
-      {file.trips && <Trips trips={list.trips} note={file.trips.note} geo={geo} />}
+      {file.trips && (
+        <Trips
+          trips={list.trips}
+          note={file.trips.note}
+          geo={geo}
+          bits={(t) => ({ stops: tripStops(t, geo), photos: tripPhotos(t, photos) })}
+        />
+      )}
 
       {/* ── the index's ten ───────────────────────────────────────────────── */}
       {file.amar && (

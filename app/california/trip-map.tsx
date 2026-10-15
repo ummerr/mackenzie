@@ -1,26 +1,24 @@
 import type { TripStop } from "@/lib/california100";
-import { centerMosaic, ESRI_IMAGERY, ESRI_LABELS, fitMosaic, spreadPins, tileUrl, type LonLat, type Mosaic } from "@/lib/tile-map";
+import { centerMosaic, ESRI_IMAGERY, ESRI_NATGEO, fitMosaic, spreadPins, tileUrl, type LonLat, type Mosaic } from "@/lib/tile-map";
 
 /* The maps, drawn without a map library: one inline SVG whose <image>s are
- * satellite tiles and whose circles are the pins, from lib/tile-map.ts. An
- * SVG scales to its column on its own, so tiles and pins shrink together
- * with no script and no measuring; a trip page stays static HTML. Esri
- * World Imagery is the source the /courses map already draws, and the credit
- * line is the same. */
+ * map tiles and whose circles are the pins, from lib/tile-map.ts. An SVG
+ * scales to its column on its own, so tiles and pins shrink together with
+ * no script and no measuring; a trip page stays static HTML. The trip map
+ * is Esri's National Geographic style — an atlas page, with the terrain and
+ * the town names a trip is planned on — and the course squares are Esri
+ * World Imagery, the source the /courses map draws. Both are credited. */
 
 const CREDIT = "Esri, Maxar, Earthstar Geographics";
+const CREDIT_ATLAS = "National Geographic, Esri, Garmin, HERE, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA";
 const MONO = "Geist Mono, ui-monospace, Menlo, monospace";
 
-function Tiles({ m, labels = false }: { m: Mosaic; labels?: boolean }) {
+function Tiles({ m, base }: { m: Mosaic; base: string }) {
   return (
     <>
       {m.tiles.map((t) => (
-        <image key={`${t.z}/${t.x}/${t.y}`} href={tileUrl(ESRI_IMAGERY, t)} x={t.left} y={t.top} width={256} height={256} />
+        <image key={`${t.z}/${t.x}/${t.y}`} href={tileUrl(base, t)} x={t.left} y={t.top} width={256} height={256} />
       ))}
-      {labels &&
-        m.tiles.map((t) => (
-          <image key={`l${t.z}/${t.x}/${t.y}`} href={tileUrl(ESRI_LABELS, t)} x={t.left} y={t.top} width={256} height={256} />
-        ))}
     </>
   );
 }
@@ -42,7 +40,7 @@ export function TripMap({
     stops.map((s) => s.point),
     width,
     height,
-    { maxZoom: 12 },
+    { maxZoom: 11 },
   );
   const at = stops.map((s) => m.project(s.point));
   // The line runs through the true positions; a crowded pin is nudged off
@@ -62,9 +60,9 @@ export function TripMap({
           <rect width={width} height={height} />
         </clipPath>
         <g clipPath={`url(#clip-${width}-${height})`}>
-          <Tiles m={m} labels />
-          <path d={path} fill="none" stroke="#f7f4ec" strokeWidth={5} strokeOpacity={0.55} strokeLinejoin="round" />
-          <path d={path} fill="none" stroke="#ff6b35" strokeWidth={2} strokeDasharray="6 5" strokeLinejoin="round" />
+          <Tiles m={m} base={ESRI_NATGEO} />
+          <path d={path} fill="none" stroke="#f7f4ec" strokeWidth={6} strokeOpacity={0.7} strokeLinejoin="round" />
+          <path d={path} fill="none" stroke="#b8420f" strokeWidth={2.5} strokeDasharray="7 5" strokeLinejoin="round" />
           {stops.map((s, i) => {
             const p = px[i];
             const r = s.kind === "airport" ? 13 : 15;
@@ -73,8 +71,8 @@ export function TripMap({
               <g key={`${s.kind}-${s.label}`}>
                 {moved && <line x1={at[i].x} y1={at[i].y} x2={p.x} y2={p.y} stroke="#f7f4ec" strokeWidth={2} />}
                 <g transform={`translate(${p.x.toFixed(1)},${p.y.toFixed(1)})`}>
-                <circle r={r + 2} fill="#f7f4ec" fillOpacity={0.9} />
-                <circle r={r} fill={s.kind === "airport" ? "#161a15" : "#ff6b35"} />
+                <circle r={r + 2} fill="#f7f4ec" fillOpacity={0.95} />
+                <circle r={r} fill={s.kind === "airport" ? "#161a15" : "#b8420f"} />
                 <text
                   y={s.kind === "airport" ? 4 : 5}
                   textAnchor="middle"
@@ -97,7 +95,7 @@ export function TripMap({
             {stops[0].label} ✈ then {stops.slice(1).map((s) => `#${s.label}`).join(" → ")} · the dashed line is the order, not the
             road
           </span>
-          <span>imagery {CREDIT}</span>
+          <span>map {CREDIT_ATLAS}</span>
         </figcaption>
       )}
     </figure>
@@ -127,7 +125,7 @@ export function FromAbove({
           <rect width={size} height={size} />
         </clipPath>
         <g clipPath={`url(#sq-${size})`}>
-          <Tiles m={m} />
+          <Tiles m={m} base={ESRI_IMAGERY} />
         </g>
       </svg>
       <figcaption className="mt-1 font-mono text-[10px] leading-4 text-ink-3">

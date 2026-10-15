@@ -2,7 +2,7 @@
 
 <!-- state:start -->
 **State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-10-15
-Last commit 2026-10-15 — DECISIONS: the nightly capture is live — what five runner runs taught
+Last commit 2026-10-15 — The last-ten table on /rounds is a table: label with its definition beneath, last 10, career
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do

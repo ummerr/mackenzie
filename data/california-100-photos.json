@@ -1,0 +1,725 @@
+{
+  "_README": [
+    "Photographs for the California 100 trips, each from Wikimedia Commons under a licence that",
+    "allows reuse with credit (CC0, public domain, CC BY, CC BY-SA). The page prints the credit",
+    "the licence asks for under every picture — author, licence, a link to the Commons page.",
+    "of.kind is trip or course; role is hero (one per trip, the page's and the unfurl card's",
+    "picture), course (a picture of that course, or of its place when the caption says so) or",
+    "gallery. The files live in public/california/photos at 1100px wide. Validate insists every",
+    "file exists, every licence is one of those, every of.slug resolves, and each trip has one hero.",
+    "The caption is ours; the source block is Commons's."
+  ],
+  "licenses": {
+    "CC0": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "Public domain": null,
+    "CC BY 2.0": "https://creativecommons.org/licenses/by/2.0",
+    "CC BY 2.5": "https://creativecommons.org/licenses/by/2.5",
+    "CC BY 3.0": "https://creativecommons.org/licenses/by/3.0",
+    "CC BY 4.0": "https://creativecommons.org/licenses/by/4.0",
+    "CC BY-SA 2.0": "https://creativecommons.org/licenses/by-sa/2.0",
+    "CC BY-SA 3.0": "https://creativecommons.org/licenses/by-sa/3.0",
+    "CC BY-SA 4.0": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "photos": [
+    {
+      "file": "pebble-beach-18th.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "pebble-beach"
+      },
+      "role": "course",
+      "caption": "The 18th at Pebble Beach, Stillwater Cove on the left the whole way",
+      "width": 1100,
+      "height": 825,
+      "source": {
+        "title": "File:Pebble Beach Golf Links, 18th green.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Pebble_Beach_Golf_Links,_18th_green.jpg",
+        "author": "WilliamFMeyer",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "taken": "2013-07-09",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "pebble-beach-from-the-lodge.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "pebble-beach"
+      },
+      "role": "course",
+      "caption": "The 18th green from the back of The Lodge",
+      "width": 1100,
+      "height": 825,
+      "source": {
+        "title": "File:Pebble Beach Golf Links 01.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Pebble_Beach_Golf_Links_01.jpg",
+        "author": "Tewy",
+        "license": "CC BY 2.5",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+        "taken": "2006-07-13",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "pacific-grove-point-pinos.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "pacific-grove"
+      },
+      "role": "course",
+      "caption": "Pacific Grove's back nine runs to Point Pinos lighthouse",
+      "width": 1100,
+      "height": 625,
+      "source": {
+        "title": "File:Lighthouse California-06613 - Point Pinos Lighthouse (21542810640).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Lighthouse_California-06613_-_Point_Pinos_Lighthouse_(21542810640).jpg",
+        "author": "Dennis G. Jarvis",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "taken": "2015-08-10",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "torrey-pines-from-the-air.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "torrey-pines-south"
+      },
+      "role": "course",
+      "caption": "Torrey Pines from the air: the courses on the bluff, the Pacific below",
+      "width": 1100,
+      "height": 733,
+      "source": {
+        "title": "File:VMM-362 MV-22B flies over Torrey Pines Golf Course.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:VMM-362_MV-22B_flies_over_Torrey_Pines_Golf_Course.jpg",
+        "author": "U.S. Marine Corps photo by Lance Cpl. Juan Anaya",
+        "license": "Public domain",
+        "licenseUrl": null,
+        "taken": "2021-06-10",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "torrey-pines-south.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "torrey-pines-south"
+      },
+      "role": "course",
+      "caption": "Torrey Pines South",
+      "width": 1100,
+      "height": 825,
+      "source": {
+        "title": "File:Torrey Pines Golf Course - La Jolla, CA - panoramio (2).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Torrey_Pines_Golf_Course_-_La_Jolla,_CA_-_panoramio_(2).jpg",
+        "author": "Malarkey83",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "taken": "Taken on<s",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "torrey-pines-north-first.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "torrey-pines-north"
+      },
+      "role": "course",
+      "caption": "The first hole of the North course",
+      "width": 1100,
+      "height": 706,
+      "source": {
+        "title": "File:Torrey Pines North Course First hole.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Torrey_Pines_North_Course_First_hole.jpg",
+        "author": "Bernard Gagnon",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "taken": "2013-03-28",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "coronado-16th.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "coronado"
+      },
+      "role": "course",
+      "caption": "The par-4 16th at Coronado, along the bay",
+      "width": 1100,
+      "height": 825,
+      "source": {
+        "title": "File:16th Hole Coronado Golf Course.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:16th_Hole_Coronado_Golf_Course.jpg",
+        "author": "Baybay1901",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "taken": "2023-03-29",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "harding-park-18th.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "harding-park"
+      },
+      "role": "course",
+      "caption": "Harding Park's 18th, cypress and Lake Merced",
+      "width": 1100,
+      "height": 588,
+      "source": {
+        "title": "File:TPC Harding Park - 18th Green (15332936118).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:TPC_Harding_Park_-_18th_Green_(15332936118).jpg",
+        "author": "Tinou Bao from San Francisco, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "taken": "2014-10-12",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "harding-park-first-tee.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "harding-park"
+      },
+      "role": "course",
+      "caption": "The first fairway at Harding Park, morning fog going",
+      "width": 1100,
+      "height": 654,
+      "source": {
+        "title": "File:TPC Harding Park - First Tee (15519189052).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:TPC_Harding_Park_-_First_Tee_(15519189052).jpg",
+        "author": "Tinou Bao from San Francisco, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "taken": "2014-10-12",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "half-moon-bay-ocean.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "half-moon-bay-ocean"
+      },
+      "role": "course",
+      "caption": "The Ocean course along the bluffs at Half Moon Bay",
+      "width": 1100,
+      "height": 733,
+      "source": {
+        "title": "File:Half Moon Bay - panoramio.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Half_Moon_Bay_-_panoramio.jpg",
+        "author": "Eduardo Manchon",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "taken": "21 March 2",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "half-moon-bay-ritz.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "half-moon-bay-ocean"
+      },
+      "role": "course",
+      "caption": "The finishing holes under the Ritz-Carlton",
+      "width": 1100,
+      "height": 612,
+      "source": {
+        "title": "File:Half Moon Bay (6255447905).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Half_Moon_Bay_(6255447905).jpg",
+        "author": "Christopher Michel",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "taken": "2011-10-14",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "presidio.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "presidio"
+      },
+      "role": "course",
+      "caption": "The Presidio course under its cypress",
+      "width": 1100,
+      "height": 618,
+      "source": {
+        "title": "File:Presidio Golf Club - San Francisco, CA.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Presidio_Golf_Club_-_San_Francisco,_CA.jpg",
+        "author": "Daderot",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "taken": "28 August ",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "desert-willow-mountain-view.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "desert-willow-firecliff"
+      },
+      "role": "course",
+      "caption": "Desert Willow — this is the Mountain View course, Firecliff's sister across the clubhouse",
+      "width": 1100,
+      "height": 658,
+      "source": {
+        "title": "File:The Mountain View Course at Desert Willow Golf Resort, Palm Desert, California.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:The_Mountain_View_Course_at_Desert_Willow_Golf_Resort,_Palm_Desert,_California.jpg",
+        "author": "Christopher Hurdzan",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "taken": "2013-02-02",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "sandpiper-1975.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "sandpiper"
+      },
+      "role": "course",
+      "caption": "Sandpiper in 1975, the Ellwood oil derricks still offshore (National Archives)",
+      "width": 1100,
+      "height": 747,
+      "source": {
+        "title": "File:OIL DERRICKS ARE LOCATED NEAR THE SANDPIPER GOLF COURSE ADDITIONAL OIL PROCESSING FACILITIES ARE SCHEDULED FOR THE... - NARA - 557512.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:OIL_DERRICKS_ARE_LOCATED_NEAR_THE_SANDPIPER_GOLF_COURSE_ADDITIONAL_OIL_PROCESSING_FACILITIES_ARE_SCHEDULED_FOR_THE..._-_NARA_-_557512.jpg",
+        "author": "Charles O'Rear",
+        "license": "Public domain",
+        "licenseUrl": null,
+        "taken": "June 1975<",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "ojai-valley-1950.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "ojai-valley-inn"
+      },
+      "role": "course",
+      "caption": "The Ojai Valley course in 1950",
+      "width": 1100,
+      "height": 1001,
+      "source": {
+        "title": "File:Ojai Valley Golf Course 1950.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Ojai_Valley_Golf_Course_1950.jpg",
+        "author": "unknown",
+        "license": "Public domain",
+        "licenseUrl": null,
+        "taken": "1950",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "happy-camp-canyon.jpg",
+      "of": {
+        "kind": "course",
+        "slug": "rustic-canyon"
+      },
+      "role": "course",
+      "caption": "Happy Camp Canyon, the Moorpark canyon Rustic Canyon is laid into — the park, not the course",
+      "width": 1100,
+      "height": 825,
+      "source": {
+        "title": "File:Happy Camp Canyon Regional Park.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Happy_Camp_Canyon_Regional_Park.jpg",
+        "author": "Noahfgodard",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "taken": "2020-06-29",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "west-cliff-santa-cruz.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "mackenzie-weekend"
+      },
+      "role": "hero",
+      "caption": "West Cliff Drive, Santa Cruz",
+      "width": 1100,
+      "height": 825,
+      "source": {
+        "title": "File:Santa Cruz (01940).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Santa_Cruz_(01940).jpg",
+        "author": "Rhododendrites",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "taken": "Taken on<s",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "lone-cypress.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "pebble-once"
+      },
+      "role": "hero",
+      "caption": "The Lone Cypress on 17-Mile Drive",
+      "width": 1100,
+      "height": 618,
+      "source": {
+        "title": "File:USA - California - Monterey - 17-Mile Drive - Lone Cypress.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:USA_-_California_-_Monterey_-_17-Mile_Drive_-_Lone_Cypress.jpg",
+        "author": "Alexander Hatley",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "taken": "2023-05-24",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "carmel-beach.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "pebble-once"
+      },
+      "role": "gallery",
+      "caption": "Carmel Beach, a walk from dinner",
+      "width": 1100,
+      "height": 825,
+      "source": {
+        "title": "File:Carmel Beach (1).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Carmel_Beach_(1).jpg",
+        "author": "Mutante",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "taken": null,
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "donner-lake.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "truckee"
+      },
+      "role": "hero",
+      "caption": "Donner Lake from McGlashan Point",
+      "width": 1100,
+      "height": 777,
+      "source": {
+        "title": "File:Donner Lake from McClashan Point.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Donner_Lake_from_McClashan_Point.jpg",
+        "author": "J.smith",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "taken": "2009-08-13",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "truckee-commercial-row.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "truckee"
+      },
+      "role": "gallery",
+      "caption": "Commercial Row, old Truckee",
+      "width": 1100,
+      "height": 825,
+      "source": {
+        "title": "File:Commercial Row-Brickelltown Historic District 2012-09-15 17-48-19.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Commercial_Row-Brickelltown_Historic_District_2012-09-15_17-48-19.jpg",
+        "author": "liannadavis",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "taken": "2012-09-16",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "sardine-lake.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "lost-sierra"
+      },
+      "role": "hero",
+      "caption": "Sunrise on the Sierra Buttes in Sardine Lake, twenty minutes up the hill",
+      "width": 1100,
+      "height": 618,
+      "source": {
+        "title": "File:Sardine Lake Dawn.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Sardine_Lake_Dawn.jpg",
+        "author": "Tom Hilton",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "taken": "2013-05-27",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "frazier-falls.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "lost-sierra"
+      },
+      "role": "gallery",
+      "caption": "Frazier Creek Falls, Plumas National Forest",
+      "width": 1100,
+      "height": 1466,
+      "source": {
+        "title": "File:Frazier Creek Falls - Plumas National Forest - California.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Frazier_Creek_Falls_-_Plumas_National_Forest_-_California.jpg",
+        "author": "Jengod",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "taken": "2023-06-20",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "coachella-palms.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "coachella"
+      },
+      "role": "hero",
+      "caption": "Fan palms in the Coachella Valley Preserve",
+      "width": 1100,
+      "height": 482,
+      "source": {
+        "title": "File:Coachella Valley Preserve (51858784231).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Coachella_Valley_Preserve_(51858784231).jpg",
+        "author": "blmcalifornia",
+        "license": "Public domain",
+        "licenseUrl": null,
+        "taken": "Taken on<s",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "palm-springs-tram.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "coachella"
+      },
+      "role": "gallery",
+      "caption": "The Palm Springs Aerial Tramway, up to 8,500 feet",
+      "width": 1100,
+      "height": 686,
+      "source": {
+        "title": "File:We've got to stop meeting like this, Palm Springs Aerial Tramway, CA 2015 (26151516883).jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:We%27ve_got_to_stop_meeting_like_this,_Palm_Springs_Aerial_Tramway,_CA_2015_(26151516883).jpg",
+        "author": "Don Graham from Redlands, CA, USA - God bless it!",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "taken": "Taken on 7",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "torrey-pines-cliffs.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "torrey-both"
+      },
+      "role": "hero",
+      "caption": "The Torrey Pines cliffs beside the glider port",
+      "width": 1100,
+      "height": 733,
+      "source": {
+        "title": "File:Torrey Pines cliffs.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Torrey_Pines_cliffs.jpg",
+        "author": "Dirk Hansen",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "taken": "2011-12-31",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "hotel-del-coronado.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "torrey-both"
+      },
+      "role": "gallery",
+      "caption": "The Hotel del Coronado, across the street from the course",
+      "width": 1100,
+      "height": 731,
+      "source": {
+        "title": "File:Hotel Del Coronado 03.JPG",
+        "page": "https://commons.wikimedia.org/wiki/File:Hotel_Del_Coronado_03.JPG",
+        "author": "Ctorbann",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "taken": "Taken on<s",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "la-jolla-cove.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "torrey-both"
+      },
+      "role": "gallery",
+      "caption": "La Jolla Cove",
+      "width": 1100,
+      "height": 790,
+      "source": {
+        "title": "File:La Jolla Cove from the south.JPG",
+        "page": "https://commons.wikimedia.org/wiki/File:La_Jolla_Cove_from_the_south.JPG",
+        "author": "Invertzoo",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "taken": "2006-09-05",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "ojai-pink-moment.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "ojai"
+      },
+      "role": "hero",
+      "caption": "The pink moment on the Topatopa bluffs",
+      "width": 1100,
+      "height": 825,
+      "source": {
+        "title": "File:The Pink Moment on Topa Topa from Upper Ojai.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:The_Pink_Moment_on_Topa_Topa_from_Upper_Ojai.jpg",
+        "author": "Forrest Cameranesi",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "taken": "2021-11-06",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "ventura-pier.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "ojai"
+      },
+      "role": "gallery",
+      "caption": "Ventura Pier at sunset",
+      "width": 1100,
+      "height": 618,
+      "source": {
+        "title": "File:Ventura Pier Sunset View.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Ventura_Pier_Sunset_View.jpg",
+        "author": "Busition",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "taken": "2022-04-16",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "santa-ynez-vineyard.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "central-coast"
+      },
+      "role": "hero",
+      "caption": "A Santa Ynez Valley vineyard",
+      "width": 1100,
+      "height": 825,
+      "source": {
+        "title": "File:Santa Ynez Valley.JPG",
+        "page": "https://commons.wikimedia.org/wiki/File:Santa_Ynez_Valley.JPG",
+        "author": "Jester7777",
+        "license": "Public domain",
+        "licenseUrl": null,
+        "taken": "<p>31 July",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "solvang.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "central-coast"
+      },
+      "role": "gallery",
+      "caption": "Solvang",
+      "width": 1100,
+      "height": 825,
+      "source": {
+        "title": "File:Solvang, California - panoramio.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Solvang,_California_-_panoramio.jpg",
+        "author": "SUZUKI Hironobu",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "taken": "Taken on<s",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "pismo-pier.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "central-coast"
+      },
+      "role": "gallery",
+      "caption": "Pismo Beach pier",
+      "width": 1100,
+      "height": 554,
+      "source": {
+        "title": "File:Pismo Beach (California, USA), Pier -- 2012 -- 4761.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Pismo_Beach_(California,_USA),_Pier_--_2012_--_4761.jpg",
+        "author": "Dietmar Rabich",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "taken": "Taken on 1",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "golden-gate-marshalls-beach.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "friends-in-town"
+      },
+      "role": "hero",
+      "caption": "The Golden Gate from Marshall's Beach, below the Presidio",
+      "width": 1100,
+      "height": 618,
+      "source": {
+        "title": "File:Golden Gate Bridge as seen from Marshall’s Beach, March 2018.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Golden_Gate_Bridge_as_seen_from_Marshall%E2%80%99s_Beach,_March_2018.jpg",
+        "author": "Frank Schulenburg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "taken": "Taken on 3",
+        "fetched": "2026-10-15"
+      }
+    },
+    {
+      "file": "ritz-half-moon-bay.jpg",
+      "of": {
+        "kind": "trip",
+        "slug": "friends-in-town"
+      },
+      "role": "gallery",
+      "caption": "The Ritz-Carlton on the bluff at Half Moon Bay",
+      "width": 1100,
+      "height": 524,
+      "source": {
+        "title": "File:The Ritz-Carlton - Half Moon Bay, CA (San Matteo Coast) - panoramio.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:The_Ritz-Carlton_-_Half_Moon_Bay,_CA_(San_Matteo_Coast)_-_panoramio.jpg",
+        "author": "MARELBU",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "taken": "Taken on 1",
+        "fetched": "2026-10-15"
+      }
+    }
+  ]
+}

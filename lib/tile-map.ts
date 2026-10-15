@@ -115,7 +115,7 @@ export function fitMosaic(
 }
 
 export const ESRI_IMAGERY = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile";
-export const ESRI_LABELS = "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile";
+export const ESRI_NATGEO = "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile";
 export const tileUrl = (base: string, t: MosaicTile) => `${base}/${t.z}/${t.y}/${t.x}`;
 
 /** Push pins apart until no two are closer than `minDist` pixels, each pair
