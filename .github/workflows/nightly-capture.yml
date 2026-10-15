@@ -89,6 +89,22 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           bash scripts/capture/nightly.sh
 
+      # A night that captured but failed a gate leaves its bundles here, so a
+      # person can drop them into data/raw/ and run `pnpm refresh` locally.
+      - name: Keep the captured bundles
+        if: failure()
+        run: |
+          mkdir -p .capture-state/new-raw
+          git status --porcelain -- data/raw | awk '{print $2}' | while read -r f; do cp "$f" .capture-state/new-raw/; done
+          ls -la .capture-state/new-raw
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: new-raw
+          path: .capture-state/new-raw
+          if-no-files-found: ignore
+          retention-days: 14
+
       - name: Keep the Grint login evidence
         if: failure()
         uses: actions/upload-artifact@v4
