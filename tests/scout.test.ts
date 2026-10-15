@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { buildGarminShots, type GarminRound, type SourceGarminRounds } from "../lib/garmin-shots";
@@ -42,6 +42,25 @@ const harding = garmin.rounds.find((r) => r.scorecardId === "379296644") as Garm
 const shots = read("data/shots.json") as LedgerShot[];
 const profiles = buildBag(shots);
 const player = scoutPlayer(garmin, profiles, 12.7, 0.45);
+
+describe("every scout file on disk", () => {
+  const dir = join(process.cwd(), "data", "scout");
+  for (const file of readdirSync(dir).filter((f) => f.endsWith(".json")).sort()) {
+    it(`${file} parses and draws all 18 holes on its own plan`, () => {
+      const c = parseScoutCourse(read(`data/scout/${file}`));
+      expect(file).toBe(`${c.facilitySlug}.json`);
+      const plan = read(`public/data/holes/${c.facilitySlug}.geojson`) as HoleGeoJSON;
+      const v = buildScoutCourse(c, plan, player, []);
+      // Without a watch round only an OSM-less hole goes undrawn.
+      expect(v.undrawn).toEqual(c.osm.missingCentreline);
+      for (const h of v.holes) {
+        expect(h.green.approximate).toBe(c.osm.missingGreen.includes(h.number));
+        expect(h.tiles.length).toBeGreaterThan(0);
+        for (const t of h.byTee) expect(t.teePoint.y).toBeGreaterThan(h.green.centre.y);
+      }
+    });
+  }
+});
 
 describe("the strategy file", () => {
   it("parses, with 18 holes, four tee sets and a source on every claim", () => {

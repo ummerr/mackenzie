@@ -77,6 +77,9 @@ export interface ScoutHoleSpec {
   green: { missSafe: string; missDead: string; note: string; source: string };
   suckerPins: PinPos[];
   target: { text: string; source: string };
+  /** Par 5s the notes say to play in three whatever the number — the
+   *  second shot is always the lay-up. Sourced through `target`. */
+  layup: boolean;
 }
 
 export interface ScoutCourse {
@@ -171,6 +174,7 @@ export function parseScoutCourse(raw: unknown): ScoutCourse {
         oneOf(s, PIN_POSITIONS, `${p}.suckerPins[${j}]`),
       ),
       target: { text: str(h.target, "text", `${p}.target`), source: src(h.target, `${p}.target`) },
+      layup: h.layup === undefined ? false : typeof h.layup === "boolean" ? h.layup : fail(`${p}.layup`, "is not a boolean"),
     };
   });
   for (const t of tees) {
@@ -821,7 +825,7 @@ function teePlay(
   let second: TeePlay["second"] = null;
   if (spec.par === 5) {
     const longest = player.approachClubs[player.approachClubs.length - 1];
-    const reachable = longest && longest.medYd >= remainingYd;
+    const reachable = !spec.layup && longest && longest.medYd >= remainingYd;
     if (!reachable) {
       const lay = pickLayup(player.approachClubs, remainingYd - SCOUT_RULES.layupLeaveYd);
       if (lay) {

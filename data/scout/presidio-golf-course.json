@@ -1,0 +1,685 @@
+{
+  "_README": [
+    "Scout notes for Presidio Golf Course. Contract in lib/scout.ts (parseScoutCourse) and scripts/validate.mjs — see the Harding file for the full README.",
+    "Scorecard: the course's own card (presidiogolf.com/course, read 2026-10-15) for per-hole yardage, par and stroke index; ratings and slopes from GolfPass. GolfPass prints a DIFFERENT men's stroke index (3 as 1, 12 as 2 …); the official card's matches OSM's `handicap` tags hole for hole, so the official card is kept and GolfPass's is not.",
+    "Published hole reads are thin: the course's hole-by-hole tour is video only. What the sources say is here; every other green is `unread`, and the card's sand, tee positions and your own two watch rounds (2026-08-22, 2026-09-08) carry the rest.",
+    "osm: every hole has a centreline and a green."
+  ],
+  "facilitySlug": "presidio-golf-course",
+  "layoutSlug": "presidio-golf-course",
+  "grintName": "Presidio Golf Course",
+  "name": "Presidio",
+  "sources": {
+    "scorecard": {
+      "title": "Presidio Golf Course — the course page's scorecard (presidiogolf.com)",
+      "url": "https://www.presidiogolf.com/course/",
+      "note": "read 2026-10-15; Black/White/Blue/Red per hole, par, men's stroke index; ratings and slopes from GolfPass's card for the same tees"
+    },
+    "golfpass": {
+      "title": "GolfPass — Presidio Golf Course scorecard and layout",
+      "url": "https://www.golfpass.com/travel-advisor/courses/15561-presidio-golf-course/scorecard-and-layout",
+      "note": "seven tee sets with rating and slope; its stroke index disagrees with the official card and is not used"
+    },
+    "gallery": {
+      "title": "GolfPass — San Francisco's other municipal treat: Presidio Golf Course (photo gallery)",
+      "url": "https://www.golfpass.com/travel-advisor/galleries/san-franciscos-other-municipal-treat-presidio-golf-course",
+      "note": "one caption per pictured hole"
+    },
+    "onthetee": {
+      "title": "On the Tee magazine — Shotmakers: The Presidio Golf Club",
+      "url": "https://ontheteemagazine.com/editorial-California/shotmakers-The-Presidio-Golf-Club.html",
+      "note": "reads for holes 2, 3, 10 and 17; its yardages are an older card"
+    },
+    "illinoisgolf": {
+      "title": "Illinois Golf — Presidio Golf Club review (Mike May)",
+      "url": "https://www.illinoisgolf.com/articles/presidio-golf-club-review",
+      "note": "holes 1 and 18; the general note that nearly every tee shot is uphill or downhill and side-hill lies are common"
+    },
+    "unread": {
+      "title": "No published read found",
+      "url": null,
+      "note": "the default stands: centre of the green, miss on the side away from sand — the sand on the card is OSM's"
+    },
+    "record": {
+      "title": "Your own watch rounds here (2026-08-22 and 2026-09-08)",
+      "url": null,
+      "note": "the card draws them; a sentence that cites one is about what you did, not about the hole"
+    },
+    "plan": {
+      "title": "/plan — the standing rules",
+      "url": null,
+      "note": "driver only where there is width; one more club; leave a full wedge, not a half one; bogey is fine, the second dropped stroke is the one to refuse"
+    }
+  },
+  "tees": [
+    {
+      "name": "White",
+      "rating": 71.0,
+      "slope": 133,
+      "yards": [
+        349,
+        435,
+        365,
+        118,
+        298,
+        361,
+        184,
+        356,
+        493,
+        486,
+        387,
+        442,
+        169,
+        326,
+        147,
+        364,
+        343,
+        480
+      ]
+    },
+    {
+      "name": "Black",
+      "rating": 72.5,
+      "slope": 136,
+      "yards": [
+        372,
+        472,
+        385,
+        130,
+        307,
+        388,
+        219,
+        378,
+        524,
+        501,
+        419,
+        453,
+        180,
+        344,
+        171,
+        382,
+        350,
+        506
+      ]
+    },
+    {
+      "name": "Blue",
+      "rating": 69.4,
+      "slope": 128,
+      "yards": [
+        339,
+        411,
+        348,
+        108,
+        289,
+        347,
+        175,
+        348,
+        440,
+        469,
+        373,
+        368,
+        156,
+        304,
+        133,
+        338,
+        335,
+        465
+      ]
+    }
+  ],
+  "osm": {
+    "centrelineBy": "ref+hcp",
+    "missingCentreline": [],
+    "missingGreen": []
+  },
+  "holes": [
+    {
+      "number": 1,
+      "par": 4,
+      "hcp": 10,
+      "shape": "dogleg-right",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "Not the easiest tee shot in San Francisco — a dogleg to open, but a birdie hole once the ball is in play.",
+        "source": "gallery"
+      },
+      "hazards": [],
+      "green": {
+        "missSafe": "Short",
+        "missDead": "Wherever the card's sand is",
+        "note": "No published read of this green.",
+        "source": "unread"
+      },
+      "suckerPins": [],
+      "target": {
+        "text": "A birdie hole on the card. Fairway first; the number in is a short iron.",
+        "source": "illinoisgolf"
+      }
+    },
+    {
+      "number": 2,
+      "par": 5,
+      "hcp": 16,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "Elevated tee into a huge gully — that is the landing spot. The second climbs a severe rise; a wood or hybrid into the upslope balloons.",
+        "source": "onthetee"
+      },
+      "hazards": [
+        {
+          "what": "the green is surrounded by bunkers",
+          "side": "centre",
+          "source": "onthetee"
+        }
+      ],
+      "green": {
+        "missSafe": "Short, on the upslope",
+        "missDead": "Anywhere round the green — sand all the way round",
+        "note": "Sloped green completely surrounded by bunkers; lay up and wedge in.",
+        "source": "onthetee"
+      },
+      "suckerPins": [
+        "front-left",
+        "front-right",
+        "back-left",
+        "back-right"
+      ],
+      "target": {
+        "text": "Three shots. Lay up below the green and wedge it on — nobody is reaching this.",
+        "source": "onthetee"
+      },
+      "layup": true
+    },
+    {
+      "number": 3,
+      "par": 4,
+      "hcp": 2,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "Straight uphill to a plateau green: OB stakes down the left, a steep fall-away right. It takes a purely struck drive.",
+        "source": "onthetee"
+      },
+      "hazards": [
+        {
+          "what": "out of bounds left",
+          "side": "left",
+          "source": "onthetee"
+        },
+        {
+          "what": "steep fall-away right",
+          "side": "right",
+          "source": "onthetee"
+        },
+        {
+          "what": "multi-fingered bunker in thick rough, front and right of the green",
+          "side": "right",
+          "source": "onthetee"
+        }
+      ],
+      "green": {
+        "missSafe": "Long or left",
+        "missDead": "Short right — the fingered bunker in the thick stuff",
+        "note": "Plateau green; the front-right bunker is the one to carry, so one more club.",
+        "source": "onthetee"
+      },
+      "suckerPins": [
+        "front-right",
+        "middle-right",
+        "back-right",
+        "front-centre"
+      ],
+      "target": {
+        "text": "Second-hardest hole. Fairway, one more club up the hill, bogey is fine.",
+        "source": "onthetee"
+      }
+    },
+    {
+      "number": 4,
+      "par": 3,
+      "hcp": 18,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "Short and from an elevated tee — it plays less than the card.",
+        "source": "gallery"
+      },
+      "hazards": [],
+      "green": {
+        "missSafe": "Short",
+        "missDead": "Wherever the card's sand is",
+        "note": "No published read of this green.",
+        "source": "unread"
+      },
+      "suckerPins": [],
+      "target": {
+        "text": "Easiest hole on the card. Pick the club for the number, not the card, and hit the middle.",
+        "source": "scorecard"
+      }
+    },
+    {
+      "number": 5,
+      "par": 4,
+      "hcp": 14,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "Short par 4. Leave a full wedge, not a half one.",
+        "source": "plan"
+      },
+      "hazards": [],
+      "green": {
+        "missSafe": "Short",
+        "missDead": "Wherever the card's sand is",
+        "note": "No published read of this green.",
+        "source": "unread"
+      },
+      "suckerPins": [],
+      "target": {
+        "text": "Iron or hybrid off the tee, wedge on, two putts.",
+        "source": "plan"
+      }
+    },
+    {
+      "number": 6,
+      "par": 4,
+      "hcp": 4,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "No published read of this tee shot; the card's sand is OSM's.",
+        "source": "unread"
+      },
+      "hazards": [],
+      "green": {
+        "missSafe": "Short",
+        "missDead": "Wherever the card's sand is",
+        "note": "No published read of this green.",
+        "source": "unread"
+      },
+      "suckerPins": [],
+      "target": {
+        "text": "Fourth-hardest hole. Fairway, middle of the green, bogey is fine.",
+        "source": "scorecard"
+      }
+    },
+    {
+      "number": 7,
+      "par": 3,
+      "hcp": 6,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "A long par 3 with a large bunker guarding the green.",
+        "source": "gallery"
+      },
+      "hazards": [
+        {
+          "what": "large bunker guarding the green",
+          "side": "centre",
+          "source": "gallery"
+        }
+      ],
+      "green": {
+        "missSafe": "The side away from the big bunker",
+        "missDead": "The big bunker",
+        "note": "The bunker guards the green; the card shows which side.",
+        "source": "gallery"
+      },
+      "suckerPins": [],
+      "target": {
+        "text": "Enough club to carry the sand; a 3 is a win, a 4 is fine.",
+        "source": "gallery"
+      }
+    },
+    {
+      "number": 8,
+      "par": 4,
+      "hcp": 8,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "The approach is uphill — it plays longer than the number.",
+        "source": "gallery"
+      },
+      "hazards": [],
+      "green": {
+        "missSafe": "Short, below the hole",
+        "missDead": "Long",
+        "note": "Uphill approach: one more club.",
+        "source": "gallery"
+      },
+      "suckerPins": [
+        "back-left",
+        "back-centre",
+        "back-right"
+      ],
+      "target": {
+        "text": "One more club up the hill; below the hole.",
+        "source": "gallery"
+      }
+    },
+    {
+      "number": 9,
+      "par": 5,
+      "hcp": 12,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "The old clubhouse and the city are the backdrop. A shared bunker sits between this fairway and the 10th.",
+        "source": "onthetee"
+      },
+      "hazards": [
+        {
+          "what": "bunker shared with the 10th fairway",
+          "side": "centre",
+          "source": "onthetee"
+        }
+      ],
+      "green": {
+        "missSafe": "Short",
+        "missDead": "Wherever the card's sand is",
+        "note": "No published read of this green.",
+        "source": "unread"
+      },
+      "suckerPins": [],
+      "target": {
+        "text": "Three shots. The third one is the scoring shot — a full wedge.",
+        "source": "scorecard"
+      }
+    },
+    {
+      "number": 10,
+      "par": 5,
+      "hcp": 9,
+      "shape": "straight",
+      "tee": {
+        "favour": "right",
+        "club": null,
+        "why": "An all-world par 5 framed by eucalyptus. The shared bunker protects the left — favour the right half of the fairway.",
+        "source": "onthetee"
+      },
+      "hazards": [
+        {
+          "what": "bunker on the left, shared with the 9th",
+          "side": "left",
+          "source": "onthetee"
+        },
+        {
+          "what": "deep sand front and back of the green, up a steep climb",
+          "side": "centre",
+          "source": "onthetee"
+        }
+      ],
+      "green": {
+        "missSafe": "Short of the sand, on the climb",
+        "missDead": "Short or long — deep white sand front and back",
+        "note": "Steep climb to a green guarded front and back; only the longest reach it.",
+        "source": "onthetee"
+      },
+      "suckerPins": [
+        "front-left",
+        "front-centre",
+        "front-right",
+        "back-left",
+        "back-centre",
+        "back-right"
+      ],
+      "target": {
+        "text": "Three shots, right side. Lay up short of the front sand and take the climb with a wedge.",
+        "source": "onthetee"
+      },
+      "layup": true
+    },
+    {
+      "number": 11,
+      "par": 4,
+      "hcp": 3,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "Plays down a chute off the tee — straight is the whole job.",
+        "source": "gallery"
+      },
+      "hazards": [
+        {
+          "what": "trees both sides of the chute",
+          "side": "centre",
+          "source": "gallery"
+        }
+      ],
+      "green": {
+        "missSafe": "Short",
+        "missDead": "Wherever the card's sand is",
+        "note": "No published read of this green.",
+        "source": "unread"
+      },
+      "suckerPins": [],
+      "target": {
+        "text": "Third-hardest. Through the chute, middle of the green, bogey is fine.",
+        "source": "gallery"
+      }
+    },
+    {
+      "number": 12,
+      "par": 4,
+      "hcp": 1,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "The hardest hole on the card and the longest par 4. No published read; the card's sand is OSM's.",
+        "source": "scorecard"
+      },
+      "hazards": [],
+      "green": {
+        "missSafe": "Short",
+        "missDead": "Wherever the card's sand is",
+        "note": "No published read of this green.",
+        "source": "unread"
+      },
+      "suckerPins": [],
+      "target": {
+        "text": "Hardest hole. Two good shots and a chip is a 5, and a 5 is the target.",
+        "source": "scorecard"
+      }
+    },
+    {
+      "number": 13,
+      "par": 3,
+      "hcp": 13,
+      "shape": "straight",
+      "tee": {
+        "favour": "right",
+        "club": null,
+        "why": "A tough par 3 with out of bounds left.",
+        "source": "gallery"
+      },
+      "hazards": [
+        {
+          "what": "out of bounds left",
+          "side": "left",
+          "source": "gallery"
+        }
+      ],
+      "green": {
+        "missSafe": "Right",
+        "missDead": "Left — out of bounds",
+        "note": "OB left: nothing starts left of the flag.",
+        "source": "gallery"
+      },
+      "suckerPins": [
+        "front-left",
+        "middle-left",
+        "back-left"
+      ],
+      "target": {
+        "text": "Right half of the green, every flag. Left is a reload.",
+        "source": "gallery"
+      }
+    },
+    {
+      "number": 14,
+      "par": 4,
+      "hcp": 11,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "Short par 4; no published read. Leave a full wedge.",
+        "source": "plan"
+      },
+      "hazards": [],
+      "green": {
+        "missSafe": "Short",
+        "missDead": "Wherever the card's sand is",
+        "note": "No published read of this green.",
+        "source": "unread"
+      },
+      "suckerPins": [],
+      "target": {
+        "text": "Wedge on, two putts. The 6 here on 2026-08-22 started with a topped driver.",
+        "source": "record"
+      }
+    },
+    {
+      "number": 15,
+      "par": 3,
+      "hcp": 17,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "Plays downhill — take less than the card says.",
+        "source": "gallery"
+      },
+      "hazards": [],
+      "green": {
+        "missSafe": "Short",
+        "missDead": "Long",
+        "note": "Downhill: the ball flies further than the number.",
+        "source": "gallery"
+      },
+      "suckerPins": [
+        "back-left",
+        "back-centre",
+        "back-right"
+      ],
+      "target": {
+        "text": "One less club downhill, middle of the green.",
+        "source": "gallery"
+      }
+    },
+    {
+      "number": 16,
+      "par": 4,
+      "hcp": 7,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "No published read of this tee shot; the card's sand is OSM's.",
+        "source": "unread"
+      },
+      "hazards": [
+        {
+          "what": "bunker protecting the right side of the green",
+          "side": "right",
+          "source": "gallery"
+        }
+      ],
+      "green": {
+        "missSafe": "Left",
+        "missDead": "Right — the bunker",
+        "note": "A bunker protects the right side of the green.",
+        "source": "gallery"
+      },
+      "suckerPins": [
+        "front-right",
+        "middle-right",
+        "back-right"
+      ],
+      "target": {
+        "text": "Left half of the green, whatever the flag.",
+        "source": "gallery"
+      }
+    },
+    {
+      "number": 17,
+      "par": 4,
+      "hcp": 5,
+      "shape": "dogleg-right",
+      "tee": {
+        "favour": "left",
+        "club": null,
+        "why": "Dogleg left to right; shape it around the corner or hold the left-centre. The approach is a steep climb to a hilltop green.",
+        "source": "onthetee"
+      },
+      "hazards": [
+        {
+          "what": "bunker right of the hilltop green",
+          "side": "right",
+          "source": "onthetee"
+        },
+        {
+          "what": "ivy-covered fence behind the green",
+          "side": "centre",
+          "source": "onthetee"
+        }
+      ],
+      "green": {
+        "missSafe": "Short or left",
+        "missDead": "Right — the bunker; long — the fence",
+        "note": "Hilltop green, bunker right, fence behind: club selection and execution both.",
+        "source": "onthetee"
+      },
+      "suckerPins": [
+        "front-right",
+        "middle-right",
+        "back-right",
+        "back-left",
+        "back-centre"
+      ],
+      "target": {
+        "text": "Left-centre off the tee, one more club up the hill, left half of the green.",
+        "source": "onthetee"
+      }
+    },
+    {
+      "number": 18,
+      "par": 5,
+      "hcp": 15,
+      "shape": "straight",
+      "tee": {
+        "favour": "centre",
+        "club": null,
+        "why": "Straightaway and slightly downhill — a birdie hole and a risk-reward finish.",
+        "source": "illinoisgolf"
+      },
+      "hazards": [],
+      "green": {
+        "missSafe": "Short",
+        "missDead": "Wherever the card's sand is",
+        "note": "No published read of this green.",
+        "source": "unread"
+      },
+      "suckerPins": [],
+      "target": {
+        "text": "Downhill all the way. Driver, then decide — the lay-up to a full wedge is the par.",
+        "source": "illinoisgolf"
+      }
+    }
+  ]
+}

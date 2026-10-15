@@ -1,8 +1,8 @@
 # NEXT
 
 <!-- state:start -->
-**State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-10-13
-Last commit 2026-10-13 — The hundred becomes weekends: nine trips with an airport, a bed, a plan and the story
+**State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-10-15
+Last commit 2026-10-15 — Scout: the plan goes to the first tee — one hole at a time, drawn over the course, starting with Harding Park
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
@@ -31,7 +31,12 @@ outlined over the imagery, the tee club's landing band from the watch's own
 bands, the aim line to a chosen pin, the last round ghosted under it, and
 one blunt sentence per hole. Notes are `data/scout/<slug>.json` (sourced,
 validated, no typed distances); the engine is `lib/scout.ts` (pure, 27
-tests on the real files). `DECISIONS.md` 2026-10-15 has the rules. To scout
+tests on the real files). `DECISIONS.md` 2026-10-15 has the rules. Presidio
+followed the same day (`data/scout/presidio-golf-course.json`): published
+reads are thin there — the course's own tour is video only — so eleven
+greens are `unread` and the card's sand, tee positions and the two watch
+rounds carry it; a sourced `layup: true` on a par 5 makes the second shot
+always the lay-up (Presidio 2 and 10, Harding 4 and 12). To scout
 the next course: `pnpm data:holes` must have its plan, then a notes file
 after the Harding one, then `pnpm data:validate`. Open: feed today's round
 back (which holes bled, against the plan's targets); read Garmin's raw
@@ -302,3 +307,4 @@ for the top 25 arrived with the list (2026-10-06): 21 facilities carry one.
 - **2026-10-06** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `app/rounds/watch.tsx`. <!-- campfire:2026-10-06 -->
 - **2026-10-12** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `(committed, unpushed)`. <!-- campfire:2026-10-12 -->
 - **2026-10-13** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `(committed, unpushed)`. <!-- campfire:2026-10-13 -->
+- **2026-10-15** — session ended: 1 file(s) dirty, 0 commit(s) unpushed. Last touched: `(committed, unpushed)`. <!-- campfire:2026-10-15 -->
