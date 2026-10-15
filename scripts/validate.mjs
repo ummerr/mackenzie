@@ -12,7 +12,7 @@
  * Errors fail the build. Warnings are things a human should look at.
  */
 
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { slugify } from "./rounds-to-spine.mjs";
@@ -54,6 +54,65 @@ for (const b of benchFile.benchmarks ?? []) {
   if (!b.verified) benchUnverified++;
 }
 console.log(`\n  benchmarks ${benchIds.size} · unverified ${benchUnverified}`);
+
+// --- the scout notes contract -----------------------------------------------
+// One sourced file per course under data/scout/ (DECISIONS.md 2026-10-13):
+// the scorecard, and one read per hole whose every claim names a source.
+// Numbers about the hole itself (carries, depths, tee positions) are not
+// allowed here — lib/scout.ts computes them from the OSM plan.
+
+const SCOUT_DIR = resolve(DATA, "scout");
+const SCOUT_PINS = new Set(["front-left", "front-centre", "front-right", "middle-left", "middle-centre", "middle-right", "back-left", "back-centre", "back-right"]);
+let scoutCourses = 0;
+let scoutHoles = 0;
+if (existsSync(SCOUT_DIR)) {
+  const spineFacilities = readJson("facilities.json", { facilities: [] }).facilities;
+  const facilityBySlug = new Map(spineFacilities.map((f) => [f.slug, f]));
+  const layoutSlugs = new Set(readJson("layouts.json", { layouts: [] }).layouts.map((l) => l.slug));
+  for (const file of readdirSync(SCOUT_DIR).filter((n) => n.endsWith(".json")).sort()) {
+    const tag = `scout/${file}`;
+    const c = JSON.parse(readFileSync(resolve(SCOUT_DIR, file), "utf8"));
+    scoutCourses++;
+    const f = facilityBySlug.get(c.facilitySlug);
+    if (!f) err(`${tag} facilitySlug "${c.facilitySlug}" is not in facilities.json`);
+    else if (c.grintName !== f.grintName) err(`${tag} grintName "${c.grintName}" is not the facility's "${f.grintName}"`);
+    if (!layoutSlugs.has(c.layoutSlug)) err(`${tag} layoutSlug "${c.layoutSlug}" is not in layouts.json`);
+    if (file !== `${c.facilitySlug}.json`) err(`${tag} is not named after its facilitySlug`);
+    if (!existsSync(resolve(PUB, "holes", `${c.facilitySlug}.geojson`))) warn(`${tag} has no hole plan in public/data/holes — run pnpm data:holes`);
+    const sources = c.sources ?? {};
+    for (const [k, src] of Object.entries(sources)) {
+      if (!src?.title) err(`${tag} sources.${k} has no title`);
+      if (src?.url !== null && !/^https?:\/\//.test(src?.url ?? "")) err(`${tag} sources.${k} url is not a URL or null`);
+      if (src?.url === null && !src?.note) err(`${tag} sources.${k} has no URL and no note saying why`);
+    }
+    const par = (c.holes ?? []).reduce((a, h) => a + (h.par ?? 0), 0);
+    if (!Array.isArray(c.holes) || c.holes.length !== 18) err(`${tag} has ${c.holes?.length ?? 0} holes, not 18`);
+    for (const t of c.tees ?? []) {
+      if (!Array.isArray(t.yards) || t.yards.length !== 18) err(`${tag} tee ${t.name} has ${t.yards?.length ?? 0} yardages`);
+      if (!Number.isFinite(t.rating) || !Number.isFinite(t.slope)) err(`${tag} tee ${t.name} has no rating/slope`);
+      if (t.slope < 55 || t.slope > 155) err(`${tag} tee ${t.name} slope ${t.slope} is outside 55..155`);
+    }
+    if (par && par !== 72 && par !== 71 && par !== 70) warn(`${tag} par totals ${par}`);
+    const hcps = new Set();
+    for (const h of c.holes ?? []) {
+      const ht = `${tag} hole ${h.number}`;
+      scoutHoles++;
+      if (hcps.has(h.hcp)) err(`${ht} repeats stroke index ${h.hcp}`);
+      hcps.add(h.hcp);
+      const needSource = [["tee", h.tee], ["green", h.green], ["target", h.target], ...(h.hazards ?? []).map((z, i) => [`hazards[${i}]`, z])];
+      for (const [name, o] of needSource) {
+        if (!o || typeof o !== "object") { err(`${ht} ${name} is missing`); continue; }
+        if (!(o.source in sources)) err(`${ht} ${name}.source "${o.source}" is not in sources`);
+      }
+      for (const p of h.suckerPins ?? []) if (!SCOUT_PINS.has(p)) err(`${ht} suckerPin "${p}" is not a pin position`);
+      // No typed distances: a yardage in a note is a number the map cannot check.
+      for (const txt of [h.tee?.why, h.green?.note, h.target?.text]) {
+        if (typeof txt === "string" && /\b\d{2,3}\s?(yd|yards)\b/i.test(txt)) err(`${ht} types a distance ("${txt.match(/\b\d{2,3}\s?(yd|yards)\b/i)[0]}") — distances are computed from the plan`);
+      }
+    }
+  }
+}
+console.log(`  scout ${scoutCourses} course${scoutCourses === 1 ? "" : "s"} · ${scoutHoles} holes`);
 
 // --- the California 100 contract ---------------------------------------------
 // The to-play list (DECISIONS.md 2026-10-06): one compilation of published

@@ -2,7 +2,7 @@
 
 <!-- state:start -->
 **State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-10-13
-Last commit 2026-10-13 — The capture goes unattended: a nightly run pulls Garmin and Grint, refreshes, gates, and commits
+Last commit 2026-10-13 — The hundred becomes weekends: nine trips with an airport, a bed, a plan and the story
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
@@ -24,6 +24,18 @@ tee 0.5, against an index gap of 6.6. `/practice` redirects into its foot.
 The week's goals are next-round targets from the plan (`pnpm
 goals:propose`), never range-data goals. The hand analysis behind it is in
 `DECISIONS.md` 2026-09-29 (two entries).
+
+**2026-10-15 — Scout.** `/scout/tpc-harding-park-golf-course` (nav:
+Scout) is the hole-by-hole game plan: OSM's bunkers, green and centreline
+outlined over the imagery, the tee club's landing band from the watch's own
+bands, the aim line to a chosen pin, the last round ghosted under it, and
+one blunt sentence per hole. Notes are `data/scout/<slug>.json` (sourced,
+validated, no typed distances); the engine is `lib/scout.ts` (pure, 27
+tests on the real files). `DECISIONS.md` 2026-10-15 has the rules. To scout
+the next course: `pnpm data:holes` must have its plan, then a notes file
+after the Harding one, then `pnpm data:validate`. Open: feed today's round
+back (which holes bled, against the plan's targets); read Garmin's raw
+`holeHandicaps`/tee ratings so a notes file can borrow its card.
 
 **2026-10-12 — the capture goes unattended.** A nightly GitHub Actions run
 (`.github/workflows/nightly-capture.yml`, 04:00 Pacific) pulls what is new

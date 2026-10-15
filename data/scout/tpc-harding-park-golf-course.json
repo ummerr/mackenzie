@@ -1,0 +1,227 @@
+{
+  "_README": [
+    "Scout notes for one course: the scorecard and one sourced read per hole. Contract in lib/scout.ts (parseScoutCourse) and scripts/validate.mjs.",
+    "Nothing numeric lives here except the scorecard — a bunker's carry, a green's depth and where a tee set stands are computed from public/data/holes/<slug>.geojson so the card cannot disagree with the map.",
+    "Every hole note carries a `source` key into `sources`. `unread` is the honest absence: no published read of that green was found, so the default (centre of the green, miss away from sand) stands.",
+    "nbc2009 describes the 2009 Presidents Cup ROUTING, which started on today's 10th. Its hole N is today's: 1→10 2→11 3→12 4→13 5→4 6→5 7→6 8→2 9→3 10→14 11→8 12→15 13→16 14→17 15→18 16→1 17→7 18→9 (mapped by par and yardage, 2026-10-13).",
+    "pga and cbs describe the 2020 PGA Championship setup (hole 12 played as a par 4 at 494; the public card is a par 5 at 450/480). Hazard reads carry over; the tournament yardages do not.",
+    "osm: hole 18 has no centreline in OSM — the card draws the watch's tee→pin from 2026-08-20 and says so. Hole 9 has no green polygon — a 26 m disc stands in at the line's end, flagged approximate."
+  ],
+  "facilitySlug": "tpc-harding-park-golf-course",
+  "layoutSlug": "tpc-harding-park-golf-course",
+  "grintName": "TPC Harding Park Golf Course",
+  "name": "TPC Harding Park",
+  "sources": {
+    "scorecard": { "title": "GolfPass — TPC Harding Park scorecard and layout", "url": "https://www.golfpass.com/travel-advisor/courses/231-tpc-harding-park-harding-course/scorecard-and-layout", "note": "read 2026-10-13; nine tee sets, par and men's/women's stroke index per hole" },
+    "pga": { "title": "PGA.com — 2020 PGA Championship TPC Harding Park course guide", "url": "https://www.pga.com/story/2020-pga-championship-tpc-harding-park-course-guide", "note": "hole-by-hole reads for the front nine; championship yardages" },
+    "cbs": { "title": "CBS San Francisco — PGA Championship: a hole-by-hole look at TPC Harding Park", "url": "https://www.cbsnews.com/sanfrancisco/news/pga-championship-a-hole-by-hole-look-at-tpc-harding-park/", "note": "hole-by-hole reads for the back nine; championship yardages" },
+    "nbc2009": { "title": "NBC Bay Area — Hole-by-hole lowdown of Harding Park (2009 Presidents Cup)", "url": "https://www.nbcbayarea.com/news/sports/hole-by-hole-lowdown-of-harding-park/1859473/", "note": "REROUTED: the match-play order started on today's 10th; the remap is in _README" },
+    "arccos": { "title": "Arccos — Caddie Rangefinder and Preview, TPC Harding Park", "url": "https://www.arccosgolf.com/blogs/community/arccos-caddie-rangefinder-preview-tpc-harding-park", "note": "elevation and wind notes: hole 3 climbs 17 ft, hole 10 climbs 22 ft, 14–18 along Lake Merced" },
+    "unread": { "title": "No published read found", "url": null, "note": "the default stands: centre of the green, miss on the side away from sand" }
+  },
+  "tees": [
+    { "name": "White", "rating": 70.4, "slope": 122, "yards": [375, 400, 155, 540, 365, 390, 325, 190, 475, 530, 155, 450, 375, 410, 375, 310, 165, 420] },
+    { "name": "Blue", "rating": 72.7, "slope": 125, "yards": [395, 430, 165, 580, 395, 440, 335, 200, 495, 550, 185, 480, 405, 440, 405, 330, 175, 440] },
+    { "name": "Blue/White", "rating": 71.2, "slope": 123, "yards": [395, 400, 165, 540, 365, 390, 335, 190, 495, 550, 155, 480, 375, 410, 405, 330, 175, 420] },
+    { "name": "White/Red", "rating": 69.4, "slope": 121, "yards": [375, 360, 155, 500, 365, 350, 325, 170, 475, 500, 155, 450, 375, 370, 345, 310, 165, 400] }
+  ],
+  "osm": { "centrelineBy": "ref+hcp", "missingCentreline": [18], "missingGreen": [9] },
+  "holes": [
+    {
+      "number": 1, "par": 4, "hcp": 13, "shape": "straight",
+      "tee": { "favour": "left", "club": null, "why": "Open off the tee. A drive to the left side leaves a slightly downhill second into a receptive green.", "source": "pga" },
+      "hazards": [
+        { "what": "large greenside bunker guarding a short-right miss", "side": "right", "source": "pga" }
+      ],
+      "green": { "missSafe": "Long or left", "missDead": "Short right — the big bunker", "note": "One big bunker short right; the middle of the green is a birdie look.", "source": "pga" },
+      "suckerPins": ["front-right"],
+      "target": { "text": "Middle of the green and a birdie look. Nothing right.", "source": "pga" }
+    },
+    {
+      "number": 2, "par": 4, "hcp": 3, "shape": "straight",
+      "tee": { "favour": "right", "club": null, "why": "Two fairway bunkers down the left catch any drive squeezing for yards; mature cypress flanks the right. Favour the right side.", "source": "pga" },
+      "hazards": [
+        { "what": "two fairway bunkers down the left", "side": "left", "source": "pga" },
+        { "what": "front-right greenside bunker and mounding", "side": "right", "source": "nbc2009" }
+      ],
+      "green": { "missSafe": "Short, below the hole", "missDead": "Long — the green is crowned and runs away", "note": "Crowned green with a front-right bunker; the approach wants to come in from below the hole.", "source": "nbc2009" },
+      "suckerPins": ["back-left", "back-centre", "back-right", "front-right"],
+      "target": { "text": "Par is a good score here. Middle of the green, whatever the flag.", "source": "pga" }
+    },
+    {
+      "number": 3, "par": 3, "hcp": 9, "shape": "straight",
+      "tee": { "favour": "centre", "club": null, "why": "Uphill 17 ft to a two-tier green you cannot read from the tee; wind between the cypress. Locals pull an extra club — long beats the two bunkers short.", "source": "pga" },
+      "hazards": [
+        { "what": "two bunkers short of the green", "side": "centre", "source": "pga" }
+      ],
+      "green": { "missSafe": "Long", "missDead": "Short — two bunkers", "note": "Two tiers; the long miss is the favourable one.", "source": "pga" },
+      "suckerPins": ["front-left", "front-centre", "front-right"],
+      "target": { "text": "Take the extra club. Over the green beats the bunkers short, every time.", "source": "pga" }
+    },
+    {
+      "number": 4, "par": 5, "hcp": 1, "shape": "dogleg-left",
+      "tee": { "favour": "right", "club": "hybrid", "why": "True dogleg left with a large cypress guarding the corner — do not get greedy. A fairway wood off the tee for the fairway; it is a three-shot hole.", "source": "arccos" },
+      "hazards": [
+        { "what": "large cypress at the corner of the dogleg", "side": "left", "source": "pga" }
+      ],
+      "green": { "missSafe": "Short, in the fairway", "missDead": "Left, in the trees", "note": "No published read of the green; the dramatic second turn left keeps it out of reach in two.", "source": "unread" },
+      "suckerPins": [],
+      "target": { "text": "Three shots. Hybrid, hybrid, wedge. Hole 1 on the card for a reason — bogey is fine.", "source": "arccos" }
+    },
+    {
+      "number": 5, "par": 4, "hcp": 15, "shape": "straight",
+      "tee": { "favour": "centre", "club": "hybrid", "why": "The only hole without a bunker and among the tightest fairways, trees both sides — the field hits irons off this tee.", "source": "nbc2009" },
+      "hazards": [
+        { "what": "trees both sides of a tight fairway", "side": "centre", "source": "pga" },
+        { "what": "significant drop-off right of the green", "side": "right", "source": "pga" }
+      ],
+      "green": { "missSafe": "Short or left", "missDead": "Right — the drop-off", "note": "Deep, narrow green with contours and a steep fall-off on the right.", "source": "pga" },
+      "suckerPins": ["front-right", "middle-right", "back-right"],
+      "target": { "text": "Hybrid down the middle, then the left half of a narrow green. Right is a chip from the bottom of a hill.", "source": "pga" }
+    },
+    {
+      "number": 6, "par": 4, "hcp": 5, "shape": "dogleg-left",
+      "tee": { "favour": "right", "club": null, "why": "A chute through the trees, then the fairway turns left; one of the toughest driving holes. In the trees, par is a great score.", "source": "pga" },
+      "hazards": [
+        { "what": "tall trees at the corner, left", "side": "left", "source": "nbc2009" },
+        { "what": "front and left greenside bunkers", "side": "left", "source": "nbc2009" }
+      ],
+      "green": { "missSafe": "Right", "missDead": "Short-left — the bunkers", "note": "Wide green with a subtle centre hump, protected front and left.", "source": "nbc2009" },
+      "suckerPins": ["front-left", "middle-left", "back-left"],
+      "target": { "text": "Find the fairway first. Then the right half of the green — the sand is all front-left.", "source": "pga" }
+    },
+    {
+      "number": 7, "par": 4, "hcp": 11, "shape": "straight",
+      "tee": { "favour": "centre", "club": null, "why": "Short par 4: know where the flag is, then hit the tee shot that gives the best route in — fairway bunker left, rough and trees right.", "source": "pga" },
+      "hazards": [
+        { "what": "fairway bunker left", "side": "left", "source": "pga" },
+        { "what": "rough and trees right", "side": "right", "source": "pga" }
+      ],
+      "green": { "missSafe": "Short", "missDead": "Either side — bunker shots and chips", "note": "No published read of the green beyond this: missing it leaves bunker shots and chips.", "source": "nbc2009" },
+      "suckerPins": [],
+      "target": { "text": "Leave yourself a full wedge, not a half one. Green in two, two putts, move on.", "source": "pga" }
+    },
+    {
+      "number": 8, "par": 3, "hcp": 7, "shape": "straight",
+      "tee": { "favour": "left", "club": null, "why": "Brutally long par 3, downhill to a hard green that is difficult to hold: grass bunker left, sand right.", "source": "nbc2009" },
+      "hazards": [
+        { "what": "sand bunker right of the green", "side": "right", "source": "nbc2009" },
+        { "what": "grass bunker left of the green", "side": "left", "source": "nbc2009" }
+      ],
+      "green": { "missSafe": "Left — grass, not sand", "missDead": "Right — sand", "note": "Firm and hard to hold; a right flag demands clearing the bunker.", "source": "nbc2009" },
+      "suckerPins": ["front-right", "middle-right", "back-right"],
+      "target": { "text": "Left half of the green. A chip from the grass beats a bunker shot; a 3 is a win.", "source": "pga" }
+    },
+    {
+      "number": 9, "par": 5, "hcp": 17, "shape": "straight",
+      "tee": { "favour": "left", "club": null, "why": "Three fairway bunkers down the right. Aggressive drive is fine — away from them.", "source": "nbc2009" },
+      "hazards": [
+        { "what": "three fairway bunkers right", "side": "right", "source": "nbc2009" },
+        { "what": "front bunkers at the green", "side": "centre", "source": "nbc2009" }
+      ],
+      "green": { "missSafe": "Long", "missDead": "Short — the front bunkers", "note": "Front bunkers and a gentle front-to-back slope.", "source": "nbc2009" },
+      "suckerPins": ["front-left", "front-centre", "front-right"],
+      "target": { "text": "The easiest hole on the card. Three shots, the third one past the front bunkers.", "source": "scorecard" }
+    },
+    {
+      "number": 10, "par": 5, "hcp": 4, "shape": "dogleg-left",
+      "tee": { "favour": "left", "club": null, "why": "Gentle dogleg left with fairway bunkers on the right — the only thing to avoid off the tee. Uphill 22 ft tee to green.", "source": "cbs" },
+      "hazards": [
+        { "what": "fairway bunkers right", "side": "right", "source": "cbs" },
+        { "what": "three bunkers around a green set among trees", "side": "centre", "source": "nbc2009" }
+      ],
+      "green": { "missSafe": "Short, in the fairway", "missDead": "Any of the three bunkers; long into the trees", "note": "Reachable in two for the field; three bunkers and trees around it.", "source": "nbc2009" },
+      "suckerPins": ["back-left", "back-right"],
+      "target": { "text": "Uphill all the way — one more club on the second and the third. Lay up short of the sand.", "source": "arccos" }
+    },
+    {
+      "number": 11, "par": 3, "hcp": 12, "shape": "straight",
+      "tee": { "favour": "centre", "club": null, "why": "Downhill to a small green flanked by bunkers both sides; the prevailing wind is right to left, so start it over the larger left bunker.", "source": "nbc2009" },
+      "hazards": [
+        { "what": "bunkers both sides of the green", "side": "centre", "source": "cbs" }
+      ],
+      "green": { "missSafe": "Short centre", "missDead": "Either side — sand", "note": "Back-left and back-right pins are the sternest.", "source": "cbs" },
+      "suckerPins": ["back-left", "back-right", "front-left", "front-right"],
+      "target": { "text": "Centre of the green, ignore the flag. Sand both sides.", "source": "cbs" }
+    },
+    {
+      "number": 12, "par": 5, "hcp": 16, "shape": "dogleg-left",
+      "tee": { "favour": "right", "club": "hybrid", "why": "Bends right to left with out of bounds down the ENTIRE left side; Monterey pines right. A fairway metal off the tee for position.", "source": "nbc2009" },
+      "hazards": [
+        { "what": "out of bounds the whole left side", "side": "left", "source": "cbs" },
+        { "what": "fairway bunkers short of the turn", "side": "centre", "source": "cbs" },
+        { "what": "two bunker sets either side of the green", "side": "centre", "source": "nbc2009" }
+      ],
+      "green": { "missSafe": "Short", "missDead": "Left — OB side; either side is sand", "note": "Trees surround the green with bunkers both sides.", "source": "nbc2009" },
+      "suckerPins": ["front-left", "middle-left", "back-left", "back-right"],
+      "target": { "text": "OB left the whole way. Right side, three shots, no heroics.", "source": "cbs" }
+    },
+    {
+      "number": 13, "par": 4, "hcp": 14, "shape": "straight",
+      "tee": { "favour": "centre", "club": null, "why": "Fairway bunker down the right and overhanging cypress; a left miss is in the trees. Lake Merced comes into view on the second and the wind makes the number hard to judge.", "source": "cbs" },
+      "hazards": [
+        { "what": "fairway bunker right", "side": "right", "source": "cbs" },
+        { "what": "trees left", "side": "left", "source": "nbc2009" },
+        { "what": "deep bunker left of the green", "side": "left", "source": "cbs" }
+      ],
+      "green": { "missSafe": "Right", "missDead": "Left — the deep bunker the green hooks around", "note": "The green hooks around a deep left-side bunker; left pins are restricted by it.", "source": "cbs" },
+      "suckerPins": ["front-left", "middle-left", "back-left"],
+      "target": { "text": "Right half of the green. The left bunker is the double.", "source": "cbs" }
+    },
+    {
+      "number": 14, "par": 4, "hcp": 6, "shape": "straight",
+      "tee": { "favour": "right", "club": null, "why": "Uphill along Lake Merced; a gully on the left and a fairway that slopes left. The approach is from an uneven lie and plays longer than it looks.", "source": "cbs" },
+      "hazards": [
+        { "what": "gully left of the fairway", "side": "left", "source": "cbs" },
+        { "what": "sand left of the green, grass bunker right", "side": "left", "source": "nbc2009" }
+      ],
+      "green": { "missSafe": "Short or right — grass", "missDead": "Left — sand; long leaves a downhill putt on a quick green", "note": "Slopes back to front; sand left, grass right; wind hard to judge through the trees.", "source": "cbs" },
+      "suckerPins": ["front-left", "middle-left", "back-left", "back-centre"],
+      "target": { "text": "Uphill and longer than it looks — one more club, right half, below the hole.", "source": "cbs" }
+    },
+    {
+      "number": 15, "par": 4, "hcp": 10, "shape": "dogleg-left",
+      "tee": { "favour": "centre", "club": "hybrid", "why": "Tree-lined, curls left toward the lake; fairway bunker right. A fairway metal or less off the tee; the bold driver faces a side-hill lie.", "source": "cbs" },
+      "hazards": [
+        { "what": "fairway bunker right", "side": "right", "source": "nbc2009" },
+        { "what": "trees both sides", "side": "centre", "source": "cbs" }
+      ],
+      "green": { "missSafe": "Short — below the hole", "missDead": "Long — above the hole on a plateau that runs back to front", "note": "Plateau green sloping back to front; the short iron must finish below the hole.", "source": "cbs" },
+      "suckerPins": ["back-left", "back-centre", "back-right"],
+      "target": { "text": "Hybrid, then a short iron below the hole. Over this green is a three-putt.", "source": "cbs" }
+    },
+    {
+      "number": 16, "par": 4, "hcp": 8, "shape": "straight",
+      "tee": { "favour": "right", "club": null, "why": "Short par 4 — drivable for the field — bunkers left and overhanging cypress. Three bunkers guard the left of a small green, one the right.", "source": "cbs" },
+      "hazards": [
+        { "what": "bunkers left off the tee", "side": "left", "source": "cbs" },
+        { "what": "three greenside bunkers left", "side": "left", "source": "nbc2009" },
+        { "what": "one greenside bunker right", "side": "right", "source": "nbc2009" }
+      ],
+      "green": { "missSafe": "Short", "missDead": "Left — three bunkers", "note": "Small green nestled among trees, three bunkers left and one right.", "source": "nbc2009" },
+      "suckerPins": ["front-left", "middle-left", "back-left"],
+      "target": { "text": "Not a driver hole for you — leave a full wedge, hit the green, take the 4.", "source": "cbs" }
+    },
+    {
+      "number": 17, "par": 3, "hcp": 18, "shape": "straight",
+      "tee": { "favour": "centre", "club": null, "why": "The shortest par 3, exposed to the wind on the left and tougher than it looks; front bunkers guard both edges.", "source": "cbs" },
+      "hazards": [
+        { "what": "front bunkers both edges", "side": "centre", "source": "cbs" }
+      ],
+      "green": { "missSafe": "Long", "missDead": "Short, either side — sand", "note": "Somewhat crowned, bunkers around; the Pacific breeze is the hard part.", "source": "nbc2009" },
+      "suckerPins": ["front-left", "front-right"],
+      "target": { "text": "Enough club to carry the front bunkers. The wind off the left is real.", "source": "cbs" }
+    },
+    {
+      "number": 18, "par": 4, "hcp": 2, "shape": "dogleg-left",
+      "tee": { "favour": "centre", "club": null, "why": "Doglegs left around the lake with two large fairway bunkers right. Risk and reward — for you, the fairway.", "source": "cbs" },
+      "hazards": [
+        { "what": "Lake Merced down the left", "side": "left", "source": "cbs" },
+        { "what": "two large fairway bunkers right", "side": "right", "source": "nbc2009" }
+      ],
+      "green": { "missSafe": "Long", "missDead": "Short — it spins back off the front toward the fairway", "note": "Short shots spin backward toward the fairway; take the back half.", "source": "nbc2009" },
+      "suckerPins": ["front-left", "front-centre", "front-right"],
+      "target": { "text": "Second-hardest hole on the card. Fairway, back half of the green, and a bogey is a fine finish.", "source": "scorecard" }
+    }
+  ]
+}

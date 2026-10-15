@@ -91,6 +91,72 @@ const tileLon = (x: number, n: number) => (x / n) * 360 - 180;
 const tileLat = (y: number, n: number) =>
   (Math.atan(Math.sinh(Math.PI * (1 - (2 * y) / n))) * 180) / Math.PI;
 
+/* ── the shared frame machinery ───────────────────────────────────────────
+ * Exported so lib/scout.ts (the plan card) and paintHole (the diary trace)
+ * draw on one projection: the same metre scale, the same rotation rule, the
+ * same tile walk. A hole drawn twice on the site is drawn the same way. */
+
+export interface Projector {
+  /** Degrees → local metres, east right, north up, about the anchor. */
+  project: (p: LatLon) => XY;
+  unproject: (p: XY) => LatLon;
+}
+
+/** Equirectangular local metres about an anchor. */
+export function localProjector(anchor: LatLon): Projector {
+  const kx = mPerDegLon((anchor.lat * Math.PI) / 180);
+  return {
+    project: (p) => ({ x: (p.lon - anchor.lon) * kx, y: (p.lat - anchor.lat) * M_PER_DEG_LAT }),
+    unproject: (p) => ({ lat: anchor.lat + p.y / M_PER_DEG_LAT, lon: anchor.lon + p.x / kx }),
+  };
+}
+
+/** The rotation that puts `target` due north of `tee`, then flips north into
+ *  SVG's y-down. A reflection (det −1), so it is its own inverse — the
+ *  returned function runs both ways. */
+export function rotatorToSvg(tee: XY, target: XY): (p: XY) => XY {
+  const dTee = Math.hypot(target.x - tee.x, target.y - tee.y);
+  const bearing = dTee < MIN_BEARING_M ? 0 : Math.atan2(target.x - tee.x, target.y - tee.y);
+  const cos = Math.cos(bearing);
+  const sin = Math.sin(bearing);
+  return (p) => ({ x: p.x * cos - p.y * sin, y: -(p.x * sin + p.y * cos) });
+}
+
+/** The padded box around the points, stretched to the aspect so the imagery
+ *  reaches every edge. */
+export function fitFrame(
+  pts: XY[],
+  aspect: number = FRAME_ASPECT,
+  padShare: number = PAD_SHARE,
+): { x: number; y: number; w: number; h: number; span: number } {
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  for (const p of pts) {
+    if (p.x < minX) minX = p.x;
+    if (p.y < minY) minY = p.y;
+    if (p.x > maxX) maxX = p.x;
+    if (p.y > maxY) maxY = p.y;
+  }
+  const span = Math.max(maxX - minX, maxY - minY);
+  const pad = Math.max(span, MIN_PAD_SPAN_M) * padShare;
+  let w = maxX - minX + pad * 2;
+  let h = maxY - minY + pad * 2;
+  let x = minX - pad;
+  let y = minY - pad;
+  if (w < h * aspect) {
+    const grow = h * aspect - w;
+    x -= grow / 2;
+    w += grow;
+  } else if (h < w / aspect) {
+    const grow = w / aspect - h;
+    y -= grow / 2;
+    h += grow;
+  }
+  return { x, y, w, h, span };
+}
+
 /**
  * Project this hole's shots into one SVG-ready frame over the imagery, or
  * null when there is nothing to draw it from — no shot carrying degrees, or
@@ -102,16 +168,7 @@ export function paintHole(shots: GarminShot[], pin: LatLon | null): HolePaint | 
   if (geoShots.length === 0) return null;
 
   // Local metres about the first shot's start — east right, north up for now.
-  const anchor = geoShots[0].startGeo as LatLon;
-  const kx = mPerDegLon((anchor.lat * Math.PI) / 180);
-  const project = (p: LatLon): XY => ({
-    x: (p.lon - anchor.lon) * kx,
-    y: (p.lat - anchor.lat) * M_PER_DEG_LAT,
-  });
-  const unproject = (p: XY): LatLon => ({
-    lat: anchor.lat + p.y / M_PER_DEG_LAT,
-    lon: anchor.lon + p.x / kx,
-  });
+  const { project, unproject } = localProjector(geoShots[0].startGeo as LatLon);
 
   const rawSegs = geoShots.map((s) => ({
     a: project(s.startGeo as LatLon),
@@ -122,18 +179,8 @@ export function paintHole(shots: GarminShot[], pin: LatLon | null): HolePaint | 
   const pinPt = pin ? project(pin) : null;
 
   // Orientation target: the day's pin, else where the last heard shot
-  // finished. Rotate about the anchor so it sits due north of the tee, then
-  // flip north into SVG's y-down. The map is a reflection (det −1), so it
-  // is its own inverse — `toSvg` runs both ways.
-  const target = pinPt ?? lastEnd;
-  const dTee = Math.hypot(target.x - tee.x, target.y - tee.y);
-  const bearing = dTee < MIN_BEARING_M ? 0 : Math.atan2(target.x - tee.x, target.y - tee.y);
-  const cos = Math.cos(bearing);
-  const sin = Math.sin(bearing);
-  const toSvg = (p: XY): XY => ({
-    x: p.x * cos - p.y * sin,
-    y: -(p.x * sin + p.y * cos),
-  });
+  // finished.
+  const toSvg = rotatorToSvg(tee, pinPt ?? lastEnd);
 
   const segs = rawSegs.map((s) => ({ a: toSvg(s.a), b: toSvg(s.b) }));
   const svgPin = pinPt ? toSvg(pinPt) : null;
@@ -142,32 +189,9 @@ export function paintHole(shots: GarminShot[], pin: LatLon | null): HolePaint | 
   // the imagery reaches every edge.
   const framePts: XY[] = segs.flatMap((s) => [s.a, s.b]);
   if (svgPin) framePts.push(svgPin);
-  let minX = Infinity;
-  let minY = Infinity;
-  let maxX = -Infinity;
-  let maxY = -Infinity;
-  for (const p of framePts) {
-    if (p.x < minX) minX = p.x;
-    if (p.y < minY) minY = p.y;
-    if (p.x > maxX) maxX = p.x;
-    if (p.y > maxY) maxY = p.y;
-  }
-  const span = Math.max(maxX - minX, maxY - minY);
-  if (span > MAX_FRAME_M) return null; // a mis-assigned shot, not a hole
-  const pad = Math.max(span, MIN_PAD_SPAN_M) * PAD_SHARE;
-  let w = maxX - minX + pad * 2;
-  let h = maxY - minY + pad * 2;
-  let x0 = minX - pad;
-  let y0 = minY - pad;
-  if (w < h * FRAME_ASPECT) {
-    const grow = h * FRAME_ASPECT - w;
-    x0 -= grow / 2;
-    w += grow;
-  } else if (h < w / FRAME_ASPECT) {
-    const grow = w / FRAME_ASPECT - h;
-    y0 -= grow / 2;
-    h += grow;
-  }
+  const box = fitFrame(framePts);
+  if (box.span > MAX_FRAME_M) return null; // a mis-assigned shot, not a hole
+  const { x: x0, y: y0, w, h } = box;
 
   return {
     viewBox: { x: round1(x0), y: round1(y0), w: round1(w), h: round1(h) },
@@ -184,7 +208,7 @@ export function paintHole(shots: GarminShot[], pin: LatLon | null): HolePaint | 
  *  image into the rotated local-metre frame. Over a hole-sized extent the
  *  Mercator curvature is far below a pixel, so three projected corners per
  *  tile pin the whole matrix. */
-function tilesFor(
+export function tilesFor(
   frame: { x0: number; y0: number; w: number; h: number },
   toSvg: (p: XY) => XY,
   project: (p: LatLon) => XY,

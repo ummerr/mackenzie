@@ -6,6 +6,81 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-10-15 — Scout: the plan goes to the first tee
+
+**Decided:** `/scout` (nav: Scout) and `/scout/<facility>` — one hole at a
+time, the way it is read standing on the tee: the hole drawn over Esri
+imagery with OSM's bunkers, green and centreline as OUTLINES, the tee
+club's landing band as an ellipse, the aim line to the chosen pin, the
+last round's shots ghosted under it; below, the one blunt sentence, the
+tee-club chips with the cost of each alternative, a 3×3 pin grid with the
+sucker pins marked, the approach club for the number, the last time here.
+Three records meet on the card and each stays in its own file:
+
+- **The course plan** is OSM's, `public/data/holes/<slug>.geojson`, the
+  same file the map draws. Every distance on the card — a bunker's reach
+  and carry, a green's depth, where the White tee stands — is COMPUTED from
+  it (`lib/scout.ts` `buildHoleGeometry`), never typed. The validator
+  refuses a yardage in a note for that reason: a typed number is one the
+  map cannot check. A tee set's position is the centreline walked back
+  from the green by the scorecard's yardage; OSM draws the line from the
+  back tee and every Harding line is longer than its Blue yardage, so every
+  shorter set lies on it (checked by hand 2026-10-13: tee polygons 1–8 m
+  from where the watch stood; centreline ends 2–8 m from the watch's pins).
+- **The notes** are `data/scout/<slug>.json`: the scorecard (nine tee sets
+  on the GolfPass card; four kept) and one sourced read per hole — which
+  side, which miss is dead, which pins are sucker pins, one target sentence.
+  Every claim names a source key; `unread` is the honest absence. Hole 4's
+  "hybrid off the tee" and 12's and 15's are the sources' words, so the
+  hint overrides the geometry; nothing else does.
+- **The golfer** is the record the site already keeps: driver and hybrid
+  bands from where the ball FINISHED off the tee on the watch's rounds
+  (p25/median/p75: Driver 233/252/270 over 53, 3 Hybrid 196/223/240 over
+  24), half the p10–p90 of Garmin's signed drive dispersion as the lateral
+  half-width (40 yd and 26 yd — wide, and true), the range's carries for
+  the irons, the hybrid's on-course resting distance where the range has
+  nothing, and the standing rules /plan already prints as constants
+  (`SCOUT_RULES`): the middle of the green beyond 140, one more club.
+
+**The recommendation rule** (`recommend`): a sourced hint wins; else the
+longest club whose band touches no bunker AND leaves a full measured swing
+(the shortest range club is the Sand Wedge at 92 — a 55-yard leave is the
+partial wedge the matrix has 0 of 6 cells for), or when none does the
+longest leave; else the fewest bunkers, the shorter club on a tie. On the
+White tees that gives the driver on 1, 6, 13, 14 and 18, the hybrid
+everywhere else — 2 because both bands reach the left bunkers and the
+hybrid's reaches fewer, 7 and 16 because the driver leaves a half wedge,
+9 and 10 because the right bunkers sit in the driver's band. The target
+per hole is net par at the WHS course handicap (12 on White from a 12.7
+index: 84 for the round); the number to refuse is par + 2 on every hole,
+which is the plan's own sentence about doubles.
+
+**Sucker pins** are the notes' list OR a flag within six yards of sand on
+its own side (nearest bunker vertex, nearer the flag than the centre). Ten
+yards flagged seven of nine pins on hole 10 — greenside sand sits on the
+collar — so six: two paces.
+
+**Why outlines over imagery is fine where fills were not.** The diary
+dropped OSM's polygons (2026-08-23 reversal) because unmapped fairway drew
+as rough and a green matched by proximity could rotate the card. Scout
+draws no fairway fill — the photograph shows the real fairway — and
+orients on the centreline, matched by `ref` AND stroke index so Fleming's
+nine (which reuses refs 1–9) is never picked. The two gaps are stated on
+the card: hole 18 has no OSM centreline, so the watch's tee→pin from
+2026-08-20 stands in; hole 9 has no green polygon, so a 26 m disc does.
+
+**Rejected:** typing distances into the notes (unverifiable); Garmin's
+`holeImageUrl` (never fetched, as before); a generic engine without a
+per-course notes file (the geometry says where the sand is, not which
+miss is dead); recording the score during the round (the Grint card does
+that, and the nightly capture brings it home).
+
+**2009 routing.** NBC Bay Area's Presidents Cup hole-by-hole is the
+rerouted order that started on today's 10th; each hole was mapped back by
+par and yardage and the remap is in the file's `_README`.
+
+---
+
 ## 2026-10-13 — Trips: the hundred grouped into weekends
 
 **Decided:** `/california` gets a Trips section — nine weekends with friends,

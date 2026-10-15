@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseBenchmarks, type BenchmarkFile } from "@/lib/benchmarks";
 import { parseCalifornia100, type California100File } from "@/lib/california100";
@@ -10,6 +10,7 @@ import {
 } from "@/lib/course-history";
 import { buildGarminShots, type GarminShots, type SourceGarminRounds } from "@/lib/garmin-shots";
 import { parseGoalsFile, type GoalsFile } from "@/lib/goals";
+import { parseScoutCourse, type HoleGeoJSON, type ScoutCourse } from "@/lib/scout";
 import {
   buildRoundHistory,
   type PlayedRound,
@@ -139,6 +140,34 @@ export function loadFacilityIndex(): { capturedAt: string; bySlug: Map<string, S
     const raw = readFileSync(join(process.cwd(), "public", "data", "courses.json"), "utf8");
     const src = JSON.parse(raw) as SourceCourses;
     return { capturedAt: src.capturedAt, bySlug: new Map(src.facilities.map((f) => [f.slug, f])) };
+  } catch {
+    return null;
+  }
+}
+
+/** The scout notes — one hand-kept, sourced file per course under
+ *  data/scout/. A checkout without the directory has no scout; a file that
+ *  fails its contract is skipped here and named by `pnpm data:validate`. */
+export function loadScoutCourses(): ScoutCourse[] {
+  const dir = join(process.cwd(), "data", "scout");
+  if (!existsSync(dir)) return [];
+  const out: ScoutCourse[] = [];
+  for (const f of readdirSync(dir).filter((n) => n.endsWith(".json")).sort()) {
+    try {
+      out.push(parseScoutCourse(JSON.parse(readFileSync(join(dir, f), "utf8")) as unknown));
+    } catch {
+      // validate.mjs reports it; the page renders the courses that parse.
+    }
+  }
+  return out;
+}
+
+/** The OSM hole plan the map draws, by facility slug — null when
+ *  `pnpm data:holes` never fetched one. */
+export function loadHoleGeometry(facilitySlug: string): HoleGeoJSON | null {
+  try {
+    const raw = readFileSync(join(process.cwd(), "public", "data", "holes", `${facilitySlug}.geojson`), "utf8");
+    return JSON.parse(raw) as HoleGeoJSON;
   } catch {
     return null;
   }
