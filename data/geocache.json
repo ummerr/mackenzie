@@ -812,5 +812,19 @@
     },
     "source": "nominatim",
     "query": "Lincoln Park Golf Course"
+  },
+  "half-moon-bay-golf-links": {
+    "lat": 37.4384865,
+    "lon": -122.4342557,
+    "precision": "course_feature",
+    "display": "Half Moon Bay Golf Links - The Old Course, 2, Miramontes Point Road, Half Moon Bay, San Mateo County, California, 94019, United States",
+    "osmId": "relation/3567134",
+    "address": {
+      "locality": "Half Moon Bay",
+      "region": "CA",
+      "country": "US"
+    },
+    "source": "nominatim",
+    "query": "Half Moon Bay Golf Links"
   }
 }

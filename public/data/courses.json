@@ -2,10 +2,10 @@
   "generatedFrom": "layouts.json + geocache.json + course-polygons.geojson + facts.json + california-100.json",
   "capturedAt": "2026-08-01",
   "stats": {
-    "facilities": 89,
-    "layouts": 101,
+    "facilities": 90,
+    "layouts": 102,
     "ranked": 94,
-    "played": 100,
+    "played": 101,
     "meanScore": 89.8,
     "countries": [
       "US",
@@ -11005,6 +11005,110 @@
           "grintLayoutName": null,
           "grintFacilityName": "Lincoln Park Golf Course",
           "grintCourseId": "626",
+          "personalRank": null,
+          "timesPlayed": 1,
+          "avgScore": null,
+          "ratings": {
+            "overall": null,
+            "fun": null,
+            "condition": null
+          },
+          "played": true,
+          "flags": [
+            "rounds_only"
+          ],
+          "origin": "rounds",
+          "vectors": {
+            "personalRank": null,
+            "rating": null,
+            "fun": null,
+            "condition": null,
+            "replayRate": 0.31622776601683794,
+            "funMinusCondition": null,
+            "scoringDelta": null,
+            "externalRanking": null,
+            "hasArchitect": null
+          },
+          "scores": {
+            "grint": {
+              "score": null,
+              "coverage": 0
+            },
+            "scoring": {
+              "score": null,
+              "coverage": 0
+            },
+            "enjoyment": {
+              "score": 0.3162,
+              "coverage": 0.5
+            },
+            "revealed": {
+              "score": 0.3162,
+              "coverage": 0.5
+            },
+            "conditioning": {
+              "score": null,
+              "coverage": 0
+            },
+            "underrated": {
+              "score": null,
+              "coverage": 0
+            },
+            "architecture": {
+              "score": null,
+              "coverage": 0
+            }
+          }
+        }
+      ],
+      "scores": {
+        "grint": null,
+        "scoring": null,
+        "enjoyment": 0.3162,
+        "revealed": 0.3162,
+        "conditioning": null,
+        "underrated": null,
+        "architecture": null
+      }
+    },
+    {
+      "slug": "half-moon-bay-golf-links",
+      "name": "Half Moon Bay Golf Links",
+      "grintName": "Half Moon Bay Golf Links",
+      "locality": "Half Moon Bay",
+      "region": "CA",
+      "country": "US",
+      "placeFrom": "nominatim",
+      "origin": "rounds",
+      "aliases": [],
+      "lat": 37.4384865,
+      "lon": -122.4342557,
+      "precision": "course_feature",
+      "osmId": "relation/3567134",
+      "areaAcres": 3.8,
+      "hasPolygon": true,
+      "bestRank": null,
+      "totalPlays": 1,
+      "layoutCount": 1,
+      "played": true,
+      "osmTags": {
+        "holes": null,
+        "par": null,
+        "access": null,
+        "website": "https://www.halfmoonbaygolf.com/",
+        "operator": null,
+        "architect": null
+      },
+      "facts": null,
+      "publishedRankings": [],
+      "california100": [],
+      "layouts": [
+        {
+          "slug": "half-moon-bay-golf-links--ocean",
+          "facilitySlug": "half-moon-bay-golf-links",
+          "grintLayoutName": "Ocean",
+          "grintFacilityName": "Half Moon Bay Golf Links",
+          "grintCourseId": "563",
           "personalRank": null,
           "timesPlayed": 1,
           "avgScore": null,

@@ -173,6 +173,23 @@
         }
       ],
       "note": null
+    },
+    {
+      "scorecardId": "388200682",
+      "garminDate": "2026-10-14",
+      "garminCourseName": "Half Moon Bay Golf Links ~ Ocean",
+      "roundId": "64326035",
+      "status": "confirmed",
+      "basis": "same facility, same date, same strokes",
+      "candidates": [
+        {
+          "roundId": "64326035",
+          "date": "2026-10-14",
+          "courseName": "Ocean | Half Moon Bay Golf Links",
+          "strokes": 88
+        }
+      ],
+      "note": "auto-confirmed: one candidate, same facility, same date, same strokes (DECISIONS.md 2026-10-12)"
     }
   ]
 }

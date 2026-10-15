@@ -149,7 +149,8 @@ describe("data/california-100.json", () => {
     expect(south.layoutName).toBe("Ocean North");
     const pebble = list.rows.find((r) => r.entry.slug === "pebble-beach")!;
     expect(pebble.state).toBe("unplayed");
-    expect(list.linked).toBe(22);
+    // 22 at the 2026-10-06 check; Half Moon Bay's two rows joined 2026-10-15 when the Ocean course entered the record.
+    expect(list.linked).toBe(24);
     expect(list.played).toBeGreaterThanOrEqual(19);
     expect(list.rows.length).toBe(100);
     expect(list.order.rank).toEqual(Array.from({ length: 100 }, (_, i) => i));

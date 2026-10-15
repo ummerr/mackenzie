@@ -1000,6 +1000,18 @@
       ],
       "aliases": [],
       "origin": "rounds"
+    },
+    {
+      "slug": "half-moon-bay-golf-links",
+      "grintName": "Half Moon Bay Golf Links",
+      "locality": null,
+      "region": null,
+      "country": null,
+      "layoutSlugs": [
+        "half-moon-bay-golf-links--ocean"
+      ],
+      "aliases": [],
+      "origin": "rounds"
     }
   ]
 }

@@ -718,5 +718,14 @@
     "water": 0,
     "plan": true,
     "bytes": 33713
+  },
+  "half-moon-bay-golf-links": {
+    "features": 158,
+    "greens": 18,
+    "holes": 14,
+    "bunkers": 52,
+    "water": 7,
+    "plan": true,
+    "bytes": 53795
   }
 }

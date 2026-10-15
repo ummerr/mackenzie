@@ -1677,6 +1677,26 @@
         "rounds_only"
       ],
       "origin": "rounds"
+    },
+    {
+      "slug": "half-moon-bay-golf-links--ocean",
+      "facilitySlug": "half-moon-bay-golf-links",
+      "grintLayoutName": "Ocean",
+      "grintFacilityName": "Half Moon Bay Golf Links",
+      "grintCourseId": "563",
+      "personalRank": null,
+      "timesPlayed": 1,
+      "avgScore": null,
+      "ratings": {
+        "overall": null,
+        "fun": null,
+        "condition": null
+      },
+      "played": true,
+      "flags": [
+        "rounds_only"
+      ],
+      "origin": "rounds"
     }
   ]
 }

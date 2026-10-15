@@ -1,10 +1,10 @@
 {
   "source": "thegrint",
   "adapter": "parse-grint-export.mjs",
-  "capturedAt": "2026-10-06T16:04:00.578Z",
-  "rawFile": "raw/grint-export-2026-08-19.json + raw/grint-export-2026-08-23-0235.json + raw/grint-export-2026-09-09-1640.json + raw/grint-export-2026-09-16-1610.json + raw/grint-export-2026-09-29-1522.json + raw/grint-export-2026-10-06-1604.json",
+  "capturedAt": "2026-10-15T16:16:18.280Z",
+  "rawFile": "raw/grint-export-2026-08-19.json + raw/grint-export-2026-08-23-0235.json + raw/grint-export-2026-09-09-1640.json + raw/grint-export-2026-09-16-1610.json + raw/grint-export-2026-09-29-1522.json + raw/grint-export-2026-10-06-1604.json + raw/grint-export-2026-10-15-1616.json",
   "userId": "1221374",
-  "handicapIndex": 12.7,
+  "handicapIndex": 13.7,
   "rounds": [
     {
       "roundId": "13764594",
@@ -17045,6 +17045,104 @@
         ]
       },
       "flags": []
+    },
+    {
+      "roundId": "64326035",
+      "entry": "full",
+      "url": "https://thegrint.com/score/edit_score/64326035?handicap_company_id=3",
+      "date": "2026-10-14",
+      "courseGrintId": "563",
+      "courseName": "Ocean | Half Moon Bay Golf Links",
+      "teeName": "White",
+      "courseHandicap": "13.0",
+      "holesRecorded": 18,
+      "totals": {
+        "strokes": 88,
+        "putts": 35
+      },
+      "perHole": {
+        "strokes": [
+          "4",
+          "6",
+          "4",
+          "6",
+          "4",
+          "7",
+          "3",
+          "4",
+          "4",
+          "5",
+          "5",
+          "3",
+          "6",
+          "4",
+          "5",
+          "5",
+          "5",
+          "8"
+        ],
+        "putts": [
+          "2",
+          "2",
+          "2",
+          "1",
+          "2",
+          "2",
+          "2",
+          "1",
+          "3",
+          "2",
+          "1",
+          "2",
+          "2",
+          "2",
+          "2",
+          "3",
+          "2",
+          "2"
+        ],
+        "fairways": [
+          "3",
+          "2",
+          "2",
+          "8",
+          "3",
+          "5",
+          "3",
+          "3",
+          "3",
+          "3",
+          "2",
+          "3",
+          "4",
+          "3",
+          "2",
+          "3",
+          "6",
+          "3"
+        ],
+        "shotCodes": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "D",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "D",
+          "",
+          "",
+          "",
+          "D",
+          "SSS"
+        ]
+      },
+      "flags": []
     }
   ],
   "differentials": [
@@ -18025,7 +18123,7 @@
       "seq": 140,
       "courseName": "Nicklaus Course | Hualalai Golf Club",
       "differential": 8.8,
-      "countsTowardHdcp": true,
+      "countsTowardHdcp": false,
       "trendingHdcp": 10.1
     },
     {
@@ -18074,14 +18172,14 @@
       "seq": 147,
       "courseName": "Eagle Vines Golf Club",
       "differential": 16.7,
-      "countsTowardHdcp": false,
+      "countsTowardHdcp": true,
       "trendingHdcp": 11.4
     },
     {
       "seq": 148,
       "courseName": "Eagle Vines Golf Club",
       "differential": 16.7,
-      "countsTowardHdcp": true,
+      "countsTowardHdcp": false,
       "trendingHdcp": 12.9
     },
     {
@@ -18160,6 +18258,13 @@
       "differential": 13.3,
       "countsTowardHdcp": true,
       "trendingHdcp": 12.7
+    },
+    {
+      "seq": 160,
+      "courseName": "Ocean | Half Moon Bay Golf Links",
+      "differential": 16.4,
+      "countsTowardHdcp": true,
+      "trendingHdcp": 13.7
     }
   ],
   "series": {
@@ -18771,6 +18876,10 @@
       {
         "courseName": "Meadow Club Fairfax",
         "value": 6
+      },
+      {
+        "courseName": "Ocean | Half Moon Bay Golf Links",
+        "value": 9
       }
     ],
     "parSavesPct": [
@@ -19385,6 +19494,10 @@
       {
         "courseName": "Meadow Club Fairfax",
         "value": 0
+      },
+      {
+        "courseName": "Ocean | Half Moon Bay Golf Links",
+        "value": 0
       }
     ],
     "fairwayHitPct": [
@@ -19835,6 +19948,10 @@
       {
         "courseName": "Meadow Club Fairfax",
         "value": 71.4
+      },
+      {
+        "courseName": "Ocean | Half Moon Bay Golf Links",
+        "value": 53.8
       }
     ],
     "par3HitPct": [
@@ -20445,6 +20562,10 @@
       {
         "courseName": "Meadow Club Fairfax",
         "value": 50
+      },
+      {
+        "courseName": "Ocean | Half Moon Bay Golf Links",
+        "value": 60
       }
     ],
     "puttDist": [
@@ -21662,6 +21783,14 @@
         "putts1": 1,
         "putts2": 32,
         "putts3": 3,
+        "putts4Plus": 0
+      },
+      {
+        "courseName": "Ocean | Half Moon Bay Golf Links",
+        "putts0": 0,
+        "putts1": 3,
+        "putts2": 26,
+        "putts3": 6,
         "putts4Plus": 0
       }
     ]

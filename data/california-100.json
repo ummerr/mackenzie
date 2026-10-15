@@ -3836,8 +3836,8 @@
           "worthDrive": 8.8
         }
       },
-      "facilitySlug": null,
-      "layoutSlug": null,
+      "facilitySlug": "half-moon-bay-golf-links",
+      "layoutSlug": "half-moon-bay-golf-links--ocean",
       "joinNote": null,
       "provenance": {
         "confidence": "high",
@@ -4483,9 +4483,9 @@
           "worthDrive": 8.6
         }
       },
-      "facilitySlug": null,
-      "layoutSlug": null,
-      "joinNote": null,
+      "facilitySlug": "half-moon-bay-golf-links",
+      "layoutSlug": "half-moon-bay-golf-links--old-course",
+      "joinNote": "the record has the Ocean course only (played 2026-10); this layout slug is not in the spine",
       "provenance": {
         "confidence": "high",
         "checked": "2026-10-06",

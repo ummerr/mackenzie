@@ -173,7 +173,7 @@ describe("grintSecretViolations", () => {
     expect(grintSecretViolations(`<script>${helper}</script>`)).toEqual([]);
   });
   it("still refuses a cookie read, a session id, or a header", () => {
-    expect(grintSecretViolations("var c = document.cookie;").map((v) => String(v.re))).toEqual(["/document\\.cookie/i"]);
+    expect(grintSecretViolations("var c = document.cookie;").map((v: { re: RegExp }) => String(v.re))).toEqual(["/document\\.cookie/i"]);
     expect(grintSecretViolations("PHPSESSID=abc").length).toBe(1);
     expect(grintSecretViolations("Set-Cookie: x").length).toBe(1);
     expect(grintSecretViolations(`${helper} and later document.cookie.split`).length).toBe(1);
