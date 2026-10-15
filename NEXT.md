@@ -2,7 +2,7 @@
 
 <!-- state:start -->
 **State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-10-15
-Last commit 2026-10-15 — The Grint gate exempts the sponsor banner's cookie-write helper
+Last commit 2026-10-15 — DECISIONS: the nightly capture is live — what five runner runs taught
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
@@ -60,6 +60,17 @@ heard, and a panel in "Where the strokes live" (2.4 penalty strokes + 1.9
 bunker shots a card, floors). The leak engine and `/plan` do **not** read it
 yet — see `DECISIONS.md` 2026-10-06 — which is the obvious next move: price
 penalty strokes as a leak and feed bunker visits to the short-game entry.
+
+**2026-10-15 (later) — the trips get pictures.** 35 Commons photographs
+with credits in `data/california-100-photos.json` + `public/california/photos`
+(validated: licence, author, page, subject, one hero per trip); the trip
+map is Esri's National Geographic basemap; the unfurl card is the hero
+photo with the title set into it. Nine of the 27 trip courses still have
+no picture we may print (Pasatiempo, Poppy Hills, Spyglass, Bayonet, the
+Truckee three, Grizzly Ranch, Whitehawk, Monarch Dunes, La Purisima,
+Soule Park, SilverRock, PGA West Stadium) — a photo of your own, dropped
+into the folder with a row in the file, is the fix. `DECISIONS.md`
+2026-10-15 (second entry).
 
 **2026-10-15 — trips are shareable.** Every trip has its own static URL
 (`/california/trips/<slug>`) with an Open Graph unfurl card, a satellite map

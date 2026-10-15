@@ -19,7 +19,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { GARMIN_THRESHOLDS } from "../lib/garmin-shots";
 import { loadHistory } from "../lib/load";
-import { buildProfile, PROFILE_THRESHOLDS, type GolferProfile } from "../lib/profile";
+import { buildProfile, type GolferProfile } from "../lib/profile";
+import { STAT_GROUPS } from "../lib/recent-rounds";
 import { buildSiteData } from "../lib/site-data";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -195,38 +196,83 @@ function render(p: GolferProfile): string {
     out.push("");
   });
 
-  /* The same section the page renders — the two must not drift apart on the
-   * one block that changes most often. Both numbers always, per the rule in
-   * lib/yardages/club-profile.ts: recent answers "now", career answers "ever". */
-  if (p.recentForm) {
-    const form = p.recentForm;
-    const num = (v: number | null) => (v === null ? "—" : v.toFixed(1));
-    const pctOf = (v: number | null) => (v === null ? "—" : `${(v * 100).toFixed(0)}%`);
-    out.push("## Recent form");
+  /* The last ten cards — the same object /rounds renders, pre-formatted rows
+   * and all, so the two cannot drift apart on the block that changes most
+   * often. Both numbers always, per the rule in lib/yardages/club-profile.ts:
+   * the window answers "now", career answers "ever". The watch and Grint's
+   * charts each speak only where their own rules let them (lib/recent-rounds.ts). */
+  if (p.recentRounds) {
+    const rr = p.recentRounds;
+    // Grint course names can carry a literal "|" (layout | facility), which
+    // would split a table cell.
+    const cell = (s: string) => s.replace(/\|/g, "\\|");
+    const dash = (v: number | null | undefined) => (v === null || v === undefined ? "—" : String(v));
+    const signed = (v: number) => (v > 0 ? `+${v}` : String(v));
+    out.push(`## The last ${rr.count} rounds`);
     out.push("");
     out.push(
-      `The last ${form.months} months (since ${form.cutoff}), measured from the newest`,
-      `card (${form.asOf}) — never from today, so this file reads the same until the`,
-      "record changes. Quick-entry echoes of a card already on file are not counted twice.",
+      `The last ${rr.count} distinct 18-hole cards, ${rr.from} → ${rr.asOf}, measured from the`,
+      "newest card — never from today, so this file reads the same until the record",
+      "changes. Quick-entry echoes of a card already on file are not counted twice.",
+      `The watch heard ${rr.heard} of the ${rr.count} through a confirmed link; pars come from the`,
+      "watch, so over par, double bogeys and the worst hole print only on those. A blank",
+      "penalty cell is Grint's \"not counted\" — clean, or never entered — so every penalty",
+      "figure is a floor.",
     );
     out.push("");
-    out.push("| Date | Course | Strokes | Putts |");
-    out.push("|---|---|---|---|");
-    for (const r of form.recentRounds.slice(-PROFILE_THRESHOLDS.recentRoundCount)) {
-      // Grint course names can carry a literal "|" (layout | facility), which
-      // would split the table cell.
-      const course = (r.courseName ?? "—").replace(/\|/g, "\\|");
-      out.push(`| ${r.date} | ${course} | ${r.strokes ?? "—"} | ${r.putts ?? "—"} |`);
+    out.push(
+      "| Date | Course | Score | ± par | Putts | 1-putts | 3-putts | Fairways | Pen | Bunker | Dbl+ | Worst hole | Heard |",
+    );
+    out.push("|---|---|---|---|---|---|---|---|---|---|---|---|---|");
+    for (const l of rr.rounds) {
+      const r = l.round;
+      const course = cell(r.courseName ?? "—") + (r.teeName ? ` (${cell(r.teeName)})` : "");
+      const fw = l.fairways === null ? "—" : `${l.fairways.hit}/${l.fairways.classified}`;
+      const worst =
+        l.worstHole === null
+          ? "—"
+          : `${l.worstHole.strokes} on H${l.worstHole.hole} (par ${l.worstHole.par})`;
+      const heard = l.shotsHeard === null ? "—" : `${l.shotsHeard} shots`;
+      out.push(
+        `| ${r.date} | ${course} | **${dash(r.strokes)}** | ${l.overPar === null ? "—" : signed(l.overPar)} | ${dash(r.putts)} | ` +
+          `${dash(l.onePutts)} | ${dash(l.threePutts)} | ${fw} | ${dash(l.penaltyStrokes)} | ${dash(l.bunkerShots)} | ` +
+          `${dash(l.doublesOrWorse)} | ${worst} | ${heard} |`,
+      );
     }
     out.push("");
-    out.push("| | Recent | Career |");
-    out.push("|---|---|---|");
     out.push(
-      `| Scoring | **${num(form.scoring.recent)}** (${form.scoring.recentN} rounds) | ${num(form.scoring.career)} (${form.scoring.careerN} rounds) |`,
-      `| Putts / round | **${num(form.putts.recent)}** (${form.putts.recentN} rounds) | ${num(form.putts.career)} (${form.putts.careerN} rounds) |`,
-      `| Three-putt share | **${pctOf(form.threePutt.recent)}** (${form.threePutt.recentN} holes) | ${pctOf(form.threePutt.career)} (${form.threePutt.careerN} holes) |`,
-      `| Fairways hit | **${pctOf(form.fairwayHit.recent)}** (${form.fairwayHit.recentN} holes) | ${pctOf(form.fairwayHit.career)} (${form.fairwayHit.careerN} holes) |`,
+      "Fairways are hit over Grint's classified codes; Pen is penalty strokes (W, D, O) and",
+      "Bunker is bunker shots (S, F) off the card's penalty row; Dbl+ is holes at double bogey",
+      "or worse against the watch's par.",
     );
+    out.push("");
+
+    out.push("### The read");
+    out.push("");
+    for (const r of rr.reads) out.push(`- ${r}`);
+    out.push("");
+
+    out.push(`### Last ${rr.count} against the record`);
+    out.push("");
+    out.push(
+      "Grint's chart rows are sliced by position and never joined to the cards" +
+        (rr.chartNamesMatch === null
+          ? "."
+          : rr.chartNamesMatch
+            ? `; their last ${rr.count} course names do match the cards' in order.`
+            : `; their last ${rr.count} course names do not match the cards' in order.`),
+    );
+    out.push("");
+    out.push(`| | Last ${rr.count} | Career | What was counted |`);
+    out.push("|---|---|---|---|");
+    for (const group of STAT_GROUPS) {
+      const rows = rr.rows.filter((r) => r.group === group);
+      if (rows.length === 0) continue;
+      out.push(`| **${group}** | | | |`);
+      for (const r of rows) {
+        out.push(`| ${r.label} | **${cell(r.recent)}** | ${cell(r.career)} | ${cell(r.note)} |`);
+      }
+    }
     out.push("");
   }
 
@@ -366,6 +412,7 @@ function main(): number {
     wedgeMatrix: d.wedgeMatrix,
     goals: d.goals,
     plan: d.plan,
+    linked: d.linked,
   });
   const next = render(profile);
 

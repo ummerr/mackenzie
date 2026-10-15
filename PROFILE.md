@@ -264,26 +264,87 @@ of claim this repo refuses to print.
 - **gone when** — A capture moving the short-game share by ten points, or putter-sensor data closing the coverage gap.
 - *course · medium confidence*
 
-## Recent form
+## The last 10 rounds
 
-The last 18 months (since 2025-04-14), measured from the newest
-card (2026-10-14) — never from today, so this file reads the same until the
-record changes. Quick-entry echoes of a card already on file are not counted twice.
+The last 10 distinct 18-hole cards, 2026-07-26 → 2026-10-14, measured from the
+newest card — never from today, so this file reads the same until the record
+changes. Quick-entry echoes of a card already on file are not counted twice.
+The watch heard 7 of the 10 through a confirmed link; pars come from the
+watch, so over par, double bogeys and the worst hole print only on those. A blank
+penalty cell is Grint's "not counted" — clean, or never entered — so every penalty
+figure is a floor.
 
-| Date | Course | Strokes | Putts |
+| Date | Course | Score | ± par | Putts | 1-putts | 3-putts | Fairways | Pen | Bunker | Dbl+ | Worst hole | Heard |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-07-26 | Battlefield \| Legends On The Niagara Golf Club (White) | **91** | — | 33 | 3 | 0 | 8/14 | 3 | 8 | — | — | — |
+| 2026-08-15 | Bennett Valley Golf Course (White) | **89** | — | 38 | 2 | 4 | 10/12 | 1 | 1 | — | — | — |
+| 2026-08-16 | Brambles Golf (Middle) | **90** | — | 35 | 3 | 2 | 3/9 | 5 | 1 | — | — | — |
+| 2026-08-20 | TPC Harding Park Golf Course (White) | **91** | +19 | 33 | 5 | 2 | 7/11 | 1 | 0 | 6 | 7 on H4 (par 5) | 52 shots |
+| 2026-08-22 | Presidio Golf Course (White) | **98** | +26 | 37 | 1 | 2 | 6/11 | 3 | 9 | 8 | 8 on H2 (par 5) | 58 shots |
+| 2026-09-08 | Presidio Golf Course (White) | **93** | +21 | 36 | 2 | 2 | 5/12 | 3 | 3 | 6 | 6 on H3 (par 4) | 45 shots |
+| 2026-09-15 | Lake \| The Olympic Club (Blue) | **99** | +28 | 38 | 1 | 3 | 5/11 | 0 | 2 | 9 | 7 on H6 (par 4) | 53 shots |
+| 2026-09-26 | Lincoln Park Golf Course (Blue) | **77** | +9 | 29 | 5 | 0 | 9/13 | 1 | 0 | 2 | 7 on H18 (par 4) | 40 shots |
+| 2026-10-05 | Meadow Club Fairfax (Blue) | **88** | +17 | 36 | 1 | 1 | 12/14 | 4 | 3 | 4 | 7 on H3 (par 4) | 42 shots |
+| 2026-10-14 | Ocean \| Half Moon Bay Golf Links (White) | **88** | +16 | 35 | 3 | 2 | 10/15 | 3 | 3 | 5 | 7 on H6 (par 4) | 45 shots |
+
+Fairways are hit over Grint's classified codes; Pen is penalty strokes (W, D, O) and
+Bunker is bunker shots (S, F) off the card's penalty row; Dbl+ is holes at double bogey
+or worse against the watch's par.
+
+### The read
+
+- 10 cards from 2026-07-26 to 2026-10-14: 90.4 a round, from 77 at Lincoln Park Golf Course to 99 at Lake | The Olympic Club; 4 of the 10 under 90, 1 under 80. The career runs 90.4.
+- Double bogey or worse 5.7 times a round on the 7 rounds the watch heard, carrying 61% of the strokes dropped over par — the score is made on the blow-up holes, not on the bogeys.
+- Fairways 61% (75 of 122 classified holes; career 62%): 15 missed left, 25 right, 7 unspecified — the miss leans right, so there is a side to aim away from.
+- 2.4 troublesome tee balls a round on the watch's 7 rounds — a mishit wood, a bunker, or a punch-out next — and those holes went +1.7 against +1.0 on the rest.
+- 4.9 greens a round on Grint's last 10 charted rounds. The watch saw 49 of 135 approaches from 50–200 yd finish on the green (36%); of the 86 misses it could place, 44% were short.
+- Up and down 6 of 43 (14%) when the last shot started inside 50 yd; chips that reach the green stop a median 5.6 yd from the hole, 8 of 23 inside 6 ft.
+- 35.0 putts a round (career 35.6): 1.8 three-putts a round, 10% of holes, against 2.6 one-putts.
+- 2.4 penalty strokes a card on the row — 24 drops, 0 penalty areas, 0 out of bounds — and 3.0 bunker shots a card; 0 of 10 cards blank throughout. Career: 2.4 and 1.9 a card. A blank cell is Grint's "not counted", so every one of these is a floor.
+- The chart's last 10 differentials average 17.6 (career 17.6) and moved the trending handicap from 12.9 to 13.7.
+
+### Last 10 against the record
+
+Grint's chart rows are sliced by position and never joined to the cards; their last 10 course names do match the cards' in order.
+
+| | Last 10 | Career | What was counted |
 |---|---|---|---|
-| 2026-09-08 | Presidio Golf Course | 93 | 36 |
-| 2026-09-15 | Lake \| The Olympic Club | 99 | 38 |
-| 2026-09-26 | Lincoln Park Golf Course | 77 | 29 |
-| 2026-10-05 | Meadow Club Fairfax | 88 | 36 |
-| 2026-10-14 | Ocean \| Half Moon Bay Golf Links | 88 | 35 |
-
-| | Recent | Career |
-|---|---|---|
-| Scoring | **90.0** (13 rounds) | 90.4 (146 rounds) |
-| Putts / round | **34.8** (13 rounds) | 35.6 (143 rounds) |
-| Three-putt share | **9%** (233 holes) | 13% (2770 holes) |
-| Fairways hit | **63%** (164 holes) | 62% (1629 holes) |
+| **Scoring** | | | |
+| Strokes | **90.4 (10 rounds)** | 90.4 (146 rounds) | mean over distinct 18-hole cards; a quick-entry echo of a card on file is not counted twice |
+| Best / worst | **77 / 99** | 77 / 102 |  |
+| Cards under 90 / under 80 | **4 / 1 of 10** | 58 / 2 of 146 |  |
+| Over par | **+19.4 (7 rounds the watch heard)** | +19.4 (7 rounds) | card strokes against the watch's pars, on confirmed links only |
+| Double bogey or worse | **5.7 a round (7 rounds heard)** | 5.7 a round (7 rounds) | holes two or more over the watch's par |
+| Over-par strokes those holes carry | **61%** | 61% | of every stroke dropped over par on an over-par hole |
+| Par 3 / 4 / 5, over par | **+0.9 / +1.2 / +1.0 (126 holes)** | +0.9 / +1.2 / +1.0 (126 holes) | mean strokes over par by hole par, same join |
+| **Off the tee** | | | |
+| Fairways hit | **61% (75 of 122 holes)** | 62% (967 of 1571 holes) | Grint's own codes — hit, left, right, missed; a code outside its legend is carried as unclassified, never read as a miss |
+| Misses left / right / unspecified | **15 / 25 / 7** | 258 / 269 / 77 | leans right |
+| Fairways hit, Grint's chart | **44.3% (last 10 charted)** | 50.4% (113 charted) | Grint's own per-round figure, sliced by position — its denominator is Grint's, not the codes' |
+| Troublesome tee balls | **2.4 a round (17 of 94 par-4/5 tee shots, 7 rounds)** | 2.4 a round (17 of 94, 7 rounds) | a driver, wood or hybrid under 170 yd, a tee ball into a bunker, or a recovery shot next |
+| What one costs | **+1.7 on those holes vs +1.0 on the rest** | +1.7 vs +1.0 | mean strokes over par |
+| **Into the green** | | | |
+| Greens in regulation | **4.9 a round (last 10 charted)** | 5.1 a round (153 charted) | Grint's own chart, sliced by position and never joined to the cards |
+| Par-3 greens hit | **32.0% (last 10 charted)** | 39.3% (153 charted) | Grint's chart, same slice |
+| Approaches 50–200 yd on the green | **36% (135 approaches)** | 36% (135 approaches) | the watch: a shot started 50–200 yd from the pin, a par-3 tee shot included, that ended on the green |
+| Misses short / long / lateral | **38 / 23 / 25** | 38 / 23 / 25 | 0 unclassifiable (the shot's end is the pin itself); 9 into a bunker |
+| From 125–200 yd | **19% on (62)** | 19% on (62) |  |
+| **Around the green** | | | |
+| Up and down | **6 of 43 (14%)** | 6 of 43 (14%) | the last heard shot started inside 50 yd off the green and reached it; made = one putt or none on the card |
+| Chips reaching the green | **66% (67 chips)** | 66% (67 chips) | every shot started inside 50 yd from off the green |
+| Chip leave | **median 5.6 yd · 8 of 23 inside 6 ft** | median 5.6 yd · 8 of 23 inside 6 ft | 21 leaves unmeasurable (ended on the pin) |
+| **On the green** | | | |
+| Putts | **35.0 a round (10 rounds)** | 35.6 a round (143 rounds) | the card's total |
+| One-putts | **2.6 a round (10 cards)** | 2.7 a round (143 cards) | holes with exactly one putt on the card |
+| Three-putts | **1.8 a round · 10% of 179 holes** | 2.4 a round · 13% of 2564 holes | holes with three or more putts |
+| **Penalties** | | | |
+| Penalty strokes | **2.4 a card (10 cards)** | 2.4 a card (146 cards) | W, D and O on the penalty row; a blank cell counts as clean, so a floor |
+| By type: drop / penalty area / OB | **24 / 0 / 0** | 312 / 7 / 29 |  |
+| Bunker shots | **3.0 a card · 26 greenside, 4 fairway** | 1.9 a card · 208 greenside, 71 fairway | S and F on the row — a lie, not a penalty stroke; same floor |
+| Cards with a blank row | **0 of 10** | 19 of 146 | clean, or never filled in — the record cannot tell which |
+| **Handicap** | | | |
+| Differential | **17.6 (last 10 charted)** | 17.6 (160 charted) | Grint's handicap chart, sliced by position |
+| Trending handicap | **12.9 → 13.7** | 23.9 → 13.7 | where the chart's trending line stood at the slice's first and last point |
 
 ## On the course
 

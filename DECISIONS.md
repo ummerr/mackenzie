@@ -6,6 +6,53 @@ a settled question or repeat a mistake that's already been paid for.
 
 ---
 
+## 2026-10-15 — The last ten rounds replace "Recent form"
+
+**Decided:** the "Recent form" section of `PROFILE.md` and `/rounds` (a
+last-5 table plus four recent-vs-career lines) becomes "The last 10
+rounds": one object, `buildRecentRounds` in `lib/recent-rounds.ts`, that
+reads every ledger able to speak to a card. Per round — score, over par,
+putts, one- and three-putts, fairways hit, penalty strokes, bunker shots,
+double-or-worse count, the worst hole, and how many shots the watch heard.
+Then "the read": one sentence per ledger, every one carrying its numbers.
+Then the window against the whole record, grouped tee → green → putting →
+penalties → handicap, each row with both numbers and both n's and a note
+saying what was counted. The rows arrive pre-formatted from the lib so the
+page and the file render the same strings.
+
+**Why ten cards and not eighteen months:** the 18-month window exists for
+the `recent-form` *finding* (DECISIONS 2026-08-20) and stays — it is the
+right unit for "has the golf moved". But the question asked of the section
+was "what did the golf just do", and ten cards is what a reader can hold
+in one table: the cards themselves, with every leak the record can locate
+on each. `recentVsCareer` is untouched; the section simply no longer
+renders it.
+
+**Rules kept, and the one new seam:**
+
+- **The watch joins through a confirmed link only.** Pars come from the
+  watch's card, so over par, doubles and the worst hole print on linked
+  rounds and print a dash elsewhere — never the watch's own stroke count
+  in a card's row. The tee/approach/short-game rows reuse the
+  `lib/break80.ts` classifiers on the window's hole views, so the plan and
+  the section cannot disagree about what a troublesome tee ball is.
+- **Grint's charts stay positional.** GIR, par-3 greens, Grint's own
+  fairway % and the differential tail are the chart's last ten points,
+  labelled as such. The one thing said about the join is whether the
+  chart's last ten course names equal the cards' in order — a statement
+  about two arrays, printed either way, repaired never.
+- **Two fairway numbers, deliberately.** "Fairways hit" over Grint's
+  classified codes (7 and 8 carried as unclassified) and "Fairways hit,
+  Grint's chart" sit in adjacent rows and disagree on this record (61% vs
+  44%): the chart's denominator is Grint's, the codes' is ours, and
+  printing one would hide that.
+- **Every penalty figure is a floor** and every penalty row says so — the
+  blank-cell rule from 2026-08-24, unchanged.
+- **Reads are templates, gated on data.** A read that needs a number the
+  record lacks is not emitted; the only interpretive clauses ("the score
+  is made on the blow-up holes", "leans left") fire on thresholds in
+  `RECENT_ROUNDS` and restate the figure that tripped them.
+
 ## 2026-10-15 — Scout: the plan goes to the first tee
 
 **Decided:** `/scout` (nav: Scout) and `/scout/<facility>` — one hole at a
@@ -78,6 +125,44 @@ that, and the nightly capture brings it home).
 **2009 routing.** NBC Bay Area's Presidents Cup hole-by-hole is the
 rerouted order that started on today's 10th; each hole was mapped back by
 par and yardage and the remap is in the file's `_README`.
+
+---
+
+## 2026-10-15 — The trips get photographs, and the map becomes an atlas
+
+**Decided:** the first cut's graphics — satellite tiles with a label layer
+pasted over them, and an unfurl card that was three orange discs on blank
+paper — were not worth sending to anyone. Three changes:
+
+- *Photographs, with their credits.* `data/california-100-photos.json` holds
+  35 pictures from Wikimedia Commons (CC0, public domain, CC BY, CC BY-SA
+  only), each with the author, the licence, the Commons page and our own
+  caption, filed in `public/california/photos` at 1100px (6 MB in all).
+  Every trip has one hero — the place, not a course: Sardine Lake, the Lone
+  Cypress, Donner Lake, the Torrey cliffs, the pink moment — and the coast
+  courses have real pictures (Pebble's 18th, Harding's cypress, Coronado's
+  16th, Torrey from an Osprey). Where a picture is of a sister course or
+  the canyon rather than the course, the caption says so. The credit a
+  licence asks for prints under every picture and links to Commons;
+  validate refuses a picture with a licence not on the list, no author, no
+  page, or a subject that is not a trip or a course, and a trip without
+  exactly one hero.
+- *The atlas.* The trip map draws Esri's National Geographic basemap
+  instead of imagery — terrain, roads and town names, the thing a trip is
+  planned on — with the route in the accent over it. Imagery stays for the
+  "from above" squares, and only when the map found the course itself; a
+  town centroid gets a sentence, not a picture of a town.
+- *The unfurl is the hero.* The Open Graph card is the hero photograph
+  full-bleed with the title set into it, the three courses and the fee
+  band, the credit in the corner — read from `public/` as bytes at build so
+  the card needs no network.
+
+**Rejected:** course websites' photographs (copyright); Unsplash and Flickr
+(an API key, and Flickr's licences vary per photo); hotlinking Commons
+(their policy discourages it, and a page to send should not depend on a
+third party's thumbnail server); AI-generated pictures of courses (a
+picture of a course that is not the course is a lie on a page whose whole
+contract is that every claim carries its source).
 
 ---
 

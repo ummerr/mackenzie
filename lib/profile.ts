@@ -53,8 +53,9 @@ import type { Break80 } from "./break80";
 import type { GoalsProgress } from "./goals";
 import { buildLeaks, type Leak } from "./leaks";
 import type { LedgerSession, LedgerShot } from "./ledger";
+import { buildRecentRounds, type RecentRounds } from "./recent-rounds";
 import { buildSources, type SourceRef } from "./sources";
-import type { RecentForm, RoundHistory } from "./round-history";
+import type { PlayedRound, RecentForm, RoundHistory } from "./round-history";
 import {
   differentialTail,
   differentialTrend,
@@ -198,6 +199,9 @@ export interface GolferProfile {
   /** The recent window beside the whole record — null without round data or
    *  when the window holds fewer than `minRecentRounds` distinct rounds. */
   recentForm: RecentForm | null;
+  /** The last ten cards read across every ledger (lib/recent-rounds.ts) —
+   *  null without round data or under `RECENT_ROUNDS.min` distinct rounds. */
+  recentRounds: RecentRounds | null;
   /** What the watch has heard on the course, gate-independent: the findings
    *  wait for `GARMIN_THRESHOLDS.minShotRounds`, but the record itself is
    *  published as soon as it exists, sample sizes attached. */
@@ -236,6 +240,10 @@ export interface ProfileInput {
   goals?: GoalsProgress | null;
   /** From `buildBreak80`. Null when the caller carries no plan. */
   plan?: Break80 | null;
+  /** scorecardId → the Grint card, confirmed links only (lib/load.ts). An
+   *  empty map means the last-ten table prints dashes where the watch would
+   *  have spoken. */
+  linked?: Map<string, PlayedRound>;
 }
 
 const CONFIDENCE_WEIGHT: Record<Confidence, number> = {
@@ -315,6 +323,7 @@ export function buildProfile({
   wedgeMatrix = null,
   goals = null,
   plan = null,
+  linked = new Map<string, PlayedRound>(),
 }: ProfileInput): GolferProfile {
   const findings: Finding[] = [];
   const trusted = shots.filter((s) => !s.isExcluded);
@@ -1193,6 +1202,7 @@ export function buildProfile({
     unknowns: buildUnknowns(history, roundHistory, garminShots, bag, wedgeMatrix),
     recentForm:
       form !== null && form.scoring.recentN >= PROFILE_THRESHOLDS.minRecentRounds ? form : null,
+    recentRounds: buildRecentRounds({ roundHistory, garminShots, linked }),
     onCourse,
     sources: buildSources({ shots, sessions, history, roundHistory, garminShots }),
     rangeOnly: history === null,

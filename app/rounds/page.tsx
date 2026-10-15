@@ -3,7 +3,8 @@ import type { ReactNode } from "react";
 import { shotRounds, type GarminShots } from "@/lib/garmin-shots";
 import type { Leak } from "@/lib/leaks";
 import { loadLinkedGrint } from "@/lib/load";
-import type { PlayedRound, RecentForm, RoundHistory, StatPair } from "@/lib/round-history";
+import { buildRecentRounds, STAT_GROUPS, type RecentRounds } from "@/lib/recent-rounds";
+import type { PlayedRound, RoundHistory } from "@/lib/round-history";
 import { buildSiteData } from "@/lib/site-data";
 import { buildSources } from "@/lib/sources";
 import { ArcChart, Mini } from "../charts";
@@ -15,7 +16,6 @@ import {
   decodePenaltyCode,
   describePenalties,
   differentialTrend,
-  recentVsCareer,
   eighteenHole,
   fairwaySplit,
   PENALTY_CODE,
@@ -47,59 +47,49 @@ export const metadata = {
 const f1 = (n: number) => n.toFixed(1);
 const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
 
-/* Both numbers, always: the recent figure answers "what does the golf do now",
- * the career figure answers "what has it ever done", and printing only one
- * would hide that recency moved it. Moved here from the front page — the
- * scorecards' recent window is this page's fact-family. A round the watch
- * also heard links to its diary entry: the same round carries two stroke
- * counts, one per ledger, and the link is the join saying so. */
-function RecentFormSection({
-  form,
-  scorecardByRound,
-  garmin,
-}: {
-  form: RecentForm;
-  scorecardByRound: Map<string, string>;
-  garmin: GarminShots | null;
-}) {
-  const lastN = form.recentRounds.slice(-PROFILE_THRESHOLDS.recentRoundCount);
-  const num = (v: number | null, digits = 1) => (v === null ? "—" : v.toFixed(digits));
-  const pctOf = (v: number | null) => (v === null ? "—" : `${(v * 100).toFixed(0)}%`);
-  const shotCountByCard = new Map(
-    (garmin?.rounds ?? []).map((r) => [r.scorecardId, r.shotCount]),
-  );
-  const rows: { label: string; pair: StatPair; fmt: (v: number | null) => string; unit: string }[] = [
-    { label: "Scoring", pair: form.scoring, fmt: (v) => num(v), unit: "rounds" },
-    { label: "Putts / round", pair: form.putts, fmt: (v) => num(v), unit: "rounds" },
-    { label: "Three-putt share", pair: form.threePutt, fmt: pctOf, unit: "holes" },
-    { label: "Fairways hit", pair: form.fairwayHit, fmt: pctOf, unit: "holes" },
-    { label: "Penalty strokes / card", pair: form.penaltyStrokes, fmt: (v) => num(v), unit: "cards, floor" },
-    { label: "Bunker shots / card", pair: form.bunkerShots, fmt: (v) => num(v), unit: "cards, floor" },
-  ];
+/* The last ten cards, read across every ledger — the same object PROFILE.md
+ * renders (lib/recent-rounds.ts), rows pre-formatted so the two cannot drift.
+ * Both numbers, always: the window answers "what does the golf do now", the
+ * career figure answers "what has it ever done", and printing only one would
+ * hide that recency moved it. A round the watch also heard links to its diary
+ * entry: the same round carries two stroke counts, one per ledger, and the
+ * link is the join saying so. */
+function RecentRoundsSection({ recent }: { recent: RecentRounds }) {
+  const dash = (v: number | null) => (v === null ? "—" : String(v));
+  const signed = (v: number) => (v > 0 ? `+${v}` : String(v));
   return (
     <section className="mt-10" id="recent">
-      <h2 className="font-serif text-[26px] leading-tight">Recent form</h2>
+      <h2 className="font-serif text-[26px] leading-tight">The last {recent.count} rounds</h2>
       <p className="mt-2 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
-        The last {form.months} months (since {form.cutoff}), measured from the
-        newest card ({form.asOf}) — never from today, so the page reads the
-        same until the record changes. Quick-entry echoes of a card already on
-        file are not counted twice. Under each round, the card&apos;s own
-        penalty row, hole by hole:{" "}
+        The last {recent.count} distinct 18-hole cards, {recent.from} → {recent.asOf}, measured
+        from the newest card — never from today, so the page reads the same until the record
+        changes. Quick-entry echoes of a card already on file are not counted twice. The watch
+        heard {recent.heard} of the {recent.count} through a confirmed link; pars come from the
+        watch, so over par, double bogeys and the worst hole print only on those. Under each
+        round, the card&apos;s own penalty row, hole by hole:{" "}
         {PENALTY_LETTERS.map((l, i) => (
           <span key={l}>
             {i > 0 ? " · " : ""}
             <b className="text-ink-2">{l}</b> {PENALTY_CODE[l].label}
           </span>
         ))}
-        . A letter is one event, so <b className="text-ink-2">SS</b> is two
-        bunker shots; a blank is a hole Grint did not count — clean, or never
-        entered.
+        . A letter is one event, so <b className="text-ink-2">SS</b> is two bunker shots; a
+        blank is a hole Grint did not count — clean, or never entered — so every penalty figure
+        is a floor.
       </p>
 
       <ul className="mt-5 space-y-px">
-        {lastN.map((r) => {
-          const scorecardId = scorecardByRound.get(r.roundId) ?? null;
-          const heard = scorecardId !== null ? (shotCountByCard.get(scorecardId) ?? null) : null;
+        {recent.rounds.map((l) => {
+          const r = l.round;
+          const bits: string[] = [];
+          if (l.overPar !== null) bits.push(`${signed(l.overPar)} to par`);
+          if (r.putts !== null) bits.push(`${r.putts} putts`);
+          if (l.onePutts !== null) bits.push(`${l.onePutts} one-putt${l.onePutts === 1 ? "" : "s"}`);
+          if (l.threePutts !== null) bits.push(`${l.threePutts} three-putt${l.threePutts === 1 ? "" : "s"}`);
+          if (l.fairways !== null) bits.push(`fairways ${l.fairways.hit}/${l.fairways.classified}`);
+          if (l.doublesOrWorse !== null) bits.push(`${l.doublesOrWorse} double or worse`);
+          if (l.worstHole !== null)
+            bits.push(`worst ${l.worstHole.strokes} on H${l.worstHole.hole} (par ${l.worstHole.par})`);
           return (
             <li
               key={r.roundId}
@@ -107,38 +97,66 @@ function RecentFormSection({
               style={{ borderColor: "var(--line)" }}
             >
               <span className="font-mono text-[11px] tabular-nums text-ink-3">{r.date}</span>
-              <span className="text-[15px] leading-snug text-ink-0">{r.courseName ?? "—"}</span>
+              <span className="text-[15px] leading-snug text-ink-0">
+                {r.courseName ?? "—"}
+                {r.teeName ? <span className="text-ink-3"> · {r.teeName}</span> : null}
+              </span>
               <span className="ml-auto shrink-0 font-mono text-[11px] tabular-nums text-ink-1">
-                {r.strokes ?? "—"} strokes
-                {r.putts !== null ? ` · ${r.putts} putts` : ""}
-                {scorecardId !== null && heard !== null && (
+                <b className="text-ink-0">{dash(r.strokes)}</b> strokes
+                {l.scorecardId !== null && l.shotsHeard !== null && (
                   <>
                     {" · "}
                     <Link
-                      href={`#${scorecardId}`}
+                      href={`#${l.scorecardId}`}
                       className="text-ink-1 underline decoration-1 underline-offset-2"
                     >
-                      the watch heard {heard} →
+                      the watch heard {l.shotsHeard} →
                     </Link>
                   </>
                 )}
               </span>
+              <span className="w-full font-mono text-[11px] leading-5 text-ink-2">{bits.join(" · ")}</span>
               <PenaltyRow round={r} />
             </li>
           );
         })}
       </ul>
 
-      <dl className="mt-4 space-y-1 font-mono text-[11px] leading-5">
-        {rows.map((row) => (
-          <div key={row.label} className="flex flex-wrap gap-x-3">
-            <dt className="w-44 shrink-0 text-ink-1">{row.label}</dt>
-            <dd className="text-ink-2">
-              {row.fmt(row.pair.recent)} recent ({row.pair.recentN} {row.unit}) ·{" "}
-              {row.fmt(row.pair.career)} career ({row.pair.careerN} {row.unit})
-            </dd>
-          </div>
+      <h3 className="mt-6 text-[15px] font-bold text-ink-0">The read</h3>
+      <ul className="mt-2 max-w-2xl list-disc space-y-1.5 pl-5 text-[14px] leading-6 text-ink-1 marker:text-accent-ink">
+        {recent.reads.map((r) => (
+          <li key={r}>{r}</li>
         ))}
+      </ul>
+
+      <h3 className="mt-6 text-[15px] font-bold text-ink-0">Last {recent.count} against the record</h3>
+      <p className="mt-1 max-w-2xl font-mono text-[11px] leading-5 text-ink-3">
+        Grint&apos;s chart rows are sliced by position and never joined to the cards
+        {recent.chartNamesMatch === null
+          ? "."
+          : recent.chartNamesMatch
+            ? `; their last ${recent.count} course names do match the cards' in order.`
+            : `; their last ${recent.count} course names do not match the cards' in order.`}
+      </p>
+      <dl className="mt-3 space-y-1 font-mono text-[11px] leading-5">
+        {STAT_GROUPS.map((group) => {
+          const rows = recent.rows.filter((r) => r.group === group);
+          if (rows.length === 0) return null;
+          return (
+            <div key={group} className="pt-2">
+              <div className="stamp text-ink-3">{group}</div>
+              {rows.map((row) => (
+                <div key={row.label} className="flex flex-wrap gap-x-3">
+                  <dt className="w-52 shrink-0 text-ink-1">{row.label}</dt>
+                  <dd className="text-ink-2">
+                    <b className="text-ink-0">{row.recent}</b> · career {row.career}
+                    {row.note ? <span className="text-ink-3"> — {row.note}</span> : null}
+                  </dd>
+                </div>
+              ))}
+            </div>
+          );
+        })}
       </dl>
     </section>
   );
@@ -332,16 +350,10 @@ export default function Rounds() {
    * supplies each move — computed on render so no sentence goes stale. */
   const { garminShots, leaks } = data;
 
-  /* The recent window beside the whole record — the same gate the profile
-   * uses, rendered here because the scorecards' trends live on this page. */
-  const form = recentVsCareer(h, PROFILE_THRESHOLDS.recentMonths);
-  const recentForm =
-    form !== null && form.scoring.recentN >= PROFILE_THRESHOLDS.minRecentRounds ? form : null;
-  /* The watch's copy of a recent round, where a human confirmed the join —
-   * the same round carries two stroke counts, one per ledger, and a link
-   * beats a silent contradiction. */
-  const scorecardByRound = new Map<string, string>();
-  for (const [scorecardId, r] of loadLinkedGrint()) scorecardByRound.set(r.roundId, scorecardId);
+  /* The last ten cards across every ledger — the same object PROFILE.md
+   * renders, built here because the scorecards' trends live on this page.
+   * The watch joins through confirmed links only. */
+  const recent = buildRecentRounds({ roundHistory: h, garminShots, linked: data.linked });
   const watchShots = garminShots
     ? shotRounds(garminShots).reduce((a, r) => a + r.shotCount, 0)
     : 0;
@@ -529,14 +541,8 @@ export default function Rounds() {
         )}
       </section>
 
-      {/* ── recent form ── */}
-      {recentForm && (
-        <RecentFormSection
-          form={recentForm}
-          scorecardByRound={scorecardByRound}
-          garmin={garminShots}
-        />
-      )}
+      {/* ── the last ten rounds ── */}
+      {recent && <RecentRoundsSection recent={recent} />}
 
       {/* ── the watch's diary of the rounds it heard ── */}
       <WatchSection garmin={garminShots} linked={loadLinkedGrint()} />
