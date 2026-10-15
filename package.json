@@ -22,6 +22,7 @@
     "data:parse": "node scripts/parse-grint.mjs",
     "data:spine": "node scripts/rounds-to-spine.mjs",
     "data:geocode": "node scripts/geocode.mjs",
+    "data:geocode:ca": "node scripts/geocode-california.mjs",
     "data:osm": "node scripts/fetch-osm.mjs",
     "data:holes": "node scripts/fetch-holes.mjs",
     "data:build": "node scripts/build.mjs",

@@ -81,6 +81,43 @@ par and yardage and the remap is in the file's `_README`.
 
 ---
 
+## 2026-10-15 — A trip is a page to send: maps, unfurls, a share bar
+
+**Decided:** every trip gets its own static URL, `/california/trips/<slug>`,
+with an Open Graph card built at deploy, a satellite map of the airport and
+the courses in order, a square of imagery for every course, and a share bar
+(the phone's share sheet, the clipboard, and a Google Maps directions link
+with the stops in order). `/california/trips` is every trip on one page for
+the "which weekend" message. The cards on `/california` carry the small map
+and the same share bar and link through.
+
+**The points.** `data/california-100-geo.json` holds one point per course of
+the hundred (by entry slug) and per trip airport (by IATA code), from
+`scripts/geocode-california.mjs` — the record's own geocache when the entry
+names a spine facility, else Nominatim with the same golf-feature preference
+`geocode.mjs` has, else the town as an honest `city_centroid`. Every point
+carries its precision and the page says when it is drawing a town instead of
+a course. Validate refuses a trip whose course or airport has no point, and
+a point outside California.
+
+**The map, with no map library.** `lib/tile-map.ts` is the Web Mercator
+arithmetic: a point to a tile and a pixel, the zoom that fits a set of points
+into a box, the tiles the box covers. A map is one inline SVG whose
+`<image>`s are Esri World Imagery tiles (the `/courses` map's own source,
+same credit line) and whose circles are the pins, so it scales to its column
+with no script, builds static, and prints. The unfurl card draws the route
+from the same points but without tiles, so the build needs no network for
+it beyond the serif, which falls back to the default face rather than fail.
+
+**Rejected:** Leaflet on a Next page (a client bundle for a picture that
+never moves); a Google Static Maps key (a secret and a bill for nine
+pictures); hand-drawn California outlines (a map of nowhere in particular);
+a tile `<img>` grid scaled with CSS (needs measuring; SVG scales itself);
+real road miles between stops (no routing service; the straight-line miles
+say "straight line" and the directions link gives the road).
+
+---
+
 ## 2026-10-13 — Trips: the hundred grouped into weekends
 
 **Decided:** `/california` gets a Trips section — nine weekends with friends,

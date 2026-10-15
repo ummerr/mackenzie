@@ -1,0 +1,1094 @@
+{
+  "_README": [
+    "One point per course of the California 100 (by entry slug) and per trip airport (by IATA",
+    "code), from scripts/geocode-california.mjs. precision says what the point is: course_feature",
+    "(an OSM golf course), named_place (a match by name, not as a golf feature), city_centroid",
+    "(the town — the course was not found), aerodrome, or manual (hand-entered; never overwritten).",
+    "A null is an honest miss with its query kept. The trip map and the satellite thumbnails read",
+    "this; validate insists every trip course and airport resolves to a real point."
+  ],
+  "points": {
+    "apple-mountain": {
+      "lat": 38.7517124,
+      "lon": -120.7139906,
+      "precision": "course_feature",
+      "display": "Apple Mountain Golf Course, 3455, Carson Road, Five Mile Terrace, El Dorado County, California, 95709, United States",
+      "osmId": "way/125602596",
+      "source": "nominatim",
+      "query": "Apple Mountain, Camino, California",
+      "checked": "2026-10-15"
+    },
+    "arroyo-trabuco": {
+      "lat": 33.5413668,
+      "lon": -117.6641634,
+      "precision": "named_place",
+      "display": "Arroyo Trabuco Golf Club, Mission Viejo, Orange County, California, 92694, United States",
+      "osmId": "way/361612772",
+      "source": "nominatim",
+      "query": "Arroyo Trabuco, Mission Viejo, California",
+      "checked": "2026-10-15"
+    },
+    "aviara": {
+      "lat": 33.092728,
+      "lon": -117.2862764,
+      "precision": "course_feature",
+      "display": "Aviara Golf Club, 7447, Batiquitos Drive, Aviara, Carlsbad, San Diego County, California, 92011, United States",
+      "osmId": "relation/19922772",
+      "source": "nominatim",
+      "query": "Aviara Golf Course, Carlsbad, California",
+      "checked": "2026-10-15"
+    },
+    "balboa-park": {
+      "lat": 32.7300663,
+      "lon": -117.1367331,
+      "precision": "course_feature",
+      "display": "Balboa Park Golf Course, Golden Hill Drive, South Park, Golden Hill, San Diego, San Diego County, California, 92134, United States",
+      "osmId": "relation/3573430",
+      "source": "nominatim",
+      "query": "Balboa Park Golf Course, San Diego",
+      "checked": "2026-10-15"
+    },
+    "barona-creek": {
+      "lat": 32.8503194,
+      "lon": -116.8960084,
+      "precision": "city_centroid",
+      "display": "Lakeside, San Diego County, California, 92040, United States",
+      "osmId": "relation/2294424",
+      "source": "nominatim",
+      "query": "Lakeside, California",
+      "checked": "2026-10-15"
+    },
+    "baylands": {
+      "lat": 37.4572871,
+      "lon": -122.1188256,
+      "precision": "course_feature",
+      "display": "Baylands Golf Links, 1875, Embarcadero Road, Palo Alto, Santa Clara County, California, 94303, United States",
+      "osmId": "way/23631855",
+      "source": "nominatim",
+      "query": "Baylands, Palo Alto, California",
+      "checked": "2026-10-15"
+    },
+    "bayonet": {
+      "lat": 36.6323189,
+      "lon": -121.8226684,
+      "precision": "course_feature",
+      "display": "Bayonet Golf Course, 1, McClure Way, Seaside, Monterey County, California, 93955, United States",
+      "osmId": "way/247046075",
+      "source": "nominatim",
+      "query": "Bayonet, Seaside, California",
+      "checked": "2026-10-15"
+    },
+    "black-gold": {
+      "lat": 33.9064119,
+      "lon": -117.8220305,
+      "precision": "course_feature",
+      "display": "Black Gold Golf Club, 1, Black Gold Drive, Yorba Linda, Orange County, California, 92886, United States",
+      "osmId": "way/210339919",
+      "source": "geocache:black-gold-golf-club",
+      "query": null,
+      "checked": "2026-10-15"
+    },
+    "black-horse": {
+      "lat": 36.6275861,
+      "lon": -121.8226626,
+      "precision": "course_feature",
+      "display": "Black Horse Golf Course, 1, McClure Way, Seaside, Monterey County, California, 93955, United States",
+      "osmId": "way/703324846",
+      "source": "nominatim",
+      "query": "Black Horse, Seaside, California",
+      "checked": "2026-10-15"
+    },
+    "boundary-oak": {
+      "lat": 37.9259289,
+      "lon": -122.0016251,
+      "precision": "course_feature",
+      "display": "Boundary Oak Golf Course, 3800, Valley Vista Road, Walnut Creek, Contra Costa County, California, 94598, United States",
+      "osmId": "way/31270695",
+      "source": "nominatim",
+      "query": "Boundary Oak, Walnut Creek, California",
+      "checked": "2026-10-15"
+    },
+    "brookside-koiner": {
+      "lat": 34.1672572,
+      "lon": -118.1701492,
+      "precision": "course_feature",
+      "display": "Brookside Golf Club, 1133, Rosemont Avenue, Pasadena Council District 1, Pasadena, Los Angeles County, California, 91103, United States",
+      "osmId": "relation/16307627",
+      "source": "nominatim",
+      "query": "Brookside, Pasadena, California",
+      "checked": "2026-10-15"
+    },
+    "callippe-preserve": {
+      "lat": 37.6300185,
+      "lon": -121.8641246,
+      "precision": "course_feature",
+      "display": "Callippe Preserve, 8500, Clubhouse Drive, Pleasanton, Alameda County, California, 94566, United States",
+      "osmId": "relation/1745396",
+      "source": "nominatim",
+      "query": "Callippe Preserve, Pleasanton, California",
+      "checked": "2026-10-15"
+    },
+    "carmel-valley-ranch": {
+      "lat": 36.5171311,
+      "lon": -121.7997927,
+      "precision": "course_feature",
+      "display": "Carmel Valley Ranch Golf Course, Buckeye Road, Monterey County, California, United States",
+      "osmId": "way/36858684",
+      "source": "nominatim",
+      "query": "Carmel Valley Ranch Golf Course",
+      "checked": "2026-10-15"
+    },
+    "cinnabar-hills": {
+      "lat": 37.1704837,
+      "lon": -121.7501972,
+      "precision": "course_feature",
+      "display": "Cinnabar Hills Golf Club, 23600, McKean Road, San Jose, Santa Clara County, California, 95141, United States",
+      "osmId": "way/1162481658",
+      "source": "geocache:cinnabar-hills-golf-club",
+      "query": null,
+      "checked": "2026-10-15"
+    },
+    "classic-club": {
+      "lat": 33.7833802,
+      "lon": -116.3383264,
+      "precision": "course_feature",
+      "display": "Classic Club Golf Course, Gerald Ford Drive, Palm Desert, Riverside County, California, 92211, United States",
+      "osmId": "relation/2995086",
+      "source": "nominatim",
+      "query": "Classic Club, Palm Desert, California",
+      "checked": "2026-10-15"
+    },
+    "cordevalle": {
+      "lat": 37.0672773,
+      "lon": -121.6330118,
+      "precision": "course_feature",
+      "display": "CordeValle Golf Club, Cordevalle Club Drive, San Martin, Santa Clara County, California, 95046, United States",
+      "osmId": "way/27286634",
+      "source": "nominatim",
+      "query": "CordeValle Golf Course, San Martin, California",
+      "checked": "2026-10-15"
+    },
+    "corica-park-north": {
+      "lat": 37.7383729,
+      "lon": -122.2322559,
+      "precision": "course_feature",
+      "display": "Corica Park Golf Course, 1, Clubhouse Memorial Road, Alameda, Alameda County, California, 94502, United States",
+      "osmId": "way/40224423",
+      "source": "nominatim",
+      "query": "Corica Park, Alameda, California",
+      "checked": "2026-10-15"
+    },
+    "corica-park-south": {
+      "lat": 37.7383729,
+      "lon": -122.2322559,
+      "precision": "course_feature",
+      "display": "Corica Park Golf Course, 1, Clubhouse Memorial Road, Alameda, Alameda County, California, 94502, United States",
+      "osmId": "way/40224423",
+      "source": "nominatim",
+      "query": "Corica Park, Alameda, California",
+      "checked": "2026-10-15"
+    },
+    "coronado": {
+      "lat": 32.6852349,
+      "lon": -117.1659988,
+      "precision": "course_feature",
+      "display": "Coronado Golf Course, 2000, Visalia Row, Glorietta Bay, Coronado, San Diego County, California, 92118, United States",
+      "osmId": "way/935513443",
+      "source": "nominatim",
+      "query": "Coronado Golf Course, Coronado, California",
+      "checked": "2026-10-15"
+    },
+    "coyote-creek-tournament": {
+      "lat": 37.1946671,
+      "lon": -121.6960421,
+      "precision": "course_feature",
+      "display": "Coyote Creek Golf Club Tournament Course, 1, Coyote Creek Golf Drive, Morgan Hill, Santa Clara County, California, 95037, United States",
+      "osmId": "way/1417621369",
+      "source": "nominatim",
+      "query": "Coyote Creek Tournament, Morgan Hill, California",
+      "checked": "2026-10-15"
+    },
+    "coyote-moon": {
+      "lat": 39.3330879,
+      "lon": -120.2056558,
+      "precision": "course_feature",
+      "display": "Coyote Moon Golf Course, Trout Creek Trail, Gateway, Truckee, Nevada County, California, 96160, United States",
+      "osmId": "way/168460622",
+      "source": "geocache:coyote-moon-golf-course",
+      "query": null,
+      "checked": "2026-10-15"
+    },
+    "crossings-at-carlsbad": {
+      "lat": 33.1297831,
+      "lon": -117.30257,
+      "precision": "course_feature",
+      "display": "The Crossings at Carlsbad, 5800, The Crossings Drive, Carlsbad, San Diego County, California, 92011, United States",
+      "osmId": "way/83332241",
+      "source": "nominatim",
+      "query": "The Crossings at Carlsbad, Carlsbad, California",
+      "checked": "2026-10-15"
+    },
+    "cypress-ridge": {
+      "lat": 35.1235374,
+      "lon": -120.5785796,
+      "precision": "city_centroid",
+      "display": "Arroyo Grande, San Luis Obispo County, California, United States",
+      "osmId": "relation/5192507",
+      "source": "nominatim",
+      "query": "Arroyo Grande, California",
+      "checked": "2026-10-15"
+    },
+    "darkhorse": {
+      "lat": 39.0294135,
+      "lon": -121.0506501,
+      "precision": "course_feature",
+      "display": "DarkHorse Golf Club, 24150, Darkhorse Drive, Auburn, Nevada County, California, 95602, United States",
+      "osmId": "relation/4071249",
+      "source": "nominatim",
+      "query": "DarkHorse, Auburn, California",
+      "checked": "2026-10-15"
+    },
+    "del-monte": {
+      "lat": 36.585563,
+      "lon": -121.8708719,
+      "precision": "course_feature",
+      "display": "Del Monte Golf Course, 1300, Sylvan Road, Del Monte, Monterey, Monterey County, California, 93940, United States",
+      "osmId": "way/27830670",
+      "source": "nominatim",
+      "query": "Del Monte Golf Course, Monterey, California",
+      "checked": "2026-10-15"
+    },
+    "desert-willow-firecliff": {
+      "lat": 33.7665652,
+      "lon": -116.3685105,
+      "precision": "course_feature",
+      "display": "Desert Willow Golf Resort, Portola Avenue, Palm Desert, Riverside County, California, 92211, United States",
+      "osmId": "relation/21320526",
+      "source": "nominatim",
+      "query": "Desert Willow, Palm Desert, California",
+      "checked": "2026-10-15"
+    },
+    "desert-willow-mountain-view": {
+      "lat": 33.7665652,
+      "lon": -116.3685105,
+      "precision": "course_feature",
+      "display": "Desert Willow Golf Resort, Portola Avenue, Palm Desert, Riverside County, California, 92211, United States",
+      "osmId": "relation/21320526",
+      "source": "nominatim",
+      "query": "Desert Willow, Palm Desert, California",
+      "checked": "2026-10-15"
+    },
+    "dragon-at-nakoma": {
+      "lat": 39.769928,
+      "lon": -120.5141851,
+      "precision": "course_feature",
+      "display": "Nakoma Resort Golf Course, Park View, Plumas County, California, 96106, United States",
+      "osmId": "relation/10254443",
+      "source": "nominatim",
+      "query": "Nakoma Golf Resort",
+      "checked": "2026-10-15"
+    },
+    "eagle-falls": {
+      "lat": 33.720646,
+      "lon": -116.1847436,
+      "precision": "course_feature",
+      "display": "Eagle Falls Golf Course, 84-245, Indio Springs Parkway, Indio, Riverside County, California, 92203, United States",
+      "osmId": "relation/2181789",
+      "source": "nominatim",
+      "query": "Eagle Falls, Indio, California",
+      "checked": "2026-10-15"
+    },
+    "eagle-vines": {
+      "lat": 38.2160011,
+      "lon": -122.2492453,
+      "precision": "course_feature",
+      "display": "Eagle Vines Golf Club, 2555;580, South Kelly Road, TDC, Middleton, American Canyon, Napa County, California, 94503, United States",
+      "osmId": "way/1414563333",
+      "source": "geocache:eagle-vines-golf-club",
+      "query": null,
+      "checked": "2026-10-15"
+    },
+    "escena": {
+      "lat": 33.834807,
+      "lon": -116.4964128,
+      "precision": "course_feature",
+      "display": "Escena Golf Club, Soriano Lane, Palm Springs, Riverside County, California, 92262, United States",
+      "osmId": "relation/3016003",
+      "source": "nominatim",
+      "query": "Escena Golf Course, Palm Springs, California",
+      "checked": "2026-10-15"
+    },
+    "goose-creek": {
+      "lat": 33.9632062,
+      "lon": -117.5310661,
+      "precision": "course_feature",
+      "display": "Goose Creek Golf Club, 11418, 68th Street, Mira Loma, Jurupa Valley, Riverside County, California, 91752, United States",
+      "osmId": "way/900726599",
+      "source": "nominatim",
+      "query": "Goose Creek, Jurupa Valley, California",
+      "checked": "2026-10-15"
+    },
+    "graeagle-meadows": {
+      "lat": 39.7650635,
+      "lon": -120.6042877,
+      "precision": "course_feature",
+      "display": "Graeagle Meadows Golf Course, Shasta Trail, Graeagle Meadows, Graeagle, Plumas County, California, 96103, United States",
+      "osmId": "way/168550180",
+      "source": "nominatim",
+      "query": "Graeagle Meadows Golf Course, Graeagle, California",
+      "checked": "2026-10-15"
+    },
+    "grays-crossing": {
+      "lat": 39.3488823,
+      "lon": -120.1634835,
+      "precision": "course_feature",
+      "display": "The Golf Club at Gray's Crossing, Overland Trail Connector, Truckee, Nevada County, California, 96161, United States",
+      "osmId": "relation/9870668",
+      "source": "nominatim",
+      "query": "Gray's Crossing Golf Course, Truckee, California",
+      "checked": "2026-10-15"
+    },
+    "griffith-park-wilson": {
+      "lat": 34.1344267,
+      "lon": -118.3050915,
+      "precision": "course_feature",
+      "display": "Griffith Park, Los Angeles, Los Angeles County, California, United States",
+      "osmId": "relation/7091174",
+      "source": "nominatim",
+      "query": "Griffith Park, Los Angeles, California",
+      "checked": "2026-10-15"
+    },
+    "grizzly-ranch": {
+      "lat": 39.8104983,
+      "lon": -120.4695123,
+      "precision": "city_centroid",
+      "display": "Portola, Plumas County, California, 96122, United States",
+      "osmId": "relation/112239",
+      "source": "nominatim",
+      "query": "Portola, California",
+      "checked": "2026-10-15"
+    },
+    "haggin-oaks-mackenzie": {
+      "lat": 38.6322627,
+      "lon": -121.4064197,
+      "precision": "course_feature",
+      "display": "Haggin Oaks Golf Complex, 3645, Fulton Avenue, Sacramento, Sacramento County, California, 95821, United States",
+      "osmId": "way/1029586166",
+      "source": "nominatim",
+      "query": "Haggin Oaks, Sacramento, California",
+      "checked": "2026-10-15"
+    },
+    "half-moon-bay-ocean": {
+      "lat": 37.4784919,
+      "lon": -122.449397,
+      "precision": "course_feature",
+      "display": "Half Moon Bay State Beach, Miramar, Half Moon Bay, San Mateo County, California, United States",
+      "osmId": "relation/12919691",
+      "source": "nominatim",
+      "query": "Half Moon Bay, Half Moon Bay, California",
+      "checked": "2026-10-15"
+    },
+    "half-moon-bay-old": {
+      "lat": 37.4784919,
+      "lon": -122.449397,
+      "precision": "course_feature",
+      "display": "Half Moon Bay State Beach, Miramar, Half Moon Bay, San Mateo County, California, United States",
+      "osmId": "relation/12919691",
+      "source": "nominatim",
+      "query": "Half Moon Bay, Half Moon Bay, California",
+      "checked": "2026-10-15"
+    },
+    "harding-park": {
+      "lat": 37.7216512,
+      "lon": -122.489086,
+      "precision": "course_feature",
+      "display": "TPC Harding Park, 99, Harding Road, San Francisco, California, 94132, United States",
+      "osmId": "way/16753068",
+      "source": "geocache:tpc-harding-park-golf-course",
+      "query": null,
+      "checked": "2026-10-15"
+    },
+    "hunter-ranch": {
+      "lat": 35.6488317,
+      "lon": -120.6204931,
+      "precision": "course_feature",
+      "display": "Hunter Ranch Golf Course, CA 46, Paso Robles, San Luis Obispo County, California, 93447, United States",
+      "osmId": "way/238108018",
+      "source": "nominatim",
+      "query": "Hunter Ranch Golf Course, Paso Robles, California",
+      "checked": "2026-10-15"
+    },
+    "indian-canyons-south": {
+      "lat": 33.7804663,
+      "lon": -116.5343336,
+      "precision": "course_feature",
+      "display": "Indian Canyons Golf Resort South Golf Course, Arroyo Seco, Palm Springs, Riverside County, California, 92264, United States",
+      "osmId": "relation/326317",
+      "source": "nominatim",
+      "query": "Indian Canyons South, Palm Springs, California",
+      "checked": "2026-10-15"
+    },
+    "indian-wells-celebrity": {
+      "lat": 33.7201239,
+      "lon": -116.3012579,
+      "precision": "course_feature",
+      "display": "Indian Wells Tennis Garden, 78-200, Miles Avenue, Indian Wells, Riverside County, California, 92210, United States",
+      "osmId": "relation/18810425",
+      "source": "nominatim",
+      "query": "Indian Wells, Indian Wells, California",
+      "checked": "2026-10-15"
+    },
+    "indian-wells-players": {
+      "lat": 33.7201239,
+      "lon": -116.3012579,
+      "precision": "course_feature",
+      "display": "Indian Wells Tennis Garden, 78-200, Miles Avenue, Indian Wells, Riverside County, California, 92210, United States",
+      "osmId": "relation/18810425",
+      "source": "nominatim",
+      "query": "Indian Wells, Indian Wells, California",
+      "checked": "2026-10-15"
+    },
+    "industry-hills-ike": {
+      "lat": 34.0222153,
+      "lon": -117.9323806,
+      "precision": "course_feature",
+      "display": "The Industry Hills Golf Club - Ike (Dwight D Eisenhower) Course, 1, Industry Hills Parkway, City of Industry, Los Angeles County, California, 91744, United States",
+      "osmId": "way/221560406",
+      "source": "nominatim",
+      "query": "Industry Hills Ike, City of Industry, California",
+      "checked": "2026-10-15"
+    },
+    "journey-at-pechanga": {
+      "lat": 33.4447626,
+      "lon": -117.0982977,
+      "precision": "course_feature",
+      "display": "Journey at Pechanga, North Casino Drive, Temecula, Riverside County, California, 92592, United States",
+      "osmId": "relation/1966708",
+      "source": "nominatim",
+      "query": "Journey at Pechanga, Temecula, California",
+      "checked": "2026-10-15"
+    },
+    "la-costa-north": {
+      "lat": 33.1352045,
+      "lon": -117.329126,
+      "precision": "city_centroid",
+      "display": "Carlsbad, San Diego County, California, United States",
+      "osmId": "relation/2305279",
+      "source": "nominatim",
+      "query": "Carlsbad, California",
+      "checked": "2026-10-15"
+    },
+    "la-purisima": {
+      "lat": 34.6841592,
+      "lon": -120.423553,
+      "precision": "course_feature",
+      "display": "La Purísima Mission State Historic Park, Lompoc, Santa Barbara County, California, United States",
+      "osmId": "relation/227896",
+      "source": "nominatim",
+      "query": "La Purisima, Lompoc, California",
+      "checked": "2026-10-15"
+    },
+    "links-at-everline": {
+      "lat": 39.1996848,
+      "lon": -120.2236224,
+      "precision": "course_feature",
+      "display": "The Links at Everline, Recreation area, Olympic Valley, Placer County, California, 96146, United States",
+      "osmId": "relation/13336416",
+      "source": "nominatim",
+      "query": "Links at Everline, Olympic Valley, California",
+      "checked": "2026-10-15"
+    },
+    "los-verdes": {
+      "lat": 33.7547476,
+      "lon": -118.4012453,
+      "precision": "course_feature",
+      "display": "Los Verdes Golf Course, 7000, Hawthorne Boulevard, Rancho Palos Verdes, Los Angeles County, California, 90275, United States",
+      "osmId": "way/256916759",
+      "source": "nominatim",
+      "query": "Los Verdes, Rancho Palos Verdes, California",
+      "checked": "2026-10-15"
+    },
+    "maderas": {
+      "lat": 33.038344,
+      "lon": -117.025616,
+      "precision": "course_feature",
+      "display": "Maderas Golf Club, 17750, Old Coach Road, Old Coach, Poway, San Diego County, California, 92064, United States",
+      "osmId": "way/62102530",
+      "source": "nominatim",
+      "query": "Maderas, Poway, California",
+      "checked": "2026-10-15"
+    },
+    "monarch-beach": {
+      "lat": 33.486426,
+      "lon": -117.7189984,
+      "precision": "course_feature",
+      "display": "Monarch Beach Golf Links, Niguel Road, Niguel Shores, Dana Point, Orange County, California, 92677, United States",
+      "osmId": "relation/3568811",
+      "source": "nominatim",
+      "query": "Monarch Beach Golf Course, Dana Point, California",
+      "checked": "2026-10-15"
+    },
+    "monarch-dunes-old": {
+      "lat": 35.0334755,
+      "lon": -120.5543899,
+      "precision": "course_feature",
+      "display": "Monarch Dunes Golf Course, Gabriel Court, San Luis Obispo County, California, 93444, United States",
+      "osmId": "way/397515987",
+      "source": "nominatim",
+      "query": "Monarch Dunes Golf Course",
+      "checked": "2026-10-15"
+    },
+    "moorpark-country-club": {
+      "lat": 34.3021037,
+      "lon": -118.8978828,
+      "precision": "course_feature",
+      "display": "Moorpark Country Club, 11800, Championship Drive, Moorpark, Ventura County, California, 93021, United States",
+      "osmId": "way/875423008",
+      "source": "geocache:moorpark-country-club",
+      "query": null,
+      "checked": "2026-10-15"
+    },
+    "morongo-champions": {
+      "lat": 33.9510301,
+      "lon": -117.0153697,
+      "precision": "course_feature",
+      "display": "Morongo Golf Club at Tukwet Canyon, Ford Street, Beaumont, Riverside County, California, 92223, United States",
+      "osmId": "relation/12772910",
+      "source": "nominatim",
+      "query": "Morongo, Beaumont, California",
+      "checked": "2026-10-15"
+    },
+    "mt-woodson": {
+      "lat": 33.0150433,
+      "lon": -116.9607617,
+      "precision": "course_feature",
+      "display": "Mt. Woodson Golf Club, 16422, North Woodson Drive, Mt. Woodson Castle, Ramona, San Diego County, California, 92065, United States",
+      "osmId": "way/323172257",
+      "source": "nominatim",
+      "query": "Mt. Woodson, Ramona, California",
+      "checked": "2026-10-15"
+    },
+    "oak-quarry": {
+      "lat": 34.0258427,
+      "lon": -117.432437,
+      "precision": "course_feature",
+      "display": "Oak Quarry Golf Club, 7151, Sierra Avenue, Sunnyslope, Jurupa Valley, Riverside County, California, 92509, United States",
+      "osmId": "way/30885000",
+      "source": "geocache:oak-quarry-golf-club",
+      "query": null,
+      "checked": "2026-10-15"
+    },
+    "oak-valley": {
+      "lat": 33.9543649,
+      "lon": -117.0091844,
+      "precision": "course_feature",
+      "display": "Oak Valley Golf Club, Golf Club Drive, Beaumont, Riverside County, California, 92223, United States",
+      "osmId": "way/44486382",
+      "source": "nominatim",
+      "query": "Oak Valley Golf Course, Beaumont, California",
+      "checked": "2026-10-15"
+    },
+    "ojai-valley-inn": {
+      "lat": 34.4360618,
+      "lon": -119.2592395,
+      "precision": "course_feature",
+      "display": "Ojai Valley Inn Golf Course, 905, Country Club Road, Arbolada, Ojai, Ventura County, California, 93023, United States",
+      "osmId": "way/603935193",
+      "source": "geocache:ojai-valley-inn-and-spa",
+      "query": null,
+      "checked": "2026-10-15"
+    },
+    "old-greenwood": {
+      "lat": 39.3522117,
+      "lon": -120.154577,
+      "precision": "course_feature",
+      "display": "Old Greenwood, Truckee, Nevada County, California, United States",
+      "osmId": "way/709686875",
+      "source": "nominatim",
+      "query": "Old Greenwood, Truckee, California",
+      "checked": "2026-10-15"
+    },
+    "olivas-links": {
+      "lat": 34.4458248,
+      "lon": -119.0779359,
+      "precision": "city_centroid",
+      "display": "Ventura County, California, United States",
+      "osmId": "relation/396505",
+      "source": "nominatim",
+      "query": "Ventura, California",
+      "checked": "2026-10-15"
+    },
+    "pacific-grove": {
+      "lat": 36.6308406,
+      "lon": -121.9286007,
+      "precision": "course_feature",
+      "display": "Pacific Grove Golf Links, Briggs Avenue, Monarch Pines Mobile Home Park, Pacific Grove Acres, Pacific Grove, Monterey County, California, 93950, United States",
+      "osmId": "way/36437304",
+      "source": "nominatim",
+      "query": "Pacific Grove Golf Links, Pacific Grove, California",
+      "checked": "2026-10-15"
+    },
+    "pasatiempo": {
+      "lat": 37.0044557,
+      "lon": -122.0236146,
+      "precision": "course_feature",
+      "display": "Pasatiempo, Paradise Park, Santa Cruz County, California, United States",
+      "osmId": "way/40834222",
+      "source": "nominatim",
+      "query": "Pasatiempo, Santa Cruz, California",
+      "checked": "2026-10-15"
+    },
+    "pebble-beach": {
+      "lat": 36.5696646,
+      "lon": -121.9497413,
+      "precision": "named_place",
+      "display": "Pebble Beach Golf Links, 1700, 17 Mile Drive, Pebble Beach, Del Monte Forest, Monterey County, California, 93953, United States",
+      "osmId": "way/686560759",
+      "source": "nominatim",
+      "query": "Pebble Beach Golf Links, Pebble Beach, California",
+      "checked": "2026-10-15"
+    },
+    "pelican-hill-ocean-north": {
+      "lat": 33.5911741,
+      "lon": -117.8510033,
+      "precision": "course_feature",
+      "display": "Pelican Hill Golf Club, Serra Drive, Corona Highlands, Newport Beach, Orange County, California, 92625, United States",
+      "osmId": "relation/3568817",
+      "source": "nominatim",
+      "query": "Pelican Hill Golf Club",
+      "checked": "2026-10-15"
+    },
+    "pelican-hill-ocean-south": {
+      "lat": 33.5911741,
+      "lon": -117.8510033,
+      "precision": "course_feature",
+      "display": "Pelican Hill Golf Club, Serra Drive, Corona Highlands, Newport Beach, Orange County, California, 92625, United States",
+      "osmId": "relation/3568817",
+      "source": "nominatim",
+      "query": "Pelican Hill Golf Club",
+      "checked": "2026-10-15"
+    },
+    "pga-west-greg-norman": {
+      "lat": 33.677474,
+      "lon": -116.2958789,
+      "precision": "city_centroid",
+      "display": "La Quinta, Riverside County, California, United States",
+      "osmId": "relation/2647900",
+      "source": "nominatim",
+      "query": "La Quinta, California",
+      "checked": "2026-10-15"
+    },
+    "pga-west-mountain": {
+      "lat": 33.677474,
+      "lon": -116.2958789,
+      "precision": "city_centroid",
+      "display": "La Quinta, Riverside County, California, United States",
+      "osmId": "relation/2647900",
+      "source": "nominatim",
+      "query": "La Quinta, California",
+      "checked": "2026-10-15"
+    },
+    "pga-west-nicklaus-tournament": {
+      "lat": 33.677474,
+      "lon": -116.2958789,
+      "precision": "city_centroid",
+      "display": "La Quinta, Riverside County, California, United States",
+      "osmId": "relation/2647900",
+      "source": "nominatim",
+      "query": "La Quinta, California",
+      "checked": "2026-10-15"
+    },
+    "pga-west-stadium": {
+      "lat": 33.6494606,
+      "lon": -116.2641818,
+      "precision": "course_feature",
+      "display": "TPC Stadium Golf Course (PGA West), Isleworth, PGA West, La Quinta, Riverside County, California, 92247, United States",
+      "osmId": "relation/19223852",
+      "source": "nominatim",
+      "query": "PGA West Stadium, La Quinta, California",
+      "checked": "2026-10-15"
+    },
+    "plumas-pines": {
+      "lat": 39.7533435,
+      "lon": -120.6484458,
+      "precision": "city_centroid",
+      "display": "Graeagle, Plumas County, California, United States",
+      "osmId": "relation/19962233",
+      "source": "nominatim",
+      "query": "Graeagle, California",
+      "checked": "2026-10-15"
+    },
+    "poppy-hills": {
+      "lat": 36.5847736,
+      "lon": -121.9390026,
+      "precision": "course_feature",
+      "display": "Poppy Hills Golf Course, Lake Court, Del Monte Forest, Monterey County, California, 93953, United States",
+      "osmId": "relation/11841797",
+      "source": "nominatim",
+      "query": "Poppy Hills Golf Course",
+      "checked": "2026-10-15"
+    },
+    "poppy-ridge": {
+      "lat": 37.653298,
+      "lon": -121.6820875,
+      "precision": "course_feature",
+      "display": "Poppy Ridge Golf Course, 4280, Greenville Road, Livermore, Alameda County, California, 94550, United States",
+      "osmId": "way/114224317",
+      "source": "nominatim",
+      "query": "Poppy Ridge, Livermore, California",
+      "checked": "2026-10-15"
+    },
+    "presidio": {
+      "lat": 37.791628,
+      "lon": -122.4655924,
+      "precision": "course_feature",
+      "display": "Presidio Golf Course, 300, Finley Road, Presidio Terrace, Richmond District, San Francisco, California, 94129, United States",
+      "osmId": "way/16650363",
+      "source": "geocache:presidio-golf-course",
+      "query": null,
+      "checked": "2026-10-15"
+    },
+    "quail-lodge": {
+      "lat": 36.5323915,
+      "lon": -121.8514873,
+      "precision": "named_place",
+      "display": "Quail Lodge and Golf Club, Valley Greens Drive, Santa Lucia Preserve, Carmel-by-the-Sea, Monterey County, California, 93921, United States",
+      "osmId": "way/688262916",
+      "source": "nominatim",
+      "query": "Quail Lodge, Carmel Valley, California",
+      "checked": "2026-10-15"
+    },
+    "rams-hill": {
+      "lat": 33.1900936,
+      "lon": -116.3149022,
+      "precision": "course_feature",
+      "display": "Rams Hill Golf Club, 1881, Rams Hill Road, Borrego Springs, San Diego County, California, 92004, United States",
+      "osmId": "relation/8115505",
+      "source": "nominatim",
+      "query": "Rams Hill, Borrego Springs, California",
+      "checked": "2026-10-15"
+    },
+    "rancho-park": {
+      "lat": 34.0441,
+      "lon": -118.4111,
+      "precision": "manual",
+      "display": null,
+      "osmId": null,
+      "source": "geocache:rancho-park-golf-club",
+      "query": null,
+      "checked": "2026-10-15"
+    },
+    "rustic-canyon": {
+      "lat": 34.3118586,
+      "lon": -118.8686063,
+      "precision": "course_feature",
+      "display": "Rustic Canyon Golf Course, 15100, Happy Camp Canyon Road, Moorpark, Ventura County, California, 93021, United States",
+      "osmId": "way/44289094",
+      "source": "geocache:rustic-canyon-golf-course",
+      "query": null,
+      "checked": "2026-10-15"
+    },
+    "san-clemente": {
+      "lat": 33.40902,
+      "lon": -117.5965969,
+      "precision": "course_feature",
+      "display": "San Clemente Municipal Golf Course, 50, East Avenida Magdalena, San Clemente, Orange County, California, 92672, United States",
+      "osmId": "relation/7147745",
+      "source": "nominatim",
+      "query": "San Clemente Municipal, San Clemente, California",
+      "checked": "2026-10-15"
+    },
+    "san-juan-oaks": {
+      "lat": 36.8524545,
+      "lon": -121.4016021,
+      "precision": "city_centroid",
+      "display": "Hollister, San Benito County, California, 95023, United States",
+      "osmId": "relation/112150",
+      "source": "nominatim",
+      "query": "Hollister, California",
+      "checked": "2026-10-15"
+    },
+    "sandpiper": {
+      "lat": 34.4259425,
+      "lon": -119.9042636,
+      "precision": "course_feature",
+      "display": "Sandpiper Golf Course, 7925, Hollister Avenue, Goleta, Santa Barbara County, California, 93117, United States",
+      "osmId": "way/44580714",
+      "source": "geocache:sandpiper-golf-course",
+      "query": null,
+      "checked": "2026-10-15"
+    },
+    "sea-ranch": {
+      "lat": 38.753276,
+      "lon": -123.516139,
+      "precision": "named_place",
+      "display": "Sea Ranch Golf Course, Salal Trail, Sonoma County, California, 95445, United States",
+      "osmId": "node/7811307812",
+      "source": "nominatim",
+      "query": "Sea Ranch Golf Course",
+      "checked": "2026-10-15"
+    },
+    "shadow-ridge": {
+      "lat": 33.7799644,
+      "lon": -116.3841693,
+      "precision": "course_feature",
+      "display": "Shadow Ridge, Monterey Avenue, Palm Desert, Riverside County, California, 92276, United States",
+      "osmId": "relation/12875585",
+      "source": "nominatim",
+      "query": "Shadow Ridge, Palm Desert, California",
+      "checked": "2026-10-15"
+    },
+    "sharp-park": {
+      "lat": 37.6241399,
+      "lon": -122.4728972,
+      "precision": "course_feature",
+      "display": "Sharp Park, Pacifica, San Mateo County, California, United States",
+      "osmId": "way/394226361",
+      "source": "nominatim",
+      "query": "Sharp Park, Pacifica, California",
+      "checked": "2026-10-15"
+    },
+    "silverado-north": {
+      "lat": 38.4898675,
+      "lon": -122.3218414,
+      "precision": "city_centroid",
+      "display": "Napa County, California, United States",
+      "osmId": "relation/396463",
+      "source": "nominatim",
+      "query": "Napa, California",
+      "checked": "2026-10-15"
+    },
+    "silverrock": {
+      "lat": 33.6703,
+      "lon": -116.2856349,
+      "precision": "course_feature",
+      "display": "Silver Rock Resort Golf Club, SilverRock Way, La Quinta, Riverside County, California, 92253, United States",
+      "osmId": "relation/19216074",
+      "source": "nominatim",
+      "query": "SilverRock Resort",
+      "checked": "2026-10-15"
+    },
+    "soboba-springs": {
+      "lat": 33.7948944,
+      "lon": -116.9326933,
+      "precision": "course_feature",
+      "display": "Soboba Springs Golf Course, Soboba View Drive, Soboba Springs MHP, San Jacinto, Riverside County, California, 92583, United States",
+      "osmId": "way/394176107",
+      "source": "nominatim",
+      "query": "Soboba Springs, San Jacinto, California",
+      "checked": "2026-10-15"
+    },
+    "soule-park": {
+      "lat": 34.4419724,
+      "lon": -119.228539,
+      "precision": "course_feature",
+      "display": "Soule County Park, Ojai, Ventura County, California, United States",
+      "osmId": "way/44288988",
+      "source": "nominatim",
+      "query": "Soule Park, Ojai, California",
+      "checked": "2026-10-15"
+    },
+    "spanish-bay": {
+      "lat": 36.6112702,
+      "lon": -121.9421159,
+      "precision": "course_feature",
+      "display": "The Links at Spanish Bay, 2700, 17 Mile Drive, Pacific Grove Acres, Monterey County, California, 93953, United States",
+      "osmId": "relation/4073921",
+      "source": "nominatim",
+      "query": "The Links at Spanish Bay",
+      "checked": "2026-10-15"
+    },
+    "spyglass-hill": {
+      "lat": 36.5852825,
+      "lon": -121.9558125,
+      "precision": "course_feature",
+      "display": "Spyglass Hill Golf Course, Lisbon Lane, Del Monte Forest, Monterey County, California, 93953, United States",
+      "osmId": "way/281477606",
+      "source": "nominatim",
+      "query": "Spyglass Hill Golf Course",
+      "checked": "2026-10-15"
+    },
+    "strawberry-farms": {
+      "lat": 33.646879,
+      "lon": -117.7959647,
+      "precision": "course_feature",
+      "display": "Strawberry Farms Golf Club, 11, Strawberry Farms Road, Quail Hill - Open Space, Irvine, Orange County, California, 92612, United States",
+      "osmId": "way/213565038",
+      "source": "nominatim",
+      "query": "Strawberry Farms, Irvine, California",
+      "checked": "2026-10-15"
+    },
+    "the-grand": {
+      "lat": 32.9389291,
+      "lon": -117.1940214,
+      "precision": "course_feature",
+      "display": "The Grand Golf Club, Del Mar Mesa Road, Del Mar Mesa Estates, Carmel Valley, San Diego, San Diego County, California, 92130, United States",
+      "osmId": "way/863987351",
+      "source": "nominatim",
+      "query": "The Grand Golf Club, San Diego, California",
+      "checked": "2026-10-15"
+    },
+    "tierra-rejada": {
+      "lat": 34.26699,
+      "lon": -118.84819,
+      "precision": "manual",
+      "display": null,
+      "osmId": null,
+      "source": "geocache:tierra-rejada-golf-club",
+      "query": null,
+      "checked": "2026-10-15"
+    },
+    "tijeras-creek": {
+      "lat": 33.6082106,
+      "lon": -117.6226492,
+      "precision": "course_feature",
+      "display": "Tijeras Creek Golf Club, 29082, Tijeras Creek, Rancho Santa Margarita, Orange County, California, 92688, United States",
+      "osmId": "relation/6648669",
+      "source": "nominatim",
+      "query": "Tijeras Creek Golf Course, Rancho Santa Margarita, California",
+      "checked": "2026-10-15"
+    },
+    "torrey-pines-north": {
+      "lat": 32.9085152,
+      "lon": -117.2488884,
+      "precision": "course_feature",
+      "display": "Torrey Pines North Course, 11480, North Torrey Pines Road, Rheba, San Diego, San Diego County, California, 92037, United States",
+      "osmId": "way/35679009",
+      "source": "nominatim",
+      "query": "Torrey Pines North Golf Course, La Jolla, California",
+      "checked": "2026-10-15"
+    },
+    "torrey-pines-south": {
+      "lat": 32.8968959,
+      "lon": -117.2455316,
+      "precision": "course_feature",
+      "display": "Torrey Pines South Course, 11480, North Torrey Pines Road, Torrey Pines, San Diego, San Diego County, California, 92037, United States",
+      "osmId": "way/35679036",
+      "source": "nominatim",
+      "query": "Torrey Pines South, La Jolla, California",
+      "checked": "2026-10-15"
+    },
+    "trump-national-la": {
+      "lat": 33.7290155,
+      "lon": -118.3439008,
+      "precision": "course_feature",
+      "display": "Trump National Golf Club Los Angeles, Seacliff Drive, Rancho Palos Verdes, Los Angeles County, California, 90275, United States",
+      "osmId": "way/817285041",
+      "source": "nominatim",
+      "query": "Trump National Los Angeles, Rancho Palos Verdes, California",
+      "checked": "2026-10-15"
+    },
+    "wente-vineyards": {
+      "lat": 37.6305263,
+      "lon": -121.7527529,
+      "precision": "course_feature",
+      "display": "The Course at Wente Vineyards, 5040, Arroyo Road, Livermore, Alameda County, California, 94550, United States",
+      "osmId": "way/255709753",
+      "source": "nominatim",
+      "query": "Wente Vineyards, Livermore, California",
+      "checked": "2026-10-15"
+    },
+    "whitehawk-ranch": {
+      "lat": 39.7180089,
+      "lon": -120.5498424,
+      "precision": "course_feature",
+      "display": "Whitehawk Ranch Golf Course, 768, Whitehawk Drive, Whitehawk, Plumas County, California, 96106, United States",
+      "osmId": "relation/4069656",
+      "source": "nominatim",
+      "query": "Whitehawk Ranch, Clio, California",
+      "checked": "2026-10-15"
+    },
+    "yocha-dehe": {
+      "lat": 38.737661,
+      "lon": -122.1292747,
+      "precision": "course_feature",
+      "display": "Yocha Dehe Golf Club, Ranch Road, Brooks, Yolo County, California, 95606, United States",
+      "osmId": "way/145659381",
+      "source": "nominatim",
+      "query": "Yocha Dehe, Brooks, California",
+      "checked": "2026-10-15"
+    }
+  },
+  "airports": {
+    "BUR": {
+      "lat": 34.2030074,
+      "lon": -118.3577179,
+      "precision": "aerodrome",
+      "display": "Hollywood Burbank Airport, Keswick Street, Los Angeles, Los Angeles County, California, 91352, United States",
+      "osmId": "way/208935822",
+      "source": "nominatim",
+      "query": "Hollywood Burbank Airport",
+      "checked": "2026-10-15"
+    },
+    "MRY": {
+      "lat": 36.587058,
+      "lon": -121.8419398,
+      "precision": "aerodrome",
+      "display": "Monterey Regional Airport, Casanova Avenue, Casanova Oak Knoll, Del Monte, Monterey, Monterey County, California, 93955, United States",
+      "osmId": "way/78269650",
+      "source": "nominatim",
+      "query": "Monterey Regional Airport",
+      "checked": "2026-10-15"
+    },
+    "PSP": {
+      "lat": 33.8303392,
+      "lon": -116.5096453,
+      "precision": "aerodrome",
+      "display": "Palm Springs International Airport, East Calle Papagayo, Section 14, Palm Springs, Riverside County, California, 92262, United States",
+      "osmId": "relation/326312",
+      "source": "nominatim",
+      "query": "Palm Springs International Airport",
+      "checked": "2026-10-15"
+    },
+    "RNO": {
+      "lat": 39.4982831,
+      "lon": -119.7687986,
+      "precision": "aerodrome",
+      "display": "Reno-Tahoe International Airport, South Rock Boulevard, Reno, Washoe County, Nevada, 89502, United States",
+      "osmId": "way/209872591",
+      "source": "nominatim",
+      "query": "Reno-Tahoe International Airport",
+      "checked": "2026-10-15"
+    },
+    "SAN": {
+      "lat": 32.7333608,
+      "lon": -117.1922464,
+      "precision": "aerodrome",
+      "display": "San Diego International Airport, Enter, Liberty Station, San Diego, San Diego County, California, 92147, United States",
+      "osmId": "way/209694794",
+      "source": "nominatim",
+      "query": "San Diego International Airport",
+      "checked": "2026-10-15"
+    },
+    "SBA": {
+      "lat": 34.4250013,
+      "lon": -119.8353168,
+      "precision": "named_place",
+      "display": "Santa Barbara Airport, William L Moffett Lane, Santa Barbara, Santa Barbara County, California, 93107, United States",
+      "osmId": "node/908577840",
+      "source": "nominatim",
+      "query": "Santa Barbara Airport",
+      "checked": "2026-10-15"
+    },
+    "SFO": {
+      "lat": 37.622452,
+      "lon": -122.3839894,
+      "precision": "aerodrome",
+      "display": "San Francisco International Airport, 780, South Airport Boulevard, San Francisco, San Mateo County, California, 94128, United States",
+      "osmId": "way/545819287",
+      "source": "nominatim",
+      "query": "San Francisco International Airport",
+      "checked": "2026-10-15"
+    },
+    "SJC": {
+      "lat": 37.3633299,
+      "lon": -121.9293365,
+      "precision": "aerodrome",
+      "display": "San José Mineta International Airport, 1701, Airport Boulevard, North San Jose, San Jose, Santa Clara County, California, 95110, United States",
+      "osmId": "way/648903263",
+      "source": "nominatim",
+      "query": "San Jose International Airport",
+      "checked": "2026-10-15"
+    }
+  }
+}

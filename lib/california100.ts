@@ -15,6 +15,7 @@
  */
 
 import type { SourceFacility } from "./course-history";
+import { haversineMiles, type LonLat } from "./tile-map";
 
 export type Confidence = "high" | "medium" | "low";
 export type CourseStatus = "open" | "closed";
@@ -350,6 +351,50 @@ export function parseCalifornia100(raw: unknown): California100File {
   };
 }
 
+/* ── the points ───────────────────────────────────────────────────────────── */
+
+export type GeoPrecision = "course_feature" | "named_place" | "city_centroid" | "aerodrome" | "manual";
+
+/** One located thing: a course of the hundred or a trip airport. A null
+ *  lat is an honest miss. The precision is the claim's own size. */
+export interface GeoPoint {
+  lat: number | null;
+  lon: number | null;
+  precision: GeoPrecision | null;
+  display: string | null;
+  osmId: string | null;
+  source: string;
+  query: string | null;
+  checked: string | null;
+}
+
+export interface California100Geo {
+  points: Record<string, GeoPoint>;
+  airports: Record<string, GeoPoint>;
+}
+
+const PRECISION: ReadonlySet<string> = new Set(["course_feature", "named_place", "city_centroid", "aerodrome", "manual"]);
+
+function isGeoPoint(x: unknown): x is GeoPoint {
+  if (!isObj(x) || !numOrNull(x.lat) || !numOrNull(x.lon)) return false;
+  if (!(x.precision === null || PRECISION.has(x.precision as string))) return false;
+  return typeof x.source === "string" && strOrNull(x.display) && strOrNull(x.osmId) && strOrNull(x.query) && strOrNull(x.checked);
+}
+
+function pointMap(x: unknown): Record<string, GeoPoint> {
+  const out: Record<string, GeoPoint> = {};
+  if (isObj(x)) for (const [k, v] of Object.entries(x)) if (isGeoPoint(v)) out[k] = v;
+  return out;
+}
+
+export function parseCalifornia100Geo(raw: unknown): California100Geo {
+  if (!isObj(raw)) throw new Error("california-100-geo.json is not an object");
+  return { points: pointMap(raw.points), airports: pointMap(raw.airports) };
+}
+
+export const located = (p: GeoPoint | undefined): p is GeoPoint & LonLat =>
+  p !== undefined && p.lat !== null && p.lon !== null;
+
 /* ── the join ─────────────────────────────────────────────────────────────── */
 
 export interface ListRow {
@@ -580,6 +625,55 @@ export function joinCalifornia100(
     byArea: [...areas.values()].sort((a, b) => b.total - a.total || a.area.localeCompare(b.area)),
     trips,
   };
+}
+
+/** One stop on a trip's map: the airport first, then the courses in the
+ *  order the trip names them, each with the straight-line miles from the
+ *  stop before. A trip with any stop unlocated gets no stops at all, so a
+ *  map is never drawn with a pin missing. */
+export interface TripStop {
+  kind: "airport" | "course";
+  /** The airport's code, or the course's rank. */
+  label: string;
+  name: string;
+  point: LonLat;
+  precision: GeoPrecision | null;
+  /** Great-circle miles from the previous stop; null for the first. */
+  milesFromPrev: number | null;
+  row: ListRow | null;
+}
+
+export function tripStops(view: TripView, geo: California100Geo | null): TripStop[] {
+  if (!geo) return [];
+  const airport = geo.airports[view.trip.airport.code];
+  if (!located(airport)) return [];
+  const stops: TripStop[] = [
+    {
+      kind: "airport",
+      label: view.trip.airport.code,
+      name: view.trip.airport.name,
+      point: { lon: airport.lon, lat: airport.lat },
+      precision: airport.precision,
+      milesFromPrev: null,
+      row: null,
+    },
+  ];
+  for (const r of view.rows) {
+    const p = geo.points[r.entry.slug];
+    if (!located(p)) return [];
+    const prev = stops[stops.length - 1].point;
+    const point = { lon: p.lon, lat: p.lat };
+    stops.push({
+      kind: "course",
+      label: `${r.entry.rank}`,
+      name: r.entry.name,
+      point,
+      precision: p.precision,
+      milesFromPrev: Math.round(haversineMiles(prev, point)),
+      row: r,
+    });
+  }
+  return stops;
 }
 
 /** "$650–773 a head" for a weekend, "—" when a row has no posted fee. */

@@ -10,7 +10,7 @@ import {
   type California100File,
   type ListRow,
 } from "@/lib/california100";
-import { loadCalifornia100, loadFacilityIndex, loadHistory } from "@/lib/load";
+import { loadCalifornia100, loadCalifornia100Geo, loadFacilityIndex, loadHistory } from "@/lib/load";
 import { buildSources } from "@/lib/sources";
 import { Provenance } from "../provenance";
 import { StatTiles, type StatTile } from "../stat-tiles";
@@ -120,6 +120,7 @@ export default function California() {
   const file = loadCalifornia100();
   const index = loadFacilityIndex();
   const history = loadHistory();
+  const geo = loadCalifornia100Geo();
   const list = file && index ? joinCalifornia100(file, index.bySlug, index.capturedAt) : null;
 
   return (
@@ -133,7 +134,7 @@ export default function California() {
           <code className="text-ink-2">pnpm data:build</code>
         </p>
       ) : (
-        <Body list={list} file={file!} history={history} />
+        <Body list={list} file={file!} history={history} geo={geo} />
       )}
     </div>
   );
@@ -143,10 +144,12 @@ function Body({
   list,
   file,
   history,
+  geo,
 }: {
   list: California100;
   file: NonNullable<ReturnType<typeof loadCalifornia100>>;
   history: ReturnType<typeof loadHistory>;
+  geo: ReturnType<typeof loadCalifornia100Geo>;
 }) {
   const next = list.nextUp;
   const cheap = list.cheapestUnplayed;
@@ -223,7 +226,7 @@ function Body({
       </section>
 
       {/* ── the trips ─────────────────────────────────────────────────────── */}
-      {file.trips && <Trips trips={list.trips} note={file.trips.note} />}
+      {file.trips && <Trips trips={list.trips} note={file.trips.note} geo={geo} />}
 
       {/* ── the index's ten ───────────────────────────────────────────────── */}
       {file.amar && (

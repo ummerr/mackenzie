@@ -317,6 +317,29 @@ if (caFile) {
     if (!Array.isArray(t.days) || !t.days.every((d) => typeof d === "string" && d)) err(`${tag} days is not a list of strings`);
     else if (t.days.length && t.days.length !== t.nights + 1) err(`${tag} has ${t.days.length} days for ${t.nights} nights`);
   }
+  /* The points. A trip's map is drawn from data/california-100-geo.json;
+     every course a trip names and every airport it flies into must resolve
+     to a real point, or the page would draw a map with a pin missing. A
+     town centroid standing in for a course is a warning, not an error — the
+     page says so beside the picture. */
+  const geo = readJson("california-100-geo.json", null);
+  if (trips.length && !geo) err("california-100 has trips but no california-100-geo.json — run `pnpm data:geocode:ca`");
+  if (geo) {
+    for (const t of trips) {
+      const tag = `california-100._trips[${t?.slug ?? "?"}]`;
+      const a = geo.airports?.[t?.airport?.code];
+      if (!a || a.lat == null) err(`${tag} airport ${t?.airport?.code} has no point in california-100-geo.json`);
+      for (const c of t?.courses ?? []) {
+        const p = geo.points?.[c];
+        if (!p || p.lat == null) err(`${tag} course ${c} has no point in california-100-geo.json`);
+        else if (p.precision === "city_centroid") warn(`${tag} course ${c} is drawn at its town, not the course`);
+      }
+    }
+    for (const [slug, p] of Object.entries(geo.points ?? {})) {
+      if (!entries.some((e) => e?.slug === slug)) err(`california-100-geo points[${slug}] is not one of the hundred`);
+      if (p.lat != null && (p.lat < 32 || p.lat > 42.5 || p.lon < -125 || p.lon > -114)) err(`california-100-geo points[${slug}] is outside California`);
+    }
+  }
   caStats = { entries: entries.length, linked: caLinked, verified: caVerified, checks: caChecks, trips: trips.length };
   console.log(`  california-100 ${entries.length} · linked ${caLinked} · verified ${caVerified}/100 · checks ${caChecks}/${entries.length * CA_CHECKS.length} · trips ${trips.length}`);
 }

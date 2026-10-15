@@ -2,7 +2,7 @@
 
 <!-- state:start -->
 **State** (auto) · branch `main` · 0 unpushed · live https://courses.ummerr.com · updated 2026-10-15
-Last commit 2026-10-15 — Scout: the plan goes to the first tee — one hole at a time, drawn over the course, starting with Harding Park
+Last commit 2026-10-15 — The Grint gate exempts the sponsor banner's cookie-write helper
 <!-- state:end -->
 
 Where I left off. Read `SPEC.md` for what the system *is*; this is what to do
@@ -60,6 +60,17 @@ heard, and a panel in "Where the strokes live" (2.4 penalty strokes + 1.9
 bunker shots a card, floors). The leak engine and `/plan` do **not** read it
 yet — see `DECISIONS.md` 2026-10-06 — which is the obvious next move: price
 penalty strokes as a leak and feed bunker visits to the short-game entry.
+
+**2026-10-15 — trips are shareable.** Every trip has its own static URL
+(`/california/trips/<slug>`) with an Open Graph unfurl card, a satellite map
+of airport + courses in order (inline SVG of Esri tiles, `lib/tile-map.ts`,
+no map library), a square of imagery per course, straight-line miles between
+stops, and a share bar (share sheet / copy link / Google Maps directions
+with the stops as waypoints). `/california/trips` is all nine on one page.
+Points live in `data/california-100-geo.json` from `pnpm data:geocode:ca`
+(all 100 courses + 8 airports, Nominatim); validate refuses a trip with a
+missing point. The hundred's map pins (item 3) can now read the same file.
+`DECISIONS.md` 2026-10-15.
 
 **2026-10-13 — trips.** `/california` has a Trips section: nine weekends
 with friends (the MacKenzie weekend, Pebble once, Truckee, the Lost Sierra,

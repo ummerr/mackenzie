@@ -18,6 +18,9 @@ const FAVICON =
   );
 
 export const metadata: Metadata = {
+  /* The live origin, so an Open Graph image URL on a trip page resolves to
+   * the site rather than to whatever host built it. */
+  metadataBase: new URL("https://courses.ummerr.com"),
   title: "MACKENZIE — every shot and every course",
   description:
     "One golfer, derived from both halves of the record: the shot ledger and the course history.",

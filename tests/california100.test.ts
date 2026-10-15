@@ -8,6 +8,8 @@ import {
   parseCalifornia100,
   teeLine,
   tripFeeLine,
+  tripStops,
+  parseCalifornia100Geo,
   valueOrdinal,
   type California100File,
   type CaliforniaEntry,
@@ -109,6 +111,27 @@ describe("data/california-100.json", () => {
     expect(ojai.played).toBeGreaterThanOrEqual(1);
     expect(ojai.rows.find((r) => r.entry.slug === "rustic-canyon")!.state).toBe("played");
     expect(tripFeeLine(ojai.fee)).toMatch(/^\$\d+–\d+$/);
+  });
+
+  it("every trip's stops are located, in order, airport first, with miles between", () => {
+    const b = built();
+    const list = joinCalifornia100(real(), b.bySlug, b.capturedAt);
+    const geo = parseCalifornia100Geo(JSON.parse(readFileSync("data/california-100-geo.json", "utf8")));
+    for (const t of list.trips) {
+      const stops = tripStops(t, geo);
+      expect(stops.length, t.trip.slug).toBe(t.rows.length + 1);
+      expect(stops[0].kind).toBe("airport");
+      expect(stops[0].label).toBe(t.trip.airport.code);
+      expect(stops[0].milesFromPrev).toBeNull();
+      for (const s of stops.slice(1)) {
+        expect(s.kind).toBe("course");
+        expect(s.milesFromPrev).toBeGreaterThan(0);
+        expect(s.milesFromPrev).toBeLessThan(400);
+        expect(s.point.lat).toBeGreaterThan(32);
+        expect(s.point.lon).toBeLessThan(-114);
+      }
+    }
+    expect(tripStops(list.trips[0], null)).toEqual([]);
   });
 
   it("joins Rustic Canyon as played six times, Brookside to its Koiner course, and Pelican Hill's Ocean South as facility-played", () => {
