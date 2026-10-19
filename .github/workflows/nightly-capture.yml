@@ -133,3 +133,13 @@ jobs:
             gh label create nightly-capture --color D93F0B --description "the unattended capture needs a person" 2>/dev/null || true
             gh issue create --title "$title" --label nightly-capture --body "$body"
           fi
+
+      - name: Close the failure issue once a run is green again
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          for n in $(gh issue list --label nightly-capture --state open --json number --jq '.[].number'); do
+            gh issue close "$n" --comment "Green again on $(date -u +%Y-%m-%d): $RUN_URL"
+          done

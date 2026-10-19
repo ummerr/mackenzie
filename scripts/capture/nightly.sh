@@ -38,9 +38,13 @@ fi
 
 echo "── commit ──────────────────────────────────────────────"
 git add -A data PROFILE.md public
+# Plain if/else, not `[ … ] && x+=("…$(…)")`: an assignment takes the exit
+# status of its command substitution, and `[ 1 -ne 1 ]` is 1 — under set -e
+# that killed the 2026-10-18 run silently with one bundle to commit.
+plural() { if [ "$1" -ne 1 ]; then echo s; fi; }
 parts=()
-[ "$garmin_n" -gt 0 ] && parts+=("$garmin_n Garmin bundle$([ "$garmin_n" -ne 1 ] && echo s)")
-[ "$grint_n" -gt 0 ] && parts+=("$grint_n Grint bundle$([ "$grint_n" -ne 1 ] && echo s)")
+if [ "$garmin_n" -gt 0 ]; then parts+=("$garmin_n Garmin bundle$(plural "$garmin_n")"); fi
+if [ "$grint_n" -gt 0 ]; then parts+=("$grint_n Grint bundle$(plural "$grint_n")"); fi
 summary=$(IFS=,; echo "${parts[*]}" | sed 's/,/, /g')
 index=$(node -e "try{const r=require('./data/rounds.json');process.stdout.write(String(r.handicapIndex??'?'))}catch{process.stdout.write('?')}")
 git commit -q -m "Nightly capture $(date -u +%Y-%m-%d): ${summary}; index ${index}" \
