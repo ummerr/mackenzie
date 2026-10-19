@@ -190,6 +190,16 @@
         }
       ],
       "note": "auto-confirmed: one candidate, same facility, same date, same strokes (DECISIONS.md 2026-10-12)"
+    },
+    {
+      "scorecardId": "388685124",
+      "garminDate": "2026-10-17",
+      "garminCourseName": "Pebble Beach Golf Links ~ Golf Links",
+      "roundId": null,
+      "status": "proposed",
+      "basis": null,
+      "candidates": [],
+      "note": "no Grint round matches — a simulator round is Garmin-only by nature"
     }
   ]
 }

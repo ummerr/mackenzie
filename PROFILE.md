@@ -24,7 +24,7 @@ takes it off. Hit the shots and the sentence retires itself.
 
 | | |
 |---|---|
-| Rounds heard | **7** — of 14 — the rest are R50 simulator rounds with nothing to hear |
+| Rounds heard | **7** — of 15 — the rest are R50 simulator rounds with nothing to hear |
 | Shots heard | **335** — 53% of the 634 strokes on the cards |
 | Clubs with a course number | **7** — 10+ clear full swings each |
 
@@ -349,7 +349,7 @@ Grint's chart rows are sliced by position and never joined to the cards; their l
 ## On the course
 
 What AutoShot heard over 7 rounds (as of 2026-10-14;
-the record's other 7 rounds are simulator rounds with nothing to hear).
+the record's other 8 rounds are simulator rounds with nothing to hear).
 Findings from this data switch on at 5 shot-bearing rounds —
 until then this is the record, not a claim. The watch caught 335 of the
 634 strokes the scorecards count (53%); putts and some
@@ -466,7 +466,7 @@ The rounds carry a course, a tee name and a differential, but still no par or ya
 - **Scorecards** — 175 dated scorecards, 2021-07-08 to 2026-10-14, from the Grint export bundle, captured 2026-10-15
 - **Courses** — 174 rounds over 101 layouts, from The Grint, captured 2026-08-01
 - **Range** — 301 shots over 8 Garmin R50 sessions, 2026-07-02 to 2026-08-14
-- **Shots on course** — 335 AutoShot shots over 7 of 14 rounds (the rest are R50 simulator rounds, which carry no shots), from the Garmin export bundle, captured 2026-10-15
+- **Shots on course** — 335 AutoShot shots over 7 of 15 rounds (the rest are R50 simulator rounds, which carry no shots), from the Garmin export bundle, captured 2026-10-19
 
 Regenerate with `pnpm profile`. The course half comes from
 `public/data/courses.json`, the map pipeline's artifact — `pnpm data:build`.

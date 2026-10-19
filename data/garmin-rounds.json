@@ -1,8 +1,8 @@
 {
   "source": "garmin-connect",
   "adapter": "parse-garmin-export.mjs",
-  "capturedAt": "2026-10-15T16:16:01.145Z",
-  "rawFile": "raw/garmin-export-2026-09-09.json + raw/garmin-export-2026-09-16-1610.json + raw/garmin-export-2026-09-29-1514.json + raw/garmin-export-2026-10-06-1604.json + raw/garmin-export-2026-10-15-1616.json",
+  "capturedAt": "2026-10-19T15:12:04.677Z",
+  "rawFile": "raw/garmin-export-2026-09-09.json + raw/garmin-export-2026-09-16-1610.json + raw/garmin-export-2026-09-29-1514.json + raw/garmin-export-2026-10-06-1604.json + raw/garmin-export-2026-10-15-1616.json + raw/garmin-export-2026-10-19-1512.json",
   "userId": 134747949,
   "clubs": [
     {
@@ -22465,6 +22465,247 @@
         }
       ],
       "flags": []
+    },
+    {
+      "scorecardId": "388685124",
+      "date": "2026-10-17",
+      "startTimeRaw": "2026-10-17T23:13:20Z",
+      "roundType": "SIMULATION",
+      "courseName": "Pebble Beach Golf Links ~ Golf Links",
+      "teeBox": "White",
+      "teeBoxRating": 71,
+      "teeBoxSlope": 134,
+      "holePars": "454435344443454435",
+      "holesRecorded": 4,
+      "totals": {
+        "strokes": 23,
+        "putts": 6,
+        "shots": 0
+      },
+      "holes": [
+        {
+          "number": 1,
+          "strokes": 5,
+          "putts": 1,
+          "fairwayShotOutcome": "RIGHT",
+          "par": 4,
+          "pin": {
+            "lat": 36.570606,
+            "lon": -121.946146
+          },
+          "shots": []
+        },
+        {
+          "number": 2,
+          "strokes": 6,
+          "putts": 1,
+          "fairwayShotOutcome": "LEFT",
+          "par": 5,
+          "pin": {
+            "lat": 36.569545,
+            "lon": -121.941938
+          },
+          "shots": []
+        },
+        {
+          "number": 3,
+          "strokes": 6,
+          "putts": 2,
+          "fairwayShotOutcome": "RIGHT",
+          "par": 4,
+          "pin": {
+            "lat": 36.567439,
+            "lon": -121.944545
+          },
+          "shots": []
+        },
+        {
+          "number": 4,
+          "strokes": 6,
+          "putts": 2,
+          "fairwayShotOutcome": "RIGHT",
+          "par": 4,
+          "pin": {
+            "lat": 36.566182,
+            "lon": -121.940879
+          },
+          "shots": []
+        },
+        {
+          "number": 5,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 3,
+          "pin": {
+            "lat": 36.565042,
+            "lon": -121.939343
+          },
+          "shots": []
+        },
+        {
+          "number": 6,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 5,
+          "pin": {
+            "lat": 36.562158,
+            "lon": -121.940047
+          },
+          "shots": []
+        },
+        {
+          "number": 7,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 3,
+          "pin": {
+            "lat": 36.561344,
+            "lon": -121.940373
+          },
+          "shots": []
+        },
+        {
+          "number": 8,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 4,
+          "pin": {
+            "lat": 36.563054,
+            "lon": -121.936508
+          },
+          "shots": []
+        },
+        {
+          "number": 9,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 4,
+          "pin": {
+            "lat": 36.56052,
+            "lon": -121.933048
+          },
+          "shots": []
+        },
+        {
+          "number": 10,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 4,
+          "pin": {
+            "lat": 36.557959,
+            "lon": -121.931457
+          },
+          "shots": []
+        },
+        {
+          "number": 11,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 4,
+          "pin": {
+            "lat": 36.560738,
+            "lon": -121.929522
+          },
+          "shots": []
+        },
+        {
+          "number": 12,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 3,
+          "pin": {
+            "lat": 36.561502,
+            "lon": -121.931071
+          },
+          "shots": []
+        },
+        {
+          "number": 13,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 4,
+          "pin": {
+            "lat": 36.563099,
+            "lon": -121.934783
+          },
+          "shots": []
+        },
+        {
+          "number": 14,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 5,
+          "pin": {
+            "lat": 36.56713,
+            "lon": -121.93734
+          },
+          "shots": []
+        },
+        {
+          "number": 15,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 4,
+          "pin": {
+            "lat": 36.569159,
+            "lon": -121.9401
+          },
+          "shots": []
+        },
+        {
+          "number": 16,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 4,
+          "pin": {
+            "lat": 36.567831,
+            "lon": -121.943277
+          },
+          "shots": []
+        },
+        {
+          "number": 17,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 3,
+          "pin": {
+            "lat": 36.565813,
+            "lon": -121.94494
+          },
+          "shots": []
+        },
+        {
+          "number": 18,
+          "strokes": null,
+          "putts": null,
+          "fairwayShotOutcome": null,
+          "par": 5,
+          "pin": {
+            "lat": 36.567614,
+            "lon": -121.949636
+          },
+          "shots": []
+        }
+      ],
+      "flags": [
+        "date_from_utc",
+        "simulation",
+        "odd_hole_count",
+        "no_shots"
+      ]
     }
   ],
   "stats": {
